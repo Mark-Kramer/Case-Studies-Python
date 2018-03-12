@@ -3,6 +3,6 @@ dependencies:
 - python
 - ipython
 - jupyter
-- matplotlib
+- matplotlib=2.2
 - scipy
 - numpy
