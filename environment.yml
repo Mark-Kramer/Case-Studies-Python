@@ -1,0 +1,8 @@
+name: csn
+dependencies:
+- python
+- ipython
+- jupyter
+- matplotlib=2.2
+- scipy
+- numpy
