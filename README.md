@@ -1,8 +1,12 @@
 # Case-Studies-Python
 
-Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master)
+### Quick start to reading and running the Python code in your browser:
 
-** THIS IS VERY MUCH A WORK IN PROGRESS **
+- Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master)
+- Select a section, and click on the `.ipynb` file
+
+----
+### THIS IS VERY MUCH A WORK IN PROGRESS
 
 This repository is a companion to the textbook "Case Studies in Neural Data Analysis", by Mark Kramer and Uri Eden.  In the textbook, we use MATLAB to analyze examples of neuronal data.  The material here is very similar, except that we use Python (instead of MATLAB).
 
@@ -20,5 +24,3 @@ We assume you have installed Python and can get it running on your computer.  So
 If this is your first time working with Python, using <a href="https://conda.io/docs/user-guide/install/index.html">conda</a> is probably a good choice. Conda is a package and environment manager that makes it really easy to get up and running in Python. In particular, we recommend installing Miniconda - a light version of the software distribution Anaconda - and using conda to add software as needed.
 
 We'd like to thank all of the students, collaborators, and funders who have helped make this possible!
-
-Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master)
