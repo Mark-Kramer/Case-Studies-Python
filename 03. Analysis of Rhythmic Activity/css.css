@@ -4,6 +4,7 @@
 	border:1px solid #000;
 	margin:0px;
 	float:center;
+    background:#fff;
 }
 .thumb span { 
 	visibility: hidden;
@@ -24,5 +25,31 @@
 	visibility:visible;
     transition-delay: 500ms;
 		
+}    
+.fig img { 
+	border:1px solid #000;
+	margin:0px;
+	float:center;
+    background:#fff;
+}
+.fig span { 
+	visibility: hidden;
+    width: 500px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: fixed;
+    z-index: 1;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -250px;
+    transition: 5ms visibility;
+}
+.fig:hover, .fig:hover span { 
+	visibility:visible;
+    transition-delay: 500ms;
+}
 </style>
 

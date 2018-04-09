@@ -4,3 +4,6 @@
 *.m
 *.m~
 *Solutions*
+*/*.icloud
+*/*.pyc
+*__pycache__*

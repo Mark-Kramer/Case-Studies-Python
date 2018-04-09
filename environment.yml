@@ -1,4 +1,3 @@
-name: csn
 dependencies:
 - python=3
 - ipython
