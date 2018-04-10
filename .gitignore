@@ -3,3 +3,8 @@
 *None*.png
 *.m
 *.m~
+*Solutions*
+*/*.icloud
+*/*.pyc
+*__pycache__*
+*_ignore*

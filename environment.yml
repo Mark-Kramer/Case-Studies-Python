@@ -1,6 +1,5 @@
-name: csn
 dependencies:
-- python
+- python=3
 - ipython
 - jupyter
 - matplotlib=2.2
