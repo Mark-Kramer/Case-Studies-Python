@@ -1,5 +1,5 @@
 from IPython.core.display import HTML
 
 
-def set_defaults():
+def styling():
     return HTML('css.css')
