@@ -42,7 +42,7 @@
     padding: 5px 5px;
     position: fixed;
     z-index: 1;
-    bottom: 50%;
+    bottom: 40%;
     left: 50%;
     margin-left: -250px;
     transition: 5ms visibility;

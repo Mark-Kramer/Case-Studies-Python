@@ -5,3 +5,4 @@ dependencies:
 - matplotlib=2.2
 - scipy
 - numpy
+- statsmodels
