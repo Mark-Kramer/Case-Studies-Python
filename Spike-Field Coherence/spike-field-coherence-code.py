@@ -153,7 +153,7 @@ def coherence(n,y,t):                           #INPUT (spikes, fields, time)
         nf = np.fft.rfft((n[k,:]-np.mean(n[k,:])))                   # Don't taper spikes.
         SYY = SYY + ( np.real( yf*np.conj(yf) ) )/K
         SNN = SNN + ( np.real( nf*np.conj(nf) ) )/K
-        SYN = SYN + ( np.real( yf*np.conj(nf) ) )/K
+        SYN = SYN + (          yf*np.conj(nf)   )/K
 
     cohr = np.real(SYN*np.conj(SYN)) / SYY / SNN
     f = np.fft.rfftfreq(N, dt)
