@@ -6,3 +6,4 @@ dependencies:
 - scipy
 - numpy
 - statsmodels
+- spectrum
