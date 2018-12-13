@@ -1,5 +1,9 @@
 <style>
 
+.inner_cell img {
+	width:100%;
+	max-width:500px;
+}
 .thumb img { 
 	border:1px solid #000;
 	margin:0px;
