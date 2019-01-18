@@ -1,3 +1,6 @@
+channels:
+- defaults
+- conda-forge
 dependencies:
 - python=3
 - ipython
@@ -6,4 +9,4 @@ dependencies:
 - scipy
 - numpy
 - statsmodels
-- spectrum
+- nitime
