@@ -1,5 +1,13 @@
 <style>
-
+.question {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: 18px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
 .output_area img {
     display: block;
     margin-left: auto;
