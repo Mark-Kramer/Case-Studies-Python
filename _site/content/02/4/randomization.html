@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Randomization</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://jupyter.org/Case-Studies-Python/search">
+  <link rel="canonical" href="https://jupyter.org/Case-Studies-Python/content/02/4/randomization.html">
   <link rel="alternate" type="application/rss+xml" title="Jupyter Book" href="https://jupyter.org/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://jupyter.org/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://jupyter.org/Case-Studies-Python/content/02/4/randomization.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Randomization" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://jupyter.org/Case-Studies-Python/search",
+    "https://jupyter.org/Case-Studies-Python/content/02/4/randomization.html",
   "headline":
-    "Search the site",
+    "Randomization",
   "datePublished":
     "2019-04-24T15:25:31-04:00",
   "dateModified":
@@ -1080,7 +1080,7 @@ initFunction(initQuery);
 
           
 
-          <ul class="c-sidebar__sections u-hidden-visually">
+          <ul class="c-sidebar__sections ">
             
               
               
@@ -1143,7 +1143,7 @@ initFunction(initQuery);
               
 
               <li class="c-sidebar__section">
-                <a class="c-sidebar__entry "
+                <a class="c-sidebar__entry c-sidebar__entry--active"
                   href="/Case-Studies-Python/02/4/randomization.html"
                 >
                   
@@ -1414,6 +1414,23 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#randomization">Randomization</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -1432,15 +1449,55 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <h2 id="randomization">Randomization</h2>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<p>An excellent way to avoid confounding is to assign individuals to the treatment
+and control groups <em>at random</em>, and then administer the treatment to those who
+were assigned to the treatment group. Randomization keeps the two groups similar
+apart from the treatment.</p>
+
+<p>If you are able to randomize individuals into the treatment and control groups,
+you are running a <em>randomized controlled experiment</em>, also known as a
+<em>randomized controlled trial</em> (RCT). Sometimes, people’s responses in an
+experiment are influenced by their knowing which group they are in. So you might
+want to run a <em>blind</em> experiment in which individuals do not know whether they
+are in the treatment group or the control group. To make this work, you will
+have to give the control group a <em>placebo</em>, which is something that looks
+exactly like the treatment but in fact has no effect.</p>
+
+<p>Randomized controlled experiments have long been a gold standard in the medical
+field, for example in establishing whether a new drug works. They are also
+becoming more commonly used in other fields such as economics.</p>
+
+<p><strong>Example: Welfare subsidies in Mexico.</strong> In Mexican villages in the 1990’s,
+children in poor families were often not enrolled in school. One of the reasons
+was that the older children could go to work and thus help support the family.
+Santiago Levy , a minister in Mexican Ministry of Finance, set out to
+investigate whether welfare programs could be used to increase school enrollment
+and improve health conditions. He conducted an RCT on a set of villages,
+selecting some of them at random to receive a new welfare program called
+PROGRESA. The program gave money to poor families if their children went to
+school regularly and the family used preventive health care. More money was
+given if the children were in secondary school than in primary school, to
+compensate for the children’s lost wages, and more money was given for girls
+attending school than for boys. The remaining villages did not get this
+treatment, and formed the control group. Because of the randomization, there
+were no confounding factors and it was possible to establish that PROGRESA
+increased school enrollment. For boys, the enrollment increased from 73% in the
+control group to 77% in the PROGRESA group. For girls, the increase was even
+greater, from 67% in the control group to almost 75% in the PROGRESA group. Due
+to the success of this experiment, the Mexican government supported the program
+under the new name OPORTUNIDADES, as an investment in a healthy and well
+educated population.</p>
+
+<p>In some situations it might not be possible to carry out a randomized controlled
+experiment, even when the aim is to investigate causality. For example, suppose
+you want to study the effects of alcohol consumption during pregnancy, and you
+randomly assign some pregnant women to your “alcohol” group. You should not
+expect cooperation from them if you present them with a drink. In such
+situations you will almost invariably be conducting an observational study, not
+an experiment. Be alert for confounding factors.</p>
+
               <nav class="c-page__nav">
   
 

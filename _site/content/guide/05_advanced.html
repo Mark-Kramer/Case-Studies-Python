@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Jupyter Book</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://jupyter.org/Case-Studies-Python/search">
+  <link rel="canonical" href="https://jupyter.org/Case-Studies-Python/content/guide/05_advanced.html">
   <link rel="alternate" type="application/rss+xml" title="Jupyter Book" href="https://jupyter.org/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://jupyter.org/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://jupyter.org/Case-Studies-Python/content/guide/05_advanced.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Jupyter Book" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://jupyter.org/Case-Studies-Python/search",
+    "https://jupyter.org/Case-Studies-Python/content/guide/05_advanced.html",
   "headline":
-    "Search the site",
+    "Jupyter Book",
   "datePublished":
     "2019-04-24T15:25:31-04:00",
   "dateModified":
@@ -750,7 +750,7 @@ initFunction(initQuery);
               
 
               <li class="c-sidebar__section">
-                <a class="c-sidebar__entry "
+                <a class="c-sidebar__entry c-sidebar__entry--active"
                   href="/Case-Studies-Python/guide/05_advanced.html"
                 >
                   
@@ -1414,6 +1414,26 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#hide-cells-or-cell-outputs-in-the-built-site">Hide cells or cell outputs in the built site</a></li>
+  <li><a href="#enable-google-analytics">Enable Google Analytics</a></li>
+  <li><a href="#retain-custom-yaml-front-matter-in-your-files">Retain custom YAML front-matter in your files</a></li>
+  <li><a href="#deploying-a-jupyterhub">Deploying a JupyterHub</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -1432,15 +1452,81 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <p>This page contains more advanced and complete information about the
+<a href="https://github.com/jupyter/jupyter-book"><code class="highlighter-rouge">jupyter-book</code> repository</a>. See the sections below.</p>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<h2 id="hide-cells-or-cell-outputs-in-the-built-site">Hide cells or cell outputs in the built site</h2>
+
+<p>Sometimes you want to use code to generate visualizations or prepare data,
+but you don’t want users to see it in your built book. To prevent code cells
+from showing up in your built site, you can use the following two configuration
+options in your <code class="highlighter-rouge">_config.yml</code> file.</p>
+
+<p><strong>To remove entire code cells from your book</strong>, use the following configuration:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hide_cell_text </span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR</span><span class="nv"> </span><span class="s">TEXT"</span>
+</code></pre></div></div>
+
+<p>Any code cell with the value of <code class="highlighter-rouge">hide_cell_text</code> (above it is <code class="highlighter-rouge">YOUR TEXT</code>)
+will not show up in your built book.</p>
+
+<p><strong>To remove only the code, but retain the outputs or a cell</strong>, use the following
+configuration:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hide_code_text</span><span class="pi">:</span> <span class="s2">"</span><span class="s">YOUR</span><span class="nv"> </span><span class="s">TEXT"</span>
+</code></pre></div></div>
+
+<p>Any code cell with the value of <code class="highlighter-rouge">hide_code_text</code> (above it is <code class="highlighter-rouge">YOUR TEXT</code>)
+will show the output (e.g. images, HTML, etc) but not the input code that
+generated this output.</p>
+
+<p>In both cases, the cells <em>will</em> remain in the notebooks themselves, they
+simply won’t show up in the site’s HTML, so links that point to a JupyterHub/
+Binder/etc will still work as expected.</p>
+
+<h2 id="enable-google-analytics">Enable Google Analytics</h2>
+
+<p>If you have a Google Account, you can use Google Analytics to collect some 
+information on the traffic to your Jupyter Book. With this tool, you can find 
+out how many people are using your site, where they come from and how they 
+access it, wether they are using the Desktop or the mobile version etc.</p>
+
+<p>To add Google Analytics to your Jupyter Book, navigate to 
+<a href="https://analytics.google.com/analytics/web/">Google Analytics</a>, create a new 
+Google Analytics account and add the url of your Jupyter Book to a new 
+<em>property</em>. Once you have set everything up, your Google Analytics property 
+will have a so-called Tracking-ID, that typically starts with the letters UA. 
+All that you need to do is to copy this ID and paste it into your 
+configuration file:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">google_analytics</span><span class="pi">:</span>
+  <span class="na">mytrackingcode</span><span class="pi">:</span> <span class="s">UA-XXXXXXXXX-X</span>
+</code></pre></div></div>
+
+<h2 id="retain-custom-yaml-front-matter-in-your-files">Retain custom YAML front-matter in your files</h2>
+
+<p>Jupyter book will check your files for YAML front-matter and will <strong>append</strong>
+any newly-generated YAML to the built files for the page. This means you
+can provide your own custom YAML to files (which may be useful if you’d like
+to modify this site’s HTML).</p>
+
+<p>Be careful not to add YAML with the same key names as the auto-generated YAML, as
+this will create duplicated keys in your page’s front-matter.</p>
+
+<h2 id="deploying-a-jupyterhub">Deploying a JupyterHub</h2>
+
+<p>If you wish, you may deploy a JupyterHub alongside your textbook. This way, for pages that are built from
+Jupyter Notebooks, students can click the “interact” links
+at the top of each page and be taken to a live Jupyter Notebook running on your JupyterHub.</p>
+
+<p>The easiest way to set up a JupyterHub is to follow <a href="https://the-littlest-jupyterhub.readthedocs.io/en/latest/index.html">The Littlest JupyterHub guide</a>.
+This is a straightforward deployment of JupyterHub on a single VM, and is suitable for
+courses / workshops of less than 50-60 students.</p>
+
+<p>Once you have your JupyterHub set up, you can use the <a href="https://github.com/data-8/nbgitpuller">nbgitpuller</a>
+package to send links to course material to your students, or use the interact links that Textbooks for Jupyter
+automatically inserts into your course material.</p>
+
               <nav class="c-page__nav">
   
 
