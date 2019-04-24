@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Creating book content</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/search">
+  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/content/features/markdown.html">
   <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://eschlaf2.github.io/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/content/features/markdown.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Creating book content" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://eschlaf2.github.io/Case-Studies-Python/search",
+    "https://eschlaf2.github.io/Case-Studies-Python/content/features/markdown.html",
   "headline":
-    "Search the site",
+    "Creating book content",
   "datePublished":
     "2019-04-24T17:07:41-04:00",
   "dateModified":
@@ -844,6 +844,33 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#sidebars-with-jekyll">Sidebars with Jekyll</a>
+    <ul>
+      <li><a href="#heres-a-third-level-header">Here’s a third-level header</a></li>
+    </ul>
+  </li>
+  <li><a href="#embedding-media">Embedding media</a>
+    <ul>
+      <li><a href="#adding-images">Adding images</a></li>
+      <li><a href="#adding-movies">Adding movies</a></li>
+    </ul>
+  </li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -862,15 +889,53 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <h1 id="creating-book-content">Creating book content</h1>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<p>The two kinds of files that contain course content are:</p>
+
+<ul>
+  <li>Jupyter Notebooks</li>
+  <li>Markdown files</li>
+</ul>
+
+<p>Each are contained in the <code class="highlighter-rouge">content/</code> folder and referenced from <code class="highlighter-rouge">_data/toc.yml</code>.</p>
+
+<p>If the file is markdown, it will be copied over with front-matter YAML added so
+that Jekyll can parse it</p>
+
+<h2 id="sidebars-with-jekyll">Sidebars with Jekyll</h2>
+
+<p>You may notice that there’s a sidebar to the right (if your screen is wide enough).
+These are automatically generated from the headers that are present in your page.
+The sidebar will automatically capture all 2nd and 3rd level section headers.
+The best way to designate these headers is with <code class="highlighter-rouge">#</code> characters at the beginning
+of a line.</p>
+
+<h3 id="heres-a-third-level-header">Here’s a third-level header</h3>
+
+<p>This section is here purely to demonstrate the third-level header of the
+rendered page in the sidebar!</p>
+
+<h2 id="embedding-media">Embedding media</h2>
+
+<h3 id="adding-images">Adding images</h3>
+
+<p>You can reference external media like images from your markdown file. If you use
+relative paths, then they will continue to work when the markdown files are copied over,
+so long as they point to a file that’s inside of the repository.</p>
+
+<p>Here’s an image relative to the site root</p>
+
+<p><img src="../images/C-3PO_droid.png" alt="" /></p>
+
+<h3 id="adding-movies">Adding movies</h3>
+
+<p>You can even embed references to movies on the web! For example, here’s a little gif for you!</p>
+
+<p><img src="https://media.giphy.com/media/yoJC2A59OCZHs1LXvW/giphy.gif" alt="" /></p>
+
+<p>This will be included in your website when it is built.</p>
+
               <nav class="c-page__nav">
   
 

@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Case Studies in Neural Data Analysis</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/search">
+  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/content/guide/04_faq.html">
   <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://eschlaf2.github.io/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/content/guide/04_faq.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Case Studies in Neural Data Analysis" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://eschlaf2.github.io/Case-Studies-Python/search",
+    "https://eschlaf2.github.io/Case-Studies-Python/content/guide/04_faq.html",
   "headline":
-    "Search the site",
+    "Case Studies in Neural Data Analysis",
   "datePublished":
     "2019-04-24T17:07:41-04:00",
   "dateModified":
@@ -844,6 +844,27 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#how-can-i-update-my-book">How can I update my book?</a></li>
+  <li><a href="#does-the-book-behave-differently-depending-on-the-browser">Does the book behave differently depending on the browser?</a></li>
+  <li><a href="#why-isnt-my-math-showing-up-properly">Why isn’t my math showing up properly?</a></li>
+  <li><a href="#how-can-i-include-interactive-plotly-figures">How can I include interactive Plotly figures?</a></li>
+  <li><a href="#what-if-i-have-an-issue-or-question">What if I have an issue or question?</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -862,15 +883,86 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <p>The following are some common issues and questions that have arisen when
+building your textbook with Jekyll.</p>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<h2 id="how-can-i-update-my-book">How can I update my book?</h2>
+
+<p>Sometimes Jupyter Book will get updates that you want to incorporate into
+a book you’ve already built. The easiest way to do this is to use the Command-Line Interface to
+upgrade your book.</p>
+
+<p>To upgrade a pre-existing Jupyter Book, run the following command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book upgrade path/to/mybook
+</code></pre></div></div>
+
+<p>This will do the following:</p>
+
+<ol>
+  <li>Generate a fresh Jupyter Book in <code class="highlighter-rouge">mybook_UPGRADED</code> using the content files in your
+current book.</li>
+  <li>If this succeeds, copy over the contents of <code class="highlighter-rouge">mybook_UPGRADED</code> into your current book folder.</li>
+  <li>If this succeeds, delete the <code class="highlighter-rouge">mybook_UPGRADED</code> folder.</li>
+</ol>
+
+<p>Note that only the content that you can manually specify via the <code class="highlighter-rouge">jupyter-book create</code> command
+will be retained in your upgraded book. For a list of these options, see the help menu for this command:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book create <span class="nt">-h</span>
+</code></pre></div></div>
+
+<p>You should check out the content in your upgraded book to make sure it looks correct, then
+commit the changes to your repository.</p>
+
+<h2 id="does-the-book-behave-differently-depending-on-the-browser">Does the book behave differently depending on the browser?</h2>
+
+<p>Maybe - Jupyter Book does use some features that might have different behaviors in
+some browsers. For example, Safari <a href="https://github.com/jupyter/jupyter-book/pull/104#issuecomment-462461188">tends to treat downloadable objects</a>
+differently for some reason.</p>
+
+<p>The two browsers on which Jupyter Book should always behave as expected are
+<strong>Firefox</strong> and <strong>Chrome</strong>.</p>
+
+<h2 id="why-isnt-my-math-showing-up-properly">Why isn’t my math showing up properly?</h2>
+
+<p>This site uses MathJax to render all math, with <code class="highlighter-rouge">$</code> denoting inline math,
+and <code class="highlighter-rouge">$$</code> denoting multi-line math blocks. Make sure that all of your math
+is wrapped in these characters.</p>
+
+<p>Another tip is to make sure that your math isn’t being escaped improperly.
+Jekyll strips escape characters, so you should make sure to add <strong>two</strong>
+escape characters when needed. This is done automatically for many escape
+characters in <code class="highlighter-rouge">generate_book.py</code>, and if you notice something that should
+be included in this script, please open an issue
+<a href="https://github.com/jupyter/jupyter-book/issues">at the textbook template issues page</a></p>
+
+<h2 id="how-can-i-include-interactive-plotly-figures">How can I include interactive Plotly figures?</h2>
+
+<p>To display interactive <a href="https://plot.ly/python/">Plotly</a> figures, they must
+first be generated in a Jupyter notebook using the <a href="https://plot.ly/python/offline/">offline mode</a>.
+You must then plot the figure with <code class="highlighter-rouge">plotly.offline.plot()</code>, which generates an HTML file (<code class="highlighter-rouge">plotly.offline.iplot()</code> does not),
+and then load the HTML into the notebook with <code class="highlighter-rouge">display(HTML('file.html'))</code> prior to saving your *.ipynb file.</p>
+
+<p>e.g.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from IPython.core.display import display, HTML
+from plotly.offline import init_notebook_mode, plot
+init_notebook_mode(connected=True)
+.
+.
+.
+plot(fig, filename = 'figure.html')
+display(HTML('figure.html')
+</code></pre></div></div>
+
+<p>Note that, if viewing the file on a Jupyter Notebook session, the figure will not be displayed there (<code class="highlighter-rouge">iplot</code> is needed for this). However, if working on a <a href="https://github.com/binder-examples/jupyterlab">JupyterLab</a> session, the figure can be displayed there using the <code class="highlighter-rouge">plot</code> code above by having the <a href="https://github.com/jupyterlab/jupyter-renderers/tree/master/packages/plotly-extension">JupyterLab plotly extension</a> installed.</p>
+
+<h2 id="what-if-i-have-an-issue-or-question">What if I have an issue or question?</h2>
+
+<p>If you’ve got questions, concerns, or suggestions, please open an issue at
+<a href="https://github.com/jupyter/jupyter-book/issues">at the jupyter book issues page</a></p>
+
               <nav class="c-page__nav">
   
 

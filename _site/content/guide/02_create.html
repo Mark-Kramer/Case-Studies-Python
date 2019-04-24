@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Create your Jupyter Book</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/search">
+  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/content/guide/02_create.html">
   <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://eschlaf2.github.io/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/content/guide/02_create.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Create your Jupyter Book" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://eschlaf2.github.io/Case-Studies-Python/search",
+    "https://eschlaf2.github.io/Case-Studies-Python/content/guide/02_create.html",
   "headline":
-    "Search the site",
+    "Create your Jupyter Book",
   "datePublished":
     "2019-04-24T17:07:41-04:00",
   "dateModified":
@@ -844,6 +844,25 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#by-starting-with-a-minimal-book">by starting with a minimal book</a></li>
+  <li><a href="#by-modifying-the-demo-book">by modifying the Demo Book</a></li>
+  <li><a href="#by-using-a-pre-existing-book-configuration">by using a pre-existing book configuration</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -862,15 +881,80 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <h1 id="create-your-jupyter-book">Create your Jupyter Book</h1>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<p>This page covers how to create a Jupyter Book with your own content.
+You’ve got three primary ways to create your Jupyter Book.</p>
+
+<h2 id="by-starting-with-a-minimal-book">by starting with a minimal book</h2>
+
+<p>Running the following command will create a new Jupyter Book with a few
+content pages and a Table of Contents to get you started:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book create mybookname
+</code></pre></div></div>
+
+<p>This will create a new book using your content in <code class="highlighter-rouge">mybookname/</code>. You’ll then need to</p>
+
+<ol>
+  <li>Add your content to <code class="highlighter-rouge">mybookname/content/</code></li>
+  <li>Modify <code class="highlighter-rouge">mybookname/_data/toc.yml</code> to match your content</li>
+  <li>Modify <code class="highlighter-rouge">mybookname/_config.yml</code> to the configuration you’d like</li>
+</ol>
+
+<p>Note that if you choose to create the book template and later add content
+to it, you can quickly <strong>generate a basic Table of Contents</strong> by running
+the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book toc mybookname/
+</code></pre></div></div>
+
+<h2 id="by-modifying-the-demo-book">by modifying the Demo Book</h2>
+
+<p>If you’d like to see a more fully-functioning demo book for inspiration, you can
+create the book that lives at the <a href="https://jupyter.org/jupyter-book">jupyter-book website</a>
+by adding the <code class="highlighter-rouge">--demo</code> flag:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book create mybookname --demo
+</code></pre></div></div>
+
+<p>See the previous section for a description of all of the relevant files you
+should modify for your book.</p>
+
+<h2 id="by-using-a-pre-existing-book-configuration">by using a pre-existing book configuration</h2>
+
+<p>If you’ve used Jupyter Book before, you can quickly generate a <em>new</em> book using a pre-existing
+set of folders and files. These are all available as arguments in the command line interface.</p>
+
+<p>For example, if you have your book’s content in a folder structure like this:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myoldbook/
+├── content
+│   ├── root_test.md
+│   └── tests
+├── _data
+│   └── toc.yml
+├── images
+│   └── tests
+├── mylicense.md
+├── myextrafolder
+│   └── myextrafile.txt
+└── config.yml
+</code></pre></div></div>
+
+<p>You can generate a Jupyter Book from it with the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book create mybookname --content-folder myoldbook/content \
+                               --toc myoldbook/_data/toc.yml \
+                               --config myoldbook/_config.yml \
+                               --license myoldbook/mylicense.md \
+                               --extra-files myoldbook/myextrafolder
+</code></pre></div></div>
+
+<p>This will create a new Jupyter Book using these files. In this case, you need to ensure
+that the values in <code class="highlighter-rouge">_config.yml</code> are correct, and that the Table of Contents (<code class="highlighter-rouge">toc.yml</code>) file
+has the structure that you want.</p>
+
               <nav class="c-page__nav">
   
 

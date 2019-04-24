@@ -7,15 +7,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1">
 
-  <title>Search the site</title>
+  <title>Building and publishing your book</title>
   <meta name="description" content="This is an example book built with Jupyter Books.">
 
-  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/search">
+  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/content/guide/03_build.html">
   <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://eschlaf2.github.io/Case-Studies-Python/feed.xml">
 
-  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/search" />
+  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/content/guide/03_build.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Search the site" />
+<meta property="og:title"       content="Building and publishing your book" />
 <meta property="og:description" content="This is an example book built with Jupyter Books." />
 <meta property="og:image"       content="" />
 
@@ -25,9 +25,9 @@
   "@context": "http://schema.org",
   "@type": "NewsArticle",
   "mainEntityOfPage":
-    "https://eschlaf2.github.io/Case-Studies-Python/search",
+    "https://eschlaf2.github.io/Case-Studies-Python/content/guide/03_build.html",
   "headline":
-    "Search the site",
+    "Building and publishing your book",
   "datePublished":
     "2019-04-24T17:07:41-04:00",
   "dateModified":
@@ -844,6 +844,32 @@ initFunction(initQuery);
 </nav>
 
       
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#build-the-books-markdown">Build the book’s markdown</a></li>
+  <li><a href="#build-the-books-site-html-locally-optional">Build the book’s site HTML locally (optional)</a>
+    <ul>
+      <li><a href="#install-the-dependencies-to-preview-your-book-locally">Install the dependencies to preview your book locally</a></li>
+      <li><a href="#build-the-site-html-for-your-book">Build the site HTML for your book</a></li>
+      <li><a href="#when-should-you-build-the-html-locally">When should you build the HTML locally?</a></li>
+    </ul>
+  </li>
+  <li><a href="#create-an-online-repository-for-your-book">Create an online repository for your book</a></li>
+  <li><a href="#publish-your-book-online-with-github-pages">Publish your book online with GitHub Pages</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
       <main class="c-textbook__page" tabindex="-1">
           <div class="o-wrapper">
             <div class="c-sidebar-toggle">
@@ -862,15 +888,182 @@ initFunction(initQuery);
             
 
             <div class="c-textbook__content">
-              <div class="search-content__inner-wrap">
-    <input type="text" id="lunr_search" class="search-input" tabindex="-1" placeholder="'Enter your search term...''" />
-    <div id="results" class="results"></div>
-</div>
+              <h1 id="building-and-publishing-your-book">Building and publishing your book</h1>
 
-<script>
-    // Add the lunr store since we will now search it
-    var store = []
-</script>
+<p>Once you’ve added content and configured your book, it’s time to
+build the raw material that Jekyll will use to turn your book into a website.
+We’ll also cover how to turn this book into the HTML for a website that can
+be served online.</p>
+
+<h2 id="build-the-books-markdown">Build the book’s markdown</h2>
+
+<p>Now that you’ve got the files installed content is in the book, you can build
+your book.</p>
+
+<p>Build your book by running the following command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter-book build mybookname/
+</code></pre></div></div>
+
+<p>This will:</p>
+
+<ul>
+  <li>Use the links specified in the <code class="highlighter-rouge">_data/toc.yml</code> file (pointing to files in <code class="highlighter-rouge">/content/</code>) and
+do the following:
+    <ul>
+      <li>Run <code class="highlighter-rouge">nbconvert</code> to turn the <code class="highlighter-rouge">.ipynb</code> files into markdown</li>
+      <li>Replace relative image file paths so that they work on your new built site</li>
+      <li>Clean up formatting issues for things like MathJax to display properly</li>
+      <li>Place all these generated files in the <code class="highlighter-rouge">mybookname/_build/</code> directory.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Note that <code class="highlighter-rouge">jupyter-book</code> will automatically update any files in <code class="highlighter-rouge">_build/</code> that are older
+than the timestamp of the corresponding file in your <code class="highlighter-rouge">content/</code> folder.</p>
+
+<p>From here, you have <strong>two options</strong></p>
+
+<ol>
+  <li>
+    <p><strong>Option 1: Jekyll builds the site for you</strong>:</p>
+
+    <p>By default, pushing a repository
+cloned from Jupyter Book will tell GitHub to use Jekyll to build the repository
+when you push changes (your repository is configured properly on GitHub).
+Simply tell GitHub to build a site from your repo, then push the changes to
+your GitHub repo and that’s it!</p>
+  </li>
+  <li>
+    <p><strong>Option 2: Build your site’s HTML locally</strong>:</p>
+
+    <p>Building your book’s site locally lets you preview your book locally before you
+push it online. It also gives you a bit more functionality than using
+GitHub Pages to build your book. However, it also requires you to install Ruby.
+If you’d like to build your site locally then jump to the next section.</p>
+  </li>
+</ol>
+
+<h2 id="build-the-books-site-html-locally-optional">Build the book’s site HTML locally (optional)</h2>
+
+<p>If you’d like to build your book’s site HTML locally, you’ll need to first
+install the necessary dependencies and then build the HTML. Follow these
+steps to do so.</p>
+
+<h3 id="install-the-dependencies-to-preview-your-book-locally">Install the dependencies to preview your book locally</h3>
+
+<p>You’ll need Ruby, an open-source programming language, to build your site’s
+HTML with Jekyll. The easiest way to install Ruby on <em>nix systems is to use
+the *<code class="highlighter-rouge">conda</code></em> package manager:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda install <span class="nt">-c</span> conda-forge ruby
+</code></pre></div></div>
+<p>Once you have Ruby installed, run</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make install
+</code></pre></div></div>
+
+<p>which will install Bundler (a Ruby depency management tool) and then install the plugins
+needed to build the site for your book.</p>
+
+<h3 id="build-the-site-html-for-your-book">Build the site HTML for your book</h3>
+
+<p>Once you’ve generated the markdown for your notebooks and installed the
+necessary dependencies. You are ready to build your site HTML.</p>
+
+<p>Ensure that your notebooks have been converted to markdown, there should be a
+collection of them in <code class="highlighter-rouge">_build/</code>.</p>
+
+<p>Once you’ve confirmed this, run this command to generate your book’s HTML using
+Jekyll:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make site
+</code></pre></div></div>
+
+<p>Alternatively, you can preview your book’s site locally by running this command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make serve
+</code></pre></div></div>
+
+<p>This should open up a port on your computer with a live version of the book.</p>
+
+<h3 id="when-should-you-build-the-html-locally">When should you build the HTML locally?</h3>
+
+<p>You might ask: if GitHub pages can build my site automatically from the markdown files, why
+build it locally? The main reason for this is that you get more flexibility by building locally
+and serving raw HTML, as opposed to auto-building the site with GitHub-pages.</p>
+
+<p>In particular, if you wish to use any <strong>extra Jekyll plugins</strong>, such as the <code class="highlighter-rouge">jekyll-scholar</code> plugin that
+enables you to add citations and bibliographies, then you need to build your site
+locally as HTML. GitHub-pages doesn’t let you enable any extra plugins if it auto-builds your site.</p>
+
+<h2 id="create-an-online-repository-for-your-book">Create an <em>online</em> repository for your book</h2>
+
+<p>You’ve created your book on your own computer, but you haven’t yet added it
+online. This section covers the steps to create your own GitHub repository,
+and to add your book’s content to it.</p>
+
+<ol>
+  <li>First, log-in to GitHub, then go to the “create a new repository” page:</li>
+</ol>
+
+<p>https://github.com/new</p>
+
+<ol>
+  <li>
+    <p>Next, add a name and description for your book. You can choose whatever
+initialization you’d like.</p>
+  </li>
+  <li>
+    <p>Now, clone the empty repository to your computer:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/&lt;my-org&gt;/&lt;my-book-name&gt;
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Copy all of your book files and folders (what was created when you ran <code class="highlighter-rouge">jupyter-book create mybook</code>)
+into the new repository. For example, if you created your book locally with <code class="highlighter-rouge">jupyter-book create mylocalbook</code>
+and your online repository is called <code class="highlighter-rouge">myonlinebook</code>, the command would be:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp <span class="nt">-r</span> mylocalbook/<span class="k">*</span> myonlinebook/
+</code></pre></div>    </div>
+
+    <p>This will copy over the local book files into the online book folder.</p>
+  </li>
+  <li>
+    <p>Commit the new files to the repository in <code class="highlighter-rouge">myonlinebook/</code>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>myonlinebook
+git add ./<span class="k">*</span>
+git commit <span class="nt">-m</span> <span class="s2">"adding my first book!"</span>
+git push
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p>That’s it!</p>
+
+<h2 id="publish-your-book-online-with-github-pages">Publish your book online with GitHub Pages</h2>
+
+<p>Once you’ve built the markdown for your book (in <code class="highlighter-rouge">_build</code>) or built the HTML
+for your book (in <code class="highlighter-rouge">_site</code>), you can push your book contents to GitHub so that
+others can access your book. To do so, follow these steps:</p>
+
+<ol>
+  <li>Confirm that your site files are built. You should see a
+collection of markdown files/folders in the <code class="highlighter-rouge">_build</code> folder,
+or a collection of HTML in your <code class="highlighter-rouge">_site/</code> folder.</li>
+  <li>Commit and push the changes to your repository.</li>
+  <li>
+    <p>Enable GitHub site building for your repository.</p>
+
+    <p>From your GitHub repository, click <code class="highlighter-rouge">Settings</code> then scroll down to the
+<code class="highlighter-rouge">GitHub Pages</code> section. You should see the message <code class="highlighter-rouge">Your site is published at &lt;YOUR-URL&gt;</code>.
+Ensure that you’re building from the correct folder.</p>
+  </li>
+  <li>Go to the URL listed at <code class="highlighter-rouge">&lt;YOUR-URL&gt;</code> and you should see your live site.</li>
+</ol>
+
               <nav class="c-page__nav">
   
 
