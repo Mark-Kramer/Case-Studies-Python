@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Introduction to Python</title>
+  <meta name="description" content="Python for the practicing neuroscientist">
+
+  <link rel="canonical" href="https://eschlaf2.github.io/Case-Studies-Python/01/Intro.html">
+  <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://eschlaf2.github.io/Case-Studies-Python/feed.xml">
+
+  <meta property="og:url"         content="https://eschlaf2.github.io/Case-Studies-Python/01/Intro.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Introduction to Python" />
+<meta property="og:description" content="Python for the practicing neuroscientist" />
+<meta property="og:image"       content="" />
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage":
+    "https://eschlaf2.github.io/Case-Studies-Python/01/Intro.html",
+  "headline":
+    "Introduction to Python",
+  "datePublished":
+    "2019-04-24T17:33:10-04:00",
+  "dateModified":
+    "2019-04-24T17:33:10-04:00",
+  "description":
+    "Python for the practicing neuroscientist",
+  "author": {
+    "@type": "Person",
+    "name": "Mark Kramer and Uri Eden"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://eschlaf2.github.io/Case-Studies-Python",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://eschlaf2.github.io/Case-Studies-Python",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/css/styles.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/Case-Studies-Python/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    CommonHTML: {
+        linebreaks: {
+            automatic: true,
+        },
+    },
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_CHTML' async></script>
+
+  <!-- DOM updating function -->
+  <script>
+const runWhenDOMLoaded = cb => {
+  if (document.readyState != 'loading') {
+    cb()
+  } else if (document.addEventListener) {
+    document.addEventListener('DOMContentLoaded', cb)
+  } else {
+    document.attachEvent('onreadystatechange', function() {
+      if (document.readyState == 'complete') cb()
+    })
+  }
+}
+
+// Helper function to init things quickly
+initFunction = function(myfunc) {
+  runWhenDOMLoaded(myfunc);
+  document.addEventListener('turbolinks:load', myfunc);
+};
+</script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/Case-Studies-Python';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="/Case-Studies-Python/assets/js/anchor.min.js"  type="text/javascript"></script>
+  <script>
+
+initFunction(function () {
+    anchors.add("main h1, main h2, main h3, main h4")
+});
+
+</script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="/Case-Studies-Python/assets/js/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  <script src="https://unpkg.com/nbinteract-core" async></script>
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+<script type="text/x-thebe-config">
+    {
+      requestKernel: true,
+      binderOptions: {
+        repo: 'eschlaf2/Case-Studies-Python',
+        ref: 'master',
+      },
+      kernelOptions: {
+        name: 'python3',
+      }
+    }
+</script>
+<script src="https://unpkg.com/thebelab@0.3.3/lib/index.js"></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // Figure out the language it uses and add this too
+                var parentDiv = codeCell.parentElement.parentElement;
+                var arrayLength = parentDiv.classList.length;
+                for (var ii = 0; ii < arrayLength; ii++) {
+                    var parts = parentDiv.classList[ii].split('language-');
+                    if (parts.length === 2) {
+                        // If found, assign dataLanguage and break the loop
+                        var dataLanguage = parts[1];
+                        break;
+                    }
+                }
+                codeCell.setAttribute('data-language', dataLanguage)
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyButtons = document.querySelectorAll('.copybtn')
+            copyButtons.forEach((copyButton, index) => {
+                copyButton.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButton = document.getElementById('interact-button-thebelab');
+        if (thebelabButton === null) {
+            setTimeout(initThebelab, 250)
+        return
+        };
+        thebelabButton.addEventListener('click', addThebelabToCodeCells);
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+</script>
+
+
+  <!-- Google analytics -->
+  <script src="/Case-Studies-Python/assets/js/ga.js" async></script>
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" async></script>
+
+  <!-- Load JS that depends on site variables -->
+  <script>
+/**
+ * Set up copy/paste for code blocks
+ */
+const codeCellId = index => `codecell${index}`
+
+const clipboardButton = id =>
+  `<a class="btn copybtn o-tooltip--left" data-tooltip="Copy" data-clipboard-target="#${id}">
+    <img src="/Case-Studies-Python/assets/images/copy-button.svg" alt="Copy to clipboard">
+  </a>`
+
+// Clears selected text since ClipboardJS will select the text when copying
+const clearSelection = () => {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges()
+  } else if (document.selection) {
+    document.selection.empty()
+  }
+}
+
+// Changes tooltip text for two seconds, then changes it back
+const temporarilyChangeTooltip = (el, newText) => {
+  const oldText = el.getAttribute('data-tooltip')
+  el.setAttribute('data-tooltip', newText)
+  setTimeout(() => el.setAttribute('data-tooltip', oldText), 2000)
+}
+
+const addCopyButtonToCodeCells = () => {
+  // If ClipboardJS hasn't loaded, wait a bit and try again. This
+  // happens because we load ClipboardJS asynchronously.
+  if (window.ClipboardJS === undefined) {
+    setTimeout(addCopyButtonToCodeCells, 250)
+    return
+  }
+
+  const codeCells = document.querySelectorAll('div.highlighter-rouge:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.querySelector(`pre#${id} + a`) == null) {
+      codeCell.insertAdjacentHTML('afterend', clipboardButton(id));
+    }
+  })
+
+  const clipboard = new ClipboardJS('.copybtn')
+  clipboard.on('success', event => {
+    clearSelection()
+    temporarilyChangeTooltip(event.trigger, 'Copied!')
+  })
+
+  clipboard.on('error', event => {
+    temporarilyChangeTooltip(event.trigger, 'Failed to copy')
+  })
+
+  // Get rid of clipboard before the next page visit to avoid memory leak
+  document.addEventListener('turbolinks:before-visit', () =>
+    clipboard.destroy()
+  )
+}
+
+initFunction(addCopyButtonToCodeCells);
+</script>
+
+  <!-- Hide cell code -->
+  
+<script>
+/**
+Add buttons to hide code cells
+*/
+
+
+var setCodeCellVisibility = function(inputField, kind) {
+    // Update the image and class for hidden
+    var id = inputField.getAttribute('data-id');
+    var codeCell = document.querySelector(`#${id}`);
+
+    if (kind === "visible") {
+        codeCell.classList.remove('hidden');
+        inputField.checked = true;
+    } else {
+        codeCell.classList.add('hidden');
+        inputField.checked = false;
+    }
+}
+
+var toggleCodeCellVisibility = function (event) {
+    // The label is clicked, and now we decide what to do based on the input field's clicked status
+    if (event.target.tagName === "LABEL") {
+        var inputField = event.target.previousElementSibling;
+    } else {
+        // It is the span inside the target
+        var inputField = event.target.parentElement.previousElementSibling;
+    }
+
+    if (inputField.checked === true) {
+        setCodeCellVisibility(inputField, "visible");
+    } else {
+        setCodeCellVisibility(inputField, "hidden");
+    }
+}
+
+
+// Button constructor
+const hideCodeButton = id => `<input class="hidebtn" type="checkbox" id="hidebtn${id}" data-id="${id}"><label title="Toggle cell" for="hidebtn${id}" class="plusminus"><span class="pm_h"></span><span class="pm_v"></span></label>`
+
+var addHideButton = function () {
+  // If a hide button is already added, don't add another
+  if (document.querySelector('div.hidecode input') !== null) {
+      return;
+  }
+
+  // Find the input cells and add a hide button
+  document.querySelectorAll('div.input_area div.highlight').forEach(function (item, index) {
+    if (!item.parentElement.classList.contains("hidecode")) {
+        // Skip the cell if it doesn't have a hidecode class
+        return;
+    }
+
+    const id = codeCellId(index)
+    item.setAttribute('id', id);
+    item.insertAdjacentHTML('afterend', hideCodeButton(id))
+
+    // Set up the visibility toggle
+    hideLink = document.querySelector(`#${id} + input + label`);
+    hideLink.addEventListener('click', toggleCodeCellVisibility)
+  });
+}
+
+
+// Initialize the hide buttos
+var initHiddenCells = function () {
+    // Add hide buttons to the cells
+    addHideButton();
+
+    // Toggle the code cells that should be hidden
+    document.querySelectorAll('div.hidecode input').forEach(function (item) {
+        setCodeCellVisibility(item, 'hidden');
+        item.checked = true;
+    })
+}
+
+initFunction(initHiddenCells);
+
+</script>
+
+
+  <!-- Load custom website scripts -->
+  <script src="/Case-Studies-Python/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/Case-Studies-Python/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+<script>
+/**
+  * To auto-embed hub URLs in interact links if given in a RESTful fashion
+ */
+
+function getJsonFromUrl(url) {
+  var query = url.split('?');
+  if (query.length < 2) {
+    // No queries so just return false
+    return false;
+  }
+  query = query[1];
+  // Collect REST params into a dictionary
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+    
+function dict2param(dict) {
+    params = Object.keys(dict).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(dict[k])
+    });
+    return params.join('&')
+}
+
+// Parse a Binder URL, converting it to the string needed for JupyterHub
+function binder2Jupyterhub(url) {
+  newUrl = {};
+  parts = url.split('v2/gh/')[1];
+  // Grab the base repo information
+  repoinfo = parts.split('?')[0];
+  var [org, repo, ref] = repoinfo.split('/');
+  newUrl['repo'] = ['https://github.com', org, repo].join('/');
+  newUrl['branch'] = ref
+  // Grab extra parameters passed
+  params = getJsonFromUrl(url);
+  if (params['filepath'] !== undefined) {
+    newUrl['subPath'] = params['filepath']
+  }
+  return dict2param(newUrl);
+}
+
+// Filter out potentially unsafe characters to prevent xss
+function safeUrl(url)
+{
+   return String(encodeURIComponent(url))
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function addParamToInternalLinks(hub) {
+  var links = document.querySelectorAll("a").forEach(function(link) {
+    var href = link.href;
+    // If the link is an internal link...
+    if (href.search("https://eschlaf2.github.io") !== -1 || href.startsWith('/') || href.search("127.0.0.1:") !== -1) {
+      // Assume we're an internal link, add the hub param to it
+      var params = getJsonFromUrl(href);
+      if (params !== false) {
+        // We have REST params, so append a new one
+        params['jupyterhub'] = hub;
+      } else {
+        // Create the REST params
+        params = {'jupyterhub': hub};
+      }
+      // Update the link
+      var newHref = href.split('?')[0] + '?' + dict2param(params);
+      link.setAttribute('href', decodeURIComponent(newHref));
+    }
+  });
+  return false;
+}
+
+
+// Update interact links
+function updateInteractLink() {
+    // hack to make this work since it expects a ? in the URL
+    rest = getJsonFromUrl("?" + location.search.substr(1));
+    jupyterHubUrl = rest['jupyterhub'];
+    var hubType = null;
+    var hubUrl = null;
+    if (jupyterHubUrl !== undefined) {
+      hubType = 'jupyterhub';
+      hubUrl = jupyterHubUrl;
+    }
+
+    if (hubType !== null) {
+      // Sanitize the hubUrl
+      hubUrl = safeUrl(hubUrl);
+
+      // Add HTTP text if omitted
+      if (hubUrl.indexOf('http') < 0) {hubUrl = 'http://' + hubUrl;}
+      var interactButtons = document.querySelectorAll("button.interact-button")
+      var lastButton = interactButtons[interactButtons.length-1];
+      var link = lastButton.parentElement;
+
+      // If we've already run this, skip the link updating
+      if (link.nextElementSibling !== null) {
+        return;
+      }
+
+      // Update the link and add context div
+      var href = link.getAttribute('href');
+      if (lastButton.id === 'interact-button-binder') {
+        // If binder links exist, we need to re-work them for jupyterhub
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // If localhost, assume we're working from a local Jupyter server and remove `/hub`
+          first = [hubUrl, 'git-sync'].join('/')
+        } else {
+          first = [hubUrl, 'hub', 'user-redirect', 'git-sync'].join('/')
+        }
+        href = first + '?' + binder2Jupyterhub(href);
+      } else {
+        // If interact button isn't binderhub, assume it's jupyterhub
+        // If JupyterHub links, we only need to replace the hub url
+        href = href.replace("", hubUrl);
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // Assume we're working from a local Jupyter server and remove `/hub`
+          href = href.replace("/hub/user-redirect", "");
+        }
+      }
+      link.setAttribute('href', decodeURIComponent(href));
+
+      // Add text after interact link saying where we're launching
+      hubUrlNoHttp = decodeURIComponent(hubUrl).replace('http://', '').replace('https://', '');
+      link.insertAdjacentHTML('afterend', '<div class="interact-context">on ' + hubUrlNoHttp + '</div>');
+
+      // Update internal links so we retain the hub url
+      addParamToInternalLinks(hubUrl);
+    }
+}
+
+runWhenDOMLoaded(updateInteractLink)
+document.addEventListener('turbolinks:load', updateInteractLink)
+</script>
+
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="/Case-Studies-Python/assets/js/lunr/lunr.min.js" type="text/javascript"></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+</head>
+
+  <body>
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://jupyter.org/jupyter-book/intro.html"><img src="/Case-Studies-Python/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" data-turbolinks-permanent/></a>
+  <h2 class="c-sidebar__title">Case Studies in Neural Data Analysis</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/intro.html"
+        >
+          
+          Home
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__chapter"><a class="c-sidebar__entry" href="/Case-Studies-Python/search.html">Search</a></li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="https://github.com/Mark-Kramer/Case-Studies-Python.git"
+        >
+          
+          GitHub repository
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider"></li>
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Contents</li>
+        
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry c-sidebar__entry--active"
+          href="/Case-Studies-Python/01/Intro.html"
+        >
+          
+            1.
+          
+          Introduction to Python
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/02/the-event-related-potential.html"
+        >
+          
+            2.
+          
+          The Event-Related Potential
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/03/the-power-spectrum-part-1.html"
+        >
+          
+            3.
+          
+          The Power Spectrum (Part 1)
+        </a>
+
+        
+
+          
+          
+          
+          
+
+          
+
+          <ul class="c-sidebar__sections u-hidden-visually">
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/Case-Studies-Python/03/supplement-1.html"
+                >
+                  
+                    3.1
+                  
+                  Biased versus unbiased autocovariance
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+              
+              
+
+              <li class="c-sidebar__section">
+                <a class="c-sidebar__entry "
+                  href="/Case-Studies-Python/03/supplement-2.html"
+                >
+                  
+                    3.2
+                  
+                  Intuition behind the power spectral density
+                </a>
+
+                
+                
+
+              </li>
+              
+            
+          </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/04/the-cross-covariance-and-coherence.html"
+        >
+          
+            4.
+          
+          The Cross Covariance and Coherence
+        </a>
+
+        
+      </li>
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
+</nav>
+
+      
+      <!-- Shamelessly copied from minimal mistakes -->
+
+
+<!-- TOC will only show up if it has at least one item -->
+
+
+  <aside class="sidebar__right">
+    <nav class="onthispage">
+      <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
+      <ul class="toc__menu">
+  <li><a href="#starting-python">Starting Python</a></li>
+  <li><a href="#on-ramp-analysis-of-neural-data-in-python">On-ramp: analysis of neural data in Python</a></li>
+  <li><a href="#example-1-python-is-a-calculator">Example 1: Python is a calculator</a></li>
+  <li><a href="#example-2--python-can-compute-complicated-quantities">Example 2.  Python can compute complicated quantities.</a></li>
+  <li><a href="#example-3--python-has-useful-built-in-functions">Example 3.  Python has useful built in functions.</a></li>
+  <li><a href="#example-4--we-can-use-python-to-define-lists-of-numbers">Example 4.  We can use Python to define lists of numbers.</a></li>
+  <li><a href="#example-5--we-can-manipulate-arrays-by-scalars">Example 5.  We can manipulate arrays by scalars.</a></li>
+  <li><a href="#example-6--we-can-manipulate-arrays-with-arrays">Example 6.  We can manipulate arrays with arrays.</a></li>
+  <li><a href="#example-7-more-examples-of-manipulating-arrays-with-arrays">Example 7. More examples of manipulating arrays with arrays.</a></li>
+  <li><a href="#example-8--we-can-probe-the-variables-weve-defined-in-python">Example 8.  We can probe the variables we’ve defined in Python.</a></li>
+  <li><a href="#example-9--determine-the-dimensions-of-an-array">Example 9.  Determine the dimensions of an array</a></li>
+  <li><a href="#example-10-sometimes-we-need-to-reset-the-workspace">Example 10. Sometimes we need to reset the workspace</a></li>
+  <li><a href="#example-11--we-can-define-matrices-in-python">Example 11.  We can define matrices in Python.</a></li>
+  <li><a href="#example-12--indexing-matrices-and-vectors">Example 12.  Indexing matrices and vectors.</a></li>
+  <li><a href="#example-13--we-can-find-subsets-of-elements-in-matrices-and-vectors">Example 13:  We can find subsets of elements in matrices and vectors.</a>
+    <ul>
+      <li><a href="#slicing">Slicing</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-14--plotting-data-in-python">Example 14:  Plotting data in Python.</a>
+    <ul>
+      <li><a href="#matplotlib">matplotlib</a></li>
+    </ul>
+  </li>
+  <li><a href="#example-15-what-if-we-want-to-compare-several-functions">Example 15: What if we want to compare several functions?</a></li>
+  <li><a href="#example-16--we-can-make-random-numbers-in-python">Example 16:  We can make random numbers in Python.</a></li>
+  <li><a href="#example-17--repeating-commands-over-and-over-and-over---">Example 17:  Repeating commands over and over and over . . .</a></li>
+  <li><a href="#example-18--defining-a-new-function">Example 18:  Defining a new function.</a></li>
+  <li><a href="#example-19-animating-figures">Example 19: Animating figures</a></li>
+  <li><a href="#example-19-load-matlab-data-into-python">Example 19: Load MATLAB data into Python</a></li>
+</ul>
+    </nav>
+  </aside>
+
+
+      
+      <main class="c-textbook__page" tabindex="-1">
+          <div class="o-wrapper">
+            <div class="c-sidebar-toggle">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <button
+    id="js-sidebar-toggle"
+    class="hamburger hamburger--arrowalt is-active"
+  >
+    <span class="hamburger-box">
+      <span class="hamburger-inner"></span>
+    </span>
+    <span class="c-sidebar-toggle__label">Toggle Sidebar</span>
+  </button>
+</div>
+
+            
+<div class="buttons">
+<a href="/Case-Studies-Python/content/01/Intro.ipynb" download>
+<button id="interact-button-download" class="interact-button">Download</button>
+</a>
+
+<button id="interact-button-thebelab" class="interact-button">Thebelab</button>
+
+
+
+
+
+
+
+
+<a href="https://mybinder.org/v2/gh/eschlaf2/Case-Studies-Python/master?filepath=content%2F01%2FIntro.ipynb"><button class="interact-button" id="interact-button-binder"><img class="interact-button-logo" src="/Case-Studies-Python/assets/images/logo_binder.svg" alt="Interact" />Interact</button></a>
+
+
+</div>
+
+
+            <div class="c-textbook__content">
+              <h1 id="python-for-the-practicing-neuroscientist">Python <em>for the practicing neuroscientist</em></h1>
+
+<p>To be frank:  this section is boring.  Throughout all of the case studies, we will use the software package <a href="https://www.python.org/">Python</a>. The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the “real world” of neuronal data happen later.</p>
+
+<p>Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually <em>do</em> this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double expresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a>).</p>
+
+<h2 id="starting-python">Starting Python</h2>
+
+<p>There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you’ll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master">Binder</a>, and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!</p>
+
+<div class="question">
+
+  <p>Throughout this notebook, we assume that you are running <a href="https://www.python.org/download/releases/3.0/">Python 3</a>. Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator <code class="highlighter-rouge">/</code> actually computes the <em>floor</em> of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, <code class="highlighter-rouge">4/3</code> equals <code class="highlighter-rouge">1</code>. While, in Python 3, <code class="highlighter-rouge">4/3</code> equals <code class="highlighter-rouge">1.333</code>.</p>
+
+  <p>We encourage you to use Python 3 for the sake of compatibility with this notebook, as well as for compatibility with future releases of Python.</p>
+
+</div>
+
+<h2 id="on-ramp-analysis-of-neural-data-in-python">On-ramp: analysis of neural data in Python</h2>
+<p>We begin this module with an “<em>on-ramp</em>” to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that’s not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="n">sio</span>               <span class="c"># Import packages to read data, do analysis, and plot it.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s">'sample_data.mat'</span><span class="p">)</span> <span class="c"># Load the example data set.</span>
+<span class="n">t</span>   <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s">'t'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                    <span class="c"># Get the values associated with the key 't' from the dictorary.</span>
+<span class="n">LFP</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s">'LFP'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                  <span class="c"># Get the values associated with the key 'LFP' from the dictorary</span>
+
+                                     <span class="c"># Print useful information about the data.</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Sampling frequency is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>  <span class="o">+</span> <span class="s">' Hz.'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Total duration of recording is "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s">' s.'</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Dimensions of data are "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">LFP</span><span class="p">))</span> <span class="o">+</span> <span class="s">' data points.'</span><span class="p">)</span>
+
+<span class="n">initial_time_interval</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">5</span>        <span class="c"># Choose an initial interval of time, from onset to 5 s,</span>
+                                     <span class="c"># ... and plot it.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">],</span> <span class="n">LFP</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time [s]'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'LFP'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'Initial interval of LFP data'</span><span class="p">);</span>
+
+</code></pre></div></div>
+
+<div class="question">
+
+  <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, extracts useful information to print, then selects an interval of data to plot?</p>
+
+  <p><strong>A:</strong> If you’ve never used Python before, that’s an especially difficult question. Please continue on to learn more!</p>
+
+</div>
+
+<h2 id="example-1-python-is-a-calculator">Example 1: Python is a calculator</h2>
+
+<p>Execute the following commands in Python:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">4</span><span class="o">+</span><span class="mi">9</span>
+</code></pre></div></div>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">4</span><span class="o">/</span><span class="mi">3</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong>  What does Python return?  Does it make sense?</p>
+
+<h2 id="example-2--python-can-compute-complicated-quantities">Example 2.  Python can compute complicated quantities.</h2>
+
+<p>Enter the following command in Python:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">4</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Does this answer make sense?</p>
+
+<p><strong>Q:</strong> Can you use parantheses to change the answer?</p>
+
+<h2 id="example-3--python-has-useful-built-in-functions">Example 3.  Python has useful built in functions.</h2>
+
+<p>A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the <code class="highlighter-rouge">math</code> and <code class="highlighter-rouge">numpy</code> modules. To use the <code class="highlighter-rouge">math</code> and <code class="highlighter-rouge">numpy</code> modules, we must first import both:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">math</span>
+</code></pre></div></div>
+
+<p>You will often begin your data analysis with <code class="highlighter-rouge">import</code> statements, to load the functionality you need. We can now call functions from math using <code class="highlighter-rouge">numpy.*</code>.  For example,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Above, <code class="highlighter-rouge">np.sin</code> is the sine function.  It operates on the argument <code class="highlighter-rouge">2*np.pi</code>.  Notice that, once we have imported the <code class="highlighter-rouge">numpy</code> module, Python knows the value of <code class="highlighter-rouge">np.pi</code>. Here’s another example function that operates on arguments:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong>  What is <code class="highlighter-rouge">math.atan</code>?</p>
+
+<p><strong>A:</strong> To answer this, try using Python Help.  To start the Python Help, simply put a <code class="highlighter-rouge">?</code> at the end of <code class="highlighter-rouge">math.atan</code> and then run this code block.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="err">?</span>
+</code></pre></div></div>
+
+<p>You should see a description of the function pop up at the bottom of the window.</p>
+
+<p><strong>NOTE:</strong>  Python Help is <em>extremely</em> useful.  You can always look there when you have questions about a function, or search the internet for help, i.e., <a href="http://www.google.com">google it</a>.</p>
+
+<h2 id="example-4--we-can-use-python-to-define-lists-of-numbers">Example 4.  We can use Python to define lists of numbers.</h2>
+
+<p>In Python, there are several different data structures that are designed to store more than one element. Here we will focus on the <code class="highlighter-rouge">array</code> data structure, but if you are curious to know how and when to use other structures, there is a good explanation <a href="http://www.physics.nyu.edu/pine/pymanual/html/chap3/chap3_arrays.html">here</a>. Let’s define an array:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+</code></pre></div></div>
+
+<h2 id="example-5--we-can-manipulate-arrays-by-scalars">Example 5.  We can manipulate arrays by scalars.</h2>
+
+<p>A scalar is a single number.  Consider,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> What do you find?</p>
+
+<p><strong>A:</strong> Notice that the scalar operates on each element of the array.</p>
+
+<h2 id="example-6--we-can-manipulate-arrays-with-arrays">Example 6.  We can manipulate arrays with arrays.</h2>
+
+<p>Let’s create an array and multiply it by itself,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">a</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong>  What does this return?</p>
+
+<p><strong>A:</strong> We see that the operator <code class="highlighter-rouge">*</code> performs element-by-element multiplication of the values in array <code class="highlighter-rouge">a</code>.</p>
+
+<h2 id="example-7-more-examples-of-manipulating-arrays-with-arrays">Example 7. More examples of manipulating arrays with arrays.</h2>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">b</span> <span class="o">/</span> <span class="n">c</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">))</span>
+
+</code></pre></div></div>
+
+<p><strong>Q:</strong> What operation does <code class="highlighter-rouge">np.multiply()</code> perform?</p>
+
+<h2 id="example-8--we-can-probe-the-variables-weve-defined-in-python">Example 8.  We can probe the variables we’ve defined in Python.</h2>
+
+<p>To see a list of the variables you’ve defined, type <code class="highlighter-rouge">who</code> or <code class="highlighter-rouge">whos</code> in a code block by themselves. Notice <code class="highlighter-rouge">whos</code> provides more information.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">who</span>
+</code></pre></div></div>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">whos</span>
+</code></pre></div></div>
+
+<h2 id="example-9--determine-the-dimensions-of-an-array">Example 9.  Determine the dimensions of an array</h2>
+
+<p>To examine the dimensions of an array, we can ask for the <code class="highlighter-rouge">shape</code>,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>We find that the shape of <code class="highlighter-rouge">a</code> is <code class="highlighter-rouge">(1,4)</code> or 1 row and 4 columns. Notice we have two options to execute the <code class="highlighter-rouge">shape</code> function:</p>
+
+<ul>
+  <li>
+    <p>In <code class="highlighter-rouge">a.shape</code> we return the attribute <code class="highlighter-rouge">shape</code> of the variable <code class="highlighter-rouge">a</code>.</p>
+  </li>
+  <li>
+    <p>In <code class="highlighter-rouge">np.shape(a)</code> we apply the function <code class="highlighter-rouge">np.shape</code> to the variable <code class="highlighter-rouge">a</code>.</p>
+  </li>
+</ul>
+
+<p>The result is equivalent.</p>
+
+<h2 id="example-10-sometimes-we-need-to-reset-the-workspace">Example 10. Sometimes we need to reset the workspace</h2>
+
+<p>By doing so, we get rid of all the variables. To do so, type <code class="highlighter-rouge">%reset</code> and enter <code class="highlighter-rouge">y</code></p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">reset</span>
+</code></pre></div></div>
+
+<p><strong>Q.</strong> What command could we use to confirm there are no variables in the workspace?</p>
+
+<p><strong>A.</strong> Consider <code class="highlighter-rouge">who</code>.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">who</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p>The <code class="highlighter-rouge">%reset</code> command is an example of a <em>magic</em>. Magics are commands that start with the <code class="highlighter-rouge">%</code> symbol and use a language other than Python. They are only available in the notebook environment. In fact, the set of magics that is available is specific to the notebook kernel. This means that if you have a Jupyter notebook running a Ruby kernel the magics will be different.</p>
+
+</div>
+
+<h2 id="example-11--we-can-define-matrices-in-python">Example 11.  We can define matrices in Python.</h2>
+<p>A matrix is an array with more than one dimensio.  Consider the following:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>  <span class="c"># Have to reimport as we cleared the workspace above!</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>This creates a matrix with two rows and three columns. Consider,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="n">p</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Can you see the two rows and three columns?</p>
+
+<p>We can manipulate matrices like we manipulate vectors.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">p</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="example-12--indexing-matrices-and-vectors">Example 12.  Indexing matrices and vectors.</h2>
+<p>Matrices and vectors are arrays of numbers, and sometimes we want to
+access individual elements or small subsets of these lists.  That’s
+easy to do in Python.  Consider,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>Python indexes from 0 (like C, C++, Java, and unlike MATLAB and Fortran which start at 1). 
+ To access the 2nd element of <code class="highlighter-rouge">a</code> or <code class="highlighter-rouge">b</code>, type <code class="highlighter-rouge">a[1] / b[1]</code>.
+ We’ll be a bit fancier with our printing now to distinguish variables. 
+ Calling <code class="highlighter-rouge">str(a)</code> converts the variable <code class="highlighter-rouge">a</code> to a string that can be printed easily.
+ Adding two strings just concatenates them: <code class="highlighter-rouge">"hi" + " bye" = "hi bye". </code></p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="s">"a[1] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"b[1] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q.</strong>  Do the results make sense?  How would you access the 4th element of
+each vector?</p>
+
+<p>We can combine <code class="highlighter-rouge">a</code> and <code class="highlighter-rouge">b</code> to form a matrix with <code class="highlighter-rouge">a</code> as the first row and <code class="highlighter-rouge">b</code> as the second.
+  Note that we apply the function <code class="highlighter-rouge">np.array()</code> to the <em>list</em> <code class="highlighter-rouge">[a,b]</code>, which it converts to a matrix.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"c = </span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span>    <span class="c"># \n is a newline, or carriage return, which makes the printed matrix lineup better </span>
+</code></pre></div></div>
+
+<p>To learn the size (or shape)
+ of <code class="highlighter-rouge">c</code> we use <code class="highlighter-rouge">np.shape()</code>:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="s">"shape of c = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p>The shape of <code class="highlighter-rouge">c</code> is <code class="highlighter-rouge">[2 5]</code>.  It has two rows and five columns.  To access
+  the individual element in the 1st row and 4th column of <code class="highlighter-rouge">c</code>, type <code class="highlighter-rouge">c[0,3]</code></p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="s">"c[0,3] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+  <p>We access matrices using ‘row, column’ notation.  So <code class="highlighter-rouge">c[0,3]</code> means
+print the element in row 0, column 3 of <code class="highlighter-rouge">c</code>.</p>
+</div>
+
+<p><strong>Q.</strong>  How would you print all rows in the 2nd column of <code class="highlighter-rouge">c</code>?</p>
+
+<h2 id="example-13--we-can-find-subsets-of-elements-in-matrices-and-vectors">Example 13:  We can find subsets of elements in matrices and vectors.</h2>
+<p>Often we are interested in only some of the elements of a matrix or vector. For example, we might want to look at the data from a single experimental trial which is stored in a particular row of a matrix. Alternatively, we might want to find out when the values in a time series cross a given boundary. Doing this is simple in Python.</p>
+
+<h3 id="slicing">Slicing</h3>
+<p><em>Slicing</em> means that we want to look at a specific portion of a vector or matrix, for example, the first row of a matrix. We will continue with the matrix <code class="highlighter-rouge">c</code> from the previous example. The notation ‘<code class="highlighter-rouge">:</code>’ means ‘<em>all indices</em>’. To access all columns in the entire first row of <code class="highlighter-rouge">c</code>, type <code class="highlighter-rouge">c[0,:]</code>. To access the 2nd thru 4th columns of the first row of <code class="highlighter-rouge">c</code>, type <code class="highlighter-rouge">c[0,1:4]</code>.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="s">"c[0,:] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"2nd through 4th columns of the first row are c[0,1:4] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p>The notation <code class="highlighter-rouge">1:4</code> means <em>all integers from 1 up to, but not including 4</em>, 
+  which in this case gives columns 1, 2, and 3.</p>
+
+</div>
+
+<p>Leaving out the number before the colon tells Python to start at index 0. Leaving out the number after the colon tells Python to continue all the way to the end.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"c[0, :4] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">4</span><span class="p">]))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"c[0, 1:] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:]))</span>
+</code></pre></div></div>
+
+<p>We can also tell Python how to step through the indices. To access only the even columns of <code class="highlighter-rouge">c</code>, we can use the following:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,::</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>This code tells Python to start at 0, continue to the end, and step by 2. The result should be the values in row 0, columns 0, 2, and 4 of <code class="highlighter-rouge">c</code>. We could write this explicitly as <code class="highlighter-rouge">c[0,0:5:2]</code>.</p>
+
+<p>### Selecting elements that satisfy a condition
+  Sometimes we’re interested in locating particular values within a
+  matrix or vector.  As an example, let’s first define a vector.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>    <span class="c"># this creates a vector of increasing values from 1 to 9</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> 
+
+<span class="k">print</span><span class="p">(</span> <span class="s">"a = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q.</strong>  Calculate the shape of <code class="highlighter-rouge">a</code>.  What is the maximum value of <code class="highlighter-rouge">a</code>? <br /></p>
+
+<p><strong>Hint:</strong> Use the <code class="highlighter-rouge">np.max()</code> function.</p>
+
+<p>Now let’s find all values in <code class="highlighter-rouge">a</code> that exceed 10.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">[</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>This is called logical indexing, let’s look at what <code class="highlighter-rouge">a&gt;10</code> returns:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lgIdx</span> <span class="o">=</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<span class="n">lgIdx</span>
+</code></pre></div></div>
+
+<p>When we index <code class="highlighter-rouge">a</code> using this array <code class="highlighter-rouge">lgIdx</code> we get back only the entries 
+in <code class="highlighter-rouge">a</code> corresponding to <code class="highlighter-rouge">True</code>, as above:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">[</span><span class="n">lgIdx</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Sometimes we want to know the actual indices in a where <code class="highlighter-rouge">a &gt; 10</code>.
+We can get them using the <code class="highlighter-rouge">nonzero()</code> array method, which returns the
+index of all entries that were <code class="highlighter-rouge">True</code>, or non-zero.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lgIdx</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p>The command <code class="highlighter-rouge">nonzero()</code> can be used as both a <em>function</em> and a <em>method</em>. A method is called by adding it after the object it is meant to operate on with a period in between ( <code class="highlighter-rouge">lgIdx.nonzero()</code> ). A function is called with the <em>argument</em> explicitly provided inside the parentheses ( <code class="highlighter-rouge">np.nonzero(lgIdx)</code> ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use <code class="highlighter-rouge">nonzero()</code> as a function, we need to tell it to look in NumPy for the definition (i.e. add <code class="highlighter-rouge">np.</code> at the beginning of the function call).</p>
+
+</div>
+
+<p>Now we have another way to select the desired elements of <code class="highlighter-rouge">a</code>:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">[</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<p>We can use these two types of indexing to change subsets of the values of <code class="highlighter-rouge">a</code>.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"a = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="n">a</span><span class="p">[</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"a = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> How does <code class="highlighter-rouge">a</code> change in the first and second print statements?</p>
+
+<p>We can perform these same logical operations for a matrix,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"b = </span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">" b &gt; 5 is </span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">" b[b&gt;5] is an array: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">b</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">])</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p>Notice that the last line collapses the <code class="highlighter-rouge">True</code> entries to an array, 
+ordered by row and then by column. If you’ve used MATLAB, this is 
+the opposite of what it does!</p>
+
+</div>
+
+<h2 id="example-14--plotting-data-in-python">Example 14:  Plotting data in Python.</h2>
+<p>It’s not easy to look at lists of numbers and gain an intuitive
+feeling for their behavior, especially when the lists are long.  In
+these cases, it’s better to visualize the lists of numbers by
+plotting them.  Consider</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
+<span class="k">print</span><span class="p">(</span> <span class="s">"x = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="c">#   The above line constructs a vector that starts at 0, ends at 10, and</span>
+<span class="c">#   has 11 entries (takes steps of size 1 from 0 to 10). Let</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="s">"y = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Looking at the values in ‘y’ printed above, can you tell what’s happending?</p>
+
+<p><strong>A:</strong> Not really … let’s visualize <code class="highlighter-rouge">y</code> vs <code class="highlighter-rouge">x</code> instead.</p>
+
+<h3 id="matplotlib">matplotlib</h3>
+<p>To visualize <code class="highlighter-rouge">y</code> versus <code class="highlighter-rouge">x</code> let’s plot it. To do so, let’s first import some basic plotting routines from <code class="highlighter-rouge">matplotlib</code>, which provides a nice <a href="https://matplotlib.org/">2D plotting library</a>. We’ll also tell Python to show  <code class="highlighter-rouge">matplotlib</code> graphics inline, in this notebook.</p>
+
+<p>Let’s start by plotting a simple example for <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code>,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>          <span class="c"># this is the plotting equivalent of print()</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Does the plot above make sense for the variables <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code>?</p>
+
+<p>Now, let’s go back to the definitions of <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> that we started this example with and plot <code class="highlighter-rouge">y</code> versus <code class="highlighter-rouge">x</code>.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>The plot of <code class="highlighter-rouge">x</code> versus <code class="highlighter-rouge">y</code> should look a bit jagged, and not 
+ smooth like a sinusoid.  To make the curve smoother,
+ let’s redefine <code class="highlighter-rouge">x</code> as,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Q.</strong>  Compare this definition of <code class="highlighter-rouge">x</code> to the definition above.  How do these
+two definitions differ?</p>
+
+<p><strong>Q.</strong>  What is the size of <code class="highlighter-rouge">x</code>?  Does this make sense?</p>
+
+<p>Now let’s replot the sine function.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">'k'</span><span class="p">)</span>   <span class="c"># the 'k' we've added makes the curve black instead of blue</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Does this plot make sense, given your knowledge of <code class="highlighter-rouge">x</code>, <code class="highlighter-rouge">y</code>, and trigonometry?</p>
+
+<h2 id="example-15-what-if-we-want-to-compare-several-functions">Example 15: What if we want to compare several functions?</h2>
+
+<p>Continuing the example in the previous section, let’s define a second vector</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>and plot it:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>We’d now like to compare the two variables <code class="highlighter-rouge">y</code> and <code class="highlighter-rouge">z</code>. To do this, let’s plot both vectors on
+the same figure, label the axes, and provide a legend,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c"># plot z vs x.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span>                 <span class="c"># plot y vs x in red</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Notice that we’ve included a third input to the function <code class="highlighter-rouge">plt.plot</code>. Here the third input tells Python to draw the curve in a particular color: <code class="highlighter-rouge">'r'</code> for red. There are many options we can use to plot; to see more, check out the documentation for <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">plot</a>.</p>
+
+<p>We can also label the axes, give the figure a title, and provide a legend,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c"># plot z vs x</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span>                 <span class="c"># plot y vs x in red</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>                   <span class="c"># x-axis label</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y or z'</span><span class="p">)</span>              <span class="c"># y-axis label</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'y vs x and z vs x'</span><span class="p">)</span>    <span class="c"># title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s">'y'</span><span class="p">,</span><span class="s">'z'</span><span class="p">))</span>             <span class="c"># make a legend labeling each line</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>To futher edit this plot, you might decide - for example - that the font size for the labels is too small. We can change the default with:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="n">mpl</span> <span class="c"># we need to import the functions that will do this</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s">'font.size'</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>  
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'axes.labelsize'</span><span class="p">]</span><span class="o">=</span><span class="mi">14</span>      <span class="c"># make the xlabel/ylabel sizes a bit bigger to match up better</span>
+
+<span class="c"># we can change the default linewidth with</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s">'lines.linewidth'</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span>
+
+<span class="c"># let's make a new plot to check </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'y'</span><span class="p">)</span>     <span class="c"># sometimes it is easier to name a trace within the plot() call</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">'z'</span><span class="p">)</span>     <span class="c"># notice without a color matplotlib will assign one</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'y vs x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="example-16--we-can-make-random-numbers-in-python">Example 16:  We can make random numbers in Python.</h2>
+<p>To generate a single Gaussian random number in Python, use the function in the NumPy <code class="highlighter-rouge">random</code> module.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"a Gaussian random number (mean=0, variance=1): "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span> <span class="p">))</span>
+
+<span class="c"># a uniform random number on [0,1)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"a uniform random number from [0,1): "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()))</span>
+</code></pre></div></div>
+
+<p>Let’s generate a vector of 1000 Gaussian random numbers:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>… and look at a histogram of the vector:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>Q:</strong> Does this histogram make sense? Is it what you expect for a distribution of Gaussian random variables?</p>
+
+<div class="alert alert-block alert-info">
+
+  <p>See Python Help (<code class="highlighter-rouge">plt.hist?</code>) to learn about the function <code class="highlighter-rouge">hist()</code>.</p>
+
+</div>
+
+<h2 id="example-17--repeating-commands-over-and-over-and-over---">Example 17:  Repeating commands over and over and over . . .</h2>
+<p>Sometimes we’ll want to repeat the same command over and over again.
+  For example, what if we want to plot <code class="highlighter-rouge">sin(x + k*pi/4)</code> where <code class="highlighter-rouge">k</code> varies from 1 to 5 in
+  steps of 1;  how do we do it?  Consider the following:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c"># Define a vector x that ranges from 0 to 9.9 with step 0.1.</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>                    <span class="c"># Fix k=1,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c"># ... and define y at this k.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>             <span class="c"># Make a new figure,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c"># ... and plot y versus x.</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>                    <span class="c"># Let's repeat this, for k=2,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c"># ... and redefine y at this k,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c"># ... and plot it.</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>                    <span class="c"># Let's repeat this, for k=3,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c"># ... and redefine y at this k,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c"># ... and plot it.</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>                    <span class="c"># Let's repeat this, for k=4,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c"># ... and redefine y at this k,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c"># ... and plot it.</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>                    <span class="c"># Let's repeat this, for k=5,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c"># ... and redefine y at this k,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c"># ... and plot it.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>That’s horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you’re repeatedly cutting and pasting in code, you’re doing inefficient and typically error prone.  There’s a much more elegant way to do this, and it involves making a <code class="highlighter-rouge">for</code> loop.  Consider:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>        <span class="c">#First, define the vector x.</span>
+</code></pre></div></div>
+
+<p>Now let’s declare a <code class="highlighter-rouge">for</code> loop where <code class="highlighter-rouge">k</code> successively takes the values 1, then 2, then 3, …, up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case <code class="highlighter-rouge">plt.show()</code> below, executes after the for loop completes</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>               
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>      <span class="c">#Define y (note the variable 'k' in sin), also note we have indented here!</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                  <span class="c">#Plot y versus x</span>
+    
+<span class="c"># no indentation now, so this code follows the loop</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> 
+</code></pre></div></div>
+
+<p>The small section of code above replaces all the cutting-and-pasting.
+  Instead of cutting and pasting, we update the definition of <code class="highlighter-rouge">y</code> with different values of <code class="highlighter-rouge">k</code> and plot it within this for-loop.</p>
+
+<p><strong>Q.</strong>  Spend some time studying this for-loop.  Does it make sense?</p>
+
+<div class="alert alert-block alert-info">
+
+  <p><strong>Important note:</strong> Python uses <strong>indentation</strong> to define <code class="highlighter-rouge">for</code> loops.</p>
+
+</div>
+
+<h2 id="example-18--defining-a-new-function">Example 18:  Defining a new function.</h2>
+<p>We’ve spent some time in this notebook writing and executing code. Sometimes we’ll need to write our own Python functions.  Let’s do that now.</p>
+
+<p>Our function will do something very simple: it will take as input a
+vector and return as output the vector elements squared plus an additive
+constant.</p>
+
+<p>If have a vector, <code class="highlighter-rouge">v</code>, and a constant, <code class="highlighter-rouge">b</code>, we would like to call:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vsq = my_square_function(v, b)
+</code></pre></div></div>
+
+<p>This won’t work!  We first need to define <code class="highlighter-rouge">my_square_function</code>. Let’s do so now,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">my_square_function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="s">"""Square a vector and add a constant.
+
+    Arguments:
+    x -- vector to square
+    c -- constant to add to the square of x
+    
+    Returns:
+    x*x + c
+    """</span>
+    
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">c</span>    
+</code></pre></div></div>
+
+<p>The function begins with the keyword <code class="highlighter-rouge">def</code> followed by the function name and the inputs in parentheses. Notice that this first line ends with a colon <code class="highlighter-rouge">:</code>. All of the function components that follow this first line should be <strong>indented one level</strong>. This is just like the <code class="highlighter-rouge">for</code> loop we applied earlier; the operations performed by the for loop were indented one leve.</p>
+
+<div class="alert alert-block alert-info">
+
+  <p>When defining the function, the code the function executes should be indented one level.</p>
+
+</div>
+
+<p>The text inside triple quotes provides an optional documentation string that describes our function. While optional, including a ‘<em>doc string</em>’ is an important part of making your code understandable and reuseable.</p>
+
+<p>The keyword <code class="highlighter-rouge">return</code> exits the function, and in this case returns the expression <code class="highlighter-rouge">x * x + c</code>. Note that a return statement with no arguments returns <code class="highlighter-rouge">None</code>, indicating the absence of a value.</p>
+
+<p>With the function defined, let’s now call it. To do so we first define the inputs, and then run the function, as follows:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">2.5</span>
+
+<span class="c"># Now let's run the code,</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">my_square_function</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"v = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"v*v+2.5 = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>To see the doc string that describes our function, type <code class="highlighter-rouge">my_square_function?</code></p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Let's check that our docstring works</span>
+<span class="n">my_square_function</span><span class="err">?</span>
+</code></pre></div></div>
+
+<div class="question">
+
+  <p><strong>Q.</strong> Try to make a function, my_power, so that 
+<code class="highlighter-rouge">y = power(x,n)</code> evaluates $y = x^n$, 
+(in Python you can use <code class="highlighter-rouge">x**n</code> to take the power)</p>
+
+</div>
+
+<p class="question"><strong>Q.</strong> Try to make a function, my_power, so that 
+<code class="highlighter-rouge">y = power(x,n)</code> evaluates $y = x^n$, 
+(in Python you can use <code class="highlighter-rouge">x**n</code> to take the power)</p>
+
+<h2 id="example-19-animating-figures">Example 19: Animating figures</h2>
+<p>Finally, let’s make an animation in Python. To do this we need two additional functions from external modules: <code class="highlighter-rouge">HTML()</code> and <code class="highlighter-rouge">FuncAnimation()</code>. <code class="highlighter-rouge">FuncAnimation</code> is what creates the animated figure, while <code class="highlighter-rouge">HTML</code> tells the notebook that to interpret the argument as HTML and show the results.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
+</code></pre></div></div>
+
+<p>In English, we set up (or initialize) the figure and then make a function that does all of the updates for each frame of the animation. Finally, we pass the figure, the function, and the frame numbers to <code class="highlighter-rouge">FuncAnimation()</code> and we have our animation.</p>
+
+<p>Here’s an example in which we plot a sinusoid of different heights, and allow the user to adjust the heights with a slider.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mi">1001</span><span class="p">)</span>                 <span class="c"># Define x from 0 to 2 with 1001 steps.</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>   <span class="c"># Make the first plot, save the curve in "lines"</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                     <span class="c"># Set the x and y limits in the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">"plot number = 0"</span><span class="p">)</span>                <span class="c"># ... and label the plot.</span>
+
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>                         <span class="c"># Define the function to perform the animation.</span>
+    <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="c"># Change the y values at each x location</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'plot number = '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span><span class="c"># Update the title with the new plot number</span>
+    
+<span class="n">fig</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h2 id="example-19-load-matlab-data-into-python">Example 19: Load MATLAB data into Python</h2>
+<p>For our last example let’s load a MATLAB file in the <code class="highlighter-rouge">.mat</code> format into Python. Before doing so, let’s clear all of the variables and functions we have defined. This command is not necessary, but we perform it here so that any new variables we subsequently load are obvious.</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">reset</span>
+</code></pre></div></div>
+
+<p>Then, let’s import the <code class="highlighter-rouge">scipy.io</code> module, which we’ll use to import the <code class="highlighter-rouge">.mat</code> data,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="n">sio</span>
+</code></pre></div></div>
+
+<p>Now, let’s load a data file using the function <code class="highlighter-rouge">loadmat</code>,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s">'sample_data.mat'</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The variable that holds the loaded data is a dictionary. In Python, a dictionary is like a list, with the elements of the dictionary accessed via “keys”. Let’s print these keys:</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p>Use the <code class="highlighter-rouge">keys()</code> method to see what variables are contained in <code class="highlighter-rouge">mat</code>. In other words, run the command <code class="highlighter-rouge">mat.keys()</code>.</p>
+
+</div>
+
+<p>The two keys of interest to us are <code class="highlighter-rouge">t</code> and <code class="highlighter-rouge">LFP</code>. Our collaborator who provided the data tells us that these correspond to a time axis (<code class="highlighter-rouge">t</code>) and voltage recording (<code class="highlighter-rouge">LFP</code>), respectively, for her data. Let’s define variables to hold the data corresponding to each key,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s">'t'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                      <span class="c"># Get the values associated with the key 't' from the dictorary.</span>
+<span class="n">LFP</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s">'LFP'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                  <span class="c"># Get the values associated with the key 'LFP' from the dictorary</span>
+</code></pre></div></div>
+
+<p>Now, let’s plot the LFP data versus the time axis,</p>
+
+<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c"># Choose a subset to plot</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">500</span><span class="p">]</span>
+<span class="n">LFP</span> <span class="o">=</span> <span class="n">LFP</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">500</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'My plot'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'Time [s]'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Voltage [$</span><span class="err">\</span><span class="s">mu$ V]'</span><span class="p">)</span> <span class="c"># Wrap latex characters in $..$</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+
+              <nav class="c-page__nav">
+  
+    
+    <a id="js-page__nav__prev" class="c-page__nav__prev" href="/Case-Studies-Python/https://github.com/Mark-Kramer/Case-Studies-Python.git">
+      〈 <span class="u-margin-right-tiny"></span> GitHub repository
+    </a>
+  
+
+  
+    
+    <a id="js-page__nav__next" class="c-page__nav__next" href="/Case-Studies-Python/2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential">
+      The Event-Related Potential <span class="u-margin-right-tiny"></span> 〉
+    </a>
+  
+</nav>
+
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+  </body>
+</html>

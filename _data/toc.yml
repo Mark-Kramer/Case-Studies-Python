@@ -35,16 +35,16 @@
   url: /01/Intro
 
 - title: The Event-Related Potential
-  url: /2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential
+  url: /02/the-event-related-potential
 
 - title: The Power Spectrum (Part 1)
-  url: /3.%20The%20Power%20Spectrum%20(Part%201)/The%20Power%20Spectrum%20(Part%201).ipynb
+  url: /03/the-power-spectrum-part-1
   sections:
   - title: Biased versus unbiased autocovariance
-    url: /3.%20The%20Power%20Spectrum%20(Part%201)/Supplement.%20Biased%20versus%20unbiased%20autocovariance.ipynb
+    url: /03/supplement-1
   - title: Intuition behind the power spectral density
-    url: /3.%20The%20Power%20Spectrum%20(Part%201)/Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb
+    url: /03/supplement-2
 
 - title: The Cross Covariance and Coherence
-  url: /4.%20The%20Cross%20Covariance%20and%20Coherence/The%20Cross%20Covariance%20and%20Coherence.ipynb
+  url: /04/the-cross-covariance-and-coherence
 

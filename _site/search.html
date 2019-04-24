@@ -29,9 +29,9 @@
   "headline":
     "Search the site",
   "datePublished":
-    "2019-04-24T17:07:41-04:00",
+    "2019-04-24T17:33:10-04:00",
   "dateModified":
-    "2019-04-24T17:07:41-04:00",
+    "2019-04-24T17:33:10-04:00",
   "description":
     "This is an example book built with Jupyter Books.",
   "author": {
@@ -730,7 +730,7 @@ initFunction(initQuery);
       
       <li class="c-sidebar__chapter">
         <a class="c-sidebar__entry "
-          href="/Case-Studies-Python/2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential.html"
+          href="/Case-Studies-Python/02/the-event-related-potential.html"
         >
           
             2.
@@ -753,7 +753,7 @@ initFunction(initQuery);
       
       <li class="c-sidebar__chapter">
         <a class="c-sidebar__entry "
-          href="/Case-Studies-Python/3.%20The%20Power%20Spectrum%20(Part%201)/The%20Power%20Spectrum%20(Part%201).ipynb.html"
+          href="/Case-Studies-Python/03/the-power-spectrum-part-1.html"
         >
           
             3.
@@ -777,7 +777,7 @@ initFunction(initQuery);
 
               <li class="c-sidebar__section">
                 <a class="c-sidebar__entry "
-                  href="/Case-Studies-Python/3.%20The%20Power%20Spectrum%20(Part%201)/Supplement.%20Biased%20versus%20unbiased%20autocovariance.ipynb.html"
+                  href="/Case-Studies-Python/03/supplement-1.html"
                 >
                   
                     3.1
@@ -796,7 +796,7 @@ initFunction(initQuery);
 
               <li class="c-sidebar__section">
                 <a class="c-sidebar__entry "
-                  href="/Case-Studies-Python/3.%20The%20Power%20Spectrum%20(Part%201)/Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb.html"
+                  href="/Case-Studies-Python/03/supplement-2.html"
                 >
                   
                     3.2
@@ -826,7 +826,7 @@ initFunction(initQuery);
       
       <li class="c-sidebar__chapter">
         <a class="c-sidebar__entry "
-          href="/Case-Studies-Python/4.%20The%20Cross%20Covariance%20and%20Coherence/The%20Cross%20Covariance%20and%20Coherence.ipynb.html"
+          href="/Case-Studies-Python/04/the-cross-covariance-and-coherence.html"
         >
           
             4.
@@ -869,7 +869,63 @@ initFunction(initQuery);
 
 <script>
     // Add the lunr store since we will now search it
-    var store = []
+    var store = [{
+        "title": "Introduction to Python",
+        
+        "excerpt":
+            "Python for the practicing neuroscientist To be frank: this section is boring. Throughout all of the case studies, we will use the software package Python. The best way to learn new software (and probably most things) is when motivated by a particular problem. Would you read assembly instructions for furniture you do not plan to own? Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods. But not in this section. Here, we focus on basic coding techniques and...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/01/Intro.html",
+        "teaser":null},{
+        "title": "The Event-Related Potential",
+        
+        "excerpt":
+            "The Event-Related Potential for the practicing neuroscientist Synopsis Data: 1 s of scalp EEG data sampled at 500 Hz during 1,000 trials in two conditions. Goal: Characterize the response of the EEG in the two conditions. Tools: Visualization, event-related potential, confidence intervals, bootstrapping. Background Case Study Data Data Analysis Visual Inspection Plotting the ERP Confidence Intervals for the ERP (Method 1) Comparing ERPs Confidence Intervals for the ERP (Method 2) A Bootstrap Test to Compare ERPs Summary On-ramp: computing the event-related potential in Python We begin this module with an “on-ramp” to analysis. The purpose of this on-ramp is to...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/02/the-event-related-potential.html",
+        "teaser":null},{
+        "title": "Biased versus unbiased autocovariance",
+        
+        "excerpt":
+            "A mathematical aside: Biased versus unbiased autocovariance Autocovariance is defined by the equation This is a biased estimate of the true autocovariance. To compute an unbiased measure of the autocovariance we replace the $1/N$ term with $1/(N-L)$. To examine the difference in the biased versus the unbiased autocovariance, let’s compute both for the EEG data over a broad interval of lags. # Prepare the modules and plot settings import scipy.io as sio import matplotlib.pyplot as plt from matplotlib.pyplot import xlabel, ylabel, plot, show, title from matplotlib import rcParams import numpy as np %matplotlib inline rcParams['figure.figsize'] = (12,3) # Make the...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/03/supplement-1.html",
+        "teaser":null},{
+        "title": "Intuition behind the power spectral density",
+        
+        "excerpt":
+            "Intuition behind the power spectral density The Fourier transform Relation to autocovariance Relation to multiple linear regression The main component of this module discusses the analysis of rhythmic activity. One important component of this analysis is the power spectral density. In this supplement, we examine equation for the Fourier transform and the equation for the spectrum and the associated Python code. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. What is...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/03/supplement-2.html",
+        "teaser":null},{
+        "title": "The Power Spectrum (Part 1)",
+        
+        "excerpt":
+            "Analysis of rhythmic activity for the practicing neuroscientist Synopsis Data: 2 s of scalp EEG data sampled at 1000 Hz. Goal: Characterize the observed rhythms in these data. Tools: Fourier transform, power spectral density, spectrogram. Introduction Data analysis Visual inspection Mean, variance, and standard deviation The autocovariance Power spectral density The spectrum The discrete Fourier transform in Python The Nyquist frequency The frequency resolution Decibel scaling The spectrogram Summary Supplement: Biased versus unbiased autocovariance Supplement: Intuition behind the power spectral density On-ramp: computing the spectrum in Python We begin this module with an “on-ramp” to analysis. The purpose of this...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/03/the-power-spectrum-part-1.html",
+        "teaser":null},{
+        "title": "The Cross Covariance and Coherence",
+        
+        "excerpt":
+            "Analysis of coupled rhythms for the practicing neuroscientist Synopsis Data: 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials. Goal: Characterize the coupling of rhythmic activity between the two electrodes. Tools: Fourier transform, spectrum, amplitude, coherence, phase. Background Case Study Data Data Analysis Visual Inspection Autocovariance and Cross-covariance Trial-Averaged Spectrum Introduction to the Coherence Simple Scenario 1: Phases align across trials Simple Scenario 2: Phases are random across trials Summary of the coherence Cross-Covariance and Cross-Spectrum Computing the Coherence Visualizing the Phase Difference across Trials Single-Trial Coherence Relation between Statistical Modeling and Coherence Summary...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/04/the-cross-covariance-and-coherence.html",
+        "teaser":null},{
+        "title": "Home",
+        
+        "excerpt":
+            "Case-Studies-Python Quick start to reading and running the Python code in your browser: Click here to start working in Binder: Select a section, and click on the .ipynb file THIS IS VERY MUCH A WORK IN PROGRESS This repository is a companion to the textbook Case Studies in Neural Data Analysis, by Mark Kramer and Uri Eden. In the textbook, we use MATLAB to analyze examples of neuronal data. The material here is very similar, except that we use Python (instead of MATLAB). Our intended audience is the “practicing neuroscientist” - e.g., the students, researchers, and clinicians collecting neuronal data...",
+        "categories": [],
+        "tags": [],
+        "url": "https://eschlaf2.github.io/Case-Studies-Python/intro.html",
+        "teaser":null},]
 </script>
               <nav class="c-page__nav">
   

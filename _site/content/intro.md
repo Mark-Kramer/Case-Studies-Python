@@ -1,73 +1,26 @@
-# Books with Jupyter and Jekyll
+# Case-Studies-Python
 
-<img src="https://circleci.com/gh/jupyter/jupyter-book.svg?style=svg" class="left">
+### Quick start to reading and running the Python code in your browser:
 
-Jupyter Books lets you build an online book using a collection of Jupyter Notebooks
-and Markdown files. Its output is similar to the excellent [Bookdown](https://bookdown.org/yihui/bookdown/) tool,
-and adds extra functionality for people running a Jupyter stack.
+- Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master)
+- Select a section, and click on the `.ipynb` file
 
-For an example of a book built with Jupyter Books, see the [textbook for Data 100](https://www.textbook.ds100.org/) at UC Berkeley (or this website!)
+----
+### THIS IS VERY MUCH A WORK IN PROGRESS
 
-Here are a few features of Jupyter Books
+This repository is a companion to the textbook [Case Studies in Neural Data Analysis](https://mitpress.mit.edu/books/case-studies-neural-data-analysis), by Mark Kramer and Uri Eden.  In the textbook, we use MATLAB to analyze examples of neuronal data.  The material here is very similar, except that we use Python (instead of MATLAB).
 
-* A Command-Line Interface (CLI) to quickly create, build, and upgrade books.
-* Write book content in markdown and Jupyter Notebooks
-* Convert these into Jekyll pages that can be hosted for free on GitHub
-* Pages can have [Binder](https://mybinder.org), JupyterHub, or Theblab links
-  automatically added for interactivity.
-* The website itself is based on Jekyll and is highly extensible.
-* There are lots of nifty HTML features under-the-hood, such as
-  Turbolinks fast-navigation and click-to-copy in code cells.
+Our intended audience is the "practicing neuroscientist" - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we've tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you're interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).
 
-Check out other features in the [Features section](features/features).
+There are two ways to interact with these notebooks.  First, you could run it locally in <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice because you'll be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in [eLife here](https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder).  In any case, we encourage you to execute each line of code in the files!
 
-## Getting started
+We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,
 
-To get started, you may be interested in the following links.
-Here are a few links of interest:
+<ul>
+  <li><a href="https://www.python.org/">Python.org</a></li>
+  <li><a href="https://conda.io/docs/user-guide/install/index.html">Conda</a></li>
+</ul>
 
-* **[Jupyter Book features](features/features)** is a quick demo and overview
-  of Jupyter Books.
+If this is your first time working with Python, using <a href="https://conda.io/docs/user-guide/install/index.html">conda</a> is probably a good choice. Conda is a package and environment manager that makes it really easy to get up and running in Python. In particular, we recommend installing Miniconda - a light version of the software distribution Anaconda - and using conda to add software as needed.
 
-* **[The Jupyter Book Guide](guide/01_overview)**
-  will step you through the process of configuring and building your own Jupyter Book.
-
-### Installation
-
-To install the Jupyter Book command-line interface (CLI), use `pip`!
-
-```
-pip install jupyter_book
-```
-
-### Create a new book
-
-Once you've installed the CLI, create a new book using the demo book content
-(the website that you're viewing now) with this command:
-
-```
-jupyter-book create mybookname --demo
-```
-
-### Build the markdown for your book
-
-Now, build the markdown that Jekyll will use for your book. Run this command:
-
-```
-jupyter-book build mybookname
-```
-
-### That's it!
-
-You can now either push your book to GitHub and serve the demo with gh-pages,
-or modify the book with your own content.
-
-
-## Acknowledgements
-
-Jupyter Books was originally created by [Sam Lau][sam] and [Chris Holdgraf][chris]
-with support of the **UC Berkeley Data Science Education Program and the
-[Berkeley Institute for Data Science](https://bids.berkeley.edu/)**.
-
-[sam]: http://www.samlau.me/
-[chris]: https://predictablynoisy.com
+We'd like to thank all of the students, collaborators, and funders who have helped make this possible!
