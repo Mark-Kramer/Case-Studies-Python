@@ -29,9 +29,9 @@
   "headline":
     "Causality and Experiments",
   "datePublished":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "dateModified":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "description":
     "Causality and Experiments",
   "author": {
@@ -139,44 +139,7 @@ initFunction(function () {
   <meta name="turbolinks-cache-control" content="no-cache">
 
   <!-- Load nbinteract for widgets -->
-  
-<!-- Include nbinteract for interactive widgets -->
-<script src="https://unpkg.com/nbinteract-core" async></script>
-
-<script>
-let interact
-
-const initializeNbinteract = () => {
-  // If NbInteract hasn't loaded, wait one second and try again
-  if (window.NbInteract === undefined) {
-    setTimeout(initializeNbinteract, 1000)
-    return
-  }
-
-  if (interact === undefined) {
-    console.log('Initializing nbinteract...')
-    interact = new window.NbInteract({
-      baseUrl: 'https://mybinder.org',
-      spec: 'jupyter/jupyter-book/master',
-      provider: 'gh',
-    })
-    window.interact = interact
-  } else {
-    console.log("nbinteract already initialized...")
-  }
-
-  interact.prepare()
-}
-
-// const setupInteractButton = () => {
-//     const interactButton = document.getElementById("interact-button-nbinteract");
-//     interactButton.addEventListener('click', initializeNbinteract)
-// }
-
-// Initialize nbinteract
-initFunction(initializeNbinteract);
-</script>
-
+  <script src="https://unpkg.com/nbinteract-core" async></script>
 
   <!-- Load Thebelab for interactive widgets -->
   <!-- Include Thebelab for interactive code if it's enabled -->
@@ -1418,6 +1381,29 @@ initFunction(initQuery);
               
             
           </ul>
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/csn1/Intro.html"
+        >
+          
+            5.
+          
+          Introduction to Python
+        </a>
+
         
       </li>
 

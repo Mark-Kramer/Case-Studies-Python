@@ -29,9 +29,9 @@
   "headline":
     "Search the site",
   "datePublished":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "dateModified":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "description":
     "This is an example book built with Jupyter Books.",
   "author": {
@@ -139,44 +139,7 @@ initFunction(function () {
   <meta name="turbolinks-cache-control" content="no-cache">
 
   <!-- Load nbinteract for widgets -->
-  
-<!-- Include nbinteract for interactive widgets -->
-<script src="https://unpkg.com/nbinteract-core" async></script>
-
-<script>
-let interact
-
-const initializeNbinteract = () => {
-  // If NbInteract hasn't loaded, wait one second and try again
-  if (window.NbInteract === undefined) {
-    setTimeout(initializeNbinteract, 1000)
-    return
-  }
-
-  if (interact === undefined) {
-    console.log('Initializing nbinteract...')
-    interact = new window.NbInteract({
-      baseUrl: 'https://mybinder.org',
-      spec: 'jupyter/jupyter-book/master',
-      provider: 'gh',
-    })
-    window.interact = interact
-  } else {
-    console.log("nbinteract already initialized...")
-  }
-
-  interact.prepare()
-}
-
-// const setupInteractButton = () => {
-//     const interactButton = document.getElementById("interact-button-nbinteract");
-//     interactButton.addEventListener('click', initializeNbinteract)
-// }
-
-// Initialize nbinteract
-initFunction(initializeNbinteract);
-</script>
-
+  <script src="https://unpkg.com/nbinteract-core" async></script>
 
   <!-- Load Thebelab for interactive widgets -->
   <!-- Include Thebelab for interactive code if it's enabled -->
@@ -1423,6 +1386,29 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/csn1/Intro.html"
+        >
+          
+            5.
+          
+          Introduction to Python
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -1621,6 +1607,14 @@ initFunction(initQuery);
         "categories": [],
         "tags": [],
         "url": "https://jupyter.org/jupyter-book/04/Types.html",
+        "teaser":null},{
+        "title": "Introduction to Python",
+        
+        "excerpt":
+            "Python for the practicing neuroscientist To be frank: this section is boring. Throughout all of the case studies, we will use the software package Python. The best way to learn new software (and probably most things) is when motivated by a particular problem. Would you read assembly instructions for furniture you do not plan to own? Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods. But not in this section. Here, we focus on basic coding techniques and...",
+        "categories": [],
+        "tags": [],
+        "url": "https://jupyter.org/jupyter-book/csn1/Intro.html",
         "teaser":null},{
         "title": "Citations and bibliographies",
         

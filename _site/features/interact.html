@@ -29,9 +29,9 @@
   "headline":
     "Connecting content with JupyterHub and Binder",
   "datePublished":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "dateModified":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "description":
     "Connecting content with JupyterHub and Binder",
   "author": {
@@ -139,44 +139,7 @@ initFunction(function () {
   <meta name="turbolinks-cache-control" content="no-cache">
 
   <!-- Load nbinteract for widgets -->
-  
-<!-- Include nbinteract for interactive widgets -->
-<script src="https://unpkg.com/nbinteract-core" async></script>
-
-<script>
-let interact
-
-const initializeNbinteract = () => {
-  // If NbInteract hasn't loaded, wait one second and try again
-  if (window.NbInteract === undefined) {
-    setTimeout(initializeNbinteract, 1000)
-    return
-  }
-
-  if (interact === undefined) {
-    console.log('Initializing nbinteract...')
-    interact = new window.NbInteract({
-      baseUrl: 'https://mybinder.org',
-      spec: 'jupyter/jupyter-book/master',
-      provider: 'gh',
-    })
-    window.interact = interact
-  } else {
-    console.log("nbinteract already initialized...")
-  }
-
-  interact.prepare()
-}
-
-// const setupInteractButton = () => {
-//     const interactButton = document.getElementById("interact-button-nbinteract");
-//     interactButton.addEventListener('click', initializeNbinteract)
-// }
-
-// Initialize nbinteract
-initFunction(initializeNbinteract);
-</script>
-
+  <script src="https://unpkg.com/nbinteract-core" async></script>
 
   <!-- Load Thebelab for interactive widgets -->
   <!-- Include Thebelab for interactive code if it's enabled -->
@@ -1423,6 +1386,29 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/csn1/Intro.html"
+        >
+          
+            5.
+          
+          Introduction to Python
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -1441,7 +1427,6 @@ initFunction(initQuery);
   <li><a href="#creating-interact-buttons-for-binderhub">Creating interact buttons for BinderHub</a></li>
   <li><a href="#creating-interact-buttons-for-jupyterhub">Creating interact buttons for JupyterHub</a></li>
   <li><a href="#instantly-making-your-book-page-interactive-with-thebelab-beta">Instantly making your book page interactive with thebelab (beta)</a></li>
-  <li><a href="#creating-interactive-widgets-with-nbinteract">Creating interactive widgets with nbinteract</a></li>
   <li><a href="#letting-users-define-their-own-jupyterhub-location">Letting users define their own JupyterHub location</a></li>
 </ul>
     </nav>
@@ -1471,8 +1456,6 @@ initFunction(initQuery);
 </a>
 
 <button id="interact-button-thebelab" class="interact-button">Thebelab</button>
-
-<button id="interact-button-nbinteract" class="interact-button .js-nbinteract-widget">nbinteract</button>
 
 
 
@@ -1579,46 +1562,6 @@ buttons described above.</p>
 </code></pre></div></div>
 
 <p class="output output_png"><img src="../images/features/interact_1_1.png" alt="png" /></p>
-
-<h2 id="creating-interactive-widgets-with-nbinteract">Creating interactive widgets with <code class="highlighter-rouge">nbinteract</code></h2>
-
-<p><a href="https://www.nbinteract.com"><strong>nbinteract</strong></a> is a tool for displaying interactive widgets in your
-static HTML page. It uses a Binder kernel to power the widgets, and displays output that your
-readers can interact with. For example, below we will show a simple matplotlib plot that can be made
-interactive with <strong>nbinteract</strong> and <strong>ipywidgets</strong></p>
-
-<p>To add an <strong>nbinteract</strong> button to your Jupyter Book pages, use the following configuration:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">use_nbinteract_button              </span><span class="pi">:</span> <span class="no">true</span>  <span class="c1"># If 'true', display a button to allow in-page running code cells with nbinteract</span>
-</code></pre></div></div>
-
-<p>In addition, you can configure the Binder settings that are used to provide a kernel for
-nbinteract to run the code. These use the same configuration fields as the BinderHub interact
-buttons described above.</p>
-
-<div class="code_cell">
-  <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">HTML</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
-
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">update_plot_size</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">cmap</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">cmap</span> <span class="o">==</span> <span class="s">"jet"</span><span class="p">:</span>
-        <span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s">"&lt;h2&gt;Nope&lt;/h2&gt;"</span><span class="p">))</span>
-        <span class="k">return</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">x</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
-
-<span class="n">interact</span><span class="p">(</span><span class="n">update_plot_size</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=.</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">step</span><span class="o">=.</span><span class="mi">1</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="p">[</span><span class="s">'viridis'</span><span class="p">,</span> <span class="s">'magma'</span><span class="p">,</span> <span class="s">'jet'</span><span class="p">]);</span>
-</code></pre></div>  </div>
-</div>
-
-<div class="output output_data_text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>interactive(children=(FloatSlider(value=1.0, description='s', max=2.0, min=0.1), Dropdown(description='cmap', …
-</code></pre></div></div>
 
 <h2 id="letting-users-define-their-own-jupyterhub-location">Letting users define their own JupyterHub location</h2>
 

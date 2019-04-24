@@ -29,9 +29,9 @@
   "headline":
     "FAQ",
   "datePublished":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "dateModified":
-    "2019-03-07T14:34:44-08:00",
+    "2019-04-23T23:43:54-04:00",
   "description":
     "The following are some common issues and questions that have arisen whenbuilding your textbook with Jekyll.",
   "author": {
@@ -139,44 +139,7 @@ initFunction(function () {
   <meta name="turbolinks-cache-control" content="no-cache">
 
   <!-- Load nbinteract for widgets -->
-  
-<!-- Include nbinteract for interactive widgets -->
-<script src="https://unpkg.com/nbinteract-core" async></script>
-
-<script>
-let interact
-
-const initializeNbinteract = () => {
-  // If NbInteract hasn't loaded, wait one second and try again
-  if (window.NbInteract === undefined) {
-    setTimeout(initializeNbinteract, 1000)
-    return
-  }
-
-  if (interact === undefined) {
-    console.log('Initializing nbinteract...')
-    interact = new window.NbInteract({
-      baseUrl: 'https://mybinder.org',
-      spec: 'jupyter/jupyter-book/master',
-      provider: 'gh',
-    })
-    window.interact = interact
-  } else {
-    console.log("nbinteract already initialized...")
-  }
-
-  interact.prepare()
-}
-
-// const setupInteractButton = () => {
-//     const interactButton = document.getElementById("interact-button-nbinteract");
-//     interactButton.addEventListener('click', initializeNbinteract)
-// }
-
-// Initialize nbinteract
-initFunction(initializeNbinteract);
-</script>
-
+  <script src="https://unpkg.com/nbinteract-core" async></script>
 
   <!-- Load Thebelab for interactive widgets -->
   <!-- Include Thebelab for interactive code if it's enabled -->
@@ -1423,6 +1386,29 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/jupyter-book/csn1/Intro.html"
+        >
+          
+            5.
+          
+          Introduction to Python
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -1439,6 +1425,7 @@ initFunction(initQuery);
       <header><h4 class="nav__title"><i class="fa fa-list"></i>   On this page</h4></header>
       <ul class="toc__menu">
   <li><a href="#how-can-i-update-my-book">How can I update my book?</a></li>
+  <li><a href="#does-the-book-behave-differently-depending-on-the-browser">Does the book behave differently depending on the browser?</a></li>
   <li><a href="#why-isnt-my-math-showing-up-properly">Why isn’t my math showing up properly?</a></li>
   <li><a href="#how-can-i-include-interactive-plotly-figures">How can I include interactive Plotly figures?</a></li>
   <li><a href="#what-if-i-have-an-issue-or-question">What if I have an issue or question?</a></li>
@@ -1498,6 +1485,15 @@ will be retained in your upgraded book. For a list of these options, see the hel
 <p>You should check out the content in your upgraded book to make sure it looks correct, then
 commit the changes to your repository.</p>
 
+<h2 id="does-the-book-behave-differently-depending-on-the-browser">Does the book behave differently depending on the browser?</h2>
+
+<p>Maybe - Jupyter Book does use some features that might have different behaviors in
+some browsers. For example, Safari <a href="https://github.com/jupyter/jupyter-book/pull/104#issuecomment-462461188">tends to treat downloadable objects</a>
+differently for some reason.</p>
+
+<p>The two browsers on which Jupyter Book should always behave as expected are
+<strong>Firefox</strong> and <strong>Chrome</strong>.</p>
+
 <h2 id="why-isnt-my-math-showing-up-properly">Why isn’t my math showing up properly?</h2>
 
 <p>This site uses MathJax to render all math, with <code class="highlighter-rouge">$</code> denoting inline math,
@@ -1513,7 +1509,7 @@ be included in this script, please open an issue
 
 <h2 id="how-can-i-include-interactive-plotly-figures">How can I include interactive Plotly figures?</h2>
 
-<p>To display interactive <a href="https://plot.ly/python/">Plotly</a> figures, they must 
+<p>To display interactive <a href="https://plot.ly/python/">Plotly</a> figures, they must
 first be generated in a Jupyter notebook using the <a href="https://plot.ly/python/offline/">offline mode</a>.
 You must then plot the figure with <code class="highlighter-rouge">plotly.offline.plot()</code>, which generates an HTML file (<code class="highlighter-rouge">plotly.offline.iplot()</code> does not),
 and then load the HTML into the notebook with <code class="highlighter-rouge">display(HTML('file.html'))</code> prior to saving your *.ipynb file.</p>

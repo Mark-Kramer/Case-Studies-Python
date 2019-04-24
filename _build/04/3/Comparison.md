@@ -8,8 +8,8 @@ prev_page:
   url: /04/2/Strings
   title: 'Strings'
 next_page:
-  url: 
-  title: ''
+  url: /csn1/Intro
+  title: 'Introduction to Python'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
