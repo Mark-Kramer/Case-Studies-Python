@@ -28,17 +28,6 @@ _**Synopsis**_
 **Tools:** Raster plots, interspike interval histograms, firing rate, autocorrelograms, maximum likelihood estimation, Kolmogorov-Smirnov plots.
 </div>
 
-* [Introduction](#.)
-* [Data analysis](#data-analysis)
-    1. [Visual inspection](#visual-inspection)
-    2. [Examining the Interspike Intervals](#isi)
-    3. [Examining Binned Spike Increments](#bsi)
-    4. [Computing autocorrelations for the Increments](#autocorrelations)
-    5. [Computing Autocorrelations of the ISIs](#acISI)
-    6. [Building Statistical Models of the ISIs](#models)
-* [Summary](#summary)
-* [Appendix: Spike Count Mean and Variance for a Poisson Process](#appendix)
-
 ## Introduction
 
 Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.
@@ -224,7 +213,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_22_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_21_0.png)
 
 
 
@@ -261,7 +250,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_25_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_24_0.png)
 
 
 
@@ -303,7 +292,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_28_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_27_0.png)
 
 
 
@@ -360,7 +349,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_35_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_34_0.png)
 
 
 
@@ -439,7 +428,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_42_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_41_0.png)
 
 
 
@@ -552,7 +541,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_54_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_53_0.png)
 
 
 
@@ -591,13 +580,13 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_57_0.png)
 
 
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_1.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_57_1.png)
 
 
 
@@ -680,7 +669,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_67_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_66_0.png)
 
 
 
@@ -813,7 +802,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_83_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_82_0.png)
 
 
 
@@ -1081,7 +1070,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_105_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_104_0.png)
 
 
 
@@ -1118,7 +1107,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_109_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_108_0.png)
 
 
 
@@ -1153,7 +1142,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_112_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_111_0.png)
 
 
 
@@ -1189,7 +1178,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_115_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_114_0.png)
 
 
 
@@ -1258,7 +1247,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_120_0.png)
 
 
 
@@ -1279,7 +1268,7 @@ fig
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_123_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_122_0.png)
 
 
 
@@ -1335,7 +1324,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_127_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_126_0.png)
 
 
 
@@ -1365,7 +1354,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_130_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_129_0.png)
 
 
 
@@ -1434,7 +1423,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_138_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_137_0.png)
 
 
 
@@ -1467,7 +1456,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_141_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_140_0.png)
 
 
 
@@ -1516,7 +1505,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_146_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_145_0.png)
 
 
 
@@ -1557,7 +1546,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_151_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_150_0.png)
 
 
 
@@ -1579,7 +1568,7 @@ fig
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_153_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_152_0.png)
 
 
 
@@ -1696,7 +1685,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_160_0.png)
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_159_0.png)
 
 
 
