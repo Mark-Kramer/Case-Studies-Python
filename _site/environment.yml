@@ -1,0 +1,12 @@
+channels:
+- defaults
+- conda-forge
+dependencies:
+- python=3
+- ipython
+- jupyter
+- matplotlib=2.2
+- scipy
+- numpy
+- statsmodels
+- nitime

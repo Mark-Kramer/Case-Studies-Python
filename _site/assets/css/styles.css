@@ -1,0 +1,2457 @@
+@charset "UTF-8";
+/**
+ * This file is the main entry point for the textbook's stylings. It uses the
+ * Inuit CSS framework: https://github.com/inuitcss/inuitcss
+ *
+ * InuitCSS only provides basic typographic stylings and helper functions. All
+ * framework files live in ./inuitcss/ . All of our custom CSS lives in one of
+ * these 7 folders:
+ *
+ * `/settings`: Global variables, site-wide settings, config switches, etc.
+ * `/tools`: Site-wide mixins and functions.
+ * `/generic`: Low-specificity, far-reaching rulesets (e.g. resets).
+ * `/elements`: Unclassed HTML elements (e.g. `a {}`, `blockquote {}`, `address {}`).
+ * `/objects`: Objects, abstractions, and design patterns (e.g. `.o-layout {}`).
+ * `/components`: Discrete, complete chunks of UI (e.g. `.c-carousel {}`).
+ * `/utilities`: High-specificity, very explicit selectors. Overrides and
+   helper classes (e.g. `.u-hidden {}`).
+ *
+ * CONTENTS
+ *
+ * SETTINGS
+ * Core.................inuitcss’ core and setup settings.
+ * Global...............Project-wide variables and settings.
+ *
+ * TOOLS
+ * Font-size............A mixin which guarantees baseline-friendly line-heights.
+ * Clearfix.............Micro clearfix mixin.
+ * Hidden...............Mixin for hiding elements.
+ * Sass MQ..............inuitcss’ default media query manager.
+ *
+ * GENERIC
+ * Box-sizing...........Better default `box-sizing`.
+ * Normalize.css........A level playing field using @necolas’ Normalize.css.
+ * Reset................A tiny reset to complement Normalize.css.
+ * Shared...............Sensibly and tersely share some global commonalities
+ *                      (particularly useful when managing vertical rhythm).
+ *
+ * ELEMENTS
+ * Page.................Set up our document’s default `font-size` and
+ *                      `line-height`.
+ * Headings.............Very minimal (i.e. only font-size information) for
+ *                      headings 1 through 6.
+ * Images...............Base image styles.
+ * Tables...............Simple table styles.
+ *
+ * OBJECTS
+ * Wrapper..............Page constraint object.
+ *
+ * COMPONENTS
+ * Buttons..............An example button component, and how it fits into the
+ *                      inuitcss framework.
+ *
+ * UTILITIES
+ * Clearfix.............Bind our clearfix onto a utility class.
+ */
+/* ==========================================================================
+   #BOX-SIZING
+   ========================================================================== */
+/**
+ * More sensible default box-sizing:
+ * css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice
+ */
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in
+ *    IE on Windows Phone and in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers (opinionated).
+ */
+body {
+  margin: 0;
+}
+
+/**
+ * Add the correct display in IE 9-.
+ */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in IE.
+ */
+figcaption,
+figure,
+main {
+  /* 1 */
+  display: block;
+}
+
+/**
+ * Add the correct margin in IE 8.
+ */
+figure {
+  margin: 1em 40px;
+}
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * 1. Remove the gray background on active links in IE 10.
+ * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ */
+a {
+  background-color: transparent;
+  /* 1 */
+  -webkit-text-decoration-skip: objects;
+  /* 2 */
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57- and Firefox 39-.
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */
+}
+
+/**
+ * Prevent the duplicate application of `bolder` by the next rule in Safari 6.
+ */
+b,
+strong {
+  font-weight: inherit;
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+}
+
+/**
+ * Add the correct font style in Android 4.3-.
+ */
+dfn {
+  font-style: italic;
+}
+
+/**
+ * Add the correct background and color in IE 9-.
+ */
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ */
+audio,
+video {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in iOS 4-7.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+/**
+ * Remove the border on images inside links in IE 10-.
+ */
+img {
+  border-style: none;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers (opinionated).
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+/**
+ * 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
+ *    controls in Android 4.
+ * 2. Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */
+}
+
+/**
+ * 1. Add the correct display in IE 9-.
+ * 2. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */
+}
+
+/**
+ * Remove the default vertical scrollbar in IE.
+ */
+textarea {
+  overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10-.
+ * 2. Remove the padding in IE 10-.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/**
+ * Remove the inner padding and cancel buttons in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in IE 9-.
+ * 1. Add the correct display in Edge, IE, and Firefox.
+ */
+details,
+menu {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item;
+}
+
+/* Scripting
+   ========================================================================== */
+/**
+ * Add the correct display in IE 9-.
+ */
+canvas {
+  display: inline-block;
+}
+
+/**
+ * Add the correct display in IE.
+ */
+template {
+  display: none;
+}
+
+/* Hidden
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10-.
+ */
+[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   #RESET
+   ========================================================================== */
+/**
+ * A very simple reset that sits on top of Normalize.css.
+ */
+body,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, dd, ol, ul,
+figure,
+hr,
+fieldset, legend {
+  margin: 0;
+  padding: 0;
+}
+
+/**
+ * Remove trailing margins from nested lists.
+ */
+li > ol,
+li > ul {
+  margin-bottom: 0;
+}
+
+/**
+ * Remove default table spacing.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/**
+ * 1. Reset Chrome and Firefox behaviour which sets a `min-width: min-content;`
+ *    on fieldsets.
+ */
+fieldset {
+  min-width: 0;
+  /* [1] */
+  border: 0;
+}
+
+/* ==========================================================================
+   #SHARED
+   ========================================================================== */
+/**
+ * Shared declarations for certain elements.
+ */
+/**
+ * Always declare margins in the same direction:
+ * csswizardry.com/2012/06/single-direction-margin-declarations
+ */
+address,
+h1, h2, h3, h4, h5, h6,
+blockquote, p, pre,
+dl, ol, ul,
+figure,
+hr,
+table,
+fieldset {
+  margin-bottom: 24px;
+}
+
+/**
+ * Consistent indentation for lists.
+ */
+dd, ol, ul {
+  margin-left: 24px;
+}
+
+/**
+ * Makes scrolling smooth for phones
+ */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+   #PAGE
+   ========================================================================== */
+/**
+ * Simple page-level setup.
+ *
+ * 1. Set the default `font-size` and `line-height` for the entire project,
+ *    sourced from our default variables. The `font-size` is calculated to exist
+ *    in ems, the `line-height` is calculated to exist unitlessly.
+ * 2. Ensure the page always fills at least the entire height of the viewport.
+ */
+html,
+body {
+  font-size: 1em;
+  /* [1] */
+  line-height: 1.5;
+  /* [1] */
+  min-height: 100%;
+  /* [2] */
+}
+
+/* ==========================================================================
+   #HEADINGS
+   ========================================================================== */
+/**
+ * Simple default styles for headings 1 through 6. Anything more opinionated
+ * than simple font-size changes should likely be applied via classes (see:
+ * http://csswizardry.com/2016/02/managing-typography-on-large-apps/).
+ */
+h1 {
+  font-size: 36px;
+  font-size: 2.25rem;
+  line-height: 1.1666666667;
+}
+
+h2 {
+  font-size: 28px;
+  font-size: 1.75rem;
+  line-height: 1.2857142857;
+}
+
+h3 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+h4 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+h5 {
+  font-size: 18px;
+  font-size: 1.125rem;
+  line-height: 1.3333333333;
+}
+
+h6 {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   #IMAGES
+   ========================================================================== */
+/**
+ * 1. Fluid images for responsive purposes.
+ * 2. Offset `alt` text from surrounding copy.
+ * 3. Setting `vertical-align` removes the whitespace that appears under `img`
+ *    elements when they are dropped into a page as-is. Safer alternative to
+ *    using `display: block;`.
+ */
+img {
+  max-width: 100%;
+  /* [1] */
+  font-style: italic;
+  /* [2] */
+  vertical-align: middle;
+  /* [3] */
+}
+
+/**
+ * If a `width` and/or `height` attribute has been explicitly defined, let’s
+ * not make the image fluid.
+ */
+img[width],
+img[height] {
+  max-width: none;
+}
+
+/* ==========================================================================
+   #TABLES
+   ========================================================================== */
+/**
+ * 1. Ensure tables fill up as much space as possible.
+ */
+table {
+  width: 100%;
+  /* [1] */
+}
+
+/**
+ * Variables
+ */
+/* type scale */
+/* Left-margin (applied if screen is big enough) */
+/**
+ * Site-wide typography
+ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !important;
+}
+
+/**
+ * Code-like elements.
+ */
+pre,
+code,
+kbd,
+samp {
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+  font-style: normal;
+}
+
+/**
+ * Header styling
+ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 2em 0 0.5em;
+  line-height: 1.2;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif !important;
+  font-weight: bold;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 1.563em;
+}
+
+h2 {
+  font-size: 1.25em;
+}
+
+h3 {
+  font-size: 1em;
+}
+
+h4 {
+  font-size: 0.75em;
+}
+
+h5 {
+  font-size: 0.75em;
+}
+
+h6 {
+  font-size: 0.75em;
+}
+
+/**
+ * Syntax highlighting for code cells
+ */
+pre.highlight {
+  overflow-x: auto;
+  padding: .5em;
+}
+
+.highlight .c {
+  color: #998;
+  font-style: italic;
+}
+.highlight .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+.highlight .k {
+  font-weight: bold;
+}
+.highlight .o {
+  font-weight: bold;
+}
+.highlight .cm {
+  color: #998;
+  font-style: italic;
+}
+.highlight .cp {
+  color: #999;
+  font-weight: bold;
+}
+.highlight .c1 {
+  color: #998;
+  font-style: italic;
+}
+.highlight .cs {
+  color: #999;
+  font-weight: bold;
+  font-style: italic;
+}
+.highlight .gd {
+  color: #000;
+  background-color: #fdd;
+}
+.highlight .gd .x {
+  color: #000;
+  background-color: #faa;
+}
+.highlight .ge {
+  font-style: italic;
+}
+.highlight .gr {
+  color: #a00;
+}
+.highlight .gh {
+  color: #999;
+}
+.highlight .gi {
+  color: #000;
+  background-color: #dfd;
+}
+.highlight .gi .x {
+  color: #000;
+  background-color: #afa;
+}
+.highlight .go {
+  color: #888;
+}
+.highlight .gp {
+  color: #555;
+}
+.highlight .gs {
+  font-weight: bold;
+}
+.highlight .gu {
+  color: #aaa;
+}
+.highlight .gt {
+  color: #a00;
+}
+.highlight .kc {
+  font-weight: bold;
+}
+.highlight .kd {
+  font-weight: bold;
+}
+.highlight .kp {
+  font-weight: bold;
+}
+.highlight .kr {
+  font-weight: bold;
+}
+.highlight .kt {
+  color: #458;
+  font-weight: bold;
+}
+.highlight .m {
+  color: #099;
+}
+.highlight .s {
+  color: #d14;
+}
+.highlight .na {
+  color: #008080;
+}
+.highlight .nb {
+  color: #0086B3;
+}
+.highlight .nc {
+  color: #458;
+  font-weight: bold;
+}
+.highlight .no {
+  color: #008080;
+}
+.highlight .ni {
+  color: #800080;
+}
+.highlight .ne {
+  color: #900;
+  font-weight: bold;
+}
+.highlight .nf {
+  color: #900;
+  font-weight: bold;
+}
+.highlight .nn {
+  color: #555;
+}
+.highlight .nt {
+  color: #000080;
+}
+.highlight .nv {
+  color: #008080;
+}
+.highlight .ow {
+  font-weight: bold;
+}
+.highlight .w {
+  color: #bbb;
+}
+.highlight .mf {
+  color: #099;
+}
+.highlight .mh {
+  color: #099;
+}
+.highlight .mi {
+  color: #099;
+}
+.highlight .mo {
+  color: #099;
+}
+.highlight .sb {
+  color: #d14;
+}
+.highlight .sc {
+  color: #d14;
+}
+.highlight .sd {
+  color: #d14;
+}
+.highlight .s2 {
+  color: #d14;
+}
+.highlight .se {
+  color: #d14;
+}
+.highlight .sh {
+  color: #d14;
+}
+.highlight .si {
+  color: #d14;
+}
+.highlight .sx {
+  color: #d14;
+}
+.highlight .sr {
+  color: #009926;
+}
+.highlight .s1 {
+  color: #d14;
+}
+.highlight .ss {
+  color: #990073;
+}
+.highlight .bp {
+  color: #999;
+}
+.highlight .vc {
+  color: #008080;
+}
+.highlight .vg {
+  color: #008080;
+}
+.highlight .vi {
+  color: #008080;
+}
+.highlight .il {
+  color: #099;
+}
+
+/* ANSI coloring for text_regex.ipynb */
+.ansi-bold {
+  font-weight: bold;
+}
+
+.ansi-yellow-bg {
+  background-color: #DDB62B;
+}
+
+.ansi-black-intense-fg {
+  color: #282C36;
+}
+
+/**
+ * Styling for tables. In the textbook, almost all tables display the contents
+ * of a pandas DataFrame.
+ *
+ * [1]: Some tables are very small, so we shouldn't force them to be full-width
+ * [2]: Add striping to table rows to make them easier to read.
+ */
+table {
+  /* [1] */
+  max-width: 100%;
+  width: initial;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table td,
+table th {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  text-align: right;
+}
+
+/* [2] */
+table tr:nth-child(2n) {
+  background-color: #f7f7f7;
+}
+
+/**
+ * Styling for links
+ */
+a,
+a:visited {
+  color: #0077d8;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+/**
+ * Page-level constraining and wrapping elements.
+ */
+.o-wrapper {
+  padding-right: 24px;
+  padding-left: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 800px;
+}
+.o-wrapper:after {
+  content: "" !important;
+  display: block !important;
+  clear: both !important;
+}
+
+/* ==========================================================================
+   #LAYOUT
+   ========================================================================== */
+/**
+ * Grid-like layout system.
+ *
+ * The layout object provides us with a column-style layout system. This file
+ * contains the basic structural elements, but classes should be complemented
+ * with width utilities, for example:
+ *
+ *   <div class="o-layout">
+ *     <div class="o-layout__item  u-1/2">
+ *     </div>
+ *     <div class="o-layout__item  u-1/2">
+ *     </div>
+ *   </div>
+ *
+ * The above will create a two-column structure in which each column will
+ * fluidly fill half of the width of the parent. We can have more complex
+ * systems:
+ *
+ *   <div class="o-layout">
+ *     <div class="o-layout__item  u-1/1  u-1/3@medium">
+ *     </div>
+ *     <div class="o-layout__item  u-1/2  u-1/3@medium">
+ *     </div>
+ *     <div class="o-layout__item  u-1/2  u-1/3@medium">
+ *     </div>
+ *   </div>
+ *
+ * The above will create a system in which the first item will be 100% width
+ * until we enter our medium breakpoint, when it will become 33.333% width. The
+ * second and third items will be 50% of their parent, until they also become
+ * 33.333% width at the medium breakpoint.
+ *
+ * We can also manipulate entire layout systems by adding a series of modifiers
+ * to the `.o-layout` block. For example:
+ *
+ *   <div class="o-layout  o-layout--reverse">
+ *
+ * This will reverse the displayed order of the system so that it runs in the
+ * opposite order to our source, effectively flipping the system over.
+ *
+ *   <div class="o-layout  o-layout--[right|center]">
+ *
+ * This will cause the system to fill up from either the centre or the right
+ * hand side. Default behaviour is to fill up the layout system from the left.
+ *
+ * There are plenty more options available to us: explore them below.
+ */
+/* Default/mandatory classes
+   ========================================================================== */
+/**
+ * 1. Allows us to use the layout object on any type of element.
+ * 2. We need to defensively reset any box-model properties.
+ * 3. Use the negative margin trick for multi-row grids:
+ *    http://csswizardry.com/2011/08/building-better-grid-systems/
+ */
+.o-layout {
+  display: block;
+  /* [1] */
+  margin: 0;
+  /* [2] */
+  padding: 0;
+  /* [2] */
+  list-style: none;
+  /* [1] */
+  margin-left: -24px;
+  /* [3] */
+  font-size: 0;
+}
+
+/**
+ * 1. Required in order to combine fluid widths with fixed gutters.
+ * 2. Allows us to manipulate grids vertically, with text-level properties,
+ *    etc.
+ * 3. Default item alignment is with the tops of each other, like most
+ *    traditional grid/layout systems.
+ * 4. By default, all layout items are full-width (mobile first).
+ * 5. Gutters provided by left padding:
+ *    http://csswizardry.com/2011/08/building-better-grid-systems/
+ * 6. Fallback for old IEs not supporting `rem` values.
+ */
+.o-layout__item {
+  box-sizing: border-box;
+  /* [1] */
+  display: inline-block;
+  /* [2] */
+  vertical-align: top;
+  /* [3] */
+  width: 100%;
+  /* [4] */
+  padding-left: 24px;
+  /* [5] */
+  font-size: 16px;
+  /* [6] */
+  font-size: 1rem;
+}
+
+/* Gutter size modifiers
+   ========================================================================== */
+.o-layout--flush {
+  margin-left: 0;
+}
+.o-layout--flush > .o-layout__item {
+  padding-left: 0;
+}
+
+.o-layout--tiny {
+  margin-left: -6px;
+}
+.o-layout--tiny > .o-layout__item {
+  padding-left: 6px;
+}
+
+.o-layout--small {
+  margin-left: -12px;
+}
+.o-layout--small > .o-layout__item {
+  padding-left: 12px;
+}
+
+.o-layout--large {
+  margin-left: -48px;
+}
+.o-layout--large > .o-layout__item {
+  padding-left: 48px;
+}
+
+.o-layout--huge {
+  margin-left: -96px;
+}
+.o-layout--huge > .o-layout__item {
+  padding-left: 96px;
+}
+
+/* Vertical alignment modifiers
+   ========================================================================== */
+/**
+ * Align all grid items to the middles of each other.
+ */
+.o-layout--middle > .o-layout__item {
+  vertical-align: middle;
+}
+
+/**
+ * Align all grid items to the bottoms of each other.
+ */
+.o-layout--bottom > .o-layout__item {
+  vertical-align: bottom;
+}
+
+/**
+ * Stretch all grid items of each row to have an equal-height.
+ * Please be aware that this modifier class doesn’t take any effect in IE9 and
+ * below and other older browsers due to the lack of `display: flex` support.
+ */
+.o-layout--stretch {
+  display: flex;
+  flex-wrap: wrap;
+}
+.o-layout--stretch > .o-layout__item {
+  display: flex;
+}
+.o-layout--stretch.o-layout--center {
+  justify-content: center;
+}
+.o-layout--stretch.o-layout--right {
+  justify-content: flex-end;
+}
+.o-layout--stretch.o-layout--left {
+  justify-content: flex-start;
+}
+
+/* Fill order modifiers
+   ========================================================================== */
+/**
+ * Fill up the layout system from the centre.
+ */
+.o-layout--center {
+  text-align: center;
+}
+.o-layout--center > .o-layout__item {
+  text-align: left;
+}
+
+/**
+ * Fill up the layout system from the right-hand side.
+ */
+.o-layout--right {
+  text-align: right;
+}
+.o-layout--right > .o-layout__item {
+  text-align: left;
+}
+
+/**
+ * Fill up the layout system from the left-hand side. This will likely only be
+ * needed when using in conjunction with `.o-layout--reverse`.
+ */
+.o-layout--left {
+  text-align: left;
+}
+.o-layout--left > .o-layout__item {
+  text-align: left;
+}
+
+/**
+ * Reverse the rendered order of the grid system.
+ */
+.o-layout--reverse {
+  direction: rtl;
+}
+.o-layout--reverse > .o-layout__item {
+  direction: ltr;
+}
+
+/* Auto-widths modifier
+   ========================================================================== */
+/**
+ * Cause layout items to take up a non-explicit amount of width.
+ */
+.o-layout--auto > .o-layout__item {
+  width: auto;
+}
+
+/*!
+ * Hamburgers
+ * @description Tasty CSS-animated hamburgers
+ * @author Jonathan Suh @jonsuh
+ * @site https://jonsuh.com/hamburgers
+ * @link https://github.com/jonsuh/hamburgers
+ */
+.hamburger {
+  padding: 8px 0;
+  display: inline-block;
+  cursor: pointer;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  opacity: 0.7;
+}
+
+.hamburger-box {
+  width: 20px;
+  height: 15px;
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -1.5px;
+}
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  width: 20px;
+  height: 3px;
+  background-color: #222;
+  border-radius: 4px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before, .hamburger-inner::after {
+  content: '';
+  display: block;
+}
+.hamburger-inner::before {
+  top: -6px;
+}
+.hamburger-inner::after {
+  bottom: -6px;
+}
+
+/*
+ * Arrow Alt
+ */
+.hamburger--arrowalt .hamburger-inner::before {
+  transition: top 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.hamburger--arrowalt .hamburger-inner::after {
+  transition: bottom 0.1s 0.1s ease, transform 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.hamburger--arrowalt.is-active .hamburger-inner::before {
+  top: 0;
+  transform: translate3d(-4px, -5px, 0) rotate(-45deg) scale(0.7, 1);
+  transition: top 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+.hamburger--arrowalt.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: translate3d(-4px, 5px, 0) rotate(45deg) scale(0.7, 1);
+  transition: bottom 0.1s ease, transform 0.1s 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+}
+
+/**
+ * A minimal CSS-only tooltip copied from:
+ *   https://codepen.io/mildrenben/pen/rVBrpK
+ *
+ * To use, write HTML like the following:
+ *
+ * <p class="o-tooltip--left" data-tooltip="Hey">Short</p>
+ */
+.o-tooltip, .o-tooltip--left {
+  position: relative;
+}
+.o-tooltip:after, .o-tooltip--left:after {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  content: attr(data-tooltip);
+  padding: 6px;
+  top: 1.4em;
+  left: 50%;
+  transform: translateX(-50%) translateY(-2px);
+  background: grey;
+  font-size: 0.7rem;
+  color: white;
+  white-space: nowrap;
+  z-index: 2;
+  border-radius: 2px;
+  transition: opacity 0.2s cubic-bezier(0.64, 0.09, 0.08, 1), transform 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
+}
+.o-tooltip:hover:after, .o-tooltip--left:hover:after {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.o-tooltip--left:after {
+  top: 0;
+  left: 0;
+  transform: translateX(-102%) translateY(0);
+}
+.o-tooltip--left:hover:after {
+  transform: translateX(-100%) translateY(0);
+}
+
+/* Copy buttons */
+.copybtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 0 4px 2px;
+}
+
+.input_area .highlight {
+  position: relative;
+}
+
+/**
+ * The website contains two main components: the sidebar and the textbook page.
+ * This file specifies the layout and includes classes to show/hide the sidebar
+ * on small screens.
+ *
+ * The actual styling for the sidebar and page are located in their respective
+ * component SCSS files. This file manages the layout and width only.
+ *
+ * By default, the sidebar is not visible.
+ *
+ * [1]: The entire page is positioned relative so that when the page overflows
+ *   (e.g. sidebar open on small screens) the user can't scroll left/right.
+ * [2]: The sidebar and the textbook page are positioned absolute so that we
+ *   can use translate() on the textbook page to reveal the sidebar.
+ * [3]: Setting the background color hides the sidebar when it's behind the
+ *   page (otherwise the page is transparent).
+ *
+ * When the sidebar is visible:
+ *
+ * [4]: Shift the textbook page over to the left. On small screens, the page
+ *   will overflow since the sidebar takes up most of the screen.
+ * [5]: On larger screens, the page and sidebar have enough room to read them
+ *   simultaneously, so make sure that the page doesn't overflow.
+ */
+.c-textbook {
+  /* [1] */
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.c-textbook__sidebar,
+.c-textbook__page {
+  /* [2] */
+  position: absolute;
+  height: 100vh;
+  overflow: auto;
+  background-color: white;
+  /* [3] */
+}
+
+.c-textbook__sidebar {
+  width: 300px;
+}
+
+.c-textbook__page {
+  width: 100%;
+  transition: transform 250ms ease;
+}
+
+.js-show-sidebar .c-textbook__page {
+  /* [4] */
+  transform: translate(300px, 0);
+}
+@media (min-width: 46.25em) {
+  .js-show-sidebar .c-textbook__page {
+    /* [5] */
+    width: calc(100% - 300px);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+}
+
+main, nav {
+  scrollbar-width: thin;
+}
+
+/**
+ * Styling for the sidebar.
+ *
+ * [1]: The sidebar is implemented as ul and li elements so we need to remove
+ *   the bullets and margins. Also make chapter fonts a bit bigger.
+ * [2]: The entries are <a> tags so we need to remove the default styling.
+ * [3]: The sidebar divider is just an empty element with a border.
+ * [4]: The current section needs a higher specificity to override the :hover
+ *   selectors used previously.
+ * [5]: The logo displayed above the sidebar
+ * [6]: The footer at the bottom of the sidebar
+ */
+.c-textbook__sidebar {
+  background-color: rgba(255, 255, 255, 0);
+  padding: 12px;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.7142857143;
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  opacity: 0.6;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+.c-textbook__sidebar:hover {
+  opacity: 1;
+}
+
+/* [1] */
+.c-sidebar__chapters {
+  list-style: none;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+li.c-sidebar__chapter > a {
+  font-size: 1.2em;
+}
+
+/* [1] */
+.c-sidebar__sections {
+  list-style: none;
+  margin-left: 12px;
+  margin-bottom: 0;
+}
+
+li.c-sidebar__subsection {
+  margin-left: 20px;
+}
+
+/* [2] */
+.c-sidebar__entry {
+  display: block;
+  padding: 6px;
+  color: #364149;
+  text-decoration: none;
+}
+.c-sidebar__entry:hover {
+  text-decoration: underline;
+}
+.c-sidebar__entry:visited {
+  color: #364149;
+}
+
+/* [4] */
+.c-sidebar__entry--active.c-sidebar__entry--active {
+  color: #0077d8;
+}
+
+/* [3] */
+.c-sidebar__divider {
+  border-top: 1px solid #bbb;
+  margin: 6px;
+}
+
+/* [5] */
+img.textbook_logo {
+  margin-top: 20px;
+  max-height: 100px;
+  margin: 0px auto 20px auto;
+  display: block;
+}
+
+/* [6] */
+p.sidebar_footer {
+  text-align: center;
+  padding: 10px 20px 0px 0px;
+  font-size: .9em;
+}
+
+/**
+ * Styling for textbook pages. Jupyter notebooks generate their own HTML markup
+ * which we style under the #ipython-notebook selector.
+ *
+ * Most of the textbook content is styled using this component.
+ *
+ * [1]: Don't add horizontal padding since the content lies within a .o-wrapper
+ * [2]: Since we use JS to focus the page on load, hide the outline to avoid
+ *   visual cruft.
+ *
+ * Notebook styling:
+ *
+ * [4]: Some tables are too wide for the page on smaller screens so we let the
+ *   user scroll horizontally.
+ * [5]: Inline code snippets (usually variable names) should have a gray bg.
+ */
+.c-textbook__page {
+  /* [1] */
+  padding: 12px 0;
+  overflow-x: auto;
+}
+@media (min-width: 46.25em) {
+  .c-textbook__page {
+    padding-left: 12px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 61.25em) {
+  .c-textbook__page {
+    padding-right: 220px;
+  }
+}
+.c-textbook__page:focus {
+  /* [2] */
+  outline: none;
+}
+
+/**
+ * Jupyter notebook styling
+ */
+div.highlighter-rouge {
+  position: relative;
+}
+
+div.highlight pre.highlight {
+  background-color: #f7f7f7;
+  font-size: 0.9em;
+  margin-bottom: 12px;
+  padding: 12px;
+  overflow-x: auto;
+  border: 1px solid #ccc;
+}
+
+div.output pre {
+  border: 1px solid #f7f7f7 !important;
+  background-color: #fcfcfc !important;
+}
+
+.output_html {
+  /* [4] */
+  overflow-x: auto;
+}
+
+/* [5] */
+code {
+  padding: 4px;
+  font-size: 14px;
+  font-size: 0.875rem;
+  line-height: 1.7142857143;
+}
+
+pre.highlight code {
+  display: block;
+}
+
+blockquote {
+  margin: 12px;
+  padding: 18px;
+  border-left: 4px solid #ccc;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Outputs */
+.output_stream,
+.output_data_text,
+.output_traceback_line {
+  margin-left: 2% !important;
+  border: none !important;
+  border-radius: 4px !important;
+  background-color: #fafafa !important;
+  box-shadow: none !important;
+}
+
+.output_stream:before,
+.output_data_text:before,
+.output_traceback_line:before {
+  content: none !important;
+}
+
+.output_text pre {
+  background-color: #f8f8fb !important;
+}
+
+.output_html,
+.output_png::before {
+  padding: 1em 1.5em !important;
+}
+
+.output_png img,
+p img {
+  max-width: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.output_png img {
+  width: 100% !important;
+}
+
+.hl-ipython3 pre::before,
+.output_subarea pre::before,
+.output_html::before,
+.output_png::before {
+  color: #ccc !important;
+  float: left !important;
+  margin-bottom: 0.25em !important;
+  width: 100% !important;
+}
+
+/**
+  * nbinteract styling
+  */
+.cell.nbinteract-left {
+  width: 50%;
+  float: left;
+}
+
+.cell.nbinteract-right {
+  width: 50%;
+  float: right;
+}
+
+.cell.nbinteract-hide_in > .input {
+  display: none;
+}
+
+.cell.nbinteract-hide_out > .output_wrapper {
+  display: none;
+}
+
+.cell:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+div.output_subarea {
+  max-width: initial;
+}
+
+.jp-OutputPrompt {
+  display: none;
+}
+
+/**
+ * Styling for within-page navigation.
+ *
+ * [1]: When the screen is large enough to hold the sidebar, place the sidebar
+ *   offset a bit off the right side of the screen.
+ *
+ * [2]: When the screen is large enough that the page content itself starts
+ *   having margins, use a semi-hack to position the sidebar just the right
+ *   offset from the center of the screen to be in the correct spot. We're
+ *   aiming to have the sidebar positioned just to the right of the page
+ *   content which means we take the page width without the sidebar, divide it
+ *   by 2, and add padding.
+ */
+/* [2] */
+.sidebar__right {
+  display: none;
+}
+@media (min-width: 61.25em) {
+  .sidebar__right {
+    display: block;
+    width: 220px;
+    position: fixed;
+    top: 72px;
+    right: 0;
+    /* [1] */
+    padding-right: 24px;
+    z-index: 1;
+  }
+}
+@media (min-width: 81.25em) {
+  .sidebar__right {
+    /* [2] */
+    left: 50%;
+    transform: translateX(452px);
+  }
+}
+
+nav.onthispage {
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', Arial, sans-serif;
+  color: #7a8288;
+  border-left: 1px solid #c3c3c3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+h4.nav__title {
+  color: #7a8288;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Helvetica Neue', 'Lucida Grande', Arial, sans-serif;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+ul.toc__menu {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style: none;
+  font-size: 0.8rem;
+}
+
+ul.toc__menu a {
+  display: block;
+  padding: 0.25rem .75rem;
+  color: #898c8f;
+  font-size: 0.8em;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.toc__menu ul {
+  margin-left: 0px;
+}
+
+.toc__menu li ul li {
+  list-style-type: none;
+  padding-left: 18px;
+}
+.toc__menu li ul a {
+  font-weight: normal;
+  padding: 0.25rem .5rem;
+}
+
+nav.onthispage li.active a {
+  color: #0077d8;
+}
+
+li.active {
+  border-left: 1px solid #0077d8;
+  margin-left: -1px;
+}
+
+/**
+ * Styling for the Next Page / Previous Page links at the bottom of textbook
+ * pages.
+ */
+.c-page__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.c-page__nav__prev,
+.c-page__nav__next {
+  flex: 1;
+  color: rgba(0, 140, 255, 0.7);
+  border: 1px solid rgba(0, 140, 255, 0.7);
+  border-radius: 3px;
+  padding: 12px 0;
+}
+
+.c-page__nav__next {
+  text-align: right;
+}
+
+.c-sidebar-toggle {
+  margin-bottom: 24px;
+}
+
+.c-sidebar-toggle__label {
+  font-size: 12px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+/**
+ * Stylings for Interact and Show Widget buttons.
+ *
+ * [1]: We abuse CSS selector specificity here since the buttons at the top of
+ *   the notebook might have both .interact-button and .js=nbinteract-widget.
+ * [2]: We want the top buttons to be large.
+ * [3]: However, a .js=nbinteract-widget appearing alone midway through the
+ *   notebook should be small.
+ *
+ */
+.buttons .interact-button, .js-nbinteract-widget {
+  font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #5a5a5a;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 700;
+  /* [2] */
+  padding: 6px 18px;
+  text-decoration: none;
+}
+.buttons .interact-button:hover, .js-nbinteract-widget:hover, .buttons .interact-button:focus, .js-nbinteract-widget:focus {
+  text-decoration: none;
+}
+
+.interact-button-logo {
+  height: 1.35em;
+  padding-right: 10px;
+  margin-left: -5px;
+}
+
+.buttons {
+  margin-bottom: 24px;
+  /* [1] */
+}
+
+.js-nbinteract-widget {
+  /* [3] */
+  padding: 6px 24px;
+  margin-bottom: 12px;
+}
+
+div.interact-context {
+  display: inline;
+  padding-left: 1em;
+  font-weight: 600;
+}
+
+.thebelab-button {
+  z-index: 999;
+}
+
+div.jp-OutputArea-output {
+  padding: 5px;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  height: 10px;
+  padding: 0px !important;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.plusminus {
+  display: block;
+  position: absolute;
+  top: 9px;
+  right: -30px;
+  padding: .3em;
+  width: 20px;
+  height: 20px;
+  background: #d4d4d4;
+  border-radius: 25px;
+  transition: 0.25s;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  -ms-transition: 0.25s;
+}
+
+.plusminus:hover {
+  background: #7a8288;
+  transition: 0.25s;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  -ms-transition: 0.25s;
+}
+
+.plusminus span {
+  display: block;
+  position: absolute;
+  border-radius: 3px;
+  background: #f2f2f2;
+  transition: all 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -ms-transition: all 0.25s ease;
+  margin: 0% 15%;
+  height: 2.5px;
+  width: 70%;
+  /*- half the width*/
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  top: calc(50% - 2.5px / 2);
+}
+
+input:checked ~ .plusminus span.pm_v {
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+}
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+.layout--search .archive__item-teaser {
+  margin-bottom: 0.25em;
+}
+
+.search__toggle {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border: 0;
+  outline: none;
+  color: #393e46;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+.search__toggle:hover {
+  color: #000;
+}
+
+.search-icon {
+  width: 100%;
+  height: 100%;
+}
+
+.search-content {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.search-content__inner-wrap {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1em;
+  padding-right: 1em;
+  -webkit-animation: intro 0.3s both;
+  animation: intro 0.3s both;
+  -webkit-animation-delay: 0.15s;
+  animation-delay: 0.15s;
+}
+.search-content__inner-wrap .search-input {
+  display: block;
+  margin-bottom: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  font-size: 1.563em;
+}
+.search-content.is--visible {
+  display: block;
+  visibility: visible;
+}
+.search-content.is--visible::after {
+  content: "";
+  display: block;
+}
+.search-content .results__found {
+  margin-top: 0.5em;
+  font-size: 0.75em;
+}
+.search-content .archive__item {
+  margin-bottom: 2em;
+}
+.search-content .archive__item-title {
+  margin-top: 0;
+}
+.search-content .archive__item-excerpt {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   #CLEARFIX
+   ========================================================================== */
+/**
+ * Attach our clearfix mixin to a utility class.
+ */
+.u-clearfix:after {
+  content: "" !important;
+  display: block !important;
+  clear: both !important;
+}
+
+/* ==========================================================================
+   #HIDE
+   ========================================================================== */
+/**
+ * Hide only visually, but have it available for screen readers:
+ * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ */
+.u-hidden-visually {
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
+}
+
+/**
+ * Hide visually and from screen readers.
+ */
+.u-hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   #SPACINGS
+   ========================================================================== */
+/**
+ * Utility classes to put specific spacing values onto elements. The below loop
+ * will generate us a suite of classes like:
+ *
+ *   .u-margin-top {}
+ *   .u-padding-left-large {}
+ *   .u-margin-right-small {}
+ *   .u-padding {}
+ *   .u-padding-right-none {}
+ *   .u-padding-horizontal {}
+ *   .u-padding-vertical-small {}
+ */
+.u-padding {
+  padding: 24px !important;
+}
+
+.u-padding-tiny {
+  padding: 6px !important;
+}
+
+.u-padding-small {
+  padding: 12px !important;
+}
+
+.u-padding-large {
+  padding: 48px !important;
+}
+
+.u-padding-huge {
+  padding: 96px !important;
+}
+
+.u-padding-none {
+  padding: 0 !important;
+}
+
+.u-padding-top {
+  padding-top: 24px !important;
+}
+
+.u-padding-top-tiny {
+  padding-top: 6px !important;
+}
+
+.u-padding-top-small {
+  padding-top: 12px !important;
+}
+
+.u-padding-top-large {
+  padding-top: 48px !important;
+}
+
+.u-padding-top-huge {
+  padding-top: 96px !important;
+}
+
+.u-padding-top-none {
+  padding-top: 0 !important;
+}
+
+.u-padding-right {
+  padding-right: 24px !important;
+}
+
+.u-padding-right-tiny {
+  padding-right: 6px !important;
+}
+
+.u-padding-right-small {
+  padding-right: 12px !important;
+}
+
+.u-padding-right-large {
+  padding-right: 48px !important;
+}
+
+.u-padding-right-huge {
+  padding-right: 96px !important;
+}
+
+.u-padding-right-none {
+  padding-right: 0 !important;
+}
+
+.u-padding-bottom {
+  padding-bottom: 24px !important;
+}
+
+.u-padding-bottom-tiny {
+  padding-bottom: 6px !important;
+}
+
+.u-padding-bottom-small {
+  padding-bottom: 12px !important;
+}
+
+.u-padding-bottom-large {
+  padding-bottom: 48px !important;
+}
+
+.u-padding-bottom-huge {
+  padding-bottom: 96px !important;
+}
+
+.u-padding-bottom-none {
+  padding-bottom: 0 !important;
+}
+
+.u-padding-left {
+  padding-left: 24px !important;
+}
+
+.u-padding-left-tiny {
+  padding-left: 6px !important;
+}
+
+.u-padding-left-small {
+  padding-left: 12px !important;
+}
+
+.u-padding-left-large {
+  padding-left: 48px !important;
+}
+
+.u-padding-left-huge {
+  padding-left: 96px !important;
+}
+
+.u-padding-left-none {
+  padding-left: 0 !important;
+}
+
+.u-padding-horizontal {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
+
+.u-padding-horizontal-tiny {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+}
+
+.u-padding-horizontal-small {
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+}
+
+.u-padding-horizontal-large {
+  padding-left: 48px !important;
+  padding-right: 48px !important;
+}
+
+.u-padding-horizontal-huge {
+  padding-left: 96px !important;
+  padding-right: 96px !important;
+}
+
+.u-padding-horizontal-none {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.u-padding-vertical {
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+}
+
+.u-padding-vertical-tiny {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+.u-padding-vertical-small {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+.u-padding-vertical-large {
+  padding-top: 48px !important;
+  padding-bottom: 48px !important;
+}
+
+.u-padding-vertical-huge {
+  padding-top: 96px !important;
+  padding-bottom: 96px !important;
+}
+
+.u-padding-vertical-none {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.u-margin {
+  margin: 24px !important;
+}
+
+.u-margin-tiny {
+  margin: 6px !important;
+}
+
+.u-margin-small {
+  margin: 12px !important;
+}
+
+.u-margin-large {
+  margin: 48px !important;
+}
+
+.u-margin-huge {
+  margin: 96px !important;
+}
+
+.u-margin-none {
+  margin: 0 !important;
+}
+
+.u-margin-top {
+  margin-top: 24px !important;
+}
+
+.u-margin-top-tiny {
+  margin-top: 6px !important;
+}
+
+.u-margin-top-small {
+  margin-top: 12px !important;
+}
+
+.u-margin-top-large {
+  margin-top: 48px !important;
+}
+
+.u-margin-top-huge {
+  margin-top: 96px !important;
+}
+
+.u-margin-top-none {
+  margin-top: 0 !important;
+}
+
+.u-margin-right {
+  margin-right: 24px !important;
+}
+
+.u-margin-right-tiny {
+  margin-right: 6px !important;
+}
+
+.u-margin-right-small {
+  margin-right: 12px !important;
+}
+
+.u-margin-right-large {
+  margin-right: 48px !important;
+}
+
+.u-margin-right-huge {
+  margin-right: 96px !important;
+}
+
+.u-margin-right-none {
+  margin-right: 0 !important;
+}
+
+.u-margin-bottom {
+  margin-bottom: 24px !important;
+}
+
+.u-margin-bottom-tiny {
+  margin-bottom: 6px !important;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 12px !important;
+}
+
+.u-margin-bottom-large {
+  margin-bottom: 48px !important;
+}
+
+.u-margin-bottom-huge {
+  margin-bottom: 96px !important;
+}
+
+.u-margin-bottom-none {
+  margin-bottom: 0 !important;
+}
+
+.u-margin-left {
+  margin-left: 24px !important;
+}
+
+.u-margin-left-tiny {
+  margin-left: 6px !important;
+}
+
+.u-margin-left-small {
+  margin-left: 12px !important;
+}
+
+.u-margin-left-large {
+  margin-left: 48px !important;
+}
+
+.u-margin-left-huge {
+  margin-left: 96px !important;
+}
+
+.u-margin-left-none {
+  margin-left: 0 !important;
+}
+
+.u-margin-horizontal {
+  margin-left: 24px !important;
+  margin-right: 24px !important;
+}
+
+.u-margin-horizontal-tiny {
+  margin-left: 6px !important;
+  margin-right: 6px !important;
+}
+
+.u-margin-horizontal-small {
+  margin-left: 12px !important;
+  margin-right: 12px !important;
+}
+
+.u-margin-horizontal-large {
+  margin-left: 48px !important;
+  margin-right: 48px !important;
+}
+
+.u-margin-horizontal-huge {
+  margin-left: 96px !important;
+  margin-right: 96px !important;
+}
+
+.u-margin-horizontal-none {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.u-margin-vertical {
+  margin-top: 24px !important;
+  margin-bottom: 24px !important;
+}
+
+.u-margin-vertical-tiny {
+  margin-top: 6px !important;
+  margin-bottom: 6px !important;
+}
+
+.u-margin-vertical-small {
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.u-margin-vertical-large {
+  margin-top: 48px !important;
+  margin-bottom: 48px !important;
+}
+
+.u-margin-vertical-huge {
+  margin-top: 96px !important;
+  margin-bottom: 96px !important;
+}
+
+.u-margin-vertical-none {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
