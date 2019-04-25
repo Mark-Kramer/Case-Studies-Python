@@ -8,7 +8,7 @@ prev_page:
   url: /https://github.com/Mark-Kramer/Case-Studies-Python.git
   title: 'GitHub repository'
 next_page:
-  url: /2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential
+  url: /02/the-event-related-potential
   title: 'The Event-Related Potential'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

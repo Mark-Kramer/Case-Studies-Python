@@ -14,12 +14,13 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 <a id="introduction"></a>
 # Analysis of coupled rhythms *for the practicing neuroscientist*
 
-<div class="alert alert-block alert-info">
-_**Synopsis**_ <br><br>
+<div class="question">
+    
+_**Synopsis**_ 
 
-**Data:** 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.<br>
+**Data:** 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.
 
-**Goal:** Characterize the coupling of rhythmic activity between the two electrodes.<br>
+**Goal:** Characterize the coupling of rhythmic activity between the two electrodes.
 
 **Tools:** Fourier transform, spectrum, amplitude, coherence, phase.
 
