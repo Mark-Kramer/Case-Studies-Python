@@ -48,3 +48,15 @@
 - title: The Cross Covariance and Coherence
   url: /04/the-cross-covariance-and-coherence
 
+- title: Cross Frequency Coupling
+  url: /05/cross-frequency-coupling
+
+- title: The Power Spectrum (Part 2)
+  url: /06/the-power-spectrum-part-2
+  appendix:
+  - title: Multiplication and Convolution in Different Domains
+    url: /06/appendix
+
+- title: Basic Visualizations and Descriptive Statistics of Spike Train Data
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+
