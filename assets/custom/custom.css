@@ -5,29 +5,23 @@
 .math-note {
     color: #3c763d;
     background-color: #dff0d8;
-    border-color: #d6e9c6;
-    padding: 15px;
-    margin-bottom: initial;
-    border: 1px solid transparent;
-    border-radius: 2px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 .python-note {
-    margin-bottom: initial;
     color: #8a6d3b;
     background-color: #fcf8e3;
-    border-color: #faebcc;
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 2px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 .question {
     color: #31708f;
     background-color: #d9edf7;
-    border-color: #bce8f1;
-    padding: 15px;
-    margin-bottom: initial;
-    border: 1px solid transparent;
-    border-radius: 2px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
 }
 .output_area img {
     display: block;
