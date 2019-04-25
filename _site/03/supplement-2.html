@@ -29,9 +29,9 @@
   "headline":
     "Intuition behind the power spectral density",
   "datePublished":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "dateModified":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "description":
     "Intuition behind the power spectral density",
   "author": {
@@ -839,6 +839,75 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/05/cross-frequency-coupling.html"
+        >
+          
+            5.
+          
+          Cross Frequency Coupling
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/06/the-power-spectrum-part-2.html"
+        >
+          
+            6.
+          
+          The Power Spectrum (Part 2)
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html"
+        >
+          
+            7.
+          
+          Basic Visualizations and Descriptive Statistics of Spike Train Data
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -991,16 +1060,18 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 
 <p>Notice that the products alternate between positive and negative values throughout time.</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
   <p><strong>Q.</strong> In this case, what is the approximate value of $X_j$ when $f_j = 4$ Hz?</p>
 
-  <p><strong>A.</strong> We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,
-  <br />
-\begin{equation}\tag{<em>}\label{eq:</em>}
+  <p><strong>A.</strong> We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,</p>
+
+  <p>\begin{equation}\tag{<em>}\label{eq:</em>}
 X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right), 
-\end{equation}
-  <br />
-Above, we plotted these products over time. Because each product alternates between positive and negative values roughly equally over time, the summation of the product over time is approximately zero. We therefore conclude that both the real part (i.e., the cosine term) and the imaginary part (i.e. the sine term) are small and $X_j \approx 0 + 0i$ when $f_j = 4$ Hz. </p>
+\end{equation}</p>
+
+  <p>Above, we plotted these products over time. Because each product alternates between positive and negative values roughly equally over time, the summation of the product over time is approximately zero. We therefore conclude that both the real part (i.e., the cosine term) and the imaginary part (i.e. the sine term) are small and $X_j \approx 0 + 0i$ when $f_j = 4$ Hz.</p>
+
 </div>
 
 <p>In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly.</p>
@@ -1016,14 +1087,18 @@ Above, we plotted these products over time. Because each product alternates betw
 <span class="n">show</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
   <p><strong>Q.</strong> Can you predict how the plot of the product of the data with the overlapping cosine function will look? Plot the product and check your prediction.</p>
+
 </div>
 
 <p>The product of the cosine function and the data is always non-negative, and therefore its summation over time results in a large positive number. In this case, the real part of $X_j$ is large because the cosine function with frequency $f_j =10$ Hz and the data $x$ match. In this sense, the Fourier transform reveals the dominant frequencies of the underlying time series.</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
   <p><strong>Q.</strong> What is the approximate value of the <em>imaginary</em> part of $X_j$ for $f_j = 10$ Hz? <em>Hint</em>: Consider the plot of the product of the sine function and the data.</p>
+
 </div>
 
 <p><a id="autocovariance"></a></p>
@@ -1031,7 +1106,9 @@ Above, we plotted these products over time. Because each product alternates betw
 <p>We’ve introduced two tools for assessing dependent structure in the EEG data: the autocovariance and the spectrum. Remarkably, these two measures are related in an important way.</p>
 
 <div class="alert alert-success">
+
   <p>The spectrum is the Fourier transform of the autocovariance.</p>
+
 </div>
 
 <p>The spectrum and autocovariance both assess dependent structure in the data but in different domains - the spectrum in the frequency domain and the autocovariance in the time domain. Notice that the spectrum $S_{xx, j}$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png" /></span></a> is a function of frequency index $j$, while the autocovariance $r_{xx}[L]$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png" /></span></a> is a function of time lag $L$. For the EEG data of interest here, the dominant 60 Hz rhythm manifests as periodicity in the autocovariance as a function of lag <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3-4a" class="fig"><span><img src="imgs/3-4a.png" /></span></a> and a peak in the spectrum as a function of frequency. <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3.6" class="fig"><span><img src="imgs/3-6.png" /></span></a> Although the two measures are related through the Fourier transform, each provides a different perspective on the dependent structure in the data. In practice, applying and visualizing both measures is often of use.</p>
@@ -1057,9 +1134,11 @@ purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum 
 
 <p>where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis at index $n$ in units of seconds, and $\epsilon_n$ is a random variable.</p>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> The model consists of three predictors. What are they?</p>
-  <p><strong>A.</strong> The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.</p>
+<div class="question">
+
+  <p><strong>Q.</strong> The model consists of three predictors. What are they?
+<strong>A.</strong> The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.</p>
+
 </div>
 
 <p>To do multiple linear regression in Python we start by importing the <code class="highlighter-rouge">statsmodels</code> package and the <code class="highlighter-rouge">DataFrame</code> function from the <code class="highlighter-rouge">pandas</code> package. We use <code class="highlighter-rouge">DataFrame</code> to create a table that is easy to work with and then use <code class="highlighter-rouge">statsmodels</code> to perform the regression.</p>
@@ -1091,74 +1170,80 @@ purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum 
 
 <p>In the first line, we create a <em>dataframe</em> object with the dependent variables (<code class="highlighter-rouge">EEG</code>) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the <code class="highlighter-rouge">ols</code> function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$’s.</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
   <p><strong>Q.</strong> Examine the fitted $\beta$ values. What do you find?</p>
 
-  <p><strong>A.</strong> We find
-  <br />
-&lt;div style="margin: .25in; background-color: #eff0f1"&gt;
-<code>Intercept    2.8e-17
+  <p><strong>A.</strong> We find</p>
+
+  <div style="margin: .25in; background-color: #eff0f1">
+
+    <p><code>Intercept    2.8e-17
 sin          9.99e-01
-cos         -3.24e-03
-dtype: float64</code>&lt;/div&gt;
+cos         -3.24e-03</code></p>
 
-This result indicates that the constant predictor and the 60 Hz cosine predictor do not contribute much to the data; the values of the coefficients for the predictors <code class="highlighter-rouge">Intercept</code> and <code class="highlighter-rouge">cos</code> are both near zero. However, the 60 Hz sine function makes a much larger contribution; the value of the coefficient for the predictor <code class="highlighter-rouge">sin</code> is near 1.</p>
-</div>
+    <p>dtype: float64&lt;/code&gt;&lt;/div&gt;</p>
 
-<p>To see how well our multiple linear regression model fits the data, let’s evaluate the model, and compare it to the original EEG data:
+    <p>This result indicates that the constant predictor and the 60 Hz cosine predictor do not contribute much to the data; the values of the coefficients for the predictors <code class="highlighter-rouge">Intercept</code> and <code class="highlighter-rouge">cos</code> are both near zero. However, the 60 Hz sine function makes a much larger contribution; the value of the coefficient for the predictor <code class="highlighter-rouge">sin</code> is near 1.</p>
+
+  </div>
+
+  <p>To see how well our multiple linear regression model fits the data, let’s evaluate the model, and compare it to the original EEG data:
 <a id="fig:3.8"></a></p>
 
-<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EEG_60Hz_modeled</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>    <span class="c"># Get the model prediction</span>
+  <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EEG_60Hz_modeled</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>    <span class="c"># Get the model prediction</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEG</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">EEG_60Hz_modeled</span><span class="p">)</span>     <span class="c"># Plot the data and the model</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                    <span class="c"># ... examine 0.5 s of data,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">'Time [s]'</span><span class="p">)</span>                    <span class="c"># ... and label the axes</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s">'EEG and Modeled EEG [$</span><span class="err">\</span><span class="s">mu$V]'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s">'EEG'</span><span class="p">,</span> <span class="s">'model'</span><span class="p">])</span>
 <span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
+  <p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> The multiple linear regression model <a href="#eq:3.12" class="thumb"><span><img src="imgs/eq3-12.png" /></span></a> is not a <em>perfect</em> fit ot the data. Why?</p>
+  <div class="question">
 
-  <p><strong>A.</strong> The multiple linear regression model includes only three predictors. We expect the EEG data to consist of other features, including rhythms at other frequencies. Therefore, this simple model cannot account for all features of the EEG time series. That’s okay. The goal of this model was to fit a particular rhythm, the 60 Hz activity, not every aspect of the data.</p>
-</div>
+    <p><strong>Q.</strong> The multiple linear regression model <a href="#eq:3.12" class="thumb"><span><img src="imgs/eq3-12.png" /></span></a> is not a <em>perfect</em> fit ot the data. Why?</p>
 
-<p>Now, let’s examine a powerful application of the model. We’ve constructed the model to fit the 60 Hz line noise in the EEG data. Let’s now use the model to <em>remove</em> the 60 Hz line noise from the original EEG data. To do so, we subtract the model fit from the EEG data and then plot the resulting new signal: <a id="fig:3.9"></a></p>
+    <p><strong>A.</strong> The multiple linear regression model includes only three predictors. We expect the EEG data to consist of other features, including rhythms at other frequencies. Therefore, this simple model cannot account for all features of the EEG time series. That’s okay. The goal of this model was to fit a particular rhythm, the 60 Hz activity, not every aspect of the data.</p>
 
-<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Remove the model prediction from the EEG data</span>
+  </div>
+
+  <p>Now, let’s examine a powerful application of the model. We’ve constructed the model to fit the 60 Hz line noise in the EEG data. Let’s now use the model to <em>remove</em> the 60 Hz line noise from the original EEG data. To do so, we subtract the model fit from the EEG data and then plot the resulting new signal: <a id="fig:3.9"></a></p>
+
+  <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Remove the model prediction from the EEG data</span>
 <span class="n">EEG_cleaned</span> <span class="o">=</span> <span class="n">EEG</span> <span class="o">-</span> <span class="n">EEG_60Hz_modeled</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEG_cleaned</span><span class="p">)</span>  <span class="c"># ... and plot the result</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s">'Time [s]'</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s">'EEG Cleaned [$</span><span class="err">\</span><span class="s">mu$V]'</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the original EEG data, which includes the 60 Hz noise. <a href="#fig:3-1" class="fig"><span><img src="imgs/3-1.png" /></span></a> What’s different?</p>
-</div>
+  <div class="question">
 
-<p>In this example, we used multiple linear regression to model a particular rhythmic component of the EEG data, the 60 Hz activity. We may also use the model result to estimate the power at 60 Hz. In Python,</p>
+    <p><strong>Q.</strong> Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the original EEG data, which includes the 60 Hz noise. <a href="#fig:3-1" class="fig"><span><img src="imgs/3-1.png" /></span></a> What’s different?</p>
 
-<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Sxx_model_60Hz</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">'sin'</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">'cos'</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+  </div>
+
+  <p>In this example, we used multiple linear regression to model a particular rhythmic component of the EEG data, the 60 Hz activity. We may also use the model result to estimate the power at 60 Hz. In Python,</p>
+
+  <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Sxx_model_60Hz</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">'sin'</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s">'cos'</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="n">Sxx_model_60Hz</span>
-</code></pre></div></div>
+</code></pre></div>  </div>
 
-<p>The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable <code class="highlighter-rouge">Sxx_model_60Hz</code> has units of mV$^2$.</p>
+  <p>The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable <code class="highlighter-rouge">Sxx_model_60Hz</code> has units of mV$^2$.</p>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> Compare the power estimate from the model (the variable <code class="highlighter-rouge">Sxx_model_60Hz</code>) to the power spectral density at 60 Hz computed using the Fourier transform. What do you find?
-<br /><br />
-<strong>A.</strong> We note that the units of the power spectral density (variable <code class="highlighter-rouge">Sxx</code>) are mV$^2/$Hz, while the units of the power estimated in variable <code class="highlighter-rouge">Sxx_model_60Hz</code> are mV$^2$. To convert the power spectral density to (integrated) spectral power, we must integrate the variable <code class="highlighter-rouge">Sxx</code> over a frequency range. Here, we choose a 1 Hz interval centered at 60 Hz, which corresponds to a single index of the variable <code class="highlighter-rouge">faxis</code>; the frequency resolution for these data is $\pm 0.5$ Hz. Then the approximate integrated power over this 1 Hz interval can be computed as <code class="highlighter-rouge">Sxx[np.where(faxis == 60)]</code>, which equals 0.9978, identical to the value in <code class="highlighter-rouge">Sxx_model_60Hz</code>, and with the same units.</p>
+  <div class="question">
+
+    <p><strong>Q.</strong> Compare the power estimate from the model (the variable <code class="highlighter-rouge">Sxx_model_60Hz</code>) to the power spectral density at 60 Hz computed using the Fourier transform. What do you find?</p>
+
+    <p><strong>A.</strong> We note that the units of the power spectral density (variable <code class="highlighter-rouge">Sxx</code>) are mV$^2/$Hz, while the units of the power estimated in variable <code class="highlighter-rouge">Sxx_model_60Hz</code> are mV$^2$. To convert the power spectral density to (integrated) spectral power, we must integrate the variable <code class="highlighter-rouge">Sxx</code> over a frequency range. Here, we choose a 1 Hz interval centered at 60 Hz, which corresponds to a single index of the variable <code class="highlighter-rouge">faxis</code>; the frequency resolution for these data is $\pm 0.5$ Hz. Then the approximate integrated power over this 1 Hz interval can be computed as <code class="highlighter-rouge">Sxx[np.where(faxis == 60)]</code>, which equals 0.9978, identical to the value in <code class="highlighter-rouge">Sxx_model_60Hz</code>, and with the same units.</p>
+
+  </div>
+
+  <p>This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$’s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.</p>
 </div>
-
-<p>This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$’s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.</p>
-
-<div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s">'../style.css'</span><span class="p">)</span>
-</code></pre></div></div>
-
 
               <nav class="c-page__nav">
   

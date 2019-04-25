@@ -290,7 +290,7 @@ who
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 The `%reset` command is an example of a *magic*. Magics are commands that start with the `%` symbol and use a language other than Python. They are only available in the notebook environment. In fact, the set of magics that is available is specific to the notebook kernel. This means that if you have a Jupyter notebook running a Ruby kernel the magics will be different.
 
@@ -399,7 +399,7 @@ print( "c[0,3] = " + str( c[0,3] ) )
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
 We access matrices using 'row, column' notation.  So `c[0,3]` means
 print the element in row 0, column 3 of `c`.
 </div>
@@ -421,7 +421,7 @@ print( "2nd through 4th columns of the first row are c[0,1:4] = " + str(c[0,1:4]
 ```
 
 
-  <div class="alert alert-block alert-info">
+  <div class="question">
     
   The notation `1:4` means *all integers from 1 up to, but not including 4*, 
   which in this case gives columns 1, 2, and 3. 
@@ -467,7 +467,7 @@ print( "a = " + str(a) )
 ```
 
 
-**Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? <br>
+**Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? 
 
 **Hint:** Use the `np.max()` function.
 
@@ -515,7 +515,7 @@ lgIdx.nonzero()
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `np.nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `np.` at the beginning of the function call). 
 
@@ -558,7 +558,7 @@ print(" b[b>5] is an array: " + str(b[b>5]) )
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 Notice that the last line collapses the `True` entries to an array, 
 ordered by row and then by column. If you've used MATLAB, this is 
@@ -774,7 +774,7 @@ plt.show()
 
 **Q:** Does this histogram make sense? Is it what you expect for a distribution of Gaussian random variables?
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 See Python Help (`plt.hist?`) to learn about the function `hist()`.
 
@@ -846,7 +846,7 @@ The small section of code above replaces all the cutting-and-pasting.
 
 **Q.**  Spend some time studying this for-loop.  Does it make sense?
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Important note:** Python uses **indentation** to define `for` loops.
 
@@ -886,7 +886,7 @@ def my_square_function(x, c):
 
 The function begins with the keyword `def` followed by the function name and the inputs in parentheses. Notice that this first line ends with a colon `:`. All of the function components that follow this first line should be **indented one level**. This is just like the `for` loop we applied earlier; the operations performed by the for loop were indented one leve.
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 When defining the function, the code the function executes should be indented one level.
 
@@ -1015,7 +1015,7 @@ print(mat.keys())
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 Use the `keys()` method to see what variables are contained in `mat`. In other words, run the command `mat.keys()`.
 

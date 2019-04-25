@@ -29,9 +29,9 @@
   "headline":
     "Biased versus unbiased autocovariance",
   "datePublished":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "dateModified":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "description":
     "A mathematical aside: Biased versus unbiased autocovariance",
   "author": {
@@ -839,6 +839,75 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/05/cross-frequency-coupling.html"
+        >
+          
+            5.
+          
+          Cross Frequency Coupling
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/06/the-power-spectrum-part-2.html"
+        >
+          
+            6.
+          
+          The Power Spectrum (Part 2)
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html"
+        >
+          
+            7.
+          
+          Basic Visualizations and Descriptive Statistics of Spike Train Data
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -939,8 +1008,9 @@ initFunction(initQuery);
 
 <p>Compare this observation to the <em>unbiased</em> estimate of the autocovariance. In this example, we see that the unbiased estimate of the autocovariance remains large even as L approaches ± 2 (blue curve).</p>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> Why does the biased estimate of the autocovariance approach 0 at large lags? <br /><br /></p>
+<div class="question">
+
+  <p><strong>Q.</strong> Why does the biased estimate of the autocovariance approach 0 at large lags?</p>
 
   <p><strong>A.</strong> For concreteness, let’s consider the case when $L = N - 2$. In this case, $L$ is large, and nearly equal to the number of points in the data ($N$). When $L$ is large, we shift the time series $x$ so that only a subset of indices overlap; the following is a cartoon representation of the $L = 2$ case:
 <img src="imgs/3-3d.png" alt="cartoon representation f L=2 autocovariance" />
@@ -949,10 +1019,12 @@ Now consider the extension to $L=N-2$. Because we only compute the product</p>
   <script type="math/tex; mode=display">(x_{n+L} - \bar x)(x_n - \bar x)</script>
 
   <p>for the overlapping indices of $x_n$ and $x_{n+L}$, we only include two terms in the  summation <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png" /></span></a> The sum of these two terms is then divided by $N$, which results in a small number that approaches zero as L approaches N.</p>
+
 </div>
 
-<div class="alert alert-block alert-info">
-  <p><strong>Q.</strong> Why does the unbiased estimate of the autocovariance remain large at large lags? <br /><br /></p>
+<div class="question">
+
+  <p><strong>Q.</strong> Why does the unbiased estimate of the autocovariance remain large at large lags?</p>
 
   <p><strong>A.</strong> As in the biased case, let’s again consider $L = N-2$. In this case, $L$ is large, and we shift the time series $x$ so that only a subset of indices overlap. Therefore, the product</p>
 
@@ -969,6 +1041,7 @@ Now consider the extension to $L=N-2$. Because we only compute the product</p>
   <p><img src="imgs/3-5highlight.png" alt="plot with large lags highlighted" title="The autocovariance of the EEG for the biased (orange) and unbiased (blue) estimates over a wide range of lags." /></p>
 
   <p>Increased variability at large lags occurs because, as $L$ approaches $N$, we have less data to compare in the assessment of the autocovariance. Notice that, when $L = N − 1$, the estimate of the autocovariance utilizes only two data points from $x$ (i.e., the product consists only of one term: $(x_N - \bar x)(x_1 - \bar x)$). We do not expect a reliable assessment of associations in the data with so few data points to compare.</p>
+
 </div>
 
 <p>With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons (<a href="https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33">Percival &amp; Walden, 2009</a>). First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:</p>
@@ -983,21 +1056,22 @@ r_{xx}[N-1] &amp;=&amp; \frac{1}{N} \sum_{n = 1}^{N - (N - 1)} (x_{n + (N - 1)} 
 &amp;=&amp;\frac{1}{N}\sum_{n=1}^1(x_{n+(N-1)} - \bar x)(x_n - \bar x), <br />
 &amp;=&amp;\frac{1}{N}(x_{N} - \bar x)(x_1 - \bar x).
 \end{eqnarray}
-</p>
 
-<p>The expression for the unbiased estimator <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-4.png" /></span></a> becomes,</p>
 
-<p title="Variance of the unbiased estimator with lag N-1">
+The expression for the unbiased estimator <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-4.png" /></span></a> becomes,
+
+&lt;p title="Variance of the unbiased estimator with lag N-1"&gt;
 \begin{eqnarray}
 r_{xx}^*[N-1] &amp;=&amp; \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x)(x_n - \bar x), <br />
 &amp;=&amp; \sum_{n=1}^1(x_{n+N-1} - \bar x)(x_n - \bar x), <br />
 &amp;=&amp; (x_{N} - \bar x)(x_1 - \bar x), <br />
 \end{eqnarray}
+
+
+These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves “nicely” as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.
+
+We note that, for the EEG data of interest here, the unbiased estimator outperforms the biased estimator. For these data, which are dominated by a 60 Hz rhythm, there is significant autocovariance even at long lags. In this case, the biased estimator leads to an interpretation of decreasing autocovariance, even though that is not true. However, for most brain signal (not saturated by 60 Hz line noise), we expect the autocovariance to decrease in time.
 </p>
-
-<p>These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves “nicely” as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.</p>
-
-<p>We note that, for the EEG data of interest here, the unbiased estimator outperforms the biased estimator. For these data, which are dominated by a 60 Hz rhythm, there is significant autocovariance even at long lags. In this case, the biased estimator leads to an interpretation of decreasing autocovariance, even though that is not true. However, for most brain signal (not saturated by 60 Hz line noise), we expect the autocovariance to decrease in time.</p>
 
               <nav class="c-page__nav">
   

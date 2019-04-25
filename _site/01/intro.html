@@ -29,9 +29,9 @@
   "headline":
     "Introduction to Python",
   "datePublished":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "dateModified":
-    "2019-04-24T22:20:50-04:00",
+    "2019-04-24T23:26:10-04:00",
   "description":
     "Python for the practicing neuroscientist",
   "author": {
@@ -839,6 +839,75 @@ initFunction(initQuery);
 
       
     
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/05/cross-frequency-coupling.html"
+        >
+          
+            5.
+          
+          Cross Frequency Coupling
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/06/the-power-spectrum-part-2.html"
+        >
+          
+            6.
+          
+          The Power Spectrum (Part 2)
+        </a>
+
+        
+      </li>
+
+      
+    
+      
+      
+
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter">
+        <a class="c-sidebar__entry "
+          href="/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html"
+        >
+          
+            7.
+          
+          Basic Visualizations and Descriptive Statistics of Spike Train Data
+        </a>
+
+        
+      </li>
+
+      
+    
   </ul>
   <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book">Jupyter Book</a></p>
 </nav>
@@ -1124,7 +1193,7 @@ initFunction(initQuery);
 <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">who</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>The <code class="highlighter-rouge">%reset</code> command is an example of a <em>magic</em>. Magics are commands that start with the <code class="highlighter-rouge">%</code> symbol and use a language other than Python. They are only available in the notebook environment. In fact, the set of magics that is available is specific to the notebook kernel. This means that if you have a Jupyter notebook running a Ruby kernel the magics will be different.</p>
 
@@ -1193,7 +1262,7 @@ each vector?</p>
 <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="s">"c[0,3] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
   <p>We access matrices using ‘row, column’ notation.  So <code class="highlighter-rouge">c[0,3]</code> means
 print the element in row 0, column 3 of <code class="highlighter-rouge">c</code>.</p>
 </div>
@@ -1210,7 +1279,7 @@ print the element in row 0, column 3 of <code class="highlighter-rouge">c</code>
 <span class="k">print</span><span class="p">(</span> <span class="s">"2nd through 4th columns of the first row are c[0,1:4] = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>The notation <code class="highlighter-rouge">1:4</code> means <em>all integers from 1 up to, but not including 4</em>, 
   which in this case gives columns 1, 2, and 3.</p>
@@ -1240,7 +1309,7 @@ print the element in row 0, column 3 of <code class="highlighter-rouge">c</code>
 <span class="k">print</span><span class="p">(</span> <span class="s">"a = "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<p><strong>Q.</strong>  Calculate the shape of <code class="highlighter-rouge">a</code>.  What is the maximum value of <code class="highlighter-rouge">a</code>? <br /></p>
+<p><strong>Q.</strong>  Calculate the shape of <code class="highlighter-rouge">a</code>.  What is the maximum value of <code class="highlighter-rouge">a</code>?</p>
 
 <p><strong>Hint:</strong> Use the <code class="highlighter-rouge">np.max()</code> function.</p>
 
@@ -1268,7 +1337,7 @@ index of all entries that were <code class="highlighter-rouge">True</code>, or n
 <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lgIdx</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>The command <code class="highlighter-rouge">nonzero()</code> can be used as both a <em>function</em> and a <em>method</em>. A method is called by adding it after the object it is meant to operate on with a period in between ( <code class="highlighter-rouge">lgIdx.nonzero()</code> ). A function is called with the <em>argument</em> explicitly provided inside the parentheses ( <code class="highlighter-rouge">np.nonzero(lgIdx)</code> ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use <code class="highlighter-rouge">nonzero()</code> as a function, we need to tell it to look in NumPy for the definition (i.e. add <code class="highlighter-rouge">np.</code> at the beginning of the function call).</p>
 
@@ -1296,7 +1365,7 @@ index of all entries that were <code class="highlighter-rouge">True</code>, or n
 <span class="k">print</span><span class="p">(</span><span class="s">" b[b&gt;5] is an array: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">b</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">])</span> <span class="p">)</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>Notice that the last line collapses the <code class="highlighter-rouge">True</code> entries to an array, 
 ordered by row and then by column. If you’ve used MATLAB, this is 
@@ -1447,7 +1516,7 @@ the same figure, label the axes, and provide a legend,</p>
 
 <p><strong>Q:</strong> Does this histogram make sense? Is it what you expect for a distribution of Gaussian random variables?</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>See Python Help (<code class="highlighter-rouge">plt.hist?</code>) to learn about the function <code class="highlighter-rouge">hist()</code>.</p>
 
@@ -1504,7 +1573,7 @@ the same figure, label the axes, and provide a legend,</p>
 
 <p><strong>Q.</strong>  Spend some time studying this for-loop.  Does it make sense?</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p><strong>Important note:</strong> Python uses <strong>indentation</strong> to define <code class="highlighter-rouge">for</code> loops.</p>
 
@@ -1540,7 +1609,7 @@ constant.</p>
 
 <p>The function begins with the keyword <code class="highlighter-rouge">def</code> followed by the function name and the inputs in parentheses. Notice that this first line ends with a colon <code class="highlighter-rouge">:</code>. All of the function components that follow this first line should be <strong>indented one level</strong>. This is just like the <code class="highlighter-rouge">for</code> loop we applied earlier; the operations performed by the for loop were indented one leve.</p>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>When defining the function, the code the function executes should be indented one level.</p>
 
@@ -1625,7 +1694,7 @@ constant.</p>
 <div class="language-python input_area highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </code></pre></div></div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
   <p>Use the <code class="highlighter-rouge">keys()</code> method to see what variables are contained in <code class="highlighter-rouge">mat</code>. In other words, run the command <code class="highlighter-rouge">mat.keys()</code>.</p>
 

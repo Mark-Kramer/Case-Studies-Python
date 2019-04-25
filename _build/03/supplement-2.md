@@ -141,16 +141,18 @@ show()
 
 Notice that the products alternate between positive and negative values throughout time. 
 
-<div class="alert alert-block alert-info">
-<p>**Q.** In this case, what is the approximate value of $X_j$ when $f_j = 4$ Hz?</p>
+<div class="question">
+    
+**Q.** In this case, what is the approximate value of $X_j$ when $f_j = 4$ Hz?
 
-<p>**A.** We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,
+**A.** We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,
     
 \begin{equation}\tag{*}\label{eq:*}
 X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right), 
 \end{equation}
     
-Above, we plotted these products over time. Because each product alternates between positive and negative values roughly equally over time, the summation of the product over time is approximately zero. We therefore conclude that both the real part (i.e., the cosine term) and the imaginary part (i.e. the sine term) are small and $X_j \approx 0 + 0i$ when $f_j = 4$ Hz. </p>
+Above, we plotted these products over time. Because each product alternates between positive and negative values roughly equally over time, the summation of the product over time is approximately zero. We therefore conclude that both the real part (i.e., the cosine term) and the imaginary part (i.e. the sine term) are small and $X_j \approx 0 + 0i$ when $f_j = 4$ Hz. 
+    
 </div>
 
 In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly. 
@@ -171,14 +173,18 @@ show()
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Can you predict how the plot of the product of the data with the overlapping cosine function will look? Plot the product and check your prediction.
+    
 </div>
 
 The product of the cosine function and the data is always non-negative, and therefore its summation over time results in a large positive number. In this case, the real part of $X_j$ is large because the cosine function with frequency $f_j =10$ Hz and the data $x$ match. In this sense, the Fourier transform reveals the dominant frequencies of the underlying time series.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** What is the approximate value of the *imaginary* part of $X_j$ for $f_j = 10$ Hz? *Hint*: Consider the plot of the product of the sine function and the data.
+    
 </div>
 
 <a id="autocovariance"></a>
@@ -186,7 +192,9 @@ The product of the cosine function and the data is always non-negative, and ther
 We’ve introduced two tools for assessing dependent structure in the EEG data: the autocovariance and the spectrum. Remarkably, these two measures are related in an important way.
 
 <div class="alert alert-success">
+    
 The spectrum is the Fourier transform of the autocovariance.
+    
 </div>
 
 The spectrum and autocovariance both assess dependent structure in the data but in different domains - the spectrum in the frequency domain and the autocovariance in the time domain. Notice that the spectrum $S_{xx, j}$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> is a function of frequency index $j$, while the autocovariance $r_{xx}[L]$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a> is a function of time lag $L$. For the EEG data of interest here, the dominant 60 Hz rhythm manifests as periodicity in the autocovariance as a function of lag <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3-4a" class="fig"><span><img src="imgs/3-4a.png"></span></a> and a peak in the spectrum as a function of frequency. <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3.6" class="fig"><span><img src="imgs/3-6.png"></span></a> Although the two measures are related through the Fourier transform, each provides a different perspective on the dependent structure in the data. In practice, applying and visualizing both measures is often of use. 
@@ -212,9 +220,11 @@ $$x_n = \beta_0 + \beta_1 \sin(2\pi 60 t_n) + \beta_2\cos(2\pi 60 t_n) + \epsilo
 
 where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis at index $n$ in units of seconds, and $\epsilon_n$ is a random variable.
 
-<div class="alert alert-block alert-info">
-<p>**Q.** The model consists of three predictors. What are they?</p>
-<p>**A.** The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.</p>
+<div class="question">
+    
+**Q.** The model consists of three predictors. What are they?
+**A.** The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.
+    
 </div>
 
 To do multiple linear regression in Python we start by importing the `statsmodels` package and the `DataFrame` function from the `pandas` package. We use `DataFrame` to create a table that is easy to work with and then use `statsmodels` to perform the regression.
@@ -261,18 +271,22 @@ print(model.params)
 
 In the first line, we create a *dataframe* object with the dependent variables (`EEG`) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the `ols` function. OLS stands for [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.
 
-<div class="alert alert-block alert-info">
-<p>**Q.** Examine the fitted $\beta$ values. What do you find?</p>
+<div class="question">
+    
+**Q.** Examine the fitted $\beta$ values. What do you find?
 
-<p>**A.** We find
+**A.** We find
     
 <div style="margin: .25in; background-color: #eff0f1">
+    
 <code>Intercept    2.8e-17
 sin          9.99e-01
 cos         -3.24e-03
+    
 dtype: float64</code></div>
 
-This result indicates that the constant predictor and the 60 Hz cosine predictor do not contribute much to the data; the values of the coefficients for the predictors `Intercept` and `cos` are both near zero. However, the 60 Hz sine function makes a much larger contribution; the value of the coefficient for the predictor `sin` is near 1.</p>
+This result indicates that the constant predictor and the 60 Hz cosine predictor do not contribute much to the data; the values of the coefficients for the predictors `Intercept` and `cos` are both near zero. However, the 60 Hz sine function makes a much larger contribution; the value of the coefficient for the predictor `sin` is near 1.
+    
 </div>
 
 To see how well our multiple linear regression model fits the data, let’s evaluate the model, and compare it to the original EEG data:
@@ -294,10 +308,12 @@ show()
 
 The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.
 
-<div class="alert alert-block alert-info">
-<p>**Q.** The multiple linear regression model <a href="#eq:3.12" class="thumb"><span><img src="imgs/eq3-12.png"></span></a> is not a *perfect* fit ot the data. Why?</p>
+<div class="question">
+    
+**Q.** The multiple linear regression model <a href="#eq:3.12" class="thumb"><span><img src="imgs/eq3-12.png"></span></a> is not a *perfect* fit ot the data. Why?
 
-<p>**A.** The multiple linear regression model includes only three predictors. We expect the EEG data to consist of other features, including rhythms at other frequencies. Therefore, this simple model cannot account for all features of the EEG time series. That’s okay. The goal of this model was to fit a particular rhythm, the 60 Hz activity, not every aspect of the data.</p>
+**A.** The multiple linear regression model includes only three predictors. We expect the EEG data to consist of other features, including rhythms at other frequencies. Therefore, this simple model cannot account for all features of the EEG time series. That’s okay. The goal of this model was to fit a particular rhythm, the 60 Hz activity, not every aspect of the data.
+    
 </div>
 
 Now, let's examine a powerful application of the model. We've constructed the model to fit the 60 Hz line noise in the EEG data. Let's now use the model to *remove* the 60 Hz line noise from the original EEG data. To do so, we subtract the model fit from the EEG data and then plot the resulting new signal: <a id="fig:3.9"></a>
@@ -315,8 +331,10 @@ show()
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the original EEG data, which includes the 60 Hz noise. <a href="#fig:3-1" class="fig"><span><img src="imgs/3-1.png"></span></a> What’s different?
+    
 </div>
 
 In this example, we used multiple linear regression to model a particular rhythmic component of the EEG data, the 60 Hz activity. We may also use the model result to estimate the power at 60 Hz. In Python,
@@ -332,19 +350,12 @@ Sxx_model_60Hz
 
 The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable `Sxx_model_60Hz` has units of mV$^2$.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Compare the power estimate from the model (the variable `Sxx_model_60Hz`) to the power spectral density at 60 Hz computed using the Fourier transform. What do you find?
-<br><br>
+
 **A.** We note that the units of the power spectral density (variable `Sxx`) are mV$^2/$Hz, while the units of the power estimated in variable `Sxx_model_60Hz` are mV$^2$. To convert the power spectral density to (integrated) spectral power, we must integrate the variable `Sxx` over a frequency range. Here, we choose a 1 Hz interval centered at 60 Hz, which corresponds to a single index of the variable `faxis`; the frequency resolution for these data is $\pm 0.5$ Hz. Then the approximate integrated power over this 1 Hz interval can be computed as `Sxx[np.where(faxis == 60)]`, which equals 0.9978, identical to the value in `Sxx_model_60Hz`, and with the same units.
+    
 </div>
 
 This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$'s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.
-
-
-
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../style.css')
-```
-

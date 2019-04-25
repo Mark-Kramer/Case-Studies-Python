@@ -14,14 +14,16 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 <a id="top"></a> 
 # Analysis of rhythmic activity *for the practicing neuroscientist*
 
-<div class="alert alert-block alert-info">
-_**Synopsis**_ <br><br>
+<div class="question">
+    
+_**Synopsis**_ 
 
-**Data:** 2 s of scalp EEG data sampled at 1000 Hz.<br>
+**Data:** 2 s of scalp EEG data sampled at 1000 Hz.
 
-**Goal:** Characterize the observed rhythms in these data.<br>
+**Goal:** Characterize the observed rhythms in these data.
 
 **Tools:** Fourier transform, power spectral density, spectrogram.
+    
 </div>
 
 * [Introduction](#.)
@@ -238,12 +240,16 @@ show()
 
 
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 **Array shapes:** The `reshape()` function lets us change the shape of an array. `reshape(-1)` tells Python to reshape the array into a vector with as many elements as are in the array. Mathematically, a vector is a one-dimensional array. In Python, the difference is that a vector is indexed by a single number, while an array is indexed by multiple numbers. After reshaping, we can look at the number at index 0 of `EEG` using `EEG[0]`. If we don't reshape first, we need to use `EEG[0, 0]` to get the same result, so reshaping the array isn't required, but it is more convenient. There is a nice explanation of array shapes [here](https://stackoverflow.com/questions/22053050/difference-between-numpy-array-shape-r-1-and-r#answer-22074424). 
+    
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** What observations can you make about the EEG data?
+    
 </div>
 
 
@@ -274,8 +280,10 @@ YouTubeVideo('GepHsNVXTN4')
 
 You might notice, through visual inspection, a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in a 1 s interval. To do so, we might count the total number of maxima and divide by 2 (because we observe 2 seconds of data). However, counting so many maxima over an extended time interval is quite an error-prone procedure. Instead, let us count the number of maxima in the first 0.2 s, and then multiply by five; that will approximate the total number of peaks in a 1 s interval. We count about 12 peaks in the first 0.2 s, which corresponds to approximately 60 peaks in 1 s. That’s (approximately) 60 cycles per second or 60 Hertz (Hz).
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** What if you counted the minima, instead of the maxima? Do you get the same answer? What if you counted the zero crossings?
+    
 </div>
 
 
@@ -306,8 +314,10 @@ YouTubeVideo('mZ1uHN4lcPY')
 
 Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “[gamma band](https://en.wikipedia.org/wiki/Gamma_wave)”) are thought important for cognitive processing in the brain [[Nikolić, Fries, & Singer, 2013](https://www.ncbi.nlm.nih.gov/pubmed/23287106)]. But, there’s a reason for the label gamma band: the rhythmic activity observed *in vivo* is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.
 
-<div class="alert alert-block alert-success">
+<div class="math-note">
+    
 **Important fact:** The alternating current in any North American electrical socket alternates at 60 Hz.
+    
 </div>
 
 We conclude that the data are dominated by electrical noise and continue with additional analysis, beyond visual inspection of the time series data. Our visual inspection suggests a dominant 60 Hz signal, but perhaps something else is there, lurking in the signal background.
@@ -408,8 +418,10 @@ T = N * dt        # Define the total duration of the data
 
 We will need to keep the sampling interval $\Delta$ and the total recording duration $T$ in mind&mdash;both will serve fundamental roles in our characterization of the rhythmic activity.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** In the second line of the code above we define the sampling interval as `dt = t[1] - t[0]`. How else could we have defined `dt`? Would `t[10] - t[9]` be appropriate?
+    
 </div>
 
 [Return to top](#top)
@@ -418,13 +430,13 @@ We will need to keep the sampling interval $\Delta$ and the total recording dura
 
 As a first step in our analysis of the EEG data, let’s define two of the simplest measures we can use to characterize data $x$: the mean and variance <sup><abbr title="We could instead write the sample mean, because we use the observed data to estimate the theoretical mean that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this chapter and others, we omit the term “sample” when referring to sample means, variances, covariances, and so forth, unless this distinction becomes essential to our discussion.">*note*</abbr></sup>. To estimate the mean $\bar x$, or average value, of $x$ we compute,
 
-<p title="Mean">$$ \bar x = \frac{1}{N}\sum_{n=1}^N x_n. $$</p>
+<p title="Mean">$$ \bar x = \frac{1}{N}\sum_{n=1}^N x_n. $$
 
 In words, we sum the values of $x$ for all $n$ time indices, then divide by the total number of points summed ($N$). To estimate the variance $\sigma^2$ of $x$ we compute,
 
 <p title="Variance">
 $$ \sigma^2 = \frac{1}{N}\sum_{n=1}^N (x_n - \overline x)^2,$$
-</p>
+
 
 which characterizes the extent of fluctuations about the mean. The *standard deviation* is simply the square root of the variance (i.e., $\sigma$). It's straightforward to compute all three quantities on an `ndarray` in Python:
 
@@ -450,14 +462,18 @@ sd = 0.7104345436320261
 
 ```
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 **A note on data types:** As used above, `mean()`, `var()`, and `std()` are methods of a type of variable called an *ndarray* (use `type(x)` to see what type of variable `x` is). The SciPy `loadmat()` function automatically imports variables to this data type, but it is likely that you will end up working with other data types as well. If you find that `x.mean()` produces an error, `x` is probably not an ndarray. In this case, you should import the `numpy` module and either convert your variable to an ndarray using `numpy.array(x)`, or calculate the mean using `numpy.mean(x)`.
+    
 </div>
 
-<div class="alert alert-block alert-info">
-**Q.** Compare the mean computed above with the plot of the EEG data. Are the two consistent? How does the standard deviation compare with the EEG fluctuations in the plot?<br><br>
+<div class="question">
+    
+**Q.** Compare the mean computed above with the plot of the EEG data. Are the two consistent? How does the standard deviation compare with the EEG fluctuations in the plot?
 
 **A.** The computed mean is approximately 0. Visual inspection of the plot suggests that the EEG data fluctuate around a center value of 0, so the computed mean is consistent with our visual inspection of the data. The computed standard deviation is approximately 0.71. We expect that most of the signal fluctuations lie within two standard deviations (i.e., $\pm 2\sigma$) of the mean. We therefore expect to observe EEG values mostly between 0 ± 1.4 = (−1.4, 1.4), which is in fact what we observe.
+    
 </div>
 
 The mean and variance (and standard deviation) provide single numbers that summarize the EEG trace. In this case, these numbers are not particularly useful. Both may depend on many factors, including the electrical contact between the electrode and scalp surface, and the cognitive state of the subject. Here, we’re more interested in how the EEG activity is distributed across rhythms. We’ve already begun to assess rhythms in the EEG data through visual inspection of the time series. To further characterize these rhythms, we will employ another powerful tool - the Fourier transform. However, before introducing the Fourier transform, we’ll first consider an intimately related measure: the autocovariance.
@@ -490,14 +506,18 @@ This process of shifting, element-by-element multiplying, and summing can be rep
 
 ![autocovariance at lag 2](imgs/3-3d.png "The autocovariance at lag 2. To compute the autocovariance, we sum the multiplied elements and then divide by N (the total number of data points). Gray index labels at the beginning and end of each vector indicated data points not involved in computing the autocovariance at the chosen lag L.")
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** What is the largest reasonable value of $L$ to consider? For example, does a value of $L$ greater than $N$ make sense?
+    
 </div>
 
 The autocovariance will be largest at the lag $L$ for which the values of x "match". For most functions, the autocovariance is largest at $L = 0$ (of course $x$ matches itself with zero shift) and tends to decrease as the magnitude of $L$ increases. Physically, the decrease in autocovariance with lag is consistent with the notion that data becomes less similar as time progresses. For example, in an EEG recording, we expect the activity now to be similar to the activity in the immediate future, but different from the EEG activity in the more distant future; as the brain responds to different internal and external cues, we expect different EEG activities to emerge, and associations between the EEG activity now and later to decay. Functions $x$ that exhibit dependent structure possess informative features in the autocovariance, as we’ll see for the EEG data in a moment.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Compare the [autocovariance](#autocovariance) at $L=0$ and the [standard deviation](#mean). Notice anything similar?
+    
 </div>
 
 To compute the autocovariance of the EEG data, we execute the following commands<a id="fig:3-4a"></a>
@@ -524,16 +544,20 @@ show()
 
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Examine the plot of the autocovariance of the EEG data. What do you observe?
+    
 </div>
 
 Notice that the first input to the function `correlate` is the EEG data with the mean subtracted (`x - mean(x)`). One striking feature of the autocovariance is the periodicity. A careful inspection shows that the autocovariance exhibits repeated peaks and troughs approximately every 0.0166 s.
 
-<div class="alert alert-block alert-info">
-**Q.** Why does the autocovariance exhibit repeated peaks and troughs approximately every 0.0166 s?<br><br>
+<div class="question">
+    
+**Q.** Why does the autocovariance exhibit repeated peaks and troughs approximately every 0.0166 s?
 
 **A.** The autocovariance is reflective of the dominant rhythmic activity in the data. Remember that the EEG data are dominated by a 60 Hz rhythm.
+    
 </div>
 
 To gain intuition for how this rhythmic activity affects the autocovariance, we can also plot examples of the EEG data **aligned with different lags** $L$. We'll do so below in Python by examining different shifts of the 60 Hz cycle.
@@ -737,11 +761,13 @@ YouTubeVideo('OAHpkZy6ZX8')
 
 There are many techniques to assess rhythmic activity in the EEG data. Here, we compute the *power spectral density*, or simply the *spectrum*, of $x$ using a well-established technique, the [*Fourier transform*](https://en.wikipedia.org/wiki/Fourier_transform). There are many subtleties associated with computing and interpreting the spectrum. We explore some of them here; in doing so, we build our intuition for spectral analysis and our ability to deal with future, unforeseen circumstances in other data we encounter in research.
 
-<div class="alert alert-block alert-success">
-<p>The *spectrum* of the data $x$ is the magnitude squared of the Fourier transform of $x$. The spectrum indicates the amplitude of rhythmic activity in $x$ as a function of frequency.</p>
+<div class="math-note">
+    
+The *spectrum* of the data $x$ is the magnitude squared of the Fourier transform of $x$. The spectrum indicates the amplitude of rhythmic activity in $x$ as a function of frequency.
 
-<p>The *power spectral density* describes the extent to which sinusoids of a single frequency capture the structure of the data. To compute the power over any range of frequencies, we would integrate (or for discrete frequencies, sum) the spectrum over that frequency range.</p>
+The *power spectral density* describes the extent to which sinusoids of a single frequency capture the structure of the data. To compute the power over any range of frequencies, we would integrate (or for discrete frequencies, sum) the spectrum over that frequency range.
 
+    
 </div>
 
 
@@ -918,9 +944,11 @@ $$f_{NQ} = 1000 / 2\ Hz = 500\ Hz$$.
 
 There's much more to say about both quantities, but for now let's simply use both quantities to consider how Python relates the indices and frequencies of the vector `Sxx`.
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 When we used the `rfft` function we utilized a useful property of the Fourier transform. If instead of using `rfft` we had used `fft`, we would see that the vector `Sxx` is twice as long because the Fourier transform also calculates the spectrum for the negative frequencies. However, when a signal is real (i.e., the signal has zero imaginary component), the negative frequencies in the spectrum are redundant. So, the power we observe at frequency $f$ is identical to the power we observe at frequency $-f$. For this reason, we can safely ignore the negative frequencies; these frequencies provide no additional information. Because the EEG data are real, we conclude that the negative frequencies in the variable `Sxx` are redundant and can be ignored. As a specific example, the value of `Sxx` at index $j = 2$ is the same as the value of `Sxx` at index $j = 2N - 2$; these indices correspond to frequencies $2df$ and  $-2df$, respectively. We therefore need only plot the variable `Sxx` for the positive frequencies, more specifically, from index `0` to index `N`. 
 
+    
 </div>
 
 Given the total duration of the recording ($T$) and the sampling frequency ($f_0$) for the data, we can define the frequency axis for the spectrum `Sxx`. Now, to compute and plot the spectrum, we again utilize some code introduced earlier:
@@ -991,8 +1019,10 @@ Now, consider the case in which we purchase a cheaper piece of equipment that sa
 
 In this case, we collect two samples per cycle of the underlying true signal. Given only these sample points, we can connect the dots and still approximate the frequency fo the true underlying sinusoid. 
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** For the sampling rate $f_0 = 2f_s$, consider the case in which the first sample occurs on a zero crossing of the sinusoid. At what point does the next sample occur? and the next sample? If you connect the dots in this case, what do you find?
+    
 </div>
 
 Finally, consider the case where our equipment records at a sampling rate less than the frequency of the pure sinusoid signal: $f_0 < 2 f_s$. 
@@ -1001,8 +1031,10 @@ Finally, consider the case where our equipment records at a sampling rate less t
 
 Assuming the first sample occurs at a peak of the sinusoid, the next sample occurs not at a trough (that would correspond to a sampling rate $f_0 = 2f_s$) but instead just after the trough. Connecting the samples with lines, in this case, produces something horrifying, an oscillation occurring at a different, lower frequency. Notice what has happened in this case. Sampling the sinusoid at too low a frequency (i.e., at a frequency less than twice the signal's frequency $f_0 < 2f_s$) causes this signal to manifest at a low-frequency upon sampling. This phenomenon—a high-frequency signal appearing as a low-frequency signal upon sampling&mdash;is known as *aliasing*. Once a signal has been aliased, it's impossible to distinguish from true signals oscillating at low frequencies.
 
-<div class="alert alert-block alert-success">
+<div class="math-note">
+    
 To avoid aliasing, sample data at sufficiently high rates.
+    
 </div>
 
 Typically, to prevent aliasing, recorded data are first analog-filtered before the digital sampling occurs. The analog filtering guarantees that activity at frequencies exceeding a threshold value ($f_c$, say) are dramatically reduced. The sampling rate can then be chosen to exceed this threshold value by at least a factor of 2 (i.e., $f_0 > 2f_c$). We note that in this case the EEG data were first analog-filtered at 200 Hz before digital sampling occurred at 1000 Hz. So, for our EEG data, aliasing is not a concern.
@@ -1041,11 +1073,12 @@ $$df = \frac{1}{T}$$
 
 where $T$ is the total duration of the recording. For the EEG data used in this chapter, $T = 2$ s, so the frequency resolution is $df = 1/(2\ \mbox s) = 0.5$ Hz.
 
-<div class="alert alert-block alert-info">
-<p>
+<div class="question">
+    
+
 **Q.** How do we improve the frequency resolution?
-</p>
-<p>
+
+
 **A.** There’s only one way to do it: increase $T$. That is, record more data. For example, if we demand a frequency resolution of 0.2 Hz, how much data must we record? We can rearrange the equation to solve for $T$,
     
     $$T = \frac{1}{df} = \frac{1}{0.2\mbox{ Hz}} = 5\mbox{ s}$$
@@ -1053,18 +1086,21 @@ where $T$ is the total duration of the recording. For the EEG data used in this 
     
 So, record 5 s of data to obtain a frequency resolution of 0.2 Hz. 
     
-</p>
+
+    
 </div>
 
-<div class="alert alert-block alert-info">
-<p>
+<div class="question">
+    
+
 **Q.** We estimated the spectrum in the preceding code. As we record more and more data, does the estimate of the spectrum improve?
 
-</p>
 
-<p>
+
+
 **A.** Intuitively, you might answer yes. As we collect more and more data, we usually expect our estimate of a quantity (e.g., the mean or the standard deviation) to improve. However, that is not the case for the spectrum. As we collect more and more data, we acquire more and more points along the frequency axis (i.e., $df$ becomes smaller). However, our estimate of the power at each frequency does not improve ([Percival & Walden, 1993](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33)).
-</p>
+
+    
 </div>
 
 To gain some intuition for the frequency resolution formula, consider the case in which we collect $T$ seconds of data. If the sampling interval is $\Delta$, then we collect $N = T/\Delta$ data points; for example, for the EEG data of interest here, we collect $N = 2000$ data points. We know that the number of observations in the data equals the number of frequencies in the spectrum (where we now include negative frequencies); both the data vector `x` and the spectrum vector `Sxx` have length $N$. We also know that the maximum observable frequency in the spectrum, the Nyquist frequency, is fixed no matter how much data we collect. Recall that the Nyquist frequency depends only on the sampling interval: $f_{NQ} = 1/(2\Delta)$. Now, consider the case in which we increase $T$, or equivalently, increase $N$. As we collect more and more data, the maximum frequency remains fixed at the Nyquist frequency, while the length of the spectrum vector increases. We therefore need to fit more and more frequency values between 0 Hz and the Nyquist frequency as $N$ increases. 
@@ -1130,18 +1166,22 @@ show()
 
 To change to the decibel scale, we first divide the spectrum by the maximum value observed and then take the logarithm base 10 of this ratio and multiply the result by 10. The 60 Hz rhythm is still dominant and exhibits the most power.
 
-<div class="alert alert-block alert-info">
-<p>
-**Q.** For this example, what is the value in decibels at 60 Hz?
-</p>
+<div class="question">
+    
 
-<p>
+**Q.** For this example, what is the value in decibels at 60 Hz?
+
+
+
 **A.** Through our previous analysis, we know that the maximum value in the spectrum occurs at 60 Hz. By dividing the original spectrum by this maximum, we scale the spectrum at 60 Hz to a value of 1. The logarithm of 1 is 0, so we find a value of 0 at 60 Hz. Note that all other values are now smaller than 1 and therefore negative on the decibel scale.
-</p>
+
+    
 </div>
 
-<div class="alert alert-block alert-success">
+<div class="math-note">
+    
 Different conventions exist to define the decibel scale. Here we first divide by the maximum before computing the logarithm. Be sure to verify how the spectrum is scaled (if at all) to interpret the decibel axis.
+    
 </div>
 
 The decibel scale reveals new structure in the spectrum. In particular, two peaks have emerged at frequencies 5–15 Hz. These peaks are much weaker than the 60 Hz signal; both peaks are approximately 30 dB below the maximum at 60 Hz, or equivalently, three *orders of magnitude* weaker. Because these peaks are so small relative to the 60 Hz signal, neither was apparent in the original plot of the spectrum.
@@ -1201,8 +1241,10 @@ YouTubeVideo('XYy4NEr3VUs')
 
 The spectrum plotted using the decibel scale suggests that three rhythms appear in the EEG signal: 60 Hz, approximately 11 Hz, and approximately 6 Hz.<a href="#fig:3.13a" class="fig"><span><img src="imgs/3-13a.png"></span></a> Given only these results, we may reasonably conclude that these three rhythms appear simultaneously throughout the entire 2 s of the EEG recording. That is an assumption we make in computing the spectrum of the entire 2 s interval. To further test this assumption in the EEG data, we compute a final quantity: the *spectrogram*. The idea of the spectrogram is to break up the time series into smaller intervals of data and then compute the spectrum in each interval. These intervals can be quite small and can even overlap. The result is the spectrum as a function of frequency and time.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Consider the 2 s of EEG data. If we break up these data into smaller intervals of duration 1 s, what is the resulting frequency resolution of each interval? What is the Nyquist frequency of each interval? 
+    
 </div>
 
 To compute and display the spectrogram in Python, we use the (aptly named) function `spectrogram` from the `scipy` module:<a id="fig:3.14"></a>
@@ -1247,18 +1289,22 @@ show()
 
 We supplied four arguments to the `spectrogram` function. Briefly, these arguments specify the data, the sampling frequency, the interval size (specified in indices and here set to 1 s), and the overlap between intervals (here set to 95%). More information about these options can be found in the documentation (`signal.spectrogram?`). Notice that we used `int` to enforce integer values for three of these inputs.  
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 Note that in computing the spectrogram, we did not subtract the mean as we have done in the past. This is because the `spectrogram` function defaults to this behavior. 
+    
 </div>
 
-<div class="alert alert-block alert-info">
-<p>
-**Q.** Consider the spectrogram above. What aspects of the spectrogram are consistent with our previous results? What aspects are new? Consider, in particular, the low-frequency rhythms and the conclusions deduced from this figure compared to the plot of the spectrum. <a href="#fig:3.13a" class="fig"><span><img src="imgs/3-13a.png"></span></a>
-</p>
+<div class="question">
+    
 
-<p>
+**Q.** Consider the spectrogram above. What aspects of the spectrogram are consistent with our previous results? What aspects are new? Consider, in particular, the low-frequency rhythms and the conclusions deduced from this figure compared to the plot of the spectrum. <a href="#fig:3.13a" class="fig"><span><img src="imgs/3-13a.png"></span></a>
+
+
+
 **A.** The spectrogram displays the spectrum (in decibels) as a function of frequency (vertical axis) and time (horizontal axis). Values on the time axis indicate the center times of each 1 s window (e.g., 0.5 s corresponds to times [0, 1] s in the data). Intervals of high (low) values correspond to warm (cool) colors. Visual inspection immediately provides new insights into the observed EEG rhythms. First, we observe a band of high power at 60 Hz that persists for all time (yellow horizontal line in the plot of the spectrogram). This corresponds to the 60 Hz line noise present for the entire duration of the recording. Second, we observe intervals of increased power near 11 Hz and 6 Hz. Unlike the 60 Hz signal, the two low-frequency rhythms do not persist for the entire 2 s recording (as we may have incorrectly concluded from examination of the spectrum alone. Instead, one weak rhythm (near 6 Hz) appears for the first half of the recording, while another weak rhythm (near 11 Hz) appears for the second half of the recording. Visualization via the spectrogram of how the rhythmic activity changes in time allows this important conclusion.
-</p>
+
+    
 </div>
 
 [Return to top](#top)

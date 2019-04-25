@@ -6,8 +6,8 @@ prev_page:
   url: /03/supplement-2
   title: 'Intuition behind the power spectral density'
 next_page:
-  url: 
-  title: ''
+  url: /05/cross-frequency-coupling
+  title: 'Cross Frequency Coupling'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -15,6 +15,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 # Analysis of coupled rhythms *for the practicing neuroscientist*
 
 <div class="question">
+    
     
 _**Synopsis**_ 
 
@@ -24,6 +25,7 @@ _**Synopsis**_
 
 **Tools:** Fourier transform, spectrum, amplitude, coherence, phase.
 
+    
 </div>
 
 * [Background](#background)
@@ -153,8 +155,10 @@ t = data['t'][0]
 ```
 
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 In general, a single underscore at the beginning of a variable, function or method indicates that this object should be treated as *private*. Double underscores often indicate that Python will interpret this object with some special instructions. In both cases, for what we are doing, we can usually ignore an object that starts with an underscore.
+    
 </div>
 
 Our collaborator tells us that the data from each electrode are organized as a matrix with dimensions *(Trials, Time)*. Let's examine the shape of `E1`,
@@ -169,10 +173,12 @@ E1.shape
 
 We observce that the data consist of 100 trials, each consisting of 500 data points.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 
 **Q.** Is the shape of `E2` similar?  HINT: It should be!
 
+    
 </div>
 
 Let's now plot the data in the first trial from each electrode: <a id="fig:traces">
@@ -192,10 +198,12 @@ ylabel('Voltage [mV]');
 
 Visual inspection of the data in this trial immediately suggests a dominant rhythmic activity occurs in each recording.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 
 **Q.** Approximate the dominant rhythmic activity in each electrode by visual inspection of the figure. A simple procedure is to count the number of peaks in each signal, then divide by the total length of the recording (in this case, 1 s). Does each electrode exhibit approximately the same rhythms? Do you observe similar results in other trials?
 
+    
 </div>
 
 These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image: <a id="fig:image"> 
@@ -219,10 +227,12 @@ The resulting image for the first electrode is shown in the figure above. Voltag
 
 We notice that each trial exhibits rhythmic structure, which manifests in this image as repeating undulations of blue (low voltage), then red (high voltage) over time. We also observe variability in the alignment of these rhythms from trial to trial; from one trial to the next, the undulations appear not to align.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 
 **Q.** Display an image of the activity for the second electrode and compare it to the image from the first electrode in the figure above. How do the two compare?
 
+    
 </div>
 
 Visual inspection of the ECoG data allows us to draw some preliminary conclusions. First, the data appear to be rhythmic, with a particularly strong oscillation near 8 Hz. That’s interesting but not the primary research objective. We would really like to understand whether the activity at the two electrodes is related. Many techniques exist to approach this problem, but let’s begin with the most basic: visual inspection. Let's examine the activity in the first four trials, and attempt to deduce whether a consistent relation exists between the two ECoG signals across trials.
@@ -241,8 +251,10 @@ for j in range(4):
 
 We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Repeat this analysis by examining additional trials, and by inspecting the activity images for each electrode. What conclusions can you make about the relations between the ECoG activity at the two electrodes? Are they related? Are they not related?
+    
 </div>
 
 Although visual inspection is a useful initial tool for analyzing data, assessing the relations between two electrodes across multiple trials is a difficult task. To go further, we employ a new data analysis tool that builds from the Fourier transform: the coherence.
@@ -257,8 +269,10 @@ $$
     
 where $x_{n,k}$ indicates the data at time index $n$ and trial $k$, and $\bar{x}_k$ is the mean value of $x$ for trial $k$.  Notice that we include a new term $\frac{1}{K} \sum_{k=1}^K$, which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K$.  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python<a id="fig:ac"></a>.
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 Note: We could instead write the trial-averaged sample autocovariance because this equation uses the observed data to estimate the theoretical covariance that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.
+    
 </div>
 
 
@@ -283,14 +297,18 @@ ylabel('Autocovariance');
 ```
 
 
-<div class="alert alert-block alert-info">
-**Q.** Consider the results for the trial-averaged autocovariance plotted in the figure [above](#fig:ac). What do these results suggest about the rhythmic structure in these data?<br><br>
+<div class="question">
+    
+**Q.** Consider the results for the trial-averaged autocovariance plotted in the figure [above](#fig:ac). What do these results suggest about the rhythmic structure in these data?
 
 **A:** The trial-averaged autocovariance helps characterize the rhythmic activity at this electrode. Visual inspection of this figure reveals three large positive peaks. The largest peak occurs at a lag of 0 s, as expected; the signal matches itself at zero lag. The two other peaks occur at lags of approximately $\pm 0.125$ s. These peaks reveal that the data, and a version of the data shifted by +0.125 s or -0.125 s, are a good match. Notice that a shift of $\pm 0.125$ s is consistent with periodic activity of approximate frequency 1/(0.125 s) = 8 Hz. For example, imagine a sinusoid of frequency 8 Hz; if we shift the sinusoid by its period (0.125 s) and compare it to the original (unshifted) sinusoid, the match will be excellent. Our data are more complicated than a simple sinusoid, but our visual inspection of the voltage traces ([figure](#fig:traces)) did reveal a dominant 8 Hz rhythm consistent with these autocovariance results.
+    
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Repeat the analysis to compute the trial-averaged autocovariance for the second electrode. What do you find? How do the trial-averaged autocovariances for the two electrodes compare?
+    
 </div>
 
 The trial-averaged autocovariance results for each electrode are interesting, but our primary scientific question for these data is whether dependent structure exists *between* the ECoG activity recorded from the two electrodes. In other words, are the time series recorded from the two electrodes coupled? Many tools exist to characterize coupling between time series, and in this module we focus on two such tools.
@@ -329,8 +347,10 @@ ylabel('Cross covariance');
 
 Notice that we subtract the mean from each electrode in defining `x` and `y` before computing the cross-covariance using the Python function `correlate` from the `numpy` package. In this case, we supply the `correlate` function with three inputs, beginning with the two time series, `x` and `y`, and setting the `mode` to 2, which tells the function to compute the correlation over the entire extent both vectors.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Examine the cross-covariance between the ECoG data from the two electrodes in the first trial ([figure](#fig:xc_1)). What do you observe? At what lags are the largest and smallest values of the cross-covariance? How do these results compare to the trial-averaged autocovariance in [this figure](#fig:ac)? How do these results compare to the voltage traces from each electrode in the first trial ([figure](#fig:traces))?
+    
 </div>
 
 Like the trial-averaged autocovariance for a single electrode ([here](#fig:ac)), the cross-covariance between the two ECoG electrodes in the first trial reveals periodic variations ([figure](#fig:xc_1)). To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,
@@ -348,8 +368,10 @@ ylabel('Voltage [mV]');
 
 The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large; the sum in ([this equation](#eq:xc)) at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Continue this exercise of comparing the cross-covariance with the voltage traces in the figure above. At what lags is the cross-covariance near zero? Can you explain these points in terms of shifted versions of the ECoG traces? Can you explain the repeated appearance of peaks (and troughs) at positive and negative lags in terms of shifted versions of the ECoG traces?
+    
 </div>
 
 Let’s also define the *trial-averaged cross-covariance*. The formula is similar to the trial-averaged autocovariance in ([this equation](#eq:ac)):
@@ -391,20 +413,22 @@ plt.subplots_adjust(hspace=1)               # Space out the subplots.
 
 The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the `for` statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the `mean` command from the `numpy` package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.
 
-<div class="alert alert-block alert-info">
-**Q.** Compare the trial-averaged cross-covariance to the example single-trial cross-covariances. What differences and similarities do you notice between the two cross-covariances?<br></br>
-<p>
+<div class="question">
+    
+**Q.** Compare the trial-averaged cross-covariance to the example single-trial cross-covariances. What differences and similarities do you notice between the two cross-covariances?
+
 
 **A.** Perhaps the most striking difference between the two cross-covariances is their magnitude; the single-trial cross-covariances are much larger—approximately an order of magnitude—than the trial-averaged cross-covariance. To understand why this difference occurs, consider the impact of averaging the four example single-trial cross-covariances plotted in the figure above. At each lag, we find both positive and negtive cross-covariance values. We therefore expect that, upon averaging these values across trials, we will obtain a value near zero at each lag. In fact, that’s just what we find in the trial-averaged cross-covariance. Because the single-trial cross-covariance functions lack alignment across trials, the averaging procedure acts to cancel out the individual (large) fluctuations of each single-trial cross-covariance.
-<br></br>
-<p>
 
 
-We may therefore conclude the following. At the single-trial level we find strong cross-covariance that is periodic with period near 0.125 s (examples in the figure aove). However, we find much weaker trial-averaged cross-covariance; the cross-covariance structure that exists at the single-trial level does not persist when averaged across trials.<br></br>
-<p></p>
+
+
+We may therefore conclude the following. At the single-trial level we find strong cross-covariance that is periodic with period near 0.125 s (examples in the figure aove). However, we find much weaker trial-averaged cross-covariance; the cross-covariance structure that exists at the single-trial level does not persist when averaged across trials.
+
 
 
 Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [Summary](#summary) below.
+    
 </div>
 
 ### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
@@ -489,15 +513,19 @@ plot(f,10*np.log10(Sxx[0,:]), 'r');               # Also, for reference, plot sp
 ```
 
 
-<div class="alert alert-block alert-info">
-**Q:** Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?<br><br>
+<div class="question">
+    
+**Q:** Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?
 **A:** If not, we recommend reviewing the case study in [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG).
+    
 </div>
 
 The resulting trial-averaged spectrum is shown in the figure (blue in the figure above). Compared to the example spectrum from a single trial (red in the figure above), the variability is greatly reduced. By reducing the variability in this way, interesting structure in the data may become more apparent.
 
-<div class="alert alert-block alert-info">
-**Q.**  Upon examining the trial-averaged spectrum from one electrode, what additional conclusions can you now make about the data beyond visual inspection of the voltage traces? Repeat this computation of the trial-averaged spectrum for the second electrode. What do you find? <p> *Hint*: The 8 Hz peak is obvious and consistent with our visual inspection of the data. Do you notice any other (smaller) peaks in the trial-averaged spectrum?
+<div class="question">
+    
+**Q.**  Upon examining the trial-averaged spectrum from one electrode, what additional conclusions can you now make about the data beyond visual inspection of the voltage traces? Repeat this computation of the trial-averaged spectrum for the second electrode. What do you find?  *Hint*: The 8 Hz peak is obvious and consistent with our visual inspection of the data. Do you notice any other (smaller) peaks in the trial-averaged spectrum?
+    
 </div>
 
 [Return to top](#introduction)
@@ -506,8 +534,10 @@ The resulting trial-averaged spectrum is shown in the figure (blue in the figure
 
 Coherence is a measure of association between two time series. Briefly:
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 Two signals are coherent at some frequency if there exists a constant phase relation between them at this frequency.
+    
 </div>
 
 To compute the coherence, we use the [simplified expression for the spectrum](#eq:pow_A) and an additional term, the cross-spectrum.
@@ -593,11 +623,13 @@ $$
 
 This expression defines a sum of vectors in the complex plane, each of radius 1 (indicated by the blue circle in the figure). Because the phase difference is the same for each trial, these vectors point in the same direction for each trial. Then by summing up these vectors end to end across trials, we produce a long vector in the complex plane that terminates far from the origin, as shown in the righmost panel of the figure above.
 
-<div class="alert alert-block alert-info">
-**Q:** How long is the summed vector in this case?<br></br>
-<p>
+<div class="question">
+    
+**Q:** How long is the summed vector in this case?
+
 
 **A:** We add $K$ vectors (one for each trial) each of length 1, and each pointing in the same direction ($\Phi_{j,0}$).  So the total length of the vector (i.e., the total distance from the origin to the termination point of the summed vector) is $K$.
+    
 </div>
 
 The [coherence](#eq:cohr_simp) is this vector length, divided by $K$, so we conclude in this case that,
@@ -608,8 +640,10 @@ $$
 
 which indicates strong coherence between the two signals.  The strong coherence in this case results from the constant phase relationship between the two signals across trials at frequency index $j$.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q:** Does the conclusion $\kappa_{xy,\, j} = 1$ depend upon the value of the phase difference $\Phi_{j,0}$?  For example, does this result require that the phase difference between the two signals in each trial ($\Phi_{j,0}$) equal $0$, or $\pi/4$, or $\pi$?
+    
 </div>
 
 [Return to top](#introduction)
@@ -620,11 +654,13 @@ As a second scenario, consider another specific frequency $j$ in which the two s
 
 <img src="imgs/ex_complex_plane_coherence_b.png"></img>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q:** Consider the sum of these vectors end to end in the complex plane, plotted in the rightmost panel of the figure above. What is the approximate length of this summed vector across trials?
-<p>
+
 
 **A:** We expect the length of this vector to be small. Because the angles lack organization from trial to trial, the vectors are equally likely to point in any direction. Therefore, when we sum these vectors across trials, the length fails to accumulate in any particular direction.
+    
 </div>
 
 Under the simplifying assumption that the amplitude is identical at this frequency for both signals and all trials, the [coherence](#eq:cohr_simp) is this summed vector length, divided by $K$. Our visual inspection of the cartoon in the figure above (rightmost panel) suggests that this summed vector length will be small. Therefore, for this scenario we conclude that,
@@ -647,15 +683,19 @@ in which:
 - $0$ indicates no coherence between signals $x$ and $y$ at frequency index $j$, and
 - 1 indicates strong strong coherence between signals $x$ and $y$ at frequency index $j$.
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
     The coherence is a measure of the phase consistency between two signals at frequency index $j$ across trials.
+    
 </div>
 
 We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG) for details.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** What are the units of the coherence?
-<p>Hint: Consider [this equation](#eq:cohr) for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.
+Hint: Consider [this equation](#eq:cohr) for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.
+    
 </div>
 
 [Return to top](#introduction)
@@ -663,8 +703,10 @@ We note that because computing the coherence requires the Fourier transform, the
 ## Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a>
 Although we defined the cross-spectrum in [this equation](#eq:cross) and used it to define the coherence in [this equation](#eq:cohr), the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show [here](https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG/Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb) that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners. 
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 The cross-spectrum is the Fourier transform of the cross-covariance.
+    
 </div>
 
 The cross-spectrum and cross-covariance form a Fourier transform pair. The cross-spectrum is a frequency domain measure of coupling, while the cross-covariance is a time domain measure of coupling. To move back and forth between these two measures, we use the Fourier transform. In practice, we rarely examine the cross-spectrum directly; it’s a complex quantity and so requires two dimensions (i.e., the complex plane) to visualize. However, the cross-spectrum is fundamental to the coherence, so in that sense it’s an important actor in the analysis.
@@ -675,12 +717,16 @@ The cross-spectrum and cross-covariance form a Fourier transform pair. The cross
 ## Computing the Coherence <a id="computing_coherence"></a>
 With that introduction, we are now equipped to compute the coherence. We expect the coherence to reveal the frequencies at which the two ECoG signals exhibit a constant phase relation across trials.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Before we compute the coherence, hypothesize whether you expect to observe coherence between the two ECoG signals. If so, at what frequencies? Your hypothesis should be based on the previous visual analysis and spectral analysis of these data (see, for example, [this figure](#fig:traces) and [this figure](#fig:trial_avg_spectrum)).
+    
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** To plot the coherence versus frequency, we must identify the frequency resolution and Nyquist frequency appropriate for the analysis of the ECoG data. What are they?
+    
 </div>
 
 There are a variety of alternatives to compute the coherence. To start, let’s compute the coherence by hand. The reason for doing so is that we can implement the preceding mathematical expressions and in that way gain more understanding of their features. Here’s the Python code<a id="fig:cohr"></a>:
@@ -715,15 +761,19 @@ ylabel('Coherence');
 ```
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** That’s quite a bit of code. Look through it line by line, and confirm that each step makes sense. Can you identify the calculation of the cross-spectrum? of the trial averaging?
+    
 </div>
 
-<div class="alert alert-block alert-info">
-**Q:** Consider the coherence between the two ECoG electrodes plotted in the figure above. At what frequencies do strong coherences appear? How do these frequencies compare to the trial-averaged spectra, shown for one electrode in [this figure](#fig:trial_avg_spectrum)?<br></br>
-<p></p>
+<div class="question">
+    
+**Q:** Consider the coherence between the two ECoG electrodes plotted in the figure above. At what frequencies do strong coherences appear? How do these frequencies compare to the trial-averaged spectra, shown for one electrode in [this figure](#fig:trial_avg_spectrum)?
+
 
 **A:** The coherence measures the phase consistency at a chosen frequency between two signals across trials. For the ECoG data, both electrodes possess trial-averaged spectra with similar features: a large peak near 8 Hz and a smaller peak near 24 Hz (see the trial-averaged spectrum for one electrode in [this figure](#fig:trial_avg_spectrum)). However, the coherence between the two ECoG signals reveals a peak only at 24 Hz. We conclude that the two ECoG signals both exhibit a dominant oscillation at 8 Hz, yet this rhythm is not coherent across trials; only the smaller-amplitude rhythm at 24 Hz is coherent between the two electrodes.
+    
 </div>
 
 ## Visualizing the Phase Difference across Trials <a id="Visualizing_the_Phase_Difference"></a>
@@ -767,16 +817,20 @@ Again, we’re encountering quite a bit of Python code. Fortunately, large chunk
 
 To summarize the results, we plot a histogram of the phase differences. We divide the phase axis into 20 bins of equal size from 0 to 2$\pi$ radians, or equivalently, 0 to 360 degrees. At 8 Hz, we observe that phase differences appear in all angular intervals; notice that the number of phase differences located in each angular interval remains small, typically less than 10. At 24 Hz, the angular differences concentrate near 0 degrees; all of the angles lie between  approximately 60 and 60 degrees. This visualization is consistent with the strong coherence at 24 Hz, indicative of a consistent phase difference across trials between the two electrodes.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q.** Compute and display the distribution of phase differences at other frequencies. What do you find? Are these results consistent with the coherence plotted in [this figure](#fig:cohr)?
+    
 </div>
 
 ## Single-Trial Coherence <a id="single_trial_coherence"></a>
 
 We have emphasized that coherence is a measure of phase consistency between two signals at some frequency *across trials*. This type of analysis is appropriate in many instances in which data are collected in a trial structure. However, we might also be interested in computing the coherence between two signals recorded in a single observation or trial.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q:** Is it possible? Can we compute the coherence between two signals for a single trial?
+    
 </div>
 
 To address this question, consider the [equation for the coherence written in polar coordinates](#eq:cohr_ang).  Remember that, in writing this equation, we have made no assumptions about the data;  instead, all we have done is express the complex quantities in polar coordinates.  Now consider this equation for the case in which we possess only one trial, so that $K=1$.  Then,
@@ -789,16 +843,20 @@ $$
 
 So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of signals $x$ and $y$ and for any frequency (index $j$).  For example, we could choose $x$ to be the price of a publicly traded stock (e.g., GE) and $y$ to be an ECoG recording, both sampled at 500 Hz for 1 s.  Even in this case, we will find perfect coherence between the two signals.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q:** Can we use an ECoG signal to predict the stock price of GE? If so, then we’re rich! How can any two arbitrary signals be perfectly coherent at all frequencies?
+    
 </div>
 
 The answer is that the coherence measure requires a trial structure. Recall that the coherence measures the phase consistency between two signals *across trials*. If only one trial is observed, then the two signals are trivially coherent; the two signals have some phase difference between 0 and 2$\pi$ and because we have no other trials with which to compare this difference, the two signals are “coherent.”
 
 But what if we only collect one trial of data? We can still attempt to compute the coherence in (at least) two ways. First, we could divide the single trial of data into smaller intervals and then treat each interval as a trial. This approach can be effective if we believe the phase relation persists in time, and if we possess a long enough recording. Note that by dividing the data into smaller intervals, we impact the frequency resolution.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+    
 **Q:** Imagine we collect 10 s of ECoG data (sampling frequency 500 Hz) from two electrodes and would like to compute the coherence. To do so, we divide the data into ten nonoverlapping 1 s intervals, and treat each interval as a trial to compute the coherence. What is the frequency resolution of the coherence? If instead we divide the data into 100 nonoverlapping frequency intervals, what is the frequency resolution? In both cases, what is the Nyquist frequency?
+    
 </div>
 
 A second approach to compute the coherence from a single trial of data is to use the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
@@ -868,8 +926,10 @@ In this module, we analyzed ECoG data recorded from two electrodes during an aud
 
 To further assess the relation between the two electrodes, we computed the coherence. The coherence is strong (approaches 1) at a chosen frequency $f_0$ when there exists a constant phase relation at frequency $f_0$ between two electrodes over trials. We found a strong coherence between the two ECoG electrodes only at 24 Hz. We concluded that although both ECoG signals possessed dominant rhythms at 8 Hz, these rhythms were not coherent between the two electrodes. The strong coherence appeared only at the small-amplitude 24 Hz rhythm. Finally, we implemented a technique to visualize the distribution of phase differences between the two electrodes across trials, and provided some suggestions for how to compute the coherence for a single trial of data.
 
-<div class="alert alert-block alert-warning">
+<div class="python-note">
+    
 **Caution!** Large amplitude does not imply large coherence.
+    
 </div>
 
 In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found [strong single-trial cross-covariance](#fig:xc_1) with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.

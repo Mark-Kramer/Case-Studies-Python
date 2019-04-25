@@ -83,8 +83,9 @@ We see the similarities and differences between these two estimates. At small la
 
 Compare this observation to the *unbiased* estimate of the autocovariance. In this example, we see that the unbiased estimate of the autocovariance remains large even as L approaches ± 2 (blue curve).
 
-<div class="alert alert-block alert-info">
-**Q.** Why does the biased estimate of the autocovariance approach 0 at large lags? <br><br>
+<div class="question">
+    
+**Q.** Why does the biased estimate of the autocovariance approach 0 at large lags? 
 
 **A.** For concreteness, let's consider the case when $L = N - 2$. In this case, $L$ is large, and nearly equal to the number of points in the data ($N$). When $L$ is large, we shift the time series $x$ so that only a subset of indices overlap; the following is a cartoon representation of the $L = 2$ case:
 ![cartoon representation f L=2 autocovariance](imgs/3-3d.png)
@@ -93,10 +94,12 @@ Now consider the extension to $L=N-2$. Because we only compute the product
 $$(x_{n+L} - \bar x)(x_n - \bar x)$$
 
 for the overlapping indices of $x_n$ and $x_{n+L}$, we only include two terms in the  summation <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a> The sum of these two terms is then divided by $N$, which results in a small number that approaches zero as L approaches N.
+    
 </div>
 
-<div class="alert alert-block alert-info">
-**Q.** Why does the unbiased estimate of the autocovariance remain large at large lags? <br><br>
+<div class="question">
+    
+**Q.** Why does the unbiased estimate of the autocovariance remain large at large lags? 
 
 **A.** As in the biased case, let's again consider $L = N-2$. In this case, $L$ is large, and we shift the time series $x$ so that only a subset of indices overlap. Therefore, the product
 
@@ -113,6 +116,7 @@ Careful inspection of the blue curve reveals another feature of the biased estim
 ![plot with large lags highlighted](imgs/3-5highlight.png "The autocovariance of the EEG for the biased (orange) and unbiased (blue) estimates over a wide range of lags.")
 
 Increased variability at large lags occurs because, as $L$ approaches $N$, we have less data to compare in the assessment of the autocovariance. Notice that, when $L = N − 1$, the estimate of the autocovariance utilizes only two data points from $x$ (i.e., the product consists only of one term: $(x_N - \bar x)(x_1 - \bar x)$). We do not expect a reliable assessment of associations in the data with so few data points to compare.
+    
 </div>
 
 With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons ([Percival & Walden, 2009](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33)). First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:
@@ -127,7 +131,7 @@ r_{xx}[N-1] &=& \frac{1}{N} \sum_{n = 1}^{N - (N - 1)} (x_{n + (N - 1)} - \bar x
 &=&\frac{1}{N}\sum_{n=1}^1(x_{n+(N-1)} - \bar x)(x_n - \bar x), \\
 &=&\frac{1}{N}(x_{N} - \bar x)(x_1 - \bar x).
 \end{eqnarray}
-</p>
+
 
 The expression for the unbiased estimator <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-4.png"></span></a> becomes,
 
@@ -137,7 +141,7 @@ r_{xx}^*[N-1] &=& \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x
 &=& \sum_{n=1}^1(x_{n+N-1} - \bar x)(x_n - \bar x), \\
 &=& (x_{N} - \bar x)(x_1 - \bar x), \\
 \end{eqnarray}
-</p>
+
 
 These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves "nicely" as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.
 
