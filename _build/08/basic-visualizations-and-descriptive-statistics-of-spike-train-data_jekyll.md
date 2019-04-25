@@ -1,3 +1,15 @@
+---
+interact_link: content/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.ipynb
+kernel_name: python3
+title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
+prev_page:
+  url: /06/the-power-spectrum-part-2
+  title: 'The Power Spectrum (Part 2)'
+next_page:
+  url: 
+  title: ''
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
 
 <a id="top"></a> 
 
@@ -52,6 +64,8 @@ We develop tools in this chapter to visualize spike train data and to provide ba
 Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands: 
 
 
+
+{:.input_area}
 ```python
 # Prepare the modules and plot settings
 import scipy.io as sio
@@ -63,15 +77,22 @@ from matplotlib import rcParams
 ```
 
 
+
+
+{:.input_area}
 ```python
 rcParams['figure.figsize'] = (12,3)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 ```
 
 
+
+
+{:.input_area}
 ```python
 data = sio.loadmat('Ch8-spikes-1.mat')  # Load the ECoG data
 ```
+
 
 <div class="question">
 
@@ -93,10 +114,13 @@ Recall that the `loadmat()` function outputs a dictionary that contains the vari
 </div>
 
 
+
+{:.input_area}
 ```python
 SpikesLow = data['SpikesLow'][0]
 SpikesHigh = data['SpikesHigh'][0]
 ```
+
 
 Each variable is a single vector that gives a set of increasing spike times for the associated condition. The two vectors are of different sizes because the neuron fired a different number of spikes in each condition.
 
@@ -156,6 +180,8 @@ where $n$ is the number of spikes over the time interval $T$.
 </div>
 
 
+
+{:.input_area}
 ```python
 T = 30
 n = len(SpikesLow)
@@ -164,8 +190,12 @@ f = n / T
 print('f =', f)
 ```
 
-    f = 25.0
 
+{:.output .output_stream}
+```
+f = 25.0
+
+```
 
 This tells us that the firing rate is 25 spikes per second, or 25 Hz.
 
@@ -184,13 +214,18 @@ This tells us that the firing rate is 25 spikes per second, or 25 Hz.
 These calculations allow us to compute a simple number representative of one aspect of the data: the firing rate over the entire duration of the recording. Do the two datasets exhibit a statistically significant change in the firing structure between conditions? Or, does the difference in firing rates lie within the range of expected fluctuations between any two trials of random spiking data? To answer these types of questions, we need to develop statistical methods that are appropriate for analyzing spike trains. Let’s look at the data more carefully and visualize the structure of the spiking in the low ambient light condition. Motivated by the results of the previous chapters, it may be tempting to visualize the spike train by simply plotting the `SpikesLow` variable,
 
 
+
+{:.input_area}
 ```python
 plot(SpikesLow)
 show()
 ```
 
 
-![png](output_22_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_22_0.png)
+
 
 
 <div class="question">
@@ -212,6 +247,8 @@ show()
 Instead of the data representation above, we would like to plot the spike train data as a set of points in a single row with $x$-coordinates that occur at the spike times. One way to produce such a plot is the following:
 
 
+
+{:.input_area}
 ```python
 import numpy as np  # Import the NumPy module
 plot(SpikesLow, np.ones_like(SpikesLow), '.')  # Plot spikes as a row,
@@ -222,7 +259,10 @@ show()
 ```
 
 
-![png](output_25_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_25_0.png)
+
 
 
 <div class="question">
@@ -248,6 +288,8 @@ To compare the spiking in the low- and high-light conditions, we can plot both i
 <a id="fig:8.2b"></a>
 
 
+
+{:.input_area}
 ```python
 plot(SpikesLow, np.ones_like(SpikesLow), '.')  # Plot the low-light condition spikes
 plot(SpikesHigh, 2 * np.ones_like(SpikesHigh), '.')  # ... and the high-light condition spikes 
@@ -259,7 +301,10 @@ show()
 ```
 
 
-![png](output_28_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_28_0.png)
+
 
 
 <div class="question">
@@ -268,11 +313,19 @@ show()
     
 **Q.** What's happening in the fifth line of this code segment?
 
+
+
+
     
 **A.** The fifth line of this code segment is similar to the second line, but it plots the data for the high ambient light condition. The first input to the `plot` function is the variable `SpikesHigh`. The second input to `plot` is a function; here we’re creating an array of 1s, this time with dimensions to match the variable `SpikesHigh`. Notice that we multiply this array by a scalar value of 2; this command acts to create a vector of 2s with the same dimensions as the vector `SpikesHigh`. The last input to `plot` indicates to display the data using another dot symbol. To summarize, here we’re calling the `plot` command to display
 
-* x-axis values: spike times in the high ambient light condition 
-* y-axis values: 2.
+
+    <ul>
+<li> x-axis values: spike times in the high ambient light condition <li> y-axis values: 2.
+    </ul>
+
+
+
 
 </div>
 
@@ -300,18 +353,23 @@ With the data visualized in this way, we’re now able to ask an interesting que
 So far, we have examined the long-term structure of the spiking over multiple seconds. Let’s now focus on the short-term structure that occurs within a single second or less. Instead of plotting 5 s of spike train data, let's plot an interval of 1 s:
 
 
+
+{:.input_area}
 ```python
 plot(SpikesLow, np.ones_like(SpikesLow), '.')  # Plot the low-light condition spikes
 plot(SpikesHigh, 2 * np.ones_like(SpikesHigh), '.')  # ... and the high-light condition spikes 
 plt.xlim([10, 11])              # Display times 0 to 5 s on the x-axis
-plt.ylim([0, 3])                # ... and set the y-axis limits
-xlabel('Time [s]')              # ... label the x-axis
-plt.legend({'Low', 'High'})     # ... show a legend
+plt.ylim([0, 3])              # ... and set the y-axis limits
+xlabel('Time [s]')            # ... label the x-axis
+plt.legend({'Low', 'High'})   # ... show a legend
 show()
 ```
 
 
-![png](output_35_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_35_0.png)
+
 
 
 <div class="question">
@@ -325,10 +383,13 @@ Inspecting smaller time intervals, you might notice bursts of spikes that cluste
 One approach to further characterizing the differences in spiking between the two conditions is to transform the data. One of the most useful transformations focuses on the waiting times between the spikes, or interspike intervals (ISIs), instead of the spike times themselves. We can compute the ISIs for the two conditions as follows:
 
 
+
+{:.input_area}
 ```python
-ISIsLow = np.diff(SpikesLow)    # Compute ISIs in the low-light condition
+ISIsLow = np.diff(SpikesLow)  # Compute ISIs in the low-light condition
 ISIsHigh = np.diff(SpikesHigh)  # Compute ISIs in the high-light condition
 ```
+
 
 <div class="question">
 
@@ -376,13 +437,18 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 The variables `ISIsLow` and `ISIsHigh` are vectors, and we can visualize these vectors using the same tools we’ve applied to visualize vectors in other scenarios. For example, we may simply plot these vectors:
 
 
+
+{:.input_area}
 ```python
 plot(ISIsLow)
 show()
 ```
 
 
-![png](output_42_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_42_0.png)
+
 
 
 The x-axis is the vector index, which ranges from 1 to the length of the vector ISIsLow. The y-axis is the value of the ISI at each index. We see that the ISI values range from small times (less than 0.05 s) to large times (over 0.4 s). In this way, the visualization provides some insight into the ISI values for the low-light condition.
@@ -428,6 +494,8 @@ Recall that Python uses *zero-based indexing*. This means that elements in array
 </div>
 
 
+
+{:.input_area}
 ```python
 ISIsLow[:8]
 ```
@@ -435,8 +503,12 @@ ISIsLow[:8]
 
 
 
-    array([0.04098354, 0.02902169, 0.00746714, 0.05205904, 0.05553601,
-           0.06204051, 0.02267623, 0.02132764])
+
+{:.output .output_data_text}
+```
+array([0.04098354, 0.02902169, 0.00746714, 0.05205904, 0.05553601,
+       0.06204051, 0.02267623, 0.02132764])
+```
 
 
 
@@ -473,6 +545,8 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 Of course, we’re free to choose any interval of bins for the histogram. In the preceding examples, we chose a bin size of 0.01 s = 10 ms. Based on our understanding of a neuron, we might instead choose to examine a smaller bin size, 0.001 s = 1 ms. Let’s do so now, and examine the histogram of all ISIs for the low-light condition. Of course, with enough patience, we could examine by hand each ISI value from the low-light condition and place each value in the correct 1 ms bin. However, this process would be time consuming and extremely error prone. Instead, the process of binning the ISI data is better done in Python. To create a histogram of all the ISI data in the low-light condition is straightforward:
 
 
+
+{:.input_area}
 ```python
 bins = np.arange(0, .5, 1e-3)  # Define the bins for the histogram
 plt.hist(ISIsLow, bins)        # Plot the histogram of the ISI data
@@ -484,7 +558,10 @@ plt.show()
 ```
 
 
-![png](output_54_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_54_0.png)
+
 
 
 In the first line of this code segment, we define the bins. These bins start at time 0 s and end at time 0.499 s, and the size of each bin is 0.001 s. We then call the function `hist()` with two inputs: the first input is the variable we’d like to examine (here, `ISIsLow`, the ISIs in the low-light condition), and the second input is the bins. The function `hist()` computes the histogram and displays the result. By setting the $x$-axis limit with `xlim()`, we’ve chosen to examine the ISI values from 0 ms to 150 ms. We’ve also labeled the axes in the resulting figure. Notice that the $x$-axis indicates the binned ISI intervals, while the $y$-axis indicates the number of counts in each bin.
@@ -502,6 +579,8 @@ In the first line of this code segment, we define the bins. These bins start at 
 Let's visualize the distributions of ISIs in both conditions next to each other: <a id="fig:8-5"></a>
 
 
+
+{:.input_area}
 ```python
 plt.hist(ISIsLow, bins)        # Plot the histogram of the low-light ISI data
 plt.xlim([0, 0.15])            # ... focus on ISIs from 0 to 150 ms
@@ -518,11 +597,16 @@ plt.show()
 ```
 
 
-![png](output_58_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_0.png)
 
 
 
-![png](output_58_1.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_1.png)
+
 
 
 <div class="question">
@@ -590,6 +674,8 @@ Another common approach to analyzing spiking data is to discretize time into bin
 Let’s bin the spike train data of the low-light condition into time bins of size 50 ms. To do so, we make use of the function `histogram()`:
 
 
+
+{:.input_area}
 ```python
 time_bins = np.arange(0, 30, 0.05)                    # Define the time bins
 IncrementsLow50, _ = np.histogram(SpikesLow, time_bins)  # ... and compute a histogram of the data
@@ -600,7 +686,10 @@ show()
 ```
 
 
-![png](output_67_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_67_0.png)
+
 
 
 Notice that, in this case, we use the function `histogram()` in a new way. Instead of simply generating a plot, we call the function with the output variable `IncrementsLow50`. This variable `IncrementsLow50` is a vector containing the number of counts (i.e., the number of spikes) in each 50 ms increment. The time bins (`time_bins`, the second input to the function `histogram`) is a vector containing the bin locations in time. In this case, the time bins start at time 0 s and end at time 30 s, with 0.05 s between bins. The variable name `IncrementsLow50` is quite descriptive. It reminds us that the variable represents the increments process in the low-light condition with a time bin of 50 ms.
@@ -620,13 +709,19 @@ A descriptive choice of variable name is often useful.
 One question that arises quite often is how variable these binned counts are. To illustrate this variability, let’s consider two scenarios. In the first, consider a neuron that fires perfectly regularly, like a metronome. In this case, we expect the number of spikes in each time bin to be nearly identical. On the other hand, consider the scenario of a neuron that fires in irregular bursts. In this case, we expect much more variability in the number of spikes in each time bin, depending on whether a time bin contained a burst of spikes or a quiet period. To characterize this variability, a standard measure to compute is the sample Fano factor (FF). It’s easy to define the Fano factor: FF is the sample variance of the increment process divided by the sample mean of the increment process. The implementation of FF in Python is also relatively simple:
 
 
+
+{:.input_area}
 ```python
 FF50Low = IncrementsLow50.var() / IncrementsLow50.mean()
 print('FF50Low =', FF50Low)
 ```
 
-    FF50Low = 0.7164927285225824
 
+{:.output .output_stream}
+```
+FF50Low = 0.7164927285225824
+
+```
 
 <div class="question">
 
@@ -707,6 +802,8 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 With the value of $N = 600$ now determined, let’s plot the gamma distribution and investigate its shape:
 
 
+
+{:.input_area}
 ```python
 from scipy.stats import gamma   # Import the gamma object from the SciPy stats toolbox
 N = IncrementsLow50.shape[0];   # Determine number of time bins.
@@ -722,7 +819,10 @@ show()
 ```
 
 
-![png](output_83_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_83_0.png)
+
 
 
 Notice that we’re evaluating the function `gamma.pdf()`, which returns as output the gamma probability density function. We provide three inputs to this function. The first specifies a range of Fano factors to investigate (here we choose Fano factors ranging from 0.5 to 1.5; we choose a large number of Fano factor values to make a smooth plot of the gamma distribution). The second and third inputs to the function specify the shape and scale parameters of the gamma distribution.
@@ -730,6 +830,8 @@ Notice that we’re evaluating the function `gamma.pdf()`, which returns as outp
 When $N$ is large, as it is here, the gamma distribution looks like a normal distribution (i.e., like a bell-shaped curve). We can use this distribution to construct an interval where we would expect the Fano factor to lie if the data were generated by a Poisson process. More specifically, if the data were generated by a Poisson process, then we would expect the Fano factor to lie in the 95% confidence interval around the value of 1. Let’s construct this 95% confidence interval:
 
 
+
+{:.input_area}
 ```python
 gamma.ppf([.025, .975], shape, scale=scale)
 ```
@@ -737,7 +839,11 @@ gamma.ppf([.025, .975], shape, scale=scale)
 
 
 
-    array([0.88985257, 1.11648138])
+
+{:.output .output_data_text}
+```
+array([0.88985257, 1.11648138])
+```
 
 
 
@@ -880,6 +986,8 @@ Let’s return to the spike train data of interest here, recorded in the low- an
 Let’s compute the autocorrelation for increment processes deduced from the spike train data in the low-light condition. We compute the autocorrelation of the 50 ms increment process for lags ranging from 0 to 200 ms. We need only three lags to cover this range; lag 1 covers 50–100 ms, lag 2 covers 100–150 ms, and lag 3 covers 150–200 ms. We can define a function to compute the autocorrelation using the function `correlate()` from the NumPy module:
 
 
+
+{:.input_area}
 ```python
 def autocorr(x, lags):
     xcorr = np.correlate(x - x.mean(), x - x.mean(), 'full')  # Compute the autocorrelation
@@ -892,7 +1000,11 @@ autocorr(IncrementsLow50, 3)
 
 
 
-    array([1.        , 0.03894992, 0.07055464, 0.04431669])
+
+{:.output .output_data_text}
+```
+array([1.        , 0.03894992, 0.07055464, 0.04431669])
+```
 
 
 
@@ -933,11 +1045,14 @@ Our new function `autocorr()` takes two inputs. The first input is the data for 
 If we are particularly interested in the fine-scale temporal dependence structure of the spikes, we would do better to compute the autocorrelation function for more finely binned intervals. To that end, let’s repeat the autocorrelation analysis for an increment process that uses 1 ms bins. We first compute a new increment process and then apply the `autocorr()` function to this process.
 
 
+
+{:.input_area}
 ```python
 time_bins = np.arange(0, 30, 0.001)                    # Define the time bins
 IncrementsLow1, _ = np.histogram(SpikesLow, time_bins) # ... compute the histogram to create increment process
 ACFLow = autocorr(IncrementsLow1, 100)                 # ... and the autocorrelation
 ```
+
 
 <div class="question">
 
@@ -958,6 +1073,8 @@ ACFLow = autocorr(IncrementsLow1, 100)                 # ... and the autocorrela
 In order to examie history dependence going back 100 ms, we need 100 lags (because each lag index corresponds to 1 ms). There are now too many values to examine them printed one by one at the command line, so instead we construct a plot fo the autocorrelation function with lag on the $x$-axis and correlation on the $y$-axis. Let's also include in this figure two approximate significance lines at $\pm2/\sqrt N$.
 
 
+
+{:.input_area}
 ```python
 plot(ACFLow, '.')        # Plot autocorrelation vs lags,
 N1 = len(IncrementsLow1)                    # ... compute the sample size
@@ -970,7 +1087,10 @@ show()
 ```
 
 
-![png](output_105_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_105_0.png)
+
 
 
 We see that, the two approximate significance lines at $\pm2/\sqrt N$ suggest significant negative correlation structure is present up to about $6$ ms. This reflects the refractory period of the neuron: if you observed a spike in the previous 6 ms, you are less likely to observe a spike in the next few milliseconds. Beyond this point, the values of the autocorrelation mostly remain between the two significance bounds.
@@ -987,6 +1107,8 @@ Now that we’ve computed and interpreted the autocorrelation function for the l
 <a id=fig:8-12></a>
 
 
+
+{:.input_area}
 ```python
 IncrementsHigh1, _ = np.histogram(SpikesHigh, time_bins) # Compute the histogram to create increment process
 ACFHigh = autocorr(IncrementsHigh1, 100)                 # ... and the autocorrelation
@@ -1002,7 +1124,10 @@ show()
 ```
 
 
-![png](output_109_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_109_0.png)
+
 
 
 <div class="question">
@@ -1017,6 +1142,8 @@ show()
 Now that we’ve visualized the autocorrelations in the two light conditions, we can ask an important related question: Are the differences in the autocorrelations between these two conditions real? To answer this, we compute the difference in the autocorrelation functions between the low- and high-light conditions at every lag. If we assume that the firing in each condition is independent, the significance bounds for this difference can be computed by adding the variance of the autocorrelation from each condition. The standard deviation of the autocorrelation for the low-light condition is $1/\sqrt{N_1}$, so the variance of the auto- correlation for the low-light condition is $1/N_1$. For the high-light condition, the variance of the autocorrelation is $1/N_2$. We plot the differenced autocorrelations and the significance bounds:
 
 
+
+{:.input_area}
 ```python
 N2 = len(IncrementsHigh1)
 ACFDiff = ACFHigh - ACFLow                    # Compute differences of autocorrelations
@@ -1032,7 +1159,10 @@ show()
 ```
 
 
-![png](output_112_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_112_0.png)
+
 
 
 The results suggest significant differences in the autocorrelation between the two conditions at intermediate time lags (at approximately 2–50 ms). These are the same time lags we identified with bursting activity in the high-light condition. This suggests that the neuron fires with more intermediate ISIs in the bursting range in the high-light condition.
@@ -1045,6 +1175,8 @@ The autocorrelation of the increments indicates the amount of time for which the
 <a id=fig:8-14></a>
 
 
+
+{:.input_area}
 ```python
 # Compute and plot the autocorrelation of the low-light ISIs,
 ISI_ACF_Low = autocorr(ISIsLow, 20)
@@ -1063,7 +1195,10 @@ show()
 ```
 
 
-![png](output_115_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_115_0.png)
+
 
 
 Notice that we include confidence bounds determined by the size of the sequence of interest (in this case, the length of the ISIs).
@@ -1114,6 +1249,8 @@ where $\lambda$ is the rate parameter for the Poisson process.
 Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. We plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:
 
 
+
+{:.input_area}
 ```python
 bins = np.arange(0, .5, 0.001)           # Define 1 ms bins for histogram,
 counts, _ = np.histogram(ISIsLow, bins)  # ... compute histogram of the ISIs,
@@ -1127,12 +1264,17 @@ show()
 ```
 
 
-![png](output_121_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_0.png)
+
 
 
 Now, on the same figure, let's choose a value for $\lambda$ and plot the statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>):
 
 
+
+{:.input_area}
 ```python
 l = 5                                    # Choose a value for lambda,
 model = l * np.exp(-l * bins) * 0.001    # ... and create the model,
@@ -1143,7 +1285,10 @@ fig
 
 
 
-![png](output_123_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_123_0.png)
+
 
 
 
@@ -1183,6 +1328,8 @@ to indicate that the likelihood $L$ is a function of $\lambda$. To understand wh
 <a id='fig:8-16'></a>
 
 
+
+{:.input_area}
 ```python
 lambdas = np.arange(50)  # Range of lambda values.
 N3 = len(ISIsLow)        # Number of low-light ISIs observed.
@@ -1194,7 +1341,10 @@ show()
 ```
 
 
-![png](output_127_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_127_0.png)
+
 
 
 <div class="question">
@@ -1209,6 +1359,8 @@ So, we can’t easily plot the likelihood directly. Instead, we plot the log of 
 <a id="fig:8-17"></a>
 
 
+
+{:.input_area}
 ```python
 lambdas = lambdas[1:]  # Update the lambda range to exclude 0.
 l = N3 * np.log(lambdas) - lambdas * sum(ISIsLow)  # Compute the log likelihood,
@@ -1219,7 +1371,10 @@ show()
 ```
 
 
-![png](output_130_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_130_0.png)
+
 
 
 <div class="question">
@@ -1259,6 +1414,8 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 To address this last question, let’s use a bootstrap analysis (see [chapter 2](../2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential.ipynb#bootstrap)). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
 
 
+
+{:.input_area}
 ```python
 # Compute the observed difference in lambdas
 MLDiff = 1 / ISIsHigh.mean() - 1 / ISIsLow.mean()
@@ -1283,7 +1440,10 @@ show()
 ```
 
 
-![png](output_138_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_138_0.png)
+
 
 
 <div class=math-note>
@@ -1295,6 +1455,8 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 But, is the Poisson model good? To answer this, let’s visualize the model fits compared to the data. There are a number of ways to do this. We start by comparing the expected proportion of ISIs for a Poisson process to the ISI histograms we actually observe in each condition. Let’s do so first for the low-light condition:
 
 
+
+{:.input_area}
 ```python
 bins = np.arange(0, .5, 0.001)            # Define 1 ms bins for histogram
 counts, _ = np.histogram(ISIsLow, bins)   # Compute histogram
@@ -1311,7 +1473,10 @@ show()
 ```
 
 
-![png](output_141_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_141_0.png)
+
 
 
 <div class=question>
@@ -1341,6 +1506,8 @@ $$
 We compare this to the empirical CDF of the data, $F_{emp}(x)$, which is defined as the proportion of observations less than or equal to $x$. The code to compute and plot these CDFs for the low light-condition is as follows:
 
 
+
+{:.input_area}
 ```python
 bins = np.arange(0, 0.5, 0.001)     # Define 1 ms bins for histogram
 lbda = 1 / ISIsLow.mean()           # Compute best guess for lbda,
@@ -1355,7 +1522,10 @@ show()
 ```
 
 
-![png](output_146_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_146_0.png)
+
 
 
 <div class=question>
@@ -1381,6 +1551,8 @@ show()
 Another common way to visualize the difference between the model and empirical distributions is a *Kolmogorov-Smirnov* (KS) plot. This is just a plot of the empirical CDF against the model CDF directly.
 
 
+
+{:.input_area}
 ```python
 fig, ax = plt.subplots()
 plot(FmodLow[:-1], FempLow)    # Plot the model vs empirical CDFs.
@@ -1391,12 +1563,17 @@ show()
 ```
 
 
-![png](output_151_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_151_0.png)
+
 
 
 Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot [[Kass, Eden & Brown, 2014](https://www.springer.com/us/book/9781461496014)]. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:
 
 
+
+{:.input_area}
 ```python
 Nlow = len(ISIsLow)  # Length of the low-light condition
 # Plot the confidence bounds
@@ -1408,7 +1585,10 @@ fig
 
 
 
-![png](output_153_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_153_0.png)
+
 
 
 
@@ -1461,6 +1641,8 @@ $$
 Using this expression, we can fit an inverse Gaussian model to the data in each condition and evaluate the goodness-of-fit of the model. Let’s do so now for the low-light condition.
 
 
+
+{:.input_area}
 ```python
 bins = np.arange(0, .5, 0.001)    # Define 1 ms bins.
 Nlow = len(ISIsLow)               # Length of low-light condition.
@@ -1476,15 +1658,13 @@ print('mu = ', mu)                # Display the MLEs
 print('lambda = ', lbda)
 ```
 
-    mu =  0.039988397284383186
-    lambda =  0.04931816769253932
 
+{:.output .output_stream}
+```
+mu =  0.039988397284383186
+lambda =  0.04931816769253932
 
-    /anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
-      
-    /anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
-      
-
+```
 
 <div class=python-note>
 
@@ -1495,6 +1675,8 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 From the computations, we find maximum likelihood estimates $\mu$ = 40.0 ms and $\lambda$ = 49.3 ms in the low-light condition. Next, we plot the data and the model.
 
 
+
+{:.input_area}
 ```python
 # Plot the data and the model,
 plt.subplot(121)
@@ -1520,7 +1702,10 @@ show()
 ```
 
 
-![png](output_160_0.png)
+
+{:.output .output_png}
+![png](../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_160_0.png)
+
 
 
 <div class=question>
@@ -1739,106 +1924,18 @@ and therefore for a Poisson process, the Fano factor $\sigma^2/\mu=1$.
 [Back to top](#top)
 
 
+
+{:.input_area}
 ```python
 from IPython.core.display import HTML
-HTML('../../assets/custom/custom.css')
+HTML('../style.css')
 ```
 
 
 
 
-<style>
-.left {
-    margin-left: 0px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    padding: 15px;
-    margin-bottom: initial;
-    border: 1px solid transparent;
-    border-radius: 2px;
-}
-.python-note {
-    margin-bottom: initial;
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    padding: 15px;
-    border: 1px solid transparent;
-    border-radius: 2px;
-}
-.question {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    padding: 15px;
-    margin-bottom: initial;
-    border: 1px solid transparent;
-    border-radius: 2px;
-}
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-	width:100%;
-	max-width:500px;
-}
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-	float:center;
-    background:#fff;
-}
-.thumb span { 
-	visibility: hidden;
-    width: 300px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: fixed;
-    z-index: 1;
-    bottom: 50%;
-    left: 50%;
-    margin-left: -150px;
-    transition: 5ms visibility;
-}
-.thumb:hover, .thumb:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-		
-}    
-.fig img { 
-	border:1px solid #000;
-	margin:0px;
-	float:center;
-    background:#fff;
-}
-.fig span { 
-	visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: fixed;
-    z-index: 1;
-    bottom: 40%;
-    left: 50%;
-    margin-left: -250px;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
 
-
+<div markdown="0" class="output output_html">
+../style.css
+</div>
 
