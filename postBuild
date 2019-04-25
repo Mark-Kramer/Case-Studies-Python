@@ -1,4 +1,2 @@
-#!bin/bash
-
 mkdir ~/.jupyter
 cp -r custom ~/.jupyter/
