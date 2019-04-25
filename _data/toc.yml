@@ -48,7 +48,7 @@
   expand_sections: true
 
 - title: The Cross Covariance and Coherence
-  url: /04/the-cross-covariance-and-coherence
+  url: /07/the-cross-covariance-and-coherence
 
 - title: Cross Frequency Coupling
   url: /05/cross-frequency-coupling
@@ -62,4 +62,28 @@
 
 - title: Basic Visualizations and Descriptive Statistics of Spike Train Data
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+
+- title: Analysis of Rhythmic Activity in the Electrocorticogram
+  url: /04/ecog-rhythms
+
+- title: Modeling place Fields with Point Process Generalized Linear Models
+  url: /09/pp-glms
+
+- title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
+  url: /10/spiking-rhythms
+
+- title: Analysis of Spike-Field Coherence
+  url: /11/spike-field-coherence
+
+- title: Backpropagation
+  url: /A01/backprop
+
+- title: Hodgkin Huxley Model
+  url: /A02/HH
+
+- title: Integrate and Fire Model
+  url: /A03/LIF
+
+- title: Training a Perceptron
+  url: /A04/perceptron
 
