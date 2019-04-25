@@ -22,7 +22,6 @@
   not_numbered: true
 - title: Search
   search: true
-
 - title: GitHub repository
   url: https://github.com/Mark-Kramer/Case-Studies-Python.git
   external: true
