@@ -16,7 +16,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="question">
     
-    
 _**Synopsis**_ 
 
 **Data:** 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.
@@ -92,6 +91,12 @@ plt.ylabel('Coherence');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_4_0.png)
+
+
+
 **Q:** Try to read the code above. Can you see how it loads data, computes the coherence, and then plots the results?
 
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
@@ -143,6 +148,16 @@ data.keys()
 ```
 
 
+
+
+
+{:.output .output_data_text}
+```
+dict_keys(['__header__', '__version__', '__globals__', 'E1', 't', 'E2'])
+```
+
+
+
 The keys that start and end with two underscores ( `__` ) are private and contain information about the MATLAB file. The variables that we are interested in here are `E1`, `E2`, and `t`. These correspond to the ECoG data recorded at the two electrodes (`E1` and `E2`) as well as a time axis (`t`). Let's extract these variables from the `data` dictionary.
 
 
@@ -171,6 +186,16 @@ E1.shape
 ```
 
 
+
+
+
+{:.output .output_data_text}
+```
+(100, 500)
+```
+
+
+
 We observce that the data consist of 100 trials, each consisting of 500 data points.
 
 <div class="question">
@@ -194,6 +219,12 @@ plot(t,E2[0,:], 'r')            # ... and the first trial of the other electrode
 xlabel('Time [s]');
 ylabel('Voltage [mV]');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_27_0.png)
+
 
 
 Visual inspection of the data in this trial immediately suggests a dominant rhythmic activity occurs in each recording.
@@ -223,6 +254,12 @@ ylabel('Trial #');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_31_0.png)
+
+
+
 The resulting image for the first electrode is shown in the figure above. Voltage (in color) is plotted as a function of time along the horizontal axis and trial number along the vertical axis. This allows us to visualize the voltage activity of the first electrode for all trials at once.
 
 We notice that each trial exhibits rhythmic structure, which manifests in this image as repeating undulations of blue (low voltage), then red (high voltage) over time. We also observe variability in the alignment of these rhythms from trial to trial; from one trial to the next, the undulations appear not to align.
@@ -247,6 +284,12 @@ for j in range(4):
     plot(t,E2[j,:], 'r')            # ... and trial j of the other electrode.
     ylabel('Trial ' + str(j))
 ```
+
+
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_35_0.png)
+
 
 
 We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.
@@ -297,6 +340,12 @@ ylabel('Autocovariance');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_41_0.png)
+
+
+
 <div class="question">
     
 **Q.** Consider the results for the trial-averaged autocovariance plotted in the figure [above](#fig:ac). What do these results suggest about the rhythmic structure in these data?
@@ -345,6 +394,12 @@ ylabel('Cross covariance');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_45_0.png)
+
+
+
 Notice that we subtract the mean from each electrode in defining `x` and `y` before computing the cross-covariance using the Python function `correlate` from the `numpy` package. In this case, we supply the `correlate` function with three inputs, beginning with the two time series, `x` and `y`, and setting the `mode` to 2, which tells the function to compute the correlation over the entire extent both vectors.
 
 <div class="question">
@@ -364,6 +419,12 @@ plot(t,E2[0,:], 'r')
 xlabel('Time [s]');
 ylabel('Voltage [mV]');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_49_0.png)
+
 
 
 The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large; the sum in ([this equation](#eq:xc)) at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.
@@ -409,6 +470,12 @@ plt.title('Example single-trial cross covariance');
 
 plt.subplots_adjust(hspace=1)               # Space out the subplots.
 ```
+
+
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_53_0.png)
+
 
 
 The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the `for` statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the `mean` command from the `numpy` package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.
@@ -513,6 +580,12 @@ plot(f,10*np.log10(Sxx[0,:]), 'r');               # Also, for reference, plot sp
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_58_0.png)
+
+
+
 <div class="question">
     
 **Q:** Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?
@@ -544,11 +617,10 @@ To compute the coherence, we use the [simplified expression for the spectrum](#e
 
 Consider two signals $x_{n,k}$ and $y_{n,k}$, with time index $n$ and trial index $k$. These signals have corresponding Fourier transforms $X_{j,k}$ and $Y_{j,k}$. Then the trial-averaged cross-spectrum between these two signals is
 
-<a id="eq:cross">
+<a id="eq:cross"></a>
 $$
 <S_{xy,\, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K}\sum_{k=1}^K X_{j,k} Y^*_{j,k} \, ,
 $$
-</a>
 
 where compared to [the spectrum](#eq:Sxx) we replace $X^*_j$ with $Y^*_j$ and include the average over the trial index $k$.  Let's modify and clean up this expression by using polar coordinates.  To do so, we'll first define,
 
@@ -761,6 +833,12 @@ ylabel('Coherence');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_86_0.png)
+
+
+
 <div class="question">
     
 **Q.** That’s quite a bit of code. Look through it line by line, and confirm that each step makes sense. Can you identify the calculation of the cross-spectrum? of the trial averaging?
@@ -811,6 +889,12 @@ plt.title('Angles at 24 Hz')
 ylabel('Counts')
 xlabel('Phase');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/04/the-cross-covariance-and-coherence_91_0.png)
+
 
 
 Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (`K`) and the frequency axis (`f`). Then, within the frequency axis variable (`f`), we use the function `np.where` to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (`Sxy`). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function `np.angle`. We store these results in two vectors, `phi8` and `phi24`.
@@ -946,3 +1030,113 @@ As is true for the Fourier transform and spectrum, there exists a vast literatur
 - [Priestly, 1982](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6)
 
 - [Numerical recipes](http://numerical.recipes/)
+
+
+
+{:.input_area}
+```python
+from IPython.core.display import HTML
+HTML('../assets/custom/custom.css')
+```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+<style>
+.left {
+    margin-left: 0px;
+}
+.math-note {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    padding: 15px;
+    margin-bottom: initial;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+.python-note {
+    margin-bottom: initial;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+.question {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    padding: 15px;
+    margin-bottom: initial;
+    border: 1px solid transparent;
+    border-radius: 2px;
+}
+.output_area img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.inner_cell img {
+	width:100%;
+	max-width:500px;
+}
+.thumb img { 
+	border:1px solid #000;
+	margin:0px;
+	float:center;
+    background:#fff;
+}
+.thumb span { 
+	visibility: hidden;
+    width: 300px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: fixed;
+    z-index: 1;
+    bottom: 50%;
+    left: 50%;
+    margin-left: -150px;
+    transition: 5ms visibility;
+}
+.thumb:hover, .thumb:hover span { 
+	visibility:visible;
+    transition-delay: 500ms;
+		
+}    
+.fig img { 
+	border:1px solid #000;
+	margin:0px;
+	float:center;
+    background:#fff;
+}
+.fig span { 
+	visibility: hidden;
+    width: 500px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: fixed;
+    z-index: 1;
+    bottom: 40%;
+    left: 50%;
+    margin-left: -250px;
+    transition: 5ms visibility;
+}
+.fig:hover, .fig:hover span { 
+	visibility:visible;
+    transition-delay: 500ms;
+}
+</style>
+
+</div>
+
+

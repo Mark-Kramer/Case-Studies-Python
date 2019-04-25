@@ -23,7 +23,6 @@ _**Synopsis**_
 **Goal:** Characterize the response of the EEG in the two conditions.
 
 **Tools:** Visualization, event-related potential, confidence intervals, bootstrapping.
-
 </div>
 
 * [Background](#background)
@@ -83,7 +82,6 @@ plt.show()                                   # ... and show the plot
 **Q:** Try to read the code above. Can you see how it loads data, computes the event-related potential and error, and then plots the results?
 
 **A:** If you've never computed an event-related potential before, that's an especially difficult question. Please continue on to learn this **and more**!
-
 </div>
 
 ## Background <a class="anchor" id="background"></a>
@@ -169,7 +167,6 @@ t = data['t']
 <div class="python-note">
     
 In general, a single underscore at the beginning of a variable, function or method indicates that this object should be treated as *private*. Double underscores often indicate that Python will interpret this object with some special instructions. In both cases, for what we are doing, we can usually ignore an object that starts with an underscore.
-
 </div>
 
 Let's use the `whos` command to get some more information about the variables.
@@ -185,7 +182,6 @@ whos
 <div class="python-note">
     
 We could also have used `EEGa.shape` to find out the dimensions of the variable `EEGa`.
-
 </div>
 
 In the *Data/Info* column we see *1000x500* for `EEGa` and `EEGb`.  Both variables are matrices with 1000 rows and 500 columns.  Our collaborator tells us that:
@@ -219,13 +215,11 @@ With this syntax:
 <div class="question">
 
 **Q.** Determine the size of the variable `EEGb`. How many rows and columns does it possess? Which dimension corresponds to trials and which corresponds to time?
-
 </div>
 
 <div class="python-note">
     
 A *tuple* is another data structure in Python that is similar to an array or a list because it usually contains more than one element. Python treats each of these structures slightly differently, however. One of the most challenging things about starting with Python is learning to understand the different data structures. Here, we will mainly work with arrays, which are good for holding multidimensional data. If you are curious and want to know more about data structures, there is a very concise description <a href="http://thomas-cokelaer.info/tutorials/python/data_structures.html">here</a> to get you started.
-
 </div>
 
 [Return to top](#introduction)
@@ -262,7 +256,6 @@ In this command, we index the first row of the matrix `EEGa` and print out all c
     `-1.85909632e-01   4.49876010e-01   1.06070801e+00  -4.71265246e-01   1.68669327e+00   9.38221338e-01 ...`
     
 We might conclude that these numbers exhibit variability (i.e., the values are both positive and negative), but examining the data in this way is not particularly useful. For example, determining trends in the behavior (such as intervals of repeated activity) through inspection of these printed numbers alone is extremely difficult.
-
 </div>
 
 
@@ -292,7 +285,6 @@ Visualizing the data in this way, we immediately notice many features. First, le
 <div class="question">
     
 **Q.** Plot the variable `t`. What is its range? 
-
 </div>
 
 The variable `t` corresponds to the 1 s of EEG data recorded in each trial. We can also use the variable `t` to determine the sampling interval,
@@ -312,13 +304,11 @@ The new variable `dt` corresponds to the time between samples.
 **Q.** What is the value of `dt`? We were told by our collaborator that the sampling frequency is 500 Hz. Is the value of `dt` consistent with this sampling frequency?
 
 **A.** Yes, it is consistent. Using the command `print(dt)`, we find that `dt` is 0.002 s, or 2 ms. The sampling frequency of 500 Hz corresponds to one sample of the EEG data every 1/(500 Hz) = 2 ms. If the two were not consistent, we would return to our collaborator and figure out what has gone wrong. In general, it’s useful to ask such questions along the way to make sure we understand the formatting of the data and catch any potentially serious misunderstandings early in the analysis.
-
 </div>
 
 <div id="singleTrial">
     
 We can now combine the time axis with the EEG data to make a more complete plot. Let’s also label the axes and give the plot a title.
-    
 </div>
 
 
@@ -342,7 +332,6 @@ This plot provides a nice summary of the data in the first trial of condition A.
 <div class="question">
     
 **Q.** What else, if anything, can you say about the single trial of EEG data plotted above? Does the visual inspection reveal any particular change in the EEG activity following the stimulus presentation?
-
 </div>
 
 So far we have visualized only the data from condition A. Because we are interested in whether the EEG behaves differently in the two conditions, visualizing both conditions simultaneously would be of use. We can do this as follows:
@@ -364,13 +353,11 @@ plt.show()
 <div class="question">
     
 **Q.** Compare the voltage traces from the first trial of conditions A and B as plotted above. What similarities and differences do you observe?
-
 </div>
 
 <div class="question">
     
 **Q.** The analysis has so far focused only on the first trial. Repeat this visual inspection of the data for different trials. What do you find? What similarities and differences exist between the two conditions across trials?
-
 </div>
 
 
@@ -406,14 +393,12 @@ The `imshow` command allows us to visualize the entire matrix `EEGa` as a functi
 <div class="python-note">
     
 We have used the *BuPu* color map for the plot above. There are many other options; use `plt.colormaps?` for details.
-
 </div>
 
 <div class="question">
     
 **Q.**
 Upon close inspection of the figure above, what response, if any, do you observe following the stimulus presentation? (Look *really* carefully.) Repeat this visualization and analysis for `EEGb`. How do the two conditions compare?
-
 </div>
 
 [Return to top](#introduction)
@@ -543,7 +528,6 @@ show()                                   # ... and show the plot
 <div class="python-note">
     
 A good rule of thumb when you are programming is that you should not be rewriting (or copy-pasting) code over and over again. Instead, you should write a function that you can call whenever you need the action that you keep repeating. At this point, we have resized the plots and labeled the axes the same way several times so we should fix the default plot size and write a function that automates the labeling so that next time we make a plot, we don't need to rewrite the same code again.
-
 </div>
 
 
@@ -571,10 +555,10 @@ def labelPlot(title_string="Title"):
 ```
 
 
-The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id=plt:erpA-m1></a>
+The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a>
 
 <img src="imgs/ERPaCi.png" alt="ERP of condition A with line at 0" title="">
-<div style="text-align: right">[Jump to bootstrap CI](#plt:erpA-m2)</div>
+[Jump to bootstrap CI](#plt:erpA-m2)
 
 In the figure above, the thick line indicates the ERP for Condition A (i.e., the mean of the EEG across trials) while the thin dotted lines indicate the 95% confidence intervals.
 
@@ -588,7 +572,6 @@ In the figure above, the thick line indicates the ERP for Condition A (i.e., the
 <div class="question">
     
 **Q.** What is the role of the NumPy function `zeros_like()` in this code? *Hint*: If you have not encountered this function before, look it up in the Documentation.
-
 </div>
 
 We find three time intervals at which the confidence intervals of the ERP do not include zero: near 0.27 s, near 0.37 s, and near 0.47 s. These results suggest that for an interval of time following the stimulus presentation in condition A, the observed ERP is not a random fluctuation about zero but instead contains consistent structure across trials.
@@ -596,7 +579,6 @@ We find three time intervals at which the confidence intervals of the ERP do not
 <div class="question">
     
 **Q.** Construct the ERP with confidence intervals for condition B. As for condition A, you should find that before stimulus presentation the ERP fluctuates around zero. What intervals of time, if any, differ significantly from zero?
-
 </div>
 
 [Return to top](#introduction)
@@ -612,7 +594,6 @@ Here's a plot the ERPs with confidence intervals for condition A (blue) and cond
 <div class="question">
     
 **Q.** Can you write the code to make this plot yourself?
-
 </div>
 
 As you can see, the plot of both ERPs is rather messy; it’s difficult to determine through visual inspection alone in which intervals the ERPs exhibit significant separation.
@@ -652,7 +633,6 @@ In the code above we first compute the ERP and standard deviation of the mean fo
 <div class="question">
     
 **Q:** Examine the [plot of the differenced ERP](#plt:differencedERP). In what intervals of time do the EEG responses in the two conditions significantly differ?
-
 </div>
 
 [Return to top](#introduction)
@@ -673,7 +653,6 @@ So far we have computed confidence intervals for the ERPs by relying on the cent
 <div class="question">
     
 **A note on the nonparametric bootstrap.** Briefly, there is strong theoretical justification for the nonparametric bootstrap. The fundamental idea is that resampling the data with replacement is equivalent to sampling new pseudodata from the empirical cumulative distribution function (eCDF) of the observed data. For a large sample of independent, identically distributed random variables, the distribution of the pseudodata generated from the eCDF will be close to the true distribution of the data. Note the important caveat that the variables are independent, identically distributed; this assumption fails in many cases, such as for time series. Here, we assume that each trial is drawn independently from the same distribution (i.e., the trials are independent, identically distributed variables).
-
 </div>
 
 We implement the bootstrapping procedure to compute pointwise confidence intervals. By pointwise we mean that the confidence intervals are computed separately for each point in time, and interactions across time are not considered. The prescription for the bootstrapping procedure follows four steps:
@@ -710,7 +689,6 @@ The first and second inputs to `randint()` specify the minimum and maximum integ
 <div class="question">
     
 **Q.** Examine the values of `i`. What values do you find?
-
 </div>
 
 The result `i` provides a list of integers between 0 and 999. These values specify the trials to use in creating the resampled EEG. This resampled EEG will contain the same number of trials as the original EEG (i.e., 1,000 trials) but in a different order and with possibly repeated trials. For example, if the sampling with replacement procedure returns
@@ -732,7 +710,6 @@ In this code we use the variable `i` as the index to the rows of `EEGa`.
 <div class="question">
     
 **Q.** What is the `shape` of the new variable `EEG0`? Is this shape consistent with the original EEG datasets?
-
 </div>
 
 That completes step 1 of the resampling procedure.
@@ -759,13 +736,11 @@ ERP0 = np.mean(EEG0,0)  # Create the resampled ERP
 <div class="question">
     
 **Q.** What is the difference between the resampled EEG and resampled ERP? Explain your answer in words.
-
 </div>
 
 <div class="question">
     
 **Q.** Plot the resampled ERP that we created. What does it look like?
-
 </div>
 
 
@@ -804,7 +779,6 @@ In these lines we have created three resampled ERPs, each with its own variable 
 **Q.** Is defining the resampled ERPs in this way a good idea?
 
 **A.** No! We should let the computer execute this repeated procedure for us. If you find yourself cutting and pasting the same code over and over again, you're probably doing something inefficient, inelegant, and error-prone.
-
 </div>
 
 A better approach to create the 3,000 resampled ERPs is with a *for-loop*. We do so in Python with the `for` statement:
@@ -832,7 +806,6 @@ In the first line, we define a function that performs the calculations that we w
 <div class="python-note">
     
 Note that in the definition of `bootstrapERP`, we included an argument (`size`) that has a *default* value (`None`). This lets us assume that we want the resampled dataset to be the same size as the original, which is true for right now. Later, however, we will reuse this function but will not want the resampled data to be the same size as the original.
-
 </div>
 
 <div class="python-note">
@@ -848,7 +821,6 @@ This will return a *list* datatype, which is why we had to convert it to an arra
         ERP0[k, :] = bootstrapERP()
 
 Note that it is good practice, but not required, to define a function that contains the code you wish to repeat, especially if you might use it again later. This minimizes rewrites, and if there is a mistake then you only need to make a correction in one place.
-
 </div>
 
 
@@ -884,13 +856,11 @@ We can use these results to identify, for example, intervals in which the ERP di
 <div class="question">
     
 **Q.** Compare the confidence intervals in the plot above (bootstrap confidence intervals) to [the CLT confidence intervals](#plt:erpA-m1) computed earlier. How are the two results similar or different? What happens to the confidence intervals if you change the number of resamplings in step 3 from 3,000 to 10,000.
-
 </div>
 
 <div class="question">
     
 **Q.** Compute the confidence intervals using the bootstrapping procedure for the ERP of condition B. What do you find?
-
 </div>
 
 [Return to top](#introduction)
@@ -923,7 +893,6 @@ print('stat = {:.4f}'.format(stat))
 <div class="question">
     
 **Q.** Given the value we determined for `stat`, are the ERPs for the two conditions different?
-
 </div>
 
 
@@ -986,13 +955,11 @@ The figure above shows the distribution of values for the test statistic under t
 <div class="python-note">
     
 The `seed()` function controls the random numbers that are generated. This ensures that when you recreate the plot above, yours will look identical. Nonetheless, if you remove (or comment out) this statement, your plot should still look very similar as the distribution should change only slightly.
-
 </div>
 
 <div class="question">
     
 **Q.** See if you can write code to generate this plot using the `hist()` function from the NumPy module. 
-
 </div>
 
 <div class="question">
