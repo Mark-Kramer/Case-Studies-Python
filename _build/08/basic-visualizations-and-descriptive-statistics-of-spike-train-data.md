@@ -1939,6 +1939,3 @@ HTML('../style.css')
 ../style.css
 </div>
 
-
-
-{% bibliography %}
