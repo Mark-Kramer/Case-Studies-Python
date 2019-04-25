@@ -40,6 +40,23 @@ YouTubeVideo('TOszYv0pdKU')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/TOszYv0pdKU"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 The Fourier transform represents the data $x$ as a linear combination of sinusoids with different frequencies. To see this, consider again:
 
 $$X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).$$
@@ -81,6 +98,23 @@ YouTubeVideo('PRoA5Zn_gbQ')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/PRoA5Zn_gbQ"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 To make these ideas more concrete, we can consider some simple examples. In these examples, the data $x$ will be a perfect cosine with frequency 10 Hz.
 
 
@@ -109,6 +143,12 @@ show()
 ```
 
 
+
+{:.output .output_png}
+![png](../images/03/supplement-2_9_0.png)
+
+
+
 Choosing $f_j = 4$ Hz, we can construct a sine and cosine function each oscillating at 4 Hz.
 
 
@@ -126,6 +166,12 @@ show()
 ```
 
 
+
+{:.output .output_png}
+![png](../images/03/supplement-2_11_0.png)
+
+
+
 Then, to perform the calculation of the Equation (*) we multiply the data $x$ by the sinusoids at each point in time.
 
 
@@ -137,6 +183,12 @@ plt.legend(['Sine', 'Cosine'])
 plot(tt, np.zeros_like(tt), 'k')      # Show zero
 show()
 ```
+
+
+
+{:.output .output_png}
+![png](../images/03/supplement-2_13_0.png)
+
 
 
 Notice that the products alternate between positive and negative values throughout time. 
@@ -171,6 +223,12 @@ plot(tt, fj_cos, 'r:', label='cosine') # ... and cosine
 plt.legend()
 show()
 ```
+
+
+
+{:.output .output_png}
+![png](../images/03/supplement-2_16_0.png)
+
 
 
 <div class="question">
@@ -269,6 +327,15 @@ print(model.params)
 ```
 
 
+{:.output .output_stream}
+```
+Intercept    2.796903e-17
+sin          9.989204e-01
+cos         -3.238373e-03
+dtype: float64
+
+```
+
 In the first line, we create a *dataframe* object with the dependent variables (`EEG`) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the `ols` function. OLS stands for [ordinary least squares](https://en.wikipedia.org/wiki/Ordinary_least_squares) because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.
 
 <div class="question">
@@ -306,6 +373,12 @@ show()
 ```
 
 
+
+{:.output .output_png}
+![png](../images/03/supplement-2_29_0.png)
+
+
+
 The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.
 
 <div class="question">
@@ -331,6 +404,12 @@ show()
 ```
 
 
+
+{:.output .output_png}
+![png](../images/03/supplement-2_32_0.png)
+
+
+
 <div class="question">
     
 **Q.** Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the original EEG data, which includes the 60 Hz noise. <a href="#fig:3-1" class="fig"><span><img src="imgs/3-1.png"></span></a> What’s different?
@@ -346,6 +425,16 @@ In this example, we used multiple linear regression to model a particular rhythm
 Sxx_model_60Hz = model.params['sin'] ** 2 + model.params['cos'] ** 2
 Sxx_model_60Hz
 ```
+
+
+
+
+
+{:.output .output_data_text}
+```
+0.9978524145209708
+```
+
 
 
 The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable `Sxx_model_60Hz` has units of mV$^2$.

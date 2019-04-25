@@ -100,6 +100,23 @@ YouTubeVideo('Q-VQaY6iDMM')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/Q-VQaY6iDMM"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 ### Background
 
 In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, [produced from small aggregates of neurons](https://www.ncbi.nlm.nih.gov/pubmed/22595786). In these data, we examine the association between rhythms of different frequencies.
@@ -121,6 +138,23 @@ In this chapter, we develop two CFC measures, with a particular focus on phase-a
 ```python
 YouTubeVideo('mLglqyb55_Y')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/mLglqyb55_Y"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 ## Data Analysis<a id="data-analysis"></a>
@@ -149,6 +183,12 @@ plt.ylabel('Voltage [mV]');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_12_0.png)
+
+
+
 Next, let's take a closer look at an example 1 s interval of the data<a id="fig:7.1"></a>:
 
 
@@ -162,6 +202,12 @@ plt.xlabel('Time [s]')      # Label the axes
 plt.ylabel('Voltage [mV]')
 plt.show()
 ```
+
+
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_14_0.png)
+
 
 
 Visual inspection immediately suggests a dominant low-frequency rhythm interspersed with smaller-amplitude blasts of high-frequency activity.
@@ -201,6 +247,12 @@ plt.ylabel('Power [mV$^2$/Hz]');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_17_0.png)
+
+
+
 The resulting spectrum reveals two intervals of increased power spectral density. The lowest-frequency peak at 6 Hz is also the largest and corresponds to the slow rhythm we observe dominating the signal through visual inspection. Remember a plot of that signal:
 <a href="#fig:7.1" class="fig"><span><img src="imgs/7-1.png"></span></a>
 At higher frequencies, we find an additional broadband peak at approximately 80–120 Hz. These spectral results support our initial visual inspection of the signal; there exist both low- and high-frequency activities in the LFP data. We now consider the primary question of interest: Do these different frequency rhythms exhibit associations?
@@ -214,6 +266,23 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 ```python
 YouTubeVideo('JjOcJy4dVzE')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/JjOcJy4dVzE"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of [ongoing research](https://www.ncbi.nlm.nih.gov/pubmed/26549886).
@@ -235,6 +304,23 @@ To assess whether different frequency rhythms interact in the LFP recording, we 
 ```python
 YouTubeVideo('WL_nFRBHqLU')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/WL_nFRBHqLU"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 The first step in the CFC analysis is to filter the data into two frequency bands of interest. The choice is not arbitrary: the separate frequency bands are motivated by initial spectral analysis of the LFP data. In this case, we choose the low-frequency band as 5–7 Hz, consistent with the largest peak in the spectrum, and the high-frequency band as 80–120 Hz, consistent with the second-largest broadband peak. To consider alternative frequency bands, the same analysis steps would apply.
@@ -287,6 +373,12 @@ plt.legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
 ```
 
 
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_30_0.png)
+
+
+
 As expected, the low-frequency band (orange) captures the large-amplitude rhythm dominating the LFP signal, while the higher-frequency band (green) isolates the brief bursts of faster activity.
 
 <a id="step2"></a>
@@ -300,6 +392,23 @@ YouTubeVideo('QiRuBvbCQt4')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/QiRuBvbCQt4"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 The next step in the CFC procedure is to extract the *phase* of the low-frequency signal and the amplitude envelope (or simply, *amplitude*) of the high-frequency signal. To compute a particular type of CFC, namely phase-amplitude coupling, we then compare these two signals, i.e., we compare the phase of the low-frequency activity and the amplitude envelope of the high-frequency activity. How do we actually extract the phase and amplitude signals from the data? There are a variety of options to do so, and we choose here to employ the **analytic signal approach**, which allows us to estimate the instantaneous phase and amplitude envelope of the LFP.
 
 
@@ -308,6 +417,23 @@ The next step in the CFC procedure is to extract the *phase* of the low-frequenc
 ```python
 YouTubeVideo('Ir8Gf550S3o')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/Ir8Gf550S3o"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 The first step in computing the analytic signal is to compute the [Hilbert transform](https://en.wikipedia.org/wiki/Hilbert_transform). We begin with some notation. Define $x$ as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we've created). Then the Hilbert transform of $x$, let’s call it $y$, is
@@ -351,6 +477,23 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 ```python
 YouTubeVideo('-CjnFEOopfw')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/-CjnFEOopfw"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 Let $x_0$ be a sinusoid at frequency $f_0$, 
@@ -417,6 +560,23 @@ YouTubeVideo('e4kECy8KP-4')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/e4kECy8KP-4"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 The Hilbert transform of $x_0$ (a cosine function) is a sine function. We could perhaps have guessed this: sine is a 90-degree ($\pi / 2$) phase shift of cosine.
 
 
@@ -425,6 +585,23 @@ The Hilbert transform of $x_0$ (a cosine function) is a sine function. We could 
 ```python
 YouTubeVideo('emsU97RcFjI')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/emsU97RcFjI"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 We are now ready to define the analytic signal $(z_0)$ for this example. Using the expressions for $x_0$ and $y_0$ and Euler's formula, we find
@@ -484,6 +661,23 @@ YouTubeVideo('fiL9UNbLPA8')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/fiL9UNbLPA8"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 As with the previous steps, we have at our disposal a variety of procedures to assess the relation between the phase (of the low-frequency signal) and amplitude (of the high-frequency signal). We do so here in one way, by computing the phase-amplitude plot.
 
 <a id="m1"></a>
@@ -521,6 +715,12 @@ plt.xlabel('Low-frequency phase');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_54_0.png)
+
+
+
 <div class="question">
     
 **Q.** Consider this plot of the average amplitude versus phase. Does this result suggest CFC occurs in these data?
@@ -545,6 +745,12 @@ h = max(a_mean)-min(a_mean)
 print(h)
 ```
 
+
+{:.output .output_stream}
+```
+0.12607449865513892
+
+```
 
 We find a value of $h = 0.126$. This value, on its own, is difficult to interpret. Is it bigger or smaller than we expect? To assess the significance of $h$, let's generate a surrogate phase-amplitude vector by resampling without replacement the amplitude time series (i.e., the second column of the phase-amplitude vector). Resampling is a powerful technique that we have applied in our analysis of other case study data (see, for example, 
 [The Event-Related Potential](../The%20Event-Related%20Potential/The%20Event-Related%20Potential.ipynb)). By performing this resampling, we reassign each phase an amplitude chosen randomly from the entire 100 s LFP recording. We expect that if CFC does exist in these data, then the timing of the phase and amplitude vectors will be important; for CFC to occur, the amplitude and phase must coordinate in time. By disrupting this timing in the resampling procedure, we expect to eliminate the coordination between amplitude and phase necessary to produce CFC.
@@ -586,6 +792,12 @@ plt.legend();                                                 # ... include a le
 ```
 
 
+
+{:.output .output_png}
+![png](../images/05/cross-frequency-coupling_62_0.png)
+
+
+
 The value of $h$ computed from the original data (`h`) lies far outside the distribution of surrogate $h$ values (`hS`). To compute a $p$-value, we determine the proportion of surrogate $h$ values greater than the observed $h$ value:
 
 
@@ -596,6 +808,12 @@ p = sum([s > h for s in hS]) / len(hS)
 print(p)
 ```
 
+
+{:.output .output_stream}
+```
+0.0
+
+```
 
 We find a $p$-value that is very small; there are no surrogate values of $h$ that exceed the observed value of $h$. We therefore conclude that in this case the observed value of $h$ is significant. As a statistician would say, we reject the null hypothesis of *no* CFC between the phase of the 5-7 Hz low-frequency band and the amplitude of the 80-120 Hz high frequency band.
 
@@ -608,6 +826,23 @@ YouTubeVideo('NQUfELSZ0Cc')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/NQUfELSZ0Cc"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 <a id="summary"></a>
 # Summary
 
@@ -618,6 +853,23 @@ YouTubeVideo('NQUfELSZ0Cc')
 from IPython.lib.display import YouTubeVideo
 YouTubeVideo('NQUfELSZ0Cc')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/NQUfELSZ0Cc"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
 
 
 In this module, we considered techniques to characterize cross-frequency coupling (CFC), associations between rhythmic activity observed in two different frequency bands. To do so, we introduced the Hilbert transform, which can be used to compute the instantaneous phase and amplitude of a signal. We focused on characterizing the relation between the phase of low-frequency band activity (5-7 Hz) and the amplitude of high-frequency band activity (100-140 Hz). To do this, we computed the average amplitude at each phase and determined the extent of the variability (or wiggliness). 
@@ -670,4 +922,13 @@ This time domain representation of the HIlbert Transform is equivalent to the fr
 from IPython.core.display import HTML
 HTML('../style.css')
 ```
+
+
+
+
+
+<div markdown="0" class="output output_html">
+../style.css
+</div>
+
 
