@@ -1,7 +1,5 @@
 ---
-redirect_from:
-  - "/01/intro"
-interact_link: content/01/Intro.ipynb
+interact_link: content/01/intro.ipynb
 kernel_name: python3
 title: 'Introduction to Python'
 prev_page:

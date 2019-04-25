@@ -3,7 +3,7 @@ interact_link: content/02/the-event-related-potential.ipynb
 kernel_name: python3
 title: 'The Event-Related Potential'
 prev_page:
-  url: /01/Intro
+  url: /01/intro
   title: 'Introduction to Python'
 next_page:
   url: /03/the-power-spectrum-part-1
