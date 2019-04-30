@@ -5,6 +5,9 @@
 .math-note {
     color: #3c763d;
     background-color: #dff0d8;
+	border-color: #d6e9c6;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -12,6 +15,9 @@
 .python-note {
     color: #8a6d3b;
     background-color: #fcf8e3;
+	border-color: #faebcc;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -19,9 +25,12 @@
 .question {
     color: #31708f;
     background-color: #d9edf7;
+	border-color: #bce8f1;
+	border: 1px solid;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
+	border-radius: 10px;
 }
 .output_area img {
     display: block;
@@ -37,6 +46,7 @@
 	margin:0px;
 	float:center;
     background:#fff;
+	max-width: 50%;
 }
 .thumb span { 
 	visibility: hidden;
@@ -48,7 +58,7 @@
     padding: 5px 5px;
     position: fixed;
     z-index: 1;
-    bottom: 50%;
+    top: 50%;
     left: 50%;
     margin-left: -150px;
     transition: 5ms visibility;
@@ -63,6 +73,7 @@
 	margin:0px;
 	float:center;
     background:#fff;
+	max-width: 50%;
 }
 .fig span { 
 	visibility: hidden;
@@ -74,7 +85,7 @@
     padding: 5px 5px;
     position: fixed;
     z-index: 1;
-    bottom: 40%;
+    top: 60%;
     left: 50%;
     margin-left: -250px;
     transition: 5ms visibility;
