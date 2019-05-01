@@ -45,6 +45,7 @@
     position: relative;
 }
 .thumb span { 
+    width: 200px;
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -76,7 +77,7 @@
 	border:1px solid #000;
 	margin:0px;
     background:#fff;
-	max-width: 100%;
+	width: 100%;
 }
 .fig span { 
 	visibility: hidden;
