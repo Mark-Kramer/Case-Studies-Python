@@ -38,7 +38,6 @@ _**Synopsis**_
     6. [Building Statistical Models of the ISIs](#models)
 * [Summary](#summary)
 * [Appendix: Spike Count Mean and Variance for a Poisson Process](#appendix)
-#HIDDEN
 
 ## Introduction
 
