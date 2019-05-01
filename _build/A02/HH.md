@@ -30,6 +30,23 @@ VimeoVideo('140084450')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://player.vimeo.com/video/140084450"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 Here are some additional usual videos and references:
 
 - [Lecture by Prof. Gerstner, *Detailed Neuron Model (a)*](http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=4)
@@ -50,6 +67,12 @@ import math
 import matplotlib.pyplot as plt
 ```
 
+
+{:.output .output_stream}
+```
+Using matplotlib backend: MacOSX
+
+```
 
 In addition, let's import the functions we'll need to simulate the HH model, which are available on this repository:
 
@@ -76,6 +99,43 @@ To start, let's examine the code for the HH model. We can do so in (at least) tw
 import inspect
 inspect.getsourcelines(HH)
 ```
+
+
+
+
+
+{:.output .output_data_text}
+```
+(['def HH(I0,T0):\n',
+  '    dt = 0.01;\n',
+  '    T  = math.ceil(T0/dt)  # [ms]\n',
+  '    gNa0 = 120   # [mS/cm^2]\n',
+  '    ENa  = 115;  # [mV]\n',
+  '    gK0  = 36;   # [mS/cm^2]\n',
+  '    EK   = -12;  # [mV]\n',
+  '    gL0  = 0.3;  # [mS/cm^2]\n',
+  '    EL   = 10.6; # [mV]\n',
+  '\n',
+  '    t = np.arange(0,T)*dt\n',
+  '    V = np.zeros([T,1])\n',
+  '    m = np.zeros([T,1])\n',
+  '    h = np.zeros([T,1])\n',
+  '    n = np.zeros([T,1])\n',
+  '\n',
+  '    V[0]=-70.0\n',
+  '    m[0]=0.05\n',
+  '    h[0]=0.54\n',
+  '    n[0]=0.34\n',
+  '\n',
+  '    for i in range(0,T-1):\n',
+  '        V[i+1] = V[i] + dt*(gNa0*m[i]**3*h[i]*(ENa-(V[i]+65)) + gK0*n[i]**4*(EK-(V[i]+65)) + gL0*(EL-(V[i]+65)) + I0);\n',
+  '        m[i+1] = m[i] + dt*(alphaM(V[i])*(1-m[i]) - betaM(V[i])*m[i]);\n',
+  '        h[i+1] = h[i] + dt*(alphaH(V[i])*(1-h[i]) - betaH(V[i])*h[i]);\n',
+  '        n[i+1] = n[i] + dt*(alphaN(V[i])*(1-n[i]) - betaN(V[i])*n[i]);\n',
+  '    return V,m,h,n,t\n'],
+ 22)
+```
+
 
 
 <div class="alert alert-block alert-info">
@@ -208,6 +268,16 @@ HINT:  Plot V vs t.
 plt.figure()
 plt.subplot(211)
 ```
+
+
+
+
+
+{:.output .output_data_text}
+```
+<matplotlib.axes._subplots.AxesSubplot at 0x10bef64e0>
+```
+
 
 
 This `subplot` command divides the figure into two rows, and one column, and tells Python we'll start in the first row. See Python Help for more details:

@@ -151,6 +151,12 @@ print(correct_answer)
 ```
 
 
+{:.output .output_stream}
+```
+1
+
+```
+
 <div class="alert alert-block alert-info">
 
 **A (Continued):** We find a `correct_answer` of 1.<p></p>
@@ -221,6 +227,12 @@ print(perceptron_guess)
 ```
 
 
+{:.output .output_stream}
+```
+1
+
+```
+
 <div class="alert alert-block alert-info">
 
 **A (Continued):** We find a `peceptron_guess` of 1.<br>
@@ -248,6 +260,12 @@ error = correct_answer - perceptron_guess
 print(error)
 ```
 
+
+{:.output .output_stream}
+```
+0
+
+```
 
 <div class="alert alert-block alert-info">
 **Q:**  What do you find for the `error`? Does it make sense?
@@ -350,4 +368,10 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Known answer (black), Perceptron final guess (blue)');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/A04/perceptron_27_0.png)
+
 

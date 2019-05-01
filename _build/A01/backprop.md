@@ -119,6 +119,12 @@ print(s)
 ```
 
 
+{:.output .output_stream}
+```
+0.6224593312018546
+
+```
+
 Now we're able to compute the output of our first neuron,
 
 
@@ -141,6 +147,12 @@ out = w2*s2
 print(out)
 ```
 
+
+{:.output .output_stream}
+```
+0.36375380675182073
+
+```
 
 ## Step 3.  Update the weights.
  To update the weights, we'll use the expressions we derived in class 
@@ -189,7 +201,7 @@ We need one more expression, to update the last weight, w0.
 
 {:.input_area}
 ```python
-w0 = ????????
+w0 = '????????'  # <-- Fill in the proper expression
 ```
 
 
@@ -259,4 +271,10 @@ plt.plot(np.arange(1000), 1000*[target], 'k', label='target')  #... and plot the
 plt.legend() #Iclude a legend,
 plt.xlabel('Iteration number');         #... and axis label.
 ```
+
+
+
+{:.output .output_png}
+![png](../images/A01/backprop_30_0.png)
+
 

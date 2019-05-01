@@ -232,7 +232,7 @@ EEGb           ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes 
 YouTubeVideo   type       <class 'IPython.lib.display.YouTubeVideo'>
 data           dict       n=6
 mn             ndarray    500: 500 elems, type `float64`, 4000 bytes
-np             module     <module 'numpy' from '/an<...>kages/numpy/__init__.py'>
+np             module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
 ntrials        int        1000
 plt            module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
 sd             ndarray    500: 500 elems, type `float64`, 4000 bytes
@@ -1471,6 +1471,9 @@ HTML('../assets/custom/custom.css')
 .math-note {
     color: #3c763d;
     background-color: #dff0d8;
+	border-color: #d6e9c6;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1478,6 +1481,9 @@ HTML('../assets/custom/custom.css')
 .python-note {
     color: #8a6d3b;
     background-color: #fcf8e3;
+	border-color: #faebcc;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1485,9 +1491,12 @@ HTML('../assets/custom/custom.css')
 .question {
     color: #31708f;
     background-color: #d9edf7;
+	border-color: #bce8f1;
+	border: 1px solid;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
+	border-radius: 10px;
 }
 .output_area img {
     display: block;
@@ -1498,37 +1507,42 @@ HTML('../assets/custom/custom.css')
 	width:100%;
 	max-width:500px;
 }
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-	float:center;
-    background:#fff;
+.thumb {
+    position: relative;
 }
 .thumb span { 
-	visibility: hidden;
-    width: 300px;
+    visibility: hidden;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
+    position: absolute;
     z-index: 1;
-    bottom: 50%;
+    top: 50%;
     left: 50%;
-    margin-left: -150px;
     transition: 5ms visibility;
+}
+.thumb img { 
+	border:1px solid #000;
+	margin:0px;
+    background:#fff;
+    width: 100%;
+	max-width: 300px;
 }
 .thumb:hover, .thumb:hover span { 
 	visibility:visible;
     transition-delay: 500ms;
 		
-}    
+} 
+.fig {
+    position: relative;
+}   
 .fig img { 
 	border:1px solid #000;
 	margin:0px;
-	float:center;
     background:#fff;
+	max-width: 100%;
 }
 .fig span { 
 	visibility: hidden;
@@ -1538,11 +1552,10 @@ HTML('../assets/custom/custom.css')
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
+    position: absolute;
     z-index: 1;
-    bottom: 40%;
+    top: 60%;
     left: 50%;
-    margin-left: -250px;
     transition: 5ms visibility;
 }
 .fig:hover, .fig:hover span { 
