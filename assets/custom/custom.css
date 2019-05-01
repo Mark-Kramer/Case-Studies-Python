@@ -42,7 +42,7 @@
 	max-width:500px;
 }
 .thumb {
-    position: relative;
+    position: inherit;
 }
 .thumb span { 
     width: 200px;
@@ -53,9 +53,8 @@
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
 }
 .thumb img { 
@@ -71,7 +70,7 @@
 		
 } 
 .fig {
-    position: relative;
+    position: inherit;
 }   
 .fig img { 
 	border:1px solid #000;
@@ -88,9 +87,8 @@
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 1;
-    top: 60%;
-    left: 50%;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
 }
 .fig:hover, .fig:hover span { 

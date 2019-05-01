@@ -881,9 +881,10 @@ HTML('../assets/custom/custom.css')
 	max-width:500px;
 }
 .thumb {
-    position: relative;
+    position: inherit;
 }
 .thumb span { 
+    width: 200px;
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -891,9 +892,8 @@ HTML('../assets/custom/custom.css')
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 50%;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
 }
 .thumb img { 
@@ -909,13 +909,13 @@ HTML('../assets/custom/custom.css')
 		
 } 
 .fig {
-    position: relative;
+    position: inherit;
 }   
 .fig img { 
 	border:1px solid #000;
 	margin:0px;
     background:#fff;
-	max-width: 100%;
+	width: 100%;
 }
 .fig span { 
 	visibility: hidden;
@@ -926,9 +926,8 @@ HTML('../assets/custom/custom.css')
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 1;
-    top: 60%;
-    left: 50%;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
 }
 .fig:hover, .fig:hover span { 

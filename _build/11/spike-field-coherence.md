@@ -834,7 +834,7 @@ np.exp(res_thinned.params[0])/np.exp(res.params[0])
 
 {:.output .output_data_text}
 ```
-0.5153683026906551
+0.5141525205389491
 ```
 
 
@@ -854,8 +854,8 @@ print([np.exp(res_thinned.params[2]), np.exp(res.params[2])])  # compare ratio o
 
 {:.output .output_stream}
 ```
-[1.2397111281329318, 1.2604558073768586]
-[0.9958265736435623, 0.9945940761801921]
+[1.2659414482381108, 1.2604558073768586]
+[0.9897177871907383, 0.9945940761801921]
 
 ```
 

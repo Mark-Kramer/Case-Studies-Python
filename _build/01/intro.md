@@ -1090,8 +1090,8 @@ print("a uniform random number from [0,1): " + str(np.random.rand()))
 
 {:.output .output_stream}
 ```
-a Gaussian random number (mean=0, variance=1): 1.3908099182698221
-a uniform random number from [0,1): 0.8291621952196468
+a Gaussian random number (mean=0, variance=1): -0.9955946466214615
+a uniform random number from [0,1): 0.10991782709043885
 
 ```
 
@@ -1492,29 +1492,29 @@ css/font-awesome.min.css">
 </script>
 
 <div class="animation" align="center">
-    <img id="_anim_img6e8c48a9ff4b4df69ecc545fff7dbaf5">
+    <img id="_anim_img34c37db64833464c8d4ed037e57eeb70">
     <br>
-    <input id="_anim_slider6e8c48a9ff4b4df69ecc545fff7dbaf5" type="range" style="width:350px"
+    <input id="_anim_slider34c37db64833464c8d4ed037e57eeb70" type="range" style="width:350px"
            name="points" min="0" max="1" step="1" value="0"
-           onchange="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.set_frame(parseInt(this.value));"></input>
+           onchange="anim34c37db64833464c8d4ed037e57eeb70.set_frame(parseInt(this.value));"></input>
     <br>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.slower()"><i class="fa fa-minus"></i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.first_frame()"><i class="fa fa-fast-backward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.slower()"><i class="fa fa-minus"></i></button>
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.first_frame()"><i class="fa fa-fast-backward">
         </i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.previous_frame()">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.previous_frame()">
         <i class="fa fa-step-backward"></i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.reverse_animation()">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.reverse_animation()">
         <i class="fa fa-play fa-flip-horizontal"></i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.pause_animation()"><i class="fa fa-pause">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.pause_animation()"><i class="fa fa-pause">
         </i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.play_animation()"><i class="fa fa-play"></i>
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.play_animation()"><i class="fa fa-play"></i>
         </button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.next_frame()"><i class="fa fa-step-forward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.next_frame()"><i class="fa fa-step-forward">
         </i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.last_frame()"><i class="fa fa-fast-forward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.last_frame()"><i class="fa fa-fast-forward">
         </i></button>
-    <button onclick="anim6e8c48a9ff4b4df69ecc545fff7dbaf5.faster()"><i class="fa fa-plus"></i></button>
-  <form action="#n" name="_anim_loop_select6e8c48a9ff4b4df69ecc545fff7dbaf5" class="anim_control">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.faster()"><i class="fa fa-plus"></i></button>
+  <form action="#n" name="_anim_loop_select34c37db64833464c8d4ed037e57eeb70" class="anim_control">
     <input type="radio" name="state"
            value="once" > Once </input>
     <input type="radio" name="state"
@@ -1529,9 +1529,9 @@ css/font-awesome.min.css">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img6e8c48a9ff4b4df69ecc545fff7dbaf5";
-    var slider_id = "_anim_slider6e8c48a9ff4b4df69ecc545fff7dbaf5";
-    var loop_select_id = "_anim_loop_select6e8c48a9ff4b4df69ecc545fff7dbaf5";
+    var img_id = "_anim_img34c37db64833464c8d4ed037e57eeb70";
+    var slider_id = "_anim_slider34c37db64833464c8d4ed037e57eeb70";
+    var loop_select_id = "_anim_loop_select34c37db64833464c8d4ed037e57eeb70";
     var frames = new Array(0);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -30537,7 +30537,7 @@ RK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim6e8c48a9ff4b4df69ecc545fff7dbaf5 = new Animation(frames, img_id, slider_id, 200.0,
+        anim34c37db64833464c8d4ed037e57eeb70 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
