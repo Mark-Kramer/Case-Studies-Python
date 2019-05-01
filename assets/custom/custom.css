@@ -41,37 +41,40 @@
 	width:100%;
 	max-width:500px;
 }
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-	float:center;
-    background:#fff;
-	max-width: 50%;
+.thumb {
+    position: relative;
 }
 .thumb span { 
-	visibility: hidden;
-    width: 300px;
+    visibility: hidden;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
+    position: absolute;
     z-index: 1;
     top: 50%;
     left: 50%;
-    margin-left: -150px;
     transition: 5ms visibility;
+}
+.thumb img { 
+	border:1px solid #000;
+	margin:0px;
+    background:#fff;
+    width: 100%;
+	max-width: 300px;
 }
 .thumb:hover, .thumb:hover span { 
 	visibility:visible;
     transition-delay: 500ms;
 		
-}    
+} 
+.fig {
+    position: relative;
+}   
 .fig img { 
 	border:1px solid #000;
 	margin:0px;
-	float:center;
     background:#fff;
 	max-width: 50%;
 }
@@ -83,7 +86,7 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
+    position: absolute;
     z-index: 1;
     top: 60%;
     left: 50%;
