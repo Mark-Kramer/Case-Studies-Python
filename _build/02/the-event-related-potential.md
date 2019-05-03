@@ -129,12 +129,6 @@ In this chapter, we consider EEG data recorded from a single scalp electrode.  W
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('q2-DjvPRaNA')
-```
-
 
 
 

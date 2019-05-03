@@ -22,7 +22,7 @@ Let us delay no further.  In the following examples, you are asked to execute co
 
 There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using [Binder](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master), and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!
 
-<div class="question">
+<div class="python-note">
     
 Throughout this notebook, we assume that you are running [Python 3](https://www.python.org/download/releases/3.0/). Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator `/` actually computes the *floor* of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, `4/3` equals `1`. While, in Python 3, `4/3` equals `1.333`.
 
@@ -255,9 +255,13 @@ print( a + 1 )
 
 ```
 
+<div class="question">
+    
 **Q:** What do you find?
 
 **A:** Notice that the scalar operates on each element of the array.
+
+</div>
 
 ##  Example 6.  We can manipulate arrays with arrays.
 
@@ -282,9 +286,13 @@ array([ 1,  4,  9, 16])
 
 
 
+<div class="question">
+
 **Q:**  What does this return?
 
 **A:** We see that the operator `*` performs element-by-element multiplication of the values in array `a`.
+
+</div>
 
 ## Example 7. More examples of manipulating arrays with arrays.
 
@@ -312,7 +320,11 @@ print( np.multiply( b, c ))
 
 ```
 
+<div class="question">
+
 **Q:** What operation does `np.multiply()` perform?
+
+</div>
 
 ## Example 8.  We can probe the variables we've defined in Python.
 
@@ -400,9 +412,13 @@ By doing so, we get rid of all the variables. To do so, type `%reset` and enter 
 ```
 
 
+<div class="question">
+
 **Q.** What command could we use to confirm there are no variables in the workspace?
 
 **A.** Consider `who`.
+
+</div>
 
 
 
@@ -418,7 +434,7 @@ Interactive namespace is empty.
 
 ```
 
-<div class="question">
+<div class="python-note">
     
 The `%reset` command is an example of a *magic*. Magics are commands that start with the `%` symbol and use a language other than Python. They are only available in the notebook environment. In fact, the set of magics that is available is specific to the notebook kernel. This means that if you have a Jupyter notebook running a Ruby kernel the magics will be different.
 
@@ -454,7 +470,11 @@ print( p )
 
 ```
 
+<div class="question">
+
 **Q:** Can you see the two rows and three columns?
+
+</div>
 
 We can manipulate matrices like we manipulate vectors. 
 
@@ -515,8 +535,11 @@ b[1] = 7
 
 ```
 
-**Q.**  Do the results make sense?  How would you access the 4th element of
-each vector?
+<div class="question">
+    
+**Q.**  Do the results make sense?  How would you access the 4th element of each vector?
+
+</div>
 
   We can combine `a` and `b` to form a matrix with `a` as the first row and `b` as the second.
   Note that we apply the function `np.array()` to the *list* `[a,b]`, which it converts to a matrix.
@@ -572,12 +595,18 @@ c[0,3] = 4
 
 ```
 
-<div class="question">
+<div class="python-note">
+    
 We access matrices using 'row, column' notation.  So `c[0,3]` means
 print the element in row 0, column 3 of `c`.
+
 </div>
 
+<div class="question">
+
 **Q.**  How would you print all rows in the 2nd column of `c`?
+
+</div>
 
 ##  Example 13:  We can find subsets of elements in matrices and vectors.
 Often we are interested in only some of the elements of a matrix or vector. For example, we might want to look at the data from a single experimental trial which is stored in a particular row of a matrix. Alternatively, we might want to find out when the values in a time series cross a given boundary. Doing this is simple in Python.
@@ -601,7 +630,7 @@ c[0,:] = [1 2 3 4 5]
 
 ```
 
-  <div class="question">
+  <div class="python-note">
     
   The notation `1:4` means *all integers from 1 up to, but not including 4*, 
   which in this case gives columns 1, 2, and 3. 
@@ -670,9 +699,12 @@ a = [ 2  4  6  8 10 12 14 16 18]
 
 ```
 
-**Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? 
+<div class="question">
 
-**Hint:** Use the `np.max()` function.
+**Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? 
+*Hint:* Use the `np.max()` function.
+
+</div>
 
   Now let's find all values in `a` that exceed 10.
 
@@ -758,7 +790,7 @@ lgIdx.nonzero()
 
 
 
-<div class="question">
+<div class="python-note">
     
 The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `np.nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `np.` at the beginning of the function call). 
 
@@ -832,7 +864,7 @@ b =
 
 ```
 
-<div class="question">
+<div class="python-note">
     
 Notice that the last line collapses the `True` entries to an array, 
 ordered by row and then by column. If you've used MATLAB, this is 
@@ -869,9 +901,13 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 
 ```
 
-**Q:** Looking at the values in 'y' printed above, can you tell what's happending?
+<div class="question">
 
-**A:** Not really ... let's visualize `y` vs `x` instead.
+**Q.** Looking at the values in 'y' printed above, can you tell what's happending?
+
+**A.** Not really ... let's visualize `y` vs `x` instead.
+
+</div>
 
 ### matplotlib
 To visualize `y` versus `x` let's plot it. To do so, let's first import some basic plotting routines from `matplotlib`, which provides a nice [2D plotting library](https://matplotlib.org/). We'll also tell Python to show  `matplotlib` graphics inline, in this notebook.
@@ -898,7 +934,11 @@ plt.show()          # this is the plotting equivalent of print()
 
 
 
-**Q:** Does the plot above make sense for the variables `x` and `y`?
+<div class="question">
+
+**Q.** Does the plot above make sense for the variables `x` and `y`?
+
+</div>
 
 Now, let's go back to the definitions of `x` and `y` that we started this example with and plot `y` versus `x`.
 
@@ -946,10 +986,18 @@ print(x)
 
 ```
 
+<div class="question">
+
 **Q.**  Compare this definition of `x` to the definition above.  How do these
 two definitions differ?
 
+</div>
+
+<div class="question">
+    
 **Q.**  What is the size of `x`?  Does this make sense?
+
+</div>
 
 Now let's replot the sine function.
 
@@ -965,11 +1013,15 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_103_0.png)
+![png](../images/01/intro_104_0.png)
 
 
 
-**Q:** Does this plot make sense, given your knowledge of `x`, `y`, and trigonometry?
+<div class="question">
+
+**Q.** Does this plot make sense, given your knowledge of `x`, `y`, and trigonometry?
+
+</div>
 
 ## Example 15: What if we want to compare several functions?
 
@@ -996,7 +1048,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_109_0.png)
+![png](../images/01/intro_110_0.png)
 
 
 
@@ -1015,7 +1067,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_111_0.png)
+![png](../images/01/intro_112_0.png)
 
 
 
@@ -1039,7 +1091,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_113_0.png)
+![png](../images/01/intro_114_0.png)
 
 
 
@@ -1070,7 +1122,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_115_0.png)
+![png](../images/01/intro_116_0.png)
 
 
 
@@ -1118,13 +1170,17 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_121_0.png)
+![png](../images/01/intro_122_0.png)
 
 
-
-**Q:** Does this histogram make sense? Is it what you expect for a distribution of Gaussian random variables?
 
 <div class="question">
+
+**Q.** Does this histogram make sense? Is it what you expect for a distribution of Gaussian random variables?
+
+</div>
+
+<div class="python-note">
     
 See Python Help (`plt.hist?`) to learn about the function `hist()`.
 
@@ -1168,7 +1224,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_125_0.png)
+![png](../images/01/intro_126_0.png)
 
 
 
@@ -1199,16 +1255,20 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_129_0.png)
+![png](../images/01/intro_130_0.png)
 
 
 
 The small section of code above replaces all the cutting-and-pasting.
   Instead of cutting and pasting, we update the definition of `y` with different values of `k` and plot it within this for-loop.
+  
+<div class="question">
 
 **Q.**  Spend some time studying this for-loop.  Does it make sense?
 
-<div class="question">
+</div>
+
+<div class="python-note">
     
 **Important note:** Python uses **indentation** to define `for` loops.
 
@@ -1248,7 +1308,7 @@ def my_square_function(x, c):
 
 The function begins with the keyword `def` followed by the function name and the inputs in parentheses. Notice that this first line ends with a colon `:`. All of the function components that follow this first line should be **indented one level**. This is just like the `for` loop we applied earlier; the operations performed by the for loop were indented one leve.
 
-<div class="question">
+<div class="python-note">
     
 When defining the function, the code the function executes should be indented one level.
 
@@ -1300,13 +1360,13 @@ my_square_function?
 
 </div>
 
-{:.question}
+<div class="question">
 
 **Q.** Try to make a function, my_power, so that 
 `y = power(x,n)` evaluates $y = x^n$, 
 (in Python you can use `x**n` to take the power)
 
-
+</div>
 
 ## Example 19: Animating figures
 Finally, let's make an animation in Python. To do this we need two additional functions from external modules: `HTML()` and `FuncAnimation()`. `FuncAnimation` is what creates the animated figure, while `HTML` tells the notebook that to interpret the argument as HTML and show the results.
@@ -30549,7 +30609,7 @@ RK5CYII=\
 
 
 {:.output .output_png}
-![png](../images/01/intro_145_1.png)
+![png](../images/01/intro_146_1.png)
 
 
 
@@ -30611,7 +30671,7 @@ dict_keys(['__header__', '__version__', '__globals__', 't', 'LFP'])
 
 ```
 
-<div class="question">
+<div class="python-note">
     
 Use the `keys()` method to see what variables are contained in `mat`. In other words, run the command `mat.keys()`.
 
@@ -30651,6 +30711,6 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/intro_158_0.png)
+![png](../images/01/intro_159_0.png)
 
 
