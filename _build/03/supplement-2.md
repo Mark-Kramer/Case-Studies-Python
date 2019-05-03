@@ -329,7 +329,7 @@ print(model.params)
 
 {:.output .output_stream}
 ```
-Intercept    2.796903e-17
+Intercept    2.818926e-17
 sin          9.989204e-01
 cos         -3.238373e-03
 dtype: float64
@@ -432,7 +432,7 @@ Sxx_model_60Hz
 
 {:.output .output_data_text}
 ```
-0.9978524145209708
+0.9978524145209726
 ```
 
 

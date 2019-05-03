@@ -351,8 +351,8 @@ b                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
 c                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
 initial_time_interval   ndarray    100000: 100000 elems, type `bool`, 100000 bytes (97.65625 kb)
 mat                     dict       n=5
-math                    module     <module 'math' from '/ana<...>h.cpython-37m-darwin.so'>
-np                      module     <module 'numpy' from '/an<...>kages/numpy/__init__.py'>
+math                    module     <module 'math' from '/Use<...>h.cpython-36m-darwin.so'>
+np                      module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
 plt                     module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
 sio                     module     <module 'scipy.io' from '<...>es/scipy/io/__init__.py'>
 t                       ndarray    100000: 100000 elems, type `float64`, 800000 bytes (781.25 kb)
@@ -1090,8 +1090,8 @@ print("a uniform random number from [0,1): " + str(np.random.rand()))
 
 {:.output .output_stream}
 ```
-a Gaussian random number (mean=0, variance=1): 0.7150346590844211
-a uniform random number from [0,1): 0.7457277900109338
+a Gaussian random number (mean=0, variance=1): -0.9955946466214615
+a uniform random number from [0,1): 0.10991782709043885
 
 ```
 
@@ -1492,29 +1492,29 @@ css/font-awesome.min.css">
 </script>
 
 <div class="animation" align="center">
-    <img id="_anim_imgaa07a1e2f358465893664ded861c5ac9">
+    <img id="_anim_img34c37db64833464c8d4ed037e57eeb70">
     <br>
-    <input id="_anim_slideraa07a1e2f358465893664ded861c5ac9" type="range" style="width:350px"
+    <input id="_anim_slider34c37db64833464c8d4ed037e57eeb70" type="range" style="width:350px"
            name="points" min="0" max="1" step="1" value="0"
-           onchange="animaa07a1e2f358465893664ded861c5ac9.set_frame(parseInt(this.value));"></input>
+           onchange="anim34c37db64833464c8d4ed037e57eeb70.set_frame(parseInt(this.value));"></input>
     <br>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.slower()"><i class="fa fa-minus"></i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.first_frame()"><i class="fa fa-fast-backward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.slower()"><i class="fa fa-minus"></i></button>
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.first_frame()"><i class="fa fa-fast-backward">
         </i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.previous_frame()">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.previous_frame()">
         <i class="fa fa-step-backward"></i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.reverse_animation()">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.reverse_animation()">
         <i class="fa fa-play fa-flip-horizontal"></i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.pause_animation()"><i class="fa fa-pause">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.pause_animation()"><i class="fa fa-pause">
         </i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.play_animation()"><i class="fa fa-play"></i>
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.play_animation()"><i class="fa fa-play"></i>
         </button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.next_frame()"><i class="fa fa-step-forward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.next_frame()"><i class="fa fa-step-forward">
         </i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.last_frame()"><i class="fa fa-fast-forward">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.last_frame()"><i class="fa fa-fast-forward">
         </i></button>
-    <button onclick="animaa07a1e2f358465893664ded861c5ac9.faster()"><i class="fa fa-plus"></i></button>
-  <form action="#n" name="_anim_loop_selectaa07a1e2f358465893664ded861c5ac9" class="anim_control">
+    <button onclick="anim34c37db64833464c8d4ed037e57eeb70.faster()"><i class="fa fa-plus"></i></button>
+  <form action="#n" name="_anim_loop_select34c37db64833464c8d4ed037e57eeb70" class="anim_control">
     <input type="radio" name="state"
            value="once" > Once </input>
     <input type="radio" name="state"
@@ -1529,9 +1529,9 @@ css/font-awesome.min.css">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgaa07a1e2f358465893664ded861c5ac9";
-    var slider_id = "_anim_slideraa07a1e2f358465893664ded861c5ac9";
-    var loop_select_id = "_anim_loop_selectaa07a1e2f358465893664ded861c5ac9";
+    var img_id = "_anim_img34c37db64833464c8d4ed037e57eeb70";
+    var slider_id = "_anim_slider34c37db64833464c8d4ed037e57eeb70";
+    var loop_select_id = "_anim_loop_select34c37db64833464c8d4ed037e57eeb70";
     var frames = new Array(0);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -30537,7 +30537,7 @@ RK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animaa07a1e2f358465893664ded861c5ac9 = new Animation(frames, img_id, slider_id, 200.0,
+        anim34c37db64833464c8d4ed037e57eeb70 = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()

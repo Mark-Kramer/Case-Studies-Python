@@ -135,6 +135,12 @@ plt.autoscale(tight=True)                    # ... with white space minimized.
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_10_0.png)
+
+
+
 <div class="alert alert-block alert-warning">
 **Array shapes:** The `reshape()` function lets us change the shape of an array. `reshape(-1)` tells Python to reshape the array into a vector with as many elements as are in the array. Mathematically, a vector is a one-dimensional array. In Python, the difference is that a vector is indexed by a single number, while an array is indexed by multiple numbers. After reshaping, we can look at the number at index 0 of `t` using `t[0]`. If we don't reshape first, we need to use `t[0, 0]` to get the same result, so reshaping the array isn't required, but it is more convenient. There is a nice explanation of array shapes [here](https://stackoverflow.com/questions/22053050/difference-between-numpy-array-shape-r-1-and-r#answer-22074424). 
 </div>
@@ -218,6 +224,12 @@ ylabel('Voltage [mV]');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_23_0.png)
+
+
+
 And, let's plot the STA results across *all* trials,
 
 
@@ -228,6 +240,12 @@ plot(lags,np.transpose(STA))        # Plot the STA results across all trials.
 xlabel('Time [ms]')
 ylabel('Voltage [mV]');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_25_0.png)
+
 
 
 The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at $t = 0$ in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.
@@ -281,6 +299,12 @@ plot(phi_axis, FTA)
 xlabel('Phase')
 ylabel('FTA');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_30_0.png)
+
 
 
 Notice the steps to set up the filter. We choose a bandpass filter `Wn`, which here is from 9–11 Hz. We choose this interval to focus on the LFP rhythm of largest amplitude ($\approx 10$ Hz), which we identified through visual inspection ([see figure](#fig:LFP_ex)). For each trial, we apply the filter to the LFP and then use the Hilbert transform (`signal.hilbert`) to estimate the phase. Finally, we sort this phase and use the sorted indices to arrange the spikes and store the results. We show the FTA averaged across all trials in the [figure above](#fig:FTA). In this case, no modulation in the number of spikes is apparent across trials. Instead, the number of spikes at each phase appears equally likely.
@@ -401,6 +425,12 @@ ylabel('Coherence');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_44_0.png)
+
+
+
 <div class="alert alert-block alert-info">
 <p>**Q:** Consider the spike spectrum, `Snn`, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?
 </p>
@@ -493,6 +523,12 @@ ylabel('Coherence');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_56_0.png)
+
+
+
 We find that this multiplicative change in the amplitude of the field data does not impact the spike-field coherence. This result is consistent with our intuition from field-field coherence; the height of the field does not matter. Instead, it’s the consistency of the phase relation between two signals across trials that is critical for establishing the coherence.
 
 ### Thinning the spike train <a id="sec:thin"></a>
@@ -535,6 +571,12 @@ plt.xlim([35, 55])
 xlabel('Frequency [Hz]')
 ylabel('Coherence');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_61_0.png)
+
 
 
 We  plot in the figure above the spike-field coherence for two different levels of thinning, one of which corresponds to the choice of a thinning factor of 0.5. We find that, for the thinned spike train, the peak of spike-field coherence decreases. Why? Intuition suggests that removing spikes at random (i.e., removing spikes coupled to the phase of LFP and removing spikes independent of the LFP) should preserve the spike-field coherence. Perhaps we were unlucky in the thinning procedure and selected to remove more phase-locked spikes than non-phase-locked spikes?
@@ -617,6 +659,12 @@ ylabel('Probability of a spike');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_71_0.png)
+
+
+
 The modeling estimates are shown in the figure above: the FTA (identical to [this figure](#fig:FTA)) and the estimates of the GLM (computed using the Python function `get_prediction`). The agreement is excellent. Notice for the 9–11 Hz frequency band the lack of modulation in the estimated conditional intensity, which suggests that the probability of spiking is not affected by the phase of the LFP in the 9–11 Hz frequency range.
 
 
@@ -660,6 +708,12 @@ ylabel('Probability of a spike');
 ```
 
 
+
+{:.output .output_png}
+![png](../images/11/spike-field-coherence_73_0.png)
+
+
+
 Now, for this frequency interval, we find a modulation of the estimated conditional intensity, with an increase in the probability of a spike near 0 radians. These results illustrate the close correspondence between the FTA and GLM procedures. An important advantage of the GLM approach is the ability to estimate confidence intervals. The confidence intervals in the figure above are estimated in the `get_prediction` function and returned as the outputs `Y_predict.conf_int()`.
 
 For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [MODULE](add ref)):
@@ -673,6 +727,12 @@ pval2=res.pvalues[2];       #Significance of parameter beta_2.
 print(pval1, pval2)
 ```
 
+
+{:.output .output_stream}
+```
+1.484034529060403e-52 0.7187267797864618
+
+```
 
 We find that $\beta_1$ is highly significant (`pval1=1.48e-52`) and $\beta_2$ is not significant (`pval2=0.719`), and we conclude that the firing rate is highly dependent on the cosine of the LFP phase.
 
@@ -699,6 +759,12 @@ pval = 1-stats.chi2.cdf(null_res.deviance-res.deviance,2) #Compare two nested GL
 print(pval)
 ```
 
+
+{:.output .output_stream}
+```
+0.0
+
+```
 
 <div class="alert alert-block alert-info">
 **Q:** Why do we set the second input to the function `stats.chi2.cdf` equal to 2?
@@ -741,6 +807,16 @@ To compare how the thinning factor impacts the probability of a spike, let's com
 ```
 
 
+
+
+
+{:.output .output_data_text}
+```
+0.514420910319964
+```
+
+
+
 As expected the ratio of the probabilities is near 0.5, which is consistent with a thinning factor of 0.5.
 
 Now, let's compare the ratios of $\exp(\beta_0)$ estimated for the two models
@@ -751,6 +827,16 @@ Now, let's compare the ratios of $\exp(\beta_0)$ estimated for the two models
 ```python
 np.exp(res_thinned.params[0])/np.exp(res.params[0])
 ```
+
+
+
+
+
+{:.output .output_data_text}
+```
+0.5141525205389491
+```
+
 
 
 We find that this ratio is also near 0.5. We conclude that the two measures - the estimate of probability of a spike and $\exp(\beta_0)$ - are in excellent agreement; as expected, as the thinning factor increases, the probability of a spike decreases.
@@ -765,6 +851,13 @@ print([np.exp(res_thinned.params[1]), np.exp(res.params[1])])  # compare ratio o
 print([np.exp(res_thinned.params[2]), np.exp(res.params[2])])  # compare ratio of exp(beta_2)
 ```
 
+
+{:.output .output_stream}
+```
+[1.2659414482381108, 1.2604558073768586]
+[0.9897177871907383, 0.9945940761801921]
+
+```
 
 There are two important features to notice about these estimates:
 

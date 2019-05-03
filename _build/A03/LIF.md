@@ -30,6 +30,23 @@ VimeoVideo('140084447')
 ```
 
 
+
+
+
+<div markdown="0" class="output output_html">
+
+        <iframe
+            width="400"
+            height="300"
+            src="https://player.vimeo.com/video/140084447"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
+</div>
+
+
+
 Here's some additional intereting videos and references:
 
 - [Lecture by Prof. Gerstner](http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=1)
@@ -144,6 +161,16 @@ V.shape
 ```
 
 
+
+
+
+{:.output .output_data_text}
+```
+(1000, 1)
+```
+
+
+
 This array `V` consists of 1000 rows and 1 column. We can think of each row entry as corresponding to a discrete step in time. Our goal is to fill-in the values of `V` (i.e., step forward in time), in a way consistent with our model.
 
 Let's choose an initial value for `V` of 0.2, which in our simple model we'll assume represents the rest state.
@@ -201,6 +228,12 @@ plt.plot(V);
 ```
 
 
+
+{:.output .output_png}
+![png](../images/A03/LIF_24_0.png)
+
+
+
 <div class="alert alert-block alert-info">
 **Q:**  What happens to the voltage after 1000 steps?
 </div>
@@ -234,6 +267,12 @@ plt.plot(t,V)
 plt.xlabel('Time [s]');
 plt.ylabel('V');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/A03/LIF_30_0.png)
+
 
 
 Finally, let's put it all together . . .
@@ -278,6 +317,12 @@ plt.plot(t,V)
 plt.xlabel('Time [s]')
 plt.ylabel('Voltage [mV]');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/A03/LIF_35_0.png)
+
 
 
 <div class="alert alert-block alert-info">
@@ -356,6 +401,12 @@ plt.plot(t,V)
 plt.xlabel('Time [s]')
 plt.ylabel('Voltage [mV]');
 ```
+
+
+
+{:.output .output_png}
+![png](../images/A03/LIF_41_0.png)
+
 
 
 <div class="alert alert-block alert-info">

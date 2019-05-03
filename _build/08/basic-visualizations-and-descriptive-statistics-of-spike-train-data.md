@@ -38,7 +38,6 @@ _**Synopsis**_
     6. [Building Statistical Models of the ISIs](#models)
 * [Summary](#summary)
 * [Appendix: Spike Count Mean and Variance for a Poisson Process](#appendix)
-#HIDDEN
 
 ## Introduction
 
@@ -1936,6 +1935,9 @@ HTML('../assets/custom/custom.css')
 .math-note {
     color: #3c763d;
     background-color: #dff0d8;
+	border-color: #d6e9c6;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1943,6 +1945,9 @@ HTML('../assets/custom/custom.css')
 .python-note {
     color: #8a6d3b;
     background-color: #fcf8e3;
+	border-color: #faebcc;
+	border: 1px solid;
+	border-radius: 10px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1950,9 +1955,12 @@ HTML('../assets/custom/custom.css')
 .question {
     color: #31708f;
     background-color: #d9edf7;
+	border-color: #bce8f1;
+	border: 1px solid;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
+	border-radius: 10px;
 }
 .output_area img {
     display: block;
@@ -1963,37 +1971,42 @@ HTML('../assets/custom/custom.css')
 	width:100%;
 	max-width:500px;
 }
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-	float:center;
-    background:#fff;
+.thumb {
+    position: inherit;
 }
 .thumb span { 
-	visibility: hidden;
-    width: 300px;
+    width: 200px;
+    visibility: hidden;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
-    z-index: 1;
-    bottom: 50%;
-    left: 50%;
-    margin-left: -150px;
+    position: absolute;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
+}
+.thumb img { 
+	border:1px solid #000;
+	margin:0px;
+    background:#fff;
+    width: 100%;
+	max-width: 300px;
 }
 .thumb:hover, .thumb:hover span { 
 	visibility:visible;
     transition-delay: 500ms;
 		
-}    
+} 
+.fig {
+    position: inherit;
+}   
 .fig img { 
 	border:1px solid #000;
 	margin:0px;
-	float:center;
     background:#fff;
+	width: 100%;
 }
 .fig span { 
 	visibility: hidden;
@@ -2003,11 +2016,9 @@ HTML('../assets/custom/custom.css')
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
-    z-index: 1;
-    bottom: 40%;
-    left: 50%;
-    margin-left: -250px;
+    position: absolute;
+    z-index: 2;
+    right: 10%;
     transition: 5ms visibility;
 }
 .fig:hover, .fig:hover span { 
