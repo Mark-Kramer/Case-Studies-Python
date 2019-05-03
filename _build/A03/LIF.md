@@ -8,7 +8,7 @@ prev_page:
   url: /A02/HH
   title: 'Hodgkin Huxley Model'
 next_page:
-  url: /A04/perceptron.ipynb
+  url: /A04/perceptron
   title: 'Training a Perceptron'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

@@ -24,11 +24,6 @@
 - title: Search
   search: true
 
-- title: GitHub repository
-  url: https://github.com/Mark-Kramer/Case-Studies-Python.git
-  external: true
-  not_numbered: true
-
 - divider: true
 - header: Contents
 
@@ -86,4 +81,4 @@
 
 - title: Training a Perceptron
   url: /A04/perceptron
-
+  

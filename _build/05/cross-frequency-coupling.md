@@ -3,7 +3,7 @@ interact_link: content/05/cross-frequency-coupling.ipynb
 kernel_name: python3
 title: 'Cross Frequency Coupling'
 prev_page:
-  url: /04/the-cross-covariance-and-coherence
+  url: /07/the-cross-covariance-and-coherence
   title: 'The Cross Covariance and Coherence'
 next_page:
   url: /06/the-power-spectrum-part-2

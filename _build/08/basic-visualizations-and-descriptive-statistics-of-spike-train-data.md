@@ -6,8 +6,8 @@ prev_page:
   url: /06/appendix
   title: 'Multiplication and Convolution in Different Domains'
 next_page:
-  url: 
-  title: ''
+  url: /04/ecog-rhythms
+  title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

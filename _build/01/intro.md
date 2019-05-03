@@ -3,8 +3,8 @@ interact_link: content/01/intro.ipynb
 kernel_name: python3
 title: 'Introduction to Python'
 prev_page:
-  url: /https://github.com/Mark-Kramer/Case-Studies-Python.git
-  title: 'GitHub repository'
+  url: /intro
+  title: 'Home'
 next_page:
   url: /02/the-event-related-potential
   title: 'The Event-Related Potential'

@@ -6,7 +6,7 @@ prev_page:
   url: /03/supplement-1
   title: 'Biased versus unbiased autocovariance'
 next_page:
-  url: /04/the-cross-covariance-and-coherence
+  url: /07/the-cross-covariance-and-coherence
   title: 'The Cross Covariance and Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
