@@ -1052,8 +1052,8 @@ HTML('../assets/custom/custom.css')
     color: #3c763d;
     background-color: #dff0d8;
 	border-color: #d6e9c6;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1062,8 +1062,8 @@ HTML('../assets/custom/custom.css')
     color: #8a6d3b;
     background-color: #fcf8e3;
 	border-color: #faebcc;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1072,13 +1072,24 @@ HTML('../assets/custom/custom.css')
     color: #31708f;
     background-color: #d9edf7;
 	border-color: #bce8f1;
-	border: 1px solid;
+	/*border: 1px solid;*/
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
-	border-radius: 10px;
+	border-radius: 5px;
+}
+.question, .math-note, .python-note p {
+    margin-top: 1em;
+}
+.question, .math-note, .python-note * + p {
+    margin-bottom: 0;
 }
 .output_area img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.output_area iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;

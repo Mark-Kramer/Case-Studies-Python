@@ -3,7 +3,7 @@ interact_link: content/10/spiking-rhythms.ipynb
 kernel_name: python3
 title: 'Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task'
 prev_page:
-  url: /09/pp-glms
+  url: /09/point-process-glms
   title: 'Modeling place Fields with Point Process Generalized Linear Models'
 next_page:
   url: /11/spike-field-coherence

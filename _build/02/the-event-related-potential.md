@@ -3,7 +3,7 @@ interact_link: content/02/the-event-related-potential.ipynb
 kernel_name: python3
 title: 'The Event-Related Potential'
 prev_page:
-  url: /01/intro
+  url: /01/introduction-to-python
   title: 'Introduction to Python'
 next_page:
   url: /03/the-power-spectrum-part-1
@@ -87,12 +87,6 @@ plt.show()                                   # ... and show the plot
 ## Background <a class="anchor" id="background"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('Cy_BF7smAkk')
-```
 
 
 
@@ -226,7 +220,7 @@ EEGb           ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes 
 YouTubeVideo   type       <class 'IPython.lib.display.YouTubeVideo'>
 data           dict       n=6
 mn             ndarray    500: 500 elems, type `float64`, 4000 bytes
-np             module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
+np             module     <module 'numpy' from '/an<...>kages/numpy/__init__.py'>
 ntrials        int        1000
 plt            module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
 sd             ndarray    500: 500 elems, type `float64`, 4000 bytes
@@ -284,12 +278,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 ### Visual Inspection <a id="visual-inspection"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('uSjd41G-yNY')
-```
 
 
 
@@ -463,12 +451,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('9qx29zDxcAc')
-```
 
 
 
@@ -669,12 +651,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('kPr2GLSKLJg')
-```
-
 
 
 
@@ -731,12 +707,6 @@ The ERP of condition A shows the mean voltage across trials at each moment in ti
 ### Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('pXCJbyrw8Ug')
-```
 
 
 
@@ -866,6 +836,7 @@ def labelPlot(title_string="Title"):
 The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a>
 
 <img src="imgs/ERPaCi.png" alt="ERP of condition A with line at 0" title="">
+
 [Jump to bootstrap CI](#plt:erpA-m2)
 
 In the figure above, the thick line indicates the ERP for Condition A (i.e., the mean of the EEG across trials) while the thin dotted lines indicate the 95% confidence intervals.
@@ -897,7 +868,7 @@ In the previous section, we implemented a procedure to compute confidence interv
 
 Here's a plot the ERPs with confidence intervals for condition A (blue) and condition B (orange):
 
-<img src="imgs/erpBoth.png" alt="ERPs of both conditions" title=""></img>
+<img src="imgs/erpBoth.png" alt="ERPs of both conditions" title="">
 
 <div class="question">
     
@@ -908,8 +879,8 @@ As you can see, the plot of both ERPs is rather messy; it’s difficult to deter
 
 To facilitate further inspection of the data, we compute the difference between the ERPs in the two conditions. In the differenced signal, large deviations between the two conditions will appear as large differences from zero. To determine whether a deviation is significantly different from zero, we need to determine the confidence interval for the differenced ERP. This requires we propagate the standard deviation of the mean for both ERPs to the new differenced ERP. The propagated standard deviation of the mean at a fixed moment in time is computed as,
 
-<a id="sdD"></a>
-$$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, $$
+<a id="eq:1"></a>
+$$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$
 
 where $\sigma_A$ is the standard deviation of the data from condition A, $\sigma_B$ is the standard deviation of the data from condition B, and $K$ is the number of trials. In Python we compute the differenced ERP and standard deviation of the mean of the difference as follows:
 <a id="plt:differencedERP"></a>
@@ -942,7 +913,7 @@ show()
 
 
 
-In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (`mnD`) and the standard deviation of the mean of this difference (`sdmnD`) using the [equation above](#sdD). We note that `sdmnA` $ = \sqrt{\sigma_A^2/K}$ and therefore `sdmnA**2` $= \sigma_A^2/K$, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.
+In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (`mnD`) and the standard deviation of the mean of this difference (`sdmnD`) using equation (<a href="#eq:1" class="thumb">1<span><img src="imgs/eq1.png"></span></a>). We note that `sdmnA` $ = \sqrt{\sigma_A^2/K}$ and therefore `sdmnA**2` $= \sigma_A^2/K$, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.
 
 <div class="question">
     
@@ -954,12 +925,6 @@ In the code above we first compute the ERP and standard deviation of the mean fo
 ### Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('vVXH4XsPFEs')
-```
 
 
 
@@ -996,12 +961,6 @@ We implement the bootstrapping procedure to compute pointwise confidence interva
 Let’s now implement each step in Python.
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('mqDEJyW_z4c')
-```
 
 
 
@@ -1064,12 +1023,6 @@ That completes step 1 of the resampling procedure.
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('bUzuNojLUik')
-```
-
 
 
 
@@ -1109,12 +1062,6 @@ ERP0 = np.mean(EEG0,0)  # Create the resampled ERP
 </div>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('feQk_vKloXk')
-```
 
 
 
@@ -1207,12 +1154,6 @@ Note that it is good practice, but not required, to define a function that conta
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('NLc93QESVZs')
-```
-
 
 
 
@@ -1231,7 +1172,7 @@ YouTubeVideo('NLc93QESVZs')
 
 
 
-**Step 4.** In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index 0.025 $\times$ 3000 = 75 and 0.975 $\times$ 3000 = 2925. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="plt:erpA-m2"></a>
+**Step 4.** In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index 0.025 $\times$ 3000 = 75 and 0.975 $\times$ 3000 = 2925. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a>
 
 
 
@@ -1273,12 +1214,6 @@ We can use these results to identify, for example, intervals in which the ERP di
 ### A Bootstrap Test to Compare ERPs <a id="bootstrap"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('K6pgCxFdELc')
-```
 
 
 
@@ -1325,12 +1260,6 @@ stat = 0.2884
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('390ywma7S3U')
-```
-
 
 
 
@@ -1353,7 +1282,7 @@ In isolation, the numerical value for `stat` is not very useful or interesting. 
 
 It may seem odd to create pseudodata by selecting trials across both conditions; intuitively, we may expect the data to differ in these two conditions and feel uncomfortable making a pseudodata set that includes trials from both conditions. But under the null hypothesis, we assume no difference between the EEG responses in conditions A and B, and we are therefore free to create pseudodata drawing from trials in both conditions. We do so with the goal of creating a distribution of values for `stat` under the null hypothesis that conditions A and B exhibit no difference. We then compare the observed value of `stat` with this distribution of `stat` values. If there is a difference between the two conditions, we expect to find the observed value of `stat` to be very different from the distribution of `stat` values generated from the pseudodata under the null hypothesis.
 
-To create the distribution of `stat` values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the confidence intervals for the ERP ([see figure](#plt:erpA-m2)). We proceed as follows:
+To create the distribution of `stat` values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the confidence intervals for the ERP (<a href="#fig:1" class="fig">figure<span><img src="imgs/1.png"></span></a>). We proceed as follows:
 
 1. Merge the 1,000 trials each of EEG data from conditions A and B to form a combined distribution of 2,000 trials.
 1. Sample with replacement 1,000 trials of EEG data from the combined distribution, and compute the resampled ERP.
@@ -1386,12 +1315,6 @@ Then, as before, we define the function `bootstrapStat` which performs the opera
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('iefCPGHd5vY')
-```
-
 
 
 
@@ -1410,7 +1333,9 @@ YouTubeVideo('iefCPGHd5vY')
 
 
 
-<img alt='Bootstrap distribution of statistic values' title="" src='imgs/bootstrapERPdiff.png' height="20", width="600"></img>
+
+<img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png" height="20" width="600">
+
 
 The figure above shows the distribution of values for the test statistic under the null hypothesis of no difference between the two conditions. The orange line indicates observed statistic from the EEG data.
 
@@ -1447,12 +1372,6 @@ Finally, we assessed whether the two ERPs from condition A and condition B diffe
 
 
 
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
-
 
 
 
@@ -1466,8 +1385,8 @@ HTML('../assets/custom/custom.css')
     color: #3c763d;
     background-color: #dff0d8;
 	border-color: #d6e9c6;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1476,8 +1395,8 @@ HTML('../assets/custom/custom.css')
     color: #8a6d3b;
     background-color: #fcf8e3;
 	border-color: #faebcc;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1486,13 +1405,24 @@ HTML('../assets/custom/custom.css')
     color: #31708f;
     background-color: #d9edf7;
 	border-color: #bce8f1;
-	border: 1px solid;
+	/*border: 1px solid;*/
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
-	border-radius: 10px;
+	border-radius: 5px;
+}
+.question, .math-note, .python-note p {
+    margin-top: 1em;
+}
+.question, .math-note, .python-note * + p {
+    margin-bottom: 0;
 }
 .output_area img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.output_area iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;

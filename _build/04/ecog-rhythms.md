@@ -6,7 +6,7 @@ prev_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
   title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 next_page:
-  url: /09/pp-glms
+  url: /09/point-process-glms
   title: 'Modeling place Fields with Point Process Generalized Linear Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

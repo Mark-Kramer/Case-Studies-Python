@@ -28,7 +28,7 @@
 - header: Contents
 
 - title: Introduction to Python
-  url: /01/intro
+  url: /01/introduction-to-python
 
 - title: The Event-Related Potential
   url: /02/the-event-related-potential
@@ -62,7 +62,7 @@
   url: /04/ecog-rhythms
 
 - title: Modeling place Fields with Point Process Generalized Linear Models
-  url: /09/pp-glms
+  url: /09/point-process-glms
 
 - title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
   url: /10/spiking-rhythms
@@ -81,4 +81,3 @@
 
 - title: Training a Perceptron
   url: /A04/perceptron
-  

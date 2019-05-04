@@ -1,5 +1,5 @@
 ---
-interact_link: content/09/pp-glms.ipynb
+interact_link: content/09/point-process-glms.ipynb
 kernel_name: python3
 title: 'Modeling place Fields with Point Process Generalized Linear Models'
 prev_page:
@@ -68,7 +68,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_6_0.png)
+![png](../images/09/point-process-glms_6_0.png)
 
 
 
@@ -110,7 +110,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_11_0.png)
+![png](../images/09/point-process-glms_11_0.png)
 
 
 
@@ -141,7 +141,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_13_0.png)
+![png](../images/09/point-process-glms_13_0.png)
 
 
 
@@ -167,7 +167,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_15_0.png)
+![png](../images/09/point-process-glms_15_0.png)
 
 
 
@@ -242,7 +242,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_22_0.png)
+![png](../images/09/point-process-glms_22_0.png)
 
 
 
@@ -333,7 +333,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_32_0.png)
+![png](../images/09/point-process-glms_32_0.png)
 
 
 
@@ -397,7 +397,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_41_0.png)
+![png](../images/09/point-process-glms_41_0.png)
 
 
 
@@ -661,7 +661,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_69_0.png)
+![png](../images/09/point-process-glms_69_0.png)
 
 
 
@@ -715,7 +715,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_75_0.png)
+![png](../images/09/point-process-glms_75_0.png)
 
 
 
@@ -740,13 +740,13 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_77_0.png)
+![png](../images/09/point-process-glms_77_0.png)
 
 
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_77_1.png)
+![png](../images/09/point-process-glms_77_1.png)
 
 
 
@@ -872,7 +872,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_94_0.png)
+![png](../images/09/point-process-glms_94_0.png)
 
 
 
@@ -899,13 +899,13 @@ show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_96_0.png)
+![png](../images/09/point-process-glms_96_0.png)
 
 
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_96_1.png)
+![png](../images/09/point-process-glms_96_1.png)
 
 
 
@@ -959,7 +959,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/09/pp-glms_101_0.png)
+![png](../images/09/point-process-glms_101_0.png)
 
 
 

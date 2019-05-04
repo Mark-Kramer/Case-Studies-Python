@@ -337,7 +337,7 @@ With the data visualized in this way, we’re now able to ask an interesting que
 
 </div>
 
-[[Back to top]](#top)
+[Back to top](#top)
 
 <a id="isi"></a>
 ### Examining the Interspike Intervals
@@ -661,7 +661,7 @@ Let’s now consider the two ISI histograms representing the spiking activity fr
 <a id="bsi"></a>
 ### Examining Binned Spike Increments
 
-Another common approach to analyzing spiking data is to discretize time into bins of fixed width and count the number of events that occur in each time bin. The sequence of spike counts across all the bins is sometimes called the increment process for the spike train. When the time bins are sufficiently small, say, 1 ms for typical spike train data, the resulting increment process is just a sequence of zeros and ones. In this case, the time bins are so small that the probability of more than one spike occurring in each bin is zero or negligibly small.<sup><abbr title="The biophysical mechanisms that produce a spike support this statement. After generating a spike, the neuron experiences a refractory period typically lasting a few milliseconds, in which generating a subsequent spike is very unlikely.">note</abbr></sup> Each tiny time bin then contains a spike (and we assign that bin a value of 1) or does not (and we assign that bin a value of 0). This idea of representing the spike train as a sequence of zeros and ones for small bin increments will be important when we build statistical models of the spike trains (**TBD: link to book ch9**). In this section, we compute the increment process with multiple bin sizes in order to characterize the amount of variability in the spiking data and to examine temporal dependencies between spikes.
+Another common approach to analyzing spiking data is to discretize time into bins of fixed width and count the number of events that occur in each time bin. The sequence of spike counts across all the bins is sometimes called the increment process for the spike train. When the time bins are sufficiently small, say, 1 ms for typical spike train data, the resulting increment process is just a sequence of zeros and ones. In this case, the time bins are so small that the probability of more than one spike occurring in each bin is zero or negligibly small.<sup><abbr title="The biophysical mechanisms that produce a spike support this statement. After generating a spike, the neuron experiences a refractory period typically lasting a few milliseconds, in which generating a subsequent spike is very unlikely.">note</abbr></sup> Each tiny time bin then contains a spike (and we assign that bin a value of 1) or does not (and we assign that bin a value of 0). This idea of representing the spike train as a sequence of zeros and ones for small bin increments will be important when we build statistical models of the spike trains in a [later chapter](../09/). In this section, we compute the increment process with multiple bin sizes in order to characterize the amount of variability in the spiking data and to examine temporal dependencies between spikes.
 
 Let’s bin the spike train data of the low-light condition into time bins of size 50 ms. To do so, we make use of the function `histogram()`:
 
@@ -774,7 +774,7 @@ For the 50 ms binned spikes in the low-light condition, we obtained a sample Fan
 #### Does the observed Fano factor differ from 1?
 
 The preceding results are somewhat unsatisfying. We claimed that in the low-light condition, the calculated Fano factor of 0.72 was well below 1. What if, instead, we calculated a Fano factor of 0.8; is that well below 1? Is a Fano factor of 0.9 well below 1? These questions highlight an important issue when drawing a conclusion from a Fano factor calculation: How far above or below the value of 1 does the calculated Fano factor have to be before we are confident that there is really a statistically significant difference in the variability from a Poisson process? After all, even if we had spiking from a true Poisson process, from one experiment to the next we would expect to find different values for the increments, and values for the sample Fano factor that fluctuate slightly above and below 1. Fortunately, a bit of statistical theory can help us out. It can be shown that the distribution of Fano factors that we might compute from a Poisson process follows a gamma distribution with shape parameter $(N - 1)/2$ and scale parameter
-$2/(N - 1)$, where $N$ is the number of time bins used in the Fano factor calculation [[Eden & Kramer, 2010](https://www.ncbi.nlm.nih.gov/pubmed/20416340)].
+$2/(N - 1)$, where $N$ is the number of time bins used in the Fano factor calculation [[Eden & Kramer, 2010](https://doi.org/10.1016/j.jneumeth.2010.04.012)].
 
 
 
@@ -1206,7 +1206,7 @@ We see that the autocorrelation function has just a few isolated lags that are o
 <a id="models"></a>
 ### Building Statistical Models of the ISIs
 
-In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [[Hodgkin & Huxley, 1952](https://physoc.onlinelibrary.wiley.com/doi/abs/10.1113/jphysiol.1952.sp004764)]. The notion of a model can be confusing and is audience dependent, so we clarify here.
+In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [[Hodgkin & Huxley, 1952](https://doi.org/10.1113/jphysiol.1952.sp004764)]. The notion of a model can be confusing and is audience dependent, so we clarify here.
 
 To construct a statistical model for these data we assume that the ISIs are independent samples from some unknown distribution. We typically posit some class of distributions from which the data might arise, and identify the one distribution in that class that maximizes the chance of observing the actual data.
 
@@ -1222,7 +1222,7 @@ k!
 \tag{6}
 $$
 
-where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution [[Kass, Eden & Brown, 2014](https://www.springer.com/us/book/9781461496014)]. Mathematically, the probability density function for any ISI taking on a value $x$ is
+where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution [[Kass, Eden & Brown, 2014](http://dx.doi.org/10.1007/978-1-4614-9602-1)]. Mathematically, the probability density function for any ISI taking on a value $x$ is
 <a id="eq:7"></a>
 
 $$
@@ -1561,7 +1561,7 @@ show()
 
 
 
-Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot [[Kass, Eden & Brown, 2014](https://www.springer.com/us/book/9781461496014)]. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:
+Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot [[Kass, Eden & Brown, 2014](http://dx.doi.org/10.1007/978-1-4614-9602-1)]. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:
 
 
 
@@ -1593,7 +1593,7 @@ A well-fit model should stay entirely within these bounds. In this case, the KS 
 </div>
 
 #### A More Advanced Statistical Model.
-We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system **TBD. cite 27**. The mathematical expression for the inverse Gaussian probability density is 
+We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system [Hodgkin & Huxley, 1952](https://doi.org/10.1007/BF02459568). The mathematical expression for the inverse Gaussian probability density is 
 
 $$
 f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right)
@@ -1917,12 +1917,6 @@ and therefore for a Poisson process, the Fano factor $\sigma^2/\mu=1$.
 
 
 
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
-
 
 
 
@@ -1936,8 +1930,8 @@ HTML('../assets/custom/custom.css')
     color: #3c763d;
     background-color: #dff0d8;
 	border-color: #d6e9c6;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1946,8 +1940,8 @@ HTML('../assets/custom/custom.css')
     color: #8a6d3b;
     background-color: #fcf8e3;
 	border-color: #faebcc;
-	border: 1px solid;
-	border-radius: 10px;
+	/*border: 1px solid;*/
+	border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -1956,13 +1950,24 @@ HTML('../assets/custom/custom.css')
     color: #31708f;
     background-color: #d9edf7;
 	border-color: #bce8f1;
-	border: 1px solid;
+	/*border: 1px solid;*/
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
-	border-radius: 10px;
+	border-radius: 5px;
+}
+.question, .math-note, .python-note p {
+    margin-top: 1em;
+}
+.question, .math-note, .python-note * + p {
+    margin-bottom: 0;
 }
 .output_area img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.output_area iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
