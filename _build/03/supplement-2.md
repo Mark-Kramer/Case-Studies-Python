@@ -33,12 +33,6 @@ and the associated Python code. In doing so, we explore some subtleties of this 
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('TOszYv0pdKU')
-```
-
 
 
 
@@ -90,12 +84,6 @@ Written in this way, the Fourier transform becomes easier to interpret. Let’s 
 We may therefore think of the Fourier transform as comparing the data $x$ to the sinusoids oscillating at frequency $f_j$. When the data and sinusoid at frequency $f_j$ align the summation in the Fourier transform is large and the result $X_j$ is a large number. When the data and sinusoid at frequency $f_j$ do not align, the summation in the Fourier transform is small and $X_j$ is a tiny number.
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('PRoA5Zn_gbQ')
-```
 
 
 
@@ -329,7 +317,7 @@ print(model.params)
 
 {:.output .output_stream}
 ```
-Intercept    2.796903e-17
+Intercept    2.818926e-17
 sin          9.989204e-01
 cos         -3.238373e-03
 dtype: float64
@@ -432,7 +420,7 @@ Sxx_model_60Hz
 
 {:.output .output_data_text}
 ```
-0.9978524145209708
+0.9978524145209726
 ```
 
 

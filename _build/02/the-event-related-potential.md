@@ -143,7 +143,7 @@ In this chapter, we consider EEG data recorded from a single scalp electrode.  W
 
 An undergraduate student volunteers to participate in a psychology study at his university. In this study, EEG electrodes (sampling rate 500 Hz, i.e., 500 samples per second) are placed on the student's scalp, and he is seated in a comfortable chair in a dark, electrically isolated room.  The student is instructed to place headphones over his ears and listen to a series of repeated sounds.  The sounds consist of two tones - either a high pitch tone or a low pitch tone.  A single tone is presented once every few seconds, and the student responds with a button press to the low pitch tone.  The tone presentation is repeated to collect the EEG response to numerous presentations of the two tones, as illustrated here:
 
-<img src="imgs/example_recording.png"></img>
+<img src="imgs/example_recording.png">
 
 In this cartoon illustration of the EEG experiment, the EEG electrodes are placed on the scalp surface of a human subject (left).  The EEG activity (blue) is recorded as a function of time during presentation of high pitch tones (black) and low pitch tones (orange).
 
@@ -220,7 +220,7 @@ EEGb           ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes 
 YouTubeVideo   type       <class 'IPython.lib.display.YouTubeVideo'>
 data           dict       n=6
 mn             ndarray    500: 500 elems, type `float64`, 4000 bytes
-np             module     <module 'numpy' from '/an<...>kages/numpy/__init__.py'>
+np             module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
 ntrials        int        1000
 plt            module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
 sd             ndarray    500: 500 elems, type `float64`, 4000 bytes
@@ -738,7 +738,7 @@ To compute the ERP we average the EEG data across many trials. Because of this, 
 
 This conclusion—that the ERP at each moment in time is approximately normally distributed—is useful because the normal distribution (also known as the Gaussian distribution or bell curve) possesses many convenient properties. First, a normal distribution is relatively simple; it can be completely specified with two parameters: the mean value and the standard deviation. Second, 95% of the values drawn from a normal distribution lie within approximately two standard deviations of the mean.
 
-<img src="imgs/gaussian.PNG" alt="Example Gaussian" width="40%" max-width="300px"/>
+<img src="imgs/gaussian.png" alt="Example Gaussian" width="40%" max-width="200px"/>
 
 Here's a plot of the canonical normal distribution showing the mean (dotted vertical line) and standard deviation (blue). Ninety-five percent of values lie within the interval indicated by the red bar. 
 

@@ -87,19 +87,17 @@ plt.show()
 
 
 
+<div class="question">
+    
 **Q:** Try to read the code above. Can you see how it loads data, computes the spectrum, and then plots the results?
 
 **A:** If you've never computed a spectrum before, that's an especially difficult question. Please continue on to learn this **and more**!
 
+</div>
+
 ## Introduction
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('PmGme7YuAiw')
-```
 
 
 
@@ -124,12 +122,6 @@ In this module, we consider data recorded in the scalp [electroencephalogram](ht
 ### Case study data
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('oRCUx11iEck')
-```
 
 
 
@@ -156,12 +148,6 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 ### Goals
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('L0xf0dCn7T0')
-```
 
 
 
@@ -254,12 +240,6 @@ show()
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('GepHsNVXTN4')
-```
-
 
 
 
@@ -288,12 +268,6 @@ You might notice, through visual inspection, a dominant rhythmic activity. We ca
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('mZ1uHN4lcPY')
-```
-
 
 
 
@@ -312,7 +286,7 @@ YouTubeVideo('mZ1uHN4lcPY')
 
 
 
-Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “[gamma band](https://en.wikipedia.org/wiki/Gamma_wave)”) are thought important for cognitive processing in the brain [[Nikolić, Fries, & Singer, 2013](https://www.ncbi.nlm.nih.gov/pubmed/23287106)]. But, there’s a reason for the label gamma band: the rhythmic activity observed *in vivo* is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.
+Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “[gamma band](https://en.wikipedia.org/wiki/Gamma_wave)”) are thought important for cognitive processing in the brain [[Nikolić, Fries, & Singer, 2013](https://doi.org/10.1016/j.tics.2012.12.003)]. But, there’s a reason for the label gamma band: the rhythmic activity observed *in vivo* is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.
 
 <div class="math-note">
     
@@ -325,12 +299,6 @@ We conclude that the data are dominated by electrical noise and continue with ad
 Sometimes visual inspection is enough, especially when something has gone wrong (e.g., if the EEG trace were zero for all time, we should be suspicious). But, looks can be deceiving. For one, the voltage trace is plotted as a continuous line, but that’s incorrect. If we look more closely, we find that the data consists of discrete points.
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('UVnpQVUqpWI')
-```
 
 
 
@@ -370,12 +338,6 @@ show()
 Although the true brain signal may evolve as a continuous voltage trace in time, we do not observe this true signal. Instead, we observe a discrete sampling of this signal in time. The spacing between these samples is determined by the recording device collecting the EEG data. In this case, our collaborator has told us that the data are sampled at 1000 Hz, which corresponds to a sample of data every 1 ms. So, we observe not the (presumably) continuous true voltage signal, but instead discrete samples of this signal in time. 
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('W9BTYZM8yzs')
-```
 
 
 
@@ -735,12 +697,6 @@ The autocovariance is a useful tool for assessing the dependent structure in the
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('OAHpkZy6ZX8')
-```
-
 
 
 
@@ -771,12 +727,6 @@ The *power spectral density* describes the extent to which sinusoids of a single
 </div>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('iPUpMS79xgo')
-```
 
 
 
@@ -837,12 +787,6 @@ plt.show()
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('kmHCCzAbMVI')
-```
-
 
 
 
@@ -865,17 +809,11 @@ That’s not so bad; the code to compute and display the spectrum fits in 13 lin
 
 We’ve managed to compute and plot the spectrum, and our analysis results match our expectations. We could choose to stop here. But a danger persists: we’ve blindly entered Python code and achieved an expected result. What are the frequency resolution and Nyquist frequency mentioned in the comments of the code? Maybe this procedure is fraught with pitfalls, and we simply got lucky in this case? Does the spectrum provide additional information that was not immediately uncovered? How will we react and adapt when the spectrum results do not match our intuition? To answer these questions requires developing more intuition for the Fourier transform and spectrum. 
 
-In a [supplement to this chapter](Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb), we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.
+In a [supplement to this chapter](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-1), we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.
 
 ### Discrete Fourier Transform in Python <a id="dft"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('noCOC69jvh8')
-```
 
 
 
@@ -981,12 +919,6 @@ In the next two sections, we focus on interpreting and adjusting the quantities 
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('sgYkOkrlQ_E')
-```
-
 
 
 
@@ -1042,12 +974,6 @@ Typically, to prevent aliasing, recorded data are first analog-filtered before t
 ###  The frequency resolution, $df$<a id="frequency-resolution"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('bZsj_gcGoSo')
-```
 
 
 
@@ -1115,12 +1041,6 @@ This observation provides some intuition for the relation between the amount of 
 ### Step 5: Decibel scaling<a id="decibel-scaling"></a>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('SuDJha5LNL0')
-```
 
 
 
@@ -1215,12 +1135,6 @@ Notice the change in the first line to use the `semilogx` function. By using the
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('XYy4NEr3VUs')
-```
-
 
 
 
@@ -1313,12 +1227,6 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 
 
 
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('jdceZRY_PDA')
-```
-
 
 
 
@@ -1338,17 +1246,11 @@ YouTubeVideo('jdceZRY_PDA')
 
 
 In this chapter, we analyzed 2 s of EEG data. We started with visual inspection of the EEG time series. <a href="#fig:3.1" class="fig"><span><img src="imgs/3-1.png"></span></a> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how logarithmic scales can be used to emphasize features of the spectrum. <a href="#fig:3.13a" class="fig"><span><img src="imgs/3-13a.png"></span></a> And, we examined how the spectrogram provides insight into spectral features that change in time. <a href="#fig:3.14" class="fig"><span><img src="imgs/3-14.png"></span></a> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.
-In this module, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future modules, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33), and [Priesley, 1981](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6).
+In this module, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future modules, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)<sup><abbr title="Priestley, M. (1981). Spectral analysis and time series (Probability and mathematical statistics). London ; New York: Academic Press.">cite</abbr></sup>.
 
-In case you missed it earlier, details and intuition behind each step of the analysis above are provided in the supplement entitled: [*Intuition behind the power spectral density*](Supplement. Intuition behind the power spectral density.ipynb).
+In case you missed it earlier, details and intuition behind each step of the analysis above are provided in the supplement entitled: [*Intuition behind the power spectral density*](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-2).
 
 
-
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
 
 
 

@@ -151,9 +151,17 @@ Enter the following command in Python:
 
 
 
+<div class="question">
+
 **Q:** Does this answer make sense?
 
-**Q:** Can you use parantheses to change the answer?
+</div>
+
+<div class="question">
+
+**Q:** Can you use parentheses to change the answer?
+
+</div>
 
 ##  Example 3.  Python has useful built in functions.
 
@@ -208,9 +216,13 @@ math.atan(2*np.pi)
 
 
 
+<div class="question">
+
 **Q:**  What is `math.atan`?
 
 **A:** To answer this, try using Python Help.  To start the Python Help, simply put a `?` at the end of `math.atan` and then run this code block. 
+
+</div>
 
 
 
@@ -367,8 +379,8 @@ b                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
 c                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
 initial_time_interval   ndarray    100000: 100000 elems, type `bool`, 100000 bytes (97.65625 kb)
 mat                     dict       n=5
-math                    module     <module 'math' from '/ana<...>h.cpython-37m-darwin.so'>
-np                      module     <module 'numpy' from '/an<...>kages/numpy/__init__.py'>
+math                    module     <module 'math' from '/Use<...>h.cpython-36m-darwin.so'>
+np                      module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
 plt                     module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
 sio                     module     <module 'scipy.io' from '<...>es/scipy/io/__init__.py'>
 t                       ndarray    100000: 100000 elems, type `float64`, 800000 bytes (781.25 kb)
@@ -415,6 +427,12 @@ By doing so, we get rid of all the variables. To do so, type `%reset` and enter 
 %reset
 ```
 
+
+{:.output .output_stream}
+```
+Once deleted, variables cannot be recovered. Proceed (y/[n])? y
+
+```
 
 <div class="question">
 
@@ -934,7 +952,7 @@ plt.show()          # this is the plotting equivalent of print()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_96_0.png)
+![png](../images/01/introduction-to-python_97_0.png)
 
 
 
@@ -960,7 +978,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_98_0.png)
+![png](../images/01/introduction-to-python_99_0.png)
 
 
 
@@ -1017,7 +1035,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_104_0.png)
+![png](../images/01/introduction-to-python_105_0.png)
 
 
 
@@ -1052,7 +1070,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_110_0.png)
+![png](../images/01/introduction-to-python_111_0.png)
 
 
 
@@ -1071,7 +1089,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_112_0.png)
+![png](../images/01/introduction-to-python_113_0.png)
 
 
 
@@ -1095,7 +1113,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_114_0.png)
+![png](../images/01/introduction-to-python_115_0.png)
 
 
 
@@ -1126,7 +1144,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_116_0.png)
+![png](../images/01/introduction-to-python_117_0.png)
 
 
 
@@ -1146,8 +1164,8 @@ print("a uniform random number from [0,1): " + str(np.random.rand()))
 
 {:.output .output_stream}
 ```
-a Gaussian random number (mean=0, variance=1): -1.746065445808436
-a uniform random number from [0,1): 0.7896596670866368
+a Gaussian random number (mean=0, variance=1): -0.9372073320805638
+a uniform random number from [0,1): 0.778782479415269
 
 ```
 
@@ -1174,7 +1192,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_122_0.png)
+![png](../images/01/introduction-to-python_123_0.png)
 
 
 
@@ -1228,7 +1246,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_126_0.png)
+![png](../images/01/introduction-to-python_127_0.png)
 
 
 
@@ -1259,7 +1277,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_130_0.png)
+![png](../images/01/introduction-to-python_131_0.png)
 
 
 
@@ -1556,29 +1574,29 @@ css/font-awesome.min.css">
 </script>
 
 <div class="animation" align="center">
-    <img id="_anim_img46663c0e149f4f86ad0e4512c3570363">
+    <img id="_anim_img93d6c6fce7254c1897dabcc092b4a31f">
     <br>
-    <input id="_anim_slider46663c0e149f4f86ad0e4512c3570363" type="range" style="width:350px"
+    <input id="_anim_slider93d6c6fce7254c1897dabcc092b4a31f" type="range" style="width:350px"
            name="points" min="0" max="1" step="1" value="0"
-           onchange="anim46663c0e149f4f86ad0e4512c3570363.set_frame(parseInt(this.value));"></input>
+           onchange="anim93d6c6fce7254c1897dabcc092b4a31f.set_frame(parseInt(this.value));"></input>
     <br>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.slower()"><i class="fa fa-minus"></i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.first_frame()"><i class="fa fa-fast-backward">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.slower()"><i class="fa fa-minus"></i></button>
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.first_frame()"><i class="fa fa-fast-backward">
         </i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.previous_frame()">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.previous_frame()">
         <i class="fa fa-step-backward"></i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.reverse_animation()">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.reverse_animation()">
         <i class="fa fa-play fa-flip-horizontal"></i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.pause_animation()"><i class="fa fa-pause">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.pause_animation()"><i class="fa fa-pause">
         </i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.play_animation()"><i class="fa fa-play"></i>
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.play_animation()"><i class="fa fa-play"></i>
         </button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.next_frame()"><i class="fa fa-step-forward">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.next_frame()"><i class="fa fa-step-forward">
         </i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.last_frame()"><i class="fa fa-fast-forward">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.last_frame()"><i class="fa fa-fast-forward">
         </i></button>
-    <button onclick="anim46663c0e149f4f86ad0e4512c3570363.faster()"><i class="fa fa-plus"></i></button>
-  <form action="#n" name="_anim_loop_select46663c0e149f4f86ad0e4512c3570363" class="anim_control">
+    <button onclick="anim93d6c6fce7254c1897dabcc092b4a31f.faster()"><i class="fa fa-plus"></i></button>
+  <form action="#n" name="_anim_loop_select93d6c6fce7254c1897dabcc092b4a31f" class="anim_control">
     <input type="radio" name="state"
            value="once" > Once </input>
     <input type="radio" name="state"
@@ -1593,9 +1611,9 @@ css/font-awesome.min.css">
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img46663c0e149f4f86ad0e4512c3570363";
-    var slider_id = "_anim_slider46663c0e149f4f86ad0e4512c3570363";
-    var loop_select_id = "_anim_loop_select46663c0e149f4f86ad0e4512c3570363";
+    var img_id = "_anim_img93d6c6fce7254c1897dabcc092b4a31f";
+    var slider_id = "_anim_slider93d6c6fce7254c1897dabcc092b4a31f";
+    var loop_select_id = "_anim_loop_select93d6c6fce7254c1897dabcc092b4a31f";
     var frames = new Array(0);
     
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -30601,7 +30619,7 @@ RK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim46663c0e149f4f86ad0e4512c3570363 = new Animation(frames, img_id, slider_id, 200.0,
+        anim93d6c6fce7254c1897dabcc092b4a31f = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -30613,7 +30631,7 @@ RK5CYII=\
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_146_1.png)
+![png](../images/01/introduction-to-python_147_1.png)
 
 
 
@@ -30627,6 +30645,12 @@ For our last example let's load a MATLAB file in the `.mat` format into Python. 
 %reset
 ```
 
+
+{:.output .output_stream}
+```
+Once deleted, variables cannot be recovered. Proceed (y/[n])? y
+
+```
 
 Then, let's import the `scipy.io` module, which we'll use to import the `.mat` data,
 
@@ -30715,6 +30739,6 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/01/introduction-to-python_159_0.png)
+![png](../images/01/introduction-to-python_160_0.png)
 
 
