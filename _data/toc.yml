@@ -1,0 +1,83 @@
+# This file contains the order and numbering for all sections in the book.
+#
+# Each entry has the following schema:
+#
+# - title: mytitle   # Title of chapter or section
+#   url: /myurl  # URL of section relative to the /content/ folder.
+#   sections:  # Contains a list of more entries that make up the chapter's sections
+#   not_numbered: true  # if the section shouldn't have a number in the sidebar
+#     (e.g. Introduction or appendices)
+#   expand_sections: true  # if you'd like the sections of this chapter to always
+#     be expanded in the sidebar.
+#   external: true  # Whether the URL is an external link or points to content in the book
+#
+# Below are some special values that trigger specific behavior:
+# - search: true  # Will provide a link to a search page
+# - divider: true  # Will insert a divider in the sidebar
+# - header: My Header  # Will insert a header with no link in the sidebar
+
+
+- title: Home
+  url: /intro
+  not_numbered: true
+
+- title: Search
+  search: true
+
+- divider: true
+- header: Contents
+
+- title: Introduction to Python
+  url: /01/introduction-to-python
+
+- title: The Event-Related Potential
+  url: /02/the-event-related-potential
+
+- title: The Power Spectrum (Part 1)
+  url: /03/the-power-spectrum-part-1
+  sections:
+  - title: Biased versus unbiased autocovariance
+    url: /03/supplement-1
+  - title: Intuition behind the power spectral density
+    url: /03/supplement-2
+  expand_sections: true
+
+- title: The Cross Covariance and Coherence
+  url: /07/the-cross-covariance-and-coherence
+
+- title: Cross Frequency Coupling
+  url: /05/cross-frequency-coupling
+
+- title: The Power Spectrum (Part 2)
+  url: /06/the-power-spectrum-part-2
+  sections:
+  - title: Multiplication and Convolution in Different Domains
+    url: /06/appendix
+  expand_sections: true
+
+- title: Basic Visualizations and Descriptive Statistics of Spike Train Data
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+
+- title: Analysis of Rhythmic Activity in the Electrocorticogram
+  url: /04/ecog-rhythms
+
+- title: Modeling place Fields with Point Process Generalized Linear Models
+  url: /09/point-process-glms
+
+- title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
+  url: /10/spiking-rhythms
+
+- title: Analysis of Spike-Field Coherence
+  url: /11/spike-field-coherence
+
+- title: Backpropagation
+  url: /A01/backprop
+
+- title: Hodgkin Huxley Model
+  url: /A02/HH
+
+- title: Integrate and Fire Model
+  url: /A03/LIF
+
+- title: Training a Perceptron
+  url: /A04/perceptron

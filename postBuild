@@ -1,2 +1,2 @@
 mkdir ~/.jupyter
-cp -r custom ~/.jupyter/
+cp -r assets/custom ~/.jupyter/
