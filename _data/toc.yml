@@ -52,8 +52,8 @@
 - title: Cross Frequency Coupling
   url: /05/cross-frequency-coupling
 
-- title: The Power Spectrum (Part 2)
-  url: /06/filtering-scalp-eeg
+# - title: The Power Spectrum (Part 2)
+#   url: /06/filtering-scalp-eeg
 
 - title: The Cross Covariance and Coherence
   url: /07/the-cross-covariance-and-coherence
@@ -64,14 +64,14 @@
 - title: Modeling place Fields with Point Process Generalized Linear Models
   url: /09/point-process-glms
 
-- title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
-  url: /10/spiking-rhythms
+# - title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
+#   url: /10/spiking-rhythms
 
 - title: Analysis of Spike-Field Coherence
   url: /11/spike-field-coherence
 
-- title: Backpropagation
-  url: /A01/backprop
+# - title: Backpropagation
+#   url: /A01/backprop
 
 - title: Hodgkin Huxley Model
   url: /A02/HH
