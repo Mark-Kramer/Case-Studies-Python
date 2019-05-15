@@ -40,8 +40,8 @@ _**Synopsis**_
     6. [The spectrogram](#the-spectrogram)
 * [Summary](#summary)
 ---
-* [Supplement: Biased versus unbiased autocovariance](Supplement.%20Biased%20versus%20unbiased%20autocovariance.ipynb)
-* [Supplement: Intuition behind the power spectral density](Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb)
+* [Supplement: Biased versus unbiased autocovariance](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-autocovariance.html)
+* [Supplement: Intuition behind the power spectral density](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd.html)
 
 ## On-ramp: computing the  spectrum in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute a spectrum in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
@@ -392,13 +392,15 @@ We will need to keep the sampling interval $\Delta$ and the total recording dura
 
 As a first step in our analysis of the EEG data, let’s define two of the simplest measures we can use to characterize data $x$: the mean and variance <sup><abbr title="We could instead write the sample mean, because we use the observed data to estimate the theoretical mean that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this chapter and others, we omit the term “sample” when referring to sample means, variances, covariances, and so forth, unless this distinction becomes essential to our discussion.">*note*</abbr></sup>. To estimate the mean $\bar x$, or average value, of $x$ we compute,
 
-<p title="Mean">$$ \bar x = \frac{1}{N}\sum_{n=1}^N x_n. $$
+<p title="Mean">
+$$ \bar x = \frac{1}{N}\sum_{n=1}^N x_n. $$
+</p>
 
 In words, we sum the values of $x$ for all $n$ time indices, then divide by the total number of points summed ($N$). To estimate the variance $\sigma^2$ of $x$ we compute,
 
 <p title="Variance">
 $$ \sigma^2 = \frac{1}{N}\sum_{n=1}^N (x_n - \overline x)^2,$$
-
+</p>
 
 which characterizes the extent of fluctuations about the mean. The *standard deviation* is simply the square root of the variance (i.e., $\sigma$). It's straightforward to compute all three quantities on an `ndarray` in Python:
 
@@ -450,7 +452,7 @@ be similar. One technique to assess the dependent structure in the data is the a
 <a id="eq:3.3"></a>
 $$r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$
 
-In words, the autocovariance multiplies the data $x$ at index $n + L$, by the data $x$ at index $n$, and sums these products over all indices $n$. Notice that, in both terms, the mean value $\bar x$ is subtracted from $x$ before computing the product, and we divide the resulting sum by the total number of data points in $x$. We note that this is a *biased* estimate of the autocovariance; we compare this to an unbiased estimate of the autocovariance in the supplement entitled [*Biased versus unbiased autocovariance*](Supplement. Biased versus unbiased autocovariance.ipynb).
+In words, the autocovariance multiplies the data $x$ at index $n + L$, by the data $x$ at index $n$, and sums these products over all indices $n$. Notice that, in both terms, the mean value $\bar x$ is subtracted from $x$ before computing the product, and we divide the resulting sum by the total number of data points in $x$. We note that this is a *biased* estimate of the autocovariance; we compare this to an unbiased estimate of the autocovariance in the supplement entitled [*Biased versus unbiased autocovariance*](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-autocovariance.html).
 
 To gain some intuition for the autocovariance, let’s represent $x$ graphically as a one-dimensional row vector. 
 
@@ -809,7 +811,7 @@ That’s not so bad; the code to compute and display the spectrum fits in 13 lin
 
 We’ve managed to compute and plot the spectrum, and our analysis results match our expectations. We could choose to stop here. But a danger persists: we’ve blindly entered Python code and achieved an expected result. What are the frequency resolution and Nyquist frequency mentioned in the comments of the code? Maybe this procedure is fraught with pitfalls, and we simply got lucky in this case? Does the spectrum provide additional information that was not immediately uncovered? How will we react and adapt when the spectrum results do not match our intuition? To answer these questions requires developing more intuition for the Fourier transform and spectrum. 
 
-In a [supplement to this chapter](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-1), we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.
+In a [supplement to this chapter](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd.html), we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.
 
 ### Discrete Fourier Transform in Python <a id="dft"></a>
 
@@ -1022,9 +1024,7 @@ So, record 5 s of data to obtain a frequency resolution of 0.2 Hz.
 **Q.** We estimated the spectrum in the preceding code. As we record more and more data, does the estimate of the spectrum improve?
 
 
-
-
-**A.** Intuitively, you might answer yes. As we collect more and more data, we usually expect our estimate of a quantity (e.g., the mean or the standard deviation) to improve. However, that is not the case for the spectrum. As we collect more and more data, we acquire more and more points along the frequency axis (i.e., $df$ becomes smaller). However, our estimate of the power at each frequency does not improve ([Percival & Walden, 1993](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33)).
+**A.** Intuitively, you might answer yes. As we collect more and more data, we usually expect our estimate of a quantity (e.g., the mean or the standard deviation) to improve. However, that is not the case for the spectrum. As we collect more and more data, we acquire more and more points along the frequency axis (i.e., $df$ becomes smaller). However, our estimate of the power at each frequency does not improve ([Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762)).
 
     
 </div>
@@ -1246,9 +1246,10 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 
 
 In this chapter, we analyzed 2 s of EEG data. We started with visual inspection of the EEG time series. <a href="#fig:3.1" class="fig"><span><img src="imgs/3-1.png"></span></a> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how logarithmic scales can be used to emphasize features of the spectrum. <a href="#fig:3.13a" class="fig"><span><img src="imgs/3-13a.png"></span></a> And, we examined how the spectrogram provides insight into spectral features that change in time. <a href="#fig:3.14" class="fig"><span><img src="imgs/3-14.png"></span></a> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.
-In this module, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future modules, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)<sup><abbr title="Priestley, M. (1981). Spectral analysis and time series (Probability and mathematical statistics). London ; New York: Academic Press.">cite</abbr></sup>.
 
-In case you missed it earlier, details and intuition behind each step of the analysis above are provided in the supplement entitled: [*Intuition behind the power spectral density*](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-2).
+In this module, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future modules, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762) and [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US).
+
+In case you missed it earlier, details and intuition behind each step of the analysis above are provided in the supplement entitled: [*Intuition behind the power spectral density*](https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd).
 
 
 

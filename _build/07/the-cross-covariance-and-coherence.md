@@ -3,11 +3,11 @@ interact_link: content/07/the-cross-covariance-and-coherence.ipynb
 kernel_name: python3
 title: 'The Cross Covariance and Coherence'
 prev_page:
-  url: /03/supplement-2
-  title: 'Intuition behind the power spectral density'
+  url: /06/filtering-scalp-eeg
+  title: 'The Power Spectrum (Part 2)'
 next_page:
-  url: /05/cross-frequency-coupling
-  title: 'Cross Frequency Coupling'
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -3,8 +3,8 @@ interact_link: content/09/point-process-glms.ipynb
 kernel_name: python3
 title: 'Modeling place Fields with Point Process Generalized Linear Models'
 prev_page:
-  url: /04/ecog-rhythms
-  title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 next_page:
   url: /10/spiking-rhythms
   title: 'Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task'

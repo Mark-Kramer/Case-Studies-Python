@@ -3,11 +3,11 @@ interact_link: content/08/basic-visualizations-and-descriptive-statistics-of-spi
 kernel_name: python3
 title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 prev_page:
-  url: /06/appendix
-  title: 'Multiplication and Convolution in Different Domains'
+  url: /07/the-cross-covariance-and-coherence
+  title: 'The Cross Covariance and Coherence'
 next_page:
-  url: /04/ecog-rhythms
-  title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
+  url: /09/point-process-glms
+  title: 'Modeling place Fields with Point Process Generalized Linear Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

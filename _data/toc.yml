@@ -37,29 +37,29 @@
   url: /03/the-power-spectrum-part-1
   sections:
   - title: Biased versus unbiased autocovariance
-    url: /03/supplement-1
+    url: /03/supplement-autocovariance
   - title: Intuition behind the power spectral density
-    url: /03/supplement-2
+    url: /03/supplement-psd
   expand_sections: true
 
-- title: The Cross Covariance and Coherence
-  url: /07/the-cross-covariance-and-coherence
+- title: Analysis of Rhythmic Activity in the Electrocorticogram
+  url: /04/ecog-rhythms
+  sections:
+  - title: Multiplication and Convolution in Different Domains
+    url: /04/appendix-multiplication-and-convolution-in-different-domains
+  expand_sections: true
 
 - title: Cross Frequency Coupling
   url: /05/cross-frequency-coupling
 
 - title: The Power Spectrum (Part 2)
-  url: /06/the-power-spectrum-part-2
-  sections:
-  - title: Multiplication and Convolution in Different Domains
-    url: /06/appendix
-  expand_sections: true
+  url: /06/filtering-scalp-eeg
+
+- title: The Cross Covariance and Coherence
+  url: /07/the-cross-covariance-and-coherence
 
 - title: Basic Visualizations and Descriptive Statistics of Spike Train Data
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
-
-- title: Analysis of Rhythmic Activity in the Electrocorticogram
-  url: /04/ecog-rhythms
 
 - title: Modeling place Fields with Point Process Generalized Linear Models
   url: /09/point-process-glms
