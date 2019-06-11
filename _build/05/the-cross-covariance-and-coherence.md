@@ -1,10 +1,10 @@
 ---
-interact_link: content/07/the-cross-covariance-and-coherence.ipynb
+interact_link: content/05/the-cross-covariance-and-coherence.ipynb
 kernel_name: python3
 title: 'The Cross Covariance and Coherence'
 prev_page:
-  url: /06/filtering-scalp-eeg
-  title: 'The Power Spectrum (Part 2)'
+  url: /07/cross-frequency-coupling
+  title: 'Cross Frequency Coupling'
 next_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
   title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
@@ -93,7 +93,7 @@ plt.ylabel('Coherence');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_4_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_4_0.png)
 
 
 
@@ -223,7 +223,7 @@ ylabel('Voltage [mV]');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_27_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_27_0.png)
 
 
 
@@ -256,7 +256,7 @@ ylabel('Trial #');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_31_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_31_0.png)
 
 
 
@@ -288,7 +288,7 @@ for j in range(4):
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_35_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_35_0.png)
 
 
 
@@ -342,7 +342,7 @@ ylabel('Autocovariance');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_41_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_41_0.png)
 
 
 
@@ -396,7 +396,7 @@ ylabel('Cross covariance');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_45_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_45_0.png)
 
 
 
@@ -423,7 +423,7 @@ ylabel('Voltage [mV]');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_49_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_49_0.png)
 
 
 
@@ -474,7 +474,7 @@ plt.subplots_adjust(hspace=1)               # Space out the subplots.
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_53_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_53_0.png)
 
 
 
@@ -516,7 +516,7 @@ $$
 
 In general, $X_j$ can be a complex quantity (i.e., the Fourier transform of $x_n$ can have both real and imaginary parts). We can therefore think of $X_j$ as residing in the two-dimensional complex plane:
 
-<img src="imgs/ex_complex_plane.png", width=300></img>
+<img src="imgs/ex_complex_plane.png" style="max-width: 300px;">
 
 Points in the complex plane can be specified in two coordinate systems: Cartesian coordinates (gray) or polar coordinates (orange). The [complex plane](https://en.wikipedia.org/wiki/Complex_plane) contains the real part (horizontal axis) and imaginary part (vertical axis) of every point.
 
@@ -582,7 +582,7 @@ plot(f,10*np.log10(Sxx[0,:]), 'r');               # Also, for reference, plot sp
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_58_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_58_0.png)
 
 
 
@@ -835,7 +835,7 @@ ylabel('Coherence');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_86_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_86_0.png)
 
 
 
@@ -893,7 +893,7 @@ xlabel('Phase');
 
 
 {:.output .output_png}
-![png](../images/07/the-cross-covariance-and-coherence_91_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_91_0.png)
 
 
 

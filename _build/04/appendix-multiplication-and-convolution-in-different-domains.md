@@ -14,20 +14,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 <a id="top"></a> 
 # Appendix: Multiplication and Convolution in Different Domains
 
-
-
-{:.input_area}
-```python
-# Import numpy and matplotlib packages
-import numpy as np
-import matplotlib.pyplot as plt
-```
-
-
-We stated in this chapter the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,
+We stated in this module the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,
 
 $$
-FT[xw] = FT[x]\star FT[w]
+FT[xw] = FT[x]\star FT[w] \, ,
 \tag{1}
 $$
 
@@ -96,11 +86,21 @@ We may compute a simple example to illustrate this relation:
 
 {:.input_area}
 ```python
-x = np.arange(3, 7)                            # Define a simple signal x,
+# Import numpy and matplotlib packages
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+
+
+
+{:.input_area}
+```python
+x = np.array([ 3,   4,    5, 6])               # Define a simple signal x,
 w = np.array([-1, 0.1, -0.2, 1])               # ... and another simple signal w.
-a = np.fft.fft(np.convolve(w, x))              # Take the FT of the convolution,
+a = np.fft.fft(np.convolve(w, x))              # Take the Fourier transform of the convolution,
 b = np.fft.fft(np.hstack([w, [0, 0, 0]])) * \
-    np.fft.fft(np.hstack([x, [0, 0, 0]]))      # ... and the product of the FTs
+    np.fft.fft(np.hstack([x, [0, 0, 0]]))      # ... and the product of the Fourier transforms.
     
 plt.plot(a.real - b.real, label='real')        # Plot the difference
 plt.plot(a.imag - b.imag, label='imaginary')
@@ -116,7 +116,7 @@ plt.show()
 
 
 
-In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of $w$ and $x$, and then the Fourier transform. In the last line, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing the Fourier transform in the last line. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables $a$ and $b$ the same. Evaluating the statement, we find the difference between $a$ and $b$ to be on the order of $10^{-15}$, which is very close to zero.
+In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of $w$ and $x$, and then the Fourier transform. In the fourth and fifth lines, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing their Fourier transforms. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables $a$ and $b$ the same. Evaluating the statement, we find the difference between $a$ and $b$ to be on the order of $10^{-15}$, which is very close to zero.
 
 
 

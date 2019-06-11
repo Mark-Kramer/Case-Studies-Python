@@ -3,7 +3,7 @@ interact_link: content/08/basic-visualizations-and-descriptive-statistics-of-spi
 kernel_name: python3
 title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 prev_page:
-  url: /07/the-cross-covariance-and-coherence
+  url: /05/the-cross-covariance-and-coherence
   title: 'The Cross Covariance and Coherence'
 next_page:
   url: /09/point-process-glms

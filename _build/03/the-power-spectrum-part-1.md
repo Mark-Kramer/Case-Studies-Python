@@ -6,7 +6,7 @@ prev_page:
   url: /02/the-event-related-potential
   title: 'The Event-Related Potential'
 next_page:
-  url: /03/supplement-1
+  url: /03/supplement-autocovariance
   title: 'Biased versus unbiased autocovariance'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -781,11 +781,25 @@ plt.show()
 ```
 
 
+{:.output .output_traceback_line}
+```
 
-{:.output .output_png}
-![png](../images/03/the-power-spectrum-part-1_70_0.png)
+    ---------------------------------------------------------------------------
+
+    NameError                                 Traceback (most recent call last)
+
+    <ipython-input-2-4e8c3ddaed5b> in <module>()
+    ----> 1 xf = np.fft.fft(x - x.mean())               # Compute Fourier transform of x
+          2 Sxx = 2 * dt ** 2 / T * (xf * np.conj(xf))  # Compute spectrum
+          3 Sxx = Sxx[:int(len(x) / 2)]                 # Ignore negative frequencies
+          4 
+          5 df = 1 / T.max()                            # Determine frequency resolution
 
 
+    NameError: name 'np' is not defined
+
+
+```
 
 
 

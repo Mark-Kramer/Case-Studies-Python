@@ -1,13 +1,13 @@
 ---
-interact_link: content/05/cross-frequency-coupling.ipynb
+interact_link: content/07/cross-frequency-coupling.ipynb
 kernel_name: python3
 title: 'Cross Frequency Coupling'
 prev_page:
   url: /04/appendix-multiplication-and-convolution-in-different-domains
   title: 'Multiplication and Convolution in Different Domains'
 next_page:
-  url: /06/filtering-scalp-eeg
-  title: 'The Power Spectrum (Part 2)'
+  url: /05/the-cross-covariance-and-coherence
+  title: 'The Cross Covariance and Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -85,9 +85,13 @@ plt.title('CFC');
 ```
 
 
+<div class="question">
+
 **Q:** Try to read the code above. Can you see how it loads data, computes the phase and amplitude of the signals, and assess the cross-frequency coupling?
 
 **A:** If you've never computed cross-frequency coupling before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
 
 ## Introduction<a id="introduction"></a>
 
@@ -185,7 +189,7 @@ plt.ylabel('Voltage [mV]');
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_12_0.png)
+![png](../images/07/cross-frequency-coupling_12_0.png)
 
 
 
@@ -206,7 +210,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_14_0.png)
+![png](../images/07/cross-frequency-coupling_14_0.png)
 
 
 
@@ -218,7 +222,7 @@ Visual inspection immediately suggests a dominant low-frequency rhythm intersper
     
 </div>
 
-### Spectral Analysis
+### Spectral Analysis<a id="spectral-analysis"></a>
 Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a>
 
 
@@ -249,7 +253,7 @@ plt.ylabel('Power [mV$^2$/Hz]');
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_17_0.png)
+![png](../images/07/cross-frequency-coupling_17_0.png)
 
 
 
@@ -375,7 +379,7 @@ plt.legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_30_0.png)
+![png](../images/07/cross-frequency-coupling_30_0.png)
 
 
 
@@ -717,7 +721,7 @@ plt.xlabel('Low-frequency phase');
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_54_0.png)
+![png](../images/07/cross-frequency-coupling_54_0.png)
 
 
 
@@ -794,7 +798,7 @@ plt.legend();                                                 # ... include a le
 
 
 {:.output .output_png}
-![png](../images/05/cross-frequency-coupling_62_0.png)
+![png](../images/07/cross-frequency-coupling_62_0.png)
 
 
 
