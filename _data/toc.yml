@@ -52,8 +52,8 @@
 - title: Cross Frequency Coupling
   url: /07/cross-frequency-coupling
 
-# - title: The Power Spectrum (Part 2)
-#   url: /06/filtering-scalp-eeg
+- title: The Power Spectrum (Part 2)
+  url: /06/filtering-scalp-eeg
 
 - title: The Cross Covariance and Coherence
   url: /05/the-cross-covariance-and-coherence
