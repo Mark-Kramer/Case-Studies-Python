@@ -50,13 +50,13 @@
   expand_sections: true
 
 - title: Cross Frequency Coupling
-  url: /05/cross-frequency-coupling
+  url: /07/cross-frequency-coupling
 
 # - title: The Power Spectrum (Part 2)
 #   url: /06/filtering-scalp-eeg
 
 - title: The Cross Covariance and Coherence
-  url: /07/the-cross-covariance-and-coherence
+  url: /05/the-cross-covariance-and-coherence
 
 - title: Basic Visualizations and Descriptive Statistics of Spike Train Data
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
