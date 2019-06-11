@@ -1,0 +1,4 @@
+[8] [[Percival & Walden, 1998]](https://doi.org/10.1017/CBO9780511622762)
+[9] [[Priestley, 1981]](https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161)
+[13] [[He, et al., 2010]](https://doi.org/10.1016/j.neuron.2010.04.020)
+[14] [[Bak, Tang, & Wiesenfeld, 1987]](https://doi.org/10.1103/PhysRevLett.59.381)
