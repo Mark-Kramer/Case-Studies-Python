@@ -1,2 +1,4 @@
 mkdir ~/.jupyter
 cp -r assets/custom ~/.jupyter/
+mkdir -p ~/.ipython/profile_default/startup/
+cp startup.py ~/.ipython/profile_default/startup/
