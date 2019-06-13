@@ -37,9 +37,9 @@
   url: /03/the-power-spectrum-part-1
   sections:
   - title: Biased versus unbiased autocovariance
-    url: /03/supplement-autocovariance
+    url: /03/supplements/supplement-autocovariance
   - title: Intuition behind the power spectral density
-    url: /03/supplement-psd
+    url: /03/supplements/supplement-psd
   expand_sections: true
 
 - title: Analysis of Rhythmic Activity in the Electrocorticogram

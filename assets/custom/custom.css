@@ -64,9 +64,19 @@
     max-width:500px;
 }
 .thumb {
-    position: inherit;
+    cursor: help;
+    color: #57b733;
+    top: -0.5em;
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    border-bottom: none;
+    text-decoration: underline dotted;
 }
 .thumb span { 
+}
+.thumb img { 
     width: 200px;
     visibility: hidden;
     background-color: black;
@@ -74,19 +84,16 @@
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    margin-left: -100px;
+    z-index: 99;
     transition: 5ms visibility;
-}
-.thumb img { 
     border:1px solid #000;
-    margin:0px;
     background:#fff;
-    width: 100%;
-    max-width: 300px;
 }
-.thumb:hover, .thumb:hover span { 
+.thumb:hover, .thumb:hover img { 
     visibility:visible;
     transition-delay: 500ms;
         
@@ -109,25 +116,22 @@
 }   
 .fig img, .figsup img { 
     border:1px solid #000;
-    /*margin:0px;*/
-    background:#000;
-    /*width: 100%;*/
-    /* moved from .fig span below*/
     visibility: hidden;
     width: 500px;
     background-color: black;
     color: #fff;
-    text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: absolute;
-    object-position: center;
-    z-index: 99;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-left: -250px;
     transition: 5ms visibility;
+    z-index: 99;
 }
 .fig span { 
-    /*add .fig img here so that you don't need to span everything */
 }
+
 .fig:hover, .fig:hover img, .figsup:hover img { 
     visibility:visible;
     transition-delay: 500ms;

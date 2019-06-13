@@ -1,12 +1,12 @@
 ---
-interact_link: content/03/supplement-1.ipynb
+interact_link: content/03/supplements/supplement-autocovariance.ipynb
 kernel_name: python3
 title: 'Biased versus unbiased autocovariance'
 prev_page:
   url: /03/the-power-spectrum-part-1
   title: 'The Power Spectrum (Part 1)'
 next_page:
-  url: /03/supplement-2
+  url: /03/supplements/supplement-psd
   title: 'Intuition behind the power spectral density'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -31,12 +31,12 @@ To examine the difference in the biased versus the unbiased autocovariance, let'
 {:.input_area}
 ```python
 # Prepare the modules and plot settings
+%matplotlib inline
 import scipy.io as sio
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import xlabel, ylabel, plot, show, title
 from matplotlib import rcParams
 import numpy as np
-%matplotlib inline
 ```
 
 
@@ -71,9 +71,11 @@ lags = np.arange(-N + 1, N)               # Compute the lags
 ac = np.correlate(x - x.mean(), x - x.mean(), mode="full")  
 ac_b = 1 / N * ac                         # Calculate biased autocovariance
 ac_u = 1 / (N - np.abs(lags)) * ac        # ... and unbiased autocovariance
-plot(lags * dt, ac_u)                     # ... plot them
-plot(lags * dt, ac_b)
-xlabel('Lag [s]')                         # ... and label the axes
+
+fig, ax = plt.subplots()                  # Plot the result and save the figure for later use
+ax.plot(lags * dt, ac_u)                     # Plot the unbiased autocovariance,
+ax.plot(lags * dt, ac_b)                     # ... and the biased,
+xlabel('Lag [s]')                         # ... with axes labeled
 ylabel('Autocovariance')
 show()
 ```
@@ -81,7 +83,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-1_5_0.png)
+![png](../../images/03/supplements/supplement-autocovariance_5_0.png)
 
 
 
@@ -119,34 +121,53 @@ Notice that as $L$ approaches $N$, the term $N - L$ approaches zero. In this cas
 
 Careful inspection of the blue curve reveals another feature of the biased estimate; the estimated values at large lags become more variable (look carefully at lags near ±1.75 s and beyond). 
 
-![plot with large lags highlighted](imgs/3-5highlight.png "The autocovariance of the EEG for the biased (orange) and unbiased (blue) estimates over a wide range of lags.")
+</div>
+
+
+
+
+
+
+
+{:.output .output_png}
+![png](../../images/03/supplements/supplement-autocovariance_9_0.png)
+
+
+
+
+<div class="question">
 
 Increased variability at large lags occurs because, as $L$ approaches $N$, we have less data to compare in the assessment of the autocovariance. Notice that, when $L = N − 1$, the estimate of the autocovariance utilizes only two data points from $x$ (i.e., the product consists only of one term: $(x_N - \bar x)(x_1 - \bar x)$). We do not expect a reliable assessment of associations in the data with so few data points to compare.
     
 </div>
 
-With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons ([Percival & Walden, 2009](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33)). First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:
+With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons [[Percival & Walden, 1998]](https://doi.org/10.1017/CBO9780511622762). First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:
 
 $$\mbox{mean squared error} = \mbox{variance + (bias)}^2.$$
 
-Although the biased estimator is "biased", the variability of the unbiased estimator is more harmful. We saw a hint of this increased variability in the unbiased estimator at large lags. To make this observation more explicit, let's consider the lag $L = N - 1$, and compute the expression for the biased estimator <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a>,
+Although the biased estimator is "biased", the variability of the unbiased estimator is more harmful. We saw a hint of this increased variability in the unbiased estimator at large lags. To make this observation more explicit, let's consider the lag $L = N - 1$, and compute the expression for the [biased estimator](#eq:3.3)<span class="thumb">eq<img src="imgs/eq3-3.png"></span>,
 
 <p title="Variance of the biased estimator with lag N-1">
+
 \begin{eqnarray} 
 r_{xx}[N-1] &=& \frac{1}{N} \sum_{n = 1}^{N - (N - 1)} (x_{n + (N - 1)} - \bar x)(x_n - \bar x),\\
 &=&\frac{1}{N}\sum_{n=1}^1(x_{n+(N-1)} - \bar x)(x_n - \bar x), \\
 &=&\frac{1}{N}(x_{N} - \bar x)(x_1 - \bar x).
 \end{eqnarray}
 
+</p>
 
-The expression for the unbiased estimator <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-4.png"></span></a> becomes,
+The expression for the [unbiased estimator](#eq:3.3)<span class="thumb">eq<img src="imgs/eq3-4.png"></span> becomes,
 
 <p title="Variance of the unbiased estimator with lag N-1">
+    
 \begin{eqnarray}
 r_{xx}^*[N-1] &=& \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x)(x_n - \bar x), \\
 &=& \sum_{n=1}^1(x_{n+N-1} - \bar x)(x_n - \bar x), \\
 &=& (x_{N} - \bar x)(x_1 - \bar x), \\
 \end{eqnarray}
+
+</p>
 
 
 These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves "nicely" as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.

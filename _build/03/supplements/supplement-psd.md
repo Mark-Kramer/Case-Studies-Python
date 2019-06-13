@@ -1,9 +1,9 @@
 ---
-interact_link: content/03/supplement-psd.ipynb
+interact_link: content/03/supplements/supplement-psd.ipynb
 kernel_name: python3
 title: 'Intuition behind the power spectral density'
 prev_page:
-  url: /03/supplement-autocovariance
+  url: /03/supplements/supplement-autocovariance
   title: 'Biased versus unbiased autocovariance'
 next_page:
   url: /04/ecog-rhythms
@@ -16,6 +16,39 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 * [The Fourier transform](#fourier-transform)
 * [Relation to autocovariance](#autocovariance)
 * [Relation to multiple linear regression](#multiple-linear-regression)
+
+
+
+{:.input_area}
+```python
+# Prepare the modules and plot settings
+from matplotlib import rcParams
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import xlabel, ylabel, plot, show, title
+from IPython.lib.display import YouTubeVideo
+```
+
+
+
+
+{:.input_area}
+```python
+# Tools for this chapter
+import statsmodels.formula.api as smf
+from pandas import DataFrame as df
+from scipy.io import loadmat
+```
+
+
+
+
+{:.input_area}
+```python
+rcParams['backend'] = 'TkAgg'
+rcParams['figure.figsize'] = (12,3)
+```
+
 
 The main component of this module discusses the analysis of rhythmic activity. One important component of this analysis is the power spectral density. In this supplement, we examine equation for the Fourier transform
 
@@ -109,20 +142,6 @@ To make these ideas more concrete, we can consider some simple examples. In thes
 
 {:.input_area}
 ```python
-# Prepare the modules and plot settings
-from matplotlib import rcParams
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import xlabel, ylabel, plot, show, title
-%matplotlib inline
-rcParams['figure.figsize'] = (12,3)
-```
-
-
-
-
-{:.input_area}
-```python
 tt = np.linspace(0, 1, 1000)     # Create a time variable (in seconds)
 x = np.cos(2 * np.pi * 10 * tt)  # Generate the data, a 10 Hz cosine
 plot(tt, x, 'k')                 # Plot the result
@@ -133,7 +152,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_9_0.png)
+![png](../../images/03/supplements/supplement-psd_11_0.png)
 
 
 
@@ -156,7 +175,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_11_0.png)
+![png](../../images/03/supplements/supplement-psd_13_0.png)
 
 
 
@@ -175,7 +194,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_13_0.png)
+![png](../../images/03/supplements/supplement-psd_15_0.png)
 
 
 
@@ -215,7 +234,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_16_0.png)
+![png](../../images/03/supplements/supplement-psd_18_0.png)
 
 
 
@@ -262,7 +281,7 @@ with slope $\beta_1$ and intercept $\beta_0$.
 Let’s consider the application of multiple linear regression to the EEG data with a specific
 purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum was dominated by a 60 Hz peak. <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3.6" class="fig"><span><img src="imgs/3-6.png"></span></a> We expect this 60 Hz is due to electrical noise in the system, and this large noise peak may mask other interesting features occurring in the EEG data. Therefore, our analysis of the EEG data may benefit by removing this large 60 Hz signal. To do so, we first fit a multiple linear regression model to the data $x_n$ with the following form,<a id="eq:3.12"></a>
 
-$$x_n = \beta_0 + \beta_1 \sin(2\pi 60 t_n) + \beta_2\cos(2\pi 60 t_n) + \epsilon_n,$$
+$$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_n) + \epsilon_n,$$
 
 where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis at index $n$ in units of seconds, and $\epsilon_n$ is a random variable.
 
@@ -274,16 +293,6 @@ where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis a
 </div>
 
 To do multiple linear regression in Python we start by importing the `statsmodels` package and the `DataFrame` function from the `pandas` package. We use `DataFrame` to create a table that is easy to work with and then use `statsmodels` to perform the regression.
-
-
-
-{:.input_area}
-```python
-import statsmodels.formula.api as smf
-from pandas import DataFrame as df
-from scipy.io import loadmat
-```
-
 
 We will work with the same data set that we used in the main component of this module, so we start by importing the data.
 
@@ -317,7 +326,7 @@ print(model.params)
 
 {:.output .output_stream}
 ```
-Intercept    2.818926e-17
+Intercept    2.796903e-17
 sin          9.989204e-01
 cos         -3.238373e-03
 dtype: float64
@@ -363,7 +372,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_29_0.png)
+![png](../../images/03/supplements/supplement-psd_30_0.png)
 
 
 
@@ -394,13 +403,13 @@ show()
 
 
 {:.output .output_png}
-![png](../images/03/supplement-psd_32_0.png)
+![png](../../images/03/supplements/supplement-psd_33_0.png)
 
 
 
 <div class="question">
     
-**Q.** Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the original EEG data, which includes the 60 Hz noise. <a href="#fig:3-1" class="fig"><span><img src="imgs/3-1.png"></span></a> What’s different?
+**Q.** Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the [original EEG data](#fig:3-1), which includes the 60 Hz noise.<span class="figsup">fig<img src="imgs/3-1.png"></span> What’s different?
     
 </div>
 
@@ -420,7 +429,7 @@ Sxx_model_60Hz
 
 {:.output .output_data_text}
 ```
-0.9978524145209726
+0.9978524145209708
 ```
 
 
