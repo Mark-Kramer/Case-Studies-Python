@@ -77,17 +77,20 @@
 .thumb span { 
 }
 .thumb img { 
-    width: 200px;
+    max-width: 200px;
     visibility: hidden;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
-    left: 50%;
-    top: 40%;
-    margin-left: -100px;
+    position: absolute;
+    /*left: 50%;*/
+    /*top: 40%;*/
+    /*margin-left: -100px;*/
+    width: inherit;
+    /*margin-left: auto;*/
+    /*margin-right:; auto;*/
     z-index: 99;
     transition: 5ms visibility;
     border:1px solid #000;
@@ -117,15 +120,17 @@
 .fig img, .figsup img { 
     border:1px solid #000;
     visibility: hidden;
-    width: 500px;
+    max-width: 500px;
+    width: inherit;
     background-color: black;
-    color: #fff;
     border-radius: 6px;
     padding: 5px 5px;
-    position: fixed;
-    top: 40%;
+    position: absolute;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    /*top: 40%;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -250px;*/
     transition: 5ms visibility;
     z-index: 99;
 }
