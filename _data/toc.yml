@@ -46,7 +46,7 @@
   url: /04/ecog-rhythms
   sections:
   - title: Multiplication and Convolution in Different Domains
-    url: /04/appendix-multiplication-and-convolution-in-different-domains
+    url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
   expand_sections: true
 
 - title: Cross Frequency Coupling

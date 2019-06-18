@@ -3,7 +3,7 @@ interact_link: content/04/ecog-rhythms.ipynb
 kernel_name: python3
 title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
 prev_page:
-  url: /03/supplement-psd
+  url: /03/supplements/supplement-psd
   title: 'Intuition behind the power spectral density'
 next_page:
   url: /04/appendix-multiplication-and-convolution-in-different-domains
@@ -16,15 +16,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="question">
     
-_**Synopsis**_ <br><br>
+_**Synopsis**_ 
 
 **Data:** Field data: 1 s of ECoG data sampled at 500 Hz.
 
-<br>
-
 **Goal:** Characterize the observed rhythms in these data.
-
-<br>
 
 **Tools:** Fourier transform, power spectral density, spectrogram.
 
@@ -47,11 +43,34 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 
 {:.input_area}
 ```python
-import scipy.io as sio              # Prepare the modules and plot settings
-import numpy as np
-import matplotlib.pyplot as plt
+# Prepare the standard modules
+# Prepare the modules and plot settings
 %matplotlib inline
+import scipy.io as sio
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.pyplot import xlabel, ylabel, plot, show, title
+from matplotlib import rcParams
+```
 
+
+
+
+{:.input_area}
+```python
+# Import the tools for the chapter
+import nitime.algorithms.spectral as spectrum
+from scipy.stats import chi2
+
+# Make wide plots
+rcParams['figure.figsize'] = (12,3)  
+```
+
+
+
+
+{:.input_area}
+```python
 data = sio.loadmat('ECoG-1.mat')    # Load the ECoG data.
 x    = data['ECoG'].reshape(-1)     # Extract the ECoG variable,
 t    = data['t'][0]                 # ... and the t variable
@@ -80,7 +99,7 @@ plt.show()
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_4_0.png)
+![png](../images/04/ecog-rhythms_6_0.png)
 
 
 
@@ -112,29 +131,6 @@ As always, we begin by looking at the data. Let's load the ECoG data into Python
 
 {:.input_area}
 ```python
-# Prepare the modules and plot settings
-import scipy.io as sio
-import matplotlib.pyplot as plt
-import warnings
-from matplotlib.pyplot import xlabel, ylabel, plot, show, title
-from matplotlib import rcParams
-%matplotlib inline
-```
-
-
-
-
-{:.input_area}
-```python
-rcParams['figure.figsize'] = (12,3)
-warnings.simplefilter(action='ignore', category=FutureWarning)
-```
-
-
-
-
-{:.input_area}
-```python
 data = sio.loadmat('ECoG-1.mat')  # Load the ECoG data
 ecog = data['ECoG'].reshape(-1)   # Extract the ECoG variable
 t = data['t'][0]                  # ... and the t variable
@@ -142,6 +138,7 @@ t = data['t'][0]                  # ... and the t variable
 plot(t, ecog)                     # Plot the data versus time
 xlabel('Time [s]')                # Label the time axis
 ylabel('Voltage [mV]')            # ... and the voltage axis
+savefig('imgs/4-1')
 show()
 ```
 
@@ -164,7 +161,6 @@ Visual inspection, although essential to data analysis, is usually not enough. V
 
 {:.input_area}
 ```python
-import numpy as np
 x = ecog          # Relabel the data variable
 dt = t[2] - t[1]  # Define the sampling interval
 T = t[-1]         # ... and duration of data
@@ -201,7 +197,7 @@ show()
 
 </div>
 
-The plot of the spectrum suggests a single dominant frequency near 6 Hz, consistent with the visual inspection of the ECoG trace (<a href="#fig:4-1" class="fig"><span>figure<img src="imgs/4-1.png"></span></a>). Other interesting structure may also appear, perhaps at frequencies near 10 Hz; note the tiny peak barely visible in the spectrum. These initial observations suggest we can more appropriately scale the spectrum to emphasize both the low-frequency bands and weaker signals. Let’s utilize a logarithmic scale for both the power spectral density (decibels) and the frequency.
+The plot of the spectrum suggests a single dominant frequency near 6 Hz, consistent with the visual inspection of the [ECoG trace](#fig:4-1).<span class="fig"><sup>fig</sup><img src="imgs/4-1.png"></span> Other interesting structure may also appear, perhaps at frequencies near 10 Hz; note the tiny peak barely visible in the spectrum. These initial observations suggest we can more appropriately scale the spectrum to emphasize both the low-frequency bands and weaker signals. Let’s utilize a logarithmic scale for both the power spectral density (decibels) and the frequency.
 
 
 
@@ -212,6 +208,7 @@ plt.xlim([1, 100])                      # ... in select frequency range,
 plt.ylim([-60, 20])                     # ... and power range,
 xlabel('Frequency [Hz]')                # ... with axes labeled.
 ylabel('Power [dB]')
+savefig('imgs/4-2a')
 show()
 ```
 
@@ -237,13 +234,15 @@ show()
 </div>
 
 #### By Doing Nothing, We're Doing Something: The Rectangular Taper.
-ECoG time series continue for long durations. For example, an individual’s brain voltage activity may persist for over 90 years, from birth until death. However, ECoG recordings are finite, limited by convenience, technology, or other factors. In the example here, we consider 1 s of ECoG data. Performing this finite observation (lasting 1 s) on a long duration (i.e., 90-year) time series can be understood as a rectangular taper. A rectangular taper multiplies the observed data by 1 and the unobserved data by 0. <a id="fig:4-3"></a>
-![Example of rectangular taper application.](imgs/4-3.png)
-*Example of rectangular taper application. Raw data continue for a long period of time (top). Most of these data are unobserved. Rectangular taper (red) specifies the interval of observation. Multiplying the raw data by the rectangular taper determines the observed ECoG data (bottom).*
+
+ECoG time series continue for long durations. For example, an individual’s brain voltage activity may persist for over 90 years, from birth until death. However, ECoG recordings are finite, limited by convenience, technology, or other factors. In the example here, we consider 1 s of ECoG data. Performing this finite observation (lasting 1 s) on a long duration (i.e., 90-year) time series can be understood as a rectangular taper. A rectangular taper multiplies the observed data by 1 and the unobserved data by 0. 
+
+<a id="fig:4-3"></a>
+![Example of rectangular taper application.](imgs/4-3.png "Example of rectangular taper application. Raw data continue for a long period of time (top). Most of these data are unobserved. Rectangular taper (red) specifies the interval of observation. Multiplying the raw data by the rectangular taper determines the observed ECoG data (bottom).")
 
 We can think of the value 1 as representing the time period when our recording device is operational; activating the ECoG recording device opens the rectangular taper (value 1), and deactivating the ECoG recording device closes the rectangular taper (value 0). The rectangular taper makes explicit our knowledge about the observed data (in this case, the 1 s interval of ECoG) and our ignorance about the unobserved data, which are assigned the value zero. Notice that the rectangular taper looks like a rectangle (red trace in the figure above).
 
-So, by computing the spectrum of 1 s of observed ECoG data, we’re actually computing the spectrum of the product of two functions: the many years of mostly unobserved ECoG data and the rectangular taper. We note that by "doing nothing" we have implicitly made the choice to use the rectangular taper. We have already plotted the resulting spectrum of the observed ECoG data (again, using the default rectangular taper) above (<a href="#fig:4-2a" class="fig">figure<span><img src="imgs/4-2a.png"><img src="imgs/4-2b.png"></span></a>).
+So, by computing the spectrum of 1 s of observed ECoG data, we’re actually computing the spectrum of the product of two functions: the many years of mostly unobserved ECoG data and the rectangular taper. We note that by "doing nothing" we have implicitly made the choice to use the rectangular taper. We have already plotted the resulting spectrum of the observed ECoG data (again, using the default rectangular taper) above.<a href="#fig:4-2a" class="fig"><sup>fig</sup><img src="imgs/4-2a.png"><img src="imgs/4-2b.png"></a>
 
 #### Exploring the Impact of the Rectangular Taper.
 The <a href="#fig:4-3" class="fig"><span>figure<img src="imgs/4-3.png"></span></a> above illustrates how the rectangular taper impacts the observed data in the time domain, namely, the taper selects a region of observation. The rectangular taper also impacts the spectrum in the frequency domain. To see this, consider a perfect sinusoid at frequency 10 Hz that in theory continues forever. In this case, the energy concentrates at a single frequency—the frequency of the sinusoid (10 Hz)—and for the (theoretical) case of an infinite sinusoid, the power spectral density is infinite at that frequency. <a id="fig:4-4"></a>
@@ -284,6 +283,7 @@ t = np.arange(len(taper))*dt  # ... define a time axis,
 plot(t, taper)                # ... and plot taper vs time.
 xlabel('Time [s]')            # ... with axes labeled.
 ylabel('Rectangular Taper')
+savefig('imgs/4-5a')
 show()
 ```
 
@@ -330,19 +330,13 @@ show()
 
 </div>
 
-Visual inspection of the spectrum of the rectangular taper suggests that most of the power spectral density is concentrated at a single frequency, 0 Hz. To understand why the spectrum concentrates at 0 Hz, consider the rectangular taper over the 1 s duration for which the data collection window is open (<a href="#fig:4-5a" class="fig"><span><img src="imgs/4-5a.png">figure</span></a>). Within this window, the value of the taper is the constant 1. The only frequency present in this signal is 0 Hz (i.e., no oscillations occur). Therefore, the spectrum is concentrated at 0 Hz.
+Visual inspection of the spectrum of the rectangular taper suggests that most of the power spectral density is concentrated at a single frequency, 0 Hz. To understand why the spectrum concentrates at 0 Hz, consider the [rectangular taper](#fig:4-5a) over the 1 s duration for which the data collection window is open <span class="fig"><img src="imgs/4-5a.png"><sup>fig</sup></span>. Within this window, the value of the taper is the constant 1. The only frequency present in this signal is 0 Hz (i.e., no oscillations occur). Therefore, the spectrum is concentrated at 0 Hz.
 
 Although the spectrum is concentrated at 0 Hz, it exhibits regions of increased spectral density at nonzero frequencies, more specifically, the repeated peaks (or side lobes) in the spectrum near 1.5 Hz, 2.5 Hz, 3.5 Hz, and so on. In fact, it's possible ot work out exactly the functional form of the Fourier transform of the rectangular taper; it's the sinc function [[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762)]. However, that's not particularly important for our purposes. The important result here is that the rectangular taper itself has a complicated spectrum, with features appearing across a range of frequencies.
 
 <div class="question">
-
-<p>
     
 **Q.** Why does the spectrum of the rectangular taper contain features at many frequencies?
-
-</p>
-
-<p>
     
 **A.** The spectrum consists of features at many frequencies to represent the rapid increase and decrease of the rectangular taper (i.e., the rapid transition from 0 to 1, and then from 1 to 0). The intuition for this is that many sinusoids, aligned in a particular way, are required to represent a sharp transition in a time series. As an example, consider the following square wave function: 
 
@@ -350,31 +344,29 @@ Although the spectrum is concentrated at 0 Hz, it exhibits regions of increased 
 ![Approximation of a square wave with sinusoids.](imgs/4-6.png "Approximation of a square wave with sinusoids. Square wave (black) has a period of 2 Hz. As the number of sinusoids used to spproximate the square wave increases from (a) one sinusoid, to (b) two sinusoids, to (c) five sinusoids, approximation improves. Scale bar indicates 0.5 s.")
     
 This square wave (black) consists of many repeated sharp transitions. Visual inspection suggests that the square wave is rhythmic, with a period of 2 Hz. Notice that the square wave begins at a sustained value of 1, then transitions to 0 and remains there for an interval of time, and then transitions back to a value of 1 in 0.5 s; the square wave therefore completes two cycles in 1 second.
-
-</p>
-<p>
-    
-So, the square wave is rhythmic, and we may try to represent this square wave with rhythmic sinusoids. In (*a*), we plot a 2 Hz sinusoid. It’s an okay match to the square wave but certainly not perfect; the 2 Hz sinusoid fails to capture the sharp transitions of the square wave. In (*b*), we plot the sum of a 2 Hz sinusoid and a 6 Hz sinusoid. The combination of these two sinusoids better matches the square wave, although again the sharp transitions are not accurately captured. In (*c*), we plot the sum of 2 Hz, 6 Hz, 10 Hz, 14 Hz, and 18 Hz sinusoids. These five sinusoids better match the square wave and begin to more accurately capture the sharp transitions. As more sinusoids are used to represent the square wave, the approximation of the sharp edges improves.
-
-</p>
-
-<p>
-    
+ 
+So, the square wave is rhythmic, and we may try to represent this square wave with rhythmic sinusoids. In *(a)*, we plot a 2 Hz sinusoid. It’s an okay match to the square wave but certainly not perfect; the 2 Hz sinusoid fails to capture the sharp transitions of the square wave. In *(b)*, we plot the sum of a 2 Hz sinusoid and a 6 Hz sinusoid. The combination of these two sinusoids better matches the square wave, although again the sharp transitions are not accurately captured. In *(c)*, we plot the sum of 2 Hz, 6 Hz, 10 Hz, 14 Hz, and 18 Hz sinusoids. These five sinusoids better match the square wave and begin to more accurately capture the sharp transitions. As more sinusoids are used to represent the square wave, the approximation of the sharp edges improves.
+   
 So, sharp transitions in data require many sinusoids to be accurately approximated. The rectangular taper consists of sharp transitions and therefore requires sinusoids at many frequencies for an accurate representation.
 
-</p>
 </div>
 
 Because we perform multiplication of two functions in the time domain (i.e., we multiply the rectangular taper and the infinite sinusoid element by element), we produce a convolution of the Fourier transforms of these functions in the frequency domain. Although the mathematical expression of convolution is somewhat complicated, we can understand the impact of convolution by examining a few plots. Let’s start with the Fourier transform of the infinite sinusoid and the infinite rectangular taper (where we’ve appended zeros to the rectangular taper to make it infinite). We know (or can look up) the results of each Fourier transform. The Fourier transform of the infinite 10 Hz sinusoid, which we assume here is a cosine function, consists of two delta functions at ±10 Hz. 
+
 <a id="fig:4-7a"></a>
 ![A 10 Hz sinusoid and its Fourier transform.](imgs/4-7a.png "A 10 Hz sinusoid and its Fourier transform.")
+
 The Fourier transform of the rectangular taper is the sinc function. 
+
 <a id="fig:4-7b"></a>
 ![A rectangular taper and its Fourier transform.](imgs/4-7b.png "A rectangular taper and its Fourier transform.")
+
 Now, let’s imagine shifting in frequency the Fourier transform of the rectangular taper (i.e., shifting in frequency the sinc function). At each shift, we multiply element by element the two Fourier transforms (i.e., the unshifted Fourier transform of the sinusoid and the shifted Fourier transform of the rectangular taper) and sum the product. The result of this shifting, multiplying, and summing of one Fourier transform by the other is the convolution.
 
 <div class="question">
+    
 **Q.** What is the result of this convolution? How is the expected Fourier transform of the infinite sinusoid affected? 
+
 </div>
 
 To illustrate this convolution procedure, consider the following plots which show examples of shifting and multiplying the two Fourier transforms. 
@@ -384,7 +376,7 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 
 As we continue to shift the rectangular taper’s Fourier transform, the product of the two functions at first remains small (for shifts up to 5 Hz in the middle plot). However, once we shift the rectangular taper’s Fourier transform up to and through the 10 Hz peak of the sinusoid, we begin to find larger deviations in the convolution. As the shifted rectangular taper’s Fourier transform passes through the 10 Hz peak of the sinusoid, we multiply the very thin and very tall peak of the sinusoid (bottom plot) with the center portion of the shifted rectangular taper’s Fourier transform. The result of this multiplication is to “smear” the sharp peak of the sinusoid in the frequency domain. Instead of a sharp peak at 10 Hz, the convolution produces a broad, wiggly peak in the frequency domain, with deviations at neighboring frequencies (i.e., in the side lobes around 10 Hz). In other words, because we observe the sinusoid over a finite interval of time (determined by the extent of the rectangular taper) the Fourier transform of the sinusoid becomes “smeared.”
 
-This description and the illustrations above provide some intuition for the relation between the multiplication of two signals in the time domain (here, a sinusoid and the rectangular taper) and their Fourier transform. For mathematical details and corresponding Python code, see the [appendix](https://mark-kramer.github.io/Case-Studies-Python/04/appendix-multiplication-and-convolution-in-different-domains) at the end of this notebook.
+This description and the illustrations above provide some intuition for the relation between the multiplication of two signals in the time domain (here, a sinusoid and the rectangular taper) and their Fourier transform. For mathematical details and corresponding Python code, see the [appendix](https://mark-kramer.github.io/Case-Studies-Python/04/supplements/appendix-multiplication-and-convolution-in-different-domains) at the end of this notebook.
 
 #### Zero padding.
 An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length $(T)$ improves the frequency resolution; recall the equation $df = 1/T$ from [The Power Spectrum (part 1)](https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1). We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing $T\,$). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.
@@ -454,7 +446,7 @@ This procedure of appending zeros to a time series is called **zero padding**. I
 The frequency resolution of the spectrum is fixed by the amount of data recorded. The number of points along the frequency axis in the spectrum is adjustable and can be increased by zero padding.
 </div>
 
-With this understanding of the impact of the rectangular taper and zero padding, let’s now return to the spectrum of the 1 s of sinusoidal activity (<a href="#fig:4-4b" class="fig"><span>figure<img src="imgs/4-4b.png"></span></a>). We now expect that because we observe the infinite sinusoid for only a short duration (1 s), the spectral power at 10 Hz will leak into neighboring frequency bands. And, as plotted in the spectrum above, that’s indeed what we find - the side lobe structure is clearly visible. Also note that, in this example, we computed the spectrum with zero padding to evaluate the spectrum at many points along the frequency axis.
+With this understanding of the impact of the rectangular taper and zero padding, let’s now return to the [spectrum of the 1 s of sinusoidal activity](#fig:4-4b) <span class="fig"><sup>fig</sup><img src="imgs/4-4b.png"></span>. We now expect that because we observe the infinite sinusoid for only a short duration (1 s), the spectral power at 10 Hz will leak into neighboring frequency bands. And, as plotted in the spectrum above, that’s indeed what we find - the side lobe structure is clearly visible. Also note that, in this example, we computed the spectrum with zero padding to evaluate the spectrum at many points along the frequency axis.
 
 To explore further the impact of this zero padding, let’s now consider an example in Python. We define a 10 Hz sinusoid with duration 1 s, apply 10 s of zero padding and examine the impact on the spectrum:
 
@@ -480,46 +472,26 @@ show_spectrum(d, Fs, xlim=[0, 20], ylim=[-60, 10]);
 In the first three lines of this code, we define the sampling frequency (`Fs`), and the 10 Hz sine function with zero padding. Next, we use the function that we created previously to compute and plot the spectrum. Notice that we plot the spectrum on a decibel scale, and focus on the frequency interval 0–20 Hz.
 
 <div class="question">
-    
-<p>
-    
+        
 **Q.** In the `show_spectrum()` function, we subtract the mean of a signal before computing the Fourier transform. In this case it is not necessary to do this. Why?  
-
-</p>
-
-<p>
     
 **A.** It is not necessary to subtract the mean here because the mean of the signal `d` is zero, so subtracting the mean does not impact the results.
-
-</p>
 
 </div>
 
 <div class="question">
-    
-<p>
-    
+        
 **Q.** How much zero padding do we add? How does this change the spacing on the frequency axis?  
-
-</p>
-
-<p>
     
 **A.** We append `10*Fs` zeros to the end of the simulated sinusoidal data. This corresponds to 10 s (or 5,000 points). The original spacing on the frequency axis for the data was $1/T = 1 / 1$ s $= 1$ Hz. After zero-padding, the spacing on the frequency axis becomes $1 / (1 + 10\mbox{s}) = 1/(11\mbox{s}) \approx 0.091$ Hz.
-
-</p>
 
 </div>
 
 The results for this case (using 10 s of zero padding) show a dominant peak at 10 Hz, as expected, and large side lobes that extend throughout the 0&mdash;20 Hz frequency range. Choices of smaller-duration zero padding and longer duration zero padding produce similar results. With 5 s of zero-padding, the plotted spectrum appears less smooth; in this case, we evaluate the spectrum at fewer points on the frequency axis, and the side lobe peaks become more jagged. The choice of 100 s of zero padding does not produce a qualitative change compared to the 10 s of zero padding; in this case, evaluating the spectrum at 10 times as many points along the frequency axis in not particularly useful.
 
 <div class="question">
-    
-<p>
-    
+        
 **Q.** Can you adjust the code above to verify these claims?
-
-</p>
 
 </div>
 
@@ -529,18 +501,10 @@ You can also see the impact of no zero padding. To do so, simply omit the third 
 We stated in the previous section that zero padding does not improve the frequency resolution of the spectrum. As an example of this, consider a simple signal of duration 1 s that consists of two sinusoids: a 10 Hz sinusoid and a 10.5 Hz sinusoid.
 
 <div class="question">
-    
-<p>
-
+   
 **Q.** Given this 1 s time series, can we distinguish the two rhythms in the spectrum?
 
-</p>
-
-<p>
-
 **A.** No. The frequency resolution is $df = 1 / T = 1/(1\mbox{s}) = 1$ Hz. Because the two sinusoids are separated by less than 1 Hz, we cannot distinguish these two rhythms.
-
-</p>
 
 </div>
 
@@ -562,7 +526,7 @@ show_spectrum(d, Fs, xlim=[0, 20], ylim=[-40, 10]);     # ... and compute the sp
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_47_0.png)
+![png](../images/04/ecog-rhythms_48_0.png)
 
 
 
@@ -570,26 +534,18 @@ In the code above we first define the sampling frequency and then create the two
 
 <div class="question">
 
-<p>
-
 **Q.** Consider the spectrum above. Can you identify the two rhythms present in the simulated time series? If you change the duration of zero padding does this help reveal the two separate rhythms?
 
-</p>
-
-<p>
-
 **A.** No. No choice of zero padding resolves the two spectral peaks. In  this case, the two rhythms are separated by less than the frequency resolution $df$. Zero padding the data (even with 100 s of zeros) does not resolve the two peaks. We only simulated 1 s of data, and therefore set $df = 1$ Hz; zero padding does not change this fact. 
-
-</p>
 
 </div>
 
 <a id='hann-taper'></a>
 ### Beyond the Rectangular Taper&mdash;The Hanning Taper
 
-We have considered so far a single type of taper (the default, a rectangular taper) and its impact on the spectrum. In particular, we noted the “smearing” of spectral peaks (i.e., side lobes) that impact neighboring frequency bands. At best these side lobes are distracting, and at worst they may contaminate our conclusions. For example, consider the spectrum for the 1 s of ECoG data (<a href="#fig:4-2b" class="fig">figure<span><img src="imgs/4-2b.png"></span></a>). Is the small peak near 10 Hz representative of a true rhythm in these data, or is it a side lobe of the large peak near 6 Hz? Many different taper shapes have been developed with the goal of reducing the side lobes that contaminate the signals. Here we consider one of these tapers, the *Hanning taper*.
+We have considered so far a single type of taper (the default, a rectangular taper) and its impact on the spectrum. In particular, we noted the “smearing” of spectral peaks (i.e., side lobes) that impact neighboring frequency bands. At best these side lobes are distracting, and at worst they may contaminate our conclusions. For example, consider the spectrum for the 1 s of ECoG data.<a href="#fig:4-2b" class="fig"><sup>fig</sup><img src="imgs/4-2b.png"></a> Is the small peak near 10 Hz representative of a true rhythm in these data, or is it a side lobe of the large peak near 6 Hz? Many different taper shapes have been developed with the goal of reducing the side lobes that contaminate the signals. Here we consider one of these tapers, the *Hanning taper*.
 
-The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies (<a href="#fig:4-6" class="fig">figure<span><img src="imgs/4-6.png"></span></a>), which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper. 
+The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies,<a href="#fig:4-6" class="fig"><sup>fig</sup><img src="imgs/4-6.png"></a> which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper. 
 
 
 
@@ -607,7 +563,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_52_0.png)
+![png](../images/04/ecog-rhythms_53_0.png)
 
 
 
@@ -627,13 +583,13 @@ show_spectrum(np.hstack((a, np.ones(Fs), a)), Fs, xlim=[0, 5]);     # Compute sp
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_54_0.png)
+![png](../images/04/ecog-rhythms_55_0.png)
 
 
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_54_1.png)
+![png](../images/04/ecog-rhythms_55_1.png)
 
 
 
@@ -664,7 +620,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_56_0.png)
+![png](../images/04/ecog-rhythms_57_0.png)
 
 
 
@@ -698,37 +654,30 @@ xlabel('Frequency [Hz]')                          # ... with axes labeled.
 ylabel('Power [dB]')
 plt.ylim([1e-5, 10])
 plt.xlim([1, 100])
+savefig('imgs/4-11d')
 show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/04/ecog-rhythms_59_0.png)
+![png](../images/04/ecog-rhythms_60_0.png)
 
 
 
 <div class="question">
 
-<p>
-
 **Q.** The spectra for the Hanning tapered ECoG data and the rectangular tapered ECoG data are plotted above. What conclusions do you now draw regarding the rhythms present in the ECoG data? Consider, in particular, the activity near 10&mdash;15 Hz. 
 
-</p>
-
-<p>
-
 **A.** The spectrum of the Hanning tapered ECoG data reveals a peak at 10&mdash;15 Hz. This peak was hidden by the side lobes of the 6 Hz peak in the (default) rectangular tapered ECoG data. The Hanning taper reduces the side lobes of the 6 Hz peak, and allows us to uncover the smaller 10&mdash;15 Hz peak that was originally obscured by these side lobes. This observation dramatically changes our interpretation of the ECoG data. We now propose that the ECoG activity consists of two rhythms: a rhythm near 6 Hz, and a second band of rhythms near 10&mdash;15 Hz. Without application of the Hanning taper, we might have missed the second rhythm by attributing it to side lobes of the 6 Hz peak.
-
-</p>
 
 </div>
 
 <a id='multitaper'></a>
 ### Beyond the Hanning Taper&mdash;The Multitaper Method
-The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is $1/K$ times the variance of the estimated spectrum from a single taper, where $K$ is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)].
+The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is $1/K$ times the variance of the estimated spectrum from a single taper, where $K$ is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)].
 
-In the preceding examples, we estimated the spectrum from an observed time series. Often from these estimates we have difficulty identifying features that are significant (or not). For example, consider the small peak at 40–50 Hz in the plot of the ECoG spectrum (<a href="#fig:4-11d" class="fig">figure<span><img src="imgs/4-11d.png"></span></a>). Is that peak significant or a random fluctuation we expect in an estimate from real-world ECoG data? To address this question, we might consider collecting more data and using these additional data to improve our estimate of power. However, collecting more data does not automatically improve the spectral estimate. Instead, collecting more data (i.e., increasing the duration of data recorded, $T$) produces more spectral estimates at additional frequencies, yet the spectrum at each frequency remains just as variable. We would like a way to improve the spectral estimate—a way to reduce the variability of the estimate—so that we could more confidently identify interesting features. The multitaper method offers a procedure to do so. However, this comes at a cost. If we desire reduced variance in the spectral estimate, we must accept worse frequency resolution. Let’s explore these issues in more detail.
+In the preceding examples, we estimated the spectrum from an observed time series. Often from these estimates we have difficulty identifying features that are significant (or not). For example, consider the small peak at 40–50 Hz in the plot of the ECoG spectrum.<a href="#fig:4-11d" class="fig"><sup>fig</sup><img src="imgs/4-11d.png"></a> Is that peak significant or a random fluctuation we expect in an estimate from real-world ECoG data? To address this question, we might consider collecting more data and using these additional data to improve our estimate of power. However, collecting more data does not automatically improve the spectral estimate. Instead, collecting more data (i.e., increasing the duration of data recorded, $T$) produces more spectral estimates at additional frequencies, yet the spectrum at each frequency remains just as variable. We would like a way to improve the spectral estimate—a way to reduce the variability of the estimate—so that we could more confidently identify interesting features. The multitaper method offers a procedure to do so. However, this comes at a cost. If we desire reduced variance in the spectral estimate, we must accept worse frequency resolution. Let’s explore these issues in more detail.
 
 To get a sense for the multitaper method, let’s examine some of the tapers. We will use the [Nitime](http://nipy.org/nitime/) module for this.
 
@@ -736,17 +685,8 @@ To get a sense for the multitaper method, let’s examine some of the tapers. We
 
 {:.input_area}
 ```python
-import nitime.algorithms.spectral as spectrum
-```
-
-
-
-
-{:.input_area}
-```python
-import nitime.algorithms.spectral as spectrum
 w, _ = spectrum.dpss_windows(N, 3, 5)               # Get the first 5 tapers,
-plt.subplot(1, 2, 1)                                # ... and plot them
+plt.subplot(1, 2, 1)               # ... and plot them
 plot(w.T)
 plt.legend(['1st taper','2nd taper','3rd taper','4th taper', '5th taper'])
 filtered_x = np.array([taper * x + 2.5*i for taper,i in zip(w, range(5))])
@@ -772,13 +712,11 @@ $$TW = X,$$
 where $T$ is the duration of the recording, $2W$ is the desired frequency resolution (or resolution bandwidth), and we're free to choose $X$, the aptly named *time-bandwidth product*. For concreteness, let's consider the 1 s of ECoG data.
 
 <div class="alert alert-block alert-info">
-<p>
-**Q.** Given 1 s of data, what is the frequency resolution?
-</p>
 
-<p>
+**Q.** Given 1 s of data, what is the frequency resolution?
+
 **A.** Using the equation for the frequency resolution $df = 1/T$, we find $df = 1/(1\mbox{s}) = 1$ Hz. Without applying the multitaper method, we begin with a frequency resolution of 1 Hz. We now concede some frequency resolution to apply the multitaper method and reduce the variability in the spectral estimate.
-</p>
+
 </div>
 
 Remember that a frequency resolution of 1 Hz indicates that we can resolve features in the spectrum separated in frequency by 1 Hz or more. For example, at a frequency resolution of 1 Hz, we can distinguish 10 Hz activity from 9 Hz or 11 Hz activity. However, we are unable to distinguish 10 Hz activity from 10.5 Hz or 9.5 Hz; those frequencies lie within the frequency resolution.
@@ -787,7 +725,7 @@ Let’s assume we do not require a frequency resolution of 1 Hz; instead, we are
 
 $$\mbox{No. of tapers} = 2TW - 1.$$
 
-We choose the first $2 T W - 1$ tapers because doing so allows us to preserve most of the information present in the original data. We could choose fewer tapers, but in most cases we follow this rule of thumb and pick as many tapers as we can. Choosing more tapers does not improve the multitaper estimate of the spectrum and may lead to spurious results; for more details, see [[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762)]. So, for the ECoG data of interest here, we select the number of tapers to be $2 \times 3 - 1 = 5$. These five tapers are plotted above on the left. Applying these tapers to the ECoG data, we create the five time series shown on the right. We then compute the spectrum of each tapered ECoG time series, and average the resulting spectra across the five tapers. Through this averaging procedure across tapers, we reduce the variability of the spectral estimate.
+We choose the first $2 T W - 1$ tapers because doing so allows us to preserve most of the information present in the original data. We could choose fewer tapers, but in most cases we follow this rule of thumb and pick as many tapers as we can. Choosing more tapers does not improve the multitaper estimate of the spectrum and may lead to spurious results; for more details, see [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)]. So, for the ECoG data of interest here, we select the number of tapers to be $2 \times 3 - 1 = 5$. These five tapers are plotted above on the left. Applying these tapers to the ECoG data, we create the five time series shown on the right. We then compute the spectrum of each tapered ECoG time series, and average the resulting spectra across the five tapers. Through this averaging procedure across tapers, we reduce the variability of the spectral estimate.
 
 <div class="math-note">
     
@@ -801,7 +739,7 @@ We choose the first $2 T W - 1$ tapers because doing so allows us to preserve mo
 
 </div>
 
-The multitaper method is a sophisticated approach, and we have only touched on the surface in this brief discussion. There are many detailed references and important applications [[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)]. Fortunately, there are also Python software packages and functions to implement and apply the multitaper method. We will use the function `multi_taper_psd()` from the [Nitime](http://nipy.org/nitime/index.html) package to compute the multitaper spectrum of the ECoG data:
+The multitaper method is a sophisticated approach, and we have only touched on the surface in this brief discussion. There are many detailed references and important applications [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US)]. Fortunately, there are also Python software packages and functions to implement and apply the multitaper method. We will use the function `multi_taper_psd()` from the [Nitime](http://nipy.org/nitime/index.html) package to compute the multitaper spectrum of the ECoG data:
 
 
 
@@ -851,7 +789,7 @@ The function `multi_taper_psd()` takes three inputs: the data (here `x-x.mean()`
 <a id='ci'></a>
 ### Confidence Intervals of the Spectrum
 
-Another useful feature of the `pmtm()` function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with $K$ tapers can be computed using a chi-square distribution with $2K$ degrees of freedom [[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762)], 
+Another useful feature of the `pmtm()` function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with $K$ tapers can be computed using a chi-square distribution with $2K$ degrees of freedom [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)], 
 
 $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) < S(f) < \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) $$
 
@@ -861,7 +799,6 @@ Here, $\hat S(f)$ is our estimate of the spectral power at frequency $f$ (i.e., 
 
 {:.input_area}
 ```python
-from scipy.stats import chi2
 K = 2 * NW - 1                   # Compute the default number of tapers.
     
 def chi2conf(K, Sxx=1, ci=.95):  # Define a short function to compute confidence bounds.
@@ -911,18 +848,10 @@ plt.show()
 </div>
 
 <div class="question">
-    
-<p>
 
 **Q.** Use the spectral analysis results to draw some conclusions about the data. What rhythms do you think are present?
 
-</p>
-
-<p>
-
 **A.** Our previous analysis using the Hanning taper suggested two peaks in the spectrum: a large peak near 6 Hz, and a second smaller peak near 10–15 Hz. Both peaks are still visible, at least partially, in the multitaper spectra estimates. We notice that as the time-bandwidth product increases, the frequency resolution becomes worse, and it becomes more difficult to resolve these two peaks; these neighboring peaks start to smear together. This is expected and the trade-off we accept in the multitaper method. The big payoff of the multitaper method occurs in the higher-frequency bands. As the time-bandwidth product increases, we observe a small elevation across a broad frequency range, at approximately 30–50 Hz. The spectral density in this interval is small and was hidden by the noise in the previous spectral estimates using the rectangular taper or the Hanning taper. However, by using many tapers in the multitaper method, we reduce this noise and reveal the broad elevation of power. Physiologically, the impact of this observation is enormous; the data exhibit a broad gamma band peak—one of the best studied and understood frequency bands in the brain—with implications for cognitive function and dysfunction [[Buzsáki, 2006](https://doi.org/10.1093/acprof:oso/9780195301069.001.0001)].
-
-</p>
 
 </div>
 
@@ -933,133 +862,6 @@ plt.show()
 In this module, we analyzed the rhythmic activity present in 1 s of ECoG data. We computed the spectrum and considered two issues: zero padding and tapering. We discussed that zero padding can increase the number of points along the frequency axis but cannot change the frequency resolution. We also explored the trade-off between three different tapers: the rectangular taper, the Hanning taper, and the multitaper method. The Hanning taper reduces the side lobes present in the rectangular taper, but fattens the spectral peaks. The multitaper method reduces the variance of the spectrum at the cost of worsened frequency resolution. Applying all three measures to the ECoG data allowed us to explore the rhythmic activity of these data in different ways. All three methods suggest rhythmic content at low frequencies, near 6–7 Hz, consistent with the visual inspection of the time series. Applying the Hanning taper, we uncovered activity in the 10–15 Hz range. Applying the multitaper method, we uncovered broadband activity at 30–50 Hz. This activity, hidden in the noisy spectrum, only became apparent upon increasing the number of tapers. However, this increase necessarily reduces the frequency resolution and can hide the low-frequency rhythms. In this case, we find it useful to examine the spectrum in a variety of ways.
 
 Here we have only touched the surface of these concepts. Further discussions of zero padding, tapering, and the multitaper method may be found in 
-[Percival & Walden, 1993](https://doi.org/10.1017/CBO9780511622762), 
+[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), 
 [Priestly, 1981](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6), 
 and [Press, Teukolsky, Vetterling & Flannery, 2007](http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880688).
-
-
-
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
-
-
-
-
-
-<div markdown="0" class="output output_html">
-<style>
-.left {
-    margin-left: 0px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-	border-color: #d6e9c6;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-	border-color: #faebcc;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    color: #31708f;
-    background-color: #d9edf7;
-	border-color: #bce8f1;
-	/*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-	border-radius: 5px;
-}
-.question, .math-note, .python-note p {
-    margin-top: 1em;
-}
-.question, .math-note, .python-note * + p {
-    margin-bottom: 0;
-}
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.output_area iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-	width:100%;
-	max-width:500px;
-}
-.thumb {
-    position: inherit;
-}
-.thumb span { 
-    width: 200px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-    width: 100%;
-	max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-		
-} 
-.fig {
-    position: inherit;
-}   
-.fig img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-	width: 100%;
-}
-.fig span { 
-	visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-
-</div>
-
-

@@ -6,7 +6,7 @@ prev_page:
   url: /02/the-event-related-potential
   title: 'The Event-Related Potential'
 next_page:
-  url: /03/supplement-autocovariance
+  url: /03/supplements/supplement-autocovariance
   title: 'Biased versus unbiased autocovariance'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
