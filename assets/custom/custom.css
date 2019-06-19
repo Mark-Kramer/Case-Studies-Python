@@ -61,7 +61,7 @@
 }
 .inner_cell img {
     width:100%;
-    max-width:500px;
+    max-width:700px;
 }
 .thumb {
     position: inherit;
@@ -72,7 +72,7 @@
 .thumb span { 
 }
 .thumb img { 
-    max-width: 300px;
+    max-width: 400px;
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -112,7 +112,7 @@
 .fig img, .figsup img { 
     border:1px solid #000;
     visibility: hidden;
-    max-width: 500px;
+    max-width: 700px;
     width: inherit;
     background-color: black;
     border-radius: 6px;
