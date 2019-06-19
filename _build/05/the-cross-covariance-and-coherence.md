@@ -269,6 +269,7 @@ a.imshow(E1,  #... and show the image,
 xlabel('Time [s]')
 ylabel('Trial #');
 title('All trials from E1')
+show()
 ```
 
 
@@ -343,7 +344,7 @@ r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+
 $$
 </span>
 
-where $x_{n,k}$ indicates the data at time index $n$ and trial $k$, and $\bar{x}_k$ is the mean value of $x$ for trial $k$.  Notice that we include a new term $\frac{1}{K} \sum_{k=1}^K$, which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K$.  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
+where $x_{n,k}$ indicates the data at time index $n$ and trial *k*, and $\bar{x}_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term $\frac{1}{K} \sum_{k=1}^K$, which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K$.  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
 
 <div class="math-note">
     
@@ -409,11 +410,11 @@ where $x$ and $y$ are two time series with time index $n$.  Notice what we've do
 
 The intuition for understanding the cross-covariance is similar to that for the autocovariance (see [chapter 3](../03)). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
 
-<img src="imgs/cartoon_xc.png"></img>
+<img src="imgs/cartoon_xc.png" style="width: 90%; max-width: 600px">
 
 Here we show a cartoon representation of the cross-covariance between two time series $x$ and $y$. Data $x$ and $y$ are visualized as one-dimensional vectors, $x$ in black and $y$ in blue. The cross-covariance at (b) lag 0, (c) lag 1, and (d) lag 2 requires different alignments between the two vectors. To compute the cross-covariance at each lag, we multiply the overlapping elements of the two vectors, and sum the product. Non-overlapping elements are not included in the computation.
 
-The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1">
+The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1"></a>
 
 
 
@@ -548,7 +549,7 @@ The implementation of the trial-averaged cross-covariance is similar to the impl
 
 We may therefore conclude the following. At the single-trial level we find strong cross-covariance that is periodic with period near 0.125 s (examples in the figure aove). However, we find much weaker trial-averaged cross-covariance; the cross-covariance structure that exists at the single-trial level does not persist when averaged across trials.
 
-Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [Summary](#summary) below.
+Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [summary](#summary) below.
     
 </div>
 
