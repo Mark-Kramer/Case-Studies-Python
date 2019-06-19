@@ -64,20 +64,15 @@
     max-width:500px;
 }
 .thumb {
+    position: inherit;
     cursor: help;
     color: #57b733;
-    top: -0.5em;
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-    border-bottom: none;
     text-decoration: underline dotted;
 }
 .thumb span { 
 }
 .thumb img { 
-    max-width: 200px;
+    max-width: 300px;
     visibility: hidden;
     background-color: black;
     color: #fff;
@@ -85,12 +80,7 @@
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    /*left: 50%;*/
-    /*top: 40%;*/
-    /*margin-left: -100px;*/
     width: inherit;
-    /*margin-left: auto;*/
-    /*margin-right:; auto;*/
     z-index: 99;
     transition: 5ms visibility;
     border:1px solid #000;
@@ -116,6 +106,8 @@
 .fig {
     position: inherit;
     color: #57b733;
+    cursor: help;
+    text-decoration: underline dotted;
 }   
 .fig img, .figsup img { 
     border:1px solid #000;
@@ -126,13 +118,17 @@
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     /*top: 40%;
     left: 50%;
     margin-left: -250px;*/
     transition: 5ms visibility;
     z-index: 99;
+}
+.figsup img {
+    position: inherit;
 }
 .fig span { 
 }
