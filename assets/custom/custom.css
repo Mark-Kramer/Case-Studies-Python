@@ -44,6 +44,7 @@
 .question p, .math-note p, .python-note p, .warning p {
     /*margin-top: 1em;*/
     margin-top: 0;
+    margin-bottom: 0;
 }
 .question * + p, .math-note * + p, .python-note * + p, .warning * + p {
     /*margin-bottom: 0;*/
@@ -62,35 +63,18 @@
 .inner_cell img {
     width:100%;
     max-width:700px;
+    max-height: 90%;
 }
-.thumb {
+.fig, .thumb {
     position: inherit;
-    cursor: help;
     color: #57b733;
+    cursor: help;
     text-decoration: underline dotted;
-}
-.thumb span { 
-}
-.thumb img { 
+    max-width: 700px;
+}   
+.thumb img{ 
     max-width: 400px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    width: inherit;
-    z-index: 99;
-    transition: 5ms visibility;
-    border:1px solid #000;
-    background:#fff;
 }
-.thumb:hover, .thumb:hover img { 
-    visibility:visible;
-    transition-delay: 500ms;
-        
-} 
 .figsup {
     cursor: help;
     color: #57b733;
@@ -101,39 +85,24 @@
     vertical-align: baseline;
     border-bottom: none;
     text-decoration: underline dotted;
-
+    max-width: 700px;
 }
-.fig {
-    position: inherit;
-    color: #57b733;
-    cursor: help;
-    text-decoration: underline dotted;
-}   
-.fig img, .figsup img { 
+.fig img, .figsup img, .thumb img { 
     border:1px solid #000;
     visibility: hidden;
-    max-width: 700px;
-    width: inherit;
     background-color: black;
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    /*top: 40%;
-    left: 50%;
-    margin-left: -250px;*/
     transition: 5ms visibility;
     z-index: 99;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .figsup img {
     position: inherit;
 }
-.fig span { 
-}
-
-.fig:hover, .fig:hover img, .figsup:hover img { 
+.fig:hover, .fig:hover img, .figsup:hover img, .thumb:hover, .thumb:hover img { 
     visibility:visible;
     transition-delay: 500ms;
 }
