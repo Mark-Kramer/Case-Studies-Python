@@ -1067,7 +1067,7 @@ Assuming that the noise term and signal $x$ are unrelated, their trial average i
 $$
 \begin{align}
 \gamma_j  	&= \dfrac{< Y_j \, X_j^* >}{< X_j \, X_j^*>} \, , \notag \\
-			&= \dfrac{< S_{xy,j} >}{< S_{xx,j} >} \, . \label{eq:model_coherence}
+			&= \dfrac{< S_{xy,j} >}{< S_{xx,j} >} \, .
 \end{align}
 $$
 
