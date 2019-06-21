@@ -6,8 +6,8 @@ prev_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
   title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 next_page:
-  url: /10/spiking-rhythms
-  title: 'Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task'
+  url: /11/spike-field-coherence
+  title: 'Analysis of Spike-Field Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

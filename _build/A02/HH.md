@@ -5,8 +5,8 @@ interact_link: content/A02/HH.ipynb
 kernel_name: python3
 title: 'Hodgkin Huxley Model'
 prev_page:
-  url: /A01/backprop
-  title: 'Backpropagation'
+  url: /11/spike-field-coherence
+  title: 'Analysis of Spike-Field Coherence'
 next_page:
   url: /A03/LIF
   title: 'Integrate and Fire Model'

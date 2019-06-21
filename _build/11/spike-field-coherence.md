@@ -3,11 +3,11 @@ interact_link: content/11/spike-field-coherence.ipynb
 kernel_name: python3
 title: 'Analysis of Spike-Field Coherence'
 prev_page:
-  url: /10/spiking-rhythms
-  title: 'Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task'
+  url: /09/point-process-glms
+  title: 'Modeling place Fields with Point Process Generalized Linear Models'
 next_page:
-  url: /A01/backprop
-  title: 'Backpropagation'
+  url: /A02/HH
+  title: 'Hodgkin Huxley Model'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
