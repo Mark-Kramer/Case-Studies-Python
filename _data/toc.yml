@@ -42,21 +42,21 @@
     url: /03/supplements/supplement-psd
   expand_sections: true
 
-- title: Analysis of Rhythmic Activity in the Electrocorticogram
+- title: The Power Spectrum (Part 2)
   url: /04/ecog-rhythms
   sections:
   - title: Multiplication and Convolution in Different Domains
     url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
   expand_sections: true
 
-- title: Cross Frequency Coupling
-  url: /07/cross-frequency-coupling
-
-- title: The Power Spectrum (Part 2)
-  url: /06/filtering-scalp-eeg
-
 - title: The Cross Covariance and Coherence
   url: /05/the-cross-covariance-and-coherence
+
+- title: Filtering Field Data
+  url: /06/filtering-scalp-eeg
+
+- title: Cross Frequency Coupling
+  url: /07/cross-frequency-coupling
 
 - title: Basic Visualizations and Descriptive Statistics of Spike Train Data
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
@@ -73,11 +73,11 @@
 # - title: Backpropagation
 #   url: /A01/backprop
 
-- title: Hodgkin Huxley Model
-  url: /A02/HH
+# - title: Hodgkin Huxley Model
+#   url: /A02/HH
 
-- title: Integrate and Fire Model
-  url: /A03/LIF
+# - title: Integrate and Fire Model
+#   url: /A03/LIF
 
-- title: Training a Perceptron
-  url: /A04/perceptron
+# - title: Training a Perceptron
+#   url: /A04/perceptron
