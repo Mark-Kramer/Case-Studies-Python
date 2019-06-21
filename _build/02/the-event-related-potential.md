@@ -38,42 +38,62 @@ _**Synopsis**_
     
     
 
+Before we start any computations, let's import some modules and functions that we will use throughout the chapter. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning. 
+
+You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, with would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first. 
+
+
+
+{:.input_area}
+```python
+from scipy.io import loadmat       # Import function to read data.
+from IPython.lib.display import YouTubeVideo  # Enable YouTube videos
+import numpy as np                 # Import numpy for computations
+import matplotlib.pyplot as plt    # Import a useful plotting package, 
+from matplotlib.pyplot import plot, xlabel, ylabel, title, show, subplots, savefig
+                                   # ... and a few specific functions that are used often
+# ... make the plots "inline".
+%matplotlib inline                 
+
+# Tools for this chapter
+from matplotlib.pyplot import imshow, colorbar, hlines, vlines
+from numpy import sqrt
+from numpy.random import randint
+
+```
+
+
 ## On-ramp: computing the event-related potential in Python
+
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 
 
 {:.input_area}
 ```python
-import scipy.io as sio             # Import package to read data.
-import matplotlib.pyplot as plt    # Import a useful plotting package, make the plots "inline".
+data = loadmat('EEG-1.mat')  # Load the data,
+EEGa = data['EEGa']  # ... and get the EEG from one condition,
+t = data['t'][0]   # ... and a time axis,
+ntrials = len(EEGa)  # ... and compute the number of trials.
 
-%matplotlib inline
-import numpy as np                 # Import numpy for computations
+mn = EEGa.mean(0)  # Compute the mean signal across trials (the ERP)
+sd = EEGa.std(0)  # Compute the std of the signal across trials
+sdmn = sd / sqrt(ntrials)  # Compute the std of the mean
 
-data = sio.loadmat('EEG-1.mat')    # Load the data,
-EEGa = data['EEGa']                # ... and get the EEG from one condition,
-t = data['t']                      # ... and a time axis,
-ntrials = EEGa.shape[0]            # ... and compute the number of trials.
-
-mn = np.mean(EEGa,0)               # Compute the mean signal across trials (the ERP)
-sd = np.std(EEGa,0)                # Compute the std of the signal across trials
-sdmn = sd / np.sqrt(ntrials)       # Compute the std of the mean
-
-plt.figure(figsize=(12,3))                   # Resize the figure
-plt.plot(t[0,:], mn, 'k', lw=3)              # Plot the ERP of condition A
-plt.plot(t[0,:], mn + 2 * sdmn, 'k:', lw=1)  # ... and include the upper CI
-plt.plot(t[0,:], mn - 2 * sdmn, 'k:', lw=1)  # ... and the lower CI
-plt.xlabel('Time [s]')                       # Label the axes
-plt.ylabel('Voltage [$\mu$ V]')
-plt.title('ERP of condition A')              # ... provide a useful title
-plt.show()                                   # ... and show the plot
+plt.figure(figsize=(12,3))  # Resize the figure
+plot(t, mn, 'k', lw=3)  # Plot the ERP of condition A
+plot(t, mn + 2 * sdmn, 'k:', lw=1)  # ... and include the upper CI
+plot(t, mn - 2 * sdmn, 'k:', lw=1)  # ... and the lower CI
+xlabel('Time [s]')  # Label the axes
+ylabel('Voltage [$\mu$ V]')
+title('ERP of condition A')  # ... provide a useful title
+show()  # ... and show the plot
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_4_0.png)
+![png](../images/02/the-event-related-potential_6_0.png)
 
 
 
@@ -143,7 +163,7 @@ In this chapter, we consider EEG data recorded from a single scalp electrode.  W
 
 An undergraduate student volunteers to participate in a psychology study at his university. In this study, EEG electrodes (sampling rate 500 Hz, i.e., 500 samples per second) are placed on the student's scalp, and he is seated in a comfortable chair in a dark, electrically isolated room.  The student is instructed to place headphones over his ears and listen to a series of repeated sounds.  The sounds consist of two tones - either a high pitch tone or a low pitch tone.  A single tone is presented once every few seconds, and the student responds with a button press to the low pitch tone.  The tone presentation is repeated to collect the EEG response to numerous presentations of the two tones, as illustrated here:
 
-<img src="imgs/example_recording.png">
+<img src="imgs/2-1.png">
 
 In this cartoon illustration of the EEG experiment, the EEG electrodes are placed on the scalp surface of a human subject (left).  The EEG activity (blue) is recorded as a function of time during presentation of high pitch tones (black) and low pitch tones (orange).
 
@@ -159,8 +179,8 @@ Our first step is to load the data into Python.  To do so, we use the function `
 
 {:.input_area}
 ```python
-import scipy.io as sio
-data = sio.loadmat('EEG-1.mat')
+from scipy.io import loadmat       # Import function to read data.
+data = loadmat('EEG-1.mat')
 ```
 
 
@@ -192,9 +212,31 @@ The keys that start and end with two underscores ( `__` ) are private and contai
 ```python
 EEGa = data['EEGa']
 EEGb = data['EEGb']
-t = data['t']
+t = data['t'][0]
 ```
 
+
+You may notice that we specified index zero when we imported the variable `t`. This is because `t` is a vector (one-dimensional) rather than an array (multi-dimensional). The default behavior of `loadmat()` is to extract variables as ndarray types (to see this, execute `type(EEGa)`). Specifically, if we don't tell Python to import the [zeroth](https://en.wikipedia.org/wiki/Zero-based_numbering) (row) element of `data['t']` then `t` will have shape (1, 500), rather than (500,). There may be cases where this arrangement is preferred, but best practice is to convert the variable to a one-diminsional vector.
+
+
+
+{:.input_area}
+```python
+print(data['t'].shape)
+print(t.shape)
+print(len(data['t']))
+print(len(data['t'][0]))
+```
+
+
+{:.output .output_stream}
+```
+(1, 500)
+(500,)
+1
+500
+
+```
 
 <div class="python-note">
     
@@ -213,20 +255,23 @@ whos
 
 {:.output .output_stream}
 ```
-Variable       Type       Data/Info
------------------------------------
-EEGa           ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
-EEGb           ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
-YouTubeVideo   type       <class 'IPython.lib.display.YouTubeVideo'>
-data           dict       n=6
-mn             ndarray    500: 500 elems, type `float64`, 4000 bytes
-np             module     <module 'numpy' from '/Us<...>kages/numpy/__init__.py'>
-ntrials        int        1000
-plt            module     <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
-sd             ndarray    500: 500 elems, type `float64`, 4000 bytes
-sdmn           ndarray    500: 500 elems, type `float64`, 4000 bytes
-sio            module     <module 'scipy.io' from '<...>es/scipy/io/__init__.py'>
-t              ndarray    1x500: 500 elems, type `float64`, 4000 bytes
+Variable   Type                          Data/Info
+--------------------------------------------------
+EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+colorbar   function                      <function colorbar at 0xb1970e620>
+data       dict                          n=6
+hlines     function                      <function hlines at 0xb1970f9d8>
+imshow     function                      <function imshow at 0xb1970fa60>
+mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+ntrials    int                           1000
+plt        module                        <module 'matplotlib.pyplo<...>es/matplotlib/pyplot.py'>
+randint    builtin_function_or_method    <built-in method randint <...>te object at 0x10af09ca8>
+sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
+sqrt       ufunc                         <ufunc 'sqrt'>
+t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
+vlines     function                      <function vlines at 0xb19710840>
 
 ```
 
@@ -245,7 +290,7 @@ So there are 1000 total trials, each consisting of 500 time points.  As a matter
 
 {:.input_area}
 ```python
-ntrials = EEGa.shape[0]
+ntrials = EEGa.shape[0]  # len(EEGa) would give the same result
 ```
 
 
@@ -303,7 +348,7 @@ Both `EEGb` and `EEGa` are complicated variables that contain many elements. To 
 
 {:.input_area}
 ```python
-print( EEGa[0, :] )
+print( EEGa[0] )  # EEGa[0, :] is equivalent to EEGa[0]
 ```
 
 
@@ -471,21 +516,21 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 
 Printing out the data to the screen is **not useful** in this case. How else can we deepen our understanding of these data? Let’s make a plot:
+<a id="fig:2"></a>
 
 
 
 {:.input_area}
 ```python
-import matplotlib.pyplot as plt    # First, import a useful plotting package, make the plots "inline".
-%matplotlib inline
-plt.plot(EEGa[0, :])               # Plot the data from condition A, trial 1.
-plt.show()
+plot(EEGa[0])                   # Plot the data from condition A, trial 1.
+savefig('imgs/2-2a')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_41_0.png)
+![png](../images/02/the-event-related-potential_45_0.png)
 
 
 
@@ -502,7 +547,7 @@ The variable `t` corresponds to the 1 s of EEG data recorded in each trial. We c
 
 {:.input_area}
 ```python
-dt = t[0, 1] - t[0, 0]  # Determine the sampling interval
+dt = t[1] - t[0]  # Determine the sampling interval
 ```
 
 
@@ -518,27 +563,28 @@ The new variable `dt` corresponds to the time between samples.
 <div id="singleTrial">
     
 We can now combine the time axis with the EEG data to make a more complete plot. Let’s also label the axes and give the plot a title.
+
 </div>
 
 
 
 {:.input_area}
 ```python
-plt.plot(t[0,:], EEGa[0, :])                     # Plot condition A, trial 1 data vs t.
-plt.xlabel('Time [s]')                           # Label the x-axis as time.
-plt.ylabel('Voltage [$\mu$ V]')                  # Label the y-axis as voltage.
-plt.title('EEG data from condition A, Trial 1')  # Add a title
+plot(t, EEGa[0])                     # Plot condition A, trial 1 data vs t.
+xlabel('Time [s]')                   # Label the x-axis as time.
+ylabel('Voltage [$\mu$ V]')          # Label the y-axis as voltage.
+title('EEG data from condition A, Trial 1')  # Add a title
 
 # Add a vertical line to indicate the stimulus time
-plt.plot([0.25, 0.25], [-4,4], 'k', lw=2)
-
-plt.show()
+plot([0.25, 0.25], [-4,4], 'k', lw=2)
+savefig('imgs/2-2b')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_49_0.png)
+![png](../images/02/the-event-related-potential_53_0.png)
 
 
 
@@ -550,26 +596,34 @@ This plot provides a nice summary of the data in the first trial of condition A.
 </div>
 
 So far we have visualized only the data from condition A. Because we are interested in whether the EEG behaves differently in the two conditions, visualizing both conditions simultaneously would be of use. We can do this as follows:
+<a id="fig:3"></a>
 
 
 
 {:.input_area}
 ```python
 plt.figure(figsize=(12, 3))     # Resize the figure to make it easier to see
-plt.plot(t[0,:],EEGa[0,:])      # Plot condition A, trial 1, data vs t,
-plt.plot(t[0,:],EEGb[0,:], 'r') # ... and the data from condition B, trial 1,
-plt.xlabel('Time [s]')          # Label the x-axis as time.
-plt.ylabel('Voltage [\mu V]')   # Label the y-axis as voltage.
-plt.title('EEG data from conditions A (blue) and B (red), Trial 1') # And give it a title.
-plt.show()
+plot(t,EEGa[0])                 # Plot condition A, trial 1, data vs t,
+plot(t,EEGb[0], 'r')            # ... and the data from condition B, trial 1,
+xlabel('Time [s]')              # Label the x-axis as time.
+ylabel('Voltage [\mu V]')       # Label the y-axis as voltage.
+title('EEG data from conditions A (blue) and B (red), Trial 1') # And give it a title.
+savefig('imgs/2-3')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_53_0.png)
+![png](../images/02/the-event-related-potential_57_0.png)
 
 
+
+<div class="python-note">
+
+Note that because we did not import the function `figure()` directly, we need to include the prefix `plt`.
+
+</div>
 
 <div class="question">
     
@@ -582,12 +636,6 @@ plt.show()
 </div>
 
 
-
-{:.input_area}
-```python
-from IPython.lib.display import YouTubeVideo
-YouTubeVideo('nandZ5aaRaQ')
-```
 
 
 
@@ -608,27 +656,29 @@ YouTubeVideo('nandZ5aaRaQ')
 
 
 These techniques allow us to visualize the data one trial at a time. That is useful but can be time consuming, especially for a large number of trials. For the EEG data of interest here, each condition contains 1,000 trials, and to visualize each trial separately could require 2,000 plots. We can certainly create 2,000 plots, but the subsequent visual inspection would be time consuming and difficult. Fortunately, a more efficient visualization approach exists: we can display the entire structure of the data across both time and trials as an image:
+<a id="fig:4"></a>
 
 
 
 {:.input_area}
 ```python
-plt.imshow(EEGa,                                   # Image the data from condition A.
+imshow(EEGa,                                   # Image the data from condition A.
            cmap='BuPu',                            # ... set the colormap (optional)
-           extent=[t[0,0], t[0,-1], 1, ntrials], # ... set axis extents
+           extent=[t[0], t[-1], 1, ntrials],       # ... set axis limits (t[-1] represents the last element of t)
            aspect='auto',                          # ... set aspect ratio 
            origin='lower')                         # ... put origin in lower left corner
-plt.xlabel('Time[s]')                              # Label the axes
-plt.ylabel('Trial #')
-plt.colorbar()                                     # Show voltage to color mapping
-plt.plot([0.25, 0.25], [1, 1000], 'k', lw=2)       # Indicate stimulus onset with line
-plt.show()
+xlabel('Time[s]')                              # Label the axes
+ylabel('Trial #')
+colorbar()                                     # Show voltage to color mapping
+vlines(0.25, 1, 1000, 'k', lw=2)       # Indicate stimulus onset with line
+savefig('imgs/2-4')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_58_0.png)
+![png](../images/02/the-event-related-potential_63_0.png)
 
 
 
@@ -672,27 +722,28 @@ Upon close inspection of the figure above, what response, if any, do you observe
 Visual inspection of the EEG data has so far come up empty. The EEG traces appear noisy or perhaps rhythmic, but from visual inspection of the individual trials it’s difficult to make a decisive conclusion of underlying structure (<a href="#singleTrial">see above</a>). To further investigate the activity in these data, we compute the **event-related potential** (ERP).
 
 To compute the ERP, we first assume that each trial evokes an instantiation of the same underlying brain process. So, in this case, we assume that the same brain response is evoked 1,000 times (once for each trial) for each condition. However, the evoked response due to the stimulus is small and hidden in the EEG signal by other ongoing activity unrelated to the stimulus (e.g., daydreaming, thoughts of dinner, thoughts of homework). Therefore, to tease out the weak evoked effect, **we average the EEG responses across trials**. Ideally, EEG activity unrelated to the stimulus will cancel out in the average, while EEG activity evoked by the stimulus will sum constructively. The procedure to perform and display this averaging can be done in Python as follows:
+<a id="fig:5"></a>
 
 
 
 {:.input_area}
 ```python
-import numpy as np               # import the NumPy module 
-plt.plot(t[0,:], np.mean(EEGa,0))# Plot the ERP of condition A
-plt.xlabel('Time [s]')           # Label the axes
-plt.ylabel('Voltage [$\mu V$]')
-plt.title('ERP of condition A')  # ... provide a title
-plt.show()                       # ... and show the plot
+plot(t, EEGa.mean(0))  # Plot the ERP of condition A
+xlabel('Time [s]')           # Label the axes
+ylabel('Voltage [$\mu V$]')
+title('ERP of condition A')  # ... provide a title
+savefig('imgs/2-5')
+show()                       # ... and show the plot
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_66_0.png)
+![png](../images/02/the-event-related-potential_71_0.png)
 
 
 
-Notice that in the first line, we compute the mean of `EEGa` using the numpy function `mean()`; see the documentation for this function [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html). The second input to the function `np.mean` tells Python to compute the mean over the first dimension of `EEGa` (recall that Python indexes from 0). The result is the ERP for condition A.
+In the first line, we compute the mean of `EEGa` using the method `mean()`; see the documentation for this function [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html). The default behavior is to compute the mean of all elements of the array. By calling `EEG.mean(0)`, we compute the mean along the zeroth dimension. The result is the ERP for condition A.
 
 <div class="question">
     
@@ -738,7 +789,7 @@ To compute the ERP we average the EEG data across many trials. Because of this, 
 
 This conclusion—that the ERP at each moment in time is approximately normally distributed—is useful because the normal distribution (also known as the Gaussian distribution or bell curve) possesses many convenient properties. First, a normal distribution is relatively simple; it can be completely specified with two parameters: the mean value and the standard deviation. Second, 95% of the values drawn from a normal distribution lie within approximately two standard deviations of the mean.
 
-<img src="imgs/gaussian.png" alt="Example Gaussian" width="40%" max-width="200px"/>
+<img src="imgs/gaussian.png" alt="Example Gaussian" style="width:40%; max-width:300px;"/>
 
 Here's a plot of the canonical normal distribution showing the mean (dotted vertical line) and standard deviation (blue). Ninety-five percent of values lie within the interval indicated by the red bar. 
 
@@ -748,7 +799,7 @@ Therefore, to construct a 95% confidence interval for the ERP, we need to determ
 
 {:.input_area}
 ```python
-mn = np.mean(EEGa,0)  # Compute the mean across trials (the ERP)
+mn = EEGa.mean(0)  # Compute the mean across trials (the ERP)
 ```
 
 
@@ -764,7 +815,7 @@ We again note that the second input to the `mean` function specifies the dimensi
 
 {:.input_area}
 ```python
-sd = np.std(EEGa,0)  # Compute the std across trials
+sd = EEGa.std(0)  # Compute the std across trials
 ```
 
 
@@ -774,7 +825,7 @@ But we’re not interested in the standard deviation of the EEG data across tria
 
 {:.input_area}
 ```python
-sdmn = sd / np.sqrt(ntrials)  # Compute the std of the mean
+sdmn = sd / sqrt(ntrials)  # Compute the std of the mean
 ```
 
 
@@ -784,24 +835,25 @@ Now, having found the mean (`mn`) and the standard deviation of the mean (`sdmn`
 
 {:.input_area}
 ```python
-# Import a few functions for convenience
-from matplotlib.pyplot import plot, xlabel, ylabel, title, show
-plt.figure(figsize=(12,3))               # Resize the figure
-plot(t[0,:], mn, 'k', lw=3)              # Plot the ERP of condition A
-plot(t[0,:], mn + 2 * sdmn, 'k:', lw=1)  # ... and include the upper CI
-plot(t[0,:], mn - 2 * sdmn, 'k:', lw=1)  # ... and the lower CI
-xlabel('Time [s]')                       # Label the axes
+fig, ax = subplots(figsize=(12, 3))     # Save the axes for use in later cells and resize the figure
+ax.plot(t, mn, 'k', lw=3)              # Plot the ERP of condition A
+ax.plot(t, mn + 2 * sdmn, 'k:', lw=1)  # ... and include the upper CI
+ax.plot(t, mn - 2 * sdmn, 'k:', lw=1)  # ... and the lower CI
+xlabel('Time [s]')                     # Label the axes
 ylabel('Voltage [$\mu$ V]')
-title('ERP of condition A')              # ... provide a useful title
-show()                                   # ... and show the plot
+title('ERP of condition A')            # ... provide a useful title
+fig                                    # ... and show the plot
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_86_0.png)
+![png](../images/02/the-event-related-potential_91_0.png)
 
 
+
+The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a>
 
 <div class="python-note">
     
@@ -813,8 +865,8 @@ A good rule of thumb when you are programming is that you should not be rewritin
 {:.input_area}
 ```python
 # Change the default figure size
-import matplotlib as mpl
-mpl.rcParams['figure.figsize'] = (12, 3)
+from matplotlib import rcParams
+rcParams['figure.figsize'] = (12, 3)
 
 # Create a function to label plots
 def labelPlot(title_string="Title"):
@@ -833,25 +885,48 @@ def labelPlot(title_string="Title"):
 ```
 
 
-The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a>
+<div class="question">
+    
+**Q.** How would you write a function to compute the ERP and confidence bounds of a dataset?
 
-<img src="imgs/ERPaCi.png" alt="ERP of condition A with line at 0" title="">
+</div>
 
-[Jump to bootstrap CI](#plt:erpA-m2)
+<div class="question">
+    
+**Q.** What do you think the following code will do?
+
+    ax.hlines(0, t[0], t[-1])
+
+Try it out.
+
+</div>
+
+<div class="question">
+    
+**Q.** What is the role of the method function `hlines()` in this code? *Hint*: If you have not encountered this function before, look it up in the Documentation.
+
+</div>
+
+
+
+{:.input_area}
+```python
+ax.hlines(0, t[0], t[-1])
+fig.savefig('imgs/2-7')
+fig
+```
+
+
+
+
+
+{:.output .output_png}
+![png](../images/02/the-event-related-potential_98_0.png)
+
+
+
 
 In the figure above, the thick line indicates the ERP for Condition A (i.e., the mean of the EEG across trials) while the thin dotted lines indicate the 95% confidence intervals.
-
-<div class="question">
-    
-**Q.** Use the following code to add a horizontal line to your plot of the ERP:
-
-`plot(t[0], np.zeros_like(mn), 'b')`
-</div>
-
-<div class="question">
-    
-**Q.** What is the role of the NumPy function `zeros_like()` in this code? *Hint*: If you have not encountered this function before, look it up in the Documentation.
-</div>
 
 We find three time intervals at which the confidence intervals of the ERP do not include zero: near 0.27 s, near 0.37 s, and near 0.47 s. These results suggest that for an interval of time following the stimulus presentation in condition A, the observed ERP is not a random fluctuation about zero but instead contains consistent structure across trials.
 
@@ -866,13 +941,37 @@ We find three time intervals at which the confidence intervals of the ERP do not
 
 In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate *differences* between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions). 
 
-Here's a plot the ERPs with confidence intervals for condition A (blue) and condition B (orange):
 
-<img src="imgs/erpBoth.png" alt="ERPs of both conditions" title="">
+
+{:.input_area}
+```python
+from my_module import ERP  # A function written by the author to compute the ERP
+
+erpA, ca_l, ca_h = ERP(data['EEGa'])  # Compute the ERP of condition A
+erpB, cb_l, cb_h = ERP(data['EEGb'])  # ... and condition B
+
+plot(t, ca_l, 'r:', t, ca_h, 'r:')  # Plot confidence bounds in back
+plot(t, cb_l, 'b:', t, cb_h, 'b:')
+plot(t, erpA, 'r', lw=3, label='condition A')  # ... and ERPs in front
+plot(t, erpB, 'b', lw=3, label='condition B')
+
+# Prettify
+labelPlot('ERP of conditions A and B')
+legend()
+savefig('imgs/2-8a')
+show()
+```
+
+
+
+{:.output .output_png}
+![png](../images/02/the-event-related-potential_105_0.png)
+
+
 
 <div class="question">
     
-**Q.** Can you write the code to make this plot yourself?
+**Q.** In the cell above, the ERPs and confidence bounds are computed using a function written by the author. Can you write the code to make this plot yourself?
 </div>
 
 As you can see, the plot of both ERPs is rather messy; it’s difficult to determine through visual inspection alone in which intervals the ERPs exhibit significant separation.
@@ -889,27 +988,27 @@ where $\sigma_A$ is the standard deviation of the data from condition A, $\sigma
 
 {:.input_area}
 ```python
-mnA   = np.mean(EEGa,0)                  # ERP of condition A
-sdmnA = np.std(EEGa,0) / np.sqrt(ntrials)# ... and standard dev of mean
+mnA = EEGa.mean(0)  # ERP of condition A
+sdmnA = EEGa.std(0) / sqrt(ntrials)  # ... and standard dev of mean
 
-mnB   = np.mean(EEGb,0)                  # ERP of condition B
-sdmnB = np.std(EEGb,0) / np.sqrt(ntrials)# ... and standard dev of mean
+mnB = EEGb.mean(0)  # ERP of condition B
+sdmnB = EEGb.std(0) / sqrt(ntrials)  # ... and standard dev of mean
 
-mnD = mnA - mnB                          # the differenced ERP
-sdmnD = np.sqrt(sdmnA ** 2 + sdmnB ** 2) # ... and its standard dev
+mnD = mnA - mnB  # the differenced ERP
+sdmnD = sqrt(sdmnA ** 2 + sdmnB ** 2)  # ... and its standard dev
 
-plot(t[0], mnD, 'k', lw=3)               # plot the differenced ERP
-plot(t[0], mnD + 2 * sdmnD, 'k:')        # ... the upper CI
-plot(t[0], mnD - 2 * sdmnD, 'k:')        # ... and the lower CI
-plot([0, 1], [0, 0], 'b')                # ... and a horizontal line at 0
-labelPlot('Differenced ERP')             # label the plot
+plot(t, mnD, 'k', lw=3)  # plot the differenced ERP
+plot(t, mnD + 2 * sdmnD, 'k:')  # ... the upper CI
+plot(t, mnD - 2 * sdmnD, 'k:')  # ... and the lower CI
+plot([0, 1], [0, 0], 'b')  # ... and a horizontal line at 0
+labelPlot('Differenced ERP')  # label the plot
 show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_103_0.png)
+![png](../images/02/the-event-related-potential_108_0.png)
 
 
 
@@ -917,7 +1016,7 @@ In the code above we first compute the ERP and standard deviation of the mean fo
 
 <div class="question">
     
-**Q:** Examine the [plot of the differenced ERP](#plt:differencedERP). In what intervals of time do the EEG responses in the two conditions significantly differ?
+**Q:** Examine the plot of the differenced ERP. In what intervals of time do the EEG responses in the two conditions significantly differ?
 </div>
 
 [Return to top](#introduction)
@@ -1008,7 +1107,7 @@ then the first and fifth trials of the resampled EEG will equal the tenth trial 
 
 {:.input_area}
 ```python
-EEG0 = EEGa[i, :]  # Create the resampled EEG.
+EEG0 = EEGa[i]  # Create the resampled EEG.
 ```
 
 
@@ -1047,7 +1146,7 @@ That completes step 1 of the resampling procedure.
 
 {:.input_area}
 ```python
-ERP0 = np.mean(EEG0,0)  # Create the resampled ERP
+ERP0 = EEG0.mean(0)  # Create the resampled ERP
 ```
 
 
@@ -1088,16 +1187,16 @@ ERP0 = np.mean(EEG0,0)  # Create the resampled ERP
 {:.input_area}
 ```python
 i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
-EEG1 = EEGa[i,:];                 # ... create resampled EEG,
-ERP1 = np.mean(EEG1,0);           # ... create resampled ERP.
+EEG1 = EEGa[i];  # ... create resampled EEG,
+ERP1 = EEG1.mean(0);  # ... create resampled ERP.
 
 i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
-EEG2 = EEGa[i,:];                 # ... create resampled EEG,
-ERP2 = np.mean(EEG2,0);           # ... create resampled ERP.
+EEG2 = EEGa[i];  # ... create resampled EEG,
+ERP2 = EEG2.mean(0);  # ... create resampled ERP.
 
 i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
-EEG3 = EEGa[i,:];                 # ... create resampled EEG,
-ERP3 = np.mean(EEG3,0);           # ... create resampled ERP.
+EEG3 = EEGa[i];  # ... create resampled EEG,
+ERP3 = EEG3.mean(0);  # ... create resampled ERP.
 ```
 
 
@@ -1116,17 +1215,17 @@ A better approach to create the 3,000 resampled ERPs is with a *for-loop*. We do
 
 {:.input_area}
 ```python
-def bootstrapERP(EEGdata, size=None):              # Steps 1-2
+def bootstrapERP(EEGdata, size=None):  # Steps 1-2
     """ Calculate bootstrap ERP from data (array type)"""
-    ntrials = np.shape(EEGdata)[0]                 # Get the number of trials
-    if size == None:                               # Unless the size is specified,
-        size = ntrials                             # ... choose ntrials
-    i = np.random.randint(ntrials, size=size)      # ... draw random trials,
-    EEG0 = EEGdata[i, :]                           # ... create resampled EEG,
-    return np.mean(EEG0,0)                         # ... return resampled ERP.
+    ntrials = len(EEGdata)  # Get the number of trials
+    if size == None:  # Unless the size is specified,
+        size = ntrials  # ... choose ntrials
+    i = np.random.randint(ntrials, size=size)  # ... draw random trials,
+    EEG0 = EEGdata[i]  # ... create resampled EEG,
+    return EEG0.mean(0)  # ... return resampled ERP.
 
-ERP0 = [bootstrapERP(EEGa) for _ in range(3000)]   # Step 3: Repeat 3000 times 
-ERP0 = np.array(ERP0)                              # ... and convert the result to an array
+ERP0 = [bootstrapERP(EEGa) for _ in range(3000)]  # Step 3: Repeat 3000 times 
+ERP0 = np.array(ERP0)  # ... and convert the result to an array
 ```
 
 
@@ -1178,22 +1277,23 @@ Note that it is good practice, but not required, to define a function that conta
 
 {:.input_area}
 ```python
-ERP0.sort(axis=0)                        # Sort each column of the resampled ERP
-ciL = ERP0[int(0.025*ERP0.shape[0]), :]  # Determine the lower CI
-ciU = ERP0[int(0.975*ERP0.shape[0]), :]  # ... and the upper CI
-mnA = EEGa.mean(0)                       # Determine the ERP for condition A
-plot(t[0], mnA, 'k', lw=3)               # ... and plot it
-plot(t[0], ciL, 'k:')                    # ... and plot the lower CI
-plot(t[0], ciU, 'k:')                    # ... and the upper CI
-plot([0, 1], [0, 0], 'b')                # plot a horizontal line at 0
-                                         # ... and label the axes
+ERP0.sort(axis=0)  # Sort each column of the resampled ERP
+N = len(ERP0)  # Define the number of samples
+ciL = ERP0[int(0.025*N)]  # Determine the lower CI
+ciU = ERP0[int(0.975*N)]  # ... and the upper CI
+mnA = EEGa.mean(0)  # Determine the ERP for condition A
+plot(t, mnA, 'k', lw=3)  # ... and plot it
+plot(t, ciL, 'k:')  # ... and plot the lower CI
+plot(t, ciU, 'k:')  # ... and the upper CI
+hlines(0, 0, 1, 'b')  # plot a horizontal line at 0
+                      # ... and label the axes
 labelPlot('ERP of condition A with bootstrap confidence intervals')  # We define this function above!
 ```
 
 
 
 {:.output .output_png}
-![png](../images/02/the-event-related-potential_139_0.png)
+![png](../images/02/the-event-related-potential_144_0.png)
 
 
 
@@ -1282,7 +1382,7 @@ In isolation, the numerical value for `stat` is not very useful or interesting. 
 
 It may seem odd to create pseudodata by selecting trials across both conditions; intuitively, we may expect the data to differ in these two conditions and feel uncomfortable making a pseudodata set that includes trials from both conditions. But under the null hypothesis, we assume no difference between the EEG responses in conditions A and B, and we are therefore free to create pseudodata drawing from trials in both conditions. We do so with the goal of creating a distribution of values for `stat` under the null hypothesis that conditions A and B exhibit no difference. We then compare the observed value of `stat` with this distribution of `stat` values. If there is a difference between the two conditions, we expect to find the observed value of `stat` to be very different from the distribution of `stat` values generated from the pseudodata under the null hypothesis.
 
-To create the distribution of `stat` values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the confidence intervals for the ERP (<a href="#fig:1" class="fig">figure<span><img src="imgs/1.png"></span></a>). We proceed as follows:
+To create the distribution of `stat` values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the [confidence intervals for the ERP](#fig:1) <abbr class="figsup">fig<img src="imgs/2-1.png"></abbr>. We proceed as follows:
 
 1. Merge the 1,000 trials each of EEG data from conditions A and B to form a combined distribution of 2,000 trials.
 1. Sample with replacement 1,000 trials of EEG data from the combined distribution, and compute the resampled ERP.
@@ -1297,14 +1397,14 @@ The code to implement this procedure is similar to the bootstrapping procedure t
 
 {:.input_area}
 ```python
-EEG = np.vstack((EEGa, EEGb))              # Step 1. Merge EEG data from all trials
-np.random.seed(123)                        # For reproducibility
+EEG = np.vstack((EEGa, EEGb))  # Step 1. Merge EEG data from all trials
+np.random.seed(123)  # For reproducibility
 
-def bootstrapStat(EEG):                    # Steps 2-4.
+def bootstrapStat(EEG):  # Steps 2-4.
     mnA = bootstrapERP(EEG, size=ntrials)  # Create resampled ERPa. The function 'bootstrapERP' is defined above!
     mnB = bootstrapERP(EEG, size=ntrials)  # Create resampled ERPb
-    mnD = mnA - mnB                        # Compute differenced ERP
-    return max(np.abs(mnD))                # Return the statistic
+    mnD = mnA - mnB  # Compute differenced ERP
+    return max(abs(mnD))  # Return the statistic
 
 statD = [bootstrapStat(EEG) for _ in range(3000)]  # Resample 3,000 times
 ```
@@ -1369,124 +1469,3 @@ To emphasize the evoked signal, we computed the ERP, which involved averaging th
 Finally, we assessed whether the two ERPs from condition A and condition B differed. We did so through visual inspection, by comparing the differences in the ERPs, and by computing a statistic and assessing its significance through a bootstrapping procedure. Using the last procedure, we concluded that the ERP in the two conditions significantly differed.
 
 [Return to top](#introduction)
-
-
-
-
-
-
-
-<div markdown="0" class="output output_html">
-<style>
-.left {
-    margin-left: 0px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-	border-color: #d6e9c6;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-	border-color: #faebcc;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    color: #31708f;
-    background-color: #d9edf7;
-	border-color: #bce8f1;
-	/*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-	border-radius: 5px;
-}
-.question, .math-note, .python-note p {
-    margin-top: 1em;
-}
-.question, .math-note, .python-note * + p {
-    margin-bottom: 0;
-}
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.output_area iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-	width:100%;
-	max-width:500px;
-}
-.thumb {
-    position: inherit;
-}
-.thumb span { 
-    width: 200px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-    width: 100%;
-	max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-		
-} 
-.fig {
-    position: inherit;
-}   
-.fig img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-	width: 100%;
-}
-.fig span { 
-	visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-
-</div>
-
-

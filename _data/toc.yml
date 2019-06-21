@@ -37,16 +37,16 @@
   url: /03/the-power-spectrum-part-1
   sections:
   - title: Biased versus unbiased autocovariance
-    url: /03/supplement-autocovariance
+    url: /03/supplements/supplement-autocovariance
   - title: Intuition behind the power spectral density
-    url: /03/supplement-psd
+    url: /03/supplements/supplement-psd
   expand_sections: true
 
 - title: Analysis of Rhythmic Activity in the Electrocorticogram
   url: /04/ecog-rhythms
   sections:
   - title: Multiplication and Convolution in Different Domains
-    url: /04/appendix-multiplication-and-convolution-in-different-domains
+    url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
   expand_sections: true
 
 - title: Cross Frequency Coupling

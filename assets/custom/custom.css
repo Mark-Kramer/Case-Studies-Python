@@ -44,78 +44,60 @@
 .question p, .math-note p, .python-note p, .warning p {
     /*margin-top: 1em;*/
     margin-top: 0;
+    margin-bottom: 0;
 }
 .question * + p, .math-note * + p, .python-note * + p, .warning * + p {
     /*margin-bottom: 0;*/
     margin-top: 1em;
 }
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.output_area iframe {
+.output_area img, .output_area iframe, .output_html iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 .inner_cell img {
     width:100%;
-    max-width:500px;
+    max-width:700px;
+    max-height: 90%;
 }
-.thumb {
-    position: inherit;
-}
-.thumb span { 
-    width: 200px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.thumb img { 
-    border:1px solid #000;
-    margin:0px;
-    background:#fff;
-    width: 100%;
-    max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-    visibility:visible;
-    transition-delay: 500ms;
-        
-} 
-.fig {
+.fig, .thumb {
     position: inherit;
     color: #57b733;
+    cursor: help;
+    text-decoration: underline dotted;
+    max-width: 700px;
 }   
-.fig img { 
-    border:1px solid #000;
-    margin:0px;
-    background:#000;
-    /*width: 100%;*/
+.thumb img{ 
+    max-width: 400px;
 }
-.fig span { 
-    /*add .fig img here so that you don't need to span everything */
+.figsup {
+    cursor: help;
+    color: #57b733;
+    top: -0.5em;
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+    border-bottom: none;
+    text-decoration: underline dotted;
+    max-width: 700px;
+}
+.fig img, .figsup img, .thumb img { 
+    border:1px solid #000;
     visibility: hidden;
-    width: 500px;
     background-color: black;
-    color: #fff;
-    text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 99;
-    right: 10%;
     transition: 5ms visibility;
+    z-index: 99;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-.fig:hover, .fig:hover img { 
+.figsup img {
+    position: inherit;
+}
+.fig:hover, .fig:hover img, .figsup:hover img, .thumb:hover, .thumb:hover img { 
     visibility:visible;
     transition-delay: 500ms;
 }

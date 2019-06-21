@@ -3,11 +3,11 @@ interact_link: content/07/cross-frequency-coupling.ipynb
 kernel_name: python3
 title: 'Cross Frequency Coupling'
 prev_page:
-  url: /04/appendix-multiplication-and-convolution-in-different-domains
+  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
   title: 'Multiplication and Convolution in Different Domains'
 next_page:
-  url: /05/the-cross-covariance-and-coherence
-  title: 'The Cross Covariance and Coherence'
+  url: /06/filtering-scalp-eeg
+  title: 'The Power Spectrum (Part 2)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

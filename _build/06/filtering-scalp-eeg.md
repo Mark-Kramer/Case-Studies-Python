@@ -100,7 +100,7 @@ We note that the variable EEG is a matrix, with each row corresponding to a sing
     
 **A.** Inspection of the variable `t`, loaded into Python, reveals that the sampling interval is 0.001 s, or 1 ms, and the sampling frequency is therefore 1/(0.001 s), or 1000 Hz.
     
-<div>
+</div>
 
 Visual inspection of the 1 s interval of the first trial suggests at least two distinct features. First, a rapid oscillation appears to occur, with amplitude near 1 mV. Second, a large deviation in voltage occurs (near 0.2 s). Additional slower oscillations may occur, although it’s difficult to tell from visual inspection alone.
 
@@ -410,7 +410,7 @@ plot(faxis, xf_filtered.real, label='xf filtered')  # ... and the real part of x
 xlabel('Freq (Hz)')  # ... with axes labeled
 ylabel('Real(xf)')
 legend()
-savefig('imgs/6-4a')
+savefig('imgs/6-4')
 show()
 ```
 
@@ -529,21 +529,24 @@ fig
 ```
 
 
-
-
-
-{:.output .output_png}
-![png](../images/06/filtering-scalp-eeg_50_0.png)
-
-
-
-
-
-{:.output .output_data_text}
-```
-<Figure size 864x216 with 0 Axes>
+{:.output .output_traceback_line}
 ```
 
+    ---------------------------------------------------------------------------
+
+    IndexError                                Traceback (most recent call last)
+
+    <ipython-input-60-11dfe2c2ab43> in <module>()
+    ----> 1 ax.lines.pop(0)  # Hide the plot of x
+          2 ax.set_ylim([-.2, .5])  # Zoom in on the y-axis
+          3 savefig('imgs/6-5c')
+          4 fig
+
+
+    IndexError: pop from empty list
+
+
+```
 
 <div class="question">
     
@@ -711,7 +714,7 @@ fig
 
 
 
-We have now examined two equivalent methods of filter application: through multiplication in the frequency domain or through convolution in the time domain. Both approaches provide insight into the impact of the naive rectangular filter. The frequency domain representation is easier to interpret. We designed this filter in the frequency domain to eliminate signal components near 60 Hz, which we implemented through an abrupt decrease in the <a href="#fig:4" class="fig">frequency domain representation of the filter<span><img src="imgs/6-4a.png"></span></a>. It’s relatively easy to envision that this filter eliminates signal features near &plusmn;60 Hz and preserves features at other frequencies (<a href="#fig:4" class="fig">figure<span><img src="imgs/6-4bc.png"></span></a>).
+We have now examined two equivalent methods of filter application: through multiplication in the frequency domain or through convolution in the time domain. Both approaches provide insight into the impact of the naive rectangular filter. The frequency domain representation is easier to interpret. We designed this filter in the frequency domain to eliminate signal components near 60 Hz, which we implemented through an abrupt decrease in the [frequency domain representation](#fig:4) of the filter<span class="figsup">fig<img src="imgs/6-4a.png"></span>. It’s relatively easy to envision that this filter eliminates signal features near &plusmn;60 Hz and preserves features at other frequencies.
 
 The <a href="#fig:6a" class="fig">time domain representation of the naive rectangular filter<span><img src="imgs/6-6b.png"></span></a> is more complicated. While the impact of the filter in the frequency domain is limited, the impact in the time domain is broad. The impulse response decays at times away from the impulse; however, these contributions do remain. This example illustrates the necessary trade-off between the time and frequency domains. Namely, the sharp transition bands, or roll-off in the frequency domain (i.e., the nearly vertical rectangular-shaped transitions) correspond to a broad impulse response function that extends over many lags in the time domain. There’s no escaping this fact: the sharper we make the filter’s transitions in the frequency domain, the broader its effects in time. Again, we make this trade-off to implement the sharp roll-off of the naive rectangular filter; the transition band is narrow (a precipitous drop) in frequency and therefore requires many values in time.
 
@@ -1408,143 +1411,3 @@ We concluded by reanalyzing the EEG data. To do so, we first lowpass filtered th
 The design and application of filters is an enormous and rich field of study. The goal of this chapter is not a thorough discussion of filtering. Instead, we introduced only a handful of filtering concepts that motivate a basic understanding of filtering. These concepts extend directly from ideas developed to compute the spectrum in chapters [3](../03) and [4](../04). Through tools such as the Fourier transform and convolution, we are able to visualize and apply filters in the frequency and time domains. These same tools apply and provide context for alternative approaches to filtering. For further details in the design and application of filters see [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161)]. We apply filters in [chapter 7](../07) to assess cross-frequency coupling in neural field data.
 
 [Back to Top](#top)
-
-
-
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
-
-
-
-
-
-<div markdown="0" class="output output_html">
-<style>
-.left {
-    margin-left: 0px;
-}
-.warning {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    /*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    border-radius: 5px;
-}
-.question p, .math-note p, .python-note p, .warning p {
-    /*margin-top: 1em;*/
-    margin-top: 0;
-}
-.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
-    /*margin-bottom: 0;*/
-    margin-top: 1em;
-}
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.output_area iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-    width:100%;
-    max-width:500px;
-}
-.thumb {
-    position: inherit;
-}
-.thumb span { 
-    width: 200px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.thumb img { 
-    border:1px solid #000;
-    margin:0px;
-    background:#fff;
-    width: 100%;
-    max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-    visibility:visible;
-    transition-delay: 500ms;
-        
-} 
-.fig {
-    position: inherit;
-    color: #57b733;
-}   
-.fig img { 
-    border:1px solid #000;
-    margin:0px;
-    background:#000;
-    /*width: 100%;*/
-}
-.fig span { 
-    /*add .fig img here so that you don't need to span everything */
-    visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 99;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover img { 
-    visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-
-</div>
-
-

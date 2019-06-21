@@ -3,8 +3,8 @@ interact_link: content/05/the-cross-covariance-and-coherence.ipynb
 kernel_name: python3
 title: 'The Cross Covariance and Coherence'
 prev_page:
-  url: /07/cross-frequency-coupling
-  title: 'Cross Frequency Coupling'
+  url: /06/filtering-scalp-eeg
+  title: 'The Power Spectrum (Part 2)'
 next_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
   title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
@@ -51,55 +51,76 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 
 {:.input_area}
 ```python
-import scipy.io as sio
-import numpy as np
-import matplotlib.pyplot as plt
-%matplotlib inline
+# Import tools for the chapter
+from numpy.fft import fft, rfft, rfftfreq
+figsize(12, 3)  # Default to wide figs
+```
 
-data = sio.loadmat('ECoG-1.mat')                  # Load the data,
-E1 = data['E1']                                   # ... from the first electrode,
-E2 = data['E2']                                   # ... and from the second electrode.
-t = data['t'][0]                                  # Load the time axis,
-dt = t[1]-t[0]                                    # ... to get the sampling interval,
-T = t[-1]                                         # ... and the total time of the recording.
-K,N = np.shape(E1)                                # Get the number of trials, and number of pts per trial.
 
-Sxx = np.zeros([K,int(N/2+1)])		              # Create variables to save the spectra,
-Syy = np.zeros([K,int(N/2+1)])
-Sxy = np.zeros([K,int(N/2+1)], dtype=complex)
-for k in range(K):			                      # For each trial,
-    x=E1[k,:]-np.mean(E1[k,:])                    # ... get the data from each electrode,
-    y=E2[k,:]-np.mean(E2[k,:])
-    xf  = np.fft.rfft(x-np.mean(x))               # ... compute Fourier transform,
-    yf  = np.fft.rfft(y-np.mean(y))
-    Sxx[k,:] = 2*dt**2/T *np.real(xf*np.conj(xf)) # ... and compute the spectra.
-    Syy[k,:] = 2*dt**2/T *np.real(yf*np.conj(yf))
-    Sxy[k,:] = 2*dt**2/T *       (xf*np.conj(yf))
 
-Sxx = np.mean(Sxx,0)		                      # Average the spectra across trials,
-Syy = np.mean(Syy,0)
-Sxy = np.mean(Sxy,0)
 
-cohr = np.abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))# ... and compute the coherence.
+{:.input_area}
+```python
+data = loadmat('ECoG-1.mat')  # Load the data,
+E1 = data['E1']  # ... from the first electrode,
+E2 = data['E2']  # ... and from the second electrode.
+t = data['t'][0]  # Load the time axis,
+dt = t[1] - t[0]  # ... to get the sampling interval,
+T = t[-1]  # ... and the total time of the recording.
+N = E1.shape[1]  # Determine the number of sample points per trial
+scale = 2 * dt**2 / T  # Scaling constant
 
-f = np.fft.rfftfreq(N, dt)                        # Define a frequency axis.
-plt.plot(f, cohr);		                          # Plot coherence vs frequency,
-plt.xlim([0, 50])			                      # ... in a chosen frequency range,
-plt.ylim([0, 1])                                  # ... with y-axis scaled,
-plt.xlabel('Frequency [Hz]')                      # ... and with axes labelled.
-plt.ylabel('Coherence');
+# Compute the Fourier transforms
+xf = np.array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
+yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
+
+# Compute the spectra
+Sxx = scale * (xf * xf.conj()).mean(0)  # Spectrum of E1 trials
+Syy = scale * (yf * yf.conj()).mean(0)  # ... and E2 trials
+Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
+
+# Compute the coherence.
+cohr = abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))
+
+f = rfftfreq(N, dt)  # Define a frequency axis.
+plot(f, cohr.real)  # Plot coherence vs frequency,
+xlim([0, 50])  # ... in a chosen frequency range,
+ylim([0, 1])  # ... with y-axis scaled,
+xlabel('Frequency [Hz]')  # ... and with axes labeled.
+ylabel('Coherence')
+title('Coherence between two electrodes')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_4_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_5_0.png)
 
 
+
+<div class="question">
 
 **Q:** Try to read the code above. Can you see how it loads data, computes the coherence, and then plots the results?
 
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+
+<div class="python-note">
+    
+You may have noticed that we did not to import all of the packages like we usually do. This is because we made a *startup.py* file. Most programs offer this type of shortcut so that if you find yourself repeatedly executing the same commands when the program opens, you can instead automate the commands. If you run Python in Jupyter notebooks, you can do this by putting .py files in your IPython startup directory.
+
+    get_ipython().profile_dir.startup_dir
+
+The commands that we use for this notebook are in the *startup.py* file in the [GitHub repo](#https://github.com/Mark-Kramer/Case-Studies-Python). To get the same behavior on your computer, copy this file to your startup directory. To do this, save *startup.py* to your home folder and then run the following commands in your [console application](https://en.wikipedia.org/wiki/Console_application) or [shell](https://en.wikipedia.org/wiki/Shell_(computing)):
+
+    mkdir -p ~/.ipython/profile_default/startup/
+    cp startup.py ~/.ipython/profile_default/startup/
+
+Alternatively, you may simply copy the contents of the file to a code cell in this notebook.
+    
+</div>
 
 # Introduction
 
@@ -133,8 +154,7 @@ We begin by loading the data:
 
 {:.input_area}
 ```python
-import scipy.io as sio
-data = sio.loadmat('ECoG-1.mat')
+data = loadmat('ECoG-1.mat')
 ```
 
 
@@ -196,13 +216,11 @@ E1.shape
 
 
 
-We observce that the data consist of 100 trials, each consisting of 500 data points.
+We observe that the data consist of 100 trials, each consisting of 500 data points.
 
 <div class="question">
     
-
 **Q.** Is the shape of `E2` similar?  HINT: It should be!
-
     
 </div>
 
@@ -212,18 +230,18 @@ Let's now plot the data in the first trial from each electrode: <a id="fig:trace
 
 {:.input_area}
 ```python
-from matplotlib.pyplot import plot, xlabel, ylabel, xlim, ylim
-%matplotlib inline
-plot(t,E1[0,:], 'b')            # Plot the data from the first trial of one electrode,
-plot(t,E2[0,:], 'r')            # ... and the first trial of the other electrode.
+f, a = subplots()
+a.plot(t,E1[0,:], 'b')            # Plot the data from the first trial of one electrode,
+a.plot(t,E2[0,:], 'r')            # ... and the first trial of the other electrode.
 xlabel('Time [s]');
 ylabel('Voltage [mV]');
+fig, ax = {'traces': f}, {'traces': a}
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_27_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_29_0.png)
 
 
 
@@ -237,26 +255,37 @@ Visual inspection of the data in this trial immediately suggests a dominant rhyt
     
 </div>
 
-These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image: <a id="fig:image"> 
+These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image:
 
 
 
 {:.input_area}
 ```python
-import matplotlib.pyplot as plt
-import numpy as np
-K = np.shape(E1)[0]                              #Get the number of trials,
-plt.imshow(E1,                                   #... and show the image,
-           extent=[np.min(t), np.max(t), K, 1],  #... with meaningful axes,
-           aspect=0.01)                          #... and a nice aspect ratio.
+K = E1.shape[0]  #Get the number of trials,
+f, a = subplots(figsize=(6, 6))  # Make a square axis
+a.imshow(E1,  #... and show the image,
+           extent=[min(t), max(t), K, 1],  # ... with meaningful axes,
+           aspect='auto')  # ... and a nice aspect ratio
 xlabel('Time [s]')
 ylabel('Trial #');
+title('All trials from E1')
+show()
 ```
 
 
 
+
+
+{:.output .output_data_text}
+```
+Text(0.5,1,'All trials from E1')
+```
+
+
+
+
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_31_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_33_1.png)
 
 
 
@@ -278,17 +307,19 @@ Visual inspection of the ECoG data allows us to draw some preliminary conclusion
 
 {:.input_area}
 ```python
+f, a = subplots(4, 1, figsize=(12, 3*4))
 for j in range(4):
-    plt.subplot(4,1,j+1)
-    plot(t,E1[j,:], 'b')            # Plot the data from trial j of one electrode,
-    plot(t,E2[j,:], 'r')            # ... and trial j of the other electrode.
-    ylabel('Trial ' + str(j))
+    a[j].plot(t, E1[j], 'b')            # Plot the data from trial j of one electrode,
+    a[j].plot(t, E2[j], 'r')            # ... and trial j of the other electrode.
+    a[j].set_ylabel('Trial ' + str(j))
+    
+savefig('imgs/traces')
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_35_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_37_0.png)
 
 
 
@@ -304,15 +335,18 @@ Although visual inspection is a useful initial tool for analyzing data, assessin
 
 ### Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
 
-In [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG), we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, <a id="eq:ac"></a>
+In [chapter 3](../03), we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, 
 
+
+<span id="eq:ac" title="trial-averaged autocovariance">   
 $$
 r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (x_{n,k} - \bar{x}_k) \, ,
 $$
-    
-where $x_{n,k}$ indicates the data at time index $n$ and trial $k$, and $\bar{x}_k$ is the mean value of $x$ for trial $k$.  Notice that we include a new term $\frac{1}{K} \sum_{k=1}^K$, which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K$.  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python<a id="fig:ac"></a>.
+</span>
 
-<div class="python-note">
+where $x_{n,k}$ indicates the data at time index $n$ and trial $k,$ and $\overline x_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K.$  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
+
+<div class="math-note">
     
 Note: We could instead write the trial-averaged sample autocovariance because this equation uses the observed data to estimate the theoretical covariance that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.
     
@@ -322,35 +356,37 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 
 {:.input_area}
 ```python
-dt = t[1]-t[0]			                # Define the sampling interval.
-K = np.shape(E1)[0]			            # Define the number of trials.
-N = np.shape(E1)[1]                     # Define number of points in each trial.
-ac = np.zeros([2*N-1])                  # Declare empty vector for autocov.
+dt = t[1] - t[0]  # Define the sampling interval.
+K = E1.shape[0]  # Define the number of trials.
+N = E1.shape[1]  # Define number of points in each trial.
+ac = np.zeros([2 * N - 1])  # Declare empty vector for autocov.
 
-for index,trial in enumerate(E1):		# For each trial,
-    x = trial-np.mean(trial)			# ... subtract the mean,
-    ac0 =1/N*np.correlate(x,x,2)	    # ... compute autocovar,
-    ac += ac0/K;		                # ... and add to total, scaled by 1/K.
-    
-lags = np.arange(-N+1,N)                # Create a lag axis,
-plot(lags*dt,ac)                        # ... and plot the result.
+for trial in E1:  # For each trial,
+    x = trial - trial.mean()  # ... subtract the mean,
+    ac0 = 1 / N * np.correlate(x, x, 'full')  # ... compute autocovar,
+    ac += ac0 / K;  # ... and add to total, scaled by 1/K.
+
+lags = np.arange(-N + 1, N)  # Create a lag axis,
+plot(lags * dt, ac)  # ... and plot the result.
 xlim([-0.2, 0.2])
 xlabel('Lag [s]')
 ylabel('Autocovariance');
+title('Trial averaged autocovariance')
+savefig('imgs/taac')
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_41_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_43_0.png)
 
 
 
 <div class="question">
     
-**Q.** Consider the results for the trial-averaged autocovariance plotted in the figure [above](#fig:ac). What do these results suggest about the rhythmic structure in these data?
+**Q.** Consider the results for the trial-averaged autocovariance plotted above. What do these results suggest about the rhythmic structure in these data?
 
-**A:** The trial-averaged autocovariance helps characterize the rhythmic activity at this electrode. Visual inspection of this figure reveals three large positive peaks. The largest peak occurs at a lag of 0 s, as expected; the signal matches itself at zero lag. The two other peaks occur at lags of approximately $\pm 0.125$ s. These peaks reveal that the data, and a version of the data shifted by +0.125 s or -0.125 s, are a good match. Notice that a shift of $\pm 0.125$ s is consistent with periodic activity of approximate frequency 1/(0.125 s) = 8 Hz. For example, imagine a sinusoid of frequency 8 Hz; if we shift the sinusoid by its period (0.125 s) and compare it to the original (unshifted) sinusoid, the match will be excellent. Our data are more complicated than a simple sinusoid, but our visual inspection of the voltage traces ([figure](#fig:traces)) did reveal a dominant 8 Hz rhythm consistent with these autocovariance results.
+**A:** The trial-averaged autocovariance helps characterize the rhythmic activity at this electrode. Visual inspection of this figure reveals three large positive peaks. The largest peak occurs at a lag of 0 s, as expected; the signal matches itself at zero lag. The two other peaks occur at lags of approximately $\pm 0.125$ s. These peaks reveal that the data, and a version of the data shifted by +0.125 s or -0.125 s, are a good match. Notice that a shift of $\pm 0.125$ s is consistent with periodic activity of approximate frequency 1/(0.125 s) = 8 Hz. For example, imagine a sinusoid of frequency 8 Hz; if we shift the sinusoid by its period (0.125 s) and compare it to the original (unshifted) sinusoid, the match will be excellent. Our data are more complicated than a simple sinusoid, but our visual inspection of the [voltage traces](#fig:traces)<span class="fig"><sup>fig</sup><img src="imgs/5-1.png"></span> did reveal a dominant 8 Hz rhythm consistent with these autocovariance results.
     
 </div>
 
@@ -364,39 +400,44 @@ The trial-averaged autocovariance results for each electrode are interesting, bu
 
 The first is the **cross-covariance**, $r_{xy}\big[L\big]$, an extension of the autocovariance to include two time series, defined as,
 
+<span id="eq:xc" title="Cross-covariance">
 $$
 r_{xy}\big[L\big] = \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L} - \bar{x}) (y_{n} - \bar{y}) \, ,
 $$
-<a id="eq:xc"></a>
+</span>
 
-where $x$ and $y$ are two time series with time index $n$.  Notice what we've done;  compared to the autocovarance defined in ([this equation](#eq:ac)), the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
+where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in [chapter 3](../03),<span class="thumb"><sup>eq</sup><img src="../03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
 
-The intuition for understanding the cross-covariance is similar to that for the autocovariance (see [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG)). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
+The intuition for understanding the cross-covariance is similar to that for the autocovariance (see [chapter 3](../03)). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
 
-<img src="imgs/cartoon_xc.png"></img>
+<img src="imgs/cartoon_xc.png" style="width: 90%; max-width: 600px">
 
 Here we show a cartoon representation of the cross-covariance between two time series $x$ and $y$. Data $x$ and $y$ are visualized as one-dimensional vectors, $x$ in black and $y$ in blue. The cross-covariance at (b) lag 0, (c) lag 1, and (d) lag 2 requires different alignments between the two vectors. To compute the cross-covariance at each lag, we multiply the overlapping elements of the two vectors, and sum the product. Non-overlapping elements are not included in the computation.
 
-The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1">
+The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1"></a>
 
 
 
 {:.input_area}
 ```python
-x = E1[0,:] - np.mean(E1[0,:])		# Define one time series,
-y = E2[0,:] - np.mean(E2[0,:])		# ... and another.
-xc=1/N*np.correlate(x,y,2)	        # ... and compute their cross covariance.
-lags = np.arange(-N+1,N)            # Create a lag axis,
-plot(lags*dt,xc)					# ... and plot the cross covariance vs lags in time.
+x = E1[0,:] - np.mean(E1[0,:])  # Define one time series,
+y = E2[0,:] - np.mean(E2[0,:])  # ... and another.
+xc=1/N*np.correlate(x,y,2)  # ... and compute their cross covariance.
+lags = np.arange(-N+1,N)  # Create a lag axis,
+plot(lags*dt,xc)  # ... and plot the cross covariance vs lags in time.
+
+# Prettify
 xlim([-0.2, 0.2])
-xlabel('Lag [s]')					#... with axes labelled.
+xlabel('Lag [s]')
 ylabel('Cross covariance');
+title('Cross covariance between two electrodes during the first trial')
+savefig('imgs/xc_1')
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_45_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_47_0.png)
 
 
 
@@ -404,30 +445,30 @@ Notice that we subtract the mean from each electrode in defining `x` and `y` bef
 
 <div class="question">
     
-**Q.** Examine the cross-covariance between the ECoG data from the two electrodes in the first trial ([figure](#fig:xc_1)). What do you observe? At what lags are the largest and smallest values of the cross-covariance? How do these results compare to the trial-averaged autocovariance in [this figure](#fig:ac)? How do these results compare to the voltage traces from each electrode in the first trial ([figure](#fig:traces))?
+**Q.** Examine the cross-covariance between the ECoG data from the two electrodes in the first trial. What do you observe? At what lags are the largest and smallest values of the cross-covariance? How do these results compare to the [trial-averaged autocovariance](#fig:taac)?<span class="fig"><sup>fig</sup><img src="imgs/taac.png"></span> How do these results compare to the voltage traces from each electrode in the [first trial](#fig:traces)?<span class="fig"><sup>fig</sup><img src="imgs/traces.png"></span>
     
 </div>
 
-Like the trial-averaged autocovariance for a single electrode ([here](#fig:ac)), the cross-covariance between the two ECoG electrodes in the first trial reveals periodic variations ([figure](#fig:xc_1)). To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,
+Like the [trial-averaged autocovariance for a single electrode](#fig:taac),<span class="fig"><sup>fig</sup><img src="imgs/taac.png"></span> the [cross-covariance between the two ECoG electrodes](#fig:xc_1)<span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> in the first trial reveals periodic variations. To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,
 
 
 
 {:.input_area}
 ```python
-plot(t,E1[0,:], 'b')
-plot(t,E2[0,:], 'r')
-xlabel('Time [s]');
-ylabel('Voltage [mV]');
+fig['traces']
 ```
 
 
 
+
+
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_49_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_51_0.png)
 
 
 
-The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large; the sum in ([this equation](#eq:xc)) at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.
+
+The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large: i.e. the sum in [the cross-covariance equation](#eq:xc)<span class="thumb"><sup>eq</sup><img src='imgs/eq5-2.png'></span> at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.
 
 <div class="question">
     
@@ -435,48 +476,67 @@ The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagi
     
 </div>
 
-Let’s also define the *trial-averaged cross-covariance*. The formula is similar to the trial-averaged autocovariance in ([this equation](#eq:ac)):
+Let’s also define the *trial-averaged cross-covariance*. The formula is similar to the [trial-averaged autocovariance](#eq:ac):<span class="thumb"><sup>eq</sup><img src="imgs/eq5-1.png"></span>
+
 $$
 r_{xy}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (y_{n,k} - \bar{y}_k) \, .
 $$
-<a id="eq:taxc"></a>
-Notice that, compared to the trial-averaged autocovaraince in ([this equation](#eq:taac)), we have replaced the $x$'s in the last term with $y$'s to compute the trial-averaged cross-covariance.  To implement the trial-averaged cross-covariance in Python, consider the following code.
 
-For reference, let's also plot the **single-trial** cross-covaraince for 4 trials,  <a id="fig:avg_xc">
+<a id="eq:taxc"></a>
+Notice that, compared to the trial-averaged autocovariance, we have replaced the $x$'s in the last term with $y$'s to compute the trial-averaged cross-covariance.  To implement the trial-averaged cross-covariance in Python, consider the following code.
+
+For reference, let's also plot the **single-trial** cross-covariance for 4 trials,  
+<a id="fig:avg_xc"></a>
 
 
 
 {:.input_area}
 ```python
-XC = np.zeros([K,2*N-1])                    # Declare empty vector for cross cov.
-for k in range(K):			                # For each trial,
-    x = E1[k,:]-np.mean(E1[k,:])			# ...get data from one electrode,
-    y = E2[k,:]-np.mean(E2[k,:])			# ...and the other electrode,
-    XC[k,:]=1/N*np.correlate(x,y,2)         # ...compute cross covariance.
-plt.subplot(2,1,1)
-plot(lags*dt,np.mean(XC,0))					# Plot cross covariance vs lags in time.
-xlim([-0.2, 0.2])
-ylim([-0.6, 0.6])
-xlabel('Lag [s]')					        #... with axes labelled.
-plt.title('Trial-averaged cross covariance');
+XC = np.zeros([K, 2 * N - 1])  # Declare empty vector for cross cov.
+for k in range(K):  # For each trial,
+    x = E1[k] - E1[k].mean()  # ...get data from one electrode,
+    y = E2[k] - E2[k].mean()  # ...and the other electrode,
+    XC[k] = 1 / N * np.correlate(x, y, 'full')  # ...compute cross covariance.
 
-plt.subplot(2,1,2)
-for k in range(4):
-    plot(lags*dt,XC[k,:])                   # Also, plot the single-trial cross-covariance for 4 trials
+f, (a1, a2) = subplots(2, 1, figsize=(12, 6), sharex=True, sharey=True)    
+a1.plot(lags * dt, XC.mean(0))					# Plot cross covariance vs lags in time.
+[a2.plot(lags * dt, XC[k]) for k in range(4)]  # Also, plot the single-trial cross-covariance for 4 trials
+
+# Prettify
 xlim([-0.2, 0.2])
 ylim([-0.6, 0.6])
 xlabel('Lag [s]')
-plt.title('Example single-trial cross covariance');
-
-plt.subplots_adjust(hspace=1)               # Space out the subplots.
+a1.set_title('Trial-averaged cross covariance')
+a2.set_title('Single-trial cross-covariance')
+savefig('imgs/avg_xc')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_53_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_55_0.png)
 
 
+
+<div class="python-note">
+
+You may have noticed above or in previous chapters that we can write loops using a couple of different forms: 
+
+    for k in range(K):
+        ...
+        
+or 
+
+    [... for k in range(K)]
+    
+The difference is largely stylistic, but the resulting datatype may be different. With the first method, we typically initialize an array with zeros and then replace the zeros with the value that we have computed. The result is whatever datatype we initialized. The second method will result in a list. A list can be converted to a different type or simply treated differently. In the code above, we can actually compute `XC` in a single line with the following:
+
+    XC = [1 / N * np.correlate(x - x.mean(), y - y.mean(), 'full') for x, y in zip(E1, E2)]
+    
+At this point `XC` is a list object. We can change it to a numpy array with `XC = np.array(XC)`. Admittedly, there is something satisfying about accomplishing a lot in a single line. However, it is importsnt to write code that is *readable*, or easy to understand for someone who is looking at it for the first time. There may be times when a single line is more appropriate, but it is not true in every circumstance.
+
+</div>
 
 The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the `for` statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the `mean` command from the `numpy` package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.
 
@@ -487,20 +547,15 @@ The implementation of the trial-averaged cross-covariance is similar to the impl
 
 **A.** Perhaps the most striking difference between the two cross-covariances is their magnitude; the single-trial cross-covariances are much larger—approximately an order of magnitude—than the trial-averaged cross-covariance. To understand why this difference occurs, consider the impact of averaging the four example single-trial cross-covariances plotted in the figure above. At each lag, we find both positive and negtive cross-covariance values. We therefore expect that, upon averaging these values across trials, we will obtain a value near zero at each lag. In fact, that’s just what we find in the trial-averaged cross-covariance. Because the single-trial cross-covariance functions lack alignment across trials, the averaging procedure acts to cancel out the individual (large) fluctuations of each single-trial cross-covariance.
 
-
-
-
 We may therefore conclude the following. At the single-trial level we find strong cross-covariance that is periodic with period near 0.125 s (examples in the figure aove). However, we find much weaker trial-averaged cross-covariance; the cross-covariance structure that exists at the single-trial level does not persist when averaged across trials.
 
-
-
-Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [Summary](#summary) below.
+Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [summary](#summary) below.
     
 </div>
 
 ### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
 
-One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG) the Fourier transfom of a signal $x$; let's repeat that definition here,
+One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in [chapter 3](../03) the Fourier transfom of a signal $x$; let's repeat that definition here,
 
 $$
 X_j = \sum_{n=1}^N x_n \exp(-2 \pi i \, f_j \, t_n) \, .
@@ -524,24 +579,26 @@ As you may remember from a geometry or calculus class, we can represent a point 
 
 Using polar coordinates, we can then express the complex quantity $X_j$ as,
 
+<a id="eq:x_polar"></a>
 $$
 X_j = A_j \exp(i \phi_j) \, ,
 $$
-<a id="eq:x_polar"></a>
+
 
 where $A_j$ is the amplitude and $\phi_j$ is the phase at frequency index $j$.  Notice that both the amplitude and phase are functions of frequency.  Remember that, to compute the spectrum, we multiple the Fourier transform of the data by its complex conjugate, and scale the result. The spectrum of $x_n$ then becomes, 
 
-<a id="eq:Sxx">
+<span id="eq:8" title="Spectrum">
 $$
 \begin{align}
 S_{xx, \, j} 	&= \frac{2 \mathrm{dt}^2}{T} X_j X^*_j \label{eq:Sxx} \, , \\
 		&= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
 $$
-</a>
+</span>
 
 where, to compute the complex conjugate in the second term, we replace $i$ with $-i$.  The last expression simplifies rather nicely,
 
+<span id="eq:9" title="Simplified expression for the cross spectrum">
 $$
 \begin{align}
 S_{xx, \, j}	&= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \notag \\
@@ -549,51 +606,70 @@ S_{xx, \, j}	&= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \
 		&= \frac{2 \mathrm{dt}^2}{T} A_j^2 \, .
 \end{align}
 $$
-<a id="eq:pow_A"></a>
+</span>
 
 This expression provides a new, and perhaps more direct, interpretation of the spectrum as proportional to the squared amplitude of the point $X_j$ in the complex plane. We can extend this simplified expression in one additional way to make explicit the trial structure of the ECoG data analyzed here. Because we possess multiple trials, and we assume that each trial represents an instantiation of the same underlying process, we average the spectra across trials to compute the *trial-averaged spectrum*,
 
+<span title="Trial-averaged spectrum">
 $$
 <S_{xx, \, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k}^2 \, ,
 $$
-where $k$ indicates the trial number, $K$ the total number of trials, and $A_{j,k}$ the amplitude of the signal at frequency index $j$ and trial index $k$.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index $j$ across the $K$ trials.  We use the angular brackets ($< \, >$) to denote that the spectrum ($S_{xx, \, j}$) has been averaged across trials. We can compute the trial-averaged spectrum in Python<a id="fig:trial_avg_spectrum"></a>,
+</span>
+
+where $k$ indicates the trial number, $K$ the total number of trials, and $A_{j,k}$ the amplitude of the signal at frequency index $j$ and trial index $k$.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index $j$ across the $K$ trials.  We use the angular brackets ($< \, >$) to denote that the spectrum ($S_{xx, \, j}$) has been averaged across trials. We can compute the trial-averaged spectrum in Python,
+
+<a id="fig:trial_avg_spectrum"></a>
 
 
 
 {:.input_area}
 ```python
-T = t[-1]                                         # Get the total duration of the recording.
-Sxx = np.zeros([K,int(N/2+1)])		              # Create variable to store each spectrum.
-for k,x in enumerate(E1):				          # For each trial,
-    xf  = np.fft.rfft(x-np.mean(x)) 	          # ... compute the Fourier transform,
-    Sxx[k,:] = 2*dt**2/T *np.real(xf*np.conj(xf)) # ... and compute the spectrum.
-    
-f = np.fft.rfftfreq(N, dt)                        # Define a frequency axis
+T = t[-1]  # Get the total time of the recording.
+N = E1.shape[1]  # Determine the number of sample points per trial
+scale = 2 * dt**2 / T  # Compute the scaling constant
 
-plot(f,10*np.log10(np.mean(Sxx,0)))               # Plot average spectrum over trials in decibels vs frequency,
-xlim([0, 100])				                      # ... in select frequency range,
-ylim([-50, 0])                                    # ... in select power range,
-xlabel('Frequency [Hz]')	                      # ... with axes labelled.
+# Compute the Fourier transform for each trial
+xf = np.array([rfft(x - x.mean()) for x in E1])  # ... in E1
+yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and in E2
+
+# Compute the spectra
+Sxx = scale * (xf * xf.conj())  # Spectrum of E1 trials
+Syy = scale * (yf * yf.conj())  # ... and E2 trials
+Sxy = scale * (xf * yf.conj())  # ... and the cross spectrum
+
+f = rfftfreq(N, dt)  # Define the frequency axis
+
+# Plot the average spectrum over trials in decibels vs frequency
+plot(f, 10 * np.log10(Sxx.mean(0).real), lw=3, label='Trial-averaged spectrum')  
+# ... and the spectrum from the first trial for reference
+plot(f, 10 * np.log10(Sxx[0].real), 'k', label='Single-trial spectrum')  
+
+# Prettify
+xlim([0, 100])  # ... in select frequency range,
+ylim([-50, 0])  # ... in select power range,
+xlabel('Frequency [Hz]')  # ... with axes labelled.
 ylabel('Power [ mV^2/Hz]')
-
-plot(f,10*np.log10(Sxx[0,:]), 'r');               # Also, for reference, plot spectrum from the first trial.
+title('Trial-averaged spectrum')
+legend()
+savefig('imgs/trial_avg_spectrum')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_58_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_61_0.png)
 
 
 
 <div class="question">
     
 **Q:** Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?
-**A:** If not, we recommend reviewing the case study in [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG).
+**A:** If not, we recommend reviewing the case study in [chapter 3](../03).
     
 </div>
 
-The resulting trial-averaged spectrum is shown in the figure (blue in the figure above). Compared to the example spectrum from a single trial (red in the figure above), the variability is greatly reduced. By reducing the variability in this way, interesting structure in the data may become more apparent.
+The resulting trial-averaged spectrum is shown in the figure above. Compared to the example spectrum from a single trial, the variability is greatly reduced. By reducing the variability in this way, interesting structure in the data may become more apparent.
 
 <div class="question">
     
@@ -607,59 +683,61 @@ The resulting trial-averaged spectrum is shown in the figure (blue in the figure
 
 Coherence is a measure of association between two time series. Briefly:
 
-<div class="python-note">
+<div class="math-note">
     
 Two signals are coherent at some frequency if there exists a constant phase relation between them at this frequency.
     
 </div>
 
-To compute the coherence, we use the [simplified expression for the spectrum](#eq:pow_A) and an additional term, the cross-spectrum.
+To compute the coherence, we use the [simplified expression for the spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and an additional term, the cross-spectrum.
 
-Consider two signals $x_{n,k}$ and $y_{n,k}$, with time index $n$ and trial index $k$. These signals have corresponding Fourier transforms $X_{j,k}$ and $Y_{j,k}$. Then the trial-averaged cross-spectrum between these two signals is
+Consider two signals $x_{n,k}$ and $y_{n,k}$, with time index $n$ and trial index $k$. These signals have corresponding Fourier transforms $X_{j,k}$ and $Y_{j,k}$. Then the *trial-averaged cross-spectrum* between these two signals is
 
-<a id="eq:cross"></a>
+<span id="eq:10" title="Trial averaged cross-spectrum">
 $$
 <S_{xy,\, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K}\sum_{k=1}^K X_{j,k} Y^*_{j,k} \, ,
 $$
+</span>
 
-where compared to [the spectrum](#eq:Sxx) we replace $X^*_j$ with $Y^*_j$ and include the average over the trial index $k$.  Let's modify and clean up this expression by using polar coordinates.  To do so, we'll first define,
+where compared to [the spectrum](#eq:8)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-8.png"></span> we replace $X^*_j$ with $Y^*_j$ and include the average over the trial index $k$.  Let's modify and clean up this expression by using polar coordinates.  To do so, we'll first define,
 
 $$
 Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 $$
 
-where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in [the trial-averaged cross-spectrum](#eq:cross) with their polar coordinate expressions, we find,
+where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in [the trial-averaged cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,
 
-<a id="eq:cross_spectrum">
+<span id="eq:cross_spectrum" title="Cross spectrum">
 $$
 <S_{xy,\, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \, ,
 $$
-</a>
+</span>
 
 where we have defined the *phase difference* between the two signals as $\Phi_{j,k} = \phi_{j,k} - \theta_{j,k}$. This equation is the trial-averaged cross spectrum of the two signals $x_{n,k}$ and $y_{n,k}$.  We note that the trial-averaged cross spectrum ($<S_{xy,\, j}>$) can be complex (i.e., may have nonzero real and imaginary parts).
 
 At last we define the **coherence**,
 
-<a id="eq:cohr">
+<span id="eq:cohr" title="Coherence">
 $$
 \kappa_{xy,\, j} = \frac{ \mid <S_{xy,\, j}> \mid }{ \sqrt{<S_{xx, \, j}>} \sqrt{<S_{yy, \, j}>}} \, ,
+\tag{*}
 $$
-</a>
+</span>
 
 where $\mid <S_{xy,\, j}> \mid$ indicates the magnitude of the trial-averaged cross spectrum.  In words, the coherence is the magnitude of the trial-averaged cross spectrum between the two signals at frequency index $j$ divided by the magnitude of the trial-averaged spectrum of each signal at frequency index $j$.
 
-To further our understanding of the mathematical expression of the coherence in [the equation above](#eq:cohr), let's replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,
+To further our understanding of the mathematical expression of the coherence in ($*$), let's replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,
 
-<a id="eq:cohr_ang">
+<span id="eq:cohr_ang" title="Coherence in polar coordinates">
 $$
 \kappa_{xy,\, j} = \frac { \biggr\lvert \sum\limits_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
 			       { \sqrt{\sum\limits_{k=1}^K A_{j,k}^2} \,  \sqrt{\sum\limits_{m=1}^K B_{j,m}^2} }
 $$
-</a>
+</span>
 
 This expression is complicated.  So, to gain some intuition for the behavior of $\kappa_{xy,\, j}$, let's make the simplifying assumption that at each frequency the amplitude is identical for both signals and all trials, that is, $A_{j,k} = B_{j,k} = C_j$.  Notice that, in using only the expression $C_j$ for the amplitude, we've eliminated the trial index $k$, and only preserved the frequency index $j$. With this simplifying assumption, our expression for the coherence becomes,
 
-<a id="eq:cohr_simp">
+<span id="eq:cohr_simp" title="Coherence (simplified)">
 $$
 \begin{align}
 \kappa_{xy,\, j} &= \frac { \biggr\lvert \sum\limits_{k=1}^K C_j \, C_j \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
@@ -668,7 +746,7 @@ $$
 		    &= \frac{ 1 }{ K }\biggr\lvert \sum_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert \, .
 \end{align}
 $$
-</a>
+</span>
 
 Under the simplifying assumption that the amplitude is identical at each frequency for both signals and all trials, the coherence simplifies to the last equation in the expression above. In this special case, the expression for the coherence only involves the phase difference between the two signals averaged across trials; the amplitudes in the numerator and denominator have canceled out.
 
@@ -704,7 +782,7 @@ This expression defines a sum of vectors in the complex plane, each of radius 1 
     
 </div>
 
-The [coherence](#eq:cohr_simp) is this vector length, divided by $K$, so we conclude in this case that,
+The [coherence](#eq:cohr_simp)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this vector length, divided by $K$, so we conclude in this case that,
 
 $$
 \kappa_{xy,\, j} = 1 \, , \notag
@@ -735,7 +813,7 @@ As a second scenario, consider another specific frequency $j$ in which the two s
     
 </div>
 
-Under the simplifying assumption that the amplitude is identical at this frequency for both signals and all trials, the [coherence](#eq:cohr_simp) is this summed vector length, divided by $K$. Our visual inspection of the cartoon in the figure above (rightmost panel) suggests that this summed vector length will be small. Therefore, for this scenario we conclude that,
+Under the simplifying assumption that the amplitude is identical at this frequency for both signals and all trials, the [coherence](#eq:cohr_simp)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this summed vector length, divided by $K$. Our visual inspection of the cartoon in the figure above (rightmost panel) suggests that this summed vector length will be small. Therefore, for this scenario we conclude that,
 
 $$
 \kappa_{xy,\, j} \approx 0 \, , \notag
@@ -745,7 +823,7 @@ which indicates weak coherence between the two signals.  The weak coherence in t
 
 # Summary of the coherence <a id="Summary_of_the_coherence"></a>
 
-These two examples illustrate in simplified scenarios the behavior of the coherence. To summarize, the [coherence](#eq:cohr) is a measure of the relationship between $x$ and $y$ at the same frequency.  The coherence ranges between 0 and 1,
+These two examples illustrate in simplified scenarios the behavior of the coherence. To summarize, the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span> is a measure of the relationship between $x$ and $y$ at the same frequency.  The coherence ranges between 0 and 1,
 
 $$
 0 \leq \kappa_{xy,\, j}  \leq 1 \, , \notag
@@ -757,25 +835,26 @@ in which:
 
 <div class="python-note">
     
-    The coherence is a measure of the phase consistency between two signals at frequency index $j$ across trials.
+The coherence is a measure of the phase consistency between two signals at frequency index $j$ across trials.
     
 </div>
 
-We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see [Analysis of Rhythmic Activity in the Scalp EEG](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG) for details.
+We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see [chapter 3](../03) for details.
 
 <div class="question">
     
 **Q.** What are the units of the coherence?
-Hint: Consider [this equation](#eq:cohr) for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.
+Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqcohr.png"></a> for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.
     
 </div>
 
 [Return to top](#introduction)
 
 ## Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a>
-Although we defined the cross-spectrum in [this equation](#eq:cross) and used it to define the coherence in [this equation](#eq:cohr), the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show [here](https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/Analysis%20of%20Rhythmic%20Activity%20in%20the%20Scalp%20EEG/Supplement.%20Intuition%20behind%20the%20power%20spectral%20density.ipynb) that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners. 
 
-<div class="python-note">
+Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show [here](../03/Supplements/) that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners. 
+
+<div class="math-note">
     
 The cross-spectrum is the Fourier transform of the cross-covariance.
     
@@ -791,7 +870,7 @@ With that introduction, we are now equipped to compute the coherence. We expect 
 
 <div class="question">
     
-**Q.** Before we compute the coherence, hypothesize whether you expect to observe coherence between the two ECoG signals. If so, at what frequencies? Your hypothesis should be based on the previous visual analysis and spectral analysis of these data (see, for example, [this figure](#fig:traces) and [this figure](#fig:trial_avg_spectrum)).
+**Q.** Before we compute the coherence, hypothesize whether you expect to observe coherence between the two ECoG signals. If so, at what frequencies? Your hypothesis should be based on the previous visual analysis and spectral analysis of these data (see, for example, [this figure](#fig:traces)<span class="fig"><sup>fig</sup><img src="imgs/traces.png"></span> and [this figure](#fig:trial_avg_spectrum)<span class="fig"><sup>fig</sup><img src="imgs/trial_avg_spectrum.png"></span>).
     
 </div>
 
@@ -807,35 +886,32 @@ There are a variety of alternatives to compute the coherence. To start, let’s 
 
 {:.input_area}
 ```python
-Sxx = np.zeros([K,int(N/2+1)])		              # Create variables to save the spectra,
-Syy = np.zeros([K,int(N/2+1)])
-Sxy = np.zeros([K,int(N/2+1)], dtype=complex)
-for k in range(K):			                      # For each trial,
-    x=E1[k,:]-np.mean(E1[k,:])                    # Get the data from each electrode,
-    y=E2[k,:]-np.mean(E2[k,:])
-    xf  = np.fft.rfft(x-np.mean(x))               # ... compute Fourier transform,
-    yf  = np.fft.rfft(y-np.mean(y))
-    Sxx[k,:] = 2*dt**2/T *np.real(xf*np.conj(xf)) # ... and compute the spectra.
-    Syy[k,:] = 2*dt**2/T *np.real(yf*np.conj(yf))
-    Sxy[k,:] = 2*dt**2/T *       (xf*np.conj(yf))
+# Compute the Fourier transforms
+xf = np.array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
+yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
 
-Sxx = np.mean(Sxx,0)		                      # Average the spectra across trials,
-Syy = np.mean(Syy,0)
-Sxy = np.mean(Sxy,0)
+# Compute the spectra
+Sxx = scale * (xf * xf.conj()).mean(0)  # Spectrum of E1 trials
+Syy = scale * (yf * yf.conj()).mean(0)  # ... and E2 trials
+Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
 
-cohr = np.abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))# ... and compute the coherence.
+# Compute the coherence.
+cohr = abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))
 
-plot(f, cohr);		                              # Plot coherence vs frequency,
-xlim([0, 50])			                          # ... in chosen frequency range,
-ylim([0, 1])                                      # ... with y-axis scaled,
-xlabel('Frequency [Hz]')                          # ... and with axes labelled.
-ylabel('Coherence');
+f = rfftfreq(N, dt)  # Define a frequency axis.
+plot(f, cohr.real)  # Plot coherence vs frequency,
+xlim([0, 50])  # ... in a chosen frequency range,
+ylim([0, 1])  # ... with y-axis scaled,
+xlabel('Frequency [Hz]')  # ... and with axes labeled.
+ylabel('Coherence')
+title('Coherence between two electrodes')
+show()
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_86_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_89_0.png)
 
 
 
@@ -847,10 +923,10 @@ ylabel('Coherence');
 
 <div class="question">
     
-**Q:** Consider the coherence between the two ECoG electrodes plotted in the figure above. At what frequencies do strong coherences appear? How do these frequencies compare to the trial-averaged spectra, shown for one electrode in [this figure](#fig:trial_avg_spectrum)?
+**Q:** Consider the coherence between the two ECoG electrodes plotted in the figure above. At what frequencies do strong coherences appear? How do these frequencies compare to the trial-averaged spectra, shown for one electrode in <span class="fig">[this figure](#fig:trial_avg_spectrum)<img src="imgs/trial_avg_spectrum.png"></span>?
 
 
-**A:** The coherence measures the phase consistency at a chosen frequency between two signals across trials. For the ECoG data, both electrodes possess trial-averaged spectra with similar features: a large peak near 8 Hz and a smaller peak near 24 Hz (see the trial-averaged spectrum for one electrode in [this figure](#fig:trial_avg_spectrum)). However, the coherence between the two ECoG signals reveals a peak only at 24 Hz. We conclude that the two ECoG signals both exhibit a dominant oscillation at 8 Hz, yet this rhythm is not coherent across trials; only the smaller-amplitude rhythm at 24 Hz is coherent between the two electrodes.
+**A:** The coherence measures the phase consistency at a chosen frequency between two signals across trials. For the ECoG data, both electrodes possess trial-averaged spectra with similar features: a large peak near 8 Hz and a smaller peak near 24 Hz. However, the coherence between the two ECoG signals reveals a peak only at 24 Hz. We conclude that the two ECoG signals both exhibit a dominant oscillation at 8 Hz, yet this rhythm is not coherent across trials; only the smaller-amplitude rhythm at 24 Hz is coherent between the two electrodes.
     
 </div>
 
@@ -862,38 +938,39 @@ The coherence results suggest for the two ECoG recordings a constant phase relat
 
 {:.input_area}
 ```python
-j8 = np.where(f==8)[0][0]	         # Determine index j for frequency 8 Hz.
-j24= np.where(f==24)[0][0]	         # Determine index j for frequency 24 Hz.
+j8 = np.where(f==8)[0][0]  # Determine index j for frequency 8 Hz.
+j24 = np.where(f==24)[0][0]  # Determine index j for frequency 24 Hz.
 
-phi8=np.zeros(K)		             # Variables to hold phase differences.
-phi24=np.zeros(K)
+phi8 = np.zeros(K)  # Variables to hold phase differences.
+phi24 = np.zeros(K)
 
-for k in range(K):			         # For each trial, compute the cross spectrum. 
-    x=E1[k,:]-np.mean(E1[k,:])       # Get the data from each electrode,
-    y=E2[k,:]-np.mean(E2[k,:])
-    xf  = np.fft.rfft(x-np.mean(x))  # ... compute the Fourier transform,
-    yf  = np.fft.rfft(y-np.mean(y))
-    Sxy = 2*dt**2/T *(xf*np.conj(yf))# ... and the cross-spectrum,
-    phi8[k]  = np.angle(Sxy[j8])	 # ... and the phases.
+for k in range(K):  # For each trial, compute the cross spectrum. 
+    x = E1[k] - np.mean(E1[k])  # Get the data from each electrode,
+    y = E2[k] - np.mean(E2[k,:])
+    xf = rfft(x - np.mean(x))  # ... compute the Fourier transform,
+    yf = rfft(y - np.mean(y))
+    Sxy = 2 * dt**2 / T * (xf * np.conj(yf))  # ... and the cross-spectrum,
+    phi8[k] = np.angle(Sxy[j8])  # ... and the phases.
     phi24[k] = np.angle(Sxy[j24])
 
-plt.subplot(1,2,1)                   # Plot the distributions of phases.
-plt.hist(phi8, bins=20, range=[-np.pi, np.pi])
+_, (a1, a2) = subplots(1, 2, sharey=True, sharex=True)  # Plot the distributions of phases.
+a1.hist(phi8, bins=20, range=[-np.pi, np.pi])
+a2.hist(phi24, bins=20, range=[-np.pi, np.pi])
+
+# Prettify
 ylim([0, 40])
-ylabel('Counts')
-plt.title('Angles at 8 Hz')
-plt.subplot(1,2,2)
-plt.hist(phi24, bins=20, range=[-np.pi, np.pi])
-ylim([0, 40])
-plt.title('Angles at 24 Hz')
-ylabel('Counts')
-xlabel('Phase');
+a1.set_ylabel('Counts')
+a1.set_xlabel('Phase');
+a1.set_title('Angles at 8 Hz')
+
+a2.set_title('Angles at 24 Hz')
+a2.set_xlabel('Phase');
 ```
 
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_91_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_94_0.png)
 
 
 
@@ -903,7 +980,7 @@ To summarize the results, we plot a histogram of the phase differences. We divid
 
 <div class="question">
     
-**Q.** Compute and display the distribution of phase differences at other frequencies. What do you find? Are these results consistent with the coherence plotted in [this figure](#fig:cohr)?
+**Q.** Compute and display the distribution of phase differences at other frequencies. What do you find? Are these results consistent with the [coherence](#fig:cohr)<span class="fig"><sup>fig</sup><img src="imgs/cohr.png"></span>?
     
 </div>
 
@@ -917,7 +994,7 @@ We have emphasized that coherence is a measure of phase consistency between two 
     
 </div>
 
-To address this question, consider the [equation for the coherence written in polar coordinates](#eq:cohr_ang).  Remember that, in writing this equation, we have made no assumptions about the data;  instead, all we have done is express the complex quantities in polar coordinates.  Now consider this equation for the case in which we possess only one trial, so that $K=1$.  Then,
+To address this question, consider the [equation for the coherence written in polar coordinates](#eq:cohr_ang)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_ang.png"></span>.  Remember that, in writing this equation, we have made no assumptions about the data;  instead, all we have done is express the complex quantities in polar coordinates.  Now consider this equation for the case in which we possess only one trial, so that $K=1$.  Then,
 
 $$
 \kappa_{xy,\, j} = \frac { \biggr\lvert A_{j,1} B_{j,1} \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
@@ -990,11 +1067,11 @@ Assuming that the noise term and signal $x$ are unrelated, their trial average i
 $$
 \begin{align}
 \gamma_j  	&= \dfrac{< Y_j \, X_j^* >}{< X_j \, X_j^*>} \, , \notag \\
-			&= \dfrac{< S_{xy,j} >}{< S_{xx,j} >} \, . \label{eq:model_coherence}
+			&= \dfrac{< S_{xy,j} >}{< S_{xx,j} >} \, .
 \end{align}
 $$
 
-Then, comparing this expression to the [equation for coherence](#eq:cohr) we find,
+Then, comparing this expression to the [equation for coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span> we find,
 
 $$
 \begin{align}
@@ -1016,144 +1093,17 @@ To further assess the relation between the two electrodes, we computed the coher
     
 </div>
 
-In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found [strong single-trial cross-covariance](#fig:xc_1) with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.
+In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found [strong single-trial cross-covariance](#fig:xc_1)<span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.
 
 To understand this discrepancy, consider two unrelated signals, each dominated by the same rhythm. By unrelated we mean that the signals do not communicate in any way. Yet both are rhythmic and happen to oscillate at the same frequency. If we compute the cross-covariance between these two unrelated signals, we will find periodic lags at which the two signals nearly overlap and the cross-covariance is large. The period of these cross-covariance peaks corresponds to the period of the common rhythm shared by the two signals. Here the periodic, large cross-covariance values occur because the two signals happen to both exhibit a similar rhythm, not because one signal influences the other.
 
-This example illustrates a point of caution in the interpretation of cross-covariance results. Unrelated signals that happen to share a similar dominant rhythm will exhibit large periodic structure in the cross-covariance. One approach to defend against such cross-covariance results is to compute the trial-averaged cross-covariance. If two signals are unrelated—to one another and to the trial structure—then we do not expect similar cross-covariance functions across trials. Therefore, although each single-trial cross-covariance may have large values at some lags, their average across trials will be small. This is [just what we found](#fig:avg_xc) for the ECoG data examined here. We note that the unrelated 8 Hz signals, which dominate the ECoG activity at each electrode, mask the much smaller amplitude 24 Hz activity that is coupled between the two electrodes. The coupling at 24 Hz is not apparent in the [trial-averaged cross-covariance](#fig:avg_xc). The coherence, which normalizes by the power at each frequency, uncovers this relation.
+This example illustrates a point of caution in the interpretation of cross-covariance results. Unrelated signals that happen to share a similar dominant rhythm will exhibit large periodic structure in the cross-covariance. One approach to defend against such cross-covariance results is to compute the trial-averaged cross-covariance. If two signals are unrelated—to one another and to the trial structure—then we do not expect similar cross-covariance functions across trials. Therefore, although each single-trial cross-covariance may have large values at some lags, their average across trials will be small. This is <span class="fig">[just what we found](#fig:avg_xc)<img src="imgs/avg_xc.png"></span> for the ECoG data examined here. We note that the unrelated 8 Hz signals, which dominate the ECoG activity at each electrode, mask the much smaller amplitude 24 Hz activity that is coupled between the two electrodes. The coupling at 24 Hz is not apparent in the <span class="fig">[trial-averaged cross-covariance](#fig:avg_xc)<img src="imgs/avg_xc.png"></span>. The coherence, which normalizes by the power at each frequency, uncovers this relation.
 
 
 As is true for the Fourier transform and spectrum, there exists a vast literature on computing and interpreting the coherence. Some references for further reading include:
 
-- [Percival & Walden, 1993](https://www.cambridge.org/core/books/spectral-analysis-for-physical-applications/A9195239A8965A2C53D43EB2D1B80A33)
+- [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)
 
 - [Priestly, 1982](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6)
 
 - [Numerical recipes](http://numerical.recipes/)
-
-
-
-{:.input_area}
-```python
-from IPython.core.display import HTML
-HTML('../assets/custom/custom.css')
-```
-
-
-
-
-
-<div markdown="0" class="output output_html">
-<style>
-.left {
-    margin-left: 0px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-	border-color: #d6e9c6;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-	border-color: #faebcc;
-	/*border: 1px solid;*/
-	border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    color: #31708f;
-    background-color: #d9edf7;
-	border-color: #bce8f1;
-	/*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-	border-radius: 5px;
-}
-.question, .math-note, .python-note p {
-    margin-top: 1em;
-}
-.question, .math-note, .python-note * + p {
-    margin-bottom: 0;
-}
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.output_area iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-	width:100%;
-	max-width:500px;
-}
-.thumb {
-    position: inherit;
-}
-.thumb span { 
-    width: 200px;
-    visibility: hidden;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-    width: 100%;
-	max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-		
-} 
-.fig {
-    position: inherit;
-}   
-.fig img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-	width: 100%;
-}
-.fig span { 
-	visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-
-</div>
-
-
