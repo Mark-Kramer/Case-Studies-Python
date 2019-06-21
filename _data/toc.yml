@@ -73,11 +73,11 @@
 # - title: Backpropagation
 #   url: /A01/backprop
 
-- title: Hodgkin Huxley Model
-  url: /A02/HH
+# - title: Hodgkin Huxley Model
+#   url: /A02/HH
 
-- title: Integrate and Fire Model
-  url: /A03/LIF
+# - title: Integrate and Fire Model
+#   url: /A03/LIF
 
-- title: Training a Perceptron
-  url: /A04/perceptron
+# - title: Training a Perceptron
+#   url: /A04/perceptron
