@@ -1,8 +1,9 @@
 channels:
 - defaults
 - conda-forge
+- edeno
 dependencies:
-- python=3
+- python
 - ipython
 - jupyter
 - matplotlib=2.2
@@ -10,3 +11,4 @@ dependencies:
 - numpy
 - statsmodels
 - nitime
+- spectral_connectivity
