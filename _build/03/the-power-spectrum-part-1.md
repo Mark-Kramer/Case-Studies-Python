@@ -1,12 +1,13 @@
 ---
 interact_link: content/03/the-power-spectrum-part-1.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'The Power Spectrum (Part 1)'
 prev_page:
-  url: /02/the-event-related-potential
+  url: /02/the-event-related-potential.html
   title: 'The Event-Related Potential'
 next_page:
-  url: /03/supplements/supplement-autocovariance
+  url: /03/supplements/supplement-autocovariance.html
   title: 'Biased versus unbiased autocovariance'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -124,6 +125,12 @@ show()
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('PmGme7YuAiw')
+# NO CODE
+```
+
 
 
 
@@ -147,6 +154,12 @@ In this module, we consider data recorded in the scalp [electroencephalogram](ht
 ### Case study data
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('oRCUx11iEck')
+# NO CODE
+```
 
 
 
@@ -173,6 +186,12 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 ### Goals
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('L0xf0dCn7T0')
+# NO CODE
+```
 
 
 
@@ -251,6 +270,12 @@ show()
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('GepHsNVXTN4')
+# NO CODE
+```
+
 
 
 
@@ -278,6 +303,12 @@ You might notice, through visual inspection, a dominant rhythmic activity. We ca
 </div>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('mZ1uHN4lcPY')
+# NO CODE
+```
 
 
 
@@ -310,6 +341,12 @@ We conclude that the data are dominated by electrical noise and continue with ad
 Sometimes visual inspection is enough, especially when something has gone wrong (e.g., if the EEG trace were zero for all time, we should be suspicious). But, looks can be deceiving. For one, the voltage trace is plotted as a continuous line, but that’s incorrect. If we look more closely, we find that the data consists of discrete points.
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('UVnpQVUqpWI')
+# NO CODE
+```
 
 
 
@@ -350,6 +387,12 @@ show()
 Although the true brain signal may evolve as a continuous voltage trace in time, we do not observe this true signal. Instead, we observe a discrete sampling of this signal in time. The spacing between these samples is determined by the recording device collecting the EEG data. In this case, our collaborator has told us that the data are sampled at 1000 Hz, which corresponds to a sample of data every 1 ms. So, we observe not the (presumably) continuous true voltage signal, but instead discrete samples of this signal in time. 
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('W9BTYZM8yzs')
+# NO CODE
+```
 
 
 
@@ -722,6 +765,12 @@ The autocovariance is a useful tool for assessing the dependent structure in the
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('OAHpkZy6ZX8')
+# NO CODE
+```
+
 
 
 
@@ -752,6 +801,12 @@ The *power spectral density* describes the extent to which sinusoids of a single
 </div>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('iPUpMS79xgo')
+# NO CODE
+```
 
 
 
@@ -813,6 +868,12 @@ plt.show()
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('kmHCCzAbMVI')
+# NO CODE
+```
+
 
 
 
@@ -840,6 +901,12 @@ In a [supplement to this chapter](https://eschlaf2.github.io/Case-Studies-Python
 ### Discrete Fourier Transform in Python <a id="dft"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('noCOC69jvh8')
+# NO CODE
+```
 
 
 
@@ -944,6 +1011,12 @@ In the next two sections, we focus on interpreting and adjusting the quantities 
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('sgYkOkrlQ_E')
+# NO CODE
+```
+
 
 
 
@@ -999,6 +1072,12 @@ Typically, to prevent aliasing, recorded data are first analog-filtered before t
 ###  The frequency resolution, $df$<a id="frequency-resolution"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('bZsj_gcGoSo')
+# NO CODE
+```
 
 
 
@@ -1064,6 +1143,12 @@ This observation provides some intuition for the relation between the amount of 
 ### Step 5: Decibel scaling<a id="decibel-scaling"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('SuDJha5LNL0')
+# NO CODE
+```
 
 
 
@@ -1159,6 +1244,12 @@ Notice the change in the first line to use the `semilogx` function. By using the
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('XYy4NEr3VUs')
+# NO CODE
+```
+
 
 
 
@@ -1241,6 +1332,12 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 # Summary <a id="summary"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('jdceZRY_PDA')
+# NO CODE
+```
 
 
 

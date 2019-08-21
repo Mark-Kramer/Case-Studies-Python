@@ -1,12 +1,13 @@
 ---
 interact_link: content/01/introduction-to-python.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Introduction to Python'
 prev_page:
-  url: /intro
+  url: /intro.html
   title: 'Home'
 next_page:
-  url: /02/the-event-related-potential
+  url: /02/the-event-related-potential.html
   title: 'The Event-Related Potential'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -15,7 +16,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 To be frank:  this section is boring.  Throughout all of the case studies, we will use the software package [Python](https://www.python.org/). The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
 
-Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double expresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)).
+Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)).
 
 
 ## Starting Python
@@ -31,7 +32,7 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 </div>
 
 ## On-ramp: analysis of neural data in Python
-We begin this module with an "*on-ramp*" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+We begin this module with an "*on-ramp*" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens...
 
 
 
@@ -1250,7 +1251,7 @@ plt.show()
 
 
 
-That's horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you're repeatedly cutting and pasting in code, you're doing inefficient and typically error prone.  There's a much more elegant way to do this, and it involves making a `for` loop.  Consider:
+That's horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you're repeatedly cutting and pasting in code, what you're doing is inefficient and typically error prone.  There's a much more elegant way to do this, and it involves making a `for` loop.  Consider:
 
 
 

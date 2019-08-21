@@ -1,12 +1,13 @@
 ---
 interact_link: content/02/the-event-related-potential.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'The Event-Related Potential'
 prev_page:
-  url: /01/introduction-to-python
+  url: /01/introduction-to-python.html
   title: 'Introduction to Python'
 next_page:
-  url: /03/the-power-spectrum-part-1
+  url: /03/the-power-spectrum-part-1.html
   title: 'The Power Spectrum (Part 1)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -40,7 +41,7 @@ _**Synopsis**_
 
 Before we start any computations, let's import some modules and functions that we will use throughout the chapter. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning. 
 
-You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, with would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first. 
+You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, we would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first. 
 
 
 
@@ -108,6 +109,12 @@ show()  # ... and show the plot
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('Cy_BF7smAkk')
+# NO CODE
+```
+
 
 
 
@@ -143,6 +150,12 @@ In this chapter, we consider EEG data recorded from a single scalp electrode.  W
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('q2-DjvPRaNA')
+# NO CODE
+```
+
 
 
 
@@ -173,7 +186,7 @@ Our collaborator leading this research study has agreed to provide us with EEG d
 
 ## Data Analysis <a id="data-analysis"></a>
 
-Our first step is to load the data into Python.  To do so, we use the function `loadmat()` from the `scipy.io` module as follows,
+Our first step is to load the data into Python.  To do so, we use the function `loadmat()` from the `scipy.io` module as follows:
 
 
 
@@ -284,7 +297,7 @@ In the *Data/Info* column we see *1000x500* for `EEGa` and `EEGb`.  Both variabl
 - each row corresponds to a separate trial, and
 - each column to a point in time.
 
-So there are 1000 total trials, each consisting of 500 time points.  As a matter of convenience, we define a new variable to record the number of trials,
+So there are 1000 total trials, each consisting of 500 time points.  As a matter of convenience, we define a new variable to record the number of trials:
 
 
 
@@ -323,6 +336,12 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 ### Visual Inspection <a id="visual-inspection"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('uSjd41G-yNY')
+# NO CODE
+```
 
 
 
@@ -497,6 +516,12 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('9qx29zDxcAc')
+# NO CODE
+```
+
 
 
 
@@ -637,6 +662,12 @@ Note that because we did not import the function `figure()` directly, we need to
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('nandZ5aaRaQ')
+# NO CODE
+```
+
 
 
 
@@ -701,6 +732,12 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('kPr2GLSKLJg')
+# NO CODE
+```
+
 
 
 
@@ -758,6 +795,12 @@ The ERP of condition A shows the mean voltage across trials at each moment in ti
 ### Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('pXCJbyrw8Ug')
+# NO CODE
+```
 
 
 
@@ -895,7 +938,7 @@ def labelPlot(title_string="Title"):
     
 **Q.** What do you think the following code will do?
 
-    ax.hlines(0, t[0], t[-1])
+       `ax.hlines(0, t[0], t[-1])`
 
 Try it out.
 
@@ -976,12 +1019,14 @@ show()
 
 As you can see, the plot of both ERPs is rather messy; it’s difficult to determine through visual inspection alone in which intervals the ERPs exhibit significant separation.
 
-To facilitate further inspection of the data, we compute the difference between the ERPs in the two conditions. In the differenced signal, large deviations between the two conditions will appear as large differences from zero. To determine whether a deviation is significantly different from zero, we need to determine the confidence interval for the differenced ERP. This requires we propagate the standard deviation of the mean for both ERPs to the new differenced ERP. The propagated standard deviation of the mean at a fixed moment in time is computed as,
+To facilitate further inspection of the data, we compute the difference between the ERPs in the two conditions. In the differenced signal, large deviations between the two conditions will appear as large differences from zero. To determine whether a deviation is significantly different from zero, we need to determine the confidence interval for the differenced ERP. This requires we propagate the standard deviation of the mean for both ERPs to the new differenced ERP. The propagated standard deviation of the mean at a fixed moment in time is computed as:
 
 <a id="eq:1"></a>
 $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$
 
-where $\sigma_A$ is the standard deviation of the data from condition A, $\sigma_B$ is the standard deviation of the data from condition B, and $K$ is the number of trials. In Python we compute the differenced ERP and standard deviation of the mean of the difference as follows:
+where $\sigma_A$ is the standard deviation of the data from condition A, $\sigma_B$ is the standard deviation of the data from condition B, and $K$ is the number of trials.
+
+In Python we compute the differenced ERP and standard deviation of the mean of the difference as follows:
 <a id="plt:differencedERP"></a>
 
 
@@ -1012,7 +1057,7 @@ show()
 
 
 
-In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (`mnD`) and the standard deviation of the mean of this difference (`sdmnD`) using equation (<a href="#eq:1" class="thumb">1<span><img src="imgs/eq1.png"></span></a>). We note that `sdmnA` $ = \sqrt{\sigma_A^2/K}$ and therefore `sdmnA**2` $= \sigma_A^2/K$, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.
+In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (`mnD`) and the standard deviation of the mean of this difference (`sdmnD`) using equation (<a href="#eq:1" class="thumb">1<span>)<img src="imgs/eq1.png"></span></a>. We note that `sdmnA`$= \sqrt{\sigma_A^2/K}$ and therefore `sdmnA**2` $= \sigma_A^2/K$, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.
 
 <div class="question">
     
@@ -1024,6 +1069,12 @@ In the code above we first compute the ERP and standard deviation of the mean fo
 ### Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('vVXH4XsPFEs')
+# NO CODE
+```
 
 
 
@@ -1060,6 +1111,12 @@ We implement the bootstrapping procedure to compute pointwise confidence interva
 Let’s now implement each step in Python.
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('mqDEJyW_z4c')
+# NO CODE
+```
 
 
 
@@ -1101,7 +1158,7 @@ The result `i` provides a list of integers between 0 and 999. These values speci
 
     i = [10, 941, 3, 400, 10, ...
 
-then the first and fifth trials of the resampled EEG will equal the tenth trial of the original EEG. We create the resampled EEG in Python as follows:
+then the first and fifth trials of the resampled EEG will equal the eleventh trial of the original EEG (remember that Python indices start at zero). We create the resampled EEG in Python as follows:
 
 
 
@@ -1121,6 +1178,12 @@ In this code we use the variable `i` as the index to the rows of `EEGa`.
 That completes step 1 of the resampling procedure.
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('bUzuNojLUik')
+# NO CODE
+```
 
 
 
@@ -1161,6 +1224,12 @@ ERP0 = EEG0.mean(0)  # Create the resampled ERP
 </div>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('feQk_vKloXk')
+# NO CODE
+```
 
 
 
@@ -1240,18 +1309,27 @@ Note that in the definition of `bootstrapERP`, we included an argument (`size`) 
     
 In Python it is common to see for-loops written in the form
 
-    y = [f(x) for x in some_set]
+    `y = [f(x) for x in some_set]`
 
 This will return a *list* datatype, which is why we had to convert it to an array in the code above. We could also have written the loop in an alternative way:
 
-    ERP0 = np.zeros((3000, EEGa.shape[1]))
-    for k in range(3000):
-        ERP0[k, :] = bootstrapERP()
+
+    `ERP0 = np.zeros((3000, EEGa.shape[1]))`
+    
+    `for k in range(3000):`
+    
+    `    ERP0[k, :] = bootstrapERP()`
 
 Note that it is good practice, but not required, to define a function that contains the code you wish to repeat, especially if you might use it again later. This minimizes rewrites, and if there is a mistake then you only need to make a correction in one place.
 </div>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('NLc93QESVZs')
+# NO CODE
+```
 
 
 
@@ -1271,7 +1349,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 
 
-**Step 4.** In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index 0.025 $\times$ 3000 = 75 and 0.975 $\times$ 3000 = 2925. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a>
+**Step 4.** In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index $0.025 \times 3000 = 75$ and $0.975 \times 3000 = 2925$. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a>
 
 
 
@@ -1301,7 +1379,7 @@ We can use these results to identify, for example, intervals in which the ERP di
 
 <div class="question">
     
-**Q.** Compare the confidence intervals in the plot above (bootstrap confidence intervals) to [the CLT confidence intervals](#plt:erpA-m1) computed earlier. How are the two results similar or different? What happens to the confidence intervals if you change the number of resamplings in step 3 from 3,000 to 10,000.
+**Q.** Compare the confidence intervals in the plot above (bootstrap confidence intervals) to [the CLT confidence intervals](#plt:erpA-m1) computed earlier. How are the two results similar or different? What happens to the confidence intervals if you change the number of resamplings in step 3 from 3,000 to 10,000?
 </div>
 
 <div class="question">
@@ -1314,6 +1392,12 @@ We can use these results to identify, for example, intervals in which the ERP di
 ### A Bootstrap Test to Compare ERPs <a id="bootstrap"></a>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('K6pgCxFdELc')
+# NO CODE
+```
 
 
 
@@ -1359,6 +1443,12 @@ stat = 0.2884
 </div>
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('390ywma7S3U')
+# NO CODE
+```
 
 
 
@@ -1414,6 +1504,12 @@ In this code, we first combine `EEGa` and `EEGb` in a new variable `EEG`.
 Then, as before, we define the function `bootstrapStat` which performs the operations that we wish to repeat. Both of the first two lines of the function call `bootstrapERP`, the function that we defined earlier to compute a resampled ERP. Note that in this case, we call `bootstrapERP` with `size=ntrials`. When we combined the original datasets in `EEG`, we generated a dataset with twice the number of trials, but we still wish to perform the bootstrap procedure to create a resampled ERP using the original number of trials (1,000). The last two lines of the function compute the resampled difference and return the statistic. Finally, we repeat the procedure 3,000 times using a for-loop.
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('iefCPGHd5vY')
+# NO CODE
+```
 
 
 

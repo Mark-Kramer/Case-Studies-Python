@@ -1,12 +1,13 @@
 ---
 interact_link: content/04/ecog-rhythms.ipynb
 kernel_name: python3
-title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
+has_widgets: false
+title: 'The Power Spectrum (Part 2)'
 prev_page:
-  url: /03/supplements/supplement-psd
+  url: /03/supplements/supplement-psd.html
   title: 'Intuition behind the power spectral density'
 next_page:
-  url: /04/appendix-multiplication-and-convolution-in-different-domains
+  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
   title: 'Multiplication and Convolution in Different Domains'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
