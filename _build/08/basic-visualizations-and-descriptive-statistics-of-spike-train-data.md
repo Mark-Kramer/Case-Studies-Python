@@ -1,12 +1,13 @@
 ---
 interact_link: content/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 prev_page:
-  url: /05/the-cross-covariance-and-coherence
-  title: 'The Cross Covariance and Coherence'
+  url: /07/cross-frequency-coupling.html
+  title: 'Cross Frequency Coupling'
 next_page:
-  url: /09/point-process-glms
+  url: /09/point-process-glms.html
   title: 'Modeling place Fields with Point Process Generalized Linear Models'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -1916,6 +1917,13 @@ and therefore for a Poisson process, the Fano factor $\sigma^2/\mu=1$.
 [Back to top](#top)
 
 
+
+{:.input_area}
+```python
+from IPython.core.display import HTML
+HTML('../assets/custom/custom.css')
+# NO CODE
+```
 
 
 

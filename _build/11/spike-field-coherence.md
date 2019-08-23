@@ -1,13 +1,14 @@
 ---
 interact_link: content/11/spike-field-coherence.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Analysis of Spike-Field Coherence'
 prev_page:
-  url: /09/point-process-glms
+  url: /09/point-process-glms.html
   title: 'Modeling place Fields with Point Process Generalized Linear Models'
 next_page:
-  url: /A02/HH
-  title: 'Hodgkin Huxley Model'
+  url: 
+  title: ''
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

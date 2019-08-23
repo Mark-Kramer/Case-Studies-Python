@@ -1,13 +1,14 @@
 ---
 interact_link: content/05/the-cross-covariance-and-coherence.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'The Cross Covariance and Coherence'
 prev_page:
-  url: /06/filtering-scalp-eeg
-  title: 'The Power Spectrum (Part 2)'
+  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
+  title: 'Multiplication and Convolution in Different Domains'
 next_page:
-  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
-  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
+  url: /06/filtering-scalp-eeg.html
+  title: 'Filtering Field Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -46,6 +47,41 @@ _**Synopsis**_
 
 ## On-ramp: computing the coherence in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the coherence in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+
+
+
+{:.input_area}
+```python
+# Import our favorite functions and modules
+
+# We have done this using a startup file. The file is located in your 
+# home directory in a hidden IPython folder. You can see the location 
+# using the following command:
+
+get_ipython().profile_dir.startup_dir
+
+# Any files in this location that end in .py will run automatically 
+# when you start a Python notebook. If you have downloaded this notebook
+# and have not yet made a startup directory, you may need to do so.
+# The file that we use is called startup.py 
+# (https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/startup.py).
+# You can copy this file to your startup directory or copy and paste the
+# contents to a code cell as we have done in the past and the result will 
+# be the same.
+
+# HIDDEN
+```
+
+
+
+
+
+{:.output .output_data_text}
+```
+'/Users/emilyschlafly/.ipython/profile_default/startup'
+```
+
+
 
 
 
@@ -95,7 +131,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_5_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_6_0.png)
 
 
 
@@ -241,7 +277,7 @@ fig, ax = {'traces': f}, {'traces': a}
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_29_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_30_0.png)
 
 
 
@@ -285,7 +321,7 @@ Text(0.5,1,'All trials from E1')
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_33_1.png)
+![png](../images/05/the-cross-covariance-and-coherence_34_1.png)
 
 
 
@@ -319,7 +355,7 @@ savefig('imgs/traces')
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_37_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_38_0.png)
 
 
 
@@ -378,7 +414,7 @@ savefig('imgs/taac')
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_43_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_44_0.png)
 
 
 
@@ -437,7 +473,7 @@ savefig('imgs/xc_1')
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_47_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_48_0.png)
 
 
 
@@ -463,7 +499,7 @@ fig['traces']
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_51_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_52_0.png)
 
 
 
@@ -515,7 +551,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_55_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_56_0.png)
 
 
 
@@ -658,7 +694,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_61_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_62_0.png)
 
 
 
@@ -911,7 +947,7 @@ show()
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_89_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_90_0.png)
 
 
 
@@ -970,7 +1006,7 @@ a2.set_xlabel('Phase');
 
 
 {:.output .output_png}
-![png](../images/05/the-cross-covariance-and-coherence_94_0.png)
+![png](../images/05/the-cross-covariance-and-coherence_95_0.png)
 
 
 

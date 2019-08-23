@@ -1,12 +1,13 @@
 ---
 interact_link: content/03/supplements/supplement-autocovariance.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Biased versus unbiased autocovariance'
 prev_page:
-  url: /03/the-power-spectrum-part-1
+  url: /03/the-power-spectrum-part-1.html
   title: 'The Power Spectrum (Part 1)'
 next_page:
-  url: /03/supplements/supplement-psd
+  url: /03/supplements/supplement-psd.html
   title: 'Intuition behind the power spectral density'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -124,6 +125,13 @@ Careful inspection of the blue curve reveals another feature of the biased estim
 </div>
 
 
+
+{:.input_area}
+```python
+[ax.axvline(l, color='k', lw=3) for l in [-1.75, 1.75]]
+fig
+# NO CODE
+```
 
 
 

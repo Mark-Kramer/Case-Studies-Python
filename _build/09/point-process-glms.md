@@ -1,12 +1,13 @@
 ---
 interact_link: content/09/point-process-glms.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Modeling place Fields with Point Process Generalized Linear Models'
 prev_page:
-  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
   title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 next_page:
-  url: /11/spike-field-coherence
+  url: /11/spike-field-coherence.html
   title: 'Analysis of Spike-Field Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

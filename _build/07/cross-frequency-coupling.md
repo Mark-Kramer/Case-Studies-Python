@@ -1,13 +1,14 @@
 ---
 interact_link: content/07/cross-frequency-coupling.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Cross Frequency Coupling'
 prev_page:
-  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
-  title: 'Multiplication and Convolution in Different Domains'
+  url: /06/filtering-scalp-eeg.html
+  title: 'Filtering Field Data'
 next_page:
-  url: /06/filtering-scalp-eeg
-  title: 'The Power Spectrum (Part 2)'
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
+  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
