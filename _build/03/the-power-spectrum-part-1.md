@@ -1,5 +1,5 @@
 ---
-permalink: 
+permalink: /
 interact_link: content/03/the-power-spectrum-part-1.ipynb
 kernel_name: python3
 has_widgets: false
