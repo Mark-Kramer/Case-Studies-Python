@@ -1,5 +1,5 @@
 ---
-redirect_from: None
+redirect_from: /02
 interact_link: content/02/the-event-related-potential.ipynb
 kernel_name: python3
 has_widgets: false
@@ -70,19 +70,19 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>                 <span class="c1"># Import numpy for computations</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>    <span class="c1"># Import a useful plotting package, </span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                 <span class="c1"># Import numpy for computations</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>    <span class="c1"># Import a useful plotting package, </span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
                                    <span class="c1"># ... and a few specific functions that are used often</span>
 <span class="c1"># ... make the plots &quot;inline&quot;.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline                 
 
 <span class="c1"># Tools for this chapter</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randint</span>
 </pre></div>
 
     </div>
@@ -106,7 +106,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the data,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the data,</span>
 <span class="n">EEGa</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">]</span>  <span class="c1"># ... and get the EEG from one condition,</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># ... and a time axis,</span>
 <span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGa</span><span class="p">)</span>  <span class="c1"># ... and compute the number of trials.</span>
@@ -174,7 +174,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;Cy_BF7smAkk&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;Cy_BF7smAkk&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -244,7 +244,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;q2-DjvPRaNA&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;q2-DjvPRaNA&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -316,7 +316,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -341,7 +341,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -382,7 +382,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">EEGa</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">EEGa</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">]</span>
 <span class="n">EEGb</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGb&#39;</span><span class="p">]</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
@@ -408,10 +408,10 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]))</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -462,7 +462,7 @@ In general, a single underscore at the beginning of a variable, function or meth
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">whos</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">whos</span>
 </pre></div>
 
     </div>
@@ -482,19 +482,18 @@ In general, a single underscore at the beginning of a variable, function or meth
 --------------------------------------------------
 EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
 EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
-colorbar   function                      &lt;function colorbar at 0xb1970e620&gt;
+colorbar   function                      &lt;function colorbar at 0xb19a21b70&gt;
 data       dict                          n=6
-hlines     function                      &lt;function hlines at 0xb1970f9d8&gt;
-imshow     function                      &lt;function imshow at 0xb1970fa60&gt;
+hlines     function                      &lt;function hlines at 0xb19a22f28&gt;
+imshow     function                      &lt;function imshow at 0xb19a23048&gt;
 mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 ntrials    int                           1000
-plt        module                        &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/pyplot.py&#39;&gt;
-randint    builtin_function_or_method    &lt;built-in method randint &lt;...&gt;te object at 0x10af09ca8&gt;
+randint    builtin_function_or_method    &lt;built-in method randint &lt;...&gt;te object at 0x10b362c60&gt;
 sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
 sqrt       ufunc                         &lt;ufunc &#39;sqrt&#39;&gt;
 t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
-vlines     function                      &lt;function vlines at 0xb19710840&gt;
+vlines     function                      &lt;function vlines at 0xb19a23d90&gt;
 </pre>
 </div>
 </div>
@@ -531,7 +530,7 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ntrials</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># len(EEGa) would give the same result</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ntrials</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># len(EEGa) would give the same result</span>
 </pre></div>
 
     </div>
@@ -555,7 +554,7 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ntrials</span><span class="p">,</span> <span class="n">nsamples</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">shape</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ntrials</span><span class="p">,</span> <span class="n">nsamples</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
@@ -614,7 +613,7 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;uSjd41G-yNY&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;uSjd41G-yNY&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -663,7 +662,7 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span><span class="p">(</span> <span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>  <span class="c1"># EEGa[0, :] is equivalent to EEGa[0]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>  <span class="c1"># EEGa[0, :] is equivalent to EEGa[0]</span>
 </pre></div>
 
     </div>
@@ -841,7 +840,7 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;9qx29zDxcAc&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;9qx29zDxcAc&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -891,7 +890,7 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                   <span class="c1"># Plot the data from condition A, trial 1.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                   <span class="c1"># Plot the data from condition A, trial 1.</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/2-2a&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -951,7 +950,7 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine the sampling interval</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine the sampling interval</span>
 </pre></div>
 
     </div>
@@ -996,7 +995,7 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                     <span class="c1"># Plot condition A, trial 1 data vs t.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                     <span class="c1"># Plot condition A, trial 1 data vs t.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                   <span class="c1"># Label the x-axis as time.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu$ V]&#39;</span><span class="p">)</span>          <span class="c1"># Label the y-axis as voltage.</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;EEG data from condition A, Trial 1&#39;</span><span class="p">)</span>  <span class="c1"># Add a title</span>
@@ -1063,7 +1062,7 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>     <span class="c1"># Resize the figure to make it easier to see</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>     <span class="c1"># Resize the figure to make it easier to see</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                 <span class="c1"># Plot condition A, trial 1, data vs t,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">EEGb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>            <span class="c1"># ... and the data from condition B, trial 1,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>              <span class="c1"># Label the x-axis as time.</span>
@@ -1133,7 +1132,7 @@ Note that because we did not import the function `figure()` directly, we need to
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;nandZ5aaRaQ&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;nandZ5aaRaQ&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -1183,7 +1182,7 @@ Note that because we did not import the function `figure()` directly, we need to
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">EEGa</span><span class="p">,</span>                                   <span class="c1"># Image the data from condition A.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">EEGa</span><span class="p">,</span>                                   <span class="c1"># Image the data from condition A.</span>
            <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;BuPu&#39;</span><span class="p">,</span>                            <span class="c1"># ... set the colormap (optional)</span>
            <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ntrials</span><span class="p">],</span>       <span class="c1"># ... set axis limits (t[-1] represents the last element of t)</span>
            <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>                          <span class="c1"># ... set aspect ratio </span>
@@ -1267,7 +1266,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;kPr2GLSKLJg&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;kPr2GLSKLJg&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -1318,7 +1317,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># Plot the ERP of condition A</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># Plot the ERP of condition A</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># Label the axes</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu V$]&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;ERP of condition A&#39;</span><span class="p">)</span>  <span class="c1"># ... provide a title</span>
@@ -1395,7 +1394,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;pXCJbyrw8Ug&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;pXCJbyrw8Ug&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -1484,7 +1483,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mn</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the mean across trials (the ERP)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mn</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the mean across trials (the ERP)</span>
 </pre></div>
 
     </div>
@@ -1518,7 +1517,7 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the std across trials</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the std across trials</span>
 </pre></div>
 
     </div>
@@ -1542,7 +1541,7 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># Compute the std of the mean</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># Compute the std of the mean</span>
 </pre></div>
 
     </div>
@@ -1566,7 +1565,7 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>     <span class="c1"># Save the axes for use in later cells and resize the figure</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>     <span class="c1"># Save the axes for use in later cells and resize the figure</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>              <span class="c1"># Plot the ERP of condition A</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and include the upper CI</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and the lower CI</span>
@@ -1625,8 +1624,8 @@ A good rule of thumb when you are programming is that you should not be rewritin
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Change the default figure size</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change the default figure size</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># Create a function to label plots</span>
@@ -1642,7 +1641,7 @@ A good rule of thumb when you are programming is that you should not be rewritin
     <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># x-axis is time</span>
     <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$/mu V$]&#39;</span><span class="p">)</span>  <span class="c1"># y-axis is voltage</span>
     <span class="n">title</span><span class="p">(</span><span class="n">title_string</span><span class="p">)</span>          <span class="c1"># use the input here</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>    <span class="c1"># no white-space in plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># no white-space in plot</span>
 </pre></div>
 
     </div>
@@ -1693,7 +1692,7 @@ Try it out.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/2-7&#39;</span><span class="p">)</span>
 <span class="n">fig</span>
 </pre></div>
@@ -1773,7 +1772,7 @@ Try it out.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="kn">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="k">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
 
 <span class="n">erpA</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="n">ca_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">])</span>  <span class="c1"># Compute the ERP of condition A</span>
 <span class="n">erpB</span><span class="p">,</span> <span class="n">cb_l</span><span class="p">,</span> <span class="n">cb_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGb&#39;</span><span class="p">])</span>  <span class="c1"># ... and condition B</span>
@@ -1844,7 +1843,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ERP of condition A</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ERP of condition A</span>
 <span class="n">sdmnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># ... and standard dev of mean</span>
 
 <span class="n">mnB</span> <span class="o">=</span> <span class="n">EEGb</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ERP of condition B</span>
@@ -1922,7 +1921,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;vVXH4XsPFEs&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;vVXH4XsPFEs&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -1994,7 +1993,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;mqDEJyW_z4c&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;mqDEJyW_z4c&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2043,7 +2042,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Draw 1000 integers with replacement from [0, 1000)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Draw 1000 integers with replacement from [0, 1000)</span>
 <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">)</span>
 </pre></div>
 
@@ -2089,7 +2088,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">EEG0</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># Create the resampled EEG.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">EEG0</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># Create the resampled EEG.</span>
 </pre></div>
 
     </div>
@@ -2129,7 +2128,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;bUzuNojLUik&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;bUzuNojLUik&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2178,7 +2177,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ERP0</span> <span class="o">=</span> <span class="n">EEG0</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Create the resampled ERP</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ERP0</span> <span class="o">=</span> <span class="n">EEG0</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Create the resampled ERP</span>
 </pre></div>
 
     </div>
@@ -2213,7 +2212,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;feQk_vKloXk&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;feQk_vKloXk&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2262,7 +2261,7 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span>  <span class="c1"># Draw integers,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span>  <span class="c1"># Draw integers,</span>
 <span class="n">EEG1</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  <span class="c1"># ... create resampled EEG,</span>
 <span class="n">ERP1</span> <span class="o">=</span> <span class="n">EEG1</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1"># ... create resampled ERP.</span>
 
@@ -2314,10 +2313,10 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="k">def</span> <span class="nf">bootstrapERP</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>  <span class="c1"># Steps 1-2</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">bootstrapERP</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># Steps 1-2</span>
     <span class="sd">&quot;&quot;&quot; Calculate bootstrap ERP from data (array type)&quot;&quot;&quot;</span>
     <span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">)</span>  <span class="c1"># Get the number of trials</span>
-    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>  <span class="c1"># Unless the size is specified,</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Unless the size is specified,</span>
         <span class="n">size</span> <span class="o">=</span> <span class="n">ntrials</span>  <span class="c1"># ... choose ntrials</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>  <span class="c1"># ... draw random trials,</span>
     <span class="n">EEG0</span> <span class="o">=</span> <span class="n">EEGdata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># ... create resampled EEG,</span>
@@ -2379,7 +2378,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;NLc93QESVZs&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;NLc93QESVZs&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2428,7 +2427,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">ERP0</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Sort each column of the resampled ERP</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ERP0</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Sort each column of the resampled ERP</span>
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ERP0</span><span class="p">)</span>  <span class="c1"># Define the number of samples</span>
 <span class="n">ciL</span> <span class="o">=</span> <span class="n">ERP0</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span><span class="o">*</span><span class="n">N</span><span class="p">)]</span>  <span class="c1"># Determine the lower CI</span>
 <span class="n">ciU</span> <span class="o">=</span> <span class="n">ERP0</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.975</span><span class="o">*</span><span class="n">N</span><span class="p">)]</span>  <span class="c1"># ... and the upper CI</span>
@@ -2511,7 +2510,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;K6pgCxFdELc&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;K6pgCxFdELc&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2560,11 +2559,11 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">mbA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">EEGa</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Determine ERP for condition A</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mbA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">EEGa</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Determine ERP for condition A</span>
 <span class="n">mnB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">EEGb</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Determine ERP for condition B</span>
 <span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>                <span class="c1"># Compute the differenced ERP</span>
 <span class="n">stat</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mnD</span><span class="p">))</span>        <span class="c1"># Compute the statistic</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;stat = {:.4f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;stat = </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -2605,7 +2604,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;390ywma7S3U&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;390ywma7S3U&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 
@@ -2665,7 +2664,7 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">EEG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">EEGa</span><span class="p">,</span> <span class="n">EEGb</span><span class="p">))</span>  <span class="c1"># Step 1. Merge EEG data from all trials</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">EEG</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">EEGa</span><span class="p">,</span> <span class="n">EEGb</span><span class="p">))</span>  <span class="c1"># Step 1. Merge EEG data from all trials</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># For reproducibility</span>
 
 <span class="k">def</span> <span class="nf">bootstrapStat</span><span class="p">(</span><span class="n">EEG</span><span class="p">):</span>  <span class="c1"># Steps 2-4.</span>
@@ -2699,7 +2698,7 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;iefCPGHd5vY&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;iefCPGHd5vY&#39;</span><span class="p">)</span>
 <span class="c1"># NO CODE</span>
 </pre></div>
 

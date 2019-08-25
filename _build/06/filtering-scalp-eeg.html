@@ -1,5 +1,5 @@
 ---
-redirect_from: None
+redirect_from: /06
 interact_link: content/06/filtering-scalp-eeg.ipynb
 kernel_name: python3
 has_widgets: false
@@ -790,7 +790,7 @@ we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consis
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;function matplotlib.pyplot.show&gt;</pre>
+<pre>&lt;function matplotlib.pyplot.show(*args, **kw)&gt;</pre>
 </div>
 
 </div>
@@ -1068,7 +1068,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1193,7 +1193,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1248,7 +1248,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1405,9 +1405,9 @@ You should find a value equal to (or within numerical precision of) zero.
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We have now examined two equivalent methods of filter application: through multiplication in the frequency domain or through convolution in the time domain. Both approaches provide insight into the impact of the naive rectangular filter. The frequency domain representation is easier to interpret. We designed this filter in the frequency domain to eliminate signal components near 60 Hz, which we implemented through an abrupt decrease in the frequency domain representation of the filter. It’s relatively easy to envision that this filter eliminates signal features near &plusmn;60 Hz and preserves features at other frequencies.</p>
+<p>We have now examined two equivalent methods of filter application: through multiplication in the frequency domain or through convolution in the time domain. Both approaches provide insight into the impact of the naive rectangular filter. The frequency domain representation is easier to interpret. We designed this filter in the frequency domain to eliminate signal components near 60 Hz, which we implemented through an abrupt decrease in the frequency domain representation of the filter. It’s relatively easy to envision that this filter eliminates signal features near &plusmn;60 Hz and preserves features at other frequencies<a href="#fig:4" class="fig"><sup>fig</sup><img src="imgs/6-4.png"></a>.</p>
 <p>The time domain representation of the naive rectangular filter is more complicated. While the impact of the filter in the frequency domain is limited, the impact in the time domain is broad. The impulse response decays at times away from the impulse; however, these contributions do remain. This example illustrates the necessary trade-off between the time and frequency domains. Namely, the sharp transition bands, or roll-off in the frequency domain (i.e., the nearly vertical rectangular-shaped transitions) correspond to a broad impulse response function that extends over many lags in the time domain. There’s no escaping this fact: the sharper we make the filter’s transitions in the frequency domain, the broader its effects in time. Again, we make this trade-off to implement the sharp roll-off of the naive rectangular filter; the transition band is narrow (a precipitous drop) in frequency and therefore requires many values in time.</p>
-<p>Through the interpretation of filtering as convolution in time, we gain additional insight into the naive rectangular filter’s impact. When we looked closely, we identified suspicious behavior in the; we found that after filtering, the large-amplitude discharge was surrounded by small-amplitude oscillations with frequency near 60 Hz. Under the interpretation of filtering as convolution, we expect that a sudden large change in the input signal (i.e., the brief discharge in the EEG) will clearly impact the resulting filtered signal across an extended interval of time. Indeed, because the brief EEG discharge is so large, the small amplitude oscillations surrounding the central peak of the impulse function are apparent in the filtered EEG signal. For these brief large-amplitude peaks in the EEG data, the temporal impact of the filter is obvious in the filtered signal. However, this temporal impact occurs throughout the filtered signal; using the naive rectangular filter, each time point in the original signal impacts every time point in the filtered signal.</p>
+<p>Through the interpretation of filtering as convolution in time, we gain additional insight into the naive rectangular filter’s impact. When we looked closely, we identified suspicious behavior in the; we found that after filtering, the large-amplitude discharge was surrounded by small-amplitude oscillations with frequency near 60 Hz. Under the interpretation of filtering as convolution, we expect that a sudden large change in the input signal (i.e., the brief discharge in the EEG) will clearly impact the resulting filtered signal across an extended interval of time. Indeed, because the brief EEG discharge is so large, the small amplitude oscillations surrounding the central peak of the impulse function are apparent in the filtered EEG signal. For these brief large-amplitude peaks in the EEG data, the temporal impact of the filter is obvious in the filtered signal. However, this temporal impact occurs throughout the filtered signal; using the naive rectangular filter, each time point in the original signal impacts every time point in the <a href="#fig:5c">filtered signal</a><span class="fig"><sup>fig</sup><img src="imgs/6-5c.png"></span>.</p>
 <p>We conclude this section by noting that these results are analogous to our discussion of the rectangular window function in <a href="../04">chapter 4</a>. In that chapter, we applied a rectangular taper in the time domain and showed that this produced broad effects in the frequency domain. Here, we instead apply an (inverted) rectangular taper in the frequency domain and find broad effects in the time domain. The fundamental concept is that the Fourier transform of a sharp transition in one domain (in this case, the abrupt edge of a rectangular taper) produces broad effects in the other domain.</p>
 
 </div>
@@ -1416,7 +1416,8 @@ You should find a value equal to (or within numerical precision of) zero.
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to Top</a></p>
-<h4 id="A-naive-Hanning-filter.">A naive Hanning filter.<a class="anchor-link" href="#A-naive-Hanning-filter."> </a></h4><p>In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the <a href="#fig:4" class="fig">filter<span><img src="imgs/6-4.png"></span></a> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.</p>
+<h4 id="A-naive-Hanning-filter.">A naive Hanning filter.<a class="anchor-link" href="#A-naive-Hanning-filter."> </a></h4><p><a href="#fig:4">filter</a><span class="sup">fig<img src="imgs/6-4.png"></span></p>
+<p>In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the <a href="#fig:4">filter</a><span class="fig"><sup>fig</sup><img src="imgs/6-4.png"></span> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.</p>
 <p>Let’s begin our filter design in the frequency domain. Our goal is to eliminate the 60 Hz component (i.e., the electrical noise) from the EEG signal without introducing long-lasting temporal effects. To do so, instead of the naive rectangular function employed in our first filter, we’ll use a smooth Hanning function (first introduced in our computations of the spectrum in <a href="../04">chapter 4</a>). First, we need to load the data and identify the indices corresponding to &plusmn;60 Hz, and then apply a Hanning window centered at each of these indices. Some of the following commands are redundant with commands we used previously, but they are repeated here for completeness.</p>
 
 </div>

@@ -1,4 +1,5 @@
 ---
+redirect_from: None
 title: 'Home'
 prev_page:
   url: 

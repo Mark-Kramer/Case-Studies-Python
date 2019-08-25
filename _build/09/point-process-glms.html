@@ -1,5 +1,5 @@
 ---
-redirect_from: None
+redirect_from: /10
 interact_link: content/09/point-process-glms.ipynb
 kernel_name: python3
 has_widgets: false
@@ -22,24 +22,50 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In chapter 8, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.</p>
-<p>This stimulus-response paradigm relates to the important concept of <em>neural coding</em>: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this chapter.</p>
-<h3 id="Case-study-data">Case study data<a class="anchor-link" href="#Case-study-data"> </a></h3><p>A collaborator has contacted us to discuss a new experiment he has performed. As part of this experiment, he has implanted a small bundle of electrodes in a rat’s hippocampus and trained the rat to perform a simple spatial task: to run back and forth along a linear maze. During this task, our collaborator believes he has recorded the spiking activity from a place cell, a cell whose activity is position-specific. He has asked us to help characterize these spike train data and support (or refute) the notion that the observed cell is a place cell. He has agreed to provide us with the observed spike train data and the position of the rat as a function of time, recorded during a few minutes of the experiment.</p>
-<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>Our goal is to characterize the properties of the observed cell as the rat runs back and forth in the linear maze. Spiking activity in these cells is known to relate to other variables, such as the speed and head direction of the rat. Here, we focus on modeling the relation between the rat’s movement trajectory and the observed spiking activity. In doing so, we select a model through an iterative process of model fitting, evaluation, and refinement.</p>
-<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>In this chapter, we develop a series of generalized linear models. We implement procedures to fit, refine, and compare this series of models. We demonstrate the process of implement- ing and fitting a Poisson regression model in Python, procedures to evaluate model goodness-of-fit and compare models, and methods to construct confidence intervals for model parameters.</p>
+<div class="question">
+
+_**Synopsis**_ 
+
+**Data:** Spike train data recorded in vivo from a place cell in rat hippocampus.
+
+
+**Goal:** Develop a model that relates the spiking of the neuron to the rat’s movement trajectory.
+
+
+**Tools:** Point process theory, generalized linear models, Kolmogorov-Smirnov plots, likelihood ratio tests.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="#.">Introduction</a></li>
+<li><a href="#data-analysis">Data analysis</a><ol>
+<li><a href="#visual-inspection">Visual inspection</a></li>
+<li><a href="#fitting-a-poisson-glm">Fitting a Point Process Model (Poisson GLM)</a></li>
+<li><a href="#refining-the-model">Refining the Model</a></li>
+<li><a href="#comparing-models">Comparing and Evaluating Models</a></li>
+<li><a href="#refining-continued">Refining the Model (Continued)</a></li>
+<li><a href="#comparing-continued">Comparing and Evaluating Models (Continued)</a></li>
+<li><a href="#drawing-conclusions">Drawing Conclusions from the Model</a></li>
+</ol>
+</li>
+<li><a href="#summary">Summary</a></li>
+</ul>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visual-Inspection">Visual Inspection<a class="anchor-link" href="#Visual-Inspection"> </a></h3>
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In <a href="../08">chapter 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.</p>
+<p>This stimulus-response paradigm relates to the important concept of <em>neural coding</em>: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this chapter.</p>
+<h3 id="Case-study-data">Case study data<a class="anchor-link" href="#Case-study-data"> </a></h3><p>A collaborator has contacted us to discuss a new experiment he has performed. As part of this experiment, he has implanted a small bundle of electrodes in a rat’s hippocampus and trained the rat to perform a simple spatial task: to run back and forth along a linear maze. During this task, our collaborator believes he has recorded the spiking activity from a place cell, a cell whose activity is position-specific. He has asked us to help characterize these spike train data and support (or refute) the notion that the observed cell is a place cell. He has agreed to provide us with the observed spike train data and the position of the rat as a function of time, recorded during a few minutes of the experiment.</p>
+<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>Our goal is to characterize the properties of the observed cell as the rat runs back and forth in the linear maze. Spiking activity in these cells is known to relate to other variables, such as the speed and head direction of the rat. Here, we focus on modeling the relation between the rat’s movement trajectory and the observed spiking activity. In doing so, we select a model through an iterative process of model fitting, evaluation, and refinement.</p>
+<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>In this chapter, we develop a series of generalized linear models. We implement procedures to fit, refine, and compare this series of models. We demonstrate the process of implementing and fitting a Poisson regression model in Python, procedures to evaluate model goodness-of-fit and compare models, and methods to construct confidence intervals for model parameters.</p>
+
 </div>
 </div>
 </div>
@@ -50,14 +76,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the modules and plot settings</span>
-<span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># In addition to startup imports ...</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="k">import</span> <span class="n">Poisson</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="k">import</span> <span class="n">identity</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="k">import</span> <span class="n">log</span> <span class="c1"># Import log link function</span>
 </pre></div>
 
     </div>
@@ -66,6 +89,19 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="data-analysis"></a></p>
+<h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visual-Inspection-">Visual Inspection <a id="visual-inspection" /><a class="anchor-link" href="#Visual-Inspection-"> </a></h3>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -82,12 +118,12 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;Ch9-spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the EEG data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;Ch9-spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the EEG data</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Extract the t variable</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">]</span> <span class="c1"># Extract the X variable</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -106,7 +142,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_6_0.png"
+<img src="../images/09/point-process-glms_8_0.png"
 >
 </div>
 
@@ -126,11 +162,12 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How would you construct the vector `spiketrain`? Can you think of multiple ways to construct the same vector?
-<br><br>
 
 **A:** We could use a for-loop to step through each time bin and decide whether a spike occurred. A more efficient approach is to realize that this computation can be performed as a histogram, and use the numpy function histogram. There are many other ways to compute this same vector.
+
 </div>
 </div>
 </div>
@@ -145,7 +182,9 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spiketimes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spiketimes&#39;</span><span class="p">]</span>
 <span class="n">n_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="c1"># Histogram spikes into bins centered at times t.:</span>
-<span class="n">spiketrain</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">n_bins</span><span class="p">,</span> <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="n">spiketrain</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
+                         <span class="n">bins</span> <span class="o">=</span> <span class="n">n_bins</span><span class="p">,</span> 
+                         <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
 </pre></div>
 
     </div>
@@ -157,7 +196,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can plot the position and spike train together. In Python,</p>
+<p>Now we can plot the position and spike train together.</p>
 
 </div>
 </div>
@@ -191,7 +230,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_11_0.png"
+<img src="../images/09/point-process-glms_13_0.png"
 >
 </div>
 
@@ -203,16 +242,23 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q**: Is there a better way to visualize the spiking activity and position?<br><br>
-**A**: Keeping the variable `spiketrain`, let’s compute a new variable, `spikeindex`, using the numpy command `where`:<br>
-`spikeindex=np.where(spiketrain!=0)[0]  #Deterime index of each spike.` <br><br>
-The vector `spikeindex` represents the vector indices at which spikes occur. We can use this to index any of the variables whose size matches the number of time bins in the recording. So, another visualization we can now employ is to plot the times and positions of the spikes overlaid on the full movement trajectory. In Python:<br>
-`plot(t, X)                             #Plot the position.
-plot(t[spikeindex],X[spikeindex],'r.') #Plot spikes @ positions.
-plt.xlabel('Time [sec]')               #Label the axes.
-plt.ylabel('Position [cm]')`<br><br>
+<div class="question">
+
+**Q**: Is there a better way to visualize the spiking activity and position?
+
+**A**: Keeping the variable `spiketrain`, let’s compute a new variable, `spikeindex`, using the numpy command `where()`:
+
+    spikeindex=np.where(spiketrain!=0)[0]  #Deterime index of each spike.
+
+The vector `spikeindex` represents the vector indices at which spikes occur. We can use this to index any of the variables whose size matches the number of time bins in the recording. So, another visualization we can now employ is to plot the times and positions of the spikes overlaid on the full movement trajectory. In Python:
+
+    plot(t, X)                             #Plot the position.
+    plot(t[spikeindex],X[spikeindex],'r.') #Plot spikes @ positions.
+    plt.xlabel('Time [sec]')               #Label the axes.
+    plt.ylabel('Position [cm]')
+
 Note that by using the `'r.'` term in the plot function, we indicate the times and positions of the spikes as red dots.
+
 </div>
 </div>
 </div>
@@ -247,7 +293,7 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_13_0.png"
+<img src="../images/09/point-process-glms_15_0.png"
 >
 </div>
 
@@ -297,7 +343,7 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_15_0.png"
+<img src="../images/09/point-process-glms_17_0.png"
 >
 </div>
 
@@ -316,41 +362,51 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q**: How might we construct a visualization that accounts for spiking as a function of both position and direction?
-<br><br>
+
 **A**: One option is to construct separate occupancy normalized histograms for movement in each direction. To do so, we would need to determine for each time step whether it represents a movement period where the position is increasing or decreasing. How would you do this? (We do so later when constructing place field models.)
+
 </div>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Fitting-a-Point-Process-Model-(Poisson-GLM)">Fitting a Point Process Model (Poisson GLM)<a class="anchor-link" href="#Fitting-a-Point-Process-Model-(Poisson-GLM)"> </a></h3><p>Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In chapter 8, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.</p>
+<h3 id="Fitting-a-Point-Process-Model-(Poisson-GLM)-">Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm" /><a class="anchor-link" href="#Fitting-a-Point-Process-Model-(Poisson-GLM)-"> </a></h3><p>Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In chapter 8, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q:** Do the notions of point process model, Poisson model, and rate parameter seem familiar? <br><br>
-**A:** If not, consider reviewing the case study in chapter 8.
+<div class="question">
+
+**Q:** Do the notions of point process model, Poisson model, and rate parameter seem familiar?
+
+**A:** If not, consider reviewing the case study in [chapter 8](../08).
+
 </div>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One approach we used to model the spiking data in chapter 8 was a Poisson model, in which we used a rate parameter, $\lambda$, to define the expected rate of spiking in any time interval. We then computed the value of $\lambda$ that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.</p>
+<p>One approach we used to model the spiking data in <a href="../08">chapter 8</a> was a Poisson model, in which we used a rate parameter, $\lambda$, to define the expected rate of spiking in any time interval. We then computed the value of $\lambda$ that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.</p>
 <p>Let’s define some terms. Let $x(t)$ represent the rat’s position at time $t$, and let $d(t)$ represent the direction of motion; we set $d(t) = 0$ when $x(t)$ is decreasing or the rat is stopped, and $d(t) = 1$ when $x(t)$ is increasing. Since these position and direction signals change as a function of time, so does the firing rate. We write $\lambda(t) = g(x(t), d(t))$, where $\lambda(t)$ is called the <em>Poisson rate function</em>, and $g(·, ·)$ is a function that we need to define the model.</p>
 <p>What function should we use for $g(·, ·)$? We want something that captures the relation between the covariates and the spiking, and is easy to interpret. The process of finding a model or set of models that are most consistent with the data is called model identification or model selection. Typically, this is an iterative process where we propose a class of models, find the particular model in that class that best fits the data, assess the quality of that model, and decide whether to refine the model further or to draw conclusions from the model fit. In practice, it is a good idea to begin with descriptive statistics and visualizations of the relation between the covariates and spiking data to select a class of point process models. For the spike train data of interest here, our visualizations suggest a model where the dependence of spiking on position has a mound shape (as in the occupancy normalized histogram) and which incorporates direction. We start with an overly simple model for pedagogical purposes.</p>
 <p>The following is a very basic model inspired by simple linear regression:</p>
-<p title="Model 1">$$ \lambda(t) = \beta_0 + \beta_1x(t). $$</p><p>The idea of linear regression is to express a response variable at time $t$ in terms of predictor variables, or covariates. Here, $\beta_0$ and $\beta_1$ are unknown parameters used to characterize a linear dependence between the response variable $\lambda(t)$ and covariate $x(t)$. $\beta_0$ represents the expected firing rate at $x(t) = 0$, and $\beta_1$ represents the change in firing rate for each unit of increase in position. This initial model does not include any dependence on the rat’s movement direction (i.e., there’s no $d(t)$ term).</p>
+<p id="model:1" title="Model 1">
+$$ 
+\lambda(t) = \beta_0 + \beta_1x(t). 
+\tag{Model 1}
+$$
+</p><p>The idea of linear regression is to express a response variable at time $t$ in terms of predictor variables, or covariates. Here, $\beta_0$ and $\beta_1$ are unknown parameters used to characterize a linear dependence between the response variable $\lambda(t)$ and covariate $x(t)$. $\beta_0$ represents the expected firing rate at $x(t) = 0$, and $\beta_1$ represents the change in firing rate for each unit of increase in position. This initial model does not include any dependence on the rat’s movement direction (i.e., there’s no $d(t)$ term).</p>
 <p>The form of the model looks like a standard linear regression, which is comforting because methods exist in Python to solve these types of problems. However, the observed data are spike events; in discrete time, the data are spike counts. A standard linear regression assumes that the distribution of the data, given the covariates, is normal. Spike counts can take on only non-negative integer values, so their distribution cannot be normal. When the number of spike counts in each time bin is very large, it is possible that the distribution of the data can be approximated by a normal distribution, and in this case, simple regression methods might work. But for the spiking data of interest here, we have very few spikes (0 or 1) in each 1 ms time bin, so a simple regression fit would not be correct.</p>
 <p>Instead, we must fit a <em>Poisson regression model</em> to the data. If we let $N(t)$ be the number of spikes that are observed in the interval $(t, t +  \Delta t)$, then under the Poisson regression model, $N(t)$ has a Poisson distribution with a mean parameter equal to the response variable $\lambda(t)$ integrated over the interval $(t, t +\Delta t)$.</p>
 <p>How do we fit the Poisson regression model? It turns out that Poisson regression models of a certain form can be fitted efficiently using the theory of generalized linear models. In Python, we can fit this model using the glmfit function. Before applying this function directly to the data, let’s get an overview of the function’s inputs and outputs. In Python, we consider the GLM model from the package <code>statsmodel</code>. We will construct a model using:</p>
-<p><code>GLM(Y, X_1, family(link)).</code></p>
+<p><code>GLM(Y, X_1, family(link())).</code></p>
 <p>The first input, <code>Y</code>, is a vector of the spike counts at each time step. In this case, <code>Y</code> is the vector <code>spiketrain</code> that we computed earlier. The second input, <code>X_1</code>, is a matrix of the covariates on which spiking depends. The size of this matrix is <code>n × p</code>, where <code>p</code> is the number of covariates in the model, and <code>n</code> is the number observations or time steps. Since our model is given by $\lambda(t) = \beta_0 + \beta_1x(t)$, we will prepend a column of ones to the data matrix <code>X</code>, so that we can fit the intercept $\beta_0$ to our data. Thus, <code>X_1</code> is an <code>n × 2</code> matrix, where <code>n</code> is the number of data points (177,761) representing the position of the rat along the track. The third input indicates the distribution of the spike count data in <code>Y</code>. For a Poisson regression model of spike count data, we use the Poisson family. In fact, for most neural spike count models fitted using GLM, even those that are not Poisson processes, we use the Poisson distribution. The family input is characterized by link function between the spiking rate and the covariates. Specifically, if we want to fit a model of the form $h(\lambda(t)) = \beta_0 + \beta_1x(t)$, then we would say that the function $h(·)$ is the link function. For model 1, this is simply the identity function. In what follows, we show a better way to select this link function.</p>
 <p>The <code>params</code> attribute of the <code>fit</code> function is a vector of numbers representing the maximum likelihood estimates of the model parameters, which for this example we have labeled $\beta_0$ and $\beta_1$. We use the “hat” notation above a parameter to represent its estimate. The maximum likelihood estimate of $\beta_0$ is written $\hat{\beta_0}$, and the maximum likelihood estimate of $\beta_1$ is written $\hat{\beta_1}$.
 Let’s now use this function to fit the parameters of model 1 to the observed location and spiking data. In Python,</p>
@@ -365,14 +421,11 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="k">import</span> <span class="n">Poisson</span>
-<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="k">import</span> <span class="n">identity</span>
-
-<span class="n">X1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># Prepend a column of ones to our position data matrix</span>
-<span class="n">model1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">identity</span><span class="p">))</span> <span class="c1"># GLM model with Poisson family and identity link function</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">X1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="c1"># Prepend a column of ones to our position data matrix</span>
+<span class="n">model1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">identity</span><span class="p">()))</span> <span class="c1"># GLM model with Poisson family and identity link function</span>
 <span class="n">model1_results</span> <span class="o">=</span> <span class="n">model1</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">model1_results</span><span class="o">.</span><span class="n">params</span> <span class="c1"># Get the predicted coefficient vector</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;b1 = [</span><span class="si">{0[0]:.4}</span><span class="s2">, </span><span class="si">{0[1]:.4}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b1</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -388,8 +441,17 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/anaconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:302: DomainWarning: The identity link function does not respect the domain of the Poisson family.
+<pre>/anaconda3/envs/csn/lib/python3.6/site-packages/statsmodels/genmod/generalized_linear_model.py:273: DomainWarning: The identity link function does not respect the domain of the Poisson family.
   DomainWarning)
+</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>b1 = [-9.653e-05, 2.705e-05]
 </pre>
 </div>
 </div>
@@ -397,6 +459,19 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
 </div>
 </div>
 
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q:** What do you notice about the values of the model fit (`b1`)? Do the results make sense?
+
+**A:** Initially, you may notice that Python outputs at the command line a warning that this model—particularly the identity link function— may be inappropriate. Let’s ignore this warning and attempt to interpret the resulting parameter estimates. The first of these values is the maximum likelihood estimate for $\beta_0$. If we believed this model was accurate, we could interpret this parameter as indicating that the expected firing rate at position $x = 0$ is $\lambda = −9.7 \times 10^{-5}$ spikes per millisecond, or about −0.097 spikes per second, and that as the rat moves in the positive direction, the firing rate increases by $\beta_1 = 0.0271} spikes per second for every centimeter the rat moves. This result should immediately raise some red flags. The fact that the firing rate is negative indicates that the model becomes uninterpretable for observed values of x. This suggests one major problem with model 1—the firing rate is negative—and motivates changes to the model link function.
+To further visualize the quality of this model, we can compare the dependence it defines between position and spike rate to the occupancy normalized histogram we computed earlier. In this case, we use the positions defined by the histogram bins, and compute the modeled spike rate at these positions.
+
+</div>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 
@@ -407,9 +482,12 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>    <span class="c1"># Plot results as bars.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,(</span><span class="n">b1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">b1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">bins</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>         <span class="c1"># Plot model.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                    <span class="c1"># Label the axes.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,(</span><span class="n">b1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">b1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">bins</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> 
+     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Model spike rate&quot;</span><span class="p">)</span>         <span class="c1"># Plot model.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                    <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;b1 = [</span><span class="si">{0[0]:.4}</span><span class="s2">, </span><span class="si">{0[1]:.4}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b1</span><span class="p">))</span>
+<span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -428,7 +506,7 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_22_0.png"
+<img src="../images/09/point-process-glms_25_0.png"
 >
 </div>
 
@@ -440,12 +518,9 @@ Let’s now use this function to fit the parameters of model 1 to the observed l
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**lambda does not match**
-**Q:** Upon executing this command in Python, what do you find? Do the results make sense?<br><br>
+<div class="question">
 
-**A:** Initially, you may notice that Python outputs at the command line a warning that this model—particularly the identity link function— may be inappropriate. Let’s ignore this warning and attempt to interpret the resulting parameter estimates. The first of these values is the maximum likelihood estimate for $\beta_0$. If we believed this model was accurate, we could interpret this parameter as indicating that the expected firing rate at position x = 0 is λ = −0.103 × 10−3 spikes per millisecond, or about −0.1 spikes per second, and that as the rat moves in the positive direction, the firing rate increases by β1 = 0.0272 spikes per second for every centimeter the rat moves. This result should immediately raise some red flags. The fact that the firing rate is negative indicates that the model becomes uninterpretable for observed values of x. This suggests one major problem with model 1—the firing rate is negative—and motivates changes to the model link function.
-To further visualize the quality of this model, we can compare the dependence it defines between position and spike rate to the occupancy normalized histogram we
+We see that the model spike rate captures some features of the observed spiking, for example, the fact that the spike rate increases as the rat moves from position x = 0 toward position x = 60. But the model misses much of the structure, for example, the fact that the spike rate does not change linearly with position and begins to decrease as the rat’s position increases beyond x = 70. This suggests a second issue with this model: the form of the relation between position and firing rate is wrong.
 
 </div>
 </div>
@@ -453,10 +528,15 @@ To further visualize the quality of this model, we can compare the dependence it
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Refining-the-model">Refining the model<a class="anchor-link" href="#Refining-the-model"> </a></h3><p>We conclude that our initial proposal, model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:</p>
+<h3 id="Refining-the-model">Refining the model<a class="anchor-link" href="#Refining-the-model"> </a></h3><p>We conclude that our initial proposal, model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:
+<a id="model:2"></a></p>
 <p title="Model 2a"> $$\log \lambda(t) = \beta_0 + \beta_1 x(t), $$</p>
 or equivalently,
-<p title="Model 2b">$$\lambda = e^{\beta_0+\beta_1x(t)}.$$</p><p>This link function is called the canonical link for Poisson data. It has a number of appealing
+<p title="Model 2b">
+$$
+\lambda = e^{\beta_0+\beta_1x(t)}.
+\tag{Model 2}
+$$</p><p>This link function is called the canonical link for Poisson data. It has a number of appealing
 properties. As desired, it ensures that the rate function is positive.</p>
 
 </div>
@@ -464,8 +544,10 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q:** Consider the expression for λ(t) in (9.3). Why must λ(t) always be positive?
+<div class="question">
+
+**Q:** Consider the expression for $\lambda(t)$ above. Why must $\lambda(t)$ always be positive?
+
 </div>
 </div>
 </div>
@@ -485,9 +567,7 @@ properties. As desired, it ensures that the rate function is positive.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="k">import</span> <span class="n">log</span> <span class="c1"># Import log link function</span>
-
-<span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">log</span><span class="p">))</span> <span class="c1"># GLM model with Poisson family and log link function</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">log</span><span class="p">()))</span> <span class="c1"># GLM model with Poisson family and log link function</span>
 <span class="n">model2_results</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
 <span class="n">b2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">params</span> <span class="c1"># Get the predicted coefficient vector</span>
 </pre></div>
@@ -513,9 +593,9 @@ properties. As desired, it ensures that the rate function is positive.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span> <span class="c1"># GLM model with Poisson family, omitting link function</span>
-<span class="n">model2_results</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
-<span class="n">b2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">params</span> <span class="c1"># Get the predicted coefficient vector</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">X1</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span>  <span class="c1"># GLM model with Poisson family, omitting link function</span>
+<span class="n">model2_results</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>  <span class="c1"># Fit model to our data</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">params</span>  <span class="c1"># Get the predicted coefficient vector</span>
 </pre></div>
 
     </div>
@@ -527,10 +607,12 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q:**  Execute the fit function with the log link in Python. What do you find? <br><br>
+<div class="question">
 
-**A:** This time, we find that Python does not issue a warning that the link function may be inappropriate. Inspection of the estimated parameter values reveals b2 = [-7.43888719  0.01294342]. These values are markedly different from the parameter values b found using model 1. The reason for this difference is that the form of the model has a major impact on the interpretation of the parameter values. In what follows, we discuss the interpretation of these parameter values in detail.
+**Q:**  Execute the fit function with the log link in Python. What do you find?
+
+**A:** This time, we find that Python does not issue a warning that the link function may be inappropriate. Inspection of the estimated parameter values reveals `b2 = [-7.43888719  0.01294342]`. These values are markedly different from the parameter values b found using model 1. The reason for this difference is that the form of the model has a major impact on the interpretation of the parameter values. In what follows, we discuss the interpretation of these parameter values in detail.
+
 </div>
 </div>
 </div>
@@ -579,7 +661,7 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_32_0.png"
+<img src="../images/09/point-process-glms_35_0.png"
 >
 </div>
 
@@ -591,10 +673,12 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q:** Consider model 2 and the data (the figure above). How do the two compare? <br> <br>
+<div class="question">
+
+**Q:** Consider model 2 and the data (the figure above). How do the two compare?
 
 **A:** Visual inspection suggests that we’ve solved one problem: the spike rate is no longer negative anywhere. However, the model fit still does not agree with the structure seen in the occupancy normalized histogram. We have improved the link function, but using only the position itself as a covariate leads to a rate that is an exponential function of the rat’s position.
+
 </div>
 </div>
 </div>
@@ -602,7 +686,11 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are many variables we might think to add to this model, but what variables could we add to better capture the dependence between firing rate and position, in particular? One thought might be to include nonlinear terms, such as the square of the position value. This gives us a third candidate model:</p>
-<p title="Model 3">$$\lambda(t) = \exp(\beta_0+\beta_1x(t)+\beta_2x(t)^2).$$</p><p>Compared to model 2, we’ve now included an additional $x(t)^2$ term and unknown coefficient $\beta_2$.</p>
+<p title="Model 3">
+$$
+\lambda(t) = \exp(\beta_0+\beta_1x(t)+\beta_2x(t)^2).
+\tag{Model 3}
+$$</p><p>Compared to model 2, we’ve now included an additional $x(t)^2$ term and unknown coefficient $\beta_2$.</p>
 
 </div>
 </div>
@@ -700,7 +788,7 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_41_0.png"
+<img src="../images/09/point-process-glms_44_0.png"
 >
 </div>
 
@@ -1104,7 +1192,7 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_69_0.png"
+<img src="../images/09/point-process-glms_72_0.png"
 >
 </div>
 
@@ -1200,7 +1288,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_75_0.png"
+<img src="../images/09/point-process-glms_78_0.png"
 >
 </div>
 
@@ -1251,7 +1339,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_77_0.png"
+<img src="../images/09/point-process-glms_80_0.png"
 >
 </div>
 
@@ -1263,7 +1351,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_77_1.png"
+<img src="../images/09/point-process-glms_80_1.png"
 >
 </div>
 
@@ -1495,7 +1583,7 @@ $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direc
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_94_0.png"
+<img src="../images/09/point-process-glms_97_0.png"
 >
 </div>
 
@@ -1547,7 +1635,7 @@ $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direc
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_96_0.png"
+<img src="../images/09/point-process-glms_99_0.png"
 >
 </div>
 
@@ -1559,7 +1647,7 @@ $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direc
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_96_1.png"
+<img src="../images/09/point-process-glms_99_1.png"
 >
 </div>
 
@@ -1652,7 +1740,7 @@ $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direc
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_101_0.png"
+<img src="../images/09/point-process-glms_104_0.png"
 >
 </div>
 
