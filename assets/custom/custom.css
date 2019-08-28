@@ -56,9 +56,9 @@
     margin-right: auto;
 }
 .inner_cell img {
-    width:100%;
-    max-width:700px;
-    max-height: 90%;
+    max-width:90%;
+    /*max-width:700px;*/
+    /*max-height: 90%;*/
 }
 .fig, .thumb, .sup {
     position: inherit;
@@ -76,6 +76,7 @@
     vertical-align: super;
 }
 .fig img, .sup img, .thumb img { 
+    width: 100%;
     border:1px solid #000;
     visibility: hidden;
     background-color: black;
