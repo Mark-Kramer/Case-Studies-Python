@@ -17,7 +17,7 @@ https://doi.org/10.1093/acprof:oso/9780195301069.001.0001
 [5] P. L. Nunez and R. Srinivasan. Electric Fields of the Brain: The Neurophysics of EEG. 2nd ed. New York: Oxford University Press, 2005.	Result score too low
 
 [6] R. E. Kass, U. T. Eden, and E. Brown. Analysis of Neural Data. Berlin: Springer, 2014.	
-https://doi.org/10.1007/978-1-4614-9602-1
+[Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)
 
 [7] D. Nikolic ́, P. Fries, and W. Singer. Gamma oscillations: Precise temporal coordination without a metronome. Trends in Cognitive Sciences 17(2): 54–55, 2013.
 https://doi.org/10.1016/j.tics.2012.12.003
@@ -81,7 +81,7 @@ https://doi.org/10.1113/jphysiol.1952.sp004764
 https://doi.org/10.1007/s004220050390
 
 [29] P. McCullagh and J. A. Nelder. Generalized Linear Models. 2nd ed. London: Chapman and Hall/CRC,1989.	
-https://doi.org/10.1201/9780203753736
+[McCullagh & Nelder, 1989](https://doi.org/10.1201/9780203753736)
 
 [30] H. H. Jasper and H. Andrews. Electro-encephalography. III. Normal differentiation of occipital and precentral regions in man. Archives of Neurology and Psychiatry 39(1): 96–115, 1938.
 https://doi.org/10.1001/archneurpsyc.1938.02270010106010
