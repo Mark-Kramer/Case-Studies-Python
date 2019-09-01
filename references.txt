@@ -84,10 +84,10 @@ https://doi.org/10.1007/s004220050390
 [McCullagh & Nelder, 1989](https://doi.org/10.1201/9780203753736)
 
 [30] H. H. Jasper and H. Andrews. Electro-encephalography. III. Normal differentiation of occipital and precentral regions in man. Archives of Neurology and Psychiatry 39(1): 96–115, 1938.
-https://doi.org/10.1001/archneurpsyc.1938.02270010106010
+[Jasper & Andrews, 1938](https://doi.org/10.1001/archneurpsyc.1938.02270010106010)
 
 [31] J.-S. Brittain and P. Brown. Oscillations and the basal ganglia: Motor control and beyond. NeuroImage 85(pt. 2): 637–647, 2014.
-https://doi.org/10.1016/j.neuroimage.2013.05.084
+[Brittain & Brown, 2014](https://doi.org/10.1016/j.neuroimage.2013.05.084)
 
 [32] K. Lepage, M. Kramer, and U. T. Eden. The dependence of spike field coherence on expected intensity. Neural Computation 23(9): 2209–2241, 2011.
 https://doi.org/10.1162/neco_a_00169
