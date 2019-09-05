@@ -1,13 +1,14 @@
 ---
 interact_link: content/07/cross-frequency-coupling.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Cross Frequency Coupling'
 prev_page:
-  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
-  title: 'Multiplication and Convolution in Different Domains'
+  url: /06/filtering-scalp-eeg.html
+  title: 'Filtering Field Data'
 next_page:
-  url: /06/filtering-scalp-eeg
-  title: 'The Power Spectrum (Part 2)'
+  url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
+  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -936,12 +937,21 @@ HTML('../assets/custom/custom.css')
 .left {
     margin-left: 0px;
 }
+.warning {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
 .math-note {
     color: #3c763d;
     background-color: #dff0d8;
-	border-color: #d6e9c6;
-	/*border: 1px solid;*/
-	border-radius: 5px;
+    border-color: #d6e9c6;
+    /*border: 1px solid;*/
+    border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -949,9 +959,9 @@ HTML('../assets/custom/custom.css')
 .python-note {
     color: #8a6d3b;
     background-color: #fcf8e3;
-	border-color: #faebcc;
-	/*border: 1px solid;*/
-	border-radius: 5px;
+    border-color: #faebcc;
+    /*border: 1px solid;*/
+    border-radius: 5px;
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
@@ -959,85 +969,61 @@ HTML('../assets/custom/custom.css')
 .question {
     color: #31708f;
     background-color: #d9edf7;
-	border-color: #bce8f1;
-	/*border: 1px solid;*/
+    border-color: #bce8f1;
+    /*border: 1px solid;*/
     padding: 12px;
     margin-bottom: 12px;
     margin-top: 12px;
-	border-radius: 5px;
+    border-radius: 5px;
 }
-.question, .math-note, .python-note p {
-    margin-top: 1em;
-}
-.question, .math-note, .python-note * + p {
+.question p, .math-note p, .python-note p, .warning p {
+    /*margin-top: 1em;*/
+    margin-top: 0;
     margin-bottom: 0;
 }
-.output_area img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
+    /*margin-bottom: 0;*/
+    margin-top: 1em;
 }
-.output_area iframe {
+.output_area img, .output_area iframe, .output_html iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 .inner_cell img {
-	width:100%;
-	max-width:500px;
+    width:100%;
+    max-width:700px;
+    max-height: 90%;
 }
-.thumb {
+.fig, .thumb, .sup {
     position: inherit;
+    color: #57b733;
+    cursor: help;
+    text-decoration: underline dotted;
+    max-width: 700px;
+}   
+.thumb img{ 
+    max-width: 400px;
 }
-.thumb span { 
-    width: 200px;
+.sup {
+    top: -.5em;
+    font-size: 75%;
+    vertical-align: super;
+}
+.fig img, .sup img, .thumb img { 
+    border:1px solid #000;
     visibility: hidden;
     background-color: black;
-    color: #fff;
-    text-align: center;
     border-radius: 6px;
     padding: 5px 5px;
     position: absolute;
-    z-index: 2;
-    right: 10%;
     transition: 5ms visibility;
+    z-index: 99;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-.thumb img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-    width: 100%;
-	max-width: 300px;
-}
-.thumb:hover, .thumb:hover span { 
-	visibility:visible;
-    transition-delay: 500ms;
-		
-} 
-.fig {
-    position: inherit;
-}   
-.fig img { 
-	border:1px solid #000;
-	margin:0px;
-    background:#fff;
-	width: 100%;
-}
-.fig span { 
-	visibility: hidden;
-    width: 500px;
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    z-index: 2;
-    right: 10%;
-    transition: 5ms visibility;
-}
-.fig:hover, .fig:hover span { 
-	visibility:visible;
+.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
+    visibility:visible;
     transition-delay: 500ms;
 }
 </style>

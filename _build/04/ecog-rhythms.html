@@ -1,0 +1,1479 @@
+---
+redirect_from: /04
+interact_link: content/04/ecog-rhythms.ipynb
+kernel_name: python3
+has_widgets: false
+title: 'The Power Spectrum (Part 2)'
+prev_page:
+  url: /03/supplements/supplement-psd.html
+  title: 'Intuition behind the power spectral density'
+next_page:
+  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
+  title: 'Multiplication and Convolution in Different Domains'
+comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
+---
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="top"></a></p>
+<h1 id="The-Power-Spectrum-(Part-2)">The Power Spectrum (Part 2)<a class="anchor-link" href="#The-Power-Spectrum-(Part-2)"> </a></h1>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+_**Synopsis**_ 
+
+**Data:** Field data: 1 s of ECoG data sampled at 500 Hz.
+
+**Goal:** Characterize the observed rhythms in these data.
+
+**Tools:** Fourier transform, power spectral density, spectrogram.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="#.">Introduction</a></li>
+<li><a href="#data-analysis">Data analysis</a><ol>
+<li><a href="#visual-inspection">Visual inspection</a></li>
+<li><a href="#rect-tapers">Spectral Analysis: The Rectangular Taper and Zero Padding</a></li>
+<li><a href="#hann-taper">Beyond the Rectangular Taper—the Hanning Taper</a></li>
+<li><a href="#multitaper">Beyond the Hanning Taper—the Multitaper Method</a></li>
+<li><a href="#ci">Confidence Intervals of the Spectrum</a></li>
+</ol>
+</li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="https://eschlaf2.github.io/Case-Studies-Python/04/appendix-multiplication-and-convolution-in-different-domains">Appendix: Multiplication and Convolution in Different Domains</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="On-ramp:-computing-the-tapered-power-spectrum-in-Python">On-ramp: computing the tapered power spectrum in Python<a class="anchor-link" href="#On-ramp:-computing-the-tapered-power-spectrum-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the power spectrum with a taper in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the standard modules</span>
+<span class="c1"># Prepare the modules and plot settings</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the tools for the chapter</span>
+<span class="kn">import</span> <span class="nn">nitime.algorithms.spectral</span> <span class="k">as</span> <span class="nn">spectrum</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">chi2</span>
+
+<span class="c1"># Make wide plots</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;ECoG-1.mat&#39;</span><span class="p">)</span>    <span class="c1"># Load the ECoG data.</span>
+<span class="n">x</span>    <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ECoG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>     <span class="c1"># Extract the ECoG variable,</span>
+<span class="n">t</span>    <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                 <span class="c1"># ... and the t variable</span>
+
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                    <span class="c1"># Define the sampling interval.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                      <span class="c1"># Define the total number of data points.</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="n">dt</span>                          <span class="c1"># Define the total duration of the data.</span>
+
+<span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span>              <span class="c1"># Apply the Hanning taper to the data.</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>               <span class="c1"># Compute Fourier transform of x.</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">xf</span><span class="p">))</span>  <span class="c1"># Compute the spectrum,</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[:</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)])</span>        <span class="c1"># ... and ignore negative frequencies.</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                    <span class="c1"># Determine the frequency resolution.</span>
+<span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>                    <span class="c1"># Determine the Nyquist frequency.</span>
+<span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">fNQ</span><span class="p">,</span><span class="n">df</span><span class="p">)</span>         <span class="c1"># Construct a frequency axis.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span> <span class="c1"># Plot spectrum vs frequency,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">faxis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">])</span>                    <span class="c1"># Select frequency range,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                          <span class="c1"># ... and the power range.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                 <span class="c1"># Label the axes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [$\mu V^2$/Hz]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_6_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q:** Try to read the code above. Can you see how it loads data, applies a taper, computes the spectrum, and then plots the results?
+
+**A:** If you've never tapered your data and computed a spectrum before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>, we considered noninvasive recordings of brain electrical activity using scalp EEG. Although the scalp EEG provides fine temporal resolution of brain activity, the spatial resolution is poor because of the low conductivity of the skull [<a href="https://doi.org/10.1093/acprof:oso/9780195050387.001.0001">Nunez &amp; Srinivasan, 2005</a>]. An alternative, invasive approach to improve the spatial resolution of the scalp EEG is to record directly from the brain’s surface [<a href="https://doi.org/10.1038/nrn1585">Engel, Moll, Fried, &amp; Ojemann, 2005</a>]. This technique, known as electrocorticogram (ECoG), eliminates the distorting spatial blurring effect of the skull at the cost of an invasive surgical procedure of implantation.</p>
+<h3 id="Case-study-data">Case study data<a class="anchor-link" href="#Case-study-data"> </a></h3><p>A patient with epilepsy is scheduled to undergo resective surgery to remove the portion of her brain causing recurrent, unprovoked seizures. As part of her clinical workup, electrodes are implanted beneath the skull, directly on the brain’s surface. We assume that our skilled neurosurgeon collaborator expertly implants the ECoG electrode, and that the ECoG data are collected with no artifacts. We receive from our clinical collaborator a 1 s segment of ECoG data recorded from a single electrode and sampled at 500 Hz.</p>
+<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>Our collaborator would like to know what rhythms appear in these invasive brain voltage recordings. Our goal is to analyze the 1 s of ECoG data by characterizing the rhythmic attributes of the activity. To do so, we build upon the spectral analysis techniques developed in <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>.</p>
+<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>In this notebook, we continue to develop understanding of the Fourier transform and spectrum. We apply the techniques introduced in <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a> to compute the spectrum. We also investigate the impact of windowing and zero padding on the spectrum, and explain how to apply and interpret the multitaper method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Data-analysis">Data analysis<a id="data-analysis" /><a class="anchor-link" href="#Data-analysis"> </a></h2><p>As always, we begin by looking at the data. Let's load the ECoG data into Python and plot it by issuing the following commands:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;ECoG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the ECoG data</span>
+<span class="n">ecog</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ECoG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1"># Extract the ECoG variable</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                  <span class="c1"># ... and the t variable</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ecog</span><span class="p">)</span>                     <span class="c1"># Plot the data versus time</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                <span class="c1"># Label the time axis</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">)</span>            <span class="c1"># ... and the voltage axis</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/4-1&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_10_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You might notice a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in the 1 s interval. To do so, let's approximate the total number of large-amplitude cycles that we observe in the data. Through visual inspection, we find that the first large-amplitude cycle occurs between $\approx$ 0 s and $\approx$ 0.175 s, the next between $\approx$ 0.175 s and $\approx$ 0.3 s, and so on. Counting this way, we approximate 6 full cycles per second, or a dominant 6 Hz rhythm.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="rect-tapers"></a></p>
+<h3 id="Spectral-Analysis:-The-Rectangular-Taper-and-Zero-Padding">Spectral Analysis: The Rectangular Taper and Zero Padding<a class="anchor-link" href="#Spectral-Analysis:-The-Rectangular-Taper-and-Zero-Padding"> </a></h3><p>Visual inspection, although essential to data analysis, is usually not enough. Visual inspection often guides intuition and reveals major features of the data, but it may also lead us astray; initial looks can be deceiving. To further explore the rhythmic activity of the ECoG data, we compute the spectrum.<sup><abbr title="We could instead write the sample spectrum because we use the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.">note</abbr></sup> We do so using the same approach implemented in <a href="https://eschlaf2.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>. The code is nearly the same:
+<a id="fig:4-2a"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">ecog</span>          <span class="c1"># Relabel the data variable</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Define the sampling interval</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>         <span class="c1"># ... and duration of data</span>
+
+<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>                       <span class="c1"># Compute the Fourier transform of x,</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">xf</span><span class="p">)))</span>  <span class="c1"># ... and the spectrum.</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span>                                           <span class="c1"># Define the frequency resolution.</span>
+<span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>                                     <span class="c1"># Define the Nyquist frequency.</span>
+<span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span> <span class="o">*</span> <span class="n">df</span>                     <span class="c1"># Construct the frequency axis.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="n">Sxx</span><span class="p">)</span>                                     <span class="c1"># Plot spectrum vs. frequency,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                   <span class="c1"># ... in select frequency range,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>                             <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [$\mu V^2$/Hz]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_13_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** For the ECoG data considered here, what is the frequency resolution $df$, and what is the Nyquist frequency ($f_{NQ}$)? Compare your answers to the variables ``df`` and ``fNQ`` defined in the code. 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Interpret the spectrum of the ECoG data. What rhythms appear? 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The plot of the spectrum suggests a single dominant frequency near 6 Hz, consistent with the visual inspection of the <a href="#fig:4-1">ECoG trace</a>.<span class="fig"><sup>fig</sup><img src="imgs/4-1.png"></span> Other interesting structure may also appear, perhaps at frequencies near 10 Hz; note the tiny peak barely visible in the spectrum. These initial observations suggest we can more appropriately scale the spectrum to emphasize both the low-frequency bands and weaker signals. Let’s utilize a logarithmic scale for both the power spectral density (decibels) and the frequency.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span> <span class="c1"># Plot spectrum vs frequency,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                      <span class="c1"># ... in select frequency range,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                     <span class="c1"># ... and power range,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/4-2a&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_17_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+<p>
+
+**Q.** Are the terms *frequency resolution*, *Nyquist frequency*, *Fourier transform*, *decibel*, and *spectrum* familiar? Can you define or explain each term?
+
+</p>
+
+<p>
+
+**A.** If not, we recommend reviewing the case study in [The Power Spectrum (part 1)](https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1).
+
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="By-Doing-Nothing,-We're-Doing-Something:-The-Rectangular-Taper.">By Doing Nothing, We're Doing Something: The Rectangular Taper.<a class="anchor-link" href="#By-Doing-Nothing,-We're-Doing-Something:-The-Rectangular-Taper."> </a></h4><p>ECoG time series continue for long durations. For example, an individual’s brain voltage activity may persist for over 90 years, from birth until death. However, ECoG recordings are finite, limited by convenience, technology, or other factors. In the example here, we consider 1 s of ECoG data. Performing this finite observation (lasting 1 s) on a long duration (i.e., 90-year) time series can be understood as a rectangular taper. A rectangular taper multiplies the observed data by 1 and the unobserved data by 0.</p>
+<p><a id="fig:4-3"></a>
+<img src="imgs/4-3.png" alt="Example of rectangular taper application." title="Example of rectangular taper application. Raw data continue for a long period of time (top). Most of these data are unobserved. Rectangular taper (red) specifies the interval of observation. Multiplying the raw data by the rectangular taper determines the observed ECoG data (bottom)."></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can think of the value 1 as representing the time period when our recording device is operational; activating the ECoG recording device opens the rectangular taper (value 1), and deactivating the ECoG recording device closes the rectangular taper (value 0). The rectangular taper makes explicit our knowledge about the observed data (in this case, the 1 s interval of ECoG) and our ignorance about the unobserved data, which are assigned the value zero. Notice that the rectangular taper looks like a rectangle (red trace in the figure above).</p>
+<p>So, by computing the spectrum of 1 s of observed ECoG data, we’re actually computing the spectrum of the product of two functions: the many years of mostly unobserved ECoG data and the rectangular taper. We note that by "doing nothing" we have implicitly made the choice to use the rectangular taper. We have already plotted the resulting spectrum of the observed ECoG data (again, using the default rectangular taper) above.<a href="#fig:4-2a" class="fig"><sup>fig</sup><img src="imgs/4-2a.png"><img src="imgs/4-2b.png"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Exploring-the-Impact-of-the-Rectangular-Taper.">Exploring the Impact of the Rectangular Taper.<a class="anchor-link" href="#Exploring-the-Impact-of-the-Rectangular-Taper."> </a></h4><p>The <a href="#fig:4-3" class="fig"><span>figure<img src="imgs/4-3.png"></span></a> above illustrates how the rectangular taper impacts the observed data in the time domain, namely, the taper selects a region of observation. The rectangular taper also impacts the spectrum in the frequency domain. To see this, consider a perfect sinusoid at frequency 10 Hz that in theory continues forever. In this case, the energy concentrates at a single frequency—the frequency of the sinusoid (10 Hz)—and for the (theoretical) case of an infinite sinusoid, the power spectral density is infinite at that frequency. <a id="fig:4-4"></a>
+<img src="imgs/4-4a.png" alt="Example of rectangular taper application to a sinusoid.">
+<em>Example of rectangular taper application to a sinusoid. (a) Infinite sinusoid continues forever in time; energy concentrates at sinusoid’s frequency of 10 Hz.</em></p>
+<p>In mathematical language, we say that the spectrum of the infinite sinusoid is a <em>delta function</em>. However, we never observe an infinite sinusoid; to do so would require unlimited resources and unlimited time. Instead, let’s assume we observe only 1 s of the sinusoid’s activity; we imagine multiplying the infinite duration sinusoid by a rectangular taper and observing only a finite interval of time.
+<img src="imgs/4-4b.png" alt="Example of rectangular taper application to a sinusoid.">
+<em>Example of rectangular taper application to a sinusoid. (b) Multiplying the infinite duration sinusoid by a rectangular taper (red) yields a sinusoid of finite duration. Spectrum of the resulting signal (black) exhibits features at many frequencies, with peak at 10 Hz.</em></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+<p>
+
+**Q.** Examine the spectrum of the finite sinusoid (b). What do you see? Is the spectrum concentrated at one frequency (near 10 Hz), as we expected for an infinite sinusoid?
+
+</p>
+
+<p>
+
+**A.** Visual inspection of the spectrum suggests an unexpected result: the spectrum is *not* concentrated at a single frequency. Instead, many peaks appear, centered at the expected frequency (10 Hz) but also spreading into neighboring frequency bands. The culprit responsible for this leakage outside of the 10 Hz peak is the rectangular taper applied to the true infinite-duration sinusoidal signal.
+
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To understand further the impact of the rectangular taper, let’s consider the spectrum of the rectangular taper itself.</p>
+<p>To compute the spectrum of the rectangular taper, we consider the following time series. 
+<a id="fig:4-5a"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="n">dt</span><span class="p">))</span>      <span class="c1"># Create 10 s of zeros,</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">))</span>        <span class="c1"># ... and 1 s of ones,</span>
+<span class="n">taper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>    <span class="c1"># ... stack them together,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">taper</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>  <span class="c1"># ... define a time axis,            </span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">taper</span><span class="p">)</span>                <span class="c1"># ... and plot taper vs time.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>            <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Rectangular Taper&#39;</span><span class="p">)</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/4-5a&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_24_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In theory, the rectangular taper is infinite, and is preceded and followed by infinite intervals of zeros (i.e., there’s an infinite period in which we do not observe the ECoG data). To represent the infinite extent of the rectangular taper, we add 10 s of zeros to the beginning and end of a 1 s interval of ones. Of course, 10 s of zeros is a poor representation of an infinite interval of time, but it’s sufficient for our purposes here. We note that the rectangular taper consists of two sharp edges, when the observation interval opens and closes (i.e., transitions from 0 to 1, and then back from 1 to 0).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">taperf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">taper</span> <span class="o">-</span> <span class="n">taper</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>                <span class="c1"># Compute Fourier transform of the taper,</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span> <span class="mi">2</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="n">taperf</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">taperf</span><span class="p">)))</span><span class="c1"># ... and the spectrum,</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">Sxx</span> <span class="o">/</span> <span class="n">Sxx</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                                     <span class="c1"># ... scaled to have maximum of 0.</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span>  <span class="n">t</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>                                         <span class="c1"># Define the frequency resolution.</span>
+<span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>                                          <span class="c1"># Define the Nyquist frequency.</span>
+<span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span> <span class="o">*</span> <span class="n">df</span>                          <span class="c1"># Construct frequency axis.</span>
+
+<span class="n">Sxx</span><span class="p">[</span><span class="n">Sxx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>                                    <span class="c1"># Avoid division by 0 errors,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span>                           <span class="c1"># Plot the spectrum vs frequency,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>                                          <span class="c1"># ... in select range,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                                  <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_26_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Examine the spectrum of the rectangular taper window. What do you see? At what frequency is the spectrum concentrated?
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Visual inspection of the spectrum of the rectangular taper suggests that most of the power spectral density is concentrated at a single frequency, 0 Hz. To understand why the spectrum concentrates at 0 Hz, consider the <a href="#fig:4-5a">rectangular taper</a> over the 1 s duration for which the data collection window is open <span class="fig"><img src="imgs/4-5a.png"><sup>fig</sup></span>. Within this window, the value of the taper is the constant 1. The only frequency present in this signal is 0 Hz (i.e., no oscillations occur). Therefore, the spectrum is concentrated at 0 Hz.</p>
+<p>Although the spectrum is concentrated at 0 Hz, it exhibits regions of increased spectral density at nonzero frequencies, more specifically, the repeated peaks (or side lobes) in the spectrum near 1.5 Hz, 2.5 Hz, 3.5 Hz, and so on. In fact, it's possible ot work out exactly the functional form of the Fourier transform of the rectangular taper; it's the sinc function [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1993</a>]. However, that's not particularly important for our purposes. The important result here is that the rectangular taper itself has a complicated spectrum, with features appearing across a range of frequencies.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Why does the spectrum of the rectangular taper contain features at many frequencies?
+
+**A.** The spectrum consists of features at many frequencies to represent the rapid increase and decrease of the rectangular taper (i.e., the rapid transition from 0 to 1, and then from 1 to 0). The intuition for this is that many sinusoids, aligned in a particular way, are required to represent a sharp transition in a time series. As an example, consider the following square wave function: 
+
+<a id="fig:4-6"></a>
+![Approximation of a square wave with sinusoids.](imgs/4-6.png "Approximation of a square wave with sinusoids. Square wave (black) has a period of 2 Hz. As the number of sinusoids used to spproximate the square wave increases from (a) one sinusoid, to (b) two sinusoids, to (c) five sinusoids, approximation improves. Scale bar indicates 0.5 s.")
+
+This square wave (black) consists of many repeated sharp transitions. Visual inspection suggests that the square wave is rhythmic, with a period of 2 Hz. Notice that the square wave begins at a sustained value of 1, then transitions to 0 and remains there for an interval of time, and then transitions back to a value of 1 in 0.5 s; the square wave therefore completes two cycles in 1 second.
+
+So, the square wave is rhythmic, and we may try to represent this square wave with rhythmic sinusoids. In *(a)*, we plot a 2 Hz sinusoid. It’s an okay match to the square wave but certainly not perfect; the 2 Hz sinusoid fails to capture the sharp transitions of the square wave. In *(b)*, we plot the sum of a 2 Hz sinusoid and a 6 Hz sinusoid. The combination of these two sinusoids better matches the square wave, although again the sharp transitions are not accurately captured. In *(c)*, we plot the sum of 2 Hz, 6 Hz, 10 Hz, 14 Hz, and 18 Hz sinusoids. These five sinusoids better match the square wave and begin to more accurately capture the sharp transitions. As more sinusoids are used to represent the square wave, the approximation of the sharp edges improves.
+
+So, sharp transitions in data require many sinusoids to be accurately approximated. The rectangular taper consists of sharp transitions and therefore requires sinusoids at many frequencies for an accurate representation.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Because we perform multiplication of two functions in the time domain (i.e., we multiply the rectangular taper and the infinite sinusoid element by element), we produce a convolution of the Fourier transforms of these functions in the frequency domain. Although the mathematical expression of convolution is somewhat complicated, we can understand the impact of convolution by examining a few plots. Let’s start with the Fourier transform of the infinite sinusoid and the infinite rectangular taper (where we’ve appended zeros to the rectangular taper to make it infinite). We know (or can look up) the results of each Fourier transform. The Fourier transform of the infinite 10 Hz sinusoid, which we assume here is a cosine function, consists of two delta functions at ±10 Hz.</p>
+<p><a id="fig:4-7a"></a>
+<img src="imgs/4-7a.png" alt="A 10 Hz sinusoid and its Fourier transform." title="A 10 Hz sinusoid and its Fourier transform."></p>
+<p>The Fourier transform of the rectangular taper is the sinc function.</p>
+<p><a id="fig:4-7b"></a>
+<img src="imgs/4-7b.png" alt="A rectangular taper and its Fourier transform." title="A rectangular taper and its Fourier transform."></p>
+<p>Now, let’s imagine shifting in frequency the Fourier transform of the rectangular taper (i.e., shifting in frequency the sinc function). At each shift, we multiply element by element the two Fourier transforms (i.e., the unshifted Fourier transform of the sinusoid and the shifted Fourier transform of the rectangular taper) and sum the product. The result of this shifting, multiplying, and summing of one Fourier transform by the other is the convolution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** What is the result of this convolution? How is the expected Fourier transform of the infinite sinusoid affected? 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To illustrate this convolution procedure, consider the following plots which show examples of shifting and multiplying the two Fourier transforms. 
+<a id="fig:4-7cde"></a>
+<img src="imgs/4-7cde.png" alt="Fourier transform of a function and its convolution at different shifts." title="Illustration of the Fourier transform of each function (left) and their convolution evaluated at different shifts (right in green). Shifts up to 1 Hz (c), 5 Hz (d), and 15 Hz (e) are shown.">
+The top plot shows the case in which the rectangular taper’s Fourier transform is shifted by 1 Hz. Because the sharp peak of the sinusoid’s Fourier transform does not overlap the large central peak of the rectangular taper’s Fourier transform, the product of the two functions remains small.</p>
+<p>As we continue to shift the rectangular taper’s Fourier transform, the product of the two functions at first remains small (for shifts up to 5 Hz in the middle plot). However, once we shift the rectangular taper’s Fourier transform up to and through the 10 Hz peak of the sinusoid, we begin to find larger deviations in the convolution. As the shifted rectangular taper’s Fourier transform passes through the 10 Hz peak of the sinusoid, we multiply the very thin and very tall peak of the sinusoid (bottom plot) with the center portion of the shifted rectangular taper’s Fourier transform. The result of this multiplication is to “smear” the sharp peak of the sinusoid in the frequency domain. Instead of a sharp peak at 10 Hz, the convolution produces a broad, wiggly peak in the frequency domain, with deviations at neighboring frequencies (i.e., in the side lobes around 10 Hz). In other words, because we observe the sinusoid over a finite interval of time (determined by the extent of the rectangular taper) the Fourier transform of the sinusoid becomes “smeared.”</p>
+<p>This description and the illustrations above provide some intuition for the relation between the multiplication of two signals in the time domain (here, a sinusoid and the rectangular taper) and their Fourier transform. For mathematical details and corresponding Python code, see the <a href="https://mark-kramer.github.io/Case-Studies-Python/04/supplements/appendix-multiplication-and-convolution-in-different-domains">appendix</a> at the end of this notebook.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Zero-padding.">Zero padding.<a class="anchor-link" href="#Zero-padding."> </a></h4><p>An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length $(T)$ improves the frequency resolution; recall the equation $df = 1/T$ from <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>. We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing $T\,$). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Decide how many seconds of padding to use.</span>
+<span class="c1"># Run this code block with 1, 2, and 10 seconds of </span>
+<span class="c1"># padding. What do you notice?</span>
+
+<span class="n">padding</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Create the taper signal</span>
+<span class="n">sample_rate</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">)</span>             <span class="c1"># Define the sampling rate.</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">sample_rate</span> <span class="o">*</span> <span class="n">padding</span><span class="p">)</span> <span class="c1"># Create an interval of zeros,</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span> <span class="n">sample_rate</span><span class="p">)</span>           <span class="c1"># ... and 1 s of ones,</span>
+<span class="n">taper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">))</span>          <span class="c1"># ... stack them together,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">taper</span><span class="p">))</span> <span class="o">/</span> <span class="n">sample_rate</span>  <span class="c1"># ... define a time axis,            </span>
+
+<span class="c1"># Since we have used much of this code before,</span>
+<span class="c1"># let&#39;s make a function out of it. This way we</span>
+<span class="c1"># can easily reuse it without copying and pasting.</span>
+
+<span class="k">def</span> <span class="nf">show_spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">Fs</span>                      <span class="c1"># Define the time step</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>                  <span class="c1"># Define the total time</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>    <span class="c1"># Compute the Fourier transform</span>
+    <span class="n">Sxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">((</span><span class="n">X</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span>  <span class="c1"># ... and the spectrum</span>
+    <span class="n">Sxx</span> <span class="o">=</span> <span class="n">Sxx</span> <span class="o">/</span> <span class="n">Sxx</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>            <span class="c1"># ... and scale it to have maximum of 0.</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span>                       <span class="c1"># Define the frequency resolution,</span>
+    <span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span> <span class="o">*</span> <span class="n">df</span> <span class="c1"># ... to create frequency axis</span>
+    
+    <span class="k">if</span> <span class="n">display</span><span class="p">:</span>                      <span class="c1"># If you&#39;d like to display the results,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">dt</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># ... then plot the signal,</span>
+        <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># ... with axes labeled.</span>
+        <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>           <span class="c1"># ... and its spectrum</span>
+        <span class="n">Sxx</span><span class="p">[</span><span class="n">Sxx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>       <span class="c1"># ... avoid division by 0 errors</span>
+        <span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span><span class="mf">10.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span><span class="c1"># Plot the spectrum vs frequency,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlim</span><span class="p">)</span>               <span class="c1"># ... in select range,</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+        <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>     <span class="c1"># ... with axes labeled.</span>
+        <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
+        <span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">Sxx</span><span class="p">,</span> <span class="n">faxis</span>
+    
+<span class="n">show_spectrum</span><span class="p">(</span><span class="n">taper</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">);</span>   <span class="c1"># Show the taper and its spectrum</span>
+                                     <span class="c1"># ... (suppress output with &#39;;&#39;)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_34_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This procedure of appending zeros to a time series is called <strong>zero padding</strong>. It can be useful for visualizing a spectrum. But we must be careful to remember the following important fact.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-success">
+The frequency resolution of the spectrum is fixed by the amount of data recorded. The number of points along the frequency axis in the spectrum is adjustable and can be increased by zero padding.
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With this understanding of the impact of the rectangular taper and zero padding, let’s now return to the <a href="#fig:4-4b">spectrum of the 1 s of sinusoidal activity</a> <span class="fig"><sup>fig</sup><img src="imgs/4-4b.png"></span>. We now expect that because we observe the infinite sinusoid for only a short duration (1 s), the spectral power at 10 Hz will leak into neighboring frequency bands. And, as plotted in the spectrum above, that’s indeed what we find - the side lobe structure is clearly visible. Also note that, in this example, we computed the spectrum with zero padding to evaluate the spectrum at many points along the frequency axis.</p>
+<p>To explore further the impact of this zero padding, let’s now consider an example in Python. We define a 10 Hz sinusoid with duration 1 s, apply 10 s of zero padding and examine the impact on the spectrum:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Fs</span> <span class="o">=</span> <span class="mi">500</span>                                             <span class="c1"># Define sampling frequency.</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">Fs</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Make a 10 Hz sinusoid,</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">Fs</span><span class="p">)))</span>                <span class="c1"># ... with 10 s of zero padding.</span>
+
+<span class="c1"># Use the function we created earlier to view the spectrum. </span>
+<span class="n">show_spectrum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_38_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the first three lines of this code, we define the sampling frequency (<code>Fs</code>), and the 10 Hz sine function with zero padding. Next, we use the function that we created previously to compute and plot the spectrum. Notice that we plot the spectrum on a decibel scale, and focus on the frequency interval 0–20 Hz.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** In the `show_spectrum()` function, we subtract the mean of a signal before computing the Fourier transform. In this case it is not necessary to do this. Why?  
+
+**A.** It is not necessary to subtract the mean here because the mean of the signal `d` is zero, so subtracting the mean does not impact the results.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** How much zero padding do we add? How does this change the spacing on the frequency axis?  
+
+**A.** We append `10*Fs` zeros to the end of the simulated sinusoidal data. This corresponds to 10 s (or 5,000 points). The original spacing on the frequency axis for the data was $1/T = 1 / 1$ s $= 1$ Hz. After zero-padding, the spacing on the frequency axis becomes $1 / (1 + 10\mbox{s}) = 1/(11\mbox{s}) \approx 0.091$ Hz.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The results for this case (using 10 s of zero padding) show a dominant peak at 10 Hz, as expected, and large side lobes that extend throughout the 0&mdash;20 Hz frequency range. Choices of smaller-duration zero padding and longer duration zero padding produce similar results. With 5 s of zero-padding, the plotted spectrum appears less smooth; in this case, we evaluate the spectrum at fewer points on the frequency axis, and the side lobe peaks become more jagged. The choice of 100 s of zero padding does not produce a qualitative change compared to the 10 s of zero padding; in this case, evaluating the spectrum at 10 times as many points along the frequency axis in not particularly useful.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Can you adjust the code above to verify these claims?
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can also see the impact of no zero padding. To do so, simply omit the third line of the Python code above. The spectrum is quite different from the original example. Without zero padding, the falloff from the 10 Hz peak appears rather smooth and gradual, and does not exhibit obvious side lobe structure, as expected after the discussion of the rectangular taper. Leakage from the 10 Hz peak into neighboring frequency bands still occurs, but without zero padding we're sampling the frequency axis too coarsely to accurately make out the side lobes.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Zero-padding-and-frequency-resolution:-an-example.">Zero padding and frequency resolution: an example.<a class="anchor-link" href="#Zero-padding-and-frequency-resolution:-an-example."> </a></h4><p>We stated in the previous section that zero padding does not improve the frequency resolution of the spectrum. As an example of this, consider a simple signal of duration 1 s that consists of two sinusoids: a 10 Hz sinusoid and a 10.5 Hz sinusoid.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Given this 1 s time series, can we distinguish the two rhythms in the spectrum?
+
+**A.** No. The frequency resolution is $df = 1 / T = 1/(1\mbox{s}) = 1$ Hz. Because the two sinusoids are separated by less than 1 Hz, we cannot distinguish these two rhythms.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But, perhaps by zero padding the data, we can distinguish these two rhythms. After all, zero padding acts to increase $T$, right? We're appending lots of zeros to the time series, so the data become longer. Let's create these synthetic data in Python and investigate.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Fs</span> <span class="o">=</span> <span class="mi">500</span>                                                <span class="c1"># Define sampling frequency</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">Fs</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>    <span class="c1"># Make a 10 Hz sinusoid.</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">Fs</span><span class="p">)</span> <span class="o">*</span> <span class="mf">10.5</span><span class="p">)</span>  <span class="c1"># Make a 10.5 Hz sinusoid.</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">d1</span> <span class="o">+</span> <span class="n">d2</span>                                             <span class="c1"># Make the summed signal,</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">d</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="n">Fs</span><span class="p">)))</span>                   <span class="c1"># ... with 10 s of zero padding.</span>
+
+<span class="n">show_spectrum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>     <span class="c1"># ... and compute the spectrum.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_48_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the code above we first define the sampling frequency and then create the two sinusoids (<code>d1</code> and <code>d2</code>), sum these sinusoids to create a composite signal (<code>d</code>), and zero-pad this composite signal with 10 s of zeros. Finally, we compute and plot the spectrum as before.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Consider the spectrum above. Can you identify the two rhythms present in the simulated time series? If you change the duration of zero padding does this help reveal the two separate rhythms?
+
+**A.** No. No choice of zero padding resolves the two spectral peaks. In  this case, the two rhythms are separated by less than the frequency resolution $df$. Zero padding the data (even with 100 s of zeros) does not resolve the two peaks. We only simulated 1 s of data, and therefore set $df = 1$ Hz; zero padding does not change this fact. 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='hann-taper'></a></p>
+<h3>Beyond the Rectangular Taper&mdash;The Hanning Taper</h3>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have considered so far a single type of taper (the default, a rectangular taper) and its impact on the spectrum. In particular, we noted the “smearing” of spectral peaks (i.e., side lobes) that impact neighboring frequency bands. At best these side lobes are distracting, and at worst they may contaminate our conclusions. For example, consider the spectrum for the 1 s of ECoG data.<a href="#fig:4-2b" class="fig"><sup>fig</sup><img src="imgs/4-2b.png"></a> Is the small peak near 10 Hz representative of a true rhythm in these data, or is it a side lobe of the large peak near 6 Hz? Many different taper shapes have been developed with the goal of reducing the side lobes that contaminate the signals. Here we consider one of these tapers, the <em>Hanning taper</em>.</p>
+<p>The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies,<a href="#fig:4-6" class="fig"><sup>fig</sup><img src="imgs/4-6.png"></a> which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">padding</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5000</span><span class="p">)</span>                                        <span class="c1"># Create 5000 pts of zeros for padding.</span>
+<span class="n">hanning_taper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">padding</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="mi">5000</span><span class="p">),</span> <span class="n">padding</span><span class="p">))</span>       <span class="c1"># Create Hanning taper with padding.</span>
+<span class="n">rect_taper</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">padding</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">padding</span><span class="p">),</span> <span class="n">padding</span><span class="p">))</span>  <span class="c1"># Create rectangular taper with padding.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">rect_taper</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rect&#39;</span><span class="p">)</span>                                        <span class="c1"># Plot the two tapers.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">hanning_taper</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hann&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_53_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that the Hanning taper gradually increases from zero, reaches a maximum of 1 at the center of the interval, then gradually decreases to zero. We can compare the spectra of the two tapers using the following code:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Fs</span> <span class="o">=</span> <span class="mi">500</span>                  <span class="c1"># Define the sampling frequency.</span>
+<span class="n">a</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">Fs</span> <span class="o">*</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># Create 10 seconds of zeropadding.</span>
+
+<span class="n">show_spectrum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="n">a</span><span class="p">)),</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>  <span class="c1"># Compute spectrum of Hanning taper.</span>
+<span class="n">show_spectrum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="n">a</span><span class="p">)),</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>     <span class="c1"># Compute spectrum of rectangular taper.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_55_0.png"
+>
+</div>
+
+</div>
+</div>
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_55_1.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These spectra reveal two main differences between these tapers:</p>
+<ol>
+<li>The central lobe of the Hanning taper is wider than the rectangular taper, and</li>
+<li>The side lobes in the Hanning taper are reduced compared to the rectangular taper.</li>
+</ol>
+<p>These two features illustrate the trade-off between the two window choices. By accepting a wider central peak in the Hanning taper, we acquire side lobes with lower power.</p>
+<p>The Hanning taper is applied to time series data in the same way as the rectangular taper. The data are multiplied element by element by the taper. Let’s begin by applying the Hanning taper to the ECoG data:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;ECoG-1.mat&#39;</span><span class="p">)</span>     <span class="c1"># Load the ECoG data,</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ECoG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>         <span class="c1"># ... get the voltage trace,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>            <span class="c1"># ... and the time axis,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Raw&quot;</span><span class="p">)</span>              <span class="c1"># ... and plot it.</span>
+<span class="n">xH</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="n">x</span>          <span class="c1"># Apply the Hanning taper,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">xH</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Tapered&#39;</span><span class="p">)</span>         <span class="c1"># ... and plot it,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                   <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mv]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_57_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The NumPy function <code>hanning()</code> returns the Hanning taper, which we multiply element by element with the ECoG data in variable <code>x</code>. Notice that the slow increase in the Hanning taper reduces the amplitude of the ECoG activity near the taper edges and emphasizes the ECoG activity in the center of the interval.</p>
+<div class="question">
+
+<p>
+
+**Q.** Under what conditions would reducing the activity near the taper edges be a bad idea? *Hint:* What if the signal features of interest occur at the very beginning or very end of the observed data?
+
+</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's compute the spectrum of the ECoG data with, and without, the Hanning taper.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Fs</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>                            <span class="c1"># Determine the sampling frequency</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">_</span>      <span class="o">=</span> <span class="n">show_spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>   <span class="c1"># Compute the rectangular tapered spectrum.</span>
+                     <span class="n">display</span><span class="o">=</span><span class="kc">False</span><span class="p">);</span>       
+<span class="n">XH</span><span class="p">,</span> <span class="n">faxis</span> <span class="o">=</span> <span class="n">show_spectrum</span><span class="p">(</span><span class="n">xH</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>  <span class="c1"># Compute the Hannning tapered spectrum.</span>
+                          <span class="n">display</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rectangular taper&#39;</span><span class="p">)</span>   <span class="c1"># Plot the two spectra,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="n">XH</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hanning taper&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                          <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/4-11d&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_60_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** The spectra for the Hanning tapered ECoG data and the rectangular tapered ECoG data are plotted above. What conclusions do you now draw regarding the rhythms present in the ECoG data? Consider, in particular, the activity near 10&mdash;15 Hz. 
+
+**A.** The spectrum of the Hanning tapered ECoG data reveals a peak at 10&mdash;15 Hz. This peak was hidden by the side lobes of the 6 Hz peak in the (default) rectangular tapered ECoG data. The Hanning taper reduces the side lobes of the 6 Hz peak, and allows us to uncover the smaller 10&mdash;15 Hz peak that was originally obscured by these side lobes. This observation dramatically changes our interpretation of the ECoG data. We now propose that the ECoG activity consists of two rhythms: a rhythm near 6 Hz, and a second band of rhythms near 10&mdash;15 Hz. Without application of the Hanning taper, we might have missed the second rhythm by attributing it to side lobes of the 6 Hz peak.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='multitaper'></a></p>
+<h3>Beyond the Hanning Taper&mdash;The Multitaper Method</h3>
+<p>The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the <a href="https://en.wikipedia.org/wiki/Multitaper">multitaper method</a>. The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is $1/K$ times the variance of the estimated spectrum from a single taper, where $K$ is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&amp;context=L&amp;vid=BU&amp;search_scope=default_scope&amp;tab=default_tab&amp;lang=en_US">Priestley, 1981</a>].</p>
+<p>In the preceding examples, we estimated the spectrum from an observed time series. Often from these estimates we have difficulty identifying features that are significant (or not). For example, consider the small peak at 40–50 Hz in the plot of the ECoG spectrum.<a href="#fig:4-11d" class="fig"><sup>fig</sup><img src="imgs/4-11d.png"></a> Is that peak significant or a random fluctuation we expect in an estimate from real-world ECoG data? To address this question, we might consider collecting more data and using these additional data to improve our estimate of power. However, collecting more data does not automatically improve the spectral estimate. Instead, collecting more data (i.e., increasing the duration of data recorded, $T$) produces more spectral estimates at additional frequencies, yet the spectrum at each frequency remains just as variable. We would like a way to improve the spectral estimate—a way to reduce the variability of the estimate—so that we could more confidently identify interesting features. The multitaper method offers a procedure to do so. However, this comes at a cost. If we desire reduced variance in the spectral estimate, we must accept worse frequency resolution. Let’s explore these issues in more detail.</p>
+<p>To get a sense for the multitaper method, let’s examine some of the tapers. We will use the <a href="http://nipy.org/nitime/">Nitime</a> module for this.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">dpss_windows</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>               <span class="c1"># Get the first 5 tapers,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>               <span class="c1"># ... and plot them</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;1st taper&#39;</span><span class="p">,</span><span class="s1">&#39;2nd taper&#39;</span><span class="p">,</span><span class="s1">&#39;3rd taper&#39;</span><span class="p">,</span><span class="s1">&#39;4th taper&#39;</span><span class="p">,</span> <span class="s1">&#39;5th taper&#39;</span><span class="p">])</span>
+<span class="n">filtered_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">taper</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mf">2.5</span><span class="o">*</span><span class="n">i</span> <span class="k">for</span> <span class="n">taper</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">filtered_x</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_63_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The first taper looks familiar—it’s similar to the Hanning taper. Notice that the first taper starts at zero, increases throughout the interval, and then decreases back to zero. As we add more tapers, each contains more “wiggles.” In particular, as the number of tapers increases, the edges of the data become better represented. Unlike the Hanning taper, which slowly approaches zero at the taper edges, some of these tapers increase near the window edges (see taper 5). This can be useful, especially if we are interested in the spectral features near the beginning and end of the data. Just as with the Hanning taper, we multiply the time series data by each taper, which emphasizes different intervals of the data. We show examples of this multiplication for the ECoG data in the plot on the right. The first taper emphasizes the middle of the ECoG data, and the fifth taper emphasizes the beginning and end of the ECoG data.</p>
+<p>We only show the first five tapers. There are an infinite number more. How do we choose the number of tapers to use in the multitaper method? To answer this, we utilize the equation</p>
+$$TW = X,$$<p>where $T$ is the duration of the recording, $2W$ is the desired frequency resolution (or resolution bandwidth), and we're free to choose $X$, the aptly named <em>time-bandwidth product</em>. For concreteness, let's consider the 1 s of ECoG data.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="alert alert-block alert-info">
+
+**Q.** Given 1 s of data, what is the frequency resolution?
+
+**A.** Using the equation for the frequency resolution $df = 1/T$, we find $df = 1/(1\mbox{s}) = 1$ Hz. Without applying the multitaper method, we begin with a frequency resolution of 1 Hz. We now concede some frequency resolution to apply the multitaper method and reduce the variability in the spectral estimate.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Remember that a frequency resolution of 1 Hz indicates that we can resolve features in the spectrum separated in frequency by 1 Hz or more. For example, at a frequency resolution of 1 Hz, we can distinguish 10 Hz activity from 9 Hz or 11 Hz activity. However, we are unable to distinguish 10 Hz activity from 10.5 Hz or 9.5 Hz; those frequencies lie within the frequency resolution.</p>
+<p>Let’s assume we do not require a frequency resolution of 1 Hz; instead, we are satisfied with a frequency resolution of 6 Hz. Using the multitaper method, we trade off a worse frequency resolution to improve the estimate of the spectrum. In this case, $T = 1$ s, and we are willing to accept a resolution bandwidth of $2 W = 6$ Hz. So, from the equation above, we compute the time-bandwidth product and find $T W = 3$. Now, with this value, we select the number of tapers following this rule of thumb:</p>
+$$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers because doing so allows us to preserve most of the information present in the original data. We could choose fewer tapers, but in most cases we follow this rule of thumb and pick as many tapers as we can. Choosing more tapers does not improve the multitaper estimate of the spectrum and may lead to spurious results; for more details, see [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>]. So, for the ECoG data of interest here, we select the number of tapers to be $2 \times 3 - 1 = 5$. These five tapers are plotted above on the left. Applying these tapers to the ECoG data, we create the five time series shown on the right. We then compute the spectrum of each tapered ECoG time series, and average the resulting spectra across the five tapers. Through this averaging procedure across tapers, we reduce the variability of the spectral estimate.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="math-note">
+
+**Multitaper method tradeoff:** The multitaper method permits a trade-off between frequency resolution and variance of the spectrum. If we can tolerate worse frequency resolution, we can include more tapers and reduce the spectrum variance.
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Given 10 s of data, we demand a frequency resolution of 2 Hz or better. Using the multitaper method, what is the maximum number of tapers we could select and still maintain the desired frequency resolution?
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The multitaper method is a sophisticated approach, and we have only touched on the surface in this brief discussion. There are many detailed references and important applications [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&amp;context=L&amp;vid=BU&amp;search_scope=default_scope&amp;tab=default_tab&amp;lang=en_US">Priestley, 1981</a>]. Fortunately, there are also Python software packages and functions to implement and apply the multitaper method. We will use the function <code>multi_taper_psd()</code> from the <a href="http://nipy.org/nitime/index.html">Nitime</a> package to compute the multitaper spectrum of the ECoG data:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">NW</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># Define the normalized time-bandwidth product,</span>
+        <span class="c1"># ... and compute the multitaper spectrum.</span>
+<span class="n">faxis</span><span class="p">,</span> <span class="n">Sxx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">multi_taper_psd</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">Fs</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">dt</span><span class="p">,</span> <span class="n">NW</span><span class="o">=</span><span class="n">NW</span><span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Rectangular taper&#39;</span><span class="p">)</span>  <span class="c1"># Plot the spectrum,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">XH</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Hanning taper&#39;</span><span class="p">)</span>     <span class="c1"># ... computed in three wasy</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">Sxx</span><span class="p">[:</span><span class="mi">100</span><span class="p">]</span> <span class="o">/</span> <span class="n">Sxx</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Multitaper&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                        <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_71_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The function <code>multi_taper_psd()</code> takes three inputs: the data (here <code>x-x.mean()</code>), the sampling frequency (here <code>1/dt</code>), and the normalized half-bandwidth (here <code>NW</code>). The normalized half-bandwidth is equivalent to the half-bandwidth <em>W</em> if the total time is normalized to one second. By default, <code>multi_taper_psd()</code> sets the number of tapers to $2 N W - 1$. The function <code>multi_taper_psd()</code> returns the frequency points (<code>faxis</code>) and multitaper estimate of the spectrum (<code>Sxx</code>). The plot above shows the spectrum of the ECoG data computed in three ways: using the rectangular taper, the Hanning taper, and the multitaper method.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Compare the spectra of the ECoG data in the figure above. How do the multitaper method results differ from the results computed with the other tapers? Do any new features appear in the spectrum using the multitaper method? 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Because the recording time here is 1 second, the time-bandwidth product is equal to the normalized time-bandwidth product. This means that the frequency resolution is simply `2 * NW`. If instead, the recording length were 2 seconds, how would you calculate the frequency resolution from the normalized time-bandwidth, `NW`?
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='ci'></a></p>
+<h3 id="Confidence-Intervals-of-the-Spectrum">Confidence Intervals of the Spectrum<a class="anchor-link" href="#Confidence-Intervals-of-the-Spectrum"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Another useful feature of the <code>pmtm()</code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with $K$ tapers can be computed using a chi-square distribution with $2K$ degrees of freedom [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>],</p>
+$$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) $$<p>Here, $\hat S(f)$ is our estimate of the spectral power at frequency $f$ (i.e., the values in <code>Sxx</code>), $S(f)$ is the true spectral power that we want to estimate, and $\chi^2_{\alpha}(2K)$ is the quantile corresponding the the probability $\alpha$ according to a chi-square distribution with $2K$ degrees of freedom. We can write this as a function to compute the confidence intervals.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">NW</span> <span class="o">-</span> <span class="mi">1</span>                   <span class="c1"># Compute the default number of tapers.</span>
+    
+<span class="k">def</span> <span class="nf">chi2conf</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Sxx</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ci</span><span class="o">=.</span><span class="mi">95</span><span class="p">):</span>  <span class="c1"># Define a short function to compute confidence bounds.</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns confidence bounds computed using chi-square </span>
+<span class="sd">    distribution.</span>
+<span class="sd">    Input: </span>
+<span class="sd">        K (int): Number of tapers</span>
+<span class="sd">        Sxx (array): Multitaper spectrum (optional)</span>
+<span class="sd">        ci ([0.5, 1]): Confidence level (optional)</span>
+<span class="sd">    Output:</span>
+<span class="sd">        lb, ub: lower and upper bounds</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">ub</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span> <span class="o">/</span> <span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">ci</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">)</span> <span class="o">*</span> <span class="n">Sxx</span>
+    <span class="n">lb</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span> <span class="o">/</span> <span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span>    <span class="n">ci</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K</span><span class="p">)</span> <span class="o">*</span> <span class="n">Sxx</span>
+    <span class="k">return</span> <span class="n">lb</span><span class="p">,</span> <span class="n">ub</span>
+
+<span class="k">def</span> <span class="nf">dB</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                       <span class="c1"># For convenience, define a function to convert</span>
+    <span class="sd">&#39;&#39;&#39;Convert to decibels&#39;&#39;&#39;</span>    <span class="c1"># ... a signal to decibels</span>
+    <span class="k">return</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">lb</span><span class="p">,</span> <span class="n">ub</span> <span class="o">=</span> <span class="n">chi2conf</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">Sxx</span><span class="p">)</span>        <span class="c1"># Use the function to get confidence bounds</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="n">dB</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">dB</span><span class="p">(</span><span class="n">ub</span><span class="p">),</span>  <span class="c1"># Plot results</span>
+                 <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;95 CI&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span><span class="n">dB</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Multitaper spectrum with confidence bounds&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">faxis</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/04/ecog-rhythms_77_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Compute and plot the multitaper spectra for different choices of time-bandwidth product. For example, use $TW = 3,\ 5,\ 8,\ 10$. For each case determine the frequency resolution, and compare your answer to the resulting plots. How does changing the time-bandwidth product impact the plotted spectra? 
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Use the spectral analysis results to draw some conclusions about the data. What rhythms do you think are present?
+
+**A.** Our previous analysis using the Hanning taper suggested two peaks in the spectrum: a large peak near 6 Hz, and a second smaller peak near 10–15 Hz. Both peaks are still visible, at least partially, in the multitaper spectra estimates. We notice that as the time-bandwidth product increases, the frequency resolution becomes worse, and it becomes more difficult to resolve these two peaks; these neighboring peaks start to smear together. This is expected and the trade-off we accept in the multitaper method. The big payoff of the multitaper method occurs in the higher-frequency bands. As the time-bandwidth product increases, we observe a small elevation across a broad frequency range, at approximately 30–50 Hz. The spectral density in this interval is small and was hidden by the noise in the previous spectral estimates using the rectangular taper or the Hanning taper. However, by using many tapers in the multitaper method, we reduce this noise and reveal the broad elevation of power. Physiologically, the impact of this observation is enormous; the data exhibit a broad gamma band peak—one of the best studied and understood frequency bands in the brain—with implications for cognitive function and dysfunction [[Buzsáki, 2006](https://doi.org/10.1093/acprof:oso/9780195301069.001.0001)].
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id='summary'></a></p>
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h3><p>In this module, we analyzed the rhythmic activity present in 1 s of ECoG data. We computed the spectrum and considered two issues: zero padding and tapering. We discussed that zero padding can increase the number of points along the frequency axis but cannot change the frequency resolution. We also explored the trade-off between three different tapers: the rectangular taper, the Hanning taper, and the multitaper method. The Hanning taper reduces the side lobes present in the rectangular taper, but fattens the spectral peaks. The multitaper method reduces the variance of the spectrum at the cost of worsened frequency resolution. Applying all three measures to the ECoG data allowed us to explore the rhythmic activity of these data in different ways. All three methods suggest rhythmic content at low frequencies, near 6–7 Hz, consistent with the visual inspection of the time series. Applying the Hanning taper, we uncovered activity in the 10–15 Hz range. Applying the multitaper method, we uncovered broadband activity at 30–50 Hz. This activity, hidden in the noisy spectrum, only became apparent upon increasing the number of tapers. However, this increase necessarily reduces the frequency resolution and can hide the low-frequency rhythms. In this case, we find it useful to examine the spectrum in a variety of ways.</p>
+<p>Here we have only touched the surface of these concepts. Further discussions of zero padding, tapering, and the multitaper method may be found in 
+<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, 
+<a href="https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6">Priestly, 1981</a>, 
+and <a href="http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880688">Press, Teukolsky, Vetterling &amp; Flannery, 2007</a>.</p>
+
+</div>
+</div>
+</div>
+ 
+

@@ -1,13 +1,14 @@
 ---
 interact_link: content/04/supplements/appendix-multiplication-and-convolution-in-different-domains.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Multiplication and Convolution in Different Domains'
 prev_page:
-  url: /04/ecog-rhythms
-  title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
+  url: /04/ecog-rhythms.html
+  title: 'The Power Spectrum (Part 2)'
 next_page:
-  url: /07/cross-frequency-coupling
-  title: 'Cross Frequency Coupling'
+  url: /05/the-cross-covariance-and-coherence.html
+  title: 'The Cross Covariance and Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 

@@ -1,13 +1,14 @@
 ---
 interact_link: content/11/spike-field-coherence.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Analysis of Spike-Field Coherence'
 prev_page:
-  url: /09/point-process-glms
+  url: /09/point-process-glms.html
   title: 'Modeling place Fields with Point Process Generalized Linear Models'
 next_page:
-  url: /A02/HH
-  title: 'Hodgkin Huxley Model'
+  url: 
+  title: ''
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -834,7 +835,7 @@ np.exp(res_thinned.params[0])/np.exp(res.params[0])
 
 {:.output .output_data_text}
 ```
-0.5148036162392592
+0.514896804729595
 ```
 
 
@@ -854,8 +855,8 @@ print([np.exp(res_thinned.params[2]), np.exp(res.params[2])])  # compare ratio o
 
 {:.output .output_stream}
 ```
-[1.2521768851003343, 1.260455807376859]
-[0.9938852020717813, 0.994594076180192]
+[1.2501577294372048, 1.260455807376859]
+[1.0052510668688142, 0.994594076180192]
 
 ```
 

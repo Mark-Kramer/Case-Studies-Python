@@ -56,11 +56,11 @@
     margin-right: auto;
 }
 .inner_cell img {
-    width:100%;
-    max-width:700px;
-    max-height: 90%;
+    max-width:90%;
+    /*max-width:700px;*/
+    /*max-height: 90%;*/
 }
-.fig, .thumb {
+.fig, .thumb, .sup {
     position: inherit;
     color: #57b733;
     cursor: help;
@@ -70,19 +70,13 @@
 .thumb img{ 
     max-width: 400px;
 }
-.figsup {
-    cursor: help;
-    color: #57b733;
-    top: -0.5em;
+.sup {
+    top: -.5em;
     font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-    border-bottom: none;
-    text-decoration: underline dotted;
-    max-width: 700px;
+    vertical-align: super;
 }
-.fig img, .figsup img, .thumb img { 
+.fig img, .sup img, .thumb img { 
+    width: 100%;
     border:1px solid #000;
     visibility: hidden;
     background-color: black;
@@ -94,10 +88,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.figsup img {
-    position: inherit;
-}
-.fig:hover, .fig:hover img, .figsup:hover img, .thumb:hover, .thumb:hover img { 
+.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
     visibility:visible;
     transition-delay: 500ms;
 }

@@ -1,10 +1,11 @@
 ---
+redirect_from: None
 title: 'Home'
 prev_page:
   url: 
   title: ''
 next_page:
-  url: /01/introduction-to-python
+  url: /01/introduction-to-python.html
   title: 'Introduction to Python'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---

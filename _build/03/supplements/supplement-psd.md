@@ -1,13 +1,14 @@
 ---
 interact_link: content/03/supplements/supplement-psd.ipynb
 kernel_name: python3
+has_widgets: false
 title: 'Intuition behind the power spectral density'
 prev_page:
-  url: /03/supplements/supplement-autocovariance
+  url: /03/supplements/supplement-autocovariance.html
   title: 'Biased versus unbiased autocovariance'
 next_page:
-  url: /04/ecog-rhythms
-  title: 'Analysis of Rhythmic Activity in the Electrocorticogram'
+  url: /04/ecog-rhythms.html
+  title: 'The Power Spectrum (Part 2)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
 
@@ -66,6 +67,12 @@ and the associated Python code. In doing so, we explore some subtleties of this 
 
 
 
+{:.input_area}
+```python
+YouTubeVideo('TOszYv0pdKU')
+# NO CODE
+```
+
 
 
 
@@ -117,6 +124,12 @@ Written in this way, the Fourier transform becomes easier to interpret. Let’s 
 We may therefore think of the Fourier transform as comparing the data $x$ to the sinusoids oscillating at frequency $f_j$. When the data and sinusoid at frequency $f_j$ align the summation in the Fourier transform is large and the result $X_j$ is a large number. When the data and sinusoid at frequency $f_j$ do not align, the summation in the Fourier transform is small and $X_j$ is a tiny number.
 
 
+
+{:.input_area}
+```python
+YouTubeVideo('PRoA5Zn_gbQ')
+# NO CODE
+```
 
 
 
