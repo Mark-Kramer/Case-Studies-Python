@@ -1,0 +1,101 @@
+
+  Sign in Funding Data Link References Status API Help
+Title, author, DOI, ORCID iD, etc.
+Link References
+Queried for 18 references
+Reference
+
+[1] P. Wallisch, M. E. Lusignan, M. D. Benayoun, T. I. Baker, A. S. Dickey, and N. G. Hatsopoulos. MATLAB for Neuroscientists: An Introduction to Scientific Computing in MATLAB. San Diego: Academic Press, 2008.
+https://doi.org/10.1016/b978-0-12-374551-4.00002-6
+
+[2] H. Bokil, P. Andrews, J. E. Kulkarni, S. Mehta, and P. P. Mitra. Chronux: A platform for analyzing neural signals. Journal of Neuroscience Methods 192(1): 146–151, 2010.
+https://doi.org/10.1016/j.jneumeth.2010.06.020
+[3] H.Berger.U ̈berdasElektrenkephalogrammdesMenschen.Archivfu ̈rPsychiatrieundNervenkrankheiten 87: 527–570, 1929.	Result score too low
+[4] G. Buzsa ́ki. Rhythms of the Brain. New York: Oxford University Press, 2006.	
+https://doi.org/10.1093/acprof:oso/9780195301069.001.0001
+
+[5] P. L. Nunez and R. Srinivasan. Electric Fields of the Brain: The Neurophysics of EEG. 2nd ed. New York: Oxford University Press, 2005.	Result score too low
+
+[6] R. E. Kass, U. T. Eden, and E. Brown. Analysis of Neural Data. Berlin: Springer, 2014.	
+[Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)
+
+[7] D. Nikolic ́, P. Fries, and W. Singer. Gamma oscillations: Precise temporal coordination without a metronome. Trends in Cognitive Sciences 17(2): 54–55, 2013.
+https://doi.org/10.1016/j.tics.2012.12.003
+
+[8] D. B. Percival and A. T. Walden. Spectral Analysis for Physical Applications. Cambridge: Cambridge University Press, 1993; reprinted with corrections 1998.	Result score too low
+[9] M. B. Priestley. Spectral Analysis and Time Series. London: Academic Press, 1981.	Result score too low
+
+[10] A. K. Engel, C. Moll, I. Fried, and G. A Ojemann. Invasive recordings from the human brain: Clinical insights and beyond. Nature Reviews Neuroscience 6(1): 35–47, 2005.
+https://doi.org/10.1038/nrn1585
+
+[11] W. H. Press, S. A. Teukolsky, W. T. Vetterling, and B. P. Flannery. Numerical Recipes in C: The Art of Scientific Computing. Cambridge: Cambridge University Press, 1992.
+https://doi.org/10.1017/s0263574700010675
+
+[12] E. Pereda, R. Quiroga, and J. Bhattacharya. Nonlinear multivariate analysis of neurophysiological signals. Progress in Neurobiology 77: 1–37, 2005.
+https://doi.org/10.1016/j.pneurobio.2005.10.003
+
+[13] B. J. He, J. M. Zempel, A. Z. Snyder, and M. E. Raichle. The temporal structures and functional significance of scale-free brain activity. Neuron 66(3): 353–369, 2010.
+https://doi.org/10.1016/j.neuron.2010.04.020
+
+[14] P. Bak, C. Tang, and K.Wiesenfeld. Self-organized criticality: An explanation of the 1/f noise. Physical Review Letters 59(4): 381–384, 1987.
+https://doi.org/10.1103/physrevlett.59.381
+
+[15] G. Buzsa ́ki, C. Anastassiou, and C. Koch. The origin of extracellular fields and currents: EEG, ECoG, LFP, and spikes. Nature Reviews Neuroscience 13(6): 407–420, 2012.
+https://doi.org/10.1038/nrn3241
+
+[16] A. Bragin, G. Jando, Z. Na ́dasdy, J. Hetke, K. Wise, and G. Buzsa ́ki. Gamma (40–100 Hz) oscillation in the hippocampus of the behaving rat. Journal of Neuroscience 15(1): 47–60, 1995.
+https://doi.org/10.1523/jneurosci.15-01-00047.1995
+
+[17] J. Chrobak and G. Buzsa ́ki. Gamma oscillations in the entorhinal cortex of the freely behaving rat. Journal of Neuroscience 18(1): 388–398, 1998.
+https://doi.org/10.1523/jneurosci.18-01-00388.1998
+
+[18] A. von Stein and J. Sarnthein. Different frequencies for different scales of cortical integration: From local gamma to long-range alpha/theta synchronization. International Journal of Psychophysiology 38(3): 301–313, 2000.
+https://doi.org/10.1016/s0167-8760(00)00172-0
+
+[19] P. Lakatos, A. Shah, K. Knuth, I. Ulbert, G. Karmos, and C. Schroeder. An oscillatory hierarchy controlling neuronal excitability and stimulus processing in the auditory cortex. Journal of Neurophysiology 94(3): 1904–1911, 2005.
+https://doi.org/10.1152/jn.00263.2005
+
+[20] P. Lakatos, G. Karmos, A. D. Mehta, I. Ulbert, and C. E Schroeder. Entrainment of neuronal oscillations as a mechanism of attentional selection. Science 320(5872):110–113, 2008.
+https://doi.org/10.1126/science.1154735
+
+[21] R. T. Canolty and R. T. Knight. The functional role of cross-frequency coupling. Trends in Cognitive Sciences 14(11): 506–515, 2010.
+https://doi.org/10.1016/j.tics.2010.09.001
+
+[22] A. Tort, R. Komorowski, H. Eichenbaum, and N. Kopell. Measuring phase-amplitude coupling between neuronal oscillations of different frequencies. Journal of Neurophysiology 104(2): 1195–1210, 2010.
+https://doi.org/10.1152/jn.00106.2010
+
+[23] M. A. Kramer and U. T. Eden. Assessment of cross-frequency coupling with confidence using generalized linear models. Journal of Neuroscience Methods 220(1): 64–74, 2013.
+https://doi.org/10.1016/j.jneumeth.2013.08.006
+[24] D. Hearn and M. P. Baker. Computer Graphics: C Version. Upper Saddle River, NJ: Prentice Hall, 1996.	Result score too low
+
+[25] R. Scheffer-Teixeira, H. Belchior, R. Lea ̃o, S. Ribeiro, and A. Tort. On high-frequency field oscillations (>100 Hz) and the spectral leakage of spiking activity. Journal of Neuroscience 33(4): 1535–1539, 2013.
+https://doi.org/10.1523/jneurosci.4217-12.2013
+
+[26] U. T. Eden and M. A. Kramer. Drawing inferences from Fano factor calculations. Journal of Neuroscience Methods 190(1): 149–152, 2010.
+https://doi.org/10.1016/j.jneumeth.2010.04.012
+
+[27] A. L. Hodgkin and A. F. Huxley. A quantitative description of membrane current and its application to conduction and excitation in nerve. Journal of Physiology (London) 117(4): 500–544, 1952.
+https://doi.org/10.1113/jphysiol.1952.sp004764
+
+[28] S. Iyengar and Q. Liao. Modeling neural activity using the generalized inverse Gaussian distribution. Biological Cybernetics 77(4): 289–295, 1997.
+https://doi.org/10.1007/s004220050390
+
+[29] P. McCullagh and J. A. Nelder. Generalized Linear Models. 2nd ed. London: Chapman and Hall/CRC,1989.	
+[McCullagh & Nelder, 1989](https://doi.org/10.1201/9780203753736)
+
+[30] H. H. Jasper and H. Andrews. Electro-encephalography. III. Normal differentiation of occipital and precentral regions in man. Archives of Neurology and Psychiatry 39(1): 96–115, 1938.
+[Jasper & Andrews, 1938](https://doi.org/10.1001/archneurpsyc.1938.02270010106010)
+
+[31] J.-S. Brittain and P. Brown. Oscillations and the basal ganglia: Motor control and beyond. NeuroImage 85(pt. 2): 637–647, 2014.
+[Brittain & Brown, 2014](https://doi.org/10.1016/j.neuroimage.2013.05.084)
+
+[32] K. Lepage, M. Kramer, and U. T. Eden. The dependence of spike field coherence on expected intensity. Neural Computation 23(9): 2209–2241, 2011.
+https://doi.org/10.1162/neco_a_00169
+
+[33] K. Lepage, G. G Gregoriou, M. Kramer, M. Aoi, S. Gotts, U. T. Eden, and R. Desimone. A procedure for testing across-condition rhythmic spike-field association change. Journal of Neuroscience Methods 213(1): 43–62, 2013.
+https://doi.org/10.1016/j.jneumeth.2012.10.010
+
+[34] M. Jarvis and P. Mitra. Sampling properties of the spectrum and coherency of sequences of action potentials. Neural Computation 13(4): 717, 2001.
+https://doi.org/10.1162/089976601300014312
+[35] P. Mitra and H. Bokil. Observed Brain Dynamics. New York: Oxford University Press, 2008.
+
