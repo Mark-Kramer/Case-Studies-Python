@@ -124,10 +124,10 @@ favicon_path: images/logo/favicon.ico
 
 # Markdown Processing
 markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-  parse_block_html: true
+#kramdown:
+#  input: GFM
+#  syntax_highlighter: rouge
+#  parse_block_html: true
 
 sass:
   style: expanded
