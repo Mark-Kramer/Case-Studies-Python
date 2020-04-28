@@ -1,25 +1,17 @@
 ---
+redirect_from: /10
 interact_link: content/09/point-process-glms.ipynb
 kernel_name: python3
-kernel_path: content/09
 has_widgets: false
-title: |-
-  Modeling place Fields with Point Process Generalized Linear Models
-pagenum: 12
+title: 'Modeling place Fields with Point Process Generalized Linear Models'
 prev_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
+  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
 next_page:
   url: /11/spike-field-coherence.html
-suffix: .ipynb
-search: model data rate beta models position t function fit div firing parameter not likelihood parameters spiking direction spikes x spike process poisson class between maximum rat lets compute values aic lambda place p question python observed plot point covariates where q value does confidence variable distribution link text activity goodness cm linear our field structure n movement interval any exp glm comparing times using estimate well test top set here case compare log zero analysis difference residual id rats fitting statistical variables however same occupancy hat used new vector therefore ks chapter back regression whether histogram consider s significant called
-
+  title: 'Analysis of Spike-Field Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">Modeling place Fields with Point Process Generalized Linear Models</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -28,10 +20,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div id="top" class="question">
@@ -50,10 +38,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -74,10 +58,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In <a href="../08">chapter 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.</p>
@@ -89,22 +69,20 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># In addition to startup imports ...</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="kn">import</span> <span class="n">Poisson</span>
-<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="kn">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">log</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
-<span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="k">import</span> <span class="n">Poisson</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="k">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">chi2</span>
+<span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="k">import</span> <span class="n">ECDF</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
 </pre></div>
 
     </div>
@@ -112,10 +90,8 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="data-analysis"></a></p>
@@ -123,20 +99,12 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Visual-Inspection-">Visual Inspection <a id="visual-inspection" /><a class="anchor-link" href="#Visual-Inspection-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>First we load the file Ch9-spikes-1.mat. The variable <code>X</code> indicates the rat’s position (in centimeters) at each moment in time (variable <code>t</code>, in seconds). The variable <code>spiketimes</code> indicates the times (in seconds) at which spikes occur in the data.</p>
@@ -146,11 +114,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -169,10 +135,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -188,10 +156,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The plot shows that the rat runs back and forth consistently, making about 15 passes during the approximately 3 minute recording. We also observe that the rat moves fairly quickly during each back and forth pass but spends a large amount of time at both ends of the track (near position 0 cm or 100 cm) before turning around and continuing.</p>
@@ -200,10 +164,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -216,11 +176,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -238,10 +196,8 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we can plot the position and spike train together.</p>
@@ -249,11 +205,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -269,10 +223,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -288,10 +244,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -315,11 +267,9 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -336,10 +286,12 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -355,10 +307,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From the above figure, it is clear that the preponderance of the spiking is occurring whenever the rat is running up the track, in the direction where <code>X</code> is increasing, at values of <code>X</code> ranging from about 50 cm to about 80 cm. We do not see the same spiking activity in this region when the rat is running back down the track, in the direction where <code>X</code> is decreasing. A few spikes occur at other locations, but these appear sparse compared to the place-specific firing in this region.</p>
@@ -368,11 +316,9 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -390,10 +336,12 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -409,10 +357,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the third line of this code, we multiply the occupancy by 0.001 to put the occupancy in units of seconds and the occupancy normalized histogram in units of spikes per second. From the occupancy normalized histogram in the figure, we see that the firing rate is highest around the 60–70 cm position and falls off rapidly as the rat moves away from that location. This corroborates the results from our previous visualizations. However, there is one feature of the spiking activity that we observed previously for which we are not accounting in this visualization. Here we are relating spiking purely to position without regard for the direction of the rat’s movement.</p>
@@ -420,10 +364,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -437,10 +377,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Fitting-a-Point-Process-Model-(Poisson-GLM)-">Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm" /><a class="anchor-link" href="#Fitting-a-Point-Process-Model-(Poisson-GLM)-"> </a></h3><p>Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In chapter 8, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.</p>
@@ -448,10 +384,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -464,10 +396,6 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One approach we used to model the spiking data in <a href="../08">chapter 8</a> was a Poisson model, in which we used a rate parameter, $\lambda$, to define the expected rate of spiking in any time interval. We then computed the value of $\lambda$ that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.</p>
@@ -491,11 +419,9 @@ Let’s now use this function to fit the parameters of Model 1 to the observed l
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -514,20 +440,22 @@ Let’s now use this function to fit the parameters of Model 1 to the observed l
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/miniconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:278: DomainWarning: The identity link function does not respect the domain of the Poisson family.
+<pre>//anaconda3/envs/csn/lib/python3.6/site-packages/statsmodels/genmod/generalized_linear_model.py:273: DomainWarning: The identity link function does not respect the domain of the Poisson family.
   DomainWarning)
 </pre>
 </div>
 </div>
 </div>
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -543,10 +471,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -560,11 +484,9 @@ To further visualize the quality of this model, we can compare the dependence it
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -584,10 +506,12 @@ To further visualize the quality of this model, we can compare the dependence it
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -603,10 +527,6 @@ To further visualize the quality of this model, we can compare the dependence it
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -618,10 +538,6 @@ We see that the model spike rate captures some features of the observed spiking,
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Refining-the-model-">Refining the model <a id="refining" /><a class="anchor-link" href="#Refining-the-model-"> </a></h3><p>We conclude that our initial proposal, Model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:
@@ -640,10 +556,6 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -654,10 +566,6 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The choice of a log link also ensures that the likelihood of the data is concave with respect to the model parameters. This means that the likelihood only has one local maximum value, which is the maximum likelihood (ML) estimate. It can also be shown that in many cases, the parameter estimators will be asymptotically normal, which will allow us to construct confidence intervals and make significance statements about them [<a href="https://doi.org/10.1007/978-1-4614-9602-1">Kass, Eden &amp; Brown, 2014</a>].</p>
@@ -666,11 +574,9 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -685,10 +591,8 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In fact, if we omit the name of the link function in the glmfit routine, it will automatically use the canonical link for the selected distribution. Since the log link is canonical for Poisson data, we can simply run the commands:</p>
@@ -696,11 +600,9 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -715,10 +617,12 @@ properties. As desired, it ensures that the rate function is positive.</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -733,10 +637,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -749,10 +649,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let’s examine the model fit more closely. When x = 0, the firing rate under Model 2 is</p>
@@ -768,11 +664,9 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -790,10 +684,12 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -809,10 +705,6 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -825,10 +717,6 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are many variables we might think to add to this model, but what variables could we add to better capture the dependence between firing rate and position, in particular? One thought might be to include nonlinear terms, such as the square of the position value. This gives us a third candidate model:</p>
@@ -841,10 +729,6 @@ $$</p><p>Compared to Model 2, we’ve now included an additional $x(t)^2$ term a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -857,10 +741,6 @@ $$</p><p>Compared to Model 2, we’ve now included an additional $x(t)^2$ term a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To fit Model 3 in Python, we add another column to the matrix of covariates, the second argument of the GLM model.</p>
@@ -868,11 +748,9 @@ $$</p><p>Compared to Model 2, we’ve now included an additional $x(t)^2$ term a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -890,10 +768,12 @@ $$</p><p>Compared to Model 2, we’ve now included an additional $x(t)^2$ term a
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -910,10 +790,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -924,10 +800,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -940,10 +812,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let’s now interpret the parameter estimates for Model 3. The estimate of the first parameter is $\beta_0 = −26.3$. This means that when the rat is at position $x = 0$, the firing rate is $\lambda(t) = \exp(\beta_0) = \exp(−26.3) ≈ 0$. There is almost no chance of observing a spike when the rat is at this location. What happens as the rat moves in the positive direction? This is determined by both $\beta_1 = 0.6901$ and $\beta_2 = −0.0055$. For every unit increase in position, the firing rate is multiplied by $\exp(\beta_1) = 1.99$, but at the same time, for every unit increase in the square of position, the firing rate is multiplied by $\exp(\beta_2) = 0.99$.</p>
@@ -952,11 +820,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -974,10 +840,12 @@ dtype: float64
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -993,10 +861,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We see from the figure above that Model 3 aligns much more closely with the occupancy normalized histogram. The firing rate is small at the beginning of the track, increases to a maximum firing rate near 10 Hz about 60 cm along the track, and then decreases as the position increases further. The firing rate model as a function of position looks like the bell-shaped or mound-shaped density that we often associate with the Gaussian (or normal) distribution. The fact that the firing rate is the exponential of a quadratic function of position means that we can rewrite the model in a form that more closely resembles the Gaussian function:</p>
@@ -1007,11 +871,9 @@ $$ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),$$<p>whe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1028,16 +890,18 @@ $$ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),$$<p>whe
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>mu: 63.16295780404678
-sigma: 9.566890841873429
-alpha: 0.01128549519917976
+<pre>mu: 63.16295780404654
+sigma: 9.566890841873352
+alpha: 0.011285495199176512
 </pre>
 </div>
 </div>
@@ -1046,10 +910,6 @@ alpha: 0.01128549519917976
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1062,10 +922,6 @@ alpha: 0.01128549519917976
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We see that the estimated place field center is about 63.2 cm down the track. The estimated place field size, $\hat{\sigma} = 9.6$, suggests that the firing rate decreases about 40% when the rat is about 9.6 cm from the place field center, and decreases about 85% when the rat is about 19 cm from the place field center. The neuron spikes at a rate near $\hat{\alpha}= 11$ spikes/s when the rat is 63 cm along the track, but less than 2 spikes/s when the rat is more than 19 cm away from that position.</p>
@@ -1074,10 +930,6 @@ alpha: 0.01128549519917976
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Comparing-and-Evaluating-Models">Comparing and Evaluating Models<a id="comparing-models" /><a class="anchor-link" href="#Comparing-and-Evaluating-Models"> </a></h3><p>We have fit a number of models for the receptive field of this neuron and compared these models through visual inspection. Ideally, we’d like to go beyond qualitative comparisons and consider quantitative tools to help us evaluate and compare different models. For statistical models, we often use the term <em>goodness-of-fit</em> to describe how well a model captures structure in the observed data, and how well the model predicts future data. There is not a single procedure for measuring goodness-of-fit; instead there are many tools that, taken together, can provide a broad perspective on the strengths and weaknesses of a set of models. We explore some approaches for comparing the relative goodness-of-fit between two models and then methods to assess the overall goodness-of-fit of a single model.</p>
@@ -1095,11 +947,9 @@ However, the calculation is not difficult. For Model 2, we can compute the AIC a
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1114,15 +964,17 @@ However, the calculation is not difficult. For Model 2, we can compute the AIC a
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>AIC2:  3344.790862938608
-model2_results.aic:  3344.790862938608
+<pre>AIC2:  3344.7908629386075
+model2_results.aic:  3344.7908629386075
 </pre>
 </div>
 </div>
@@ -1131,10 +983,6 @@ model2_results.aic:  3344.790862938608
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first line of this code computes the log likelihood for Model 2. Recall that the likelihood is the joint distribution of all the data for a specific model. In this case, the number of spikes in each bin is modeled as a Poisson random variable with rate $\lambda(t)$. Therefore, the log likelihood (<code>LL2</code>) is just the logarithm of the product of Poisson probability values for the observed spiking under the proposed model (or equivalently, the sum of the log of these Poisson probability values). The third line computes the AIC for this model. Notice that in the last line we use a value of p = 2, as there are two parameters in this model ($\beta_0$ and $\beta_1$). Lastly, we show that indeed this is the same thing that results from accessing the <code>aic</code> attribute of the model results.</p>
@@ -1143,11 +991,9 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1161,10 +1007,12 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1177,10 +1025,6 @@ model2_results.aic:  3344.790862938608
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1191,10 +1035,6 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Finally, we can compute the difference between the AIC values for these two models:</p>
@@ -1202,11 +1042,9 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1219,14 +1057,16 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dAIC:  636.0145006465609
+<pre>dAIC:  636.0145006465605
 </pre>
 </div>
 </div>
@@ -1235,10 +1075,6 @@ model2_results.aic:  3344.790862938608
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find a value of <code>dAIC = 636.0145</code>. This difference indicates that the AIC of Model 3 is smaller than that of Model 2, suggesting that Model 3 is superior. How should we interpret the value of the difference? The answer depends on the probability model we are using, and generally we are just interested in which model has the lowest AIC without worrying about the magnitude of the difference. However, one rough way of thinking about this value is in terms of the penalty. The fact that Model 3 has an AIC of about 636 less than the AIC of model 2 suggests that Model 3 would still be preferable to Model 2 even if Model 3 had 636/2 = 318 more parameters than it actually does.</p>
@@ -1251,11 +1087,9 @@ $$\Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{De
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1271,15 +1105,17 @@ $$\Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{De
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dAIC:  636.0145006465609
-Another method:  636.0145006465609
+<pre>dAIC:  636.0145006465614
+Another method:  636.0145006465605
 </pre>
 </div>
 </div>
@@ -1288,10 +1124,6 @@ Another method:  636.0145006465609
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The resulting difference in AICs (variable dAIC) matches the value we computed earlier.</p>
@@ -1304,11 +1136,9 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1321,10 +1151,12 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1337,10 +1169,6 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this case, the difference in parameters between Model 2 and Model 3 is 1; Model 3 has one additional parameter. We therefore set the degrees of freedom of the chi-square distribution to 1, the second input to the function <code>chi2.cdf()</code>. We find the computed p-value is zero, to the precision that Python is able to compute the chi-square distribution. In practice, this means that the p-value for this test is not exactly zero but is smaller than approximately $2^{−16}$ (see <a href="https://stackoverflow.com/questions/19141432/python-numpy-machine-epsilon">here</a> for a discussion of <a href="https://en.wikipedia.org/wiki/Machine_epsilon">machine epsilon</a> in Python). We have a great deal of evidence that the additional, quadratic parameter in Model 3, $\beta_2$, is nonzero.</p>
@@ -1351,11 +1179,9 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1368,10 +1194,12 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1386,10 +1214,6 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The left column of the variable <code>CI2</code> is the confidence interval for $\beta_0$, and the right column is the confidence interval for $\beta_1$. How should we interpret these confidence intervals? Just as before, they will be more interpretable if we exponentiate first.</p>
@@ -1397,11 +1221,9 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1414,10 +1236,12 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1431,10 +1255,6 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The confidence interval for $\beta_0$ describes the uncertainty in the firing rate at position x = 0. At that position, we are 95% certain that the rate is between 0.0004 and 0.0008 (the left column of <code>eCI2</code>) spikes per millisecond, or between 0.4 and 0.8 spikes per second. The confidence interval for $\beta_1$ describes the uncertainty in the effect of a unit change in position on the firing rate. Every time we increase $x$ by 1, the rate gets modulated by a value between 1.009 and 1.0171 (the second column of <code>eCI2</code>). In other words, each centimeter increase in position increases the firing rate between about 0.9% and 1.7%.</p>
@@ -1443,11 +1263,9 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1461,10 +1279,12 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1478,10 +1298,6 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The resulting variable <code>CI3</code> consists of three columns. The rightmost column is the confidence interval for $\beta_2$. We see that this interval (<code>CI3[:,2]=[-0.0063 -0.0046]</code>) does not contain zero, so the quadratic term is significant at the 95% confidence level.</p>
@@ -1490,11 +1306,9 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1507,14 +1321,16 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>4.117080430226506e-38
+<pre>4.117080430453684e-38
 </pre>
 </div>
 </div>
@@ -1523,10 +1339,6 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2$$<p>Under the null hypothesis, this stat
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find <code>p_beta2 = 4.12e-38</code>, which is very close to zero. This result is consistent with our previous finding, via the MLRT, that the improvement of Model 3 over Model 2 suggested that the quadratic model component was significant at a level of $p &lt; 2^{−16}$.</p>
@@ -1546,11 +1358,9 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1567,10 +1377,8 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1581,10 +1389,6 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we compute the empirical CDF of these rescaled waiting times using the function ECDF from the statsmodels package:</p>
@@ -1592,11 +1396,9 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1618,10 +1420,12 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1637,10 +1441,6 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1651,10 +1451,6 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1667,10 +1463,6 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Method-5:-Residual-Analysis.">Method 5: Residual Analysis.<a class="anchor-link" href="#Method-5:-Residual-Analysis."> </a></h4><p>Residuals represent the difference between the data and the model prediction at the level of individual data points. While quantities such as the deviance or KS plot are useful for getting an overall picture of how well the model fits the data as a whole, residual analysis is essential for understanding which components of a dataset are well or ill fit by the model. It is therefore one of the best tools for determining what is missing in a model.</p>
@@ -1686,11 +1478,9 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1703,10 +1493,8 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To inspect how the cumulative residual process evolves in time, let’s plot it:</p>
@@ -1714,11 +1502,9 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1734,10 +1520,12 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1753,10 +1541,6 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>If Model 3 were correct, then the residuals should be zero mean and uncorrelated with any covariates. We see in the figure above that the cumulative residual process ends at zero, suggesting that the residuals sum to zero over all time steps. However, we also identify a pattern in the residual process, which suggests that there is still some structure in the data that is not captured by Model 3. More specifically, visual inspection suggests a relation between the residuals and a model covariate: the <a href="#fig:position">position</a><span class="sup">fig<img src="imgs/position.png"></span>. We observe that the cumulative residual process seems to increase whenever the rat in moving in the positive direction and to decrease whenever the rat is moving in the negative direction. This analysis suggests exactly what has been missing from our models: direction.</p>
@@ -1764,11 +1548,9 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1789,10 +1571,12 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1804,7 +1588,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 </div>
 </div>
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1820,10 +1604,6 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to top</a></p>
@@ -1833,11 +1613,9 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1852,10 +1630,8 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1866,10 +1642,6 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With the indicator function for the direction of movement now defined, we must incorporate this new signal into the model. The simplest solution is to add the <code>direction</code> variable directly as a new predictor. This would lead to a new model,</p>
@@ -1880,11 +1652,9 @@ $$<p>We then fit this model and interpret the parameter estimates. With our prev
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1902,10 +1672,12 @@ $$<p>We then fit this model and interpret the parameter estimates. With our prev
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1922,10 +1694,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1936,10 +1704,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We are particularly interested in the final parameter estimate. When the direction indicator variable is equal to zero—when the rat is moving in the negative direction or standing still—this component does not affect the rate. When the direction indicator is 1, this component of the model modulates the rate by $e^{\beta_3}$. For our estimated parameter we find <code>b4[3] = 3.2753</code> and therefore that $e^{\beta_3}= 26.4521$.</p>
@@ -1947,10 +1711,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1963,10 +1723,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We could perform the same change of parameters for this model as for the alternative form of Model 3. We previously expressed Model 3 using a mean, width, and maximum firing rate for the place field. If we performed this change of parameters for Model 4, we would still have just a single mean, width, and maximum rate parameter, and one additional parameter related to the modulation of direction, whose estimated value would not change.</p>
@@ -1975,10 +1731,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="9.2.6-Comparing-and-Evaluating-Models-(Continued)-">9.2.6 Comparing and Evaluating Models (Continued) <a id="comparing-continued" /><a class="anchor-link" href="#9.2.6-Comparing-and-Evaluating-Models-(Continued)-"> </a></h3><p>Now that we have a new model that attempts to capture the dependence of spiking on movement direction, let’s compare the resulting model fit to the previous model fits and evaluate the overall goodness-of-fit of this new model. First, we compare the AIC values between Models 3 and 4:</p>
@@ -1986,11 +1738,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2004,14 +1754,16 @@ dtype: float64
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>233.86944739331216
+<pre>233.86944739331148
 </pre>
 </div>
 </div>
@@ -2020,10 +1772,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2034,10 +1782,6 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find <code>dAIC = 233.8806</code>, a difference that is positive and large, suggesting a significant improvement in the fit of Model 4 compared to Model 3. To evaluate the significance, we can once again perform an MLRT. Model 3 is clearly nested in Model 4, since under the null hypothesis that  $\beta_3 = 0$, we obtain Model 3. Because there is only one parameter to fix, the MLRT statistic would have a chi-square distribution with 1 degree of freedom if the null hypothesis were true. So we compute the p-value for this test as</p>
@@ -2045,11 +1789,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2062,10 +1804,12 @@ dtype: float64
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -2078,10 +1822,6 @@ dtype: float64
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>and find $p = 0$. Again, we see that the addition of a parameter leads to a highly significant improvement in the fit to the data.</p>
@@ -2090,11 +1830,9 @@ dtype: float64
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2110,15 +1848,17 @@ dtype: float64
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>CI_beta3:  [2.5549560544169054, 3.995607396537344]
-p_beta3:  9.555627447425901e-20
+<pre>CI_beta3:  [2.5549560544168393, 3.9956073965374057]
+p_beta3:  9.555627447497141e-20
 </pre>
 </div>
 </div>
@@ -2127,10 +1867,6 @@ p_beta3:  9.555627447425901e-20
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find that the confidence interval (<code>CI_beta3 = [2.5550, 3.9957]</code>) does not contain the value zero, and is highly significantly different (<code>p_beta3 = 9.5422e-20</code>) from zero. These goodness-of-fit analyses corroborate each other in suggesting that including the direction term provides a significant improvement in capturing the observed spiking structure.</p>
@@ -2139,11 +1875,9 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2169,10 +1903,12 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2188,10 +1924,6 @@ p_beta3:  9.555627447425901e-20
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The KS plot for Model 4 looks much better than the one we constructed for Model 3. We notice that the KS plot for Model 4 stays within the 95% bounds everywhere, unlike the KS plot for Model 3. This does not mean that the model is correct, but there is not significant evidence of lack-of-fit from the KS plot.</p>
@@ -2200,11 +1932,9 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2225,10 +1955,12 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2240,7 +1972,7 @@ p_beta3:  9.555627447425901e-20
 
 </div>
 </div>
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2256,10 +1988,6 @@ p_beta3:  9.555627447425901e-20
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The figure above plots the cumulative residual process for Model 4 and the movement trajectory. We find that the residual process is now centered at zero. There may still be some structure as a function of time, but it is no longer as closely associated with the movement trajectory as for Model 3.</p>
@@ -2268,10 +1996,6 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="9.2.7-Drawing-Conclusions-from-the-Model-">9.2.7 Drawing Conclusions from the Model <a id="drawing-conclusions" /><a class="anchor-link" href="#9.2.7-Drawing-Conclusions-from-the-Model-"> </a></h3><p>It is likely that we could refine this model further, perhaps by adding additional covariates or including different dependence structure on the covariates we are currently using. The process of model refinement is not about identifying a single correct model. Instead, it is about building a model that sufficiently captures features of the data in which we are interested. For this analysis, let’s decide that based on our multiple goodness-of-fit tools, Model 4 is good enough. We now use this model to better understand the structure of the place cell that generated these data.</p>
@@ -2281,11 +2005,9 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2304,16 +2026,18 @@ p_beta3:  9.555627447425901e-20
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>mu:  63.18440082980659
-sigma:  9.57690511379084
-alpha:  0.0008199709288922659
+<pre>mu:  63.18440082980777
+sigma:  9.576905113790875
+alpha:  0.0008199709288921785
 </pre>
 </div>
 </div>
@@ -2322,10 +2046,6 @@ alpha:  0.0008199709288922659
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2338,10 +2058,6 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let’s also visualize the firing rate as a function of both position and direction. We use the <code>predict</code> function to do this. This function uses both the parameter estimates and the stats structure that is output by <code>fit</code>, and computes the estimated Poisson rate function.</p>
@@ -2349,11 +2065,9 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2379,10 +2093,12 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2398,10 +2114,6 @@ alpha:  0.0008199709288922659
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2412,10 +2124,6 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2428,10 +2136,6 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="../10">chapter 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.</p>
@@ -2440,10 +2144,6 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Summary-">Summary <a id="summary" /><a class="anchor-link" href="#Summary-"> </a></h2><p>In this case study, we used an iterative process to identify a statistical model for a hipocampal place cell. We started by visualizing the data, and then proposed point process models, compared and evaluated those models, refined the models, and finally drew inferences from a model that sufficiently captured the structure in the data that we were trying to explain. Each step of this procedure should inform the next. The goal of the visualization analysis is to identify covariates and receptive field structure to include in the first proposed models. The goodness-of-fit analysis should provide insight into features of the statistical model that are lacking and suggest new models. In this case study, we settled on a good model after just two iterations of model refinement. In practice, it may take many more iterations—or even iterations between model identification and new experiments—to identify good models.</p>
@@ -2452,10 +2152,5 @@ alpha:  0.0008199709288922659
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

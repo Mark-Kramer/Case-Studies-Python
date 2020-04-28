@@ -1,25 +1,17 @@
 ---
+redirect_from: None
 interact_link: content/03/supplements/supplement-psd.ipynb
 kernel_name: python3
-kernel_path: content/03/supplements
 has_widgets: false
-title: |-
-  Intuition behind the power spectral density
-pagenum: 5
+title: 'Intuition behind the power spectral density'
 prev_page:
   url: /03/supplements/supplement-autocovariance.html
+  title: 'Biased versus unbiased autocovariance'
 next_page:
   url: /04/ecog-rhythms.html
-suffix: .ipynb
-search: data hz n function fj eeg linear model fourier regression transform div multiple xn tn cosine class sum frequency xj pi power autocovariance sine spectrum equation term eq beta product id x consider variable index summation question q span lets both case e src imgs png predictor predictors fit spectral activity part sinusoids different terms imaginary cos sin not large values real href fig line noise density exp xx python represents using therefore plot analysisofrhythmicactivity ipynb variables epsilonn units relation component doing our measures frequencies because simple notice left right where multiply align value dependent l goal coefficients estimate sxxmodelhz
-
+  title: 'The Power Spectrum (Part 2)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">Intuition behind the power spectral density</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -27,10 +19,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -42,21 +30,19 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the modules and plot settings</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>
 </pre></div>
 
     </div>
@@ -64,19 +50,19 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tools for this chapter</span>
 <span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
-<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="k">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
 </pre></div>
 
     </div>
@@ -84,11 +70,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -102,10 +88,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The main component of this module discusses the analysis of rhythmic activity. One important component of this analysis is the power spectral density. In this supplement, we examine equation for the Fourier transform</p>
@@ -116,10 +100,6 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>and the associated Python code. 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="fourier-transform"></a></p>
@@ -127,11 +107,9 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>and the associated Python code. 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -144,23 +122,25 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>and the associated Python code. 
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/TOszYv0pdKU"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/TOszYv0pdKU"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -169,10 +149,6 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>and the associated Python code. 
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Fourier transform represents the data $x$ as a linear combination of sinusoids with different frequencies. To see this, consider again:</p>
@@ -190,11 +166,9 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -207,23 +181,25 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/PRoA5Zn_gbQ"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/PRoA5Zn_gbQ"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -232,10 +208,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To make these ideas more concrete, we can consider some simple examples. In these examples, the data $x$ will be a perfect cosine with frequency 10 Hz.</p>
@@ -243,11 +215,9 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -263,10 +233,12 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -282,10 +254,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Choosing $f_j = 4$ Hz, we can construct a sine and cosine function each oscillating at 4 Hz.</p>
@@ -293,11 +261,9 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -316,10 +282,12 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -335,10 +303,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then, to perform the calculation of the Equation (*) we multiply the data $x$ by the sinusoids at each point in time.</p>
@@ -346,11 +310,9 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -365,10 +327,12 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -384,10 +348,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that the products alternate between positive and negative values throughout time.</p>
@@ -407,10 +367,6 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly.</p>
@@ -418,11 +374,9 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -442,10 +396,12 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -461,10 +417,6 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -475,10 +427,6 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The product of the cosine function and the data is always non-negative, and therefore its summation over time results in a large positive number. In this case, the real part of $X_j$ is large because the cosine function with frequency $f_j =10$ Hz and the data $x$ match. In this sense, the Fourier transform reveals the dominant frequencies of the underlying time series.</p>
@@ -490,10 +438,6 @@ Above, we plotted these products over time. Because each product alternates betw
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="autocovariance"></a></p>
@@ -508,10 +452,6 @@ The spectrum is the Fourier transform of the autocovariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="multiple-linear-regression"></a></p>
@@ -530,10 +470,6 @@ $$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To do multiple linear regression in Python we start by importing the <code>statsmodels</code> package and the <code>DataFrame</code> function from the <code>pandas</code> package. We use <code>DataFrame</code> to create a table that is easy to work with and then use <code>statsmodels</code> to perform the regression.</p>
@@ -541,10 +477,6 @@ $$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We will work with the same data set that we used in the main component of this module, so we start by importing the data.</p>
@@ -552,11 +484,9 @@ $$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -570,71 +500,9 @@ $$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="jb_output_wrapper }}">
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     40</span>     <span class="ansi-green-fg">except</span> IOError<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;EEG-1.mat&#39;
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-10-356547e69bde&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>data <span class="ansi-blue-fg">=</span> loadmat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;EEG-1.mat&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> EEG <span class="ansi-blue-fg">=</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;EEG&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> t <span class="ansi-blue-fg">=</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;t&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">loadmat</span><span class="ansi-blue-fg">(file_name, mdict, appendmat, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span>     &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">    215</span>     variable_names <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;variable_names&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">with</span> _open_file_context<span class="ansi-blue-fg">(</span>file_name<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> f<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    217</span>         MR<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> mat_reader_factory<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    218</span>         matfile_dict <span class="ansi-blue-fg">=</span> MR<span class="ansi-blue-fg">.</span>get_variables<span class="ansi-blue-fg">(</span>variable_names<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/contextlib.py</span> in <span class="ansi-cyan-fg">__enter__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>         <span class="ansi-green-fg">del</span> self<span class="ansi-blue-fg">.</span>args<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>kwds<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>func
-<span class="ansi-green-intense-fg ansi-bold">    111</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 112</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>gen<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    113</span>         <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span>             <span class="ansi-green-fg">raise</span> RuntimeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;generator didn&#39;t yield&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> <span class="ansi-green-fg">None</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file_context</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-blue-fg">@</span>contextmanager
-<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-green-fg">def</span> _open_file_context<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;rb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>f<span class="ansi-blue-fg">,</span> opened <span class="ansi-blue-fg">=</span> _open_file<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     20</span>     <span class="ansi-green-fg">yield</span> f
-<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">if</span> opened<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     43</span>             <span class="ansi-green-fg">if</span> appendmat <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> file_like<span class="ansi-blue-fg">.</span>endswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;.mat&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     44</span>                 file_like <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">&#39;.mat&#39;</span>
-<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     46</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     47</span>             <span class="ansi-green-fg">raise</span> IOError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Reader needs file name or open file-like object&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;EEG-1.mat&#39;</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then let's use the following code to perform the multiple linear regression:</p>
@@ -642,11 +510,9 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -666,24 +532,20 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-11-19bfeaa6b48a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> predictors = df(data={                  # Create a dataframe with the predictors
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg">     </span><span class="ansi-blue-fg">&#39;sin&#39;</span><span class="ansi-blue-fg">:</span> np<span class="ansi-blue-fg">.</span>sin<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> np<span class="ansi-blue-fg">.</span>pi <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">60</span> <span class="ansi-blue-fg">*</span> t<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>  <span class="ansi-red-fg"># ... including the sine function</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span>     <span class="ansi-blue-fg">&#39;cos&#39;</span><span class="ansi-blue-fg">:</span> np<span class="ansi-blue-fg">.</span>cos<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> np<span class="ansi-blue-fg">.</span>pi <span class="ansi-blue-fg">*</span> <span class="ansi-cyan-fg">60</span> <span class="ansi-blue-fg">*</span> t<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>  <span class="ansi-red-fg"># ... and the cosine function</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span>     <span class="ansi-blue-fg">&#39;EEG&#39;</span><span class="ansi-blue-fg">:</span> EEG
-<span class="ansi-green-intense-fg ansi-bold">      5</span> })
-
-<span class="ansi-red-fg">NameError</span>: name &#39;t&#39; is not defined</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Intercept    2.796903e-17
+sin          9.989204e-01
+cos         -3.238373e-03
+dtype: float64
+</pre>
 </div>
 </div>
 </div>
@@ -691,10 +553,6 @@ During handling of the above exception, another exception occurred:
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first line, we create a <em>dataframe</em> object with the dependent variables (<code>EEG</code>) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the <code>ols</code> function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.</p>
@@ -716,10 +574,6 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To see how well our multiple linear regression model fits the data, let’s evaluate the model, and compare it to the original EEG data:
@@ -728,11 +582,9 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -750,35 +602,27 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-12-86bc7e9730b8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>EEG_60Hz_modeled <span class="ansi-blue-fg">=</span> model<span class="ansi-blue-fg">.</span>predict<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>    <span class="ansi-red-fg"># Get the model prediction</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> plot<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">,</span> EEG<span class="ansi-blue-fg">,</span> t<span class="ansi-blue-fg">,</span> EEG_60Hz_modeled<span class="ansi-blue-fg">)</span>     <span class="ansi-red-fg"># Plot the data and the model</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> plt<span class="ansi-blue-fg">.</span>xlim<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0.5</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>                    <span class="ansi-red-fg"># ... examine 0.5 s of data,</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> xlabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Time [s]&#39;</span><span class="ansi-blue-fg">)</span>                    <span class="ansi-red-fg"># ... and label the axes</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> ylabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;EEG and Modeled EEG [$\mu$V]&#39;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;model&#39; is not defined</pre>
+
+<div class="output_png output_subarea ">
+<img src="../../images/03/supplements/supplement-psd_30_0.png"
+>
 </div>
+
 </div>
 </div>
 </div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
@@ -792,10 +636,6 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, let's examine a powerful application of the model. We've constructed the model to fit the 60 Hz line noise in the EEG data. Let's now use the model to <em>remove</em> the 60 Hz line noise from the original EEG data. To do so, we subtract the model fit from the EEG data and then plot the resulting new signal: <a id="fig:3.9"></a></p>
@@ -803,11 +643,9 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -824,35 +662,27 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-13-9ec267922973&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Remove the model prediction from the EEG data</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>EEG_cleaned <span class="ansi-blue-fg">=</span> EEG <span class="ansi-blue-fg">-</span> EEG_60Hz_modeled
-<span class="ansi-green-intense-fg ansi-bold">      3</span> plot<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">,</span> EEG_cleaned<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... and plot the result</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> xlabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Time [s]&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> ylabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;EEG Cleaned [$\mu$V]&#39;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;EEG&#39; is not defined</pre>
+
+<div class="output_png output_subarea ">
+<img src="../../images/03/supplements/supplement-psd_33_0.png"
+>
 </div>
+
 </div>
 </div>
 </div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -863,10 +693,6 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example, we used multiple linear regression to model a particular rhythmic component of the EEG data, the 60 Hz activity. We may also use the model result to estimate the power at 60 Hz. In Python,</p>
@@ -874,11 +700,9 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -891,32 +715,26 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-14-4b99ec701d55&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>Sxx_model_60Hz <span class="ansi-blue-fg">=</span> model<span class="ansi-blue-fg">.</span>params<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;sin&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">**</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">+</span> model<span class="ansi-blue-fg">.</span>params<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;cos&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">**</span> <span class="ansi-cyan-fg">2</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> Sxx_model_60Hz
 
-<span class="ansi-red-fg">NameError</span>: name &#39;model&#39; is not defined</pre>
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9978524145209708</pre>
 </div>
+
 </div>
 </div>
 </div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable <code>Sxx_model_60Hz</code> has units of mV$^2$.</p>
@@ -930,10 +748,6 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$'s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.</p>
@@ -941,10 +755,5 @@ dtype: float64</code></div><p>This result indicates that the constant predictor 
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

@@ -1,25 +1,17 @@
 ---
+redirect_from: None
 interact_link: content/04/supplements/appendix-multiplication-and-convolution-in-different-domains.ipynb
 kernel_name: python3
-kernel_path: content/04/supplements
 has_widgets: false
-title: |-
-  Multiplication and Convolution in Different Domains
-pagenum: 7
+title: 'Multiplication and Convolution in Different Domains'
 prev_page:
   url: /04/ecog-rhythms.html
+  title: 'The Power Spectrum (Part 2)'
 next_page:
   url: /05/the-cross-covariance-and-coherence.html
-suffix: .ipynb
-search: x infty w t tau fourier convolution ft transform int e big pi f star dt element bigg b domain relation y product d align multiplication equivalent beta equals expression compute variables frequency mathematically where indicates formula function same equation states consider statement lets begin end transforms simple illustrate lines variable zero computing between id top appendix different domains stated module important fact express xw tag series db functions arguments itself argument symbol here alternative prove following continuous notation substitute definition into simiplify using introduction second exponential setting equiv therefore conclude example define signals consists only four elements enough third
-
+  title: 'The Cross Covariance and Coherence'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">Multiplication and Convolution in Different Domains</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -28,10 +20,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We stated in this module the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,</p>
@@ -43,10 +31,6 @@ $$X \star Y[\beta] = \int_{-\infty}^{\infty}X[b]Y[\beta - b]db.$$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The convolution of two functions (with arguments $b$ in this formula) is itself a function of the same argument (with symbol $\beta$ in this formula). Equation (1) states that the Fourier transform of the element-by-element product of $x$ and $w$ equals the convolution of the Fourier transform of $x$ and the Fourier transform of $w$. We consider here an equivalent, alternative statement: that convolution in the time domain is equivalent to multiplication in the frequency domain. Mathematically,</p>
@@ -56,10 +40,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This equation states that the Fourier transform of the convolution of $x$ and $w$ equals the product of the Fourier transform of $x$ and the Fourier transform of $w$. To prove this relation, let’s consider the Fourier transform of the convolution of $x$ and $w$. We use the following expression for the continuous-time Fourier transform,</p>
@@ -90,10 +70,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Setting $T \equiv \tau - t$, we find</p>
@@ -115,10 +91,6 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We may compute a simple example to illustrate this relation:</p>
@@ -126,11 +98,9 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -145,11 +115,11 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -171,10 +141,12 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -190,10 +162,6 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of $w$ and $x$, and then the Fourier transform. In the fourth and fifth lines, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing their Fourier transforms. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables $a$ and $b$ the same. Evaluating the statement, we find the difference between $a$ and $b$ to be on the order of $10^{-15}$, which is very close to zero.</p>
@@ -201,10 +169,5 @@ $$<p>and therefore conclude that the Fourier transform of the convolution of $x$
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

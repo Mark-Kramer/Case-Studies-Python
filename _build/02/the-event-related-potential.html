@@ -1,25 +1,17 @@
 ---
+redirect_from: /02
 interact_link: content/02/the-event-related-potential.ipynb
 kernel_name: python3
-kernel_path: content/02
 has_widgets: false
-title: |-
-  The Event-Related Potential
-pagenum: 2
+title: 'The Event-Related Potential'
 prev_page:
   url: /01/introduction-to-python.html
+  title: 'Introduction to Python'
 next_page:
   url: /03/the-power-spectrum-part-1.html
-suffix: .ipynb
-search: data div eeg erp class trials confidence intervals conditions python erps procedure mean distribution compute question function condition values resampled plot not q variable trial statistic note between id bootstrapping e inspection value code above standard deviation difference both eega zero visual activity b across stimulus create step observed stat s lets return t bootstrap any here us same using line repeat times introduction point our variables corresponds assume should computed also single determine different top sampling presentation example null hypothesis case analysis method need plt following tone size only useful similar figure differences potential scalp significant evoked because shape
-
+  title: 'The Power Spectrum (Part 1)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">The Event-Related Potential</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -28,10 +20,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -47,10 +35,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -71,10 +55,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before we start any computations, let's import some modules and functions that we will use throughout the chapter. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning.</p>
@@ -83,28 +63,26 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                 <span class="c1"># Import numpy for computations</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>    <span class="c1"># Import a useful plotting package, </span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
                                    <span class="c1"># ... and a few specific functions that are used often</span>
 <span class="c1"># ... make the plots &quot;inline&quot;.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline                 
 
 <span class="c1"># Tools for this chapter</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randint</span>
 </pre></div>
 
     </div>
@@ -112,10 +90,8 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="On-ramp:-computing-the-event-related-potential-in-Python">On-ramp: computing the event-related potential in Python<a class="anchor-link" href="#On-ramp:-computing-the-event-related-potential-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
@@ -123,11 +99,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -155,10 +129,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -174,10 +150,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -189,21 +161,15 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Background-">Background <a class="anchor" id="background" /><a class="anchor-link" href="#Background-"> </a></h2>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -216,23 +182,25 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/Cy_BF7smAkk"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/Cy_BF7smAkk"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -241,10 +209,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a href="https://en.wikipedia.org/wiki/Hans_Berger">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234">an active area of research</a>.</p>
@@ -259,10 +223,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -270,10 +230,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Case Study: an EEG ERP task <a class="anchor" id="case-study-data"><a/></h2>
@@ -281,11 +237,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -298,23 +252,25 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/q2-DjvPRaNA"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/q2-DjvPRaNA"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -323,10 +279,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>An undergraduate student volunteers to participate in a psychology study at his university. In this study, EEG electrodes (sampling rate 500 Hz, i.e., 500 samples per second) are placed on the student's scalp, and he is seated in a comfortable chair in a dark, electrically isolated room.  The student is instructed to place headphones over his ears and listen to a series of repeated sounds.  The sounds consist of two tones - either a high pitch tone or a low pitch tone.  A single tone is presented once every few seconds, and the student responds with a button press to the low pitch tone.  The tone presentation is repeated to collect the EEG response to numerous presentations of the two tones, as illustrated here:</p>
@@ -337,10 +289,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -348,20 +296,12 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-Analysis-">Data Analysis <a id="data-analysis" /><a class="anchor-link" href="#Data-Analysis-"> </a></h2>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Our first step is to load the data into Python.  To do so, we use the function <code>loadmat()</code> from the <code>scipy.io</code> module as follows:</p>
@@ -369,16 +309,14 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -387,10 +325,8 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To understand the outcome of issuing this command, let's examine the variable <code>data</code> now present in the workspace.  This variable is a <em>dictionary</em> variable (to see this, execute <code>type(data)</code>). To see the <em>keys</em> of a dictionary, use the <code>keys()</code> method.</p>
@@ -398,11 +334,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -414,10 +348,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -432,10 +368,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The keys that start and end with two underscores ( <code>__</code> ) are private and contain information about the MATLAB file; we will not need those keys here. The variables that we are interested in here are <code>EEGa</code>, <code>EEGb</code>, and <code>t</code>. These correspond to the EEG data recorded in the two conditions (i.e., <code>EEGa</code> to condition A and <code>EEGb</code> to condition B) as well as a time axis (<code>t</code>). Let's extract these variables from the <code>data</code> dictionary.</p>
@@ -443,11 +375,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -462,10 +392,8 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You may notice that we specified index zero when we imported the variable <code>t</code>. This is because <code>t</code> is a vector (one-dimensional) rather than an array (multi-dimensional). The default behavior of <code>loadmat()</code> is to extract variables as ndarray types (to see this, execute <code>type(EEGa)</code>). Specifically, if we don't tell Python to import the <a href="https://en.wikipedia.org/wiki/Zero-based_numbering">zeroth</a> (row) element of <code>data['t']</code> then <code>t</code> will have shape (1, 500), rather than (500,). There may be cases where this arrangement is preferred, but best practice is to convert the variable to a one-diminsional vector.</p>
@@ -473,11 +401,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -492,10 +418,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -511,10 +439,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -524,10 +448,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's use the <code>whos</code> command to get some more information about the variables.</p>
@@ -535,11 +455,9 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -551,23 +469,31 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Variable   Type       Data/Info
--------------------------------
-EEGa       ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
-EEGb       ndarray    1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
-data       dict       n=6
-mn         ndarray    500: 500 elems, type `float64`, 4000 bytes
-ntrials    int        1000
-sd         ndarray    500: 500 elems, type `float64`, 4000 bytes
-sdmn       ndarray    500: 500 elems, type `float64`, 4000 bytes
-t          ndarray    500: 500 elems, type `float64`, 4000 bytes
+<pre>Variable   Type                          Data/Info
+--------------------------------------------------
+EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+colorbar   function                      &lt;function colorbar at 0xb19a21b70&gt;
+data       dict                          n=6
+hlines     function                      &lt;function hlines at 0xb19a22f28&gt;
+imshow     function                      &lt;function imshow at 0xb19a23048&gt;
+mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+ntrials    int                           1000
+randint    builtin_function_or_method    &lt;built-in method randint &lt;...&gt;te object at 0x10b362c60&gt;
+sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
+sqrt       ufunc                         &lt;ufunc &#39;sqrt&#39;&gt;
+t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
+vlines     function                      &lt;function vlines at 0xb19a23d90&gt;
 </pre>
 </div>
 </div>
@@ -576,10 +502,6 @@ t          ndarray    500: 500 elems, type `float64`, 4000 bytes
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -589,10 +511,6 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the <em>Data/Info</em> column we see <em>1000x500</em> for <code>EEGa</code> and <code>EEGb</code>.  Both variables are matrices with 1000 rows and 500 columns.  Our collaborator tells us that:</p>
@@ -605,11 +523,9 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -622,10 +538,8 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The <code>shape</code> property of an array is a <em>tuple</em> that indicates the size of each dimension. Adding <code>[0]</code> at the end tells Python to give us only the first value in the tuple. Recall that Python indexing starts at 0. This variable will be useful later, as we'll see. In fact, we can assign two variables at the same time:</p>
@@ -633,11 +547,9 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -650,10 +562,8 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With this syntax:</p>
@@ -665,10 +575,6 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -678,10 +584,6 @@ We could also have used `EEGa.shape` to find out the dimensions of the variable 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -691,10 +593,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -702,21 +600,15 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Visual-Inspection-">Visual Inspection <a id="visual-inspection" /><a class="anchor-link" href="#Visual-Inspection-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -729,23 +621,25 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/uSjd41G-yNY"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/uSjd41G-yNY"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -754,10 +648,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Both <code>EEGb</code> and <code>EEGa</code> are complicated variables that contain many elements. To understand these data, we might attempt to read the values contained in each element. For example, we can print out the EEG data for the first trial of condition A</p>
@@ -765,11 +655,9 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -781,10 +669,12 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -921,10 +811,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this command, we index the first row of the matrix <code>EEGa</code> and print out all columns (corresponding to all moments of time).</p>
@@ -932,10 +818,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -951,11 +833,9 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -968,23 +848,25 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/9qx29zDxcAc"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/9qx29zDxcAc"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -993,10 +875,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Printing out the data to the screen is <strong>not useful</strong> in this case. How else can we deepen our understanding of these data? Let’s make a plot:
@@ -1005,11 +883,9 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1023,10 +899,12 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1042,10 +920,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visualizing the data in this way, we immediately notice many features. First, let’s consider the axes. The horizontal axis extends from 0 to (nearly) 500. This corresponds to the 500 columns in the variable <code>EEGa</code>. While this visualization is useful, it would be more informative to plot the EEG data as a function of time rather than indices. Fortunately, we possess a variable <code>t</code> in the workspace that corresponds to the time axis. Determining the size of the variable <code>t</code>, we find it is a vector with 1 row and 500 columns. Each column corresponds to a point in time.</p>
@@ -1053,10 +927,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1066,10 +936,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The variable <code>t</code> corresponds to the 1 s of EEG data recorded in each trial. We can also use the variable <code>t</code> to determine the sampling interval,</p>
@@ -1077,11 +943,9 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1094,10 +958,8 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The new variable <code>dt</code> corresponds to the time between samples.</p>
@@ -1105,10 +967,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1120,10 +978,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div id="singleTrial">
@@ -1134,11 +988,9 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1158,10 +1010,12 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1177,10 +1031,6 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This plot provides a nice summary of the data in the first trial of condition A. Visual inspection of the plot suggests that these data exhibit complicated activity. We know from our collaborator that the stimulus occurs at time 0.25 s in each trial. Note how we indicated this time as a vertical line in the plot above. This command includes additional options that make the line black (<code>'k'</code>) and a bit wider (<code>lw=2</code>).</p>
@@ -1188,10 +1038,6 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1201,10 +1047,6 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So far we have visualized only the data from condition A. Because we are interested in whether the EEG behaves differently in the two conditions, visualizing both conditions simultaneously would be of use. We can do this as follows:
@@ -1213,11 +1055,9 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1236,10 +1076,12 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1255,10 +1097,6 @@ We can now combine the time axis with the EEG data to make a more complete plot.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1269,10 +1107,6 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1282,10 +1116,6 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1295,11 +1125,9 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1312,23 +1140,25 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/nandZ5aaRaQ"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/nandZ5aaRaQ"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -1337,10 +1167,6 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These techniques allow us to visualize the data one trial at a time. That is useful but can be time consuming, especially for a large number of trials. For the EEG data of interest here, each condition contains 1,000 trials, and to visualize each trial separately could require 2,000 plots. We can certainly create 2,000 plots, but the subsequent visual inspection would be time consuming and difficult. Fortunately, a more efficient visualization approach exists: we can display the entire structure of the data across both time and trials as an image:
@@ -1349,11 +1175,9 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1375,10 +1199,12 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1394,10 +1220,6 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The <code>imshow</code> command allows us to visualize the entire matrix <code>EEGa</code> as a function of trial number and time. Each row corresponds to a single trial of duration 1 s, and the color indicates the voltage, with darker (lighter) colors indicating higher (lower) voltages. This plot also indicates the time of stimulus presentation with a vertical black line as a cue to assist visual inspection.</p>
@@ -1405,10 +1227,6 @@ Note that because we did not import the function `figure()` directly, we need to
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1418,10 +1236,6 @@ We have used the *BuPu* color map for the plot above. There are many other optio
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1432,10 +1246,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1443,21 +1253,15 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Plotting-the-ERP-">Plotting the ERP <a id="plotting-the-erp" /><a class="anchor-link" href="#Plotting-the-ERP-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1470,23 +1274,25 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/kPr2GLSKLJg"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/kPr2GLSKLJg"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -1495,10 +1301,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visual inspection of the EEG data has so far come up empty. The EEG traces appear noisy or perhaps rhythmic, but from visual inspection of the individual trials it’s difficult to make a decisive conclusion of underlying structure (<a href="#singleTrial">see above</a>). To further investigate the activity in these data, we compute the <strong>event-related potential</strong> (ERP).</p>
@@ -1508,11 +1310,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1529,10 +1329,12 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1548,10 +1350,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first line, we compute the mean of <code>EEGa</code> using the method <code>mean()</code>; see the documentation for this function <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html">here</a>. The default behavior is to compute the mean of all elements of the array. By calling <code>EEG.mean(0)</code>, we compute the mean along the zeroth dimension. The result is the ERP for condition A.</p>
@@ -1559,10 +1357,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1573,10 +1367,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The ERP of condition A shows the mean voltage across trials at each moment in time. Visual inspection suggests that before stimulus presentation (i.e., times 0 s to 0.25 s) the EEG fluctuates around zero. Then, after stimulus presentation, the ERP increases and decreases substantially above and below zero. Which, if any, of these deviations following stimulation are significant? To address this, we make use of the trial structure of the EEG data to compute confidence bounds for the ERP. We do so in two ways.</p>
@@ -1584,10 +1374,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1595,21 +1381,15 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Confidence-Intervals-for-the-ERP-(Method-1)-">Confidence Intervals for the ERP (Method 1) <a id="cis-m1" /><a class="anchor-link" href="#Confidence-Intervals-for-the-ERP-(Method-1)-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1622,23 +1402,25 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/pXCJbyrw8Ug"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/pXCJbyrw8Ug"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -1647,10 +1429,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
@@ -1658,10 +1436,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1674,10 +1448,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This conclusion—that the ERP at each moment in time is approximately normally distributed—is useful because the normal distribution (also known as the Gaussian distribution or bell curve) possesses many convenient properties. First, a normal distribution is relatively simple; it can be completely specified with two parameters: the mean value and the standard deviation. Second, 95% of the values drawn from a normal distribution lie within approximately two standard deviations of the mean.</p>
@@ -1685,10 +1455,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="imgs/gaussian.png" alt="Example Gaussian" style="width:40%; max-width:300px;"/></p>
@@ -1696,10 +1462,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here's a plot of the canonical normal distribution showing the mean (dotted vertical line) and standard deviation (blue). Ninety-five percent of values lie within the interval indicated by the red bar.</p>
@@ -1707,10 +1469,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Therefore, to construct a 95% confidence interval for the ERP, we need to determine the mean and standard deviation of the mean across trials at each point in time. To compute the mean in Python is easy:</p>
@@ -1718,11 +1476,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1735,10 +1491,8 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1749,10 +1503,6 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We again note that the second input to the <code>mean</code> function specifies the dimension in which we compute the mean, in this case, across the first dimension of the variable <code>EEGa</code> corresponding to the trials. To compute the standard deviation of the mean, we start by computing the standard deviation of the data:</p>
@@ -1760,11 +1510,9 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1777,10 +1525,8 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>But we’re not interested in the standard deviation of the EEG data across trials; instead, we’re interested in the standard deviation <em>of the estimate of the mean</em>. To calculate the standard deviation of the mean, we divide the standard deviation of the data by the square root of the number of trials (i.e., the number of terms used to compute the mean). In Python,</p>
@@ -1788,11 +1534,9 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1805,10 +1549,8 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, having found the mean (<code>mn</code>) and the standard deviation of the mean (<code>sdmn</code>), we can compute a 95% confidence interval for the ERP. We again exploit the observation, based on the central limit theorem, that the ERP is normally distributed at each instant of time. With these calculations, the following code plots the ERP and the 95% confidence interval:</p>
@@ -1816,11 +1558,9 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1840,10 +1580,12 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1859,10 +1601,6 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a></p>
@@ -1870,10 +1608,6 @@ Note that when we refer to the *mean* here we could instead write *sample mean* 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1883,17 +1617,15 @@ A good rule of thumb when you are programming is that you should not be rewritin
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change the default figure size</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># Create a function to label plots</span>
@@ -1917,10 +1649,8 @@ A good rule of thumb when you are programming is that you should not be rewritin
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1931,10 +1661,6 @@ A good rule of thumb when you are programming is that you should not be rewritin
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1949,10 +1675,6 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1963,11 +1685,9 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1981,10 +1701,12 @@ Try it out.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2000,10 +1722,6 @@ Try it out.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the figure above, the thick line indicates the ERP for Condition A (i.e., the mean of the EEG across trials) while the thin dotted lines indicate the 95% confidence intervals.</p>
@@ -2011,10 +1729,6 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find three time intervals at which the confidence intervals of the ERP do not include zero: near 0.27 s, near 0.37 s, and near 0.47 s. These results suggest that for an interval of time following the stimulus presentation in condition A, the observed ERP is not a random fluctuation about zero but instead contains consistent structure across trials.</p>
@@ -2022,10 +1736,6 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2035,10 +1745,6 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -2046,20 +1752,12 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Comparing-ERPs-">Comparing ERPs <a class="anchor" id="comparing-erps" /><a class="anchor-link" href="#Comparing-ERPs-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate <em>differences</em> between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions).</p>
@@ -2067,16 +1765,14 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="kn">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="k">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
 
 <span class="n">erpA</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="n">ca_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">])</span>  <span class="c1"># Compute the ERP of condition A</span>
 <span class="n">erpB</span><span class="p">,</span> <span class="n">cb_l</span><span class="p">,</span> <span class="n">cb_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGb&#39;</span><span class="p">])</span>  <span class="c1"># ... and condition B</span>
@@ -2097,10 +1793,12 @@ Try it out.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2116,10 +1814,6 @@ Try it out.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2129,10 +1823,6 @@ Try it out.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As you can see, the plot of both ERPs is rather messy; it’s difficult to determine through visual inspection alone in which intervals the ERPs exhibit significant separation.</p>
@@ -2146,11 +1836,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2176,10 +1864,12 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2195,10 +1885,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (<code>mnD</code>) and the standard deviation of the mean of this difference (<code>sdmnD</code>) using equation (<a href="#eq:1" class="thumb">1<span>)<img src="imgs/eq1.png"></span></a>. We note that <code>sdmnA</code>$= \sqrt{\sigma_A^2/K}$ and therefore <code>sdmnA**2</code> $= \sigma_A^2/K$, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.</p>
@@ -2206,10 +1892,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2219,10 +1901,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -2230,21 +1908,15 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Confidence-Intervals-for-the-ERP-(Method-2)-">Confidence Intervals for the ERP (Method 2) <a id="cis-m2" /><a class="anchor-link" href="#Confidence-Intervals-for-the-ERP-(Method-2)-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2257,23 +1929,25 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/vVXH4XsPFEs"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/vVXH4XsPFEs"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2282,10 +1956,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So far we have computed confidence intervals for the ERPs by relying on the central limit theorem and approximating the average voltage values at each point in time as normally distributed. That’s a completely reasonable approach. And because the normal distribution is so well-behaved, it’s easy to compute the 95% confidence intervals. An alternative approach to generate confidence intervals is through a <strong>bootstrap</strong> procedure. Bootstrapping is a resampling method that allows us to estimate the sampling distribution of many different statistics. In this chapter, we implement a <em>nonparametric bootstrap</em> (see note). To do so, we generate new <em>pseudodata</em> from the observed EEG data. We begin by using a bootstrapping procedure to create confidence intervals for the ERPs observed in each condition.</p>
@@ -2293,10 +1963,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="math-note">
@@ -2306,10 +1972,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We implement the bootstrapping procedure to compute pointwise confidence intervals. By pointwise we mean that the confidence intervals are computed separately for each point in time, and interactions across time are not considered. The prescription for the bootstrapping procedure follows four steps:</p>
@@ -2324,11 +1986,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2341,23 +2001,25 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/mqDEJyW_z4c"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/mqDEJyW_z4c"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2366,10 +2028,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Step 1.</strong> In step 1 we must sample with replacement from the EEG data. To visualize this procedure, imagine placing 1,000 marbles in an opaque bag. Each marble is assigned a unique integer value from 1 to 1,000. Now, reach your hand into the bag, grab a marble, record its number, and replace the marble in the bag. We assume that each marble is equally likely to be selected at each draw (i.e., there are no special features that allow some marbles to be drawn more often). Repeat this procedure 1,000 times to create a list of 1,000 integers. Notice that after recording the drawn marble’s number, we replace it in the bag. So, we could potentially draw the same marble 1,000 times, although that’s extremely unlikely. Performing this sampling with replacement procedure by hand would, of course, be extremely time consuming (e.g., who will paint integers on each marble?). Fortunately, Python provides a function to perform sampling with replacement:</p>
@@ -2377,11 +2035,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2395,10 +2051,8 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first and second inputs to <code>randint()</code> specify the minimum and maximum integers to draw, respectively. Note that the low number is included in the set, but the high number is not. If only the upper bound is given, the lower bound is assumed to be zero (i.e., we can rewrite the above line as <code>np.random.randint(ntrials, size=ntrials)</code>). The last input indicats the number of samples to draw (as always, use <code>np.random.randint?</code> to find out more).</p>
@@ -2406,10 +2060,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2419,10 +2069,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The result <code>i</code> provides a list of integers between 0 and 999. These values specify the trials to use in creating the resampled EEG. This resampled EEG will contain the same number of trials as the original EEG (i.e., 1,000 trials) but in a different order and with possibly repeated trials. For example, if the sampling with replacement procedure returns</p>
@@ -2435,11 +2081,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2452,10 +2096,8 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this code we use the variable <code>i</code> as the index to the rows of <code>EEGa</code>.</p>
@@ -2463,10 +2105,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2476,10 +2114,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>That completes step 1 of the resampling procedure.</p>
@@ -2487,11 +2121,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2504,23 +2136,25 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/bUzuNojLUik"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/bUzuNojLUik"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2529,10 +2163,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Step 2.</strong> This step is easy: we create a resampled ERP from the resampled EEG data. Computing the resampled ERP requires only one line of code in Python:</p>
@@ -2540,11 +2170,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2557,10 +2185,8 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2570,10 +2196,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2583,11 +2205,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2600,23 +2220,25 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/feQk_vKloXk"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/feQk_vKloXk"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2625,10 +2247,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Step 3.</strong> In the first two steps of the resampling procedure we created a single resampled ERP. In step 3 we are instructed to repeat this procedure 3,000 times and create a distribution of ERPs. How can we do so? One potential solution is to cut and paste the code we developed over and over again, for example:</p>
@@ -2636,11 +2254,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2663,10 +2279,8 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In these lines we have created three resampled ERPs, each with its own variable name. We could, of course, repeat this procedure and eventually define the variable <code>ERP3000</code>.</p>
@@ -2674,10 +2288,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2689,10 +2299,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A better approach to create the 3,000 resampled ERPs is with a <em>for-loop</em>. We do so in Python with the <code>for</code> statement:</p>
@@ -2700,11 +2306,9 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2727,10 +2331,8 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first line, we define a function that performs the calculations that we wish to repeat. In this case, the function performs steps 1 and 2 of the bootstrapping procedure. The last two lines call the function 3,000 times and convert the result from a <em>list</em> into an <em>array</em>. This completes step 3 of the bootstrapping procedure.</p>
@@ -2738,10 +2340,6 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2751,10 +2349,6 @@ Note that in the definition of `bootstrapERP`, we included an argument (`size`) 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2777,11 +2371,9 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2794,23 +2386,25 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/NLc93QESVZs"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/NLc93QESVZs"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2819,10 +2413,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Step 4.</strong> In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index $0.025 \times 3000 = 75$ and $0.975 \times 3000 = 2925$. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a></p>
@@ -2830,11 +2420,9 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2856,10 +2444,12 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -2875,10 +2465,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can use these results to identify, for example, intervals in which the ERP differs significantly from zero by finding periods in which the confidence intervals do not include zero. The advantage of the bootstrapping procedure over other approaches is that this procedure requires few assumptions about the distribution of the statistic of interest, and that we use the observed data to probe the distribution of the statistic. The disadvantage of the bootstrapping procedure is that it is computationally intensive. Here we considered 3,000 resamplings, but we could easily consider more.</p>
@@ -2886,10 +2472,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2899,10 +2481,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2912,10 +2490,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -2923,21 +2497,15 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="A-Bootstrap-Test-to-Compare-ERPs-">A Bootstrap Test to Compare ERPs <a id="bootstrap" /><a class="anchor-link" href="#A-Bootstrap-Test-to-Compare-ERPs-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -2950,23 +2518,25 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/K6pgCxFdELc"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/K6pgCxFdELc"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -2975,10 +2545,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The bootstrapping procedure provides a powerful technique to construct confidence intervals for the ERPs using only the observed EEG measurements. We can apply a similar technique to search for significant differences between the ERPs in conditions A and B. To do so, we first choose a <em>statistic</em>, a measure of some attribute of the difference between the two ERPs. There are many choices, some informative and some not. Let’s choose as our statistic the maximum absolute value of the difference in the ERPs across time. Computing this statistic is straightforward in Python:</p>
@@ -2986,11 +2552,9 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -3006,10 +2570,12 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -3022,10 +2588,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -3035,11 +2597,9 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -3052,23 +2612,25 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/390ywma7S3U"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/390ywma7S3U"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -3077,10 +2639,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In isolation, the numerical value for <code>stat</code> is not very useful or interesting. Is the value for <code>stat</code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code>stat</code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code>stat</code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a href="https://en.wikipedia.org/wiki/Null_hypothesis"><em>null hypothesis</em></a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
@@ -3099,11 +2657,9 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -3125,10 +2681,8 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this code, we first combine <code>EEGa</code> and <code>EEGb</code> in a new variable <code>EEG</code>.
@@ -3137,11 +2691,9 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -3154,23 +2706,25 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/iefCPGHd5vY"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
+        <iframe
+            width="400"
+            height="300"
+            src="https://www.youtube.com/embed/iefCPGHd5vY"
+            frameborder="0"
+            allowfullscreen
+        ></iframe>
+        
 </div>
 
 </div>
@@ -3179,10 +2733,6 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png" height="20" width="600"></p>
@@ -3190,10 +2740,6 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The figure above shows the distribution of values for the test statistic under the null hypothesis of no difference between the two conditions. The orange line indicates observed statistic from the EEG data.</p>
@@ -3201,10 +2747,6 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -3214,10 +2756,6 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -3227,10 +2765,6 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -3242,10 +2776,6 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This result illustrates the power of the bootstrapping procedure. We proposed a complicated statistic (the maximum absolute value of the difference between the two resampled ERPs). For this statistic, we do not possess an obvious formula to decide whether the resulting statistic is significant (we cannot rely on the CLT, for example). To determine significance, we employ a bootstrapping procedure (also known as a permutation test), which we can perform even for the relatively complicated statistic. In this way, we may devise complicated measures of data and construct error bars or compute statistical significance, provided our computational resources are sufficient.</p>
@@ -3253,10 +2783,6 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -3264,20 +2790,12 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Summary-">Summary <a id="summary" /><a class="anchor-link" href="#Summary-"> </a></h2>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this notebook, we considered scalp EEG data recorded from a single electrode during an auditory task. The task consisted of two conditions, and we sought to uncover the difference in the EEG responses between the two conditions. We began with a visual inspection of the EEG recordings from individual trials and from all trials, and concluded that the data were quite noisy; any evoked response due to the stimulus was not obvious in the single-trial data.</p>
@@ -3287,10 +2805,6 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -3298,10 +2812,5 @@ The `seed()` function controls the random numbers that are generated. This ensur
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

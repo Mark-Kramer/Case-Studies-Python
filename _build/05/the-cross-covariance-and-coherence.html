@@ -1,25 +1,17 @@
 ---
+redirect_from: /05
 interact_link: content/05/the-cross-covariance-and-coherence.ipynb
 kernel_name: python3
-kernel_path: content/05
 has_widgets: false
-title: |-
-  The Cross Covariance and Coherence
-pagenum: 8
+title: 'The Cross Covariance and Coherence'
 prev_page:
   url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
+  title: 'Multiplication and Convolution in Different Domains'
 next_page:
   url: /06/filtering-scalp-eeg.html
-suffix: .ipynb
-search: trial k cross coherence j trials data covariance span div class between frequency averaged phase spectrum signals x ecog across electrodes n id s hz eq big single y src imgs png compute sum question autocovariance difference frac index complex q electrode lets xj not phi supimg xy fourier align fig figure amplitude both activity transform python above e analysis case visual here results exp expression inspection consider series where plane begin point note end traces structure notice lag relation our same example t strong near large thumbsupeq vectors coupling because recorded voltage signal equation xc kappa sqrt biggr introduction
-
+  title: 'Filtering Field Data'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">The Cross Covariance and Coherence</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -28,10 +20,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -49,10 +37,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -83,10 +67,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="On-ramp:-computing-the-coherence-in-Python">On-ramp: computing the coherence in Python<a class="anchor-link" href="#On-ramp:-computing-the-coherence-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the coherence in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
@@ -94,11 +74,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -127,10 +105,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -145,17 +125,15 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import tools for the chapter</span>
-<span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span><span class="p">,</span> <span class="n">rfftfreq</span>
+<span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="k">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span><span class="p">,</span> <span class="n">rfftfreq</span>
 <span class="n">figsize</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Default to wide figs</span>
 </pre></div>
 
@@ -164,11 +142,11 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -208,10 +186,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -227,10 +207,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -243,10 +219,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -266,30 +238,18 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h1>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Background-">Background <a class="anchor" id="background" /><a class="anchor-link" href="#Background-"> </a></h3>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In most of the other modules, we focused on field data recorded from a single electrode at the scalp (EEG) or cortical (ECoG) surface. However, typical brain voltage recordings consist of multiple electrodes. For example, the standard EEG recording consists of <a href="https://tinyurl.com/yczt58e5">21 electrodes</a> spaced across the scalp surface, and sometimes many more. The number of electrodes utilized in invasive ECoG recordings also range from a handful of contacts to over 100 implanted electrodes. In this module, we continue our study of field data recorded from the cortical surface but now consider ECoG data recorded simultaneously from two electrodes during a task.</p>
@@ -297,10 +257,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -308,10 +264,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3>Case Study Data <a class="anchor" id="case-study-data"><a/></h3>
@@ -320,10 +272,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -331,10 +279,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Goal-">Goal <a id="goal" /><a class="anchor-link" href="#Goal-"> </a></h3><p>Our goal is to understand the coupling between the voltage activity recorded from two brain areas during the auditory task. To do so, we compute the cross-covariance and coherence between the two electrodes. These coupling measures build upon the autocovariance, Fourier transform, and spectrum.</p>
@@ -342,10 +286,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>Here you will develop an understanding for the cross-covariance and coherence measures. For the latter, we will explore and understand the Fourier transform and examine in detail the notion of phase. We also briefly discuss strategies to assess the coherence for a single trial of data.</p>
@@ -353,10 +293,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2>Data Analysis <a id="data-analysis"></h2>
@@ -364,10 +300,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3>Visual inspection <a id="visual-inspection"></h3>
@@ -377,11 +309,9 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -394,10 +324,8 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To understand the outcome of issuing this command, let's examine the variable <code>data</code> now present in the workspace.  This variable is a <em>dictionary</em> variable (execute <code>type(data)</code> and the result should be <code>dict</code>). To see the <em>keys</em> of a dictionary, use the <code>keys()</code> method.</p>
@@ -405,11 +333,9 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -421,10 +347,12 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -439,10 +367,6 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The keys that start and end with two underscores ( <code>__</code> ) are private and contain information about the MATLAB file. The variables that we are interested in here are <code>E1</code>, <code>E2</code>, and <code>t</code>. These correspond to the ECoG data recorded at the two electrodes (<code>E1</code> and <code>E2</code>) as well as a time axis (<code>t</code>). Let's extract these variables from the <code>data</code> dictionary.</p>
@@ -450,11 +374,9 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -469,10 +391,8 @@ Alternatively, you may simply copy the contents of the file to a code cell in th
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -483,10 +403,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Our collaborator tells us that the data from each electrode are organized as a matrix with dimensions <em>(Trials, Time)</em>. Let's examine the shape of <code>E1</code>,</p>
@@ -494,11 +410,9 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -510,10 +424,12 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -528,10 +444,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We observe that the data consist of 100 trials, each consisting of 500 data points.</p>
@@ -539,10 +451,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -553,10 +461,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's now plot the data in the first trial from each electrode: <a id="fig:traces"></p>
@@ -564,11 +468,9 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -585,10 +487,12 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -604,10 +508,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visual inspection of the data in this trial immediately suggests a dominant rhythmic activity occurs in each recording.</p>
@@ -615,10 +515,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -631,10 +527,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image:</p>
@@ -642,11 +534,9 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -666,10 +556,12 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -685,10 +577,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The resulting image for the first electrode is shown in the figure above. Voltage (in color) is plotted as a function of time along the horizontal axis and trial number along the vertical axis. This allows us to visualize the voltage activity of the first electrode for all trials at once.</p>
@@ -697,10 +585,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -713,10 +597,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visual inspection of the ECoG data allows us to draw some preliminary conclusions. First, the data appear to be rhythmic, with a particularly strong oscillation near 8 Hz. That’s interesting but not the primary research objective. We would really like to understand whether the activity at the two electrodes is related. Many techniques exist to approach this problem, but let’s begin with the most basic: visual inspection. Let's examine the activity in the first four trials, and attempt to deduce whether a consistent relation exists between the two ECoG signals across trials.</p>
@@ -724,11 +604,9 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -746,10 +624,12 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -765,10 +645,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.</p>
@@ -776,10 +652,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -790,10 +662,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Although visual inspection is a useful initial tool for analyzing data, assessing the relations between two electrodes across multiple trials is a difficult task. To go further, we employ a new data analysis tool that builds from the Fourier transform: the coherence.</p>
@@ -801,10 +669,6 @@ In general, a single underscore at the beginning of a variable, function or meth
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Autocovariance-and-Cross-covariance-">Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance" /><a class="anchor-link" href="#Autocovariance-and-Cross-covariance-"> </a></h3><p>In <a href="../03">chapter 3</a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as,</p>
@@ -818,10 +682,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="math-note">
@@ -832,11 +692,9 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -864,10 +722,12 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -883,10 +743,6 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -899,10 +755,6 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -913,10 +765,6 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The trial-averaged autocovariance results for each electrode are interesting, but our primary scientific question for these data is whether dependent structure exists <em>between</em> the ECoG activity recorded from the two electrodes. In other words, are the time series recorded from the two electrodes coupled? Many tools exist to characterize coupling between time series, and in this module we focus on two such tools.</p>
@@ -935,11 +783,9 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -962,10 +808,12 @@ $$
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -981,10 +829,6 @@ $$
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that we subtract the mean from each electrode in defining <code>x</code> and <code>y</code> before computing the cross-covariance using the Python function <code>correlate</code> from the <code>numpy</code> package. In this case, we supply the <code>correlate</code> function with three inputs, beginning with the two time series, <code>x</code> and <code>y</code>, and setting the <code>mode</code> to 2, which tells the function to compute the correlation over the entire extent both vectors.</p>
@@ -992,10 +836,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1006,10 +846,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Like the <a href="#fig:taac">trial-averaged autocovariance for a single electrode</a>,<span class="fig"><sup>fig</sup><img src="imgs/taac.png"></span> the <a href="#fig:xc_1">cross-covariance between the two ECoG electrodes</a><span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> in the first trial reveals periodic variations. To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,</p>
@@ -1017,11 +853,9 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1033,10 +867,12 @@ $$
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1052,10 +888,6 @@ $$
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large: i.e. the sum in <a href="#eq:xc">the cross-covariance equation</a><span class="thumb"><sup>eq</sup><img src='imgs/eq5-2.png'></span> at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.</p>
@@ -1063,10 +895,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1077,10 +905,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let’s also define the <em>trial-averaged cross-covariance</em>. The formula is similar to the <a href="#eq:ac">trial-averaged autocovariance</a>:<span class="thumb"><sup>eq</sup><img src="imgs/eq5-1.png"></span></p>
@@ -1094,11 +918,9 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1127,10 +949,12 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1146,10 +970,6 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1173,10 +993,6 @@ At this point `XC` is a list object. We can change it to a numpy array with `XC 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the <code>for</code> statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the <code>mean</code> command from the <code>numpy</code> package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.</p>
@@ -1184,10 +1000,6 @@ At this point `XC` is a list object. We can change it to a numpy array with `XC 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1205,10 +1017,6 @@ Why are the prominent cross-covariance features in the single-trial analysis los
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Trial-Averaged-Spectrum-">Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum" /><a class="anchor-link" href="#Trial-Averaged-Spectrum-"> </a></h3><p>One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in <a href="../03">chapter 3</a> the Fourier transfom of a signal $x$; let's repeat that definition here,</p>
@@ -1223,10 +1031,6 @@ $$<p><a id="eq:ftCh5_simp"></a></p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In general, $X_j$ can be a complex quantity (i.e., the Fourier transform of $x_n$ can have both real and imaginary parts). We can therefore think of $X_j$ as residing in the two-dimensional complex plane:</p>
@@ -1269,11 +1073,9 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1313,10 +1115,12 @@ $$
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1332,10 +1136,6 @@ $$
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1347,10 +1147,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The resulting trial-averaged spectrum is shown in the figure above. Compared to the example spectrum from a single trial, the variability is greatly reduced. By reducing the variability in this way, interesting structure in the data may become more apparent.</p>
@@ -1358,10 +1154,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1372,10 +1164,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1383,20 +1171,12 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Introduction-to-the-Coherence-">Introduction to the Coherence <a class="anchor" id="sec:coherence" /><a class="anchor-link" href="#Introduction-to-the-Coherence-"> </a></h1>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Coherence is a measure of association between two time series. Briefly:</p>
@@ -1453,10 +1233,6 @@ $$
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Simple-Scenario-1:--Phases-align-across-trials-">Simple Scenario 1:  Phases align across trials <a id="Simple_Scenario_1" /><a class="anchor-link" href="#Simple-Scenario-1:--Phases-align-across-trials-"> </a></h2><p>First, we assume that at a specific frequency index $j$, the two signals possess a <em>constant</em> phase difference across trials. Under this assumption, the phase difference in the first trial ($\Phi_{j,1}$) equals the phase difference in the second trial ($\Phi_{j,2}$), which equals the phase difference in the third trial ($\Phi_{j,3}$), and so on for all trials.  To denote this equivalence in the phase difference across trials, let's replace the symbol for the phase difference $\Phi_{j,k}$ with $\Phi_{j,0}$; here, we have replaced the subscript $k$ with the subscript $0$ to remind ourselves that the phase difference does not depend upon the choice of trial. Now consider the expression:</p>
@@ -1473,10 +1249,6 @@ $$<p>This expression defines a sum of vectors in the complex plane, each of radi
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1490,10 +1262,6 @@ $$<p>This expression defines a sum of vectors in the complex plane, each of radi
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The <a href="#eq:cohr_simp">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this vector length, divided by $K$, so we conclude in this case that,</p>
@@ -1504,10 +1272,6 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1518,10 +1282,6 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1529,10 +1289,6 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Simple-Scenario-2:-Phases-are-random-across-trials-">Simple Scenario 2: Phases are random across trials <a id="Simple_Scenario_2" /><a class="anchor-link" href="#Simple-Scenario-2:-Phases-are-random-across-trials-"> </a></h2><p>As a second scenario, consider another specific frequency $j$ in which the two signals have a random phase difference in each trial. In this case, the phase difference can assume any value between $0$ and $2\pi$ for each trial. To visualize this, let’s imagine the phase differences in the complex plane; in this scenario, the vectors point in different (random) directions from trial to trial:</p>
@@ -1541,10 +1297,6 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1558,10 +1310,6 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Under the simplifying assumption that the amplitude is identical at this frequency for both signals and all trials, the <a href="#eq:cohr_simp">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this summed vector length, divided by $K$. Our visual inspection of the cartoon in the figure above (rightmost panel) suggests that this summed vector length will be small. Therefore, for this scenario we conclude that,</p>
@@ -1572,10 +1320,6 @@ $$<p>which indicates weak coherence between the two signals.  The weak coherence
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Summary-of-the-coherence-">Summary of the coherence <a id="Summary_of_the_coherence" /><a class="anchor-link" href="#Summary-of-the-coherence-"> </a></h1><p>These two examples illustrate in simplified scenarios the behavior of the coherence. To summarize, the <a href="#eq:cohr">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span> is a measure of the relationship between $x$ and $y$ at the same frequency.  The coherence ranges between 0 and 1,</p>
@@ -1590,10 +1334,6 @@ $$<p>in which:</p>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1604,10 +1344,6 @@ The coherence is a measure of the phase consistency between two signals at frequ
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see <a href="../03">chapter 3</a> for details.</p>
@@ -1615,10 +1351,6 @@ The coherence is a measure of the phase consistency between two signals at frequ
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1630,10 +1362,6 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1641,10 +1369,6 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Cross-Covariance-and-Cross-Spectrum-">Cross-Covariance and Cross-Spectrum <a id="cc_and_cs" /><a class="anchor-link" href="#Cross-Covariance-and-Cross-Spectrum-"> </a></h2><p>Although we defined the <a href="#eq:9">cross-spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the <a href="#eq:cohr">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show <a href="../03/Supplements/">here</a> that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.</p>
@@ -1652,10 +1376,6 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="math-note">
@@ -1666,10 +1386,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The cross-spectrum and cross-covariance form a Fourier transform pair. The cross-spectrum is a frequency domain measure of coupling, while the cross-covariance is a time domain measure of coupling. To move back and forth between these two measures, we use the Fourier transform. In practice, we rarely examine the cross-spectrum directly; it’s a complex quantity and so requires two dimensions (i.e., the complex plane) to visualize. However, the cross-spectrum is fundamental to the coherence, so in that sense it’s an important actor in the analysis.</p>
@@ -1677,10 +1393,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#introduction">Return to top</a></p>
@@ -1688,10 +1400,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Computing-the-Coherence-">Computing the Coherence <a id="computing_coherence" /><a class="anchor-link" href="#Computing-the-Coherence-"> </a></h2><p>With that introduction, we are now equipped to compute the coherence. We expect the coherence to reveal the frequencies at which the two ECoG signals exhibit a constant phase relation across trials.</p>
@@ -1699,10 +1407,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1713,10 +1417,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1727,10 +1427,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are a variety of alternatives to compute the coherence. To start, let’s compute the coherence by hand. The reason for doing so is that we can implement the preceding mathematical expressions and in that way gain more understanding of their features. Here’s the Python code<a id="fig:cohr"></a>:</p>
@@ -1738,11 +1434,9 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1773,10 +1467,12 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1792,10 +1488,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1806,10 +1498,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1823,20 +1511,12 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Visualizing-the-Phase-Difference-across-Trials-">Visualizing the Phase Difference across Trials <a id="Visualizing_the_Phase_Difference" /><a class="anchor-link" href="#Visualizing-the-Phase-Difference-across-Trials-"> </a></h2>
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:</p>
@@ -1844,11 +1524,9 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1886,10 +1564,12 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1905,10 +1585,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (<code>K</code>) and the frequency axis (<code>f</code>). Then, within the frequency axis variable (<code>f</code>), we use the function <code>np.where</code> to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (<code>Sxy</code>). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function <code>np.angle</code>. We store these results in two vectors, <code>phi8</code> and <code>phi24</code>.</p>
@@ -1917,10 +1593,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1931,10 +1603,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Single-Trial-Coherence-">Single-Trial Coherence <a id="single_trial_coherence" /><a class="anchor-link" href="#Single-Trial-Coherence-"> </a></h2><p>We have emphasized that coherence is a measure of phase consistency between two signals at some frequency <em>across trials</em>. This type of analysis is appropriate in many instances in which data are collected in a trial structure. However, we might also be interested in computing the coherence between two signals recorded in a single observation or trial.</p>
@@ -1942,10 +1610,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1956,10 +1620,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To address this question, consider the <a href="#eq:cohr_ang">equation for the coherence written in polar coordinates</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_ang.png"></span>.  Remember that, in writing this equation, we have made no assumptions about the data;  instead, all we have done is express the complex quantities in polar coordinates.  Now consider this equation for the case in which we possess only one trial, so that $K=1$.  Then,</p>
@@ -1972,10 +1632,6 @@ $$<p>So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1986,10 +1642,6 @@ $$<p>So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The answer is that the coherence measure requires a trial structure. Recall that the coherence measures the phase consistency between two signals <em>across trials</em>. If only one trial is observed, then the two signals are trivially coherent; the two signals have some phase difference between 0 and 2$\pi$ and because we have no other trials with which to compare this difference, the two signals are “coherent.”</p>
@@ -1998,10 +1650,6 @@ $$<p>So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2012,10 +1660,6 @@ $$<p>So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A second approach to compute the coherence from a single trial of data is to use the <a href="https://en.wikipedia.org/wiki/Multitaper">multitaper method</a>. In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.</p>
@@ -2023,10 +1667,6 @@ $$<p>So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Relation-between-Statistical-Modeling-and-Coherence-">Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence" /><a class="anchor-link" href="#Relation-between-Statistical-Modeling-and-Coherence-"> </a></h2><p>Before concluding the discussion of coherence, let’s briefly consider a complementary statistical modeling approach. In developing this statistical model, our goal is to capture the (linear) relation between two signals $x$ and $y$ observed simultaneously for multiple trials. We begin by proposing a statistical model that predicts one signal ($y$) as a linear function of the other ($x$):</p>
@@ -2071,10 +1711,6 @@ $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Summary-">Summary <a id="summary" /><a class="anchor-link" href="#Summary-"> </a></h1><p>In this module, we analyzed ECoG data recorded from two electrodes during an auditory task. The task involved the repeated presentation of auditory stimuli, resulting in 100 trials of 1 s duration recorded simultaneously from the two electrodes. We began the analysis with visual inspection of individual trials and of all trials at once. Then, to assess the relations between the two recordings, we computed the cross-covariance. We discussed how the cross-covariance is an extension of the autocovariance, and found that the single-trial cross-covariance between the ECoG signals exhibited periodic structure, consistent with rhythmic coupling of period 0.125 s. However, the trial-averaged cross-covariance provided less evidence for consistent rhythmic coupling across trials. We then computed the trial-averaged spectrum and found a large peak near 8 Hz and a much smaller peak near 24 Hz.</p>
@@ -2083,10 +1719,6 @@ $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2097,10 +1729,6 @@ $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of 
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found <a href="#fig:xc_1">strong single-trial cross-covariance</a><span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.</p>
@@ -2119,10 +1747,5 @@ $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of 
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

@@ -1,25 +1,17 @@
 ---
+redirect_from: /04
 interact_link: content/04/ecog-rhythms.ipynb
 kernel_name: python3
-kernel_path: content/04
 has_widgets: false
-title: |-
-  The Power Spectrum (Part 2)
-pagenum: 6
+title: 'The Power Spectrum (Part 2)'
 prev_page:
   url: /03/supplements/supplement-psd.html
+  title: 'Intuition behind the power spectral density'
 next_page:
   url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
-suffix: .ipynb
-search: taper spectrum data hz frequency rectangular s ecog div zero tapers sinusoid resolution multitaper padding class fourier hanning transform spectral method not peak power question case infinite q activity sinusoids example consider function square here lets near python plot fig imgs series zeros lobes wave id our above using impact interval sharp part rhythms estimate png duration e bandwidth convolution different compute org signal peaks does features frequencies product b t analysis however its edges points axis observed visual inspection code results because p domain transitions k instead doi rhythmic also src only github io studies improve notice df value
-
+  title: 'Multiplication and Convolution in Different Domains'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">The Power Spectrum (Part 2)</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -28,10 +20,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -48,10 +36,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -71,10 +55,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="On-ramp:-computing-the-tapered-power-spectrum-in-Python">On-ramp: computing the tapered power spectrum in Python<a class="anchor-link" href="#On-ramp:-computing-the-tapered-power-spectrum-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the power spectrum with a taper in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
@@ -82,11 +62,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -97,8 +75,8 @@ _**Synopsis**_
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 </pre></div>
 
     </div>
@@ -106,18 +84,18 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the tools for the chapter</span>
 <span class="kn">import</span> <span class="nn">nitime.algorithms.spectral</span> <span class="k">as</span> <span class="nn">spectrum</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">chi2</span>
 
 <span class="c1"># Make wide plots</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  
@@ -128,11 +106,11 @@ _**Synopsis**_
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -166,10 +144,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -185,10 +165,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -201,10 +177,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>, we considered noninvasive recordings of brain electrical activity using scalp EEG. Although the scalp EEG provides fine temporal resolution of brain activity, the spatial resolution is poor because of the low conductivity of the skull [<a href="https://doi.org/10.1093/acprof:oso/9780195050387.001.0001">Nunez &amp; Srinivasan, 2005</a>]. An alternative, invasive approach to improve the spatial resolution of the scalp EEG is to record directly from the brain’s surface [<a href="https://doi.org/10.1038/nrn1585">Engel, Moll, Fried, &amp; Ojemann, 2005</a>]. This technique, known as electrocorticogram (ECoG), eliminates the distorting spatial blurring effect of the skull at the cost of an invasive surgical procedure of implantation.</p>
@@ -215,10 +187,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-analysis">Data analysis<a id="data-analysis" /><a class="anchor-link" href="#Data-analysis"> </a></h2><p>As always, we begin by looking at the data. Let's load the ECoG data into Python and plot it by issuing the following commands:</p>
@@ -226,11 +194,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -250,10 +216,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -269,10 +237,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You might notice a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in the 1 s interval. To do so, let's approximate the total number of large-amplitude cycles that we observe in the data. Through visual inspection, we find that the first large-amplitude cycle occurs between $\approx$ 0 s and $\approx$ 0.175 s, the next between $\approx$ 0.175 s and $\approx$ 0.3 s, and so on. Counting this way, we approximate 6 full cycles per second, or a dominant 6 Hz rhythm.</p>
@@ -280,10 +244,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="rect-tapers"></a></p>
@@ -293,11 +253,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -323,10 +281,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -342,10 +302,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -356,10 +312,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -370,10 +322,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The plot of the spectrum suggests a single dominant frequency near 6 Hz, consistent with the visual inspection of the <a href="#fig:4-1">ECoG trace</a>.<span class="fig"><sup>fig</sup><img src="imgs/4-1.png"></span> Other interesting structure may also appear, perhaps at frequencies near 10 Hz; note the tiny peak barely visible in the spectrum. These initial observations suggest we can more appropriately scale the spectrum to emphasize both the low-frequency bands and weaker signals. Let’s utilize a logarithmic scale for both the power spectral density (decibels) and the frequency.</p>
@@ -381,11 +329,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -403,10 +349,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -422,10 +370,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -444,10 +388,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="By-Doing-Nothing,-We're-Doing-Something:-The-Rectangular-Taper.">By Doing Nothing, We're Doing Something: The Rectangular Taper.<a class="anchor-link" href="#By-Doing-Nothing,-We're-Doing-Something:-The-Rectangular-Taper."> </a></h4><p>ECoG time series continue for long durations. For example, an individual’s brain voltage activity may persist for over 90 years, from birth until death. However, ECoG recordings are finite, limited by convenience, technology, or other factors. In the example here, we consider 1 s of ECoG data. Performing this finite observation (lasting 1 s) on a long duration (i.e., 90-year) time series can be understood as a rectangular taper. A rectangular taper multiplies the observed data by 1 and the unobserved data by 0.</p>
@@ -457,10 +397,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can think of the value 1 as representing the time period when our recording device is operational; activating the ECoG recording device opens the rectangular taper (value 1), and deactivating the ECoG recording device closes the rectangular taper (value 0). The rectangular taper makes explicit our knowledge about the observed data (in this case, the 1 s interval of ECoG) and our ignorance about the unobserved data, which are assigned the value zero. Notice that the rectangular taper looks like a rectangle (red trace in the figure above).</p>
@@ -469,10 +405,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Exploring-the-Impact-of-the-Rectangular-Taper.">Exploring the Impact of the Rectangular Taper.<a class="anchor-link" href="#Exploring-the-Impact-of-the-Rectangular-Taper."> </a></h4><p>The <a href="#fig:4-3" class="fig"><span>figure<img src="imgs/4-3.png"></span></a> above illustrates how the rectangular taper impacts the observed data in the time domain, namely, the taper selects a region of observation. The rectangular taper also impacts the spectrum in the frequency domain. To see this, consider a perfect sinusoid at frequency 10 Hz that in theory continues forever. In this case, the energy concentrates at a single frequency—the frequency of the sinusoid (10 Hz)—and for the (theoretical) case of an infinite sinusoid, the power spectral density is infinite at that frequency. <a id="fig:4-4"></a>
@@ -485,10 +417,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -507,10 +435,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To understand further the impact of the rectangular taper, let’s consider the spectrum of the rectangular taper itself.</p>
@@ -520,11 +444,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -544,10 +466,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -563,10 +487,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In theory, the rectangular taper is infinite, and is preceded and followed by infinite intervals of zeros (i.e., there’s an infinite period in which we do not observe the ECoG data). To represent the infinite extent of the rectangular taper, we add 10 s of zeros to the beginning and end of a 1 s interval of ones. Of course, 10 s of zeros is a poor representation of an infinite interval of time, but it’s sufficient for our purposes here. We note that the rectangular taper consists of two sharp edges, when the observation interval opens and closes (i.e., transitions from 0 to 1, and then back from 1 to 0).</p>
@@ -574,11 +494,9 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -604,10 +522,12 @@ _**Synopsis**_
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -623,10 +543,6 @@ _**Synopsis**_
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -637,10 +553,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visual inspection of the spectrum of the rectangular taper suggests that most of the power spectral density is concentrated at a single frequency, 0 Hz. To understand why the spectrum concentrates at 0 Hz, consider the <a href="#fig:4-5a">rectangular taper</a> over the 1 s duration for which the data collection window is open <span class="fig"><img src="imgs/4-5a.png"><sup>fig</sup></span>. Within this window, the value of the taper is the constant 1. The only frequency present in this signal is 0 Hz (i.e., no oscillations occur). Therefore, the spectrum is concentrated at 0 Hz.</p>
@@ -649,10 +561,6 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -674,10 +582,6 @@ So, sharp transitions in data require many sinusoids to be accurately approximat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Because we perform multiplication of two functions in the time domain (i.e., we multiply the rectangular taper and the infinite sinusoid element by element), we produce a convolution of the Fourier transforms of these functions in the frequency domain. Although the mathematical expression of convolution is somewhat complicated, we can understand the impact of convolution by examining a few plots. Let’s start with the Fourier transform of the infinite sinusoid and the infinite rectangular taper (where we’ve appended zeros to the rectangular taper to make it infinite). We know (or can look up) the results of each Fourier transform. The Fourier transform of the infinite 10 Hz sinusoid, which we assume here is a cosine function, consists of two delta functions at ±10 Hz.</p>
@@ -691,10 +595,6 @@ So, sharp transitions in data require many sinusoids to be accurately approximat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -705,10 +605,6 @@ So, sharp transitions in data require many sinusoids to be accurately approximat
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To illustrate this convolution procedure, consider the following plots which show examples of shifting and multiplying the two Fourier transforms. 
@@ -721,10 +617,6 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Zero-padding.">Zero padding.<a class="anchor-link" href="#Zero-padding."> </a></h4><p>An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length $(T)$ improves the frequency resolution; recall the equation $df = 1/T$ from <a href="https://mark-kramer.github.io/Case-Studies-Python/03/the-power-spectrum-part-1">The Power Spectrum (part 1)</a>. We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing $T\,$). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.</p>
@@ -732,11 +624,9 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -792,10 +682,12 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -811,10 +703,6 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This procedure of appending zeros to a time series is called <strong>zero padding</strong>. It can be useful for visualizing a spectrum. But we must be careful to remember the following important fact.</p>
@@ -822,10 +710,6 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="alert alert-block alert-success">
@@ -834,10 +718,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With this understanding of the impact of the rectangular taper and zero padding, let’s now return to the <a href="#fig:4-4b">spectrum of the 1 s of sinusoidal activity</a> <span class="fig"><sup>fig</sup><img src="imgs/4-4b.png"></span>. We now expect that because we observe the infinite sinusoid for only a short duration (1 s), the spectral power at 10 Hz will leak into neighboring frequency bands. And, as plotted in the spectrum above, that’s indeed what we find - the side lobe structure is clearly visible. Also note that, in this example, we computed the spectrum with zero padding to evaluate the spectrum at many points along the frequency axis.</p>
@@ -846,11 +726,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -867,10 +745,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -886,10 +766,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the first three lines of this code, we define the sampling frequency (<code>Fs</code>), and the 10 Hz sine function with zero padding. Next, we use the function that we created previously to compute and plot the spectrum. Notice that we plot the spectrum on a decibel scale, and focus on the frequency interval 0–20 Hz.</p>
@@ -897,10 +773,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -913,10 +785,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -929,10 +797,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The results for this case (using 10 s of zero padding) show a dominant peak at 10 Hz, as expected, and large side lobes that extend throughout the 0&mdash;20 Hz frequency range. Choices of smaller-duration zero padding and longer duration zero padding produce similar results. With 5 s of zero-padding, the plotted spectrum appears less smooth; in this case, we evaluate the spectrum at fewer points on the frequency axis, and the side lobe peaks become more jagged. The choice of 100 s of zero padding does not produce a qualitative change compared to the 10 s of zero padding; in this case, evaluating the spectrum at 10 times as many points along the frequency axis in not particularly useful.</p>
@@ -940,10 +804,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -954,10 +814,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You can also see the impact of no zero padding. To do so, simply omit the third line of the Python code above. The spectrum is quite different from the original example. Without zero padding, the falloff from the 10 Hz peak appears rather smooth and gradual, and does not exhibit obvious side lobe structure, as expected after the discussion of the rectangular taper. Leakage from the 10 Hz peak into neighboring frequency bands still occurs, but without zero padding we're sampling the frequency axis too coarsely to accurately make out the side lobes.</p>
@@ -965,10 +821,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Zero-padding-and-frequency-resolution:-an-example.">Zero padding and frequency resolution: an example.<a class="anchor-link" href="#Zero-padding-and-frequency-resolution:-an-example."> </a></h4><p>We stated in the previous section that zero padding does not improve the frequency resolution of the spectrum. As an example of this, consider a simple signal of duration 1 s that consists of two sinusoids: a 10 Hz sinusoid and a 10.5 Hz sinusoid.</p>
@@ -976,10 +828,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -992,10 +840,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>But, perhaps by zero padding the data, we can distinguish these two rhythms. After all, zero padding acts to increase $T$, right? We're appending lots of zeros to the time series, so the data become longer. Let's create these synthetic data in Python and investigate.</p>
@@ -1003,11 +847,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1025,10 +867,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1044,10 +888,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the code above we first define the sampling frequency and then create the two sinusoids (<code>d1</code> and <code>d2</code>), sum these sinusoids to create a composite signal (<code>d</code>), and zero-pad this composite signal with 10 s of zeros. Finally, we compute and plot the spectrum as before.</p>
@@ -1055,10 +895,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1071,10 +907,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='hann-taper'></a></p>
@@ -1083,10 +915,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have considered so far a single type of taper (the default, a rectangular taper) and its impact on the spectrum. In particular, we noted the “smearing” of spectral peaks (i.e., side lobes) that impact neighboring frequency bands. At best these side lobes are distracting, and at worst they may contaminate our conclusions. For example, consider the spectrum for the 1 s of ECoG data.<a href="#fig:4-2b" class="fig"><sup>fig</sup><img src="imgs/4-2b.png"></a> Is the small peak near 10 Hz representative of a true rhythm in these data, or is it a side lobe of the large peak near 6 Hz? Many different taper shapes have been developed with the goal of reducing the side lobes that contaminate the signals. Here we consider one of these tapers, the <em>Hanning taper</em>.</p>
@@ -1095,11 +923,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1117,10 +943,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1136,10 +964,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that the Hanning taper gradually increases from zero, reaches a maximum of 1 at the center of the interval, then gradually decreases to zero. We can compare the spectra of the two tapers using the following code:</p>
@@ -1147,11 +971,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1167,10 +989,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1182,7 +1006,7 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 
 </div>
 </div>
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1198,10 +1022,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These spectra reveal two main differences between these tapers:</p>
@@ -1215,11 +1035,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1240,10 +1058,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1259,10 +1079,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The NumPy function <code>hanning()</code> returns the Hanning taper, which we multiply element by element with the ECoG data in variable <code>x</code>. Notice that the slow increase in the Hanning taper reduces the amplitude of the ECoG activity near the taper edges and emphasizes the ECoG activity in the center of the interval.</p>
@@ -1278,10 +1094,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, let's compute the spectrum of the ECoG data with, and without, the Hanning taper.</p>
@@ -1289,11 +1101,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1318,10 +1128,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1337,10 +1149,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1353,10 +1161,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='multitaper'></a></p>
@@ -1368,11 +1172,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1392,10 +1194,12 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1411,10 +1215,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first taper looks familiar—it’s similar to the Hanning taper. Notice that the first taper starts at zero, increases throughout the interval, and then decreases back to zero. As we add more tapers, each contains more “wiggles.” In particular, as the number of tapers increases, the edges of the data become better represented. Unlike the Hanning taper, which slowly approaches zero at the taper edges, some of these tapers increase near the window edges (see taper 5). This can be useful, especially if we are interested in the spectral features near the beginning and end of the data. Just as with the Hanning taper, we multiply the time series data by each taper, which emphasizes different intervals of the data. We show examples of this multiplication for the ECoG data in the plot on the right. The first taper emphasizes the middle of the ECoG data, and the fifth taper emphasizes the beginning and end of the ECoG data.</p>
@@ -1424,10 +1224,6 @@ $$TW = X,$$<p>where $T$ is the duration of the recording, $2W$ is the desired fr
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="alert alert-block alert-info">
@@ -1440,10 +1236,6 @@ $$TW = X,$$<p>where $T$ is the duration of the recording, $2W$ is the desired fr
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Remember that a frequency resolution of 1 Hz indicates that we can resolve features in the spectrum separated in frequency by 1 Hz or more. For example, at a frequency resolution of 1 Hz, we can distinguish 10 Hz activity from 9 Hz or 11 Hz activity. However, we are unable to distinguish 10 Hz activity from 10.5 Hz or 9.5 Hz; those frequencies lie within the frequency resolution.</p>
@@ -1453,10 +1245,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="math-note">
@@ -1467,10 +1255,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1481,10 +1265,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The multitaper method is a sophisticated approach, and we have only touched on the surface in this brief discussion. There are many detailed references and important applications [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&amp;context=L&amp;vid=BU&amp;search_scope=default_scope&amp;tab=default_tab&amp;lang=en_US">Priestley, 1981</a>]. Fortunately, there are also Python software packages and functions to implement and apply the multitaper method. We will use the function <code>multi_taper_psd()</code> from the <a href="http://nipy.org/nitime/index.html">Nitime</a> package to compute the multitaper spectrum of the ECoG data:</p>
@@ -1492,11 +1272,9 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1511,11 +1289,11 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1534,10 +1312,12 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1553,10 +1333,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The function <code>multi_taper_psd()</code> takes three inputs: the data (here <code>x-x.mean()</code>), the sampling frequency (here <code>1/dt</code>), and the normalized half-bandwidth (here <code>NW</code>). The normalized half-bandwidth is equivalent to the half-bandwidth <em>W</em> if the total time is normalized to one second. By default, <code>multi_taper_psd()</code> sets the number of tapers to $2 N W - 1$. The function <code>multi_taper_psd()</code> returns the frequency points (<code>faxis</code>) and multitaper estimate of the spectrum (<code>Sxx</code>). The plot above shows the spectrum of the ECoG data computed in three ways: using the rectangular taper, the Hanning taper, and the multitaper method.</p>
@@ -1564,10 +1340,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1578,10 +1350,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1592,10 +1360,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='ci'></a></p>
@@ -1603,10 +1367,6 @@ $$\mbox{No. of tapers} = 2TW - 1.$$<p>We choose the first $2 T W - 1$ tapers bec
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another useful feature of the <code>pmtm()</code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with $K$ tapers can be computed using a chi-square distribution with $2K$ degrees of freedom [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>],</p>
@@ -1615,11 +1375,9 @@ $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\al
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -1662,10 +1420,12 @@ $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\al
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
 
@@ -1681,10 +1441,6 @@ $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\al
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1695,10 +1451,6 @@ $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\al
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1711,10 +1463,6 @@ $$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\al
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='summary'></a></p>
@@ -1727,10 +1475,5 @@ and <a href="http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    

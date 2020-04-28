@@ -1,13 +1,13 @@
 """A helper script to "clean up" all of your generated markdown and HTML files."""
 import shutil as sh
-from pathlib import Path
+import os.path as op
 
-path_root = Path(__file__).parent.parent
+path_root = op.join(op.dirname(op.abspath(__file__)), '..')
 
-paths = [path_root.joinpath('_site'),
-         path_root.joinpath('_build')]
+paths = [op.join(path_root, '_site'),
+         op.join(path_root, '_build')]
 for path in paths:
-    print(f'Removing {path}...')
+    print('Removing {}...'.format(path))
     sh.rmtree(path, ignore_errors=True)
 
 print('Done!')

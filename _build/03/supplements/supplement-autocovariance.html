@@ -1,25 +1,17 @@
 ---
+redirect_from: None
 interact_link: content/03/supplements/supplement-autocovariance.ipynb
 kernel_name: python3
-kernel_path: content/03/supplements
 has_widgets: false
-title: |-
-  Biased versus unbiased autocovariance
-pagenum: 4
+title: 'Biased versus unbiased autocovariance'
 prev_page:
   url: /03/the-power-spectrum-part-1.html
+  title: 'The Power Spectrum (Part 1)'
 next_page:
   url: /03/supplements/supplement-psd.html
-suffix: .ipynb
-search: n x l biased autocovariance bar estimator unbiased large estimate lags xn data approaches sum case eq only variance frac div class terms r xx nl span compute lets estimates s compare consider points imgs png lag p eqnarray term small notice curve zero even question indices product summation src values variability not mean squared error expression versus true both eeg between near similar factor observation example blue q why does shift series subset overlap cartoon representation because divided remain again therefore however balance division increased less assessment expect few typically reasons bias mbox thumbeqimg title begin end nn leads
-
+  title: 'Intuition behind the power spectral density'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
-    <main class="jupyter-page">
-    <div id="page-info"><div id="page-title">Biased versus unbiased autocovariance</div>
-</div>
-    <div class="jb_cell">
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -27,10 +19,6 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Autocovariance is defined by the equation</p>
@@ -42,11 +30,9 @@ $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -55,8 +41,8 @@ $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 
@@ -65,11 +51,11 @@ $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -83,11 +69,11 @@ $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
 </div>
 
 </div>
+
 </div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -104,74 +90,12 @@ $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="jb_output_wrapper }}">
-<div class="output_area">
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     40</span>     <span class="ansi-green-fg">except</span> IOError<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;EEG-1.mat&#39;
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-3-bf5e06681930&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Import the data</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>data <span class="ansi-blue-fg">=</span> sio<span class="ansi-blue-fg">.</span>loadmat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;EEG-1.mat&#39;</span><span class="ansi-blue-fg">)</span>           <span class="ansi-red-fg"># Load the EEG data.</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> x <span class="ansi-blue-fg">=</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;EEG&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>reshape<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>               <span class="ansi-red-fg"># Extract the EEG variable,</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> t <span class="ansi-blue-fg">=</span> data<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;t&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>                          <span class="ansi-red-fg"># ... and the t variable.</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> N <span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">)</span>                                <span class="ansi-red-fg"># Get the total number of data points,</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">loadmat</span><span class="ansi-blue-fg">(file_name, mdict, appendmat, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span>     &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">    215</span>     variable_names <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;variable_names&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">with</span> _open_file_context<span class="ansi-blue-fg">(</span>file_name<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> f<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    217</span>         MR<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> mat_reader_factory<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    218</span>         matfile_dict <span class="ansi-blue-fg">=</span> MR<span class="ansi-blue-fg">.</span>get_variables<span class="ansi-blue-fg">(</span>variable_names<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/contextlib.py</span> in <span class="ansi-cyan-fg">__enter__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>         <span class="ansi-green-fg">del</span> self<span class="ansi-blue-fg">.</span>args<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>kwds<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>func
-<span class="ansi-green-intense-fg ansi-bold">    111</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 112</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>gen<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    113</span>         <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span>             <span class="ansi-green-fg">raise</span> RuntimeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;generator didn&#39;t yield&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> <span class="ansi-green-fg">None</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file_context</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-blue-fg">@</span>contextmanager
-<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-green-fg">def</span> _open_file_context<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;rb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>f<span class="ansi-blue-fg">,</span> opened <span class="ansi-blue-fg">=</span> _open_file<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     20</span>     <span class="ansi-green-fg">yield</span> f
-<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">if</span> opened<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
-<span class="ansi-green-intense-fg ansi-bold">     43</span>             <span class="ansi-green-fg">if</span> appendmat <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> file_like<span class="ansi-blue-fg">.</span>endswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;.mat&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     44</span>                 file_like <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">&#39;.mat&#39;</span>
-<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
-<span class="ansi-green-intense-fg ansi-bold">     46</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     47</span>             <span class="ansi-green-fg">raise</span> IOError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Reader needs file name or open file-like object&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;EEG-1.mat&#39;</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -194,35 +118,27 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-4-f957ad8b0758&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>lags <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>arange<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span>N <span class="ansi-blue-fg">+</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> N<span class="ansi-blue-fg">)</span>               <span class="ansi-red-fg"># Compute the lags</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span>                                           <span class="ansi-red-fg"># Calculate non-normalized autocovariance</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> ac <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>correlate<span class="ansi-blue-fg">(</span>x <span class="ansi-blue-fg">-</span> x<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> x <span class="ansi-blue-fg">-</span> x<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#34;full&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> ac_b <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span> <span class="ansi-blue-fg">/</span> N <span class="ansi-blue-fg">*</span> ac                         <span class="ansi-red-fg"># Calculate biased autocovariance</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> ac_u <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span> <span class="ansi-blue-fg">/</span> <span class="ansi-blue-fg">(</span>N <span class="ansi-blue-fg">-</span> np<span class="ansi-blue-fg">.</span>abs<span class="ansi-blue-fg">(</span>lags<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">*</span> ac        <span class="ansi-red-fg"># ... and unbiased autocovariance</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;N&#39; is not defined</pre>
+
+<div class="output_png output_subarea ">
+<img src="../../images/03/supplements/supplement-autocovariance_5_0.png"
+>
 </div>
+
 </div>
 </div>
 </div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We see the similarities and differences between these two estimates. At small lags (near 0 s), the biased and unbiased estimates of the autocovariance are similar. In this case, $L$ is small, so the factor 1/(N − L) in the unbiased estimate is similar to the factor of 1/N in the biased estimate. At large lags (away from 0 s), the biased and unbiased estimates of the autocovariance are quite different. Notice that, as L approaches ±2 s, the biased estimate (orange curve) approaches zero.</p>
@@ -231,10 +147,6 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -253,10 +165,6 @@ for the overlapping indices of $x_n$ and $x_{n+L}$, we only include two terms in
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -279,11 +187,9 @@ Careful inspection of the blue curve reveals another feature of the biased estim
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing code_cell rendered">
+
+<div class="jb_input" >
 <div class="input">
 
 <div class="inner_cell">
@@ -297,38 +203,27 @@ Careful inspection of the blue curve reveals another feature of the biased estim
 </div>
 </div>
 
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper }}">
+<div class="jb_output_wrapper">
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-5-9b17b9ea3db1&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-blue-fg">[</span>ax<span class="ansi-blue-fg">.</span>axvline<span class="ansi-blue-fg">(</span>l<span class="ansi-blue-fg">,</span> color<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;k&#39;</span><span class="ansi-blue-fg">,</span> lw<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> l <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1.75</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1.75</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> fig
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># NO CODE</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-5-9b17b9ea3db1&gt;</span> in <span class="ansi-cyan-fg">&lt;listcomp&gt;</span><span class="ansi-blue-fg">(.0)</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span><span class="ansi-blue-fg">[</span>ax<span class="ansi-blue-fg">.</span>axvline<span class="ansi-blue-fg">(</span>l<span class="ansi-blue-fg">,</span> color<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;k&#39;</span><span class="ansi-blue-fg">,</span> lw<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> l <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1.75</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1.75</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> fig
-<span class="ansi-green-intense-fg ansi-bold">      3</span> <span class="ansi-red-fg"># NO CODE</span>
 
-<span class="ansi-red-fg">NameError</span>: name &#39;ax&#39; is not defined</pre>
+<div class="output_png output_subarea output_execute_result">
+<img src="../../images/03/supplements/supplement-autocovariance_9_0.png"
+>
 </div>
+
 </div>
 </div>
 </div>
 </div>
 
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -339,10 +234,6 @@ Increased variability at large lags occurs because, as $L$ approaches $N$, we ha
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons <a href="https://doi.org/10.1017/CBO9780511622762">[Percival &amp; Walden, 1998]</a>. First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:</p>
@@ -368,10 +259,6 @@ r_{xx}^*[N-1] &=& \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x
 </div>
 </div>
 </div>
-</div>
-
-<div class="jb_cell">
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves "nicely" as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.</p>
@@ -380,10 +267,5 @@ r_{xx}^*[N-1] &=& \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x
 </div>
 </div>
 </div>
-</div>
-
  
 
-
-    </main>
-    
