@@ -12,7 +12,6 @@ next_page:
   title: 'The Power Spectrum (Part 1)'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="introduction"></a></p>
@@ -70,19 +69,19 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                 <span class="c1"># Import numpy for computations</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>    <span class="c1"># Import a useful plotting package, </span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">savefig</span>
                                    <span class="c1"># ... and a few specific functions that are used often</span>
 <span class="c1"># ... make the plots &quot;inline&quot;.</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline                 
 
 <span class="c1"># Tools for this chapter</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">sqrt</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">randint</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">imshow</span><span class="p">,</span> <span class="n">colorbar</span><span class="p">,</span> <span class="n">hlines</span><span class="p">,</span> <span class="n">vlines</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">randint</span>
 </pre></div>
 
     </div>
@@ -193,14 +192,14 @@ _**Synopsis**_
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/Cy_BF7smAkk"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/Cy_BF7smAkk"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -263,14 +262,14 @@ _**Synopsis**_
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/q2-DjvPRaNA"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/q2-DjvPRaNA"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -316,7 +315,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -632,14 +631,14 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/uSjd41G-yNY"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/uSjd41G-yNY"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -859,14 +858,14 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/9qx29zDxcAc"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/9qx29zDxcAc"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1151,14 +1150,14 @@ Note that because we did not import the function `figure()` directly, we need to
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/nandZ5aaRaQ"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/nandZ5aaRaQ"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1285,14 +1284,14 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/kPr2GLSKLJg"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/kPr2GLSKLJg"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1413,14 +1412,14 @@ Upon close inspection of the figure above, what response, if any, do you observe
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/pXCJbyrw8Ug"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/pXCJbyrw8Ug"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1625,7 +1624,7 @@ A good rule of thumb when you are programming is that you should not be rewritin
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Change the default figure size</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="c1"># Create a function to label plots</span>
@@ -1772,7 +1771,7 @@ Try it out.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="k">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="kn">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
 
 <span class="n">erpA</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="n">ca_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">])</span>  <span class="c1"># Compute the ERP of condition A</span>
 <span class="n">erpB</span><span class="p">,</span> <span class="n">cb_l</span><span class="p">,</span> <span class="n">cb_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGb&#39;</span><span class="p">])</span>  <span class="c1"># ... and condition B</span>
@@ -1940,14 +1939,14 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/vVXH4XsPFEs"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/vVXH4XsPFEs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2012,14 +2011,14 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/mqDEJyW_z4c"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/mqDEJyW_z4c"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2147,14 +2146,14 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/bUzuNojLUik"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/bUzuNojLUik"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2231,14 +2230,14 @@ $$ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}$$</p>
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/feQk_vKloXk"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/feQk_vKloXk"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2397,14 +2396,14 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/NLc93QESVZs"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/NLc93QESVZs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2529,14 +2528,14 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/K6pgCxFdELc"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/K6pgCxFdELc"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2623,14 +2622,14 @@ Note that it is good practice, but not required, to define a function that conta
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/390ywma7S3U"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/390ywma7S3U"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2717,14 +2716,14 @@ Then, as before, we define the function <code>bootstrapStat</code> which perform
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/iefCPGHd5vY"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/iefCPGHd5vY"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>

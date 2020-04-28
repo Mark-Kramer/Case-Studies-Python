@@ -12,7 +12,6 @@ next_page:
   title: 'Biased versus unbiased autocovariance'
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="top"></a></p>
@@ -74,13 +73,13 @@ _**Synopsis**_
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the common modules and plot settings</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">semilogx</span><span class="p">,</span> <span class="n">semilogy</span><span class="p">,</span> <span class="n">savefig</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">semilogx</span><span class="p">,</span> <span class="n">semilogy</span><span class="p">,</span> <span class="n">savefig</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">zeros_like</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">,</span> <span class="n">arange</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="k">import</span> <span class="n">YouTubeVideo</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros_like</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">,</span> <span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 
@@ -99,9 +98,9 @@ _**Synopsis**_
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The tools that we will need for this chapter</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">where</span>
-<span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="k">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span>
-<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="k">import</span> <span class="n">spectrogram</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">where</span>
+<span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">spectrogram</span>
 <span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
@@ -219,14 +218,14 @@ _**Synopsis**_
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/PmGme7YuAiw"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/PmGme7YuAiw"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -274,14 +273,14 @@ _**Synopsis**_
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/oRCUx11iEck"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/oRCUx11iEck"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -331,14 +330,14 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/L0xf0dCn7T0"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/L0xf0dCn7T0"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -473,14 +472,14 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/GepHsNVXTN4"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/GepHsNVXTN4"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -526,14 +525,14 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/mZ1uHN4lcPY"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/mZ1uHN4lcPY"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -581,14 +580,14 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/UVnpQVUqpWI"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/UVnpQVUqpWI"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -668,14 +667,14 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/W9BTYZM8yzs"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/W9BTYZM8yzs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1307,14 +1306,14 @@ $$(x_{n + L^*} - \bar x)(x_n - \bar x)$$<p>are negative, and summing up these te
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/OAHpkZy6ZX8"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/OAHpkZy6ZX8"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1363,14 +1362,14 @@ The *power spectral density* describes the extent to which sinusoids of a single
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/iPUpMS79xgo"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/iPUpMS79xgo"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1463,14 +1462,14 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>which is the product of the Four
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/kmHCCzAbMVI"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/kmHCCzAbMVI"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1520,14 +1519,14 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>which is the product of the Four
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/noCOC69jvh8"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/noCOC69jvh8"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1722,14 +1721,14 @@ When we used the `rfft` function we utilized a useful property of the Fourier tr
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/sgYkOkrlQ_E"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/sgYkOkrlQ_E"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1818,14 +1817,14 @@ To avoid aliasing, sample data at sufficiently high rates.
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/bZsj_gcGoSo"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/bZsj_gcGoSo"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -1927,14 +1926,14 @@ This observation provides some intuition for the relation between the amount of 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/SuDJha5LNL0"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/SuDJha5LNL0"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2115,14 +2114,14 @@ Different conventions exist to define the decibel scale. Here we first divide by
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/XYy4NEr3VUs"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/XYy4NEr3VUs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
@@ -2277,14 +2276,14 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 
 <div class="output_html rendered_html output_subarea output_execute_result">
 
-        <iframe
-            width="400"
-            height="300"
-            src="https://www.youtube.com/embed/jdceZRY_PDA"
-            frameborder="0"
-            allowfullscreen
-        ></iframe>
-        
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/jdceZRY_PDA"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
 </div>
 
 </div>
