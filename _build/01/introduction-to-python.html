@@ -1,17 +1,26 @@
 ---
-redirect_from: /01
 interact_link: content/01/introduction-to-python.ipynb
 kernel_name: python3
+kernel_path: content/01
 has_widgets: false
-title: 'Introduction to Python'
+title: |-
+  Introduction to Python
+pagenum: 1
 prev_page:
   url: /intro.html
-  title: 'Home'
 next_page:
   url: /02/the-event-related-potential.html
-  title: 'The Event-Related Potential'
+suffix: .ipynb
+search: python div function example class lets question q data c code plot note y x not does variables array our np shape row matrix vector notebook want using define values columns functions sense element consider access loop execute return sometimes matlab above command notice numbers type elements b method case org here following should same well math numpy need start arrays matrices tells matplotlib www useful examples used run line print import load argument help lists html means vectors column nonzero plotting figure random indented keys section learn particular read instead get before e any second both while ramp module
+
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Introduction to Python</div>
+</div>
+    <div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Python-for-the-practicing-neuroscientist">Python <em>for the practicing neuroscientist</em><a class="anchor-link" href="#Python-for-the-practicing-neuroscientist"> </a></h1><p>To be frank:  this section is boring.  Throughout all of the case studies, we will use the software package <a href="https://www.python.org/">Python</a>. The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.</p>
@@ -19,6 +28,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually <em>do</em> this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a>).</p>
@@ -26,6 +39,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Starting-Python">Starting Python<a class="anchor-link" href="#Starting-Python"> </a></h2><p>There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master">Binder</a>, and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!</p>
@@ -33,6 +50,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -45,6 +66,10 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="On-ramp:-analysis-of-neural-data-in-Python">On-ramp: analysis of neural data in Python<a class="anchor-link" href="#On-ramp:-analysis-of-neural-data-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens...</p>
@@ -52,9 +77,11 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -85,12 +112,10 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -101,7 +126,7 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -117,6 +142,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -129,6 +158,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-1:-Python-is-a-calculator">Example 1: Python is a calculator<a class="anchor-link" href="#Example-1:-Python-is-a-calculator"> </a></h2><p>Execute the following commands in Python:</p>
@@ -136,9 +169,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -150,12 +185,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -170,9 +203,11 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -184,12 +219,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -204,6 +237,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -214,6 +251,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-2.--Python-can-compute-complicated-quantities.">Example 2.  Python can compute complicated quantities.<a class="anchor-link" href="#Example-2.--Python-can-compute-complicated-quantities."> </a></h2><p>Enter the following command in Python:</p>
@@ -221,9 +262,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -235,12 +278,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -255,6 +296,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -265,6 +310,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -275,6 +324,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-3.--Python-has-useful-built-in-functions.">Example 3.  Python has useful built in functions.<a class="anchor-link" href="#Example-3.--Python-has-useful-built-in-functions."> </a></h2><p>A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the <code>math</code> and <code>numpy</code> modules. To use the <code>math</code> and <code>numpy</code> modules, we must first import both:</p>
@@ -282,9 +335,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -298,8 +353,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You will often begin your data analysis with <code>import</code> statements, to load the functionality you need. We can now call functions from math using <code>numpy.*</code>.  For example,</p>
@@ -307,9 +364,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -321,12 +380,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -341,6 +398,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Above, <code>np.sin</code> is the sine function.  It operates on the argument <code>2*np.pi</code>.  Notice that, once we have imported the <code>numpy</code> module, Python knows the value of <code>np.pi</code>. Here's another example function that operates on arguments:</p>
@@ -348,9 +409,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -362,12 +425,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -382,6 +443,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -394,9 +459,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -409,8 +476,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You should see a description of the function pop up at the bottom of the window.</p>
@@ -419,6 +488,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-4.--We-can-use-Python-to-define-lists-of-numbers.">Example 4.  We can use Python to define lists of numbers.<a class="anchor-link" href="#Example-4.--We-can-use-Python-to-define-lists-of-numbers."> </a></h2><p>In Python, there are several different data structures that are designed to store more than one element. Here we will focus on the <code>array</code> data structure, but if you are curious to know how and when to use other structures, there is a good explanation <a href='http://www.physics.nyu.edu/pine/pymanual/html/chap3/chap3_arrays.html'>here</a>. Let's define an array:</p>
@@ -426,9 +499,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -441,8 +516,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-5.--We-can-manipulate-arrays-by-scalars.">Example 5.  We can manipulate arrays by scalars.<a class="anchor-link" href="#Example-5.--We-can-manipulate-arrays-by-scalars."> </a></h2><p>A scalar is a single number.  Consider,</p>
@@ -450,9 +527,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -467,12 +546,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -487,6 +564,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -499,6 +580,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-6.--We-can-manipulate-arrays-with-arrays.">Example 6.  We can manipulate arrays with arrays.<a class="anchor-link" href="#Example-6.--We-can-manipulate-arrays-with-arrays."> </a></h2><p>Let's create an array and multiply it by itself,</p>
@@ -506,9 +591,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -521,12 +608,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -541,6 +626,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -553,15 +642,21 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-7.-More-examples-of-manipulating-arrays-with-arrays.">Example 7. More examples of manipulating arrays with arrays.<a class="anchor-link" href="#Example-7.-More-examples-of-manipulating-arrays-with-arrays."> </a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -579,12 +674,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -599,6 +692,10 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -609,6 +706,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-8.--We-can-probe-the-variables-we've-defined-in-Python.">Example 8.  We can probe the variables we've defined in Python.<a class="anchor-link" href="#Example-8.--We-can-probe-the-variables-we've-defined-in-Python."> </a></h2><p>To see a list of the variables you've defined, type <code>who</code> or <code>whos</code> in a code block by themselves. Notice <code>whos</code> provides more information.</p>
@@ -616,9 +717,11 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -630,12 +733,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -649,9 +750,11 @@ Dimensions of data are (100000,) data points.
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -663,12 +766,10 @@ Dimensions of data are (100000,) data points.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -691,6 +792,10 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-9.--Determine-the-dimensions-of-an-array">Example 9.  Determine the dimensions of an array<a class="anchor-link" href="#Example-9.--Determine-the-dimensions-of-an-array"> </a></h2><p>To examine the dimensions of an array, we can ask for the <code>shape</code>,</p>
@@ -698,9 +803,11 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -714,12 +821,10 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -733,6 +838,10 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find that the shape of <code>a</code> is <code>(1,4)</code> or 1 row and 4 columns. Notice we have two options to execute the <code>shape</code> function:</p>
@@ -747,6 +856,10 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-10.-Sometimes-we-need-to-reset-the-workspace">Example 10. Sometimes we need to reset the workspace<a class="anchor-link" href="#Example-10.-Sometimes-we-need-to-reset-the-workspace"> </a></h2><p>By doing so, we get rid of all the variables. To do so, type <code>%reset</code> and enter <code>y</code></p>
@@ -754,9 +867,11 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -768,12 +883,10 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
@@ -789,6 +902,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -801,9 +918,11 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -815,12 +934,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -833,6 +950,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -843,6 +964,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-11.--We-can-define-matrices-in-Python.">Example 11.  We can define matrices in Python.<a class="anchor-link" href="#Example-11.--We-can-define-matrices-in-Python."> </a></h2><p>A matrix is an array with more than one dimensio.  Consider the following:</p>
@@ -850,9 +975,11 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -867,8 +994,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This creates a matrix with two rows and three columns. Consider,</p>
@@ -876,9 +1005,11 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -890,12 +1021,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -909,6 +1038,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -920,9 +1053,11 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -936,12 +1071,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -959,6 +1092,10 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-12.--Indexing-matrices-and-vectors.">Example 12.  Indexing matrices and vectors.<a class="anchor-link" href="#Example-12.--Indexing-matrices-and-vectors."> </a></h2><p>Matrices and vectors are arrays of numbers, and sometimes we want to
@@ -968,9 +1105,11 @@ easy to do in Python.  Consider,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -984,8 +1123,10 @@ easy to do in Python.  Consider,</p>
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Python indexes from 0 (like C, C++, Java, and unlike MATLAB and Fortran which start at 1). 
@@ -997,9 +1138,11 @@ easy to do in Python.  Consider,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1012,12 +1155,10 @@ easy to do in Python.  Consider,</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1031,6 +1172,10 @@ b[1] = 7
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1041,6 +1186,10 @@ b[1] = 7
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can combine <code>a</code> and <code>b</code> to form a matrix with <code>a</code> as the first row and <code>b</code> as the second.
@@ -1049,9 +1198,11 @@ b[1] = 7
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1064,12 +1215,10 @@ b[1] = 7
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1084,6 +1233,10 @@ b[1] = 7
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To learn the size (or shape)
@@ -1092,9 +1245,11 @@ b[1] = 7
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1106,12 +1261,10 @@ b[1] = 7
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1124,6 +1277,10 @@ b[1] = 7
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The shape of <code>c</code> is <code>[2 5]</code>.  It has two rows and five columns.  To access
@@ -1132,9 +1289,11 @@ b[1] = 7
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1146,12 +1305,10 @@ b[1] = 7
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1164,6 +1321,10 @@ b[1] = 7
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1175,6 +1336,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1185,6 +1350,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-13:--We-can-find-subsets-of-elements-in-matrices-and-vectors.">Example 13:  We can find subsets of elements in matrices and vectors.<a class="anchor-link" href="#Example-13:--We-can-find-subsets-of-elements-in-matrices-and-vectors."> </a></h2><p>Often we are interested in only some of the elements of a matrix or vector. For example, we might want to look at the data from a single experimental trial which is stored in a particular row of a matrix. Alternatively, we might want to find out when the values in a time series cross a given boundary. Doing this is simple in Python.</p>
@@ -1192,6 +1361,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Slicing">Slicing<a class="anchor-link" href="#Slicing"> </a></h3><p><em>Slicing</em> means that we want to look at a specific portion of a vector or matrix, for example, the first row of a matrix. We will continue with the matrix <code>c</code> from the previous example. The notation '<code>:</code>' means '<em>all indices</em>'. To access all columns in the entire first row of <code>c</code>, type <code>c[0,:]</code>. To access the 2nd thru 4th columns of the first row of <code>c</code>, type <code>c[0,1:4]</code>.</p>
@@ -1199,9 +1372,11 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1214,12 +1389,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1233,6 +1406,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1244,6 +1421,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Leaving out the number before the colon tells Python to start at index 0. Leaving out the number after the colon tells Python to continue all the way to the end.</p>
@@ -1251,9 +1432,11 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1266,12 +1449,10 @@ print the element in row 0, column 3 of `c`.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1285,6 +1466,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can also tell Python how to step through the indices. To access only the even columns of <code>c</code>, we can use the following:</p>
@@ -1292,9 +1477,11 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1306,12 +1493,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1326,6 +1511,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This code tells Python to start at 0, continue to the end, and step by 2. The result should be the values in row 0, columns 0, 2, and 4 of <code>c</code>. We could write this explicitly as <code>c[0,0:5:2]</code>.</p>
@@ -1333,6 +1522,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Selecting-elements-that-satisfy-a-condition">Selecting elements that satisfy a condition<a class="anchor-link" href="#Selecting-elements-that-satisfy-a-condition"> </a></h3><p>Sometimes we're interested in locating particular values within a
@@ -1341,9 +1534,11 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1358,12 +1553,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1376,6 +1569,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1387,6 +1584,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's find all values in <code>a</code> that exceed 10.</p>
@@ -1394,9 +1595,11 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1408,12 +1611,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1428,6 +1629,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is called logical indexing, let's look at what <code>a&gt;10</code> returns:</p>
@@ -1435,9 +1640,11 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1450,12 +1657,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1470,6 +1675,10 @@ c[0, 1:] = [2 3 4 5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>When we index <code>a</code> using this array <code>lgIdx</code> we get back only the entries 
@@ -1478,9 +1687,11 @@ in <code>a</code> corresponding to <code>True</code>, as above:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1492,12 +1703,10 @@ in <code>a</code> corresponding to <code>True</code>, as above:</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1512,6 +1721,10 @@ in <code>a</code> corresponding to <code>True</code>, as above:</p>
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Sometimes we want to know the actual indices in a where <code>a &gt; 10</code>.
@@ -1521,9 +1734,11 @@ index of all entries that were <code>True</code>, or non-zero.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1535,12 +1750,10 @@ index of all entries that were <code>True</code>, or non-zero.</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1555,6 +1768,10 @@ index of all entries that were <code>True</code>, or non-zero.</p>
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1565,6 +1782,10 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we have another way to select the desired elements of <code>a</code>:</p>
@@ -1572,9 +1793,11 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1586,12 +1809,10 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1606,6 +1827,10 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can use these two types of indexing to change subsets of the values of <code>a</code>.</p>
@@ -1613,9 +1838,11 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1629,12 +1856,10 @@ The command `nonzero()` can be used as both a *function* and a *method*. A metho
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1648,6 +1873,10 @@ a = [  2   4   6   8  10 100 100 100 100]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Q:</strong> How does <code>a</code> change in the first and second print statements?</p>
@@ -1656,9 +1885,11 @@ a = [  2   4   6   8  10 100 100 100 100]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1673,12 +1904,10 @@ a = [  2   4   6   8  10 100 100 100 100]
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1699,6 +1928,10 @@ a = [  2   4   6   8  10 100 100 100 100]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -1711,6 +1944,10 @@ the opposite of what it does!
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-14:--Plotting-data-in-Python.">Example 14:  Plotting data in Python.<a class="anchor-link" href="#Example-14:--Plotting-data-in-Python."> </a></h2><p>It's not easy to look at lists of numbers and gain an intuitive
@@ -1721,9 +1958,11 @@ plotting them.  Consider</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1742,12 +1981,10 @@ plotting them.  Consider</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1762,6 +1999,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1774,6 +2015,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="matplotlib">matplotlib<a class="anchor-link" href="#matplotlib"> </a></h3><p>To visualize <code>y</code> versus <code>x</code> let's plot it. To do so, let's first import some basic plotting routines from <code>matplotlib</code>, which provides a nice <a href="https://matplotlib.org/">2D plotting library</a>. We'll also tell Python to show  <code>matplotlib</code> graphics inline, in this notebook.</p>
@@ -1782,9 +2027,11 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1802,12 +2049,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1823,6 +2068,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1834,9 +2083,11 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1852,12 +2103,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1873,6 +2122,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The plot of <code>x</code> versus <code>y</code> should look a bit jagged, and not 
@@ -1882,9 +2135,11 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1897,12 +2152,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1922,6 +2175,10 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1933,6 +2190,10 @@ two definitions differ?
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1943,6 +2204,10 @@ two definitions differ?
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's replot the sine function.</p>
@@ -1950,9 +2215,11 @@ two definitions differ?
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1966,12 +2233,10 @@ two definitions differ?
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1987,6 +2252,10 @@ two definitions differ?
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1997,12 +2266,20 @@ two definitions differ?
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-15:-What-if-we-want-to-compare-several-functions?">Example 15: What if we want to compare several functions?<a class="anchor-link" href="#Example-15:-What-if-we-want-to-compare-several-functions?"> </a></h2>
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Continuing the example in the previous section, let’s define a second vector</p>
@@ -2010,9 +2287,11 @@ two definitions differ?
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2025,8 +2304,10 @@ two definitions differ?
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>and plot it:</p>
@@ -2034,9 +2315,11 @@ two definitions differ?
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2049,12 +2332,10 @@ two definitions differ?
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2070,6 +2351,10 @@ two definitions differ?
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We’d now like to compare the two variables <code>y</code> and <code>z</code>. To do this, let’s plot both vectors on
@@ -2078,9 +2363,11 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2094,12 +2381,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2115,6 +2400,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Notice that we’ve included a third input to the function <code>plt.plot</code>. Here the third input tells Python to draw the curve in a particular color: <code>'r'</code> for red. There are many options we can use to plot; to see more, check out the documentation for <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">plot</a>.</p>
@@ -2123,9 +2412,11 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2143,12 +2434,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2164,6 +2453,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To futher edit this plot, you might decide - for example - that the font size for the labels is too small. We can change the default with:</p>
@@ -2171,9 +2464,11 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2200,12 +2495,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2221,6 +2514,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-16:--We-can-make-random-numbers-in-Python.">Example 16:  We can make random numbers in Python.<a class="anchor-link" href="#Example-16:--We-can-make-random-numbers-in-Python."> </a></h2><p>To generate a single Gaussian random number in Python, use the function in the NumPy <code>random</code> module.</p>
@@ -2228,9 +2525,11 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2245,12 +2544,10 @@ the same figure, label the axes, and provide a legend,</p>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -2264,6 +2561,10 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's generate a vector of 1000 Gaussian random numbers:</p>
@@ -2271,9 +2572,11 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2286,8 +2589,10 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>... and look at a histogram of the vector:</p>
@@ -2295,9 +2600,11 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2310,12 +2617,10 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2331,6 +2636,10 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2341,6 +2650,10 @@ a uniform random number from [0,1): 0.42935452954332964
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2351,6 +2664,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-17:--Repeating-commands-over-and-over-and-over-.-.-.">Example 17:  Repeating commands over and over and over . . .<a class="anchor-link" href="#Example-17:--Repeating-commands-over-and-over-and-over-.-.-."> </a></h2><p>Sometimes we'll want to repeat the same command over and over again.
@@ -2360,9 +2677,11 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2397,12 +2716,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2418,6 +2735,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>That's horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you're repeatedly cutting and pasting in code, what you're doing is inefficient and typically error prone.  There's a much more elegant way to do this, and it involves making a <code>for</code> loop.  Consider:</p>
@@ -2425,9 +2746,11 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2440,8 +2763,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's declare a <code>for</code> loop where <code>k</code> successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case <code>plt.show()</code> below, executes after the for loop completes</p>
@@ -2449,9 +2774,11 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2468,12 +2795,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -2489,6 +2814,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The small section of code above replaces all the cutting-and-pasting.
@@ -2501,6 +2830,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2511,6 +2844,10 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-18:--Defining-a-new-function.">Example 18:  Defining a new function.<a class="anchor-link" href="#Example-18:--Defining-a-new-function."> </a></h2><p>We've spent some time in this notebook writing and executing code. Sometimes we'll need to write our own Python functions.  Let's do that now.</p>
@@ -2527,9 +2864,11 @@ constant.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2553,8 +2892,10 @@ constant.</p>
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The function begins with the keyword <code>def</code> followed by the function name and the inputs in parentheses. Notice that this first line ends with a colon <code>:</code>. All of the function components that follow this first line should be <strong>indented one level</strong>. This is just like the <code>for</code> loop we applied earlier; the operations performed by the for loop were indented one leve.</p>
@@ -2562,6 +2903,10 @@ constant.</p>
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -2572,6 +2917,10 @@ When defining the function, the code the function executes should be indented on
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The text inside triple quotes provides an optional documentation string that describes our function. While optional, including a '<em>doc string</em>' is an important part of making your code understandable and reuseable.</p>
@@ -2581,9 +2930,11 @@ When defining the function, the code the function executes should be indented on
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2601,12 +2952,10 @@ When defining the function, the code the function executes should be indented on
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -2620,6 +2969,10 @@ v*v+2.5 = [  2.5   3.5   6.5  11.5  18.5  27.5  38.5  51.5  66.5  83.5 102.5]
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To see the doc string that describes our function, type <code>my_square_function?</code></p>
@@ -2627,9 +2980,11 @@ v*v+2.5 = [  2.5   3.5   6.5  11.5  18.5  27.5  38.5  51.5  66.5  83.5 102.5]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2643,8 +2998,10 @@ my_square_function<span class="o">?</span>
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2657,6 +3014,10 @@ my_square_function<span class="o">?</span>
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -2669,6 +3030,10 @@ my_square_function<span class="o">?</span>
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-19:-Animating-figures">Example 19: Animating figures<a class="anchor-link" href="#Example-19:-Animating-figures"> </a></h2><p>Finally, let's make an animation in Python. To do this we need two additional functions from external modules: <code>HTML()</code> and <code>FuncAnimation()</code>. <code>FuncAnimation</code> is what creates the animated figure, while <code>HTML</code> tells the notebook that to interpret the argument as HTML and show the results.</p>
@@ -2676,9 +3041,11 @@ my_square_function<span class="o">?</span>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2692,8 +3059,10 @@ my_square_function<span class="o">?</span>
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In English, we set up (or initialize) the figure and then make a function that does all of the updates for each frame of the animation. Finally, we pass the figure, the function, and the frame numbers to <code>FuncAnimation()</code> and we have our animation.</p>
@@ -2702,9 +3071,11 @@ my_square_function<span class="o">?</span>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -2726,12 +3097,10 @@ my_square_function<span class="o">?</span>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -42518,7 +42887,7 @@ AAAASUVORK5CYII=\
 
 </div>
 </div>
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -42534,6 +42903,10 @@ AAAASUVORK5CYII=\
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Example-19:-Load-MATLAB-data-into-Python">Example 19: Load MATLAB data into Python<a class="anchor-link" href="#Example-19:-Load-MATLAB-data-into-Python"> </a></h2><p>For our last example let's load a MATLAB file in the <code>.mat</code> format into Python. Before doing so, let's clear all of the variables and functions we have defined. This command is not necessary, but we perform it here so that any new variables we subsequently load are obvious.</p>
@@ -42541,9 +42914,11 @@ AAAASUVORK5CYII=\
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42555,12 +42930,10 @@ AAAASUVORK5CYII=\
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
@@ -42576,6 +42949,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then, let's import the <code>scipy.io</code> module, which we'll use to import the <code>.mat</code> data,</p>
@@ -42583,9 +42960,11 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42598,8 +42977,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, let's load a data file using the function <code>loadmat</code>,</p>
@@ -42607,9 +42988,11 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42622,12 +43005,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -42642,6 +43023,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The variable that holds the loaded data is a dictionary. In Python, a dictionary is like a list, with the elements of the dictionary accessed via “keys”. Let's print these keys:</p>
@@ -42649,9 +43034,11 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42663,12 +43050,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -42681,6 +43066,10 @@ ERROR:root:Invalid alias: The name man can&#39;t be aliased because it is anothe
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
@@ -42691,6 +43080,10 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The two keys of interest to us are <code>t</code> and <code>LFP</code>. Our collaborator who provided the data tells us that these correspond to a time axis (<code>t</code>) and voltage recording (<code>LFP</code>), respectively, for her data. Let's define variables to hold the data corresponding to each key,</p>
@@ -42698,9 +43091,11 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42714,8 +43109,10 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, let's plot the LFP data versus the time axis,</p>
@@ -42723,9 +43120,11 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -42748,12 +43147,10 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -42769,5 +43166,10 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 </div>
 
 </div>
+</div>
+
  
 
+
+    </main>
+    

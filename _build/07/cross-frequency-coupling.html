@@ -1,23 +1,36 @@
 ---
-redirect_from: /07
 interact_link: content/07/cross-frequency-coupling.ipynb
 kernel_name: python3
+kernel_path: content/07
 has_widgets: false
-title: 'Cross Frequency Coupling'
+title: |-
+  Cross Frequency Coupling
+pagenum: 10
 prev_page:
   url: /06/filtering-scalp-eeg.html
-  title: 'Filtering Field Data'
 next_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
-  title: 'Basic Visualizations and Descriptive Statistics of Spike Train Data'
+suffix: .ipynb
+search: frequency phase amplitude x signal data transform t hilbert cfc omega e h high low f div lfp pi analysis step id coupling between band lets analytic activity domain mbox inspection compute shift class question rhythms visual consider filter bands plot frequencies value cross different extract filtered signals begin y vector s hz python variable function our q example envelope spectrum original z complex array surrogate spectral does computing here assess interest negative real positive resampling appendix not observed rhythm note case abbr results its end tau instantaneous into determine related code computed www ncbi nlm nih gov techniques interval
+
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
+
+    <main class="jupyter-page">
+    <div id="page-info"><div id="page-title">Cross Frequency Coupling</div>
+</div>
+    <div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Cross-frequency-coupling-for-the-practicing-neuroscientist">Cross-frequency coupling <em>for the practicing neuroscientist</em><a class="anchor-link" href="#Cross-frequency-coupling-for-the-practicing-neuroscientist"> </a></h1>
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question" markdown="1">
@@ -34,6 +47,10 @@ _**Synopsis**_
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
@@ -62,6 +79,10 @@ _**Synopsis**_
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="On-ramp:-computing-cross-frequency-coupling-in-Python">On-ramp: computing cross-frequency coupling in Python<a class="anchor-link" href="#On-ramp:-computing-cross-frequency-coupling-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute cross-frequency coupling (CFC) in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
@@ -69,9 +90,11 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -120,8 +143,10 @@ _**Synopsis**_
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -134,15 +159,21 @@ _**Synopsis**_
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a id="introduction" /><a class="anchor-link" href="#Introduction"> </a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -155,12 +186,10 @@ _**Synopsis**_
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -182,6 +211,10 @@ _**Synopsis**_
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Background">Background<a class="anchor-link" href="#Background"> </a></h3><p>In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22595786">produced from small aggregates of neurons</a>. In these data, we examine the association between rhythms of different frequencies.</p>
@@ -191,6 +224,10 @@ _**Synopsis**_
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Goal">Goal<a class="anchor-link" href="#Goal"> </a></h3><p>Our goal is to assess the associations between different frequency rhythms recorded in the LFP. To do so, we analyze the LFP data by computing the phase-amplitude coupling (CFC) of the time series. We construct two CFC measures that characterize how the phase of a low-frequency signal modulates the amplitude envelope of a high-frequency signal.</p>
@@ -199,9 +236,11 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -213,12 +252,10 @@ _**Synopsis**_
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -240,6 +277,10 @@ _**Synopsis**_
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Data-Analysis">Data Analysis<a id="data-analysis" /><a class="anchor-link" href="#Data-Analysis"> </a></h2><h3 id="Visual-Inspection">Visual Inspection<a class="anchor-link" href="#Visual-Inspection"> </a></h3><p>Let's begin with visual inspection of the LFP data.</p>
@@ -247,9 +288,11 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -274,12 +317,10 @@ _**Synopsis**_
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -295,6 +336,10 @@ _**Synopsis**_
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, let's take a closer look at an example 1 s interval of the data<a id="fig:7.1"></a>:</p>
@@ -302,9 +347,11 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -321,12 +368,10 @@ _**Synopsis**_
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -342,6 +387,10 @@ _**Synopsis**_
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Visual inspection immediately suggests a dominant low-frequency rhythm interspersed with smaller-amplitude blasts of high-frequency activity.</p>
@@ -353,6 +402,10 @@ _**Synopsis**_
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Spectral-Analysis">Spectral Analysis<a id="spectral-analysis" /><a class="anchor-link" href="#Spectral-Analysis"> </a></h3><p>Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a></p>
@@ -360,9 +413,11 @@ _**Synopsis**_
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -392,12 +447,10 @@ _**Synopsis**_
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -413,6 +466,10 @@ _**Synopsis**_
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The resulting spectrum reveals two intervals of increased power spectral density. The lowest-frequency peak at 6 Hz is also the largest and corresponds to the slow rhythm we observe dominating the signal through visual inspection. Remember a plot of that signal:
@@ -422,6 +479,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="cfc"></a></p>
@@ -429,9 +490,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -443,12 +506,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -470,6 +531,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886">ongoing research</a>.</p>
@@ -485,6 +550,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="step1"></a></p>
@@ -492,9 +561,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -506,12 +577,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -533,6 +602,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first step in the CFC analysis is to filter the data into two frequency bands of interest. The choice is not arbitrary: the separate frequency bands are motivated by initial spectral analysis of the LFP data. In this case, we choose the low-frequency band as 5â€“7 Hz, consistent with the largest peak in the spectrum, and the high-frequency band as 80â€“120 Hz, consistent with the second-largest broadband peak. To consider alternative frequency bands, the same analysis steps would apply.</p>
@@ -540,6 +613,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are many options to perform the filtering. To do so requires us to design a filter that ideally extracts the frequency bands of interest without distorting the results. Here, we apply a finite impulse response (FIR) filter. We start by extracting the <strong>low-frequency</strong> band:</p>
@@ -547,9 +624,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -567,8 +646,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Next, we extract the <strong>high-frequency</strong> band:</p>
@@ -576,9 +657,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -595,8 +678,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>For each frequency band, we specify a frequency interval of interest by defining the low- and high-cutoff frequencies in the variable <code>Wn</code>. In this way, we specify the passband of the filter. We then set the filter order (<code>n</code>) and design the filter using the Python function <code>signal.firwin</code> from the <a href="https://scipy.org/">SciPy package</a>. Finally, we apply the filter using the Python function <code>signal.filtfilt</code>, which performs zero-phase filtering by applying the filter in both the forward and reverse directions.  We note that, in this case, the filtering procedure is nearly the same in both frequency bands; the only change is the specification of the frequency interval of interest.</p>
@@ -605,9 +690,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -626,12 +713,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -647,6 +732,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As expected, the low-frequency band (orange) captures the large-amplitude rhythm dominating the LFP signal, while the higher-frequency band (green) isolates the brief bursts of faster activity.</p>
@@ -654,6 +743,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="step2"></a></p>
@@ -661,9 +754,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -675,12 +770,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -702,6 +795,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The next step in the CFC procedure is to extract the <em>phase</em> of the low-frequency signal and the amplitude envelope (or simply, <em>amplitude</em>) of the high-frequency signal. To compute a particular type of CFC, namely phase-amplitude coupling, we then compare these two signals, i.e., we compare the phase of the low-frequency activity and the amplitude envelope of the high-frequency activity. How do we actually extract the phase and amplitude signals from the data? There are a variety of options to do so, and we choose here to employ the <strong>analytic signal approach</strong>, which allows us to estimate the instantaneous phase and amplitude envelope of the LFP.</p>
@@ -709,9 +806,11 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -723,12 +822,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -750,6 +847,10 @@ At higher frequencies, we find an additional broadband peak at approximately 80â
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The first step in computing the analytic signal is to compute the <a href="https://en.wikipedia.org/wiki/Hilbert_transform">Hilbert transform</a>. We begin with some notation. Define $x$ as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we've created). Then the Hilbert transform of $x$, letâ€™s call it $y$, is</p>
@@ -775,6 +876,10 @@ this is not obvious. To get a sense for why this is so, letâ€™s consider a simpl
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="hilbert"></a></p>
@@ -783,9 +888,11 @@ this is not obvious. To get a sense for why this is so, letâ€™s consider a simpl
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -797,12 +904,10 @@ this is not obvious. To get a sense for why this is so, letâ€™s consider a simpl
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -824,6 +929,10 @@ this is not obvious. To get a sense for why this is so, letâ€™s consider a simpl
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let $x_0$ be a sinusoid at frequency $f_0$,</p>
@@ -836,6 +945,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t}.$$<p>The real variable $x_0$ posses
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -852,6 +965,10 @@ Notice the result simplifies to the original complex exponential $e^{i\omega_0 t
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -862,6 +979,10 @@ Notice the result simplifies to the original complex exponential $e^{i\omega_0 t
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This analysis shows that we can represent the Hilbert transform of $x$ at frequency $f$ as</p>
@@ -879,9 +1000,11 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -893,12 +1016,10 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -920,6 +1041,10 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The Hilbert transform of $x_0$ (a cosine function) is a sine function. We could perhaps have guessed this: sine is a 90-degree ($\pi / 2$) phase shift of cosine.</p>
@@ -927,9 +1052,11 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -941,12 +1068,10 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -968,6 +1093,10 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$<div class="question">
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We are now ready to define the analytic signal $(z_0)$ for this example. Using the expressions for $x_0$ and $y_0$ and Euler's formula, we find</p>
@@ -983,6 +1112,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="step2ctd"></a></p>
@@ -991,9 +1124,11 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1007,8 +1142,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>These operations require just two lines of code. But beware the following.</p>
@@ -1022,6 +1159,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="step3"></a></p>
@@ -1029,9 +1170,11 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1043,12 +1186,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1070,6 +1211,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As with the previous steps, we have at our disposal a variety of procedures to assess the relation between the phase (of the low-frequency signal) and amplitude (of the high-frequency signal). We do so here in one way, by computing the phase-amplitude plot.</p>
@@ -1077,6 +1222,10 @@ $$x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},$$<p>compared to only one complex e
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="m1"></a></p>
@@ -1092,9 +1241,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1117,12 +1268,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1138,6 +1287,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1150,6 +1303,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
@@ -1160,6 +1317,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As a basic statistic to capture the extent of this relation, we compute the difference between the maximum and minimum of the average amplitude envelope over phases. Let's assign this difference the label $h$. In Python,</p>
@@ -1167,9 +1328,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1182,12 +1345,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1200,6 +1361,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find a value of $h = 0.126$. This value, on its own, is difficult to interpret. Is it bigger or smaller than we expect? To assess the significance of $h$, let's generate a surrogate phase-amplitude vector by resampling without replacement the amplitude time series (i.e., the second column of the phase-amplitude vector). Resampling is a powerful technique that we have applied in our analysis of other case study data (see, for example, 
@@ -1209,9 +1374,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1237,8 +1404,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
-
 </div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this code, we first define the number of surrogates (variable <code>n_surrogates</code>) and a vector to store the statistic $h$ computed for each surrogate phase-amplitude vector (variable <code>hS</code>). Then, for each surrogate, we use the Python function <code>random.randint</code> to randomly permute the amplitude vector without replacement. We then use this permuted amplitude vector (variable <code>ampS</code>) and the original phase vector (variable <code>phi</code>) to compute $h$; this last step utilizes the Python code developed earlier to compute <code>h</code> for the original (unpermuted) data.</p>
@@ -1247,9 +1416,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1263,12 +1434,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1284,6 +1453,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The value of $h$ computed from the original data (<code>h</code>) lies far outside the distribution of surrogate $h$ values (<code>hS</code>). To compute a $p$-value, we determine the proportion of surrogate $h$ values greater than the observed $h$ value:</p>
@@ -1291,9 +1464,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1306,12 +1481,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
@@ -1324,6 +1497,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We find a $p$-value that is very small; there are no surrogate values of $h$ that exceed the observed value of $h$. We therefore conclude that in this case the observed value of $h$ is significant. As a statistician would say, we reject the null hypothesis of <em>no</em> CFC between the phase of the 5-7 Hz low-frequency band and the amplitude of the 80-120 Hz high frequency band.</p>
@@ -1331,9 +1508,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1346,12 +1525,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1373,6 +1550,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="summary"></a></p>
@@ -1380,9 +1561,11 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
@@ -1395,12 +1578,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1422,6 +1603,10 @@ $$\left( \begin{array}{cc}
 </div>
 
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this module, we considered techniques to characterize cross-frequency coupling (CFC), associations between rhythmic activity observed in two different frequency bands. To do so, we introduced the Hilbert transform, which can be used to compute the instantaneous phase and amplitude of a signal. We focused on characterizing the relation between the phase of low-frequency band activity (5-7 Hz) and the amplitude of high-frequency band activity (100-140 Hz). To do this, we computed the average amplitude at each phase and determined the extent of the variability (or wiggliness).</p>
@@ -1431,6 +1616,10 @@ $$\left( \begin{array}{cc}
 </div>
 </div>
 </div>
+</div>
+
+<div class="jb_cell">
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="appendix"></a></p>
@@ -1454,27 +1643,27 @@ $$H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\t
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+</div>
 
-<div class="jb_input" >
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;../assets/custom/custom.css&#39;</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;../../assets/custom/custom.css&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-
 <div class="output_wrapper">
 <div class="output">
 
-<div class="jb_output_wrapper">
+<div class="jb_output_wrapper }}">
 <div class="output_area">
 
 
@@ -1582,5 +1771,10 @@ $$H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\t
 </div>
 
 </div>
+</div>
+
  
 
+
+    </main>
+    
