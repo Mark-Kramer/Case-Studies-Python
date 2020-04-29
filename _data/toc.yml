@@ -42,10 +42,6 @@
 - title: The Power Spectrum (Part 2)
   url: /04/ecog-rhythms
   redirect_from: /04
-  sections:
-  - title: Multiplication and Convolution in Different Domains
-    url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains
-  expand_sections: true
 
 - title: The Cross Covariance and Coherence
   url: /05/the-cross-covariance-and-coherence
