@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html
 suffix: .ipynb
-search: frequency phase amplitude x signal data transform t hilbert cfc omega e h high low f lfp div pi analysis step id coupling between band lets analytic activity domain mbox inspection compute shift class question rhythms visual consider filter bands plot frequencies value cross different extract filtered signals begin y vector s hz python variable function our q example envelope spectrum original z complex array surrogate spectral does computing here assess interest negative real positive resampling appendix not observed rhythm note case abbr results its end tau instantaneous into determine related code computed www ncbi nlm nih gov techniques interval
+search: frequency phase amplitude x signal data transform t hilbert cfc omega e h high low f div lfp pi analysis step id coupling between band lets analytic activity domain mbox inspection compute shift class question rhythms visual consider filter bands plot frequencies value cross different extract filtered signals begin y vector s hz python variable function our q example envelope spectrum original z complex array surrogate spectral does computing here assess interest negative real positive resampling appendix not observed rhythm note case abbr results its end tau instantaneous into determine related code computed www ncbi nlm nih gov techniques interval
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -29,25 +29,29 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 </div>
 </div>
 
-<div class="jb_cell">
+<div class="jb_cell tag_Question">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered tag_Question"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><span class="question"></p>
-<p><em><strong>Synopsis</strong></em></p>
-<p><strong>Data:</strong> 100 s of local field potential data sampled at 1000 Hz.</p>
-<p><strong>Goal:</strong> Characterize the coupling between rhythms of different frequency.</p>
-<p><strong>Tools:</strong> Hilbert transform, analytic signal, instantaneous phase, cross-frequency coupling.</p>
-<p>&lt;/span&gt;</p>
+<div class="question">
+
+_**Synopsis**_ 
+
+**Data:** 100 s of local field potential data sampled at 1000 Hz.
+
+**Goal:** Characterize the coupling between rhythms of different frequency.
+
+**Tools:** Hilbert transform, analytic signal, instantaneous phase, cross-frequency coupling.
 
 </div>
 </div>
 </div>
 </div>
+</div>
 
-<div class="jb_cell">
+<div class="jb_cell tag_Hard">
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered tag_Hard"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li><a href="#introduction">Introduction</a></li>
