@@ -67,22 +67,26 @@
   url: /09/point-process-glms
   redirect_from: /09
 
-# - title: Analysis of Rhythmic Spiking int he Subthalamic Nucleus During a Movement Task
-#   url: /10/spiking-rhythms
+- title: Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task
+  url: /10/spiking-rhythms
   redirect_from: /10
 
 - title: Analysis of Spike-Field Coherence
   url: /11/spike-field-coherence
   redirect_from: /11
 
-# - title: Backpropagation
-#   url: /A01/backprop
+- title: Backpropagation
+  url: /A01/backprop
+  redirect_from: /A01
 
-# - title: Hodgkin Huxley Model
-#   url: /A02/HH
+- title: Hodgkin Huxley Model
+  url: /A02/HH
+  redirect_from: /A02
 
-# - title: Integrate and Fire Model
-#   url: /A03/LIF
+- title: Integrate and Fire Model
+  url: /A03/LIF
+  redirect_from: /A03
 
-# - title: Training a Perceptron
-#   url: /A04/perceptron
+- title: Training a Perceptron
+  url: /A04/perceptron
+  redirect_from: /A04
