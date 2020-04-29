@@ -5,7 +5,7 @@ kernel_path: content/08
 has_widgets: false
 title: |-
   Basic Visualizations and Descriptive Statistics of Spike Train Data
-pagenum: 11
+pagenum: 9
 prev_page:
   url: /07/cross-frequency-coupling.html
 next_page:
@@ -2446,10 +2446,20 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+  &#34;&#34;&#34;
+</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_1.png"
 >
 </div>
 
@@ -3234,9 +3244,9 @@ lambda =  0.04931816769253932
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/anaconda3/envs/csn/lib/python3.6/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
+<pre>/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
   
-/anaconda3/envs/csn/lib/python3.6/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
+/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
   
 </pre>
 </div>
@@ -3608,6 +3618,7 @@ $$\mu = \sigma^2 = \lambda,$$<p>and therefore for a Poisson process, the Fano fa
     margin-top: 12px;
 }
 .question {
+    display: block;
     color: #31708f;
     background-color: #d9edf7;
     border-color: #bce8f1;
@@ -3632,9 +3643,9 @@ $$\mu = \sigma^2 = \lambda,$$<p>and therefore for a Poisson process, the Fano fa
     margin-right: auto;
 }
 .inner_cell img {
-    width:100%;
-    max-width:700px;
-    max-height: 90%;
+    max-width:90%;
+    /*max-width:700px;*/
+    /*max-height: 90%;*/
 }
 .fig, .thumb, .sup {
     position: inherit;
@@ -3652,6 +3663,7 @@ $$\mu = \sigma^2 = \lambda,$$<p>and therefore for a Poisson process, the Fano fa
     vertical-align: super;
 }
 .fig img, .sup img, .thumb img { 
+    width: 100%;
     border:1px solid #000;
     visibility: hidden;
     background-color: black;

@@ -9,9 +9,9 @@ pagenum: 3
 prev_page:
   url: /02/the-event-related-potential.html
 next_page:
-  url: /03/supplements/supplement-autocovariance.html
+  url: /04/ecog-rhythms.html
 suffix: .ipynb
-search: data frequency spectrum eeg hz x autocovariance n div s activity class case signal mean sampling l id python our t visual inspection compute value fourier transform resolution f rhythmic spectrogram not lag power lets nyquist consider imgs png frequencies question plot spectral fig bar span analysis here q interval total observe sample delta sum values sinusoid top rhythms intuition e note points recording indices low decibel computing function vector index peaks true xn frac negative src density samples supplement instead code structure step between different axis df scale standard high array notice define collect above series divide approximately also
+search: data n x frequency hz autocovariance eeg spectrum div l class s fourier case transform activity xn id sum function bar signal mean large power our consider lets python compute not imgs png span question sampling value t lag fj biased eq inspection q estimate visual multiple values resolution unbiased f src rhythmic e plot fig frequencies linear model spectral note index product estimator regression top spectrogram frac indices tn points nyquist here interval delta both different xj sinusoid analysis rhythms notice terms xx only cosine density between r true recording term negative variance intuition total observe sample variable lags
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -75,8 +75,11 @@ _**Synopsis**_
 </ul>
 <hr>
 <ul>
-<li><a href="https://eschlaf2.github.io/Case-Studies-Python/03/supplement-autocovariance.html">Supplement: Biased versus unbiased autocovariance</a></li>
-<li><a href="https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd.html">Supplement: Intuition behind the power spectral density</a></li>
+<li><a href="#supplements">Supplements</a><ol>
+<li><a href="#supplement-acv">Biased versus unbiased autocovariance</a></li>
+<li><a href="#supplement-psd">Intuition behind the power spectral density</a></li>
+</ol>
+</li>
 </ul>
 
 </div>
@@ -91,15 +94,14 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the common modules and plot settings</span>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">semilogx</span><span class="p">,</span> <span class="n">semilogy</span><span class="p">,</span> <span class="n">savefig</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">zeros_like</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">,</span> <span class="n">arange</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the usual suspects ...</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
+<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
 </pre></div>
 
     </div>
@@ -116,17 +118,30 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The tools that we will need for this chapter</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... and the tools that we will need for this chapter</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">where</span>
 <span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span>
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">spectrogram</span>
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="python-note">
+
+Note that the NumPy functions imported in cell number 2 were already imported in the first cell. We explicitly imported them in the second cell so that it's clear that these functions are from the NumPy module.
+
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -185,7 +200,7 @@ _**Synopsis**_
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_6_0.png"
+<img src="../images/03/the-power-spectrum-part-1_7_0.png"
 >
 </div>
 
@@ -477,7 +492,7 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_20_0.png"
+<img src="../images/03/the-power-spectrum-part-1_21_0.png"
 >
 </div>
 
@@ -701,7 +716,7 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_28_0.png"
+<img src="../images/03/the-power-spectrum-part-1_29_0.png"
 >
 </div>
 
@@ -1031,7 +1046,7 @@ $$r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$</p>
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_45_0.png"
+<img src="../images/03/the-power-spectrum-part-1_46_0.png"
 >
 </div>
 
@@ -1115,7 +1130,7 @@ $$r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$</p>
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_49_0.png"
+<img src="../images/03/the-power-spectrum-part-1_50_0.png"
 >
 </div>
 
@@ -1213,7 +1228,7 @@ $$r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$<p>B
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_53_0.png"
+<img src="../images/03/the-power-spectrum-part-1_54_0.png"
 >
 </div>
 
@@ -1275,7 +1290,7 @@ $$(x_{n+L} - \bar x)(x_n - \bar x)$$<p>over all indices $n$ to be large, and to 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice that this value is positive, and near the value of the autocorrelation at lag 0. In fact, we expect the autocovariance to be large and positive whenever the lag $L$ is an integer multiple of the 60 Hz cycle (i.e., an integer multiple of 1/60 ≈ 0.0166 s); this is exactly what we find in the <a href="#fig:3-4a">plot of the autocovariance</a>.<span class="figsup">fig<img src="imgs/3-4a.png"></span></p>
+<p>Notice that this value is positive, and near the value of the autocorrelation at lag 0. In fact, we expect the autocovariance to be large and positive whenever the lag $L$ is an integer multiple of the 60 Hz cycle (i.e., an integer multiple of 1/60 ≈ 0.0166 s); this is exactly what we find in the <a href="#fig:3-4a">plot of the autocovariance</a>.<span class="sup">fig<img src="imgs/3-4a.png"></span></p>
 
 </div>
 </div>
@@ -1321,7 +1336,7 @@ $$(x_{n+L} - \bar x)(x_n - \bar x)$$<p>over all indices $n$ to be large, and to 
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_58_0.png"
+<img src="../images/03/the-power-spectrum-part-1_59_0.png"
 >
 </div>
 
@@ -1419,7 +1434,7 @@ $$(x_{n + L^*} - \bar x)(x_n - \bar x)$$<p>are negative, and summing up these te
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_62_0.png"
+<img src="../images/03/the-power-spectrum-part-1_63_0.png"
 >
 </div>
 
@@ -1615,7 +1630,7 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>which is the product of the Four
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_70_0.png"
+<img src="../images/03/the-power-spectrum-part-1_71_0.png"
 >
 </div>
 
@@ -1675,7 +1690,7 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>which is the product of the Four
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>That’s not so bad; the code to compute and display the spectrum fits in 13 lines (with spacing for aesthetics). Notice the large peak at 60 Hz. This peak is consistent with our visual inspection of the EEG data, in which we approximated a dominant rhythm at 60 Hz by counting the number of peaks that appeared in the voltage traces. So, our computation of the spectrum at least matches our initial expectation deduced from visual inspection of the data.</p>
 <p>We’ve managed to compute and plot the spectrum, and our analysis results match our expectations. We could choose to stop here. But a danger persists: we’ve blindly entered Python code and achieved an expected result. What are the frequency resolution and Nyquist frequency mentioned in the comments of the code? Maybe this procedure is fraught with pitfalls, and we simply got lucky in this case? Does the spectrum provide additional information that was not immediately uncovered? How will we react and adapt when the spectrum results do not match our intuition? To answer these questions requires developing more intuition for the Fourier transform and spectrum.</p>
-<p>In a <a href="https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd.html">supplement to this chapter</a>, we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.</p>
+<p>In a <a href="supplements">supplement to this chapter</a>, we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.</p>
 
 </div>
 </div>
@@ -1802,7 +1817,7 @@ $$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>which is the product of the Four
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_78_0.png"
+<img src="../images/03/the-power-spectrum-part-1_79_0.png"
 >
 </div>
 
@@ -1889,7 +1904,7 @@ When we used the `rfft` function we utilized a useful property of the Fourier tr
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_82_0.png"
+<img src="../images/03/the-power-spectrum-part-1_83_0.png"
 >
 </div>
 
@@ -2260,7 +2275,7 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_101_0.png"
+<img src="../images/03/the-power-spectrum-part-1_102_0.png"
 >
 </div>
 
@@ -2347,7 +2362,7 @@ Different conventions exist to define the decibel scale. Here we first divide by
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_105_0.png"
+<img src="../images/03/the-power-spectrum-part-1_106_0.png"
 >
 </div>
 
@@ -2437,7 +2452,7 @@ Different conventions exist to define the decibel scale. Here we first divide by
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The spectrum <a href="#fig:3.13a">plotted using the decibel scale</a><span class="figsup">fig<img src="imgs/3-13a.png"></span> suggests that three rhythms appear in the EEG signal: 60 Hz, approximately 11 Hz, and approximately 6 Hz. Given only these results, we may reasonably conclude that these three rhythms appear simultaneously throughout the entire 2 s of the EEG recording. That is an assumption we make in computing the spectrum of the entire 2 s interval. To further test this assumption in the EEG data, we compute a final quantity: the <em>spectrogram</em>. The idea of the spectrogram is to break up the time series into smaller intervals of data and then compute the spectrum in each interval. These intervals can be quite small and can even overlap. The result is the spectrum as a function of frequency and time.</p>
+<p>The spectrum <a href="#fig:3.13a">plotted using the decibel scale</a><span class="sup">fig<img src="imgs/3-13a.png"></span> suggests that three rhythms appear in the EEG signal: 60 Hz, approximately 11 Hz, and approximately 6 Hz. Given only these results, we may reasonably conclude that these three rhythms appear simultaneously throughout the entire 2 s of the EEG recording. That is an assumption we make in computing the spectrum of the entire 2 s interval. To further test this assumption in the EEG data, we compute a final quantity: the <em>spectrogram</em>. The idea of the spectrogram is to break up the time series into smaller intervals of data and then compute the spectrum in each interval. These intervals can be quite small and can even overlap. The result is the spectrum as a function of frequency and time.</p>
 
 </div>
 </div>
@@ -2509,7 +2524,7 @@ Different conventions exist to define the decibel scale. Here we first divide by
 
 
 <div class="output_png output_subarea ">
-<img src="../images/03/the-power-spectrum-part-1_113_0.png"
+<img src="../images/03/the-power-spectrum-part-1_114_0.png"
 >
 </div>
 
@@ -2631,7 +2646,7 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this chapter, we analyzed 2 s of EEG data. We started with visual inspection of the <a href="#fig:3.1">EEG time series</a>.<span class="figsup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how <a href="#fig:3.13a">logarithmic scales</a>  can be used to emphasize features of the spectrum.<span class="figsup">fig<img src="imgs/3-13a.png"></span> And, we examined how the <a href="&quot;#fig:3.14&quot;">spectrogram</a> provides insight into spectral features that change in time.<span class="figsup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.</p>
+<p>In this chapter, we analyzed 2 s of EEG data. We started with visual inspection of the <a href="#fig:3.1">EEG time series</a>.<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how <a href="#fig:3.13a">logarithmic scales</a>  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the <a href="&quot;#fig:3.14&quot;">spectrogram</a> provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.</p>
 
 </div>
 </div>
@@ -2653,7 +2668,1068 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In case you missed it earlier, details and intuition behind each step of the analysis above are provided in the supplement entitled: <a href="https://eschlaf2.github.io/Case-Studies-Python/03/supplement-psd"><em>Intuition behind the power spectral density</em></a>.</p>
+<p><a href="#top">Return to top</a></p>
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="supplements"></a></p>
+<h1 id="Supplements">Supplements<a class="anchor-link" href="#Supplements"> </a></h1><p><a id="supplement-acv"></a></p>
+<h2 id="Biased-versus-unbiased-autocovariance">Biased versus unbiased autocovariance<a class="anchor-link" href="#Biased-versus-unbiased-autocovariance"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Autocovariance is defined by the equation</p>
+<p><a id="eq:3.3"></a>
+$$r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$</p>
+<p>This is a biased estimate of the true autocovariance. To compute an <em>unbiased</em> measure of the autocovariance we replace the $1/N$ term with $1/(N-L)$.</p>
+$$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$<p>To examine the difference in the biased versus the unbiased autocovariance, let's compute both for the EEG data over a broad interval of lags.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>           <span class="c1"># Load the EEG data.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>               <span class="c1"># Extract the EEG variable,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                          <span class="c1"># ... and the t variable.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>                                <span class="c1"># Get the total number of data points,</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                          <span class="c1"># ... and the sampling interval.</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>               <span class="c1"># Compute the lags</span>
+                                          <span class="c1"># Calculate non-normalized autocovariance</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">)</span>  
+<span class="n">ac_b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">ac</span>                         <span class="c1"># Calculate biased autocovariance</span>
+<span class="n">ac_u</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">lags</span><span class="p">))</span> <span class="o">*</span> <span class="n">ac</span>        <span class="c1"># ... and unbiased autocovariance</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">()</span>                  <span class="c1"># Plot the result and save the figure for later use</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac_u</span><span class="p">)</span>                     <span class="c1"># Plot the unbiased autocovariance,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac_b</span><span class="p">)</span>                     <span class="c1"># ... and the biased,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>                         <span class="c1"># ... with axes labeled</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocovariance&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_127_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We see the similarities and differences between these two estimates. At small lags (near 0 s), the biased and unbiased estimates of the autocovariance are similar. In this case, $L$ is small, so the factor 1/(N − L) in the unbiased estimate is similar to the factor of 1/N in the biased estimate. At large lags (away from 0 s), the biased and unbiased estimates of the autocovariance are quite different. Notice that, as L approaches ±2 s, the biased estimate (orange curve) approaches zero.</p>
+<p>Compare this observation to the <em>unbiased</em> estimate of the autocovariance. In this example, we see that the unbiased estimate of the autocovariance remains large even as L approaches ± 2 (blue curve).</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Why does the biased estimate of the autocovariance approach 0 at large lags? 
+
+**A.** For concreteness, let's consider the case when $L = N - 2$. In this case, $L$ is large, and nearly equal to the number of points in the data ($N$). When $L$ is large, we shift the time series $x$ so that only a subset of indices overlap; the following is a cartoon representation of the $L = 2$ case:
+![cartoon representation f L=2 autocovariance](imgs/3-3d.png)
+Now consider the extension to $L=N-2$. Because we only compute the product
+
+$$(x_{n+L} - \bar x)(x_n - \bar x)$$
+
+for the overlapping indices of $x_n$ and $x_{n+L}$, we only include two terms in the  summation <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a> The sum of these two terms is then divided by $N$, which results in a small number that approaches zero as L approaches N.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Why does the unbiased estimate of the autocovariance remain large at large lags? 
+
+**A.** As in the biased case, let's again consider $L = N-2$. In this case, $L$ is large, and we shift the time series $x$ so that only a subset of indices overlap. Therefore, the product
+
+$$(x_{n+L} - \bar x)(x_n - \bar x)$$
+
+again only includes two terms in the autocovariance summation. However, in the unbiased case, the sum of these terms is divided by
+
+$$N - L = N - (N - 2) = 2$$
+
+Notice that as $L$ approaches $N$, the term $N - L$ approaches zero. In this case, we find a "balance" between the summation of two terms then a division by the number of terms in the sum (in this example, division by 2). This balance allows the unbiased estimate of the autocovariance to remain large as $L$ approaches $N$.
+
+Careful inspection of the blue curve reveals another feature of the biased estimate; the estimated values at large lags become more variable (look carefully at lags near ±1.75 s and beyond). 
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">]]</span>
+<span class="n">fig</span>
+<span class="c1"># NO CODE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea output_execute_result">
+<img src="../images/03/the-power-spectrum-part-1_131_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+Increased variability at large lags occurs because, as $L$ approaches $N$, we have less data to compare in the assessment of the autocovariance. Notice that, when $L = N − 1$, the estimate of the autocovariance utilizes only two data points from $x$ (i.e., the product consists only of one term: $(x_N - \bar x)(x_1 - \bar x)$). We do not expect a reliable assessment of associations in the data with so few data points to compare.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons <a href="https://doi.org/10.1017/CBO9780511622762">[Percival &amp; Walden, 1998]</a>. First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:</p>
+$$\mbox{mean squared error} = \mbox{variance + (bias)}^2.$$<p>Although the biased estimator is "biased", the variability of the unbiased estimator is more harmful. We saw a hint of this increased variability in the unbiased estimator at large lags. To make this observation more explicit, let's consider the lag $L = N - 1$, and compute the expression for the <a href="#eq:3.3">biased estimator</a><span class="sup">eq<img src="imgs/eq3-3.png"></span>,</p>
+<p title="Variance of the biased estimator with lag N-1">
+
+\begin{eqnarray} 
+r_{xx}[N-1] &=& \frac{1}{N} \sum_{n = 1}^{N - (N - 1)} (x_{n + (N - 1)} - \bar x)(x_n - \bar x),\\
+&=&\frac{1}{N}\sum_{n=1}^1(x_{n+(N-1)} - \bar x)(x_n - \bar x), \\
+&=&\frac{1}{N}(x_{N} - \bar x)(x_1 - \bar x).
+\end{eqnarray}
+
+</p><p>The expression for the <a href="#eq:3.3">unbiased estimator</a><span class="sup">eq<img src="imgs/eq3-4.png"></span> becomes,</p>
+<p title="Variance of the unbiased estimator with lag N-1">
+
+\begin{eqnarray}
+r_{xx}^*[N-1] &=& \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} - \bar x)(x_n - \bar x), \\
+&=& \sum_{n=1}^1(x_{n+N-1} - \bar x)(x_n - \bar x), \\
+&=& (x_{N} - \bar x)(x_1 - \bar x), \\
+\end{eqnarray}
+
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These two expressions reveal that, at a large lag $L = N − 1$, the variance of the unbiased estimator is $N^2$ times the variance of the biased estimator. The dramatic increase in variance of the unbiased estimator leads to unreliable estimates of the autocovariance at large lags. Also, we note that the biased estimator behaves "nicely" as $L$ increases to $N$; we see from the expression for the biased estimator that $r_{xx}[N − 1]$ approaches 0 when $N$ is large. This is arguably the behavior we want; we have few data points to compare at large lags, and therefore an unreliable estimate of the autocovariance, so we’re better off disregarding these values. For these reasons, we’ll use the biased estimator; in this estimate, autocovariance values at large lags - which utilize less data and are typically noisier - are reduced.</p>
+<p>We note that, for the EEG data of interest here, the unbiased estimator outperforms the biased estimator. For these data, which are dominated by a 60 Hz rhythm, there is significant autocovariance even at long lags. In this case, the biased estimator leads to an interpretation of decreasing autocovariance, even though that is not true. However, for most brain signal (not saturated by 60 Hz line noise), we expect the autocovariance to decrease in time.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Return-to-top"><a href="#top">Return to top</a><a class="anchor-link" href="#Return-to-top"> </a></h2><p><a id=supplement-psd></a></p>
+<h2 id="Intuition-behind-the-power-spectral-density">Intuition behind the power spectral density<a class="anchor-link" href="#Intuition-behind-the-power-spectral-density"> </a></h2>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><a href="#fourier-transform">The Fourier transform</a></li>
+<li><a href="#autocovariance">Relation to autocovariance</a></li>
+<li><a href="#multiple-linear-regression">Relation to multiple linear regression</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Tools for this chapter</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The main component of this module discusses the analysis of rhythmic activity. One important component of this analysis is the power spectral density. In this supplement, we examine equation for the Fourier transform</p>
+$$X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).$$<p>and the equation for the spectrum</p>
+$$S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,$$<p>and the associated Python code. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="fourier-transform"></a></p>
+<h3 id="What-is-the-Fourier-transform-actually-doing?">What is the Fourier transform actually doing?<a class="anchor-link" href="#What-is-the-Fourier-transform-actually-doing?"> </a></h3>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;TOszYv0pdKU&#39;</span><span class="p">)</span>
+<span class="c1"># NO CODE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/TOszYv0pdKU"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The Fourier transform represents the data $x$ as a linear combination of sinusoids with different frequencies. To see this, consider again:</p>
+$$X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).$$<p>What is this expression actually doing? Let's consider this equation piece by piece. The first term,</p>
+$$\sum_{n=1}^N$$<p>represents a sum over the indices of $x_n$. Because each subsequent index represents a step forward in time of $\Delta$, this sum represents a sum over time. In fact, this sum extends from the first index ($n=1$) to the last index ($n = N$) of the data, so the summation occurs over the entire duration of the recording. Adding the second term,</p>
+$$\sum_{n=1}^N x_n$$<p>the summation now acts on the data $x_n$, so we're summing up the data over all indices or equivalently over the entire time of recording. The third term,</p>
+$$\exp(-2\pi i f_j t_n),$$<p>consists of an exponential ($\exp$) operating on the product of five individual terms, each of which is a number. The first two numbers are simple: $-2 \pi$. The third number is $i \equiv \sqrt{-1}$, a quantity representing an <em>imaginary unit</em>. The utility of the imaginary unit is that we can rewrite the exponential as the sum of a sine and cosine function. Remember from caclulus the remarkable <a href="https://en.wikipedia.org/wiki/Euler%27s_formula">Euler's formula</a>:</p>
+$$\exp(-2\pi i f_j t_n) = \cos(-2\pi f_j t_n) + i \sin(-2\pi f_j t_n).$$<p>Notice that the $i$ now appears multiplying the sine term, and not inside the arguments of either sinusoid. Both sinusoids operate on the product of $2\pi$ and two terms, the frequency $f_j$ and the time $t_n$. Rewriting the equation for the Fourier transform using Euler's formula, we find<a id="eq:3.10"></a></p>
+\begin{equation}\tag{*}\label{eq:*}
+X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right), 
+\end{equation}<p>where the summation is distributed over both terms.</p>
+<p>Written in this way, the Fourier transform becomes easier to interpret. Let’s consider the first term of the equation above. For each index $n$, we multiply the data $x_n$ by a cosine function evaluated at frequency $f_j$ and time $t_n$. We then sum the results of this multiplication over all indices from $n=1$ to $n=N$, or equivalently, from time $t_n = \Delta$ to time $t_n =T$. So, we multiply the data by a cosine function at frequency $f_j$ for each point in time and sum the product over time. The second term of the equation is like the first, except we multiply the data $x_n$ by a sine function.</p>
+<p>We may therefore think of the Fourier transform as comparing the data $x$ to the sinusoids oscillating at frequency $f_j$. When the data and sinusoid at frequency $f_j$ align the summation in the Fourier transform is large and the result $X_j$ is a large number. When the data and sinusoid at frequency $f_j$ do not align, the summation in the Fourier transform is small and $X_j$ is a tiny number.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;PRoA5Zn_gbQ&#39;</span><span class="p">)</span>
+<span class="c1"># NO CODE</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/PRoA5Zn_gbQ"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To make these ideas more concrete, we can consider some simple examples. In these examples, the data $x$ will be a perfect cosine with frequency 10 Hz.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>     <span class="c1"># Create a time variable (in seconds)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">tt</span><span class="p">)</span>  <span class="c1"># Generate the data, a 10 Hz cosine</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>                 <span class="c1"># Plot the result</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_144_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Choosing $f_j = 4$ Hz, we can construct a sine and cosine function each oscillating at 4 Hz.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fj</span> <span class="o">=</span> <span class="mi">4</span>                                 <span class="c1"># Set frequency</span>
+<span class="n">fj_sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fj</span> <span class="o">*</span> <span class="n">tt</span><span class="p">)</span>  <span class="c1"># construct sine wave</span>
+<span class="n">fj_cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fj</span> <span class="o">*</span> <span class="n">tt</span><span class="p">)</span>  <span class="c1"># ... and cosine</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>         <span class="c1"># Plot the data</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">fj_sin</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sine&#39;</span><span class="p">)</span>  <span class="c1"># ... and the sine</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">fj_cos</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cosine&#39;</span><span class="p">)</span> <span class="c1"># ... and cosine</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_146_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then, to perform the calculation of the Equation (*) we multiply the data $x$ by the sinusoids at each point in time.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">fj_sin</span><span class="p">,</span> <span class="n">tt</span><span class="p">,</span> <span class="n">x</span> <span class="o">*</span> <span class="n">fj_cos</span><span class="p">)</span>  <span class="c1"># Plot the product of x with the sinusoids</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Sine&#39;</span><span class="p">,</span> <span class="s1">&#39;Cosine&#39;</span><span class="p">])</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">tt</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>      <span class="c1"># Show zero</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_148_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that the products alternate between positive and negative values throughout time.</p>
+<div class="question">
+
+**Q.** In this case, what is the approximate value of $X_j$ when $f_j = 4$ Hz?
+
+**A.** We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,
+
+\begin{equation}\tag{*}\label{eq:*}
+X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right), 
+\end{equation}
+
+Above, we plotted these products over time. Because each product alternates between positive and negative values roughly equally over time, the summation of the product over time is approximately zero. We therefore conclude that both the real part (i.e., the cosine term) and the imaginary part (i.e. the sine term) are small and $X_j \approx 0 + 0i$ when $f_j = 4$ Hz. 
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fj</span> <span class="o">=</span> <span class="mi">10</span>                                <span class="c1"># Set the frequency</span>
+<span class="n">fj_sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fj</span> <span class="o">*</span> <span class="n">tt</span><span class="p">)</span>  <span class="c1"># Construct the sine wave</span>
+<span class="n">fj_cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">fj</span> <span class="o">*</span> <span class="n">tt</span><span class="p">)</span>  <span class="c1"># ... and cosine wave</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>         <span class="c1"># Plot the data</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">fj_sin</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;sine&#39;</span><span class="p">)</span>  <span class="c1"># ... and the sine</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">fj_cos</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;cosine&#39;</span><span class="p">)</span> <span class="c1"># ... and cosine</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_151_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Can you predict how the plot of the product of the data with the overlapping cosine function will look? Plot the product and check your prediction.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The product of the cosine function and the data is always non-negative, and therefore its summation over time results in a large positive number. In this case, the real part of $X_j$ is large because the cosine function with frequency $f_j =10$ Hz and the data $x$ match. In this sense, the Fourier transform reveals the dominant frequencies of the underlying time series.</p>
+<div class="question">
+
+**Q.** What is the approximate value of the *imaginary* part of $X_j$ for $f_j = 10$ Hz? *Hint*: Consider the plot of the product of the sine function and the data.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="autocovariance"></a></p>
+<h3 id="Relation-of-the-spectrum-to-the-autocovariance.">Relation of the spectrum to the autocovariance.<a class="anchor-link" href="#Relation-of-the-spectrum-to-the-autocovariance."> </a></h3><p>We’ve introduced two tools for assessing dependent structure in the EEG data: the autocovariance and the spectrum. Remarkably, these two measures are related in an important way.</p>
+<div class="alert alert-success">
+
+The spectrum is the Fourier transform of the autocovariance.
+
+</div><p>The spectrum and autocovariance both assess dependent structure in the data but in different domains - the spectrum in the frequency domain and the autocovariance in the time domain. Notice that the spectrum $S_{xx, j}$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> is a function of frequency index $j$, while the autocovariance $r_{xx}[L]$ <a href="Analysis%20of%20rhythmic%20activity.ipynb#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a> is a function of time lag $L$. For the EEG data of interest here, the dominant 60 Hz rhythm manifests as periodicity in the autocovariance as a function of lag <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3-4a" class="fig"><span><img src="imgs/3-4a.png"></span></a> and a peak in the spectrum as a function of frequency. <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3.6" class="fig"><span><img src="imgs/3-6.png"></span></a> Although the two measures are related through the Fourier transform, each provides a different perspective on the dependent structure in the data. In practice, applying and visualizing both measures is often of use.</p>
+<p>Here’s an associated mathematical nugget. The spectrum is the Fourier transform of $x$ multiplied by its complex conjugate. That produces a real number (i.e., the imaginary part is 0), which is convenient for plotting and visualization. The autocovariance is necessarily symmetric with respect to lag, that is, $r_{xx}[L] = r_{xx}[-L]$. In other words, the autocovariance is an even function. The Fourier transform of an even function is real, so the Fourier transform of the autocovariance is also a real number, consistent with the values of the spectrum.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a id="multiple-linear-regression"></a></p>
+<h3 id="Relation-of-the-Spectrum-to-Multiple-Linear-Regression">Relation of the Spectrum to Multiple Linear Regression<a class="anchor-link" href="#Relation-of-the-Spectrum-to-Multiple-Linear-Regression"> </a></h3><p>As a final perspective, we consider a statistical modeling approach, with the goal of characterizing the rhythms that appear in the EEG data. To develop this approach, we first introduce <em>linear regression</em>. The idea of linear regression is to express a response variable at time $n$ (call it $x_n$) in terms of predictor variables (call them $z_{1n}, z_{2n},...,z_{pn}$ for $p$ predictor variables) as <a id="eq:3.11"></a></p>
+$$x_n = \beta_0 + \beta_1z_{1n} + \beta_2z_{2n} + ... + \beta_pz_{pn} + \epsilon_n,$$<p>where $\epsilon_n$ is a random variable. This formulation represents the model we use in <em>multiple linear regression</em>. The term multiple comes from the multiple predictors used. The term linear expresses the fact that each predictor appears linearly in the expression. The challenge is to identify the unknown coefficients (the  $\beta$’s) given the observed response and predictor variables. We note that the case of $p = 1$ corresponds to simple linear regression; in that case, the goal is to fit the line,</p>
+$$x_n = \beta_0 + \beta_1z_{1n} + \epsilon_N,$$<p>with slope $\beta_1$ and intercept $\beta_0$.</p>
+<p>Let’s consider the application of multiple linear regression to the EEG data with a specific
+purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum was dominated by a 60 Hz peak. <a href="Analysis%20of%20rhythmic%20activity.ipynb#fig:3.6" class="fig"><span><img src="imgs/3-6.png"></span></a> We expect this 60 Hz is due to electrical noise in the system, and this large noise peak may mask other interesting features occurring in the EEG data. Therefore, our analysis of the EEG data may benefit by removing this large 60 Hz signal. To do so, we first fit a multiple linear regression model to the data $x_n$ with the following form,<a id="eq:3.12"></a></p>
+$$x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_n) + \epsilon_n,$$<p>where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis at index $n$ in units of seconds, and $\epsilon_n$ is a random variable.</p>
+<div class="question">
+
+**Q.** The model consists of three predictors. What are they?
+**A.** The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To do multiple linear regression in Python we start by importing the <code>statsmodels</code> package and the <code>DataFrame</code> function from the <code>pandas</code> package. We use <code>DataFrame</code> to create a table that is easy to work with and then use <code>statsmodels</code> to perform the regression.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will work with the same data set that we used in the main component of this module, so we start by importing the data.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>
+<span class="n">EEG</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then let's use the following code to perform the multiple linear regression:</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictors</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>                  <span class="c1"># Create a dataframe with the predictors</span>
+    <span class="s1">&#39;sin&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span>  <span class="c1"># ... including the sine function</span>
+    <span class="s1">&#39;cos&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">*</span> <span class="n">t</span><span class="p">),</span>  <span class="c1"># ... and the cosine function</span>
+    <span class="s1">&#39;EEG&#39;</span><span class="p">:</span> <span class="n">EEG</span>
+<span class="p">})</span>
+
+<span class="c1"># Fit the model to the data</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;EEG ~ sin + cos&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">predictors</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Intercept    2.796903e-17
+sin          9.989204e-01
+cos         -3.238373e-03
+dtype: float64
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the first line, we create a <em>dataframe</em> object with the dependent variables (<code>EEG</code>) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the <code>ols</code> function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.</p>
+<div class="question">
+
+**Q.** Examine the fitted $\beta$ values. What do you find?
+
+**A.** We find
+
+<div style="margin: .25in; background-color: #eff0f1">
+
+<code>Intercept    2.8e-17
+sin          9.99e-01
+cos         -3.24e-03
+
+dtype: float64</code></div><p>This result indicates that the constant predictor and the 60 Hz cosine predictor do not contribute much to the data; the values of the coefficients for the predictors <code>Intercept</code> and <code>cos</code> are both near zero. However, the 60 Hz sine function makes a much larger contribution; the value of the coefficient for the predictor <code>sin</code> is near 1.</p>
+<p>&lt;/div&gt;</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To see how well our multiple linear regression model fits the data, let’s evaluate the model, and compare it to the original EEG data:
+<a id='fig:3.8'></a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">EEG_60Hz_modeled</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>    <span class="c1"># Get the model prediction</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEG</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">EEG_60Hz_modeled</span><span class="p">)</span>     <span class="c1"># Plot the data and the model</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                    <span class="c1"># ... examine 0.5 s of data,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                    <span class="c1"># ... and label the axes</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;EEG and Modeled EEG [$\mu$V]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;EEG&#39;</span><span class="p">,</span> <span class="s1">&#39;model&#39;</span><span class="p">])</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_163_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
+<div class="question">
+
+**Q.** The multiple linear regression model <a href="#eq:3.12" class="thumb"><span><img src="imgs/eq3-12.png"></span></a> is not a *perfect* fit ot the data. Why?
+
+**A.** The multiple linear regression model includes only three predictors. We expect the EEG data to consist of other features, including rhythms at other frequencies. Therefore, this simple model cannot account for all features of the EEG time series. That’s okay. The goal of this model was to fit a particular rhythm, the 60 Hz activity, not every aspect of the data.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, let's examine a powerful application of the model. We've constructed the model to fit the 60 Hz line noise in the EEG data. Let's now use the model to <em>remove</em> the 60 Hz line noise from the original EEG data. To do so, we subtract the model fit from the EEG data and then plot the resulting new signal: <a id="fig:3.9"></a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Remove the model prediction from the EEG data</span>
+<span class="n">EEG_cleaned</span> <span class="o">=</span> <span class="n">EEG</span> <span class="o">-</span> <span class="n">EEG_60Hz_modeled</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEG_cleaned</span><span class="p">)</span>  <span class="c1"># ... and plot the result</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;EEG Cleaned [$\mu$V]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/03/the-power-spectrum-part-1_166_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q.** Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the [original EEG data](#fig:3-1), which includes the 60 Hz noise.<span class="sup">fig<img src="imgs/3-1.png"></span> What’s different?
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In this example, we used multiple linear regression to model a particular rhythmic component of the EEG data, the 60 Hz activity. We may also use the model result to estimate the power at 60 Hz. In Python,</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Sxx_model_60Hz</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;sin&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;cos&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
+<span class="n">Sxx_model_60Hz</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9978524145209708</pre>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The power estimate from the model consists of two terms: the squared coefficient of the sine function plus the squared coefficient of the cosine function. Note that the variable <code>Sxx_model_60Hz</code> has units of mV$^2$.</p>
+<div class="question">
+
+**Q.** Compare the power estimate from the model (the variable `Sxx_model_60Hz`) to the power spectral density at 60 Hz computed using the Fourier transform. What do you find?
+
+**A.** We note that the units of the power spectral density (variable `Sxx`) are mV$^2/$Hz, while the units of the power estimated in variable `Sxx_model_60Hz` are mV$^2$. To convert the power spectral density to (integrated) spectral power, we must integrate the variable `Sxx` over a frequency range. Here, we choose a 1 Hz interval centered at 60 Hz, which corresponds to a single index of the variable `faxis`; the frequency resolution for these data is $\pm 0.5$ Hz. Then the approximate integrated power over this 1 Hz interval can be computed as `Sxx[np.where(faxis == 60)]`, which equals 0.9978, identical to the value in `Sxx_model_60Hz`, and with the same units.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$'s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Return to top</a></p>
 
 </div>
 </div>
