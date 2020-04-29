@@ -123,11 +123,11 @@ defaults:
 favicon_path: images/logo/favicon.ico
 
 # Markdown Processing
-markdown: commonmark
-#kramdown:
-#  input: GFM
-#  syntax_highlighter: rouge
-#  parse_block_html: true
+markdown: kramdown
+kramdown:
+ input: GFM
+ syntax_highlighter: rouge
+ parse_block_html: true
 
 sass:
   style: expanded
