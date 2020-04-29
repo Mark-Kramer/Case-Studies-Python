@@ -38,12 +38,6 @@
 - title: The Power Spectrum (Part 1)
   url: /03/the-power-spectrum-part-1
   redirect_from: /03
-  sections:
-  - title: Biased versus unbiased autocovariance
-    url: /03/supplements/supplement-autocovariance
-  - title: Intuition behind the power spectral density
-    url: /03/supplements/supplement-psd
-  expand_sections: true
 
 - title: The Power Spectrum (Part 2)
   url: /04/ecog-rhythms
