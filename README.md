@@ -24,3 +24,27 @@ We assume you have installed Python and can get it running on your computer.  So
 If this is your first time working with Python, using <a href="https://conda.io/docs/user-guide/install/index.html">conda</a> is probably a good choice. Conda is a package and environment manager that makes it really easy to get up and running in Python. In particular, we recommend installing Miniconda - a light version of the software distribution Anaconda - and using conda to add software as needed.
 
 We'd like to thank all of the students, collaborators, and funders who have helped make this possible!
+
+
+---
+
+# Quick links
+
+	1. [Introduction to Python](content/01)
+	2. [The Event-Related Potential](content/02)
+	3. [The Power Spectrum (Part 1)](content/03)
+	4. [The Power Spectrum (Part 2)](content/04)
+	5. [The Cross Covariance and Coherence](content/05)\
+	6. [Filtering Field Data](content/06)
+	7. [Cross Frequency Coupling](content/07)
+	8. [Basic Visualizations and Descriptive Statistics of Spike Train Data](content/08)
+	9. [Modeling place Fields with Point Process Generalized Linear Models](content/09)
+	10. [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](content/10)
+ 	11. [Analysis of Spike-Field Coherence](content/11)
+	1. [Appendix: Backpropagation](content/A01)
+	1. [Appendix: Hodgkin Huxley Model](content/A02)
+	1. [Appendix: Integrate and Fire Model](content/A03)
+	1. [Appendix: Training a Perceptron](content/A04)
+
+
+
