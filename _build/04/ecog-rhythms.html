@@ -5,13 +5,13 @@ kernel_path: content/04
 has_widgets: false
 title: |-
   The Power Spectrum (Part 2)
-pagenum: 3
+pagenum: 4
 prev_page:
   url: /03/the-power-spectrum-part-1.html
 next_page:
   url: /05/the-cross-covariance-and-coherence.html
 suffix: .ipynb
-search: taper spectrum data hz frequency rectangular s ecog div fourier zero transform tapers resolution multitaper sinusoid class padding x hanning t spectral w method not peak e infty question convolution infinite q activity sinusoids consider function power lets here example square tau f near imgs png series b id compute using plot product zeros lobes wave our impact interval span sharp rhythms above case estimate duration domain element bandwidth org signal peaks does analysis different features fig frequencies ft int however its edges d points axis big observed visual inspection code results because also src only transitions k pi instead
+search: taper spectrum data hz frequency rectangular s ecog div fourier zero transform tapers resolution multitaper sinusoid class padding x hanning t spectral w method not peak e question infty convolution infinite q activity sinusoids consider function power lets here example square tau f near imgs png series b id compute using plot product zeros lobes wave our impact interval span sharp rhythms above case estimate duration domain element bandwidth org signal peaks does analysis different features fig frequencies ft int however its edges d points axis big observed visual inspection code results because also src only transitions k pi instead
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -1258,11 +1258,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <p>The NumPy function <code>hanning()</code> returns the Hanning taper, which we multiply element by element with the ECoG data in variable <code>x</code>. Notice that the slow increase in the Hanning taper reduces the amplitude of the ECoG activity near the taper edges and emphasizes the ECoG activity in the center of the interval.</p>
 <div class="question">
 
-<p>
+**Q.** Under what conditions would reducing the activity near the taper edges be a bad idea? 
 
-**Q.** Under what conditions would reducing the activity near the taper edges be a bad idea? *Hint:* What if the signal features of interest occur at the very beginning or very end of the observed data?
-
-</p>
+*Hint:* What if the signal features of interest occur at the very beginning or very end of the observed data?
 
 </div>
 </div>
@@ -1420,7 +1418,7 @@ $$TW = X,$$<p>where $T$ is the duration of the recording, $2W$ is the desired fr
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q.** Given 1 s of data, what is the frequency resolution?
 

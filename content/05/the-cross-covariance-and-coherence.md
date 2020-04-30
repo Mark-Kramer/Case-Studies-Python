@@ -1,22 +1,22 @@
 ---
-jupyter:
-  jupytext:
-    formats: ipynb,md
-    text_representation:
-      extension: .md
-      format_name: markdown
-      format_version: '1.2'
-      jupytext_version: 1.4.2
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
+jupytext:
+  formats: ipynb,md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.8'
+    jupytext_version: 1.4.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
 ---
 
 <a id="introduction"></a><a id="top"></a>
 # Analysis of coupled rhythms *for the practicing neuroscientist*
 
-<!-- #region -->
++++
+
 <div class="question">
     
 _**Synopsis**_ 
@@ -29,7 +29,8 @@ _**Synopsis**_
 
     
 </div>
-<!-- #endregion -->
+
++++
 
 * [Background](#background)
 * [Case Study Data](#case-study-data)
@@ -48,7 +49,8 @@ _**Synopsis**_
 * [Relation between Statistical Modeling and Coherence](#Relation_between_Statistical_Modeling_and_Coherence)
 * [Summary](#summary)    
 
-<!-- #region -->
++++
+
 ## On-ramp: computing the coherence in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the coherence in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
@@ -108,9 +110,9 @@ show()
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
 
 </div>
-<!-- #endregion -->
 
-<!-- #region -->
++++
+
 ## Introduction
 
 
@@ -121,14 +123,8 @@ In most of the other modules, we focused on field data recorded from a single el
 
 
 
-[Return to top](#introduction)
-
-
 ### Case Study Data <a class="anchor" id="case-study-data"><a/>
 We conside a patient with epilepsy admitted to the hospital for [resective surgery](https://www.ncbi.nlm.nih.gov/pubmed/25602999). As part of her routine clinical workup before resective surgery, numerous electrodes were implanted [directly on the cortical surface](https://en.wikipedia.org/wiki/Electrocorticography). The purpose of this invasive recording procedure was to monitor and localize her seizures for eventual surgical treatment. During this recording procedure, in which electrocorticogram (ECoG) electrodes were implanted and recordings performed for one week, the patient volunteered to participate in an auditory task study administered by a collaborating researcher. The task required the patient to listen to individual phonemes through headphones and respond with a button click whenever she heard the [phoneme](http://www.jneurosci.org/content/30/49/16643) “ba” (the other phonemes were different, e.g., “pa,” ”ma”). The tone presentation was repeated 100 times, and her ECoG recorded (sampling rate 500 Hz) from two cortical electrodes over the auditory brain area for 1 s.
-
-
-[Return to top](#introduction)
 
 
 ### Goal <a id="goal"></a>
@@ -137,12 +133,15 @@ Our goal is to understand the coupling between the voltage activity recorded fro
 
 ### Tools
 Here you will develop an understanding for the cross-covariance and coherence measures. For the latter, we will explore and understand the Fourier transform and examine in detail the notion of phase. We also briefly discuss strategies to assess the coherence for a single trial of data.
-<!-- #endregion -->
 
+
+[Return to top](#introduction)
+
++++
 
 ## Data Analysis <a id="data-analysis"></a>
 
-<!-- #region -->
+
 ### Visual inspection <a id="visual-inspection"></a>
 
 We begin our analysis by visualizing the ECoG data. To do so, let's load the ECoG data into Python and plot the data from the first electrode (variable `E1`) and second electrode (variable `E2`) versus time (variable `t`) for the first trial.
@@ -211,11 +210,12 @@ Visual inspection of the data in this trial immediately suggests a dominant rhyt
 
     
 </div>
-<!-- #endregion -->
+
++++
 
 These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image:
 
-```python
+```{code-cell} ipython3
 K = E1.shape[0]  #Get the number of trials,
 f, a = subplots(figsize=(6, 6))  # Make a square axis
 a.imshow(E1,  #... and show the image,
@@ -231,7 +231,8 @@ The resulting image for the first electrode is shown in the figure above. Voltag
 
 We notice that each trial exhibits rhythmic structure, which manifests in this image as repeating undulations of blue (low voltage), then red (high voltage) over time. We also observe variability in the alignment of these rhythms from trial to trial; from one trial to the next, the undulations appear not to align.
 
-<!-- #region -->
++++
+
 <div class="question">
     
 
@@ -239,11 +240,12 @@ We notice that each trial exhibits rhythmic structure, which manifests in this i
 
     
 </div>
-<!-- #endregion -->
+
++++
 
 Visual inspection of the ECoG data allows us to draw some preliminary conclusions. First, the data appear to be rhythmic, with a particularly strong oscillation near 8 Hz. That’s interesting but not the primary research objective. We would really like to understand whether the activity at the two electrodes is related. Many techniques exist to approach this problem, but let’s begin with the most basic: visual inspection. Let's examine the activity in the first four trials, and attempt to deduce whether a consistent relation exists between the two ECoG signals across trials.
 
-```python
+```{code-cell} ipython3
 f, a = subplots(4, 1, figsize=(12, 3*4))
 for j in range(4):
     a[j].plot(t, E1[j], 'b')            # Plot the data from trial j of one electrode,
@@ -255,6 +257,7 @@ savefig('imgs/traces')
 
 We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.
 
++++
 
 <div class="question">
     
@@ -262,13 +265,15 @@ We notice in the first two trials that the ECoG activity from the two electrodes
     
 </div>
 
++++
 
 Although visual inspection is a useful initial tool for analyzing data, assessing the relations between two electrodes across multiple trials is a difficult task. To go further, we employ a new data analysis tool that builds from the Fourier transform: the coherence.
 
 [Return to top](#top)
 <!-- #endregion -->
 
-<!-- #region -->
++++
+
 ### Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
 
 In [chapter 3](../03), we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, 
@@ -281,7 +286,8 @@ r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+
 $$
 
 where $x_{n,k}$ indicates the data at time index $n$ and trial $k,$ and $\overline x_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K.$  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
-<!-- #endregion -->
+
++++
 
 <div class="math-note">
     
@@ -289,7 +295,7 @@ Note: We could instead write the trial-averaged sample autocovariance because th
     
 </div>
 
-```python
+```{code-cell} ipython3
 dt = t[1] - t[0]  # Define the sampling interval.
 K = E1.shape[0]  # Define the number of trials.
 N = E1.shape[1]  # Define number of points in each trial.
@@ -317,6 +323,7 @@ savefig('imgs/taac')
     
 </div>
 
++++
 
 <div class="question">
     
@@ -324,6 +331,7 @@ savefig('imgs/taac')
     
 </div>
 
++++
 
 The trial-averaged autocovariance results for each electrode are interesting, but our primary scientific question for these data is whether dependent structure exists *between* the ECoG activity recorded from the two electrodes. In other words, are the time series recorded from the two electrodes coupled? Many tools exist to characterize coupling between time series, and in this module we focus on two such tools.
 
@@ -345,7 +353,7 @@ Here we show a cartoon representation of the cross-covariance between two time s
 
 The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1"></a>
 
-```python
+```{code-cell} ipython3
 x = E1[0,:] - np.mean(E1[0,:])  # Define one time series,
 y = E2[0,:] - np.mean(E2[0,:])  # ... and another.
 xc=1/N*np.correlate(x,y,2)  # ... and compute their cross covariance.
@@ -362,6 +370,7 @@ savefig('imgs/xc_1')
 
 Notice that we subtract the mean from each electrode in defining `x` and `y` before computing the cross-covariance using the Python function `correlate` from the `numpy` package. In this case, we supply the `correlate` function with three inputs, beginning with the two time series, `x` and `y`, and setting the `mode` to 2, which tells the function to compute the correlation over the entire extent both vectors.
 
++++
 
 <div class="question">
     
@@ -369,15 +378,17 @@ Notice that we subtract the mean from each electrode in defining `x` and `y` bef
     
 </div>
 
++++
 
 Like the [trial-averaged autocovariance for a single electrode](#fig:taac),<span class="sup">fig<img src="imgs/taac.png"></span> the [cross-covariance between the two ECoG electrodes](#fig:xc_1)<span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> in the first trial reveals periodic variations. To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,
 
-```python
+```{code-cell} ipython3
 fig['traces']
 ```
 
 The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large: i.e. the sum in [the cross-covariance equation](#eq:xc)<span class="thumb"><sup>eq</sup><img src='imgs/eq5-2.png'></span> at this lag involves many positive terms, so $r_{xy}\big[L\big]$ is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.
 
++++
 
 <div class="question">
     
@@ -385,6 +396,7 @@ The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagi
     
 </div>
 
++++
 
 Let’s also define the *trial-averaged cross-covariance*. The formula is similar to the [trial-averaged autocovariance](#eq:ac):<span class="thumb"><sup>eq</sup><img src="imgs/eq5-1.png"></span>
 
@@ -398,7 +410,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 For reference, let's also plot the **single-trial** cross-covariance for 4 trials,  
 <a id="fig:avg_xc"></a>
 
-```python
+```{code-cell} ipython3
 XC = np.zeros([K, 2 * N - 1])  # Declare empty vector for cross cov.
 for k in range(K):  # For each trial,
     x = E1[k] - E1[k].mean()  # ...get data from one electrode,
@@ -438,10 +450,12 @@ At this point `XC` is a list object. We can change it to a numpy array with `XC 
 
 </div>
 
++++
 
 The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the `for` statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the `mean` command from the `numpy` package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.
 
-<!-- #region -->
++++
+
 <div class="question">
     
 **Q.** Compare the trial-averaged cross-covariance to the example single-trial cross-covariances. What differences and similarities do you notice between the two cross-covariances?
@@ -456,7 +470,8 @@ Why are the prominent cross-covariance features in the single-trial analysis los
 </div>
 
 [Return to top](#top)
-<!-- #endregion -->
+
++++
 
 ### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
 
@@ -474,7 +489,8 @@ X_j = \sum_{n=1}^N x_n \exp(\frac{-2 \pi i}{N} j \, n) \, .
 $$
 <a id="eq:ftCh5_simp"></a>
 
-<!-- #region -->
++++
+
 In general, $X_j$ can be a complex quantity (i.e., the Fourier transform of $x_n$ can have both real and imaginary parts). We can therefore think of $X_j$ as residing in the two-dimensional complex plane:
 
 <img src="imgs/ex_complex_plane.png" style="max-width: 300px;">
@@ -524,9 +540,8 @@ $$
 where $k$ indicates the trial number, $K$ the total number of trials, and $A_{j,k}$ the amplitude of the signal at frequency index $j$ and trial index $k$.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index $j$ across the $K$ trials.  We use the angular brackets ($< \, >$) to denote that the spectrum ($S_{xx, \, j}$) has been averaged across trials. We can compute the trial-averaged spectrum in Python,
 
 <a id="fig:trial_avg_spectrum"></a>
-<!-- #endregion -->
 
-```python
+```{code-cell} ipython3
 T = t[-1]  # Get the total time of the recording.
 N = E1.shape[1]  # Determine the number of sample points per trial
 scale = 2 * dt**2 / T  # Compute the scaling constant
@@ -565,9 +580,11 @@ show()
     
 </div>
 
++++
 
 The resulting trial-averaged spectrum is shown in the figure above. Compared to the example spectrum from a single trial, the variability is greatly reduced. By reducing the variability in this way, interesting structure in the data may become more apparent.
 
++++
 
 <div class="question">
     
@@ -575,12 +592,15 @@ The resulting trial-averaged spectrum is shown in the figure above. Compared to 
     
 </div>
 
++++
 
 [Return to top](#introduction)
 
++++
 
 # Introduction to the Coherence <a class="anchor" id="sec:coherence"></a>
 
++++
 
 Coherence is a measure of association between two time series. Briefly:
 
@@ -649,6 +669,7 @@ Under the simplifying assumption that the amplitude is identical at each frequen
 
 Now, let’s interpret the simplified expression for the coherence. To do so, we consider two scenarios.
 
++++
 
 ## Simple Scenario 1:  Phases align across trials <a id="Simple_Scenario_1"></a>
 
@@ -671,7 +692,8 @@ $$
 
 This expression defines a sum of vectors in the complex plane, each of radius 1 (indicated by the blue circle in the figure). Because the phase difference is the same for each trial, these vectors point in the same direction for each trial. Then by summing up these vectors end to end across trials, we produce a long vector in the complex plane that terminates far from the origin, as shown in the righmost panel of the figure above.
 
-<!-- #region -->
++++
+
 <div class="question">
     
 **Q:** How long is the summed vector in this case?
@@ -680,7 +702,8 @@ This expression defines a sum of vectors in the complex plane, each of radius 1 
 **A:** We add $K$ vectors (one for each trial) each of length 1, and each pointing in the same direction ($\Phi_{j,0}$).  So the total length of the vector (i.e., the total distance from the origin to the termination point of the summed vector) is $K$.
     
 </div>
-<!-- #endregion -->
+
++++
 
 The [coherence](#eq:cohr_simp)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this vector length, divided by $K$, so we conclude in this case that,
 
@@ -690,7 +713,8 @@ $$
 
 which indicates strong coherence between the two signals.  The strong coherence in this case results from the constant phase relationship between the two signals across trials at frequency index $j$.
 
-<!-- #region -->
++++
+
 <div class="question">
     
 **Q:** Does the conclusion $\kappa_{xy,\, j} = 1$ depend upon the value of the phase difference $\Phi_{j,0}$?  For example, does this result require that the phase difference between the two signals in each trial ($\Phi_{j,0}$) equal $0$, or $\pi/4$, or $\pi$?
@@ -700,7 +724,7 @@ which indicates strong coherence between the two signals.  The strong coherence 
 
 [Return to top](#top)
 
-<!-- #endregion -->
++++
 
 ## Simple Scenario 2: Phases are random across trials <a id="Simple_Scenario_2"></a> 
 
@@ -708,7 +732,8 @@ As a second scenario, consider another specific frequency $j$ in which the two s
 
 <img src="imgs/ex_complex_plane_coherence_b.png"></img>
 
-<!-- #region -->
++++
+
 <div class="question">
     
 **Q:** Consider the sum of these vectors end to end in the complex plane, plotted in the rightmost panel of the figure above. What is the approximate length of this summed vector across trials?
@@ -717,7 +742,8 @@ As a second scenario, consider another specific frequency $j$ in which the two s
 **A:** We expect the length of this vector to be small. Because the angles lack organization from trial to trial, the vectors are equally likely to point in any direction. Therefore, when we sum these vectors across trials, the length fails to accumulate in any particular direction.
     
 </div>
-<!-- #endregion -->
+
++++
 
 Under the simplifying assumption that the amplitude is identical at this frequency for both signals and all trials, the [coherence](#eq:cohr_simp)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_simp.png"></span> is this summed vector length, divided by $K$. Our visual inspection of the cartoon in the figure above (rightmost panel) suggests that this summed vector length will be small. Therefore, for this scenario we conclude that,
 
@@ -727,6 +753,7 @@ $$
 
 which indicates weak coherence between the two signals.  The weak coherence in this case results from the random phase relationship over trials between the two signals.
 
++++
 
 # Summary of the coherence <a id="Summary_of_the_coherence"></a>
 
@@ -740,6 +767,7 @@ in which:
 - $0$ indicates no coherence between signals $x$ and $y$ at frequency index $j$, and
 - 1 indicates strong strong coherence between signals $x$ and $y$ at frequency index $j$.
 
++++
 
 <div class="python-note">
     
@@ -747,9 +775,11 @@ The coherence is a measure of the phase consistency between two signals at frequ
     
 </div>
 
++++
 
 We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see [chapter 3](../03) for details.
 
++++
 
 <div class="question">
     
@@ -761,11 +791,13 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 [Return to top](#introduction)
 ***
 
++++
 
 ## Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a>
 
 Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a [supplement](../03#supplements) at the end of chapter 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners. 
 
++++
 
 <div class="math-note">
     
@@ -773,14 +805,16 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
     
 </div>
 
++++
 
 The cross-spectrum and cross-covariance form a Fourier transform pair. The cross-spectrum is a frequency domain measure of coupling, while the cross-covariance is a time domain measure of coupling. To move back and forth between these two measures, we use the Fourier transform. In practice, we rarely examine the cross-spectrum directly; it’s a complex quantity and so requires two dimensions (i.e., the complex plane) to visualize. However, the cross-spectrum is fundamental to the coherence, so in that sense it’s an important actor in the analysis.
 
-
++++
 
 ## Computing the Coherence <a id="computing_coherence"></a>
 With that introduction, we are now equipped to compute the coherence. We expect the coherence to reveal the frequencies at which the two ECoG signals exhibit a constant phase relation across trials.
 
++++
 
 <div class="question">
     
@@ -788,6 +822,7 @@ With that introduction, we are now equipped to compute the coherence. We expect 
     
 </div>
 
++++
 
 <div class="question">
     
@@ -795,10 +830,11 @@ With that introduction, we are now equipped to compute the coherence. We expect 
     
 </div>
 
++++
 
 There are a variety of alternatives to compute the coherence. To start, let’s compute the coherence by hand. The reason for doing so is that we can implement the preceding mathematical expressions and in that way gain more understanding of their features. Here’s the Python code<a id="fig:cohr"></a>:
 
-```python
+```{code-cell} ipython3
 # Compute the Fourier transforms
 xf = np.array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
 yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
@@ -827,7 +863,8 @@ show()
     
 </div>
 
-<!-- #region -->
++++
+
 <div class="question">
     
 **Q:** Consider the coherence between the two ECoG electrodes plotted in the figure above. At what frequencies do strong coherences appear? How do these frequencies compare to the trial-averaged spectra, shown for one electrode in <span class="fig">[this figure](#fig:trial_avg_spectrum)<img src="imgs/trial_avg_spectrum.png"></span>?
@@ -836,14 +873,16 @@ show()
 **A:** The coherence measures the phase consistency at a chosen frequency between two signals across trials. For the ECoG data, both electrodes possess trial-averaged spectra with similar features: a large peak near 8 Hz and a smaller peak near 24 Hz. However, the coherence between the two ECoG signals reveals a peak only at 24 Hz. We conclude that the two ECoG signals both exhibit a dominant oscillation at 8 Hz, yet this rhythm is not coherent across trials; only the smaller-amplitude rhythm at 24 Hz is coherent between the two electrodes.
     
 </div>
-<!-- #endregion -->
+
++++
 
 ## Visualizing the Phase Difference across Trials <a id="Visualizing_the_Phase_Difference"></a>
 
++++
 
 The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:
 
-```python
+```{code-cell} ipython3
 j8 = np.where(f==8)[0][0]  # Determine index j for frequency 8 Hz.
 j24 = np.where(f==24)[0][0]  # Determine index j for frequency 24 Hz.
 
@@ -877,6 +916,7 @@ Again, we’re encountering quite a bit of Python code. Fortunately, large chunk
 
 To summarize the results, we plot a histogram of the phase differences. We divide the phase axis into 20 bins of equal size from 0 to 2$\pi$ radians, or equivalently, 0 to 360 degrees. At 8 Hz, we observe that phase differences appear in all angular intervals; notice that the number of phase differences located in each angular interval remains small, typically less than 10. At 24 Hz, the angular differences concentrate near 0 degrees; all of the angles lie between  approximately 60 and 60 degrees. This visualization is consistent with the strong coherence at 24 Hz, indicative of a consistent phase difference across trials between the two electrodes.
 
++++
 
 <div class="question">
     
@@ -884,11 +924,13 @@ To summarize the results, we plot a histogram of the phase differences. We divid
     
 </div>
 
++++
 
 ## Single-Trial Coherence <a id="single_trial_coherence"></a>
 
 We have emphasized that coherence is a measure of phase consistency between two signals at some frequency *across trials*. This type of analysis is appropriate in many instances in which data are collected in a trial structure. However, we might also be interested in computing the coherence between two signals recorded in a single observation or trial.
 
++++
 
 <div class="question">
     
@@ -896,6 +938,7 @@ We have emphasized that coherence is a measure of phase consistency between two 
     
 </div>
 
++++
 
 To address this question, consider the [equation for the coherence written in polar coordinates](#eq:cohr_ang)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr_ang.png"></span>.  Remember that, in writing this equation, we have made no assumptions about the data;  instead, all we have done is express the complex quantities in polar coordinates.  Now consider this equation for the case in which we possess only one trial, so that $K=1$.  Then,
 
@@ -907,6 +950,7 @@ $$
 
 So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of signals $x$ and $y$ and for any frequency (index $j$).  For example, we could choose $x$ to be the price of a publicly traded stock (e.g., GE) and $y$ to be an ECoG recording, both sampled at 500 Hz for 1 s.  Even in this case, we will find perfect coherence between the two signals.
 
++++
 
 <div class="question">
     
@@ -914,11 +958,13 @@ So, we find here perfect coherence ($\kappa_{xy,\, j}=1$) for any choice of sign
     
 </div>
 
++++
 
 The answer is that the coherence measure requires a trial structure. Recall that the coherence measures the phase consistency between two signals *across trials*. If only one trial is observed, then the two signals are trivially coherent; the two signals have some phase difference between 0 and 2$\pi$ and because we have no other trials with which to compare this difference, the two signals are “coherent.”
 
 But what if we only collect one trial of data? We can still attempt to compute the coherence in (at least) two ways. First, we could divide the single trial of data into smaller intervals and then treat each interval as a trial. This approach can be effective if we believe the phase relation persists in time, and if we possess a long enough recording. Note that by dividing the data into smaller intervals, we impact the frequency resolution.
 
++++
 
 <div class="question">
     
@@ -926,10 +972,12 @@ But what if we only collect one trial of data? We can still attempt to compute t
     
 </div>
 
++++
 
 A second approach to compute the coherence from a single trial of data is to use the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
 
-<!-- #region -->
++++
+
 ## Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence"></a>
 
 Before concluding the discussion of coherence, let’s briefly consider a complementary statistical modeling approach. In developing this statistical model, our goal is to capture the (linear) relation between two signals $x$ and $y$ observed simultaneously for multiple trials. We begin by proposing a statistical model that predicts one signal ($y$) as a linear function of the other ($x$):
@@ -990,7 +1038,8 @@ $$
 We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of the frequency domain representation of the statistical model coefficients ($\gamma_j$) for predicting $y$ from $x$. We note that $\gamma_j$ is a complex quantity that allows us to model both the magnitude and phase of the relationship between $x$ and $y$.  The phase difference computed from the model and the coherence is the same as well.
 
 [Return to top](#top)
-<!-- #endregion -->
+
++++
 
 # Summary <a id="summary"></a>
 
@@ -998,6 +1047,7 @@ In this module, we analyzed ECoG data recorded from two electrodes during an aud
 
 To further assess the relation between the two electrodes, we computed the coherence. The coherence is strong (approaches 1) at a chosen frequency $f_0$ when there exists a constant phase relation at frequency $f_0$ between two electrodes over trials. We found a strong coherence between the two ECoG electrodes only at 24 Hz. We concluded that although both ECoG signals possessed dominant rhythms at 8 Hz, these rhythms were not coherent between the two electrodes. The strong coherence appeared only at the small-amplitude 24 Hz rhythm. Finally, we implemented a technique to visualize the distribution of phase differences between the two electrodes across trials, and provided some suggestions for how to compute the coherence for a single trial of data.
 
++++
 
 <div class="python-note">
     
@@ -1005,7 +1055,8 @@ To further assess the relation between the two electrodes, we computed the coher
     
 </div>
 
-<!-- #region -->
++++
+
 In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found [strong single-trial cross-covariance](#fig:xc_1)<span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.
 
 To understand this discrepancy, consider two unrelated signals, each dominated by the same rhythm. By unrelated we mean that the signals do not communicate in any way. Yet both are rhythmic and happen to oscillate at the same frequency. If we compute the cross-covariance between these two unrelated signals, we will find periodic lags at which the two signals nearly overlap and the cross-covariance is large. The period of these cross-covariance peaks corresponds to the period of the common rhythm shared by the two signals. Here the periodic, large cross-covariance values occur because the two signals happen to both exhibit a similar rhythm, not because one signal influences the other.
@@ -1020,4 +1071,3 @@ As is true for the Fourier transform and spectrum, there exists a vast literatur
 - [Priestly, 1982](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6)
 
 - [Numerical recipes](http://numerical.recipes/)
-<!-- #endregion -->

@@ -27,3 +27,5 @@ function md2html() {
 document.addEventListener('turbolinks:load', () => {
   md2html()
 })
+
+initFunction(md2html)

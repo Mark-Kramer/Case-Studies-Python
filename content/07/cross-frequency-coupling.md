@@ -1,4 +1,20 @@
+---
+jupytext:
+  formats: ipynb,md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.8'
+    jupytext_version: 1.4.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # Cross-frequency coupling *for the practicing neuroscientist*
+
++++ {"tags": ["Question"]}
 
 <div class="question">
     
@@ -12,6 +28,7 @@ _**Synopsis**_
 
 </div>
 
++++ {"tags": ["Hard"]}
 
 * [Introduction](#introduction)
 * [Data Analysis](#data-analysis)
@@ -26,11 +43,12 @@ _**Synopsis**_
 * [Summary](#summary)
 * [Appendix](#appendix)
 
++++
+
 ## On-ramp: computing cross-frequency coupling in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute cross-frequency coupling (CFC) in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
-
-```python
+```{code-cell} ipython3
 from scipy.io import loadmat
 from scipy import signal
 import numpy as np
@@ -78,28 +96,14 @@ plt.title('CFC');
 
 </div>
 
++++
+
 ## Introduction<a id="introduction"></a>
 
-
-```python
+```{code-cell} ipython3
 from IPython.lib.display import YouTubeVideo
 YouTubeVideo('Q-VQaY6iDMM')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/Q-VQaY6iDMM"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 ### Background
 
@@ -110,39 +114,24 @@ In general, lower-frequency rhythms have been observed to engage larger brain ar
 ### Case Study Data
 We are approached by a collaborator recording the local field potential (LFP) from rat hippocampus. She has implanted a small bundle of electrodes, which remain (chronically) implanted as the rat explores a large circular arena. She is interested in assessing the association between different frequency rhythms of the LFP, and more specifically whether an association between different frequency rhythms exists as the rat explores the arena. To address this question, she has provided us with 100 s of LFP data recorded during the experiment (i.e., while the rat spontaneously explored the arena).
 
++++
+
 ### Goal
 Our goal is to assess the associations between different frequency rhythms recorded in the LFP. To do so, we analyze the LFP data by computing the phase-amplitude coupling (CFC) of the time series. We construct two CFC measures that characterize how the phase of a low-frequency signal modulates the amplitude envelope of a high-frequency signal. 
 
 ### Tools
 In this chapter, we develop two CFC measures, with a particular focus on phase-amplitude coupling (PAC). We introduce the concepts of the Hilbert transform, analytic signal, instantaneous phase, and amplitude envelope.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('mLglqyb55_Y')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/mLglqyb55_Y"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 ## Data Analysis<a id="data-analysis"></a>
 
 ### Visual Inspection
 Let's begin with visual inspection of the LFP data.
 
-
-```python
+```{code-cell} ipython3
 # Load the modules and set plot defaults
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
@@ -159,14 +148,9 @@ plt.xlabel('Time [s]')       # ... with axes labeled.
 plt.ylabel('Voltage [mV]');
 ```
 
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_12_0.png)
-
-
 Next, let's take a closer look at an example 1 s interval of the data<a id="fig:7.1"></a>:
 
-
-```python
+```{code-cell} ipython3
 plt.plot(t, LFP)            # Plot the LFP data,
 plt.xlim([4, 5])            # ... restrict the x-axis to a 1 s interval,
 plt.ylim([-2, 2])           # ... and tighten the y-axis.
@@ -174,10 +158,6 @@ plt.xlabel('Time [s]')      # Label the axes
 plt.ylabel('Voltage [mV]')
 plt.show()
 ```
-
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_14_0.png)
-
 
 Visual inspection immediately suggests a dominant low-frequency rhythm interspersed with smaller-amplitude blasts of high-frequency activity.
 
@@ -187,11 +167,12 @@ Visual inspection immediately suggests a dominant low-frequency rhythm intersper
     
 </div>
 
++++
+
 ### Spectral Analysis<a id="spectral-analysis"></a>
 Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a>
 
-
-```python
+```{code-cell} ipython3
 import numpy as np                   # Import the NumPy module
 dt = t[1] - t[0]                     # Define the sampling interval,
 T = t[-1]                            # ... the duration of the data,
@@ -213,36 +194,18 @@ plt.xlabel('Frequency [Hz]')         # Label the axes
 plt.ylabel('Power [mV$^2$/Hz]');
 ```
 
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_17_0.png)
-
-
 The resulting spectrum reveals two intervals of increased power spectral density. The lowest-frequency peak at 6 Hz is also the largest and corresponds to the slow rhythm we observe dominating the signal through visual inspection. Remember a plot of that signal:
 <a href="#fig:7.1" class="fig"><span><img src="imgs/7-1.png"></span></a>
 At higher frequencies, we find an additional broadband peak at approximately 80–120 Hz. These spectral results support our initial visual inspection of the signal; there exist both low- and high-frequency activities in the LFP data. We now consider the primary question of interest: Do these different frequency rhythms exhibit associations?
 
++++
+
 <a id="cfc"></a>
 ### Phase-Amplitude Coupling
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('JjOcJy4dVzE')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/JjOcJy4dVzE"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of [ongoing research](https://www.ncbi.nlm.nih.gov/pubmed/26549886).
 
@@ -254,35 +217,22 @@ To assess whether different frequency rhythms interact in the LFP recording, we 
 
 * Determine if the phase and amplitude are related.
 
++++
+
 <a id="step1"></a>
 ### Step 1. Filter the Data into High- and Low-Frequency Bands.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('WL_nFRBHqLU')
 ```
 
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/WL_nFRBHqLU"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
-
 The first step in the CFC analysis is to filter the data into two frequency bands of interest. The choice is not arbitrary: the separate frequency bands are motivated by initial spectral analysis of the LFP data. In this case, we choose the low-frequency band as 5–7 Hz, consistent with the largest peak in the spectrum, and the high-frequency band as 80–120 Hz, consistent with the second-largest broadband peak. To consider alternative frequency bands, the same analysis steps would apply.
+
++++
 
 There are many options to perform the filtering. To do so requires us to design a filter that ideally extracts the frequency bands of interest without distorting the results. Here, we apply a finite impulse response (FIR) filter. We start by extracting the **low-frequency** band:
 
-
-```python
+```{code-cell} ipython3
 from scipy import signal
 Wn = [5,7];                         # Set the passband [5-7] Hz,
 n = 100;                            # ... and filter order,
@@ -293,8 +243,7 @@ Vlo = signal.filtfilt(b, 1, LFP);   # ... and apply it to the data.
 
 Next, we extract the **high-frequency** band:
 
-
-```python
+```{code-cell} ipython3
 Wn = [80, 120];                     # Set the passband [80-120] Hz,
 n = 100;                            # ... and filter order,
                                     # ... build the bandpass filter,
@@ -306,8 +255,7 @@ For each frequency band, we specify a frequency interval of interest by defining
 
 To understand the impact of this filtering operation on the LFP, let’s plot the results. More specifically, let's plot the original signal, and the signal filtered in the low- and high-frequency bands, for an example 2 s interval of time:<a id="fig:7.3"></a>
 
-
-```python
+```{code-cell} ipython3
 plt.figure(figsize=(14, 4))         # Create a figure with a specific size.
 plt.plot(t, LFP)                    # Plot the original data vs time.
 plt.plot(t, Vlo)                    # Plot the low-frequency filtered data vs time.
@@ -318,56 +266,22 @@ plt.ylim([-2, 2]);
 plt.legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
 ```
 
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_30_0.png)
-
-
 As expected, the low-frequency band (orange) captures the large-amplitude rhythm dominating the LFP signal, while the higher-frequency band (green) isolates the brief bursts of faster activity.
+
++++
 
 <a id="step2"></a>
 ### Step 2. Extract the Amplitude and Phase from Filtered Signals.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('QiRuBvbCQt4')
 ```
 
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/QiRuBvbCQt4"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
-
 The next step in the CFC procedure is to extract the *phase* of the low-frequency signal and the amplitude envelope (or simply, *amplitude*) of the high-frequency signal. To compute a particular type of CFC, namely phase-amplitude coupling, we then compare these two signals, i.e., we compare the phase of the low-frequency activity and the amplitude envelope of the high-frequency activity. How do we actually extract the phase and amplitude signals from the data? There are a variety of options to do so, and we choose here to employ the **analytic signal approach**, which allows us to estimate the instantaneous phase and amplitude envelope of the LFP.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('Ir8Gf550S3o')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/Ir8Gf550S3o"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 The first step in computing the analytic signal is to compute the [Hilbert transform](https://en.wikipedia.org/wiki/Hilbert_transform). We begin with some notation. Define $x$ as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we've created). Then the Hilbert transform of $x$, let’s call it $y$, is
 
@@ -400,29 +314,15 @@ $$ z = x + i y = x + i H(x). $$
 The effect of the Hilbert transform is to remove negative frequencies from $z$. As it stands,
 this is not obvious. To get a sense for why this is so, let’s consider a simple example.
 
++++
+
 <a id="hilbert"></a>
 ### What Does the Hilbert Transform Do?
 [Skip this section](#step2ctd)
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('-CjnFEOopfw')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/-CjnFEOopfw"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 Let $x_0$ be a sinusoid at frequency $f_0$, 
 
@@ -439,6 +339,8 @@ The real variable $x_0$ possesses both a positive and a negative frequency compo
 
 For real signals, which include nearly all recordings of brain activity, the negative frequency component is redundant, and we usually ignore it. However, the negative frequency component still remains. By definition, the effect of the Hilbert transform is to induce a phase shift. For positive frequencies, the phase shift is  $-\pi/2$. We can produce this phase shift by multiplying the positive frequency part of the signal by $-i$.
 
++++
+
 <div class="question">
     
 **Q:** Why does a phase shift of  $-\pi/2$ correspond to multiplication by $-i$?
@@ -451,11 +353,15 @@ Notice the result simplifies to the original complex exponential $e^{i\omega_0 t
     
 </div>
 
++++
+
 <div class="question">
     
 **Q.** Can you show that a $\pi / 2$ phase shift corresponds to multiplication by $i$? 
     
 </div>
+
++++
 
 This analysis shows that we can represent the Hilbert transform of $x$ at frequency $f$ as
 
@@ -479,47 +385,15 @@ $$ y_0 = 2 \sin( \omega_0 t ).$$
     
 </div>
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('e4kECy8KP-4')
 ```
 
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/e4kECy8KP-4"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
-
 The Hilbert transform of $x_0$ (a cosine function) is a sine function. We could perhaps have guessed this: sine is a 90-degree ($\pi / 2$) phase shift of cosine.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('emsU97RcFjI')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/emsU97RcFjI"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 We are now ready to define the analytic signal $(z_0)$ for this example. Using the expressions for $x_0$ and $y_0$ and Euler's formula, we find
 
@@ -541,13 +415,14 @@ Because $x_0$ is real, this quantity evolves in time along the real axis (red in
     
 </div>
 
++++
+
 <a id="step2ctd"></a>
 ### Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).
 
 Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:
 
-
-```python
+```{code-cell} ipython3
 phi = np.angle(signal.hilbert(Vlo))  # Compute phase of low-freq signal
 amp = abs(signal.hilbert(Vhi))       # Compute amplitude of high-freq signal
 ```
@@ -564,30 +439,18 @@ To extract the phase, we apply the function `angle` to the analytic signal of th
 
 To summarize, in this step we apply the Hilbert transform to create the analytic signal and get the phase or amplitude of the bandpass-filtered data.
 
++++
+
 <a id="step3"></a>
 ### Step 3. Determine if the Phase and Amplitude are Related.
 
-
-```python
+```{code-cell} ipython3
 YouTubeVideo('fiL9UNbLPA8')
 ```
 
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/fiL9UNbLPA8"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
-
 As with the previous steps, we have at our disposal a variety of procedures to assess the relation between the phase (of the low-frequency signal) and amplitude (of the high-frequency signal). We do so here in one way, by computing the phase-amplitude plot.
+
++++
 
 <a id="m1"></a>
 ### The phase-amplitude plot
@@ -605,8 +468,7 @@ where $\phi(i)$ is the phase of the low-frequency band activity at time index $i
 
 We now use this two-column vector to assess whether the phase and amplitude envelope are related. Let's begin by plotting the average amplitude versus phase. We divide the phase interval into bins of size 0.1 beginning at $-\pi$ and ending at $\pi.$ the choice of bin size is somewhat arbitrary; this choice will work fine, but you might consider the impact of other choices.
 
-
-```python
+```{code-cell} ipython3
 p_bins = np.arange(-np.pi, np.pi, 0.1)
 a_mean = np.zeros(np.size(p_bins)-1)
 p_mean = np.zeros(np.size(p_bins)-1)
@@ -621,10 +483,6 @@ plt.ylabel('High-frequency amplitude')  #... with axes labeled.
 plt.xlabel('Low-frequency phase');
 ```
 
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_54_0.png)
-
-
 <div class="question">
     
 **Q.** Consider this plot of the average amplitude versus phase. Does this result suggest CFC occurs in these data?
@@ -633,30 +491,29 @@ plt.xlabel('Low-frequency phase');
     
 </div>
 
++++
+
 <div class="question">
     
 **Q.** If no CFC occurred in the data, what would you expect to find in the plot of average amplitude versus phase? 
     
 </div>
 
++++
+
 As a basic statistic to capture the extent of this relation, we compute the difference between the maximum and minimum of the average amplitude envelope over phases. Let's assign this difference the label $h$. In Python,
 
-
-```python
+```{code-cell} ipython3
 h = max(a_mean)-min(a_mean)
 print(h)
 ```
-
-    0.12607449865513892
-
 
 We find a value of $h = 0.126$. This value, on its own, is difficult to interpret. Is it bigger or smaller than we expect? To assess the significance of $h$, let's generate a surrogate phase-amplitude vector by resampling without replacement the amplitude time series (i.e., the second column of the phase-amplitude vector). Resampling is a powerful technique that we have applied in our analysis of other case study data (see, for example, 
 [The Event-Related Potential](../The%20Event-Related%20Potential/The%20Event-Related%20Potential.ipynb)). By performing this resampling, we reassign each phase an amplitude chosen randomly from the entire 100 s LFP recording. We expect that if CFC does exist in these data, then the timing of the phase and amplitude vectors will be important; for CFC to occur, the amplitude and phase must coordinate in time. By disrupting this timing in the resampling procedure, we expect to eliminate the coordination between amplitude and phase necessary to produce CFC.
 
 For each surrogate phase-amplitude vector, we compute the statistic $h$. To generate a distribution of $h$ values, let’s repeat 1,000 times this process of creating surrogate data through resampling and computing $h$.
 
-
-```python
+```{code-cell} ipython3
 n_surrogates = 1000;                       #Define no. of surrogates.
 hS = np.zeros(n_surrogates)                #Vector to hold h results.
 for ns in range(n_surrogates):             #For each surrogate,
@@ -677,80 +534,41 @@ In this code, we first define the number of surrogates (variable `n_surrogates`)
 
 Let's now view the results of this resampling procedure by creating a histogram of the variable `hS`, and compare this distribution to the value of `h` we computed earlier.
 
-
-```python
+```{code-cell} ipython3
 counts, _, _ = plt.hist(hS, label='surrogates')               # Plot the histogram of hS, and save the bin counts.
 plt.vlines(h, 0, max(counts), colors='red', label='h', lw=2)  # Plot the observed h,
 plt.legend();                                                 # ... include a legend.
 ```
 
-
-![png](cross-frequency-coupling_files/cross-frequency-coupling_62_0.png)
-
-
 The value of $h$ computed from the original data (`h`) lies far outside the distribution of surrogate $h$ values (`hS`). To compute a $p$-value, we determine the proportion of surrogate $h$ values greater than the observed $h$ value:
 
-
-```python
+```{code-cell} ipython3
 p = sum([s > h for s in hS]) / len(hS)
 print(p)
 ```
 
-    0.0
-
-
 We find a $p$-value that is very small; there are no surrogate values of $h$ that exceed the observed value of $h$. We therefore conclude that in this case the observed value of $h$ is significant. As a statistician would say, we reject the null hypothesis of *no* CFC between the phase of the 5-7 Hz low-frequency band and the amplitude of the 80-120 Hz high frequency band.
 
-
-```python
+```{code-cell} ipython3
 from IPython.lib.display import YouTubeVideo
 YouTubeVideo('NQUfELSZ0Cc')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/NQUfELSZ0Cc"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 <a id="summary"></a>
 # Summary
 
-
-```python
+```{code-cell} ipython3
 from IPython.lib.display import YouTubeVideo
 YouTubeVideo('NQUfELSZ0Cc')
 ```
-
-
-
-
-
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/NQUfELSZ0Cc"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-
-
-
 
 In this module, we considered techniques to characterize cross-frequency coupling (CFC), associations between rhythmic activity observed in two different frequency bands. To do so, we introduced the Hilbert transform, which can be used to compute the instantaneous phase and amplitude of a signal. We focused on characterizing the relation between the phase of low-frequency band activity (5-7 Hz) and the amplitude of high-frequency band activity (100-140 Hz). To do this, we computed the average amplitude at each phase and determined the extent of the variability (or wiggliness). 
 
 For the LFP data of interest here, we found evidence of CFC between the two frequency bands. Importantly, these results also appear consistent with visual inspection of the unfiltered data. Careful inspection of the example voltage traces suggests that CFC does in fact occur in these data. In general, such strong CFC, visible to the naked eye in the unprocessed LFP data, is unusual. Instead, data analysis techniques are required to detect features not obvious through visual inspection alone. Developing techniques to assess CFC and understanding the biophysical mechanisms of CFC and implications for function, remain active research areas.
 
 In developing these approaches, we utilized expertise and procedures developed in other modules. In particular, we relied on the notions of frequency and power, amplitude and phase, filtering, and resampling. Such a multifaceted approach is typical in analysis of neural data, where we leverage the skills developed in analyzing other datasets.
+
++++
 
 <a id="appendix"></a>
 ## Appendix: Hilbert Transform in the Time Domain
@@ -779,7 +597,7 @@ $$\mbox{Inverse Fourier transform}\{-i\mbox{sgn}(f)\} = \frac{1}{\pi t}.$$
 
 Let's represent the inverse Fourier transform of $x(f)$ as $x(t)$.
 
-Now, let's make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see [Analysis of Rhythmic Activity in an Electrocorticogram](../Analysis%20of%20Rhythmic%20Activity%20in%20an%20Electrocorticogram/Analysis%20of%20rhythmic%20activity%20in%20the%20Electrocorticogram.ipynb)). The convolution of two signals $x$ and $y$ is 
+Now, let's make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see [Analysis of Rhythmic Activity in an Electrocorticogram](../04)). The convolution of two signals $x$ and $y$ is 
 
 $$ x * y = \int_{-\infty}^{\infty}x(\tau)y(t-\tau)d\tau.$$
 
@@ -789,8 +607,7 @@ $$H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\t
 
 This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, "*The Hilbert Transform is a 90-degree phase shift in the frequency domain.*" The latter, we propose, is much more intuitive.
 
-
-```python
+```{code-cell} ipython3
 from IPython.core.display import HTML
 HTML('../../assets/custom/custom.css')
 ```
