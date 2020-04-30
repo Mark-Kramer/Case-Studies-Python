@@ -48,7 +48,7 @@ _**Synopsis**_
 * [Relation between Statistical Modeling and Coherence](#Relation_between_Statistical_Modeling_and_Coherence)
 * [Summary](#summary)    
 
-
+<!-- #region -->
 ## On-ramp: computing the coherence in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the coherence in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
@@ -108,9 +108,10 @@ show()
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
 
 </div>
+<!-- #endregion -->
 
-
-# Introduction
+<!-- #region -->
+## Introduction
 
 
 ### Background <a class="anchor" id="background"></a>
@@ -136,11 +137,12 @@ Our goal is to understand the coupling between the voltage activity recorded fro
 
 ### Tools
 Here you will develop an understanding for the cross-covariance and coherence measures. For the latter, we will explore and understand the Fourier transform and examine in detail the notion of phase. We also briefly discuss strategies to assess the coherence for a single trial of data.
+<!-- #endregion -->
 
 
-## Data Analysis <a id="data-analysis">
+## Data Analysis <a id="data-analysis"></a>
 
-
+<!-- #region -->
 ### Visual inspection <a id="visual-inspection"></a>
 
 We begin our analysis by visualizing the ECoG data. To do so, let's load the ECoG data into Python and plot the data from the first electrode (variable `E1`) and second electrode (variable `E2`) versus time (variable `t`) for the first trial.
@@ -188,7 +190,7 @@ We observe that the data consist of 100 trials, each consisting of 500 data poin
 </div>
 
 
-Let's now plot the data in the first trial from each electrode: <a id="fig:traces">
+Let's now plot the data in the first trial from each electrode: <a id="fig:traces"></a>
 
 ```python
 f, a = subplots()
@@ -262,6 +264,9 @@ We notice in the first two trials that the ECoG activity from the two electrodes
 
 
 Although visual inspection is a useful initial tool for analyzing data, assessing the relations between two electrodes across multiple trials is a difficult task. To go further, we employ a new data analysis tool that builds from the Fourier transform: the coherence.
+
+[Return to top](#top)
+<!-- #endregion -->
 
 <!-- #region -->
 ### Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
@@ -449,6 +454,8 @@ We may therefore conclude the following. At the single-trial level we find stron
 Why are the prominent cross-covariance features in the single-trial analysis lost in the trial-averaged cross-covariance? We discuss this issue in more detail in the [summary](#summary) below.
     
 </div>
+
+[Return to top](#top)
 <!-- #endregion -->
 
 ### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
@@ -598,7 +605,7 @@ $$
 Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 $$
 
-where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in [the trial-averaged cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,
+where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in [the trial-averaged cross-spectrum](#eq:9)<span class="sup">eq<img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,
 
 <span id="eq:cross_spectrum" title="Cross spectrum"></span>
 $$
@@ -693,7 +700,6 @@ which indicates strong coherence between the two signals.  The strong coherence 
 
 [Return to top](#top)
 
----
 <!-- #endregion -->
 
 ## Simple Scenario 2: Phases are random across trials <a id="Simple_Scenario_2"></a> 
@@ -923,7 +929,7 @@ But what if we only collect one trial of data? We can still attempt to compute t
 
 A second approach to compute the coherence from a single trial of data is to use the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
 
-
+<!-- #region -->
 ## Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence"></a>
 
 Before concluding the discussion of coherence, let’s briefly consider a complementary statistical modeling approach. In developing this statistical model, our goal is to capture the (linear) relation between two signals $x$ and $y$ observed simultaneously for multiple trials. We begin by proposing a statistical model that predicts one signal ($y$) as a linear function of the other ($x$):
@@ -984,8 +990,7 @@ $$
 We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of the frequency domain representation of the statistical model coefficients ($\gamma_j$) for predicting $y$ from $x$. We note that $\gamma_j$ is a complex quantity that allows us to model both the magnitude and phase of the relationship between $x$ and $y$.  The phase difference computed from the model and the coherence is the same as well.
 
 [Return to top](#top)
-***
-
+<!-- #endregion -->
 
 # Summary <a id="summary"></a>
 
