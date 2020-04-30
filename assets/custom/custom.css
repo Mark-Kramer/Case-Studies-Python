@@ -79,7 +79,7 @@
 .fig img, .sup img, .thumb img { 
     /*width: 100%;*/
     max-width: 90%;
-    max-height: 90%;
+    max-height: 50vh;
     border:1px solid #000;
     visibility: hidden;
     background-color: black;
