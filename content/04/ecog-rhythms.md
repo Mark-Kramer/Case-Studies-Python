@@ -520,11 +520,9 @@ The NumPy function `hanning()` returns the Hanning taper, which we multiply elem
 
 <div class="question">
 
-<p>
+**Q.** Under what conditions would reducing the activity near the taper edges be a bad idea? 
 
-**Q.** Under what conditions would reducing the activity near the taper edges be a bad idea? *Hint:* What if the signal features of interest occur at the very beginning or very end of the observed data?
-
-</p>
+*Hint:* What if the signal features of interest occur at the very beginning or very end of the observed data?
 
 </div>
 
@@ -586,7 +584,7 @@ $$TW = X,$$
 where $T$ is the duration of the recording, $2W$ is the desired frequency resolution (or resolution bandwidth), and we're free to choose $X$, the aptly named *time-bandwidth product*. For concreteness, let's consider the 1 s of ECoG data.
 
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q.** Given 1 s of data, what is the frequency resolution?
 
@@ -729,6 +727,7 @@ and [Press, Teukolsky, Vetterling & Flannery, 2007](http://www.cambridge.org/us/
 
 
 [Return to top](#top)
+
 
 
 <a id="appendix"></a> 

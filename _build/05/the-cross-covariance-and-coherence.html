@@ -5,13 +5,13 @@ kernel_path: content/05
 has_widgets: false
 title: |-
   The Cross Covariance and Coherence
-pagenum: 5
+pagenum: 4
 prev_page:
   url: /04/ecog-rhythms.html
 next_page:
   url: /06/filtering-scalp-eeg.html
 suffix: .ipynb
-search: trial k cross coherence j trials data covariance span div between class frequency averaged phase spectrum signals x ecog across electrodes n id s hz eq big single y src imgs png compute sum question autocovariance difference frac index complex q electrode lets xj phi not xy fourier align fig amplitude both activity transform above e figure analysis case visual results supimg exp expression inspection python here consider series where end plane begin point traces structure notice lag relation our example t note strong near large thumbsupeq vectors coupling recorded voltage signal equation xc kappa sqrt biggr introduction rhythmic second
+search: trial k cross coherence j trials data covariance div between class span frequency averaged spectrum phase signals x ecog across electrodes n id s hz eq big single y src imgs png compute sum question autocovariance difference frac index complex q electrode lets xj phi not xy fourier align amplitude both activity transform above e fig figure analysis case visual results supimg exp expression inspection python here consider series where end plane begin point traces structure notice lag relation our example t note strong near large thumbsupeq vectors coupling recorded voltage signal equation xc kappa sqrt biggr rhythmic second same
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -23,7 +23,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a id="introduction"></a></p>
+<p><a id="introduction"></a><a id="top"></a></p>
 <h1 id="Analysis-of-coupled-rhythms-for-the-practicing-neuroscientist">Analysis of coupled rhythms <em>for the practicing neuroscientist</em><a class="anchor-link" href="#Analysis-of-coupled-rhythms-for-the-practicing-neuroscientist"> </a></h1>
 </div>
 </div>
@@ -320,8 +320,7 @@ _**Synopsis**_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3>Visual inspection <a id="visual-inspection"></h3>
-<p>We begin our analysis by visualizing the ECoG data. To do so, let's load the ECoG data into Python and plot the data from the first electrode (variable <code>E1</code>) and second electrode (variable <code>E2</code>) versus time (variable <code>t</code>) for the first trial.</p>
+<h3 id="Visual-inspection-">Visual inspection <a id="visual-inspection" /><a class="anchor-link" href="#Visual-inspection-"> </a></h3><p>We begin our analysis by visualizing the ECoG data. To do so, let's load the ECoG data into Python and plot the data from the first electrode (variable <code>E1</code>) and second electrode (variable <code>E2</code>) versus time (variable <code>t</code>) for the first trial.</p>
 <p>We begin by loading the data:</p>
 
 </div>
@@ -758,11 +757,11 @@ In general, a single underscore at the beginning of a variable, function or meth
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Autocovariance-and-Cross-covariance-">Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance" /><a class="anchor-link" href="#Autocovariance-and-Cross-covariance-"> </a></h3><p>In <a href="../03">chapter 3</a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as,</p>
-<p><span id="eq:ac" title="trial-averaged autocovariance">   
+<p><span id="eq:ac" title="trial-averaged autocovariance"></span> 
 $$
 r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (x_{n,k} - \bar{x}_k) \, ,
-$$
-</span></p>
+\tag{Trial-averaged autocovariance}
+$$</p>
 <p>where $x_{n,k}$ indicates the data at time index $n$ and trial $k,$ and $\overline x_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K.$  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a></p>
 
 </div>
@@ -1189,30 +1188,29 @@ $$
 X_j = A_j \exp(i \phi_j) \, ,
 $$</p>
 <p>where $A_j$ is the amplitude and $\phi_j$ is the phase at frequency index $j$.  Notice that both the amplitude and phase are functions of frequency.  Remember that, to compute the spectrum, we multiple the Fourier transform of the data by its complex conjugate, and scale the result. The spectrum of $x_n$ then becomes,</p>
-<p><span id="eq:8" title="Spectrum">
+<p><a id="eq:8" title="Spectrum"></a>
 $$
 \begin{align}
-S_{xx, \, j}    &= \frac{2 \mathrm{dt}^2}{T} X_j X^*_j \label{eq:Sxx} \, , \\
-        &= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
+S_{xx, \, j}    &amp;= \frac{2 \mathrm{dt}^2}{T} X_j X^*_j \label{eq:Sxx} \, , \\
+        &amp;= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
-$$
-</span></p>
+\tag{Spectrum}
+$$</p>
 <p>where, to compute the complex conjugate in the second term, we replace $i$ with $-i$.  The last expression simplifies rather nicely,</p>
-<p><span id="eq:9" title="Simplified expression for the cross spectrum">
+<p><span id="eq:9" title="Simplified expression for the cross spectrum"></span>
 $$
 \begin{align}
-S_{xx, \, j}    &= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \notag \\
-        &= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(0) \, , \notag \\
-        &= \frac{2 \mathrm{dt}^2}{T} A_j^2 \, .
+S_{xx, \, j}    &amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \notag \\
+        &amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(0) \, , \notag \\
+        &amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2 \, .
 \end{align}
-$$
-</span></p>
+$$</p>
 <p>This expression provides a new, and perhaps more direct, interpretation of the spectrum as proportional to the squared amplitude of the point $X_j$ in the complex plane. We can extend this simplified expression in one additional way to make explicit the trial structure of the ECoG data analyzed here. Because we possess multiple trials, and we assume that each trial represents an instantiation of the same underlying process, we average the spectra across trials to compute the <em>trial-averaged spectrum</em>,</p>
-<p><span title="Trial-averaged spectrum">
+<p><span title="Trial-averaged spectrum"></span>
 $$</p>
 <p>&lt;S<em>{xx, \, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum</em>{k=1}^K A_{j,k}^2 \, ,
-$$
-&lt;/span&gt;</p>
+\tag{Trial-averaged spectrum}
+$$</p>
 <p>where $k$ indicates the trial number, $K$ the total number of trials, and $A_{j,k}$ the amplitude of the signal at frequency index $j$ and trial index $k$.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index $j$ across the $K$ trials.  We use the angular brackets ($&lt; \, &gt;$) to denote that the spectrum ($S_{xx, \, j}$) has been averaged across trials. We can compute the trial-averaged spectrum in Python,</p>
 <p><a id="fig:trial_avg_spectrum"></a></p>
 
@@ -1356,47 +1354,43 @@ Two signals are coherent at some frequency if there exists a constant phase rela
 
 </div><p>To compute the coherence, we use the <a href="#eq:9">simplified expression for the spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and an additional term, the cross-spectrum.</p>
 <p>Consider two signals $x_{n,k}$ and $y_{n,k}$, with time index $n$ and trial index $k$. These signals have corresponding Fourier transforms $X_{j,k}$ and $Y_{j,k}$. Then the <em>trial-averaged cross-spectrum</em> between these two signals is</p>
-<p><span id="eq:10" title="Trial averaged cross-spectrum">
+<p><span id="eq:10" title="Trial averaged cross-spectrum"></span>
 $$</p>
 <p>&lt;S<em>{xy,\, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K}\sum</em>{k=1}^K X<em>{j,k} Y^*</em>{j,k} \, ,
-$$
-&lt;/span&gt;</p>
+$$</p>
 <p>where compared to <a href="#eq:8">the spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-8.png"></span> we replace $X^*_j$ with $Y^*_j$ and include the average over the trial index $k$.  Let's modify and clean up this expression by using polar coordinates.  To do so, we'll first define,</p>
 $$
 Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 $$<p>where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in <a href="#eq:9">the trial-averaged cross-spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,</p>
-<p><span id="eq:cross_spectrum" title="Cross spectrum">
+<p><span id="eq:cross_spectrum" title="Cross spectrum"></span>
 $$</p>
 <p>&lt;S<em>{xy,\, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum</em>{k=1}^K A<em>{j,k} B</em>{j,k} \exp \big( i \Phi_{j,k} \big) \, ,
-$$
-&lt;/span&gt;</p>
+\tag{Cross spectrum}
+$$</p>
 <p>where we have defined the <em>phase difference</em> between the two signals as $\Phi_{j,k} = \phi_{j,k} - \theta_{j,k}$. This equation is the trial-averaged cross spectrum of the two signals $x_{n,k}$ and $y_{n,k}$.  We note that the trial-averaged cross spectrum ($&lt;S_{xy,\, j}&gt;$) can be complex (i.e., may have nonzero real and imaginary parts).</p>
 <p>At last we define the <strong>coherence</strong>,</p>
-<p><span id="eq:cohr" title="Coherence">
+<p><span id="eq:cohr" title="Coherence"></span>
 $$
-\kappa_{xy,\, j} = \frac{ \mid <S_{xy,\, j}> \mid }{ \sqrt{<S_{xx, \, j}>} \sqrt{<S_{yy, \, j}>}} \, ,
-\tag{*}
-$$
-</span></p>
+\kappa_{xy,\, j} = \frac{ \mid &lt;S_{xy,\, j}&gt; \mid }{ \sqrt{&lt;S_{xx, \, j}&gt;} \sqrt{&lt;S_{yy, \, j}&gt;}} \, ,
+\tag{Coherence}
+$$</p>
 <p>where $\mid &lt;S_{xy,\, j}&gt; \mid$ indicates the magnitude of the trial-averaged cross spectrum.  In words, the coherence is the magnitude of the trial-averaged cross spectrum between the two signals at frequency index $j$ divided by the magnitude of the trial-averaged spectrum of each signal at frequency index $j$.</p>
-<p>To further our understanding of the mathematical expression of the coherence in ($*$), let's replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,</p>
-<p><span id="eq:cohr_ang" title="Coherence in polar coordinates">
+<p>To further our understanding of the mathematical expression of the coherence, let's replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,</p>
+<p><span id="eq:cohr_ang" title="Coherence in polar coordinates"></span>
 $$
 \kappa_{xy,\, j} = \frac { \biggr\lvert \sum\limits_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
                    { \sqrt{\sum\limits_{k=1}^K A_{j,k}^2} \,  \sqrt{\sum\limits_{m=1}^K B_{j,m}^2} }
-$$
-</span></p>
+$$</p>
 <p>This expression is complicated.  So, to gain some intuition for the behavior of $\kappa_{xy,\, j}$, let's make the simplifying assumption that at each frequency the amplitude is identical for both signals and all trials, that is, $A_{j,k} = B_{j,k} = C_j$.  Notice that, in using only the expression $C_j$ for the amplitude, we've eliminated the trial index $k$, and only preserved the frequency index $j$. With this simplifying assumption, our expression for the coherence becomes,</p>
-<p><span id="eq:cohr_simp" title="Coherence (simplified)">
+<p><span id="eq:cohr_simp" title="Coherence (simplified)"></span>
 $$
 \begin{align}
-\kappa_{xy,\, j} &= \frac { \biggr\lvert \sum\limits_{k=1}^K C_j \, C_j \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
+\kappa_{xy,\, j} &amp;= \frac { \biggr\lvert \sum\limits_{k=1}^K C_j \, C_j \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
                      { \sqrt{\sum\limits_{k=1}^K C_j^2}  \sqrt{\sum\limits_{m=1}^K C_j^2} } \, , \notag \\
-            &= \frac{ C_j^2 }{ C_j^2 } \frac{\biggr\lvert \sum\limits_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert}{\sqrt{\sum\limits_{k=1}^K 1}  \sqrt{\sum\limits_{m=1}^K 1} } \, , \notag \\
-            &= \frac{ 1 }{ K }\biggr\lvert \sum_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert \, .
+            &amp;= \frac{ C_j^2 }{ C_j^2 } \frac{\biggr\lvert \sum\limits_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert}{\sqrt{\sum\limits_{k=1}^K 1}  \sqrt{\sum\limits_{m=1}^K 1} } \, , \notag \\
+            &amp;= \frac{ 1 }{ K }\biggr\lvert \sum_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert \, .
 \end{align}
-$$
-</span></p>
+$$</p>
 <p>Under the simplifying assumption that the amplitude is identical at each frequency for both signals and all trials, the coherence simplifies to the last equation in the expression above. In this special case, the expression for the coherence only involves the phase difference between the two signals averaged across trials; the amplitudes in the numerator and denominator have canceled out.</p>
 <p>Now, let’s interpret the simplified expression for the coherence. To do so, we consider two scenarios.</p>
 
@@ -1464,17 +1458,8 @@ $$<p>which indicates strong coherence between the two signals.  The strong coher
 
 **Q:** Does the conclusion $\kappa_{xy,\, j} = 1$ depend upon the value of the phase difference $\Phi_{j,0}$?  For example, does this result require that the phase difference between the two signals in each trial ($\Phi_{j,0}$) equal $0$, or $\pi/4$, or $\pi$?
 
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#introduction">Return to top</a></p>
+</div><p><a href="#top">Return to top</a></p>
+<hr>
 
 </div>
 </div>
@@ -1576,17 +1561,8 @@ The coherence is a measure of the phase consistency between two signals at frequ
 **Q.** What are the units of the coherence?
 Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqcohr.png"></a> for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.
 
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#introduction">Return to top</a></p>
+</div><p><a href="#introduction">Return to top</a></p>
+<hr>
 
 </div>
 </div>
@@ -1623,17 +1599,6 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The cross-spectrum and cross-covariance form a Fourier transform pair. The cross-spectrum is a frequency domain measure of coupling, while the cross-covariance is a time domain measure of coupling. To move back and forth between these two measures, we use the Fourier transform. In practice, we rarely examine the cross-spectrum directly; it’s a complex quantity and so requires two dimensions (i.e., the complex plane) to visualize. However, the cross-spectrum is fundamental to the coherence, so in that sense it’s an important actor in the analysis.</p>
-
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#introduction">Return to top</a></p>
 
 </div>
 </div>
@@ -1732,7 +1697,7 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_89_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_86_0.png"
 >
 </div>
 
@@ -1845,7 +1810,7 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_94_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_91_0.png"
 >
 </div>
 
@@ -2017,6 +1982,8 @@ $$
 \kappa_{xy,\, j} =  \mid \gamma_j \mid \dfrac{\sqrt{&lt;S_{xx, \, j}&gt;}}{\sqrt{&lt;S_{yy, \, j}&gt;}} \, .
 \end{align}
 $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of the frequency domain representation of the statistical model coefficients ($\gamma_j$) for predicting $y$ from $x$. We note that $\gamma_j$ is a complex quantity that allows us to model both the magnitude and phase of the relationship between $x$ and $y$.  The phase difference computed from the model and the coherence is the same as well.</p>
+<p><a href="#top">Return to top</a></p>
+<hr>
 
 </div>
 </div>
@@ -2055,7 +2022,7 @@ $$<p>We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of 
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this example, only the coherence revealed the low-amplitude coupling at 24 Hz between the two ECoG electrodes. This coupling was not obvious in the single-trial or trial-averaged cross-covariance. In fact, the single-trial cross-covariance was deceiving; we found <a href="#fig:xc_1">strong single-trial cross-covariance</a><span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> with period 0.125 s, or 8 Hz, yet no coherence at 8 Hz.</p>
 <p>To understand this discrepancy, consider two unrelated signals, each dominated by the same rhythm. By unrelated we mean that the signals do not communicate in any way. Yet both are rhythmic and happen to oscillate at the same frequency. If we compute the cross-covariance between these two unrelated signals, we will find periodic lags at which the two signals nearly overlap and the cross-covariance is large. The period of these cross-covariance peaks corresponds to the period of the common rhythm shared by the two signals. Here the periodic, large cross-covariance values occur because the two signals happen to both exhibit a similar rhythm, not because one signal influences the other.</p>
-<p>This example illustrates a point of caution in the interpretation of cross-covariance results. Unrelated signals that happen to share a similar dominant rhythm will exhibit large periodic structure in the cross-covariance. One approach to defend against such cross-covariance results is to compute the trial-averaged cross-covariance. If two signals are unrelated—to one another and to the trial structure—then we do not expect similar cross-covariance functions across trials. Therefore, although each single-trial cross-covariance may have large values at some lags, their average across trials will be small. This is <span class="fig">[just what we found](#fig:avg_xc)<img src="imgs/avg_xc.png"></span> for the ECoG data examined here. We note that the unrelated 8 Hz signals, which dominate the ECoG activity at each electrode, mask the much smaller amplitude 24 Hz activity that is coupled between the two electrodes. The coupling at 24 Hz is not apparent in the <span class="fig">[trial-averaged cross-covariance](#fig:avg_xc)<img src="imgs/avg_xc.png"></span>. The coherence, which normalizes by the power at each frequency, uncovers this relation.</p>
+<p>This example illustrates a point of caution in the interpretation of cross-covariance results. Unrelated signals that happen to share a similar dominant rhythm will exhibit large periodic structure in the cross-covariance. One approach to defend against such cross-covariance results is to compute the trial-averaged cross-covariance. If two signals are unrelated—to one another and to the trial structure—then we do not expect similar cross-covariance functions across trials. Therefore, although each single-trial cross-covariance may have large values at some lags, their average across trials will be small. This is just what we found<a class="sup" href="#fig:avg_xc">fig<img src="imgs/avg_xc.png"></a> for the ECoG data examined here. We note that the unrelated 8 Hz signals, which dominate the ECoG activity at each electrode, mask the much smaller amplitude 24 Hz activity that is coupled between the two electrodes. The coupling at 24 Hz is not apparent in the trial-averaged cross-covariance<a href="#fig:avg_xc" class="sup">fig<img src="imgs/avg_xc.png"></a>. The coherence, which normalizes by the power at each frequency, uncovers this relation.</p>
 <p>As is true for the Fourier transform and spectrum, there exists a vast literature on computing and interpreting the coherence. Some references for further reading include:</p>
 <ul>
 <li><p><a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a></p>

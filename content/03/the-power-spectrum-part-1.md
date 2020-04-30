@@ -1201,6 +1201,7 @@ where $x_n$ is the EEG data at index $n$, $t_n$ is the corresponding time axis a
 <div class="question">
     
 **Q.** The model consists of three predictors. What are they?
+
 **A.** The predictors are a constant term, a sine function at 60 Hz, and a cosine function at 60 Hz. Our goal is to solve for the unknown coefficients $\beta_0,\ \beta_1,$ and $\beta_2$ given the EEG data.
     
 </div>
