@@ -11,13 +11,22 @@ document.head.appendChild(script);
 
 function load_script() {
 	var converter = new showdown.Converter();
+	var classes = ["question", "python-note", "warning", "math-note"];
+	c = 0;
 
-	ii = 0;
-	X = document.getElementsByClassName("question");
-	while (X[ii]) {
-		X[ii].innerHTML = converter.makeHtml(X[ii].innerHTML);
-		// X[ii].innerHTML = "Hello";
-		ii++;
+	while (classes[c]) {
+		ii = 0;
+		X = document.getElementsByClassName(classes[c]);
+		while (X[ii]) {
+			X[ii].innerHTML = converter.makeHtml(X[ii].innerHTML);
+			// X[ii].innerHTML = "Hello";
+			ii++;
+		}
+		c++;
 	}
 }
-initFunction(load_script);
+
+document.addEventListener('turbolinks:load', () => {
+  load_script()
+})
+// initFunction(load_script);
