@@ -17,12 +17,9 @@
 # - header: My Header  # Will insert a header with no link in the sidebar
 
 
-- title: Home
-  url: /intro
-  not_numbered: true
 
-- title: Search
-  search: true
+- url: /intro
+  not_numbered: true
 
 - divider: true
 - header: Contents
