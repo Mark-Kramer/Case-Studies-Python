@@ -495,7 +495,6 @@ ylabel('Autocovariance');
 
 The autocovariance is a useful tool for assessing the dependent structure in the EEG data. Visual inspection of the EEG reveals a specific type of dependent structure - a strong rhythmic component - in the data. This dependent structure is further characterized in the autocovariance, in which the dominant 60 Hz activity manifests as periodic peaks and troughs in the autocovariance. In the next section, we consider a second tool - the spectrum - for assessing dependent structure in time series data. As we’ll see, the autocovariance and spectrum are intimately related in a remarkable way.
 
-
 [Return to top](#top)
 
 
@@ -731,7 +730,6 @@ To gain some intuition for the frequency resolution formula, consider the case i
 Above we plot a cartoon representation of the relation between data and frequency resolution. Data (left) consist of different numbers of samples ($N$). As $N$ increases, the number of values on the frequency axis increases (right), the maximal frequency $(f_{NQ})$ remains fixed, and the frequency resolution ($df$) decreases. Only non-negative frequencies are shown.
 This observation provides some intuition for the relation between the amount of data recorded ($T$ or $N$) and the frequency resolution ($df$).
 
-
 [Return to top](#top)
 
 
@@ -743,7 +741,7 @@ YouTubeVideo('SuDJha5LNL0')
 ```
 
 Let's now return to the [spectrum of the EEG data](#fig:3-6).
-<span class="figsup">fig<img src="imgs/3-6.png"></span>
+<span class="sup">fig<img src="imgs/3-6.png"></span>
 We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker rhythmic activity may occur in the data, but these features remain hidden from visual inspection because of the large 60 Hz peak; informally, we might state that the 60 Hz peak saturates the vertical scale. One technique to emphasize lower-amplitude rhythms hidden by large-amplitude oscillations is to change the scale of the spectrum to **decibels**. The decibel is a logarithmic scale and easily computed as follows:
 <a id="fig:3.13a"></a>
 
@@ -794,7 +792,6 @@ show()
 ```
 
 Notice the change in the first line to use the `semilogx` function. By using the logarithmic scale to stretch the low-frequency part of the horizontal axis, the two low-frequency peaks become more apparent. The changes compared to the original spectrum are purely cosmetic. However, these cosmetic changes have proved extremely useful. The two lower-frequency peaks were originally hidden from us, both in visual inspection of the raw data and in the original plot of the spectrum. In those cases, the large-amplitude 60 Hz activity masked the smaller-amplitude (three orders of magnitude smaller) rhythms.
-
 
 [Return to top](#top)
 
@@ -851,7 +848,7 @@ Note that in computing the spectrogram, we did not subtract the mean as we have 
 <!-- #region -->
 <div class="question">    
 
-**Q.** Consider the spectrogram above. What aspects of the spectrogram are consistent with our previous results? What aspects are new? Consider, in particular, the low-frequency rhythms and the conclusions deduced from this figure compared to the plot of the spectrum.<span class="figsup">fig<img src="imgs/3-13a.png"></span>
+**Q.** Consider the spectrogram above. What aspects of the spectrogram are consistent with our previous results? What aspects are new? Consider, in particular, the low-frequency rhythms and the conclusions deduced from this figure compared to the plot of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span>
 
 
 **A.** The spectrogram displays the spectrum (in decibels) as a function of frequency (vertical axis) and time (horizontal axis). Values on the time axis indicate the center times of each 1 s window (e.g., 0.5 s corresponds to times [0, 1] s in the data). Intervals of high (low) values correspond to warm (cool) colors. Visual inspection immediately provides new insights into the observed EEG rhythms. First, we observe a band of high power at 60 Hz that persists for all time (yellow horizontal line in the plot of the spectrogram). This corresponds to the 60 Hz line noise present for the entire duration of the recording. Second, we observe intervals of increased power near 11 Hz and 6 Hz. Unlike the 60 Hz signal, the two low-frequency rhythms do not persist for the entire 2 s recording (as we may have incorrectly concluded from examination of the spectrum alone. Instead, one weak rhythm (near 6 Hz) appears for the first half of the recording, while another weak rhythm (near 11 Hz) appears for the second half of the recording. Visualization via the spectrogram of how the rhythmic activity changes in time allows this important conclusion.
@@ -875,8 +872,8 @@ In this chapter, we analyzed 2 s of EEG data. We started with visual inspection 
 
 In this module, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future modules, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762) and [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US).
 
-
 [Return to top](#top)
+
 
 ---
 
@@ -1011,8 +1008,9 @@ These two expressions reveal that, at a large lag $L = N − 1$, the variance of
 
 We note that, for the EEG data of interest here, the unbiased estimator outperforms the biased estimator. For these data, which are dominated by a 60 Hz rhythm, there is significant autocovariance even at long lags. In this case, the biased estimator leads to an interpretation of decreasing autocovariance, even though that is not true. However, for most brain signal (not saturated by 60 Hz line noise), we expect the autocovariance to decrease in time.
 
-
 [Return to top](#top)
+
+
 ---
 <a id=supplement-psd></a>
 ## Intuition behind the power spectral density 
@@ -1316,5 +1314,6 @@ The power estimate from the model consists of two terms: the squared coefficient
 
 This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more $\beta$'s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.
 
-
 [Return to top](#top)
+
+
