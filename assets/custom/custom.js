@@ -15,7 +15,7 @@ function load_script() {
 	ii = 0;
 	X = document.getElementsByClassName("question");
 	while (X[ii]) {
-		X[ii].innerHTML = converter.makeHtml(X[ii].innerText);
+		X[ii].innerHTML = converter.makeHtml(X[ii].innerHTML);
 		// X[ii].innerHTML = "Hello";
 		ii++;
 	}
