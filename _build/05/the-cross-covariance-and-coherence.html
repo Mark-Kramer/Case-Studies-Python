@@ -5,13 +5,13 @@ kernel_path: content/05
 has_widgets: false
 title: |-
   The Cross Covariance and Coherence
-pagenum: 6
+pagenum: 5
 prev_page:
-  url: /04/supplements/appendix-multiplication-and-convolution-in-different-domains.html
+  url: /04/ecog-rhythms.html
 next_page:
   url: /06/filtering-scalp-eeg.html
 suffix: .ipynb
-search: trial k cross coherence j trials data covariance span div class between frequency averaged phase spectrum signals x ecog across electrodes n id s hz eq big single y src imgs png compute sum question autocovariance difference frac index complex q electrode lets xj not phi supimg xy fourier align fig figure amplitude both activity transform python above e analysis case visual here results exp expression inspection consider series where plane begin point note end traces structure notice lag relation our same example t strong near large thumbsupeq vectors coupling because recorded voltage signal equation xc kappa sqrt biggr introduction
+search: trial k cross coherence j trials data covariance span div between class frequency averaged phase spectrum signals x ecog across electrodes n id s hz eq big single y src imgs png compute sum question autocovariance difference frac index complex q electrode lets xj phi not xy fourier align fig amplitude both activity transform above e figure analysis case visual results supimg exp expression inspection python here consider series where end plane begin point traces structure notice lag relation our example t note strong near large thumbsupeq vectors coupling recorded voltage signal equation xc kappa sqrt biggr introduction rhythmic second
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -104,43 +104,16 @@ _**Synopsis**_
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import our favorite functions and modules</span>
-
-<span class="c1"># We have done this using a startup file. The file is located in your </span>
-<span class="c1"># home directory in a hidden IPython folder. You can see the location </span>
-<span class="c1"># using the following command:</span>
-
-<span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">profile_dir</span><span class="o">.</span><span class="n">startup_dir</span>
-
-<span class="c1"># Any files in this location that end in .py will run automatically </span>
-<span class="c1"># when you start a Python notebook. If you have downloaded this notebook</span>
-<span class="c1"># and have not yet made a startup directory, you may need to do so.</span>
-<span class="c1"># The file that we use is called startup.py </span>
-<span class="c1"># (https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/startup.py).</span>
-<span class="c1"># You can copy this file to your startup directory or copy and paste the</span>
-<span class="c1"># contents to a code cell as we have done in the past and the result will </span>
-<span class="c1"># be the same.</span>
-
-<span class="c1"># HIDDEN</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
+<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="jb_output_wrapper }}">
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;/Users/emilyschlafly/.ipython/profile_default/startup&#39;</pre>
-</div>
-
-</div>
-</div>
 </div>
 </div>
 
@@ -238,29 +211,6 @@ _**Synopsis**_
 **Q:** Try to read the code above. Can you see how it loads data, computes the coherence, and then plots the results?
 
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="python-note">
-
-You may have noticed that we did not to import all of the packages like we usually do. This is because we made a *startup.py* file. Most programs offer this type of shortcut so that if you find yourself repeatedly executing the same commands when the program opens, you can instead automate the commands. If you run Python in Jupyter notebooks, you can do this by putting .py files in your IPython startup directory.
-
-    get_ipython().profile_dir.startup_dir
-
-The commands that we use for this notebook are in the *startup.py* file in the [GitHub repo](#https://github.com/Mark-Kramer/Case-Studies-Python). To get the same behavior on your computer, copy this file to your startup directory. To do this, save *startup.py* to your home folder and then run the following commands in your [console application](https://en.wikipedia.org/wiki/Console_application) or [shell](https://en.wikipedia.org/wiki/Shell_(computing)):
-
-    mkdir -p ~/.ipython/profile_default/startup/
-    cp startup.py ~/.ipython/profile_default/startup/
-
-Alternatively, you may simply copy the contents of the file to a code cell in this notebook.
 
 </div>
 </div>
@@ -594,7 +544,7 @@ In general, a single underscore at the beginning of a variable, function or meth
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_30_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_29_0.png"
 >
 </div>
 
@@ -675,7 +625,7 @@ In general, a single underscore at the beginning of a variable, function or meth
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_34_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_33_0.png"
 >
 </div>
 
@@ -755,7 +705,7 @@ In general, a single underscore at the beginning of a variable, function or meth
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_38_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_37_0.png"
 >
 </div>
 
@@ -873,7 +823,7 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_44_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_43_0.png"
 >
 </div>
 
@@ -971,7 +921,7 @@ $$
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_48_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_47_0.png"
 >
 </div>
 
@@ -1000,7 +950,7 @@ $$
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** Examine the cross-covariance between the ECoG data from the two electrodes in the first trial. What do you observe? At what lags are the largest and smallest values of the cross-covariance? How do these results compare to the [trial-averaged autocovariance](#fig:taac)?<span class="fig"><sup>fig</sup><img src="imgs/taac.png"></span> How do these results compare to the voltage traces from each electrode in the [first trial](#fig:traces)?<span class="fig"><sup>fig</sup><img src="imgs/traces.png"></span>
+**Q.** Examine the cross-covariance between the ECoG data from the two electrodes in the first trial. What do you observe? At what lags are the largest and smallest values of the cross-covariance? How do these results compare to the [trial-averaged autocovariance](#fig:taac)?<span class="sup">fig<img src="imgs/taac.png"></span> How do these results compare to the voltage traces from each electrode in the [first trial](#fig:traces)?<span class="sup">fig<img src="imgs/traces.png"></span>
 
 </div>
 </div>
@@ -1012,7 +962,7 @@ $$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Like the <a href="#fig:taac">trial-averaged autocovariance for a single electrode</a>,<span class="fig"><sup>fig</sup><img src="imgs/taac.png"></span> the <a href="#fig:xc_1">cross-covariance between the two ECoG electrodes</a><span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> in the first trial reveals periodic variations. To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,</p>
+<p>Like the <a href="#fig:taac">trial-averaged autocovariance for a single electrode</a>,<span class="sup">fig<img src="imgs/taac.png"></span> the <a href="#fig:xc_1">cross-covariance between the two ECoG electrodes</a><span class="fig"><sup>fig</sup><img src="imgs/xc_1.png"></span> in the first trial reveals periodic variations. To understand the structure of this cross-covariance, let’s return to the voltage traces from the two electrodes in this trial,</p>
 
 </div>
 </div>
@@ -1042,7 +992,7 @@ $$
 
 
 <div class="output_png output_subarea output_execute_result">
-<img src="../images/05/the-cross-covariance-and-coherence_52_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_51_0.png"
 >
 </div>
 
@@ -1136,7 +1086,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_56_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_55_0.png"
 >
 </div>
 
@@ -1322,7 +1272,7 @@ $$
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_62_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_61_0.png"
 >
 </div>
 
@@ -1647,7 +1597,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Cross-Covariance-and-Cross-Spectrum-">Cross-Covariance and Cross-Spectrum <a id="cc_and_cs" /><a class="anchor-link" href="#Cross-Covariance-and-Cross-Spectrum-"> </a></h2><p>Although we defined the <a href="#eq:9">cross-spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the <a href="#eq:cohr">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show <a href="../03/Supplements/">here</a> that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.</p>
+<h2 id="Cross-Covariance-and-Cross-Spectrum-">Cross-Covariance and Cross-Spectrum <a id="cc_and_cs" /><a class="anchor-link" href="#Cross-Covariance-and-Cross-Spectrum-"> </a></h2><p>Although we defined the <a href="#eq:9">cross-spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the <a href="#eq:cohr">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a <a href="../03#supplements">supplement</a> at the end of chapter 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.</p>
 
 </div>
 </div>
@@ -1707,7 +1657,7 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** Before we compute the coherence, hypothesize whether you expect to observe coherence between the two ECoG signals. If so, at what frequencies? Your hypothesis should be based on the previous visual analysis and spectral analysis of these data (see, for example, [this figure](#fig:traces)<span class="fig"><sup>fig</sup><img src="imgs/traces.png"></span> and [this figure](#fig:trial_avg_spectrum)<span class="fig"><sup>fig</sup><img src="imgs/trial_avg_spectrum.png"></span>).
+**Q.** Before we compute the coherence, hypothesize whether you expect to observe coherence between the two ECoG signals. If so, at what frequencies? Your hypothesis should be based on the previous visual analysis and spectral analysis of these data (see, for example, <a href="#fig:traces" class="fig">this figure<img src="imgs/traces.png"></a> and <a href="#fig:trial_avg_spectrum" class="fig">this figure<img src="imgs/trial_avg_spectrum.png"></a>).
 
 </div>
 </div>
@@ -1782,7 +1732,7 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_90_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_89_0.png"
 >
 </div>
 
@@ -1895,7 +1845,7 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_95_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_94_0.png"
 >
 </div>
 

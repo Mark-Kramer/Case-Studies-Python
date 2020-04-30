@@ -5,13 +5,13 @@ kernel_path: content/06
 has_widgets: false
 title: |-
   Filtering Field Data
-pagenum: 7
+pagenum: 6
 prev_page:
   url: /05/the-cross-covariance-and-coherence.html
 next_page:
   url: /07/cross-frequency-coupling.html
 suffix: .ipynb
-search: filter data frequency signal response eeg domain hz impulse naive rectangular filtered div class filtering phase fig fir evoked s peak filters spectrum trial hanning e id not large lets frequencies function question using apply near analysis original transform our span n inspection noise fourier lowpass src imgs png zero q top convolution features compute index through impact amplitude href b visual however initial indices resulting representation application small plot note here code above therefore single consider both same element design examine approach input also brief shift erp g variable observe back section effects instead important chapter its where results
+search: filter data frequency response signal eeg domain hz impulse naive rectangular filtered div filtering class phase fig fir evoked s peak filters spectrum trial hanning e id not large lets frequencies function question using apply near analysis original transform our n inspection noise fourier lowpass zero q src imgs png top convolution features compute index through impact amplitude span b visual however initial indices href resulting representation application small plot note here code above therefore single consider both same element design examine approach input also brief shift erp g variable observe back section effects instead important chapter its where results
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -99,7 +99,7 @@ _**Synopsis**_
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">firwin</span><span class="p">,</span> <span class="n">lfilter</span><span class="p">,</span> <span class="n">filtfilt</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">semilogx</span><span class="p">,</span> <span class="n">semilogy</span><span class="p">,</span> <span class="n">savefig</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>    <span class="c1"># Load the data,</span>
@@ -198,8 +198,7 @@ _**Synopsis**_
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">firwin</span><span class="p">,</span> <span class="n">lfilter</span><span class="p">,</span> <span class="n">filtfilt</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">plot</span><span class="p">,</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">xlim</span><span class="p">,</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylim</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">legend</span><span class="p">,</span> <span class="n">style</span><span class="p">,</span> <span class="n">semilogx</span><span class="p">,</span> <span class="n">semilogy</span><span class="p">,</span> <span class="n">savefig</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 
@@ -443,7 +442,7 @@ _**Synopsis**_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The resulting spectrum reveals two important features. First, the power spectral density appears increased at lower frequencies compared to higher frequencies, that is, the spectrum tends to decrease with increasing frequency. This distribution of power is common in neural field data (e.g., <a href="https://doi.org/10.1016/j.neuron.2010.04.020">[He, et al., 2010]</a>) and in other biological systems <a href="https://doi.org/10.1103/PhysRevLett.59.381">[Bak, Tang, &amp; Wiesenfeld, 1987]</a>. Second, a large peak occurs at 60 Hz. This peak is consistent with the dominant rhythm apparent through visual inspection of the data in the <a href="#fig:1" class="fig">first trial<span><img src="imgs/6-1.png"></span></a>.</p>
+<p>The resulting spectrum reveals two important features. First, the power spectral density appears increased at lower frequencies compared to higher frequencies, that is, the spectrum tends to decrease with increasing frequency. This distribution of power is common in neural field data (e.g., <a href="https://doi.org/10.1016/j.neuron.2010.04.020">[He, et al., 2010]</a>) and in other biological systems <a href="https://doi.org/10.1103/PhysRevLett.59.381">[Bak, Tang, &amp; Wiesenfeld, 1987]</a>. Second, a large peak occurs at 60 Hz. This peak is consistent with the dominant rhythm apparent through visual inspection of the data in the first trial<a href="#fig:1" class="sup">fig<span><img src="imgs/6-1.png"></span></a>.</p>
 <p>A 60 Hz peak is common in EEG data recorded in North America, where the alternating current in an electrical socket has frequency 60 Hz. We might also perhaps observe a second small peak between approximately 15 and 25 Hz. However, it’s not immediately apparent whether this peak represents a rhythm or a random fluctuation in the (noisy) spectrum. In any case, these initial spectral results are somewhat reassuring. The data exhibit characteristics we expect in typical scalp EEG data. Namely, the spectrum tends to decrease with frequency, and a large, sharp 60 Hz peak occurs, consistent with electrical noise.</p>
 
 </div>
@@ -910,7 +909,7 @@ we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consis
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Naive filter in frequency domain&#39;</span><span class="p">)</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-4.png&#39;</span><span class="p">)</span>
-<span class="n">show</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -925,19 +924,8 @@ we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consis
 
 
 
-<div class="output_text output_subarea output_execute_result">
-<pre>&lt;function matplotlib.pyplot.show(*args, **kw)&gt;</pre>
-</div>
-
-</div>
-</div>
-<div class="jb_output_wrapper }}">
-<div class="output_area">
-
-
-
 <div class="output_png output_subarea ">
-<img src="../images/06/filtering-scalp-eeg_44_1.png"
+<img src="../images/06/filtering-scalp-eeg_44_0.png"
 >
 </div>
 
@@ -1232,7 +1220,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1369,7 +1357,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1428,7 +1416,7 @@ You should find a value equal to (or within numerical precision of) zero.
 
 
 <div class="output_text output_subarea ">
-<pre>&lt;Figure size 864x216 with 0 Axes&gt;</pre>
+<pre>&lt;Figure size 1200x300 with 0 Axes&gt;</pre>
 </div>
 
 </div>
@@ -1628,8 +1616,7 @@ You should find a value equal to (or within numerical precision of) zero.
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to Top</a></p>
-<h4 id="A-naive-Hanning-filter.">A naive Hanning filter.<a class="anchor-link" href="#A-naive-Hanning-filter."> </a></h4><p><a href="#fig:4">filter</a><span class="sup">fig<img src="imgs/6-4.png"></span></p>
-<p>In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the <a href="#fig:4">filter</a><span class="fig"><sup>fig</sup><img src="imgs/6-4.png"></span> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.</p>
+<h4 id="A-naive-Hanning-filter.">A naive Hanning filter.<a class="anchor-link" href="#A-naive-Hanning-filter."> </a></h4><p>In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the <a href="#fig:4">filter</a><span class="sup">fig<img src="imgs/6-4.png"></span> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.</p>
 <p>Let’s begin our filter design in the frequency domain. Our goal is to eliminate the 60 Hz component (i.e., the electrical noise) from the EEG signal without introducing long-lasting temporal effects. To do so, instead of the naive rectangular function employed in our first filter, we’ll use a smooth Hanning function (first introduced in our computations of the spectrum in <a href="../04">chapter 4</a>). First, we need to load the data and identify the indices corresponding to &plusmn;60 Hz, and then apply a Hanning window centered at each of these indices. Some of the following commands are redundant with commands we used previously, but they are repeated here for completeness.</p>
 
 </div>
@@ -2037,8 +2024,9 @@ However, in the time domain, the Hanning filter is far superior. The example sho
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#top">Back to Top</a></p>
-<h3 id="More-Sophisticated-Filtering">More Sophisticated Filtering<a id="advanced-filters" /><a class="anchor-link" href="#More-Sophisticated-Filtering"> </a></h3><p>In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous modules when studying the spectrum (chapters <a href="../03">3</a> and <a href="../04">4</a>). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.</p>
+<p><a href="#top">Back to Top</a>
+<a id="advanced-filters"></a></p>
+<h3 id="More-Sophisticated-Filtering">More Sophisticated Filtering<a class="anchor-link" href="#More-Sophisticated-Filtering"> </a></h3><p>In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous modules when studying the spectrum (chapters <a href="../03">3</a> and <a href="../04">4</a>). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.</p>
 <div class="warning">
 
 Do *not* use the naive rectangular filter or the Hanning filter on your data.
@@ -2456,7 +2444,7 @@ Do *not* use the naive rectangular filter or the Hanning filter on your data.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The lowpass filter alters the sharp, brief discharge in the original EEG signal (near 0.2 s) in two important ways. First, we directly observe the temporal shift introduced by the FIR filter; the peak in the filtered signal follows the large voltage deviation in the original signal by 0.05 s (<a class="fig" href="#fig:11a">figure<span><img src="imgs/6-11a.png"></span></a>). Second, the FIR filter acts to reduce and broaden the large voltage deviation in the original EEG signal, consistent with the impulse response for this filter (<a href="#fig:10a" class="fig">figure<span><img src="imgs/6-10a.png"></span></a>).</p>
+<p>The lowpass filter alters the sharp, brief discharge in the original EEG signal (near 0.2 s) in two important ways. First, we directly observe the temporal shift introduced by the FIR filter; the peak in the filtered signal follows the large voltage deviation in the original signal by 0.05 s<a class="sup" href="#fig:11a">fig<img src="imgs/6-11a.png"></a>). Second, the FIR filter acts to reduce and broaden the large voltage deviation in the original EEG signal, consistent with the impulse response for this filter<a href="#fig:10a" class="sup">fig<img src="imgs/6-10a.png"></a>).</p>
 
 </div>
 </div>
@@ -2471,7 +2459,7 @@ Do *not* use the naive rectangular filter or the Hanning filter on your data.
 
 **Q.** Why would a lowpass filter act to reduce and broaden a brief large discharge in the EEG?
 
-**A.** Consider the spectrum of a simpler time series that consists of all zeros except for a single value of 1 at some time index; for example, the simple time series we use to compute the impulse response of a filter. The corresponding spectrum will have nonzero contributions at all frequencies, i.e., representing an impulse requires a combination of sinusoids at many frequencies. Conceptually, an impulse is difficult to represent as a sum of sinusoids. A single sinusoid exists (theoretically) for all time, and we’d somehow like to use these long-duration functions to represent a brief-duration impulse. If we now eliminate some of these sinusoids (e.g., by lowpass filtering the data) we corrupt the representation of the impulse; without these sinusoids, we’re no longer able to accurately represent the sharp, brief impulse in time. Instead, we create an <a href="#fig:10a" class="fig">impulse that’s broader and shorter<span><img src="imgs/6-10a.png"></span></a>. That’s the best we can do to represent the impulse with the sinusoids we’re given, i.e., the sinusoids with frequency less than 30 Hz. In this way, the lowpass filter acts to smooth the brief large discharge in time.
+**A.** Consider the spectrum of a simpler time series that consists of all zeros except for a single value of 1 at some time index; for example, the simple time series we use to compute the impulse response of a filter. The corresponding spectrum will have nonzero contributions at all frequencies, i.e., representing an impulse requires a combination of sinusoids at many frequencies. Conceptually, an impulse is difficult to represent as a sum of sinusoids. A single sinusoid exists (theoretically) for all time, and we’d somehow like to use these long-duration functions to represent a brief-duration impulse. If we now eliminate some of these sinusoids (e.g., by lowpass filtering the data) we corrupt the representation of the impulse; without these sinusoids, we’re no longer able to accurately represent the sharp, brief impulse in time. Instead, we create an impulse that’s broader and shorter.<span class="sup">fig<img src="imgs/6-10a.png"></span> That’s the best we can do to represent the impulse with the sinusoids we’re given, i.e., the sinusoids with frequency less than 30 Hz. In this way, the lowpass filter acts to smooth the brief large discharge in time.
 
 </div>
 </div>
@@ -2483,7 +2471,7 @@ Do *not* use the naive rectangular filter or the Hanning filter on your data.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, inspection of the <a href="#fig:11c" class="fig">filtered signal <span><img src="imgs/6-11c.png"></span></a> reveals an important advantage over the naive rectangular filter. The small-amplitude 60 Hz activity produced by the naive rectangular filter does not appear in the FIR filtered data. Because the FIR filter acts more locally in time (the impulse response is finite), this filter does not produce the long-lasting temporal effects of the naive rectangular filter. We also note the clear delay induced by the FIR filter compared to the naive rectangular filter.</p>
+<p>Finally, inspection of the filtered signal<a href="#fig:11c" class="sup">fig<img src="imgs/6-11c.png"></a> reveals an important advantage over the naive rectangular filter. The small-amplitude 60 Hz activity produced by the naive rectangular filter does not appear in the FIR filtered data. Because the FIR filter acts more locally in time (the impulse response is finite), this filter does not produce the long-lasting temporal effects of the naive rectangular filter. We also note the clear delay induced by the FIR filter compared to the naive rectangular filter.</p>
 <p>In the preceding code, we applied the FIR filter by computing the convolution. To conclude this section, we introduce a function from the <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">SciPy Signal module</a> to apply the FIR filter:</p>
 
 <pre><code>xnew_lfilt = lfilter(b, 1, x)
@@ -2855,7 +2843,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In the next section, we apply these commands to complete our analysis of the EEG signal.</p>
-<p>Before completing this section, let’s briefly consider an intuitive argument to motivate the procedure for performing zero-phase filtering. Consider the impulse response for the lowpass FIR filter of order $n = 100$ we implemented <a href="#fig:10a" class="fig">previously<span><img src="imgs/6-10a.png"></span></a>. An impulse at index $k$ will result in a peak at index $k + n/2$ in the filtered signal; the first filtering operation shifts the index of the peak by $n/2$. Now, consider reversing the filtered signal. For concreteness, let’s consider the case where the impulse occurs at index 800 (i.e., k = 800) and the total length of the signal is 2,000 indices. After applying the filter, the peak will occur at index $k + n/2 = 850$. Now, reverse this filtered signal; the peak will then occur at index $2000 - 850 = 1150$. We then filter this new signal, which again shifts the index of the peak by $n/2$; the new peak then occurs at index $1150 + n/2 = 1200$. Finally, we reverse the signal once more; the peak index becomes $2000 - 1200 = 800$. Through this simple example, we gain some intuition for the zero-phase filtering process. By applying the filter twice and reversing the signal appropriately, we maintain the timing of features in the original input signal.</p>
+<p>Before completing this section, let’s briefly consider an intuitive argument to motivate the procedure for performing zero-phase filtering. Consider the impulse response for the lowpass FIR filter of order $n = 100$ we implemented previously<a href="#fig:10a" class="sup">fig<img src="imgs/6-10a.png"></a>. An impulse at index $k$ will result in a peak at index $k + n/2$ in the filtered signal; the first filtering operation shifts the index of the peak by $n/2$. Now, consider reversing the filtered signal. For concreteness, let’s consider the case where the impulse occurs at index 800 (i.e., k = 800) and the total length of the signal is 2,000 indices. After applying the filter, the peak will occur at index $k + n/2 = 850$. Now, reverse this filtered signal; the peak will then occur at index $2000 - 850 = 1150$. We then filter this new signal, which again shifts the index of the peak by $n/2$; the new peak then occurs at index $1150 + n/2 = 1200$. Finally, we reverse the signal once more; the peak index becomes $2000 - 1200 = 800$. Through this simple example, we gain some intuition for the zero-phase filtering process. By applying the filter twice and reversing the signal appropriately, we maintain the timing of features in the original input signal.</p>
 <p>Does applying the same filter twice to the signal impacts the results? Yes. Each time we apply the filter, we convolve the signal with the coefficients <code>b</code> determined here for the lowpass FIR filter. Each application changes the resulting signal. However, the additional distortion produced by filtering twice is compensated by the elimination of phase distortion.</p>
 
 </div>
