@@ -261,13 +261,19 @@ In general, a single underscore at the beginning of a variable, function or meth
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-b435a2bd5c73&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>K <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg">#Get the number of trials,</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> f<span class="ansi-blue-fg">,</span> a <span class="ansi-blue-fg">=</span> subplots<span class="ansi-blue-fg">(</span>figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">6</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">6</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Make a square axis</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> a.imshow(E1,  #... and show the image,
+<span class="ansi-green-intense-fg ansi-bold">      4</span>            extent<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span>min<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> max<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> K<span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>  <span class="ansi-red-fg"># ... with meaningful axes,</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>            aspect=&#39;auto&#39;)  # ... and a nice aspect ratio
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_8_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;E1&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -341,10 +347,28 @@ In general, a single underscore at the beginning of a variable, function or meth
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-2-d0b4f556db7d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> f<span class="ansi-blue-fg">,</span> a <span class="ansi-blue-fg">=</span> subplots<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span> figsize<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">12</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">3</span><span class="ansi-blue-fg">*</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">for</span> j <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg">     </span>a<span class="ansi-blue-fg">[</span>j<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>plot<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">,</span> E1<span class="ansi-blue-fg">[</span>j<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;b&#39;</span><span class="ansi-blue-fg">)</span>            <span class="ansi-red-fg"># Plot the data from trial j of one electrode,</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     a<span class="ansi-blue-fg">[</span>j<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>plot<span class="ansi-blue-fg">(</span>t<span class="ansi-blue-fg">,</span> E2<span class="ansi-blue-fg">[</span>j<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;r&#39;</span><span class="ansi-blue-fg">)</span>            <span class="ansi-red-fg"># ... and trial j of the other electrode.</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     a<span class="ansi-blue-fg">[</span>j<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>set_ylabel<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Trial &#39;</span> <span class="ansi-blue-fg">+</span> str<span class="ansi-blue-fg">(</span>j<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;t&#39; is not defined</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
 
 
 <div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_12_0.png"
+<img src="../images/05/the-cross-covariance-and-coherence_12_1.png"
 >
 </div>
 
@@ -461,13 +485,19 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-5fa944eaa2cb&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>dt <span class="ansi-blue-fg">=</span> t<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">-</span> t<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Define the sampling interval.</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> K <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Define the number of trials.</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> N <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Define number of points in each trial.</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> ac <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>zeros<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> N <span class="ansi-blue-fg">-</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Declare empty vector for autocov.</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_18_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;t&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -559,13 +589,19 @@ $$
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-4-daea8f30dad6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>x <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">-</span> np<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span>E1<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Define one time series,</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> y <span class="ansi-blue-fg">=</span> E2<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">-</span> np<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span>E2<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... and another.</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> xc<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">/</span>N<span class="ansi-blue-fg">*</span>np<span class="ansi-blue-fg">.</span>correlate<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span>y<span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... and compute their cross covariance.</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> lags <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>arange<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span>N<span class="ansi-blue-fg">+</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span>N<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Create a lag axis,</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> plot<span class="ansi-blue-fg">(</span>lags<span class="ansi-blue-fg">*</span>dt<span class="ansi-blue-fg">,</span>xc<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... and plot the cross covariance vs lags in time.</span>
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_22_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;E1&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -630,13 +666,15 @@ $$
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-92463dae0ccf&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>fig<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;traces&#39;</span><span class="ansi-blue-fg">]</span>
 
-
-<div class="output_png output_subarea output_execute_result">
-<img src="../images/05/the-cross-covariance-and-coherence_26_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;fig&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -724,13 +762,19 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-6-830969e15fa6&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>XC <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>zeros<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>K<span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> N <span class="ansi-blue-fg">-</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Declare empty vector for cross cov.</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> <span class="ansi-green-fg">for</span> k <span class="ansi-green-fg">in</span> range<span class="ansi-blue-fg">(</span>K<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>  <span class="ansi-red-fg"># For each trial,</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     x <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">[</span>k<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">-</span> E1<span class="ansi-blue-fg">[</span>k<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ...get data from one electrode,</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     y <span class="ansi-blue-fg">=</span> E2<span class="ansi-blue-fg">[</span>k<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">-</span> E2<span class="ansi-blue-fg">[</span>k<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ...and the other electrode,</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span>     XC<span class="ansi-blue-fg">[</span>k<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">1</span> <span class="ansi-blue-fg">/</span> N <span class="ansi-blue-fg">*</span> np<span class="ansi-blue-fg">.</span>correlate<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> y<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;full&#39;</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ...compute cross covariance.</span>
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_30_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;K&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -910,13 +954,19 @@ $$</p>
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-c953dd169811&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>T <span class="ansi-blue-fg">=</span> t<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">-</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Get the total time of the recording.</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> N <span class="ansi-blue-fg">=</span> E1<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Determine the number of sample points per trial</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> scale <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">*</span> dt<span class="ansi-blue-fg">**</span><span class="ansi-cyan-fg">2</span> <span class="ansi-blue-fg">/</span> T  <span class="ansi-red-fg"># Compute the scaling constant</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># Compute the Fourier transform for each trial</span>
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_36_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;t&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -1336,13 +1386,19 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-57f45bd5a771&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># Compute the Fourier transforms</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>xf <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>rfft<span class="ansi-blue-fg">(</span>x <span class="ansi-blue-fg">-</span> x<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> x <span class="ansi-green-fg">in</span> E1<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... for each trial in E1</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> yf <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>array<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>rfft<span class="ansi-blue-fg">(</span>y <span class="ansi-blue-fg">-</span> y<span class="ansi-blue-fg">.</span>mean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">for</span> y <span class="ansi-green-fg">in</span> E2<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># ... and each trial in E2</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg"># Compute the spectra</span>
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_61_0.png"
->
+<span class="ansi-red-fg">NameError</span>: name &#39;E1&#39; is not defined</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -1449,13 +1505,19 @@ The cross-spectrum is the Fourier transform of the cross-covariance.
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-ef0e427324e8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>j8 <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>where<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">==</span><span class="ansi-cyan-fg">8</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Determine index j for frequency 8 Hz.</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> j24 <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>where<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">==</span><span class="ansi-cyan-fg">24</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>  <span class="ansi-red-fg"># Determine index j for frequency 24 Hz.</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> phi8 <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>zeros<span class="ansi-blue-fg">(</span>K<span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Variables to hold phase differences.</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> phi24 <span class="ansi-blue-fg">=</span> np<span class="ansi-blue-fg">.</span>zeros<span class="ansi-blue-fg">(</span>K<span class="ansi-blue-fg">)</span>
 
-
-<div class="output_png output_subarea ">
-<img src="../images/05/the-cross-covariance-and-coherence_66_0.png"
->
+<span class="ansi-red-fg">IndexError</span>: index 0 is out of bounds for axis 0 with size 0</pre>
 </div>
-
 </div>
 </div>
 </div>
