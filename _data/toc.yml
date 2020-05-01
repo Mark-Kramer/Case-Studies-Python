@@ -65,12 +65,12 @@
   redirect_from: /10
 
 
-- divider: true
-- header: Appendices
-
 - title: Analysis of Spike-Field Coherence
   url: /11/spike-field-coherence
   redirect_from: /11
+
+- divider: true
+- header: Appendices
 
 - title: Backpropagation
   url: /A01/backprop
