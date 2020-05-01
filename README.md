@@ -25,6 +25,32 @@ If this is your first time working with Python, using <a href="https://conda.io/
 
 We'd like to thank all of the students, collaborators, and funders who have helped make this possible!
 
+---
+
+# Getting Started
+
+Once you have installed Anaconda or Miniconda, we recommend setting up an [environment](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) to run the notebooks. Type the following code into your terminal to create and activate an environment called `csn`. 
+
+```
+conda create env --file csn.yml
+conda activate csn
+```
+
+This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:
+
+```
+mkdir ~/.jupyter
+cp -ir assets/custom ~/.jupyter/
+mkdir -p ~/.ipython/profile_default/
+cp -ir startup ~/.ipython/profile_default/
+```
+
+Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:
+
+```
+for f in $(ls assets/custom); do echo $(assets/custom/$f) >> ~/.jupyter/custom/$f; done
+for f in $(ls startup); do echo $(startup/$f) >> ~/.ipython/profile_default/startup/$f; done
+```
 
 ---
 
