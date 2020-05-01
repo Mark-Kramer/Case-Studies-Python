@@ -110,7 +110,7 @@ show()
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
 
 </div>
-```
+
 
 ## Introduction
 
