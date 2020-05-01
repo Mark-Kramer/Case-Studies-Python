@@ -20,7 +20,7 @@ title: Case Studies in Neural Data Analysis
 author: Mark Kramer and Uri Eden
 email: mak@math.bu.edu
 description: >-
-  This is an example book built with Jupyter Books.
+
 
 baseurl: /Case-Studies-Python # the subpath of your site, e.g. /blog. If there is no subpath for your site, use an empty string ""
 url: https://mark-kramer.github.io # the base hostname & protocol for your site, e.g. http://example.com
