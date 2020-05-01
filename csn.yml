@@ -1,4 +1,4 @@
-name: csn_dev
+name: csn
 channels:
   - conda-forge
   - defaults
