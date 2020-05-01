@@ -33,16 +33,16 @@ _**Synopsis**_
 
 +++
 
-* [Introduction](#.)
+* [Introduction](#introduction)
 * [Data analysis](#data-analysis)
     1. [Visual inspection](#visual-inspection)
     2. [Examining the Interspike Intervals](#isi)
     3. [Examining Binned Spike Increments](#bsi)
-    4. [Computing autocorrelations for the Increments](#autocorrelations)
+    4. [Computing Autocorrelations for the Increments](#autocorrelations)
     5. [Computing Autocorrelations of the ISIs](#acISI)
     6. [Building Statistical Models of the ISIs](#models)
 * [Summary](#summary)
-* [Appendix: Spike Count Mean and Variance for a Poisson Process](#appendix)
+* [Appendix: Spike Count Mean and Variance for a Poisson Process](#Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process)
 
 +++
 
@@ -70,7 +70,7 @@ We develop tools in this chapter to visualize spike train data and to provide ba
 
 <a id="visual-inspection"></a>
 
-Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands:
+Our data analysis begins with visual inspection. To start, let's load the data into Python for inspection:
 
 ```{code-cell} ipython3
 # Prepare the modules and plot settings
@@ -88,7 +88,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 ```
 
 ```{code-cell} ipython3
-data = sio.loadmat('Ch8-spikes-1.mat')  # Load the ECoG data
+data = sio.loadmat('content/08/spikes-1.mat')  # Load the ECoG data
+print(data.keys())
 ```
 
 <div class="question">
@@ -101,8 +102,9 @@ data = sio.loadmat('Ch8-spikes-1.mat')  # Load the ECoG data
 
 You should find two non-private variables in the `data` dictionary:
 
-`SpikesLow`: spike times over 30 s in the low ambient light condition
-`SpikesHigh`: spike times over 30 s in the high ambient light condition
+`SpikesLow`: spike times over 30 s in the low ambient light condition,
+
+`SpikesHigh`: spike times over 30 s in the high ambient light condition.
 
 We can take these two variables from `data` so that we can work with them directly.
 
@@ -1574,7 +1576,6 @@ In this chapter, we considered the spiking activity recorded in two conditions. 
 +++
 
 [Back to Top](#top)
-<a id="appendix"></a>
 ## Appendix: Spike Count Mean and Variance for a Poisson Process
 
 In this appendix, we compute the theoretical mean $\mu$ and the theoretical variance of the spike count $\sigma^2$ for a Poisson process. Let’s compute $\mu$ using a general formula that makes use of the probability $P(k)$ of observing $k$ spikes,

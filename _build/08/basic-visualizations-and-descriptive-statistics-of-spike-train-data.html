@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /09/point-process-glms.html
 suffix: .ipynb
-search: data div lambda light x class condition spike process isi question ms model bin poisson low isis autocorrelation value q n between spiking high spikes values distribution function plot eq s lets frac bins e sum k conditions increment lag likelihood imgs png fit id activity axis probability compute fano consider not factor case vector does train interval times counts rate second xi href src span mu any neuron statistical where firing observed correlation positive l right count small variable range histogram left top here expect above visual inspection intervals difference using size f instead compare fig isislow increments structure
+search: data div lambda light x class spike condition process isi question ms model bin poisson low isis autocorrelation value q n between spiking high spikes values distribution function plot eq s lets frac bins e sum k conditions increment lag likelihood imgs png fit activity axis probability id compute fano consider not factor case vector does train interval times counts rate second xi href src span mu any neuron statistical where firing count observed correlation positive l right small variable range histogram left top inspection here expect above visual intervals difference using size f instead compare fig isislow increments structure
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -56,18 +56,18 @@ _**Synopsis**_
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
-<li><a href="#.">Introduction</a></li>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#data-analysis">Data analysis</a><ol>
 <li><a href="#visual-inspection">Visual inspection</a></li>
 <li><a href="#isi">Examining the Interspike Intervals</a></li>
 <li><a href="#bsi">Examining Binned Spike Increments</a></li>
-<li><a href="#autocorrelations">Computing autocorrelations for the Increments</a></li>
+<li><a href="#autocorrelations">Computing Autocorrelations for the Increments</a></li>
 <li><a href="#acISI">Computing Autocorrelations of the ISIs</a></li>
 <li><a href="#models">Building Statistical Models of the ISIs</a></li>
 </ol>
 </li>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#appendix">Appendix: Spike Count Mean and Variance for a Poisson Process</a></li>
+<li><a href="#Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process">Appendix: Spike Count Mean and Variance for a Poisson Process</a></li>
 </ul>
 
 </div>
@@ -95,7 +95,7 @@ _**Synopsis**_
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id="data-analysis"></a></p>
 <h2 id="Data-Analysis">Data Analysis<a class="anchor-link" href="#Data-Analysis"> </a></h2><p><a id="visual-inspection"></a></p>
-<p>Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands:</p>
+<p>Our data analysis begins with visual inspection. To start, let's load the data into Python for inspection:</p>
 
 </div>
 </div>
@@ -150,10 +150,70 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;Ch8-spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the ECoG data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;content/08/spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the ECoG data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     38</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
+<span class="ansi-green-intense-fg ansi-bold">     40</span>     <span class="ansi-green-fg">except</span> IOError<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;content/08/spikes-1.mat&#39;
+
+During handling of the above exception, another exception occurred:
+
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-12-84ac84f36707&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>data <span class="ansi-blue-fg">=</span> sio<span class="ansi-blue-fg">.</span>loadmat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;content/08/spikes-1.mat&#39;</span><span class="ansi-blue-fg">)</span>  <span class="ansi-red-fg"># Load the ECoG data</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>data<span class="ansi-blue-fg">.</span>keys<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">loadmat</span><span class="ansi-blue-fg">(file_name, mdict, appendmat, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    214</span>     &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">    215</span>     variable_names <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;variable_names&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">with</span> _open_file_context<span class="ansi-blue-fg">(</span>file_name<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> f<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    217</span>         MR<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> mat_reader_factory<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    218</span>         matfile_dict <span class="ansi-blue-fg">=</span> MR<span class="ansi-blue-fg">.</span>get_variables<span class="ansi-blue-fg">(</span>variable_names<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/contextlib.py</span> in <span class="ansi-cyan-fg">__enter__</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    110</span>         <span class="ansi-green-fg">del</span> self<span class="ansi-blue-fg">.</span>args<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>kwds<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>func
+<span class="ansi-green-intense-fg ansi-bold">    111</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 112</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>gen<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    113</span>         <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    114</span>             <span class="ansi-green-fg">raise</span> RuntimeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;generator didn&#39;t yield&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> <span class="ansi-green-fg">None</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file_context</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-blue-fg">@</span>contextmanager
+<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-green-fg">def</span> _open_file_context<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;rb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>f<span class="ansi-blue-fg">,</span> opened <span class="ansi-blue-fg">=</span> _open_file<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     20</span>     <span class="ansi-green-fg">yield</span> f
+<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">if</span> opened<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     43</span>             <span class="ansi-green-fg">if</span> appendmat <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> file_like<span class="ansi-blue-fg">.</span>endswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;.mat&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     44</span>                 file_like <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">&#39;.mat&#39;</span>
+<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     47</span>             <span class="ansi-green-fg">raise</span> IOError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Reader needs file name or open file-like object&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;content/08/spikes-1.mat&#39;</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -179,8 +239,8 @@ _**Synopsis**_
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You should find two non-private variables in the <code>data</code> dictionary:</p>
-<p><code>SpikesLow</code>: spike times over 30 s in the low ambient light condition
-<code>SpikesHigh</code>: spike times over 30 s in the high ambient light condition</p>
+<p><code>SpikesLow</code>: spike times over 30 s in the low ambient light condition,</p>
+<p><code>SpikesHigh</code>: spike times over 30 s in the high ambient light condition.</p>
 <p>We can take these two variables from <code>data</code> so that we can work with them directly.</p>
 
 </div>
@@ -3399,8 +3459,7 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#top">Back to Top</a>
-<a id="appendix"></a></p>
+<p><a href="#top">Back to Top</a></p>
 <h2 id="Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process">Appendix: Spike Count Mean and Variance for a Poisson Process<a class="anchor-link" href="#Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process"> </a></h2><p>In this appendix, we compute the theoretical mean $\mu$ and the theoretical variance of the spike count $\sigma^2$ for a Poisson process. Let’s compute $\mu$ using a general formula that makes use of the probability $P(k)$ of observing $k$ spikes,
 <a id="eq:15"></a></p>
 $$
