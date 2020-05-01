@@ -7,7 +7,7 @@ prev_page:
 next_page:
   url: /01/introduction-to-python.html
 suffix: .md
-search: python case org studies data href binder mark kramer conda running code here mybinder material get interact start browser click working v gh master filepath very git textbook neural analysis matlab examples neuronal e g students main concepts directly possible useful notebooks jupyter choice read execute any easy ul lia li io docs user guide install index htmlconda using software quick reading badge svg content select section ipynb file much work progress repository github com companion mitpress mit edu books uri eden analyze similar except instead our intended audience practicing neuroscientist researchers clinicians collecting hospital lab pretty math heavy weve
+search: python case conda org studies data f run href jupyter code binder mark kramer notebooks custom startup running here mybinder material get concepts interact files io docs user guide environment following csn assets ipython profiledefault start browser click working v gh master filepath file very git textbook neural analysis matlab examples neuronal e g students main directly possible useful choice read execute any want notebook easy installed ul lia li install index htmlconda using recommend miniconda version software anaconda needed terminal create activate mkdir cp ir ls echo done quick reading badge svg content select section ipynb much work progress
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -33,6 +33,21 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
   <li><a href="https://conda.io/docs/user-guide/install/index.html">Conda</a></li>
 </ul><p>If this is your first time working with Python, using <a href="https://conda.io/docs/user-guide/install/index.html">conda</a> is probably a good choice. Conda is a package and environment manager that makes it really easy to get up and running in Python. In particular, we recommend installing Miniconda - a light version of the software distribution Anaconda - and using conda to add software as needed.</p>
 <p>We'd like to thank all of the students, collaborators, and funders who have helped make this possible!</p>
+<hr>
+<h1 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started"> </a></h1><p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code>csn</code>.</p>
+
+<pre><code>conda create env --file csn.yml
+conda activate csn</code></pre>
+<p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
+
+<pre><code>mkdir ~/.jupyter
+cp -ir assets/custom ~/.jupyter/
+mkdir -p ~/.ipython/profile_default/
+cp -ir startup ~/.ipython/profile_default/</code></pre>
+<p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
+
+<pre><code>for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
+for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done</code></pre>
 
 </div>
 </div>
