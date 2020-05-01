@@ -88,7 +88,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 ```
 
 ```{code-cell} ipython3
-data = sio.loadmat('content/08/spikes-1.mat')  # Load the ECoG data
+data = sio.loadmat('spikes-1.mat')  # Load the ECoG data
 print(data.keys())
 ```
 
