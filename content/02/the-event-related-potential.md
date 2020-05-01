@@ -40,14 +40,12 @@ _**Synopsis**_
     * [Confidence Intervals for the ERP (Method 2)](#cis-m2)
     * [A Bootstrap Test to Compare ERPs](#bootstrap)
 * [Summary](#summary)
-    
-    
 
 +++
 
 Before we start any computations, let's import some modules and functions that we will use throughout the chapter. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning. 
 
-You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, we would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first. 
+You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, we would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first.
 
 ```{code-cell} ipython3
 from scipy.io import loadmat       # Import function to read data.
@@ -279,7 +277,7 @@ savefig('imgs/2-2a')
 show()
 ```
 
-Visualizing the data in this way, we immediately notice many features. First, let’s consider the axes. The horizontal axis extends from 0 to (nearly) 500. This corresponds to the 500 columns in the variable `EEGa`. While this visualization is useful, it would be more informative to plot the EEG data as a function of time rather than indices. Fortunately, we possess a variable `t` in the workspace that corresponds to the time axis. Determining the size of the variable `t`, we find it is a vector with 1 row and 500 columns. Each column corresponds to a point in time. 
+Visualizing the data in this way, we immediately notice many features. First, let’s consider the axes. The horizontal axis extends from 0 to (nearly) 500. This corresponds to the 500 columns in the variable `EEGa`. While this visualization is useful, it would be more informative to plot the EEG data as a function of time rather than indices. Fortunately, we possess a variable `t` in the workspace that corresponds to the time axis. Determining the size of the variable `t`, we find it is a vector with 1 row and 500 columns. Each column corresponds to a point in time.
 
 +++
 
@@ -327,7 +325,7 @@ savefig('imgs/2-2b')
 show()
 ```
 
-This plot provides a nice summary of the data in the first trial of condition A. Visual inspection of the plot suggests that these data exhibit complicated activity. We know from our collaborator that the stimulus occurs at time 0.25 s in each trial. Note how we indicated this time as a vertical line in the plot above. This command includes additional options that make the line black (`'k'`) and a bit wider (`lw=2`). 
+This plot provides a nice summary of the data in the first trial of condition A. Visual inspection of the plot suggests that these data exhibit complicated activity. We know from our collaborator that the stimulus occurs at time 0.25 s in each trial. Note how we indicated this time as a vertical line in the plot above. This command includes additional options that make the line black (`'k'`) and a bit wider (`lw=2`).
 
 +++
 
@@ -487,7 +485,7 @@ This conclusion—that the ERP at each moment in time is approximately normally 
 
 +++
 
-Here's a plot of the canonical normal distribution showing the mean (dotted vertical line) and standard deviation (blue). Ninety-five percent of values lie within the interval indicated by the red bar. 
+Here's a plot of the canonical normal distribution showing the mean (dotted vertical line) and standard deviation (blue). Ninety-five percent of values lie within the interval indicated by the red bar.
 
 +++
 
@@ -616,7 +614,7 @@ We find three time intervals at which the confidence intervals of the ERP do not
 
 +++
 
-In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate *differences* between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions). 
+In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate *differences* between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions).
 
 ```{code-cell} ipython3
 from my_module import ERP  # A function written by the author to compute the ERP
@@ -968,7 +966,6 @@ Then, as before, we define the function `bootstrapStat` which performs the opera
 YouTubeVideo('iefCPGHd5vY')
 # NO CODE
 ```
-
 
 <img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png" height="20" width="600">
 

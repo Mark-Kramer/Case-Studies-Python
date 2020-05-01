@@ -9,7 +9,10 @@ help:
 	@echo "  serve       to serve the repository locally with Jekyll"
 	@echo "  build       to build the site HTML and store in _site/"
 	@echo "  site 		 to build the site HTML, store in _site/, and serve with Jekyll"
+	@echo "  sync_md     to sync content in ipynb files from md files"
 
+sync_md:
+	./scripts/sync_md.sh
 
 install:
 	jupyter-book install ./

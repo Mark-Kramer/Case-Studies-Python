@@ -114,12 +114,10 @@ The right hand side of our equation is nearly defined, but we're still missing o
 
 +++
 
-<div class="question">
-
-**Q:**  What value do we assign to $V(t)$?
+<div class="alert alert-block alert-info">
+**Q:**  What value do we assign to $V(t)$?<br><br>
 
 **A:**  We don't know --- that's why we're running the simulation in the first place!
-
 </div>
 
 +++
@@ -141,7 +139,7 @@ Let's choose an initial value for `V` of 0.2, which in our simple model we'll as
 V[0]=0.2
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**  Given the initial state `V[0]=0.2`, calculate `V[1]`.  Then calcualte `V[2]`.
 
@@ -166,18 +164,14 @@ for k in range(1,999):
     V[k+1] = V[k] + dt*(I/C)
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  Does this loop make sense?  Describe what's happening here.
-
 </div>
 
 +++
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  Why does the `range` command end at `999`?
-
 </div>
 
 +++
@@ -189,14 +183,11 @@ plt.figure()
 plt.plot(V);
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  What happens to the voltage after 1000 steps?
-
 </div>
 
 +++
-
 
   This plot is informative, but not great.  Really, we'd like to plot the
   voltage as a function of *time*, not steps or indices.  To do so, we
@@ -206,10 +197,8 @@ plt.plot(V);
 t = np.arange(0,len(V))*dt
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  What's happening in the command above?  Does it make sense?  (If not, trying printing or plotting `t`.)
-
 </div>
 
 +++
@@ -263,10 +252,8 @@ plt.xlabel('Time [s]')
 plt.ylabel('Voltage [mV]');
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  Adjust the parameter `I`.  What happens to `V` if `I=0`?  Can you set `I` so that `V` > 20 within 10 s?
-
 </div>
 
 +++
@@ -331,24 +318,18 @@ plt.xlabel('Time [s]')
 plt.ylabel('Voltage [mV]');
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** Adjust the parameter `I`.  What happens to `V` if `I=10`?  If `I=100`?
-
 </div>
 
 +++
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** Adjust the parameter `C`.  What happens to `V` if `C=0.1`?  If `C=10`?
-
 </div>
 
 +++
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** What is "spiking" in this I&F model?
-
 </div>

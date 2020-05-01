@@ -115,7 +115,7 @@ In this notebook, we continue to develop understanding of the Fourier transform 
 <a id="data-analysis"></a>
 ## Data analysis
 
-As always, we begin by looking at the data. Let's load the ECoG data into Python and plot it by issuing the following commands: 
+As always, we begin by looking at the data. Let's load the ECoG data into Python and plot it by issuing the following commands:
 
 ```{code-cell} ipython3
 data = sio.loadmat('ECoG-1.mat')  # Load the ECoG data
@@ -501,7 +501,7 @@ In the code above we first define the sampling frequency and then create the two
 
 We have considered so far a single type of taper (the default, a rectangular taper) and its impact on the spectrum. In particular, we noted the “smearing” of spectral peaks (i.e., side lobes) that impact neighboring frequency bands. At best these side lobes are distracting, and at worst they may contaminate our conclusions. For example, consider the spectrum for the 1 s of ECoG data.<span class="sup">fig<img src="imgs/4-2b.png"></span> Is the small peak near 10 Hz representative of a true rhythm in these data, or is it a side lobe of the large peak near 6 Hz? Many different taper shapes have been developed with the goal of reducing the side lobes that contaminate the signals. Here we consider one of these tapers, the *Hanning taper*.
 
-The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies,<span class="sup">fig<img src="imgs/4-6.png"></span> which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper. 
+The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies,<span class="sup">fig<img src="imgs/4-6.png"></span> which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper.
 
 ```{code-cell} ipython3
 padding       = np.zeros(5000)                                        # Create 5000 pts of zeros for padding.

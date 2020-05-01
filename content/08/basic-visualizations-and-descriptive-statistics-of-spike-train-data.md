@@ -70,7 +70,7 @@ We develop tools in this chapter to visualize spike train data and to provide ba
 
 <a id="visual-inspection"></a>
 
-Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands: 
+Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands:
 
 ```{code-cell} ipython3
 # Prepare the modules and plot settings
@@ -545,7 +545,6 @@ xlabel('ISI [s]')              # ... label the x-axis
 ylabel('Counts')               # ... and the y-axis
 title('High-light')            # ... give the plot a title
 plt.show()
-savefig('imgs/8-5')
 ```
 
 <div class="question">
@@ -736,8 +735,6 @@ For the 50 ms binned spikes in the low-light condition, we obtained a sample Fan
 
 The preceding results are somewhat unsatisfying. We claimed that in the low-light condition, the calculated Fano factor of 0.72 was well below 1. What if, instead, we calculated a Fano factor of 0.8; is that well below 1? Is a Fano factor of 0.9 well below 1? These questions highlight an important issue when drawing a conclusion from a Fano factor calculation: How far above or below the value of 1 does the calculated Fano factor have to be before we are confident that there is really a statistically significant difference in the variability from a Poisson process? After all, even if we had spiking from a true Poisson process, from one experiment to the next we would expect to find different values for the increments, and values for the sample Fano factor that fluctuate slightly above and below 1. Fortunately, a bit of statistical theory can help us out. It can be shown that the distribution of Fano factors that we might compute from a Poisson process follows a gamma distribution with shape parameter $(N - 1)/2$ and scale parameter
 $2/(N - 1)$, where $N$ is the number of time bins used in the Fano factor calculation [[Eden & Kramer, 2010](https://doi.org/10.1016/j.jneumeth.2010.04.012)].
-
-
 
 +++
 
@@ -933,7 +930,7 @@ What is the sign (positive or negative) and relative size of the numerator of th
 
 +++
 
-Let’s return to the spike train data of interest here, recorded in the low- and high-light conditions. For the corresponding spike train increments, the autocorrelation at a particular lag describes the relation between the spike counts in different bins separated by that lag. The autocorrelation function describes the autocorrelation across a range of lags over which we are interested. Given our visualizations of the ISI histograms<a href="#fig:8-5" class="sup">fig<img src="imgs/8-5.png"></a>, we might expect relations between spiking events to extend up to 200 ms.
+Let’s return to the spike train data of interest here, recorded in the low- and high-light conditions. For the corresponding spike train increments, the autocorrelation at a particular lag describes the relation between the spike counts in different bins separated by that lag. The autocorrelation function describes the autocorrelation across a range of lags over which we are interested. Given our visualizations of the ISI histograms (<a href="#fig:8-5" class="fig">figure<span><img src="imgs/8-5.png"></span></a>), we might expect relations between spiking events to extend up to 200 ms.
 
 Let’s compute the autocorrelation for increment processes deduced from the spike train data in the low-light condition. We compute the autocorrelation of the 50 ms increment process for lags ranging from 0 to 200 ms. We need only three lags to cover this range; lag 1 covers 50–100 ms, lag 2 covers 100–150 ms, and lag 3 covers 150–200 ms. We can define a function to compute the autocorrelation using the function `correlate()` from the NumPy module:
 
@@ -1053,11 +1050,12 @@ plt.xlim([0, 100])                                       # ... and set the plot 
 plt.ylim([-.1, .1])
 xlabel('Time [ms]')
 ylabel('Autocorrelation')
-savefig('imgs/8-12')
 show()
 ```
 
 <div class="question">
+
+
     
 **Q.** Consider the autocorrelation of the spike train data in the high-light condition shown above. What do you observe? How do the autocorrelations differ in the two conditions?
 
@@ -1084,10 +1082,9 @@ show()
 
 The results suggest significant differences in the autocorrelation between the two conditions at intermediate time lags (at approximately 2–50 ms). These are the same time lags we identified with bursting activity in the high-light condition. This suggests that the neuron fires with more intermediate ISIs in the bursting range in the high-light condition.
 
-[Back to top](#top)
-
 +++
 
+[Back to top](#top)
 <a id="acISI"></a>
 ### Computing Autocorrelations of the ISIs
 
@@ -1108,7 +1105,6 @@ plt.xlim([0, 20])
 plt.ylim([-.2, .2])
 xlabel('Lags')
 ylabel('Autocorrelation')
-savefig('imgs/8-14')
 show()
 ```
 
@@ -1129,7 +1125,7 @@ We see that the autocorrelation function has just a few isolated lags that are o
 <a id="models"></a>
 ### Building Statistical Models of the ISIs
 
-In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms<a href="#fig:8-12" class="sup">fig<img src="imgs/8-12.png"></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike<a href="#fig:8-14" class="sup">fig<img src="imgs/8-14.png"></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [[Hodgkin & Huxley, 1952](https://doi.org/10.1113/jphysiol.1952.sp004764)]. The notion of a model can be confusing and is audience dependent, so we clarify here.
+In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [[Hodgkin & Huxley, 1952](https://doi.org/10.1113/jphysiol.1952.sp004764)]. The notion of a model can be confusing and is audience dependent, so we clarify here.
 
 To construct a statistical model for these data we assume that the ISIs are independent samples from some unknown distribution. We typically posit some class of distributions from which the data might arise, and identify the one distribution in that class that maximizes the chance of observing the actual data.
 
@@ -1165,7 +1161,7 @@ where $\lambda$ is the rate parameter for the Poisson process.
 
 +++
 
-Our goal is to find a good value of $\lambda$ so that our statistical model<a href="#eq:7" class="sup">eq<img src="imgs/eq7.png"></a> matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model,<a href="#eq:7" class="sup">eq<img src="imgs/eq7.png"></a> and see how well the model matches the data. We plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:
+Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. We plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:
 
 ```{code-cell} ipython3
 bins = np.arange(0, .5, 0.001)           # Define 1 ms bins for histogram,
@@ -1179,7 +1175,7 @@ ylabel('Probability')
 show()
 ```
 
-Now, on the same figure, let's choose a value for $\lambda$ and plot the statistical model:<a href="#eq:7" class="sup">eq<img src="imgs/eq7.png"></a>
+Now, on the same figure, let's choose a value for $\lambda$ and plot the statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>):
 
 ```{code-cell} ipython3
 l = 5                                    # Choose a value for lambda,
@@ -1188,7 +1184,7 @@ ax.plot(bins, model, 'g')                # ... and plot the model in green
 fig
 ```
 
-In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical model at each time bin. We’ve also scaled the statistical model by a factor of 0.001 to match the 1 ms bin size, and plotted the model on top of the empirical ISI probability distribution. 
+In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical model at each time bin. We’ve also scaled the statistical model by a factor of 0.001 to match the 1 ms bin size, and plotted the model on top of the empirical ISI probability distribution.
 
 +++
 
@@ -1198,10 +1194,9 @@ In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical mode
 
 </div>
 
-
 +++
 
-The process of guessing values of $\lambda$ and comparing the model<a href="#eq:7" class="sup">eq<img src="imgs/eq7.png"></a> to the empirical ISI distribution is not satisfying. How do we identify the parameter $\lambda$ that best fits the observed ISI distribution? We now consider a procedure to do so. Our goal is to find the value of $\lambda$ that maximizes the likelihood of the data given the statistical model;<a href="#eq:7" class="sup">eq<img src="imgs/eq7.png"></a> this value of $\lambda$ will be the best fit of the model to the data. To implement this procedure, let’s consider the probability density of observing a sequence of ISIs, $x_1, x_2, ..., x_n$. If we assume that the ISIs are independent, then the probability density is
+The process of guessing values of $\lambda$ and comparing the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) to the empirical ISI distribution is not satisfying. How do we identify the parameter $\lambda$ that best fits the observed ISI distribution? We now consider a procedure to do so. Our goal is to find the value of $\lambda$ that maximizes the likelihood of the data given the statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>); this value of $\lambda$ will be the best fit of the model to the data. To implement this procedure, let’s consider the probability density of observing a sequence of ISIs, $x_1, x_2, ..., x_n$. If we assume that the ISIs are independent, then the probability density is
 <a id="eq:8"></a>
 
 $$
@@ -1215,7 +1210,7 @@ $$
 
 We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$ , multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$, multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$, and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.
 
-When considered as a function of the unknown parameters, the joint distribution of the data<a href="#eq:8" class="sup">eq<img src="imgs/eq8.png"></a>) is also called the *likelihood*. In this case, we write
+When considered as a function of the unknown parameters, the joint distribution of the data (<a href="#eq:8" class="thumb">8<span><img src="imgs/eq8.png"></span></a>) is also called the *likelihood*. In this case, we write
 <a id="eq:9"></a>
 
 $$
@@ -1233,7 +1228,6 @@ L = lambdas ** N3 * np.exp(-lambdas * sum(ISIsLow))  # Compute the likelihood,
 plot(lambdas, L)         # ... and plot it
 xlabel('$\lambda$')
 ylabel('Likelihood')
-savefig('imgs/8-16')
 show()
 ```
 
@@ -1256,13 +1250,12 @@ l = N3 * np.log(lambdas) - lambdas * sum(ISIsLow)  # Compute the log likelihood,
 plot(lambdas, l)       # ... and plot it.
 xlabel('$\lambda$')
 ylabel('Log likelihood')
-savefig('imgs/8-17')
 show()
 ```
 
 <div class="question">
 
-**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$<a href="#eq:9" class="sup">eq.<img src="imgs/eq9.png"></a>? *Hint*: It should. Remember $\log(x^a)=a \log x$, and $\log(e^b)=b$.
+**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$ (<a href="#eq:9" class="thumb">eq.<span><img src="imgs/eq9.png"></span></a>)? *Hint*: It should. Remember $\log(x^a)=a \log x$, and $\log(e^b)=b$.
 
 </div>
 
@@ -1270,7 +1263,7 @@ show()
 
 We see that the log likelihood is low for small $\lambda$, rises quickly as $\lambda$ increases, and then starts to fall off once $\lambda$ becomes larger than $\approx$ 25. The point $\lambda$ = 25, where the log likelihood is maximized, is called the maximum likelihood estimate of $\lambda$. We use the symbol $\hat\lambda$ to denote the maximum likelihood estimate of $\lambda$.
 
-We observe that although the values of the likelihood go beyond the precision range in Python, the peak in the log likelihood stands out very clearly. Note that the likelihood<a href="#fig:8-16" class="sup">fig<img src="imgs/8-16.png"></a> is maximized at the same point as the log likelihood<a href="#fig:8-17" class="sup">fig<img src="imgs/8-17.png"></a>). This is always true.
+We observe that although the values of the likelihood go beyond the precision range in Python, the peak in the log likelihood stands out very clearly. Note that the likelihood (<a href="#fig:8-16" class="fig">figure<span><img src="imgs/8-16.png"></span></a>) is maximized at the same point as the log likelihood (<a href="#fig:8-17" class="fig">figure<span><img src="imgs/8-17.png"></span></a>). This is always true.
 
 +++
 
@@ -1282,7 +1275,7 @@ We observe that although the values of the likelihood go beyond the precision ra
 
 +++
 
-We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates. 
+We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.
 
 +++
 
@@ -1591,7 +1584,8 @@ $$
 \mu = \sum_{k=1}^\infty k P(k).
 $$
 
-Replacing $P(k)$ with the expression for a Poisson distribution<a href="#eq:6" class="sup">eq<img src="imgs/eq6.png"></a>)
+Replacing $P(k)$ with the expression for a Poisson distribution 
+(<a href="#eq:6" class="thumb">eq.<span><img src="imgs/eq6.png"></span></a>)
 , we find
 
 $$

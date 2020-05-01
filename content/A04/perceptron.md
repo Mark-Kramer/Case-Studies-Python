@@ -49,22 +49,21 @@ def my_perceptron(input1, input2, w1, w2, theta):
         return 0
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
-**Q:** How many inputs does the function take?  How many outputs does it return?
+**Q:** How many inputs does the function take?  How many outputs does it return?<p></p>
 
-**Q:** Looking at this code, could you sketch a model of this perceptron?
+**Q:** Looking at this code, could you sketch a model of this perceptron?<p></p>
 
-**Q:** Apply this function to different sets of inputs. Consider,
+**Q:** Apply this function to different sets of inputs. Consider,<p></p>
 
-  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = 0`
+  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = 0`<p></p>
 
-  and
+  and<p></p>
 
-  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = -1`
+  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = -1`<p></p>
 
   What do you find?
-
 </div>
 
 +++
@@ -112,22 +111,22 @@ def known_answer(slope, intercept, x, y):
       return 0
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
-**Q:** Consider the (x,y) point,
+**Q:** Consider the (x,y) point,<p></p>
 
-`x,y = 0.7,3` 
+`x,y = 0.7,3` <p></p>
 
-and the line with slope and intercept, 
+and the line with slope and intercept, <p></p>
 
-`slope = 2`
-`intercept = 1`
+`slope = 2` <br></br>
+`intercept = 1`<p></p>
 
-Is the (x,y) point above or below the line?
+Is the (x,y) point above or below the line?<p></p>
+<br>
 
 
 **A:** To answer this, let's ask our function,
-
 </div>
 
 ```{code-cell} ipython3
@@ -138,12 +137,11 @@ correct_answer = known_answer(slope, intercept, x, y)
 print(correct_answer)
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
-**A (Continued):** We find a `correct_answer` of 1.
+**A (Continued):** We find a `correct_answer` of 1.<p></p>
 
 So, the point `(x,y)=(0.7,3)` is above the line with slope 2 and intercept 1.
-
 </div>
 
 +++
@@ -185,17 +183,16 @@ And this function returns one output:
 
 +++
 
-<div class="question">
+<div class="alert alert-block alert-info">
+**Q:**  Again consider the (x,y) point, <p></p>
 
-**Q:**  Again consider the (x,y) point, 
+`x,y = 0.7,3` <p></p>
 
-`x,y = 0.7,3` 
+and set initial values for the perceptron weights. Let's just set these all to 0.5;  our goal in the rest of this module will be to train the perceptron by adjusting these weights.  But for now,<p></p>
 
-and set initial values for the perceptron weights. Let's just set these all to 0.5;  our goal in the rest of this module will be to train the perceptron by adjusting these weights.  But for now,
+`wx,wy,wb = 0.5` <p></p>
 
-`wx,wy,wb = 0.5` 
-
-Then, ask the perceptron for it's guess for it's guess, is the point above or below the line?
+Then, ask the perceptron for it's guess for it's guess, is the point above or below the line?<p></p>
 
 </div>
 
@@ -206,9 +203,10 @@ perceptron_guess = feedforward(x, y, wx, wy, wb)
 print(perceptron_guess)
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
-**A (Continued):** We find a `peceptron_guess` of 1.
+**A (Continued):** We find a `peceptron_guess` of 1.<br>
+<p>
 
 So, the perceptron guesses that the point `(x,y)=(0.7,3)` is above the line.
 
@@ -231,10 +229,8 @@ error = correct_answer - perceptron_guess
 print(error)
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  What do you find for the `error`? Does it make sense?
-
 </div>
 
 +++
@@ -265,10 +261,8 @@ Notice that, in the update to `wb` we use the fact that the bias equals 1.
 
 +++
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  What do you find for the new weights? Does it make sense?
-
 </div>
 
 +++

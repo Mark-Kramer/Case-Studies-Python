@@ -53,10 +53,8 @@ w1 = 1
 w2 = 0.5
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:**  Why choose these weights?
-
 </div>
 
 Then, in backpropagation, we'll update these weights so that our neural
@@ -141,10 +139,9 @@ w2 = w2 - alpha*(out-target)*s2
 w1 = w1 - alpha*(out-target)*(w2*s2*(1-s2)*s1)
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**  Do these two expressions match the equations for the weight updates we derived in class?  HINT: They should!
-
 </div>
 
 +++
@@ -155,10 +152,8 @@ We need one more expression, to update the last weight, w0.
 w0 = '????????'  # <-- Fill in the proper expression
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** What is the expression for `w0` in the equation above?
-
 </div>
 
 +++

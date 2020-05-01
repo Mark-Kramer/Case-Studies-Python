@@ -207,7 +207,7 @@ savefig('imgs/6-2')
 show()
 ```
 
-Notice that in the second line of code, we remove the mean from the single trial of data. This is not always necessary but often useful; we are usually most interested in the rhythmic behavior of the EEG activity, not the changes in the mean signal. 
+Notice that in the second line of code, we remove the mean from the single trial of data. This is not always necessary but often useful; we are usually most interested in the rhythmic behavior of the EEG activity, not the changes in the mean signal.
 
 +++
 
@@ -392,7 +392,7 @@ With the frequency axis defined, let’s now identify the indices corresponding 
 indices = (abs(faxis) >= 59) & (abs(faxis) <= 61)
 ```
 
-In words, we find the indices where the absolute value of the frequency is between 59 and 61 (i.e., within 1 Hz of the target frequency, 60 Hz). 
+In words, we find the indices where the absolute value of the frequency is between 59 and 61 (i.e., within 1 Hz of the target frequency, 60 Hz).
 
 +++
 
@@ -569,7 +569,7 @@ savefig('imgs/6-6b.png')
 fig
 ```
 
-Although these fluctuations are small, we notice that they persist across all time indices examined. By focusing both the vertical and horizontal range, we observe that these fluctuations are periodic, with a period of 60 Hz. 
+Although these fluctuations are small, we notice that they persist across all time indices examined. By focusing both the vertical and horizontal range, we observe that these fluctuations are periodic, with a period of 60 Hz.
 
 ```{code-cell} ipython3
 ax.set_xlim([-.1, .1])

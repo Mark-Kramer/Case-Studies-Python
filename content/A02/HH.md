@@ -67,7 +67,7 @@ import inspect
 inspect.getsourcelines(HH)
 ```
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**  Examine this code.  Can you make sense of it?  Can you identify the
 gating variables?  The rate functions?  The equations that define the dynamics?
@@ -117,7 +117,7 @@ Notice that the function returns five outputs, which we assign to the variables 
 
 +++
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**  What are the dynamics of the voltage (variable `V`) resulting
 from this simulation?<br>
@@ -127,7 +127,7 @@ HINT:  Plot `V` vs `t`.
 
 +++
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**   What are the dynamics of the gating variables (`m`, `h`, `n`)
 resulting from this simulation?<br>
@@ -137,7 +137,7 @@ HINT:  Plot them!
 
 +++
 
-<div class="question">
+<div class="alert alert-block alert-info">
 
 **Q:**  What are the final values (after the 100 ms of simulation) of
 `V`, `m`, `h`, and `n`?
@@ -166,12 +166,9 @@ We can now simulate this model,
 [V,m,h,n,t] = HH(I0,T0)
 ```
 
-<div class="question">
-
-**Q:**  What happens to the dynamics?
-
+<div class="alert alert-block alert-info">
+**Q:**  What happens to the dynamics?<br>
 HINT:  Plot V vs t.
-
 </div>
 
 +++
@@ -208,7 +205,6 @@ plt.ylabel('V [mV]');
   colored the curve black).  Let's now plot the three gating variables.
   To do so, we'll move to the next subplot,
 
-
 ```{code-cell} ipython3
 plt.subplot(212);
 ```
@@ -240,10 +236,8 @@ Now, let's add a legend to help us keep track of the different curves,
 plt.legend();
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** Using the figure you created above, describe how the gates swing open and closed during a spike.
-
 </div>
 
 +++
@@ -294,10 +288,8 @@ gL0  = 0.3
 gL   = gL0*np.ones(np.shape(gK))   # Leak conductance
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** Where do these terms come from?
-
 </div>
 
 +++
@@ -315,10 +307,8 @@ plt.ylabel('mS/cm^2')               #... and label the y-axis.
 plt.legend();                       #... make a legend.
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** How do the conductances evolve during a spike?
-
 </div>
 
 +++
@@ -332,7 +322,6 @@ plt.legend();                       #... make a legend.
   
   
   Now, to plot the *current*, let's define the new variables,
-
 
 ```{code-cell} ipython3
 gNa0 = 120
@@ -355,16 +344,12 @@ plt.ylabel('mA/cm^2')              #... and label the y-axis.
 plt.legend();                      #... make a legend.
 ```
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** How do the conductances evolve during a spike?
-
 </div>
 
 +++
 
-<div class="question">
-
+<div class="alert alert-block alert-info">
 **Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
-
 </div>

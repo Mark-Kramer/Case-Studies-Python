@@ -240,7 +240,7 @@ ylabel('Voltage [$\mu V$]')
 show()
 ```
 
-Although the true brain signal may evolve as a continuous voltage trace in time, we do not observe this true signal. Instead, we observe a discrete sampling of this signal in time. The spacing between these samples is determined by the recording device collecting the EEG data. In this case, our collaborator has told us that the data are sampled at 1000 Hz, which corresponds to a sample of data every 1 ms. So, we observe not the (presumably) continuous true voltage signal, but instead discrete samples of this signal in time. 
+Although the true brain signal may evolve as a continuous voltage trace in time, we do not observe this true signal. Instead, we observe a discrete sampling of this signal in time. The spacing between these samples is determined by the recording device collecting the EEG data. In this case, our collaborator has told us that the data are sampled at 1000 Hz, which corresponds to a sample of data every 1 ms. So, we observe not the (presumably) continuous true voltage signal, but instead discrete samples of this signal in time.
 
 ```{code-cell} ipython3
 YouTubeVideo('W9BTYZM8yzs')
@@ -657,7 +657,7 @@ Now, consider the case in which we purchase a cheaper piece of equipment that sa
 
 <a id="fig:3.11mid"><img src="imgs/3-11mid.png" title="A sinusoid oscillating at the Nyquist frequency. In this case we collect two samples per cycle of the underlying true signal." alt="Sampling a sinusoid at double the oscillation frequency."></a>
 
-In this case, we collect two samples per cycle of the underlying true signal. Given only these sample points, we can connect the dots and still approximate the frequency fo the true underlying sinusoid. 
+In this case, we collect two samples per cycle of the underlying true signal. Given only these sample points, we can connect the dots and still approximate the frequency fo the true underlying sinusoid.
 
 +++
 
@@ -854,7 +854,7 @@ savefig('imgs/3-14')
 show()
 ```
 
-We supplied four arguments to the `spectrogram` function. Briefly, these arguments specify the data, the sampling frequency, the interval size (specified in indices and here set to 1 s), and the overlap between intervals (here set to 95%). More information about these options can be found in the documentation (`signal.spectrogram?`). Notice that we used `int` to enforce integer values for three of these inputs.  
+We supplied four arguments to the `spectrogram` function. Briefly, these arguments specify the data, the sampling frequency, the interval size (specified in indices and here set to 1 s), and the overlap between intervals (here set to 95%). More information about these options can be found in the documentation (`signal.spectrogram?`). Notice that we used `int` to enforce integer values for three of these inputs.
 
 +++
 
@@ -922,7 +922,7 @@ This is a biased estimate of the true autocovariance. To compute an *unbiased* m
 $$r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).$$
 
 
-To examine the difference in the biased versus the unbiased autocovariance, let's compute both for the EEG data over a broad interval of lags. 
+To examine the difference in the biased versus the unbiased autocovariance, let's compute both for the EEG data over a broad interval of lags.
 
 ```{code-cell} ipython3
 # Import the data
@@ -1042,7 +1042,7 @@ We note that, for the EEG data of interest here, the unbiased estimator outperfo
 
 ---
 <a id=supplement-psd></a>
-## Intuition behind the power spectral density 
+## Intuition behind the power spectral density
 
 +++
 
@@ -1164,7 +1164,7 @@ Above, we plotted these products over time. Because each product alternates betw
 
 +++
 
-In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly. 
+In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly.
 
 ```{code-cell} ipython3
 fj = 10                                # Set the frequency
