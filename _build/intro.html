@@ -36,17 +36,20 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 <hr>
 <h1 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started"> </a></h1><p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code>csn</code>.</p>
 
-<pre><code>conda create env --file csn.yml
+<pre><code>
+conda create env --file csn.yml
 conda activate csn</code></pre>
 <p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
 
-<pre><code>mkdir ~/.jupyter
+<pre><code>
+mkdir ~/.jupyter
 cp -ir assets/custom ~/.jupyter/
 mkdir -p ~/.ipython/profile_default/
 cp -ir startup ~/.ipython/profile_default/</code></pre>
 <p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
 
-<pre><code>for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
+<pre><code>
+for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
 for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done</code></pre>
 
 </div>
