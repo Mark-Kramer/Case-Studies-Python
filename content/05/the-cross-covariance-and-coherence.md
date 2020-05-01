@@ -54,7 +54,7 @@ _**Synopsis**_
 ## On-ramp: computing the coherence in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the coherence in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
-```python
+```{code-cell} ipython3
 # Import our favorite functions and modules
 from scipy.io import loadmat                    # To load .mat files
 import matplotlib.pyplot as plt                 # Load plotting functions
@@ -65,13 +65,13 @@ from IPython.core.display import HTML           # Package for manipulating appea
 from IPython.lib.display import YouTubeVideo    # Package for displaying YouTube videos
 ```
 
-```python
+```{code-cell} ipython3
 # Import tools for the chapter
 from numpy.fft import fft, rfft, rfftfreq
 figsize(12, 3)  # Default to wide figs
 ```
 
-```python
+```{code-cell} ipython3
 data = loadmat('ECoG-1.mat')  # Load the data,
 E1 = data['E1']  # ... from the first electrode,
 E2 = data['E2']  # ... and from the second electrode.
@@ -110,8 +110,7 @@ show()
 **A:** If you've never computed the coherence before, that's an especially difficult question. Please continue on to learn this **and more**!
 
 </div>
-
-+++
+```
 
 ## Introduction
 
@@ -152,19 +151,19 @@ We begin our analysis by visualizing the ECoG data. To do so, let's load the ECo
 
 We begin by loading the data:
 
-```python
+```{code-cell} ipython3
 data = loadmat('ECoG-1.mat')
 ```
 
 To understand the outcome of issuing this command, let's examine the variable `data` now present in the workspace.  This variable is a *dictionary* variable (execute `type(data)` and the result should be `dict`). To see the *keys* of a dictionary, use the `keys()` method.
 
-```python
+```{code-cell} ipython3
 data.keys()
 ```
 
 The keys that start and end with two underscores ( `__` ) are private and contain information about the MATLAB file. The variables that we are interested in here are `E1`, `E2`, and `t`. These correspond to the ECoG data recorded at the two electrodes (`E1` and `E2`) as well as a time axis (`t`). Let's extract these variables from the `data` dictionary.
 
-```python
+```{code-cell} ipython3
 E1 = data['E1']
 E2 = data['E2']
 t = data['t'][0]
@@ -179,7 +178,7 @@ In general, a single underscore at the beginning of a variable, function or meth
 
 Our collaborator tells us that the data from each electrode are organized as a matrix with dimensions *(Trials, Time)*. Let's examine the shape of `E1`,
 
-```python
+```{code-cell} ipython3
 E1.shape
 ```
 
@@ -195,7 +194,7 @@ We observe that the data consist of 100 trials, each consisting of 500 data poin
 
 Let's now plot the data in the first trial from each electrode: <a id="fig:traces"></a>
 
-```python
+```{code-cell} ipython3
 f, a = subplots()
 a.plot(t,E1[0,:], 'b')            # Plot the data from the first trial of one electrode,
 a.plot(t,E2[0,:], 'r')            # ... and the first trial of the other electrode.
