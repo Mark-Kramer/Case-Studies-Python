@@ -118,24 +118,57 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 <div class="jb_output_wrapper }}">
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Sampling frequency is 1000.0 Hz.
-Total duration of recording is 100.0 s.
-Dimensions of data are (100000,) data points.
-</pre>
-</div>
-</div>
-</div>
-<div class="jb_output_wrapper }}">
-<div class="output_area">
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     38</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 39</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
+<span class="ansi-green-intense-fg ansi-bold">     40</span>     <span class="ansi-green-fg">except</span> IOError<span class="ansi-blue-fg">:</span>
 
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;content/01/sample_data.mat&#39;
 
+During handling of the above exception, another exception occurred:
 
-<div class="output_png output_subarea ">
-<img src="../images/01/introduction-to-python_5_1.png"
->
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-1-f37f4b8fec4c&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-green-fg">import</span> matplotlib<span class="ansi-blue-fg">.</span>pyplot <span class="ansi-green-fg">as</span> plt
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
+<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg"> </span>mat <span class="ansi-blue-fg">=</span> sio<span class="ansi-blue-fg">.</span>loadmat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;content/01/sample_data.mat&#39;</span><span class="ansi-blue-fg">)</span> <span class="ansi-red-fg"># Load the example data set.</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> t   <span class="ansi-blue-fg">=</span> mat<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;t&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>                    <span class="ansi-red-fg"># Get the values associated with the key &#39;t&#39; from the dictorary.</span>
+<span class="ansi-green-intense-fg ansi-bold">      8</span> LFP <span class="ansi-blue-fg">=</span> mat<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;LFP&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>                  <span class="ansi-red-fg"># Get the values associated with the key &#39;LFP&#39; from the dictorary</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">loadmat</span><span class="ansi-blue-fg">(file_name, mdict, appendmat, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    214</span>     &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">    215</span>     variable_names <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;variable_names&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">with</span> _open_file_context<span class="ansi-blue-fg">(</span>file_name<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">as</span> f<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    217</span>         MR<span class="ansi-blue-fg">,</span> _ <span class="ansi-blue-fg">=</span> mat_reader_factory<span class="ansi-blue-fg">(</span>f<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    218</span>         matfile_dict <span class="ansi-blue-fg">=</span> MR<span class="ansi-blue-fg">.</span>get_variables<span class="ansi-blue-fg">(</span>variable_names<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/contextlib.py</span> in <span class="ansi-cyan-fg">__enter__</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">    110</span>         <span class="ansi-green-fg">del</span> self<span class="ansi-blue-fg">.</span>args<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>kwds<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>func
+<span class="ansi-green-intense-fg ansi-bold">    111</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 112</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>gen<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    113</span>         <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    114</span>             <span class="ansi-green-fg">raise</span> RuntimeError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;generator didn&#39;t yield&#34;</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">from</span> <span class="ansi-green-fg">None</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file_context</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     17</span> <span class="ansi-blue-fg">@</span>contextmanager
+<span class="ansi-green-intense-fg ansi-bold">     18</span> <span class="ansi-green-fg">def</span> _open_file_context<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;rb&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">     </span>f<span class="ansi-blue-fg">,</span> opened <span class="ansi-blue-fg">=</span> _open_file<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> appendmat<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     20</span>     <span class="ansi-green-fg">yield</span> f
+<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-green-fg">if</span> opened<span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">/anaconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py</span> in <span class="ansi-cyan-fg">_open_file</span><span class="ansi-blue-fg">(file_like, appendmat, mode)</span>
+<span class="ansi-green-intense-fg ansi-bold">     43</span>             <span class="ansi-green-fg">if</span> appendmat <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> file_like<span class="ansi-blue-fg">.</span>endswith<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;.mat&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     44</span>                 file_like <span class="ansi-blue-fg">+=</span> <span class="ansi-blue-fg">&#39;.mat&#39;</span>
+<span class="ansi-green-fg">---&gt; 45</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> open<span class="ansi-blue-fg">(</span>file_like<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span>
+<span class="ansi-green-intense-fg ansi-bold">     46</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     47</span>             <span class="ansi-green-fg">raise</span> IOError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;Reader needs file name or open file-like object&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;content/01/sample_data.mat&#39;</pre>
 </div>
-
 </div>
 </div>
 </div>
@@ -774,16 +807,12 @@ Dimensions of data are (100000,) data points.
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Variable                Type       Data/Info
---------------------------------------------
-LFP                     ndarray    100000: 100000 elems, type `float64`, 800000 bytes (781.25 kb)
-a                       int        2
-b                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
-c                       ndarray    1x4: 4 elems, type `int64`, 32 bytes
-initial_time_interval   ndarray    100000: 100000 elems, type `bool`, 100000 bytes (97.65625 kb)
-mat                     dict       n=5
-sio                     module     &lt;module &#39;scipy.io&#39; from &#39;&lt;...&gt;es/scipy/io/__init__.py&#39;&gt;
-t                       ndarray    100000: 100000 elems, type `float64`, 800000 bytes (781.25 kb)
+<pre>Variable   Type       Data/Info
+-------------------------------
+a          int        2
+b          ndarray    1x4: 4 elems, type `int64`, 32 bytes
+c          ndarray    1x4: 4 elems, type `int64`, 32 bytes
+sio        module     &lt;module &#39;scipy.io&#39; from &#39;&lt;...&gt;es/scipy/io/__init__.py&#39;&gt;
 </pre>
 </div>
 </div>
@@ -2533,8 +2562,8 @@ the same figure, label the axes, and provide a legend,</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>a Gaussian random number (mean=0, variance=1): 0.07317578616168022
-a uniform random number from [0,1): 0.759555473573282
+<pre>a Gaussian random number (mean=0, variance=1): -0.4596876008060937
+a uniform random number from [0,1): 0.11218700222234501
 </pre>
 </div>
 </div>
@@ -3273,39 +3302,39 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img2b3e9e530ab54845af1acb557948ca8e">
+  <img id="_anim_imgc87f8faa6c0e4ec2b9e6464611371dbb">
   <div class="anim-controls">
-    <input id="_anim_slider2b3e9e530ab54845af1acb557948ca8e" type="range" class="anim-slider"
+    <input id="_anim_sliderc87f8faa6c0e4ec2b9e6464611371dbb" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim2b3e9e530ab54845af1acb557948ca8e.set_frame(parseInt(this.value));"></input>
+           oninput="animc87f8faa6c0e4ec2b9e6464611371dbb.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.slower()"><i class="fa fa-minus"></i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.first_frame()"><i class="fa fa-fast-backward">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.slower()"><i class="fa fa-minus"></i></button>
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.first_frame()"><i class="fa fa-fast-backward">
           </i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.previous_frame()">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.reverse_animation()">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.pause_animation()"><i class="fa fa-pause">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.pause_animation()"><i class="fa fa-pause">
           </i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.play_animation()"><i class="fa fa-play"></i>
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.play_animation()"><i class="fa fa-play"></i>
           </button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.next_frame()"><i class="fa fa-step-forward">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.next_frame()"><i class="fa fa-step-forward">
           </i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.last_frame()"><i class="fa fa-fast-forward">
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.last_frame()"><i class="fa fa-fast-forward">
           </i></button>
-      <button onclick="anim2b3e9e530ab54845af1acb557948ca8e.faster()"><i class="fa fa-plus"></i></button>
+      <button onclick="animc87f8faa6c0e4ec2b9e6464611371dbb.faster()"><i class="fa fa-plus"></i></button>
     </div>
-    <form action="#n" name="_anim_loop_select2b3e9e530ab54845af1acb557948ca8e" class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_2b3e9e530ab54845af1acb557948ca8e"
+    <form action="#n" name="_anim_loop_selectc87f8faa6c0e4ec2b9e6464611371dbb" class="anim-state">
+      <input type="radio" name="state" value="once" id="_anim_radio1_c87f8faa6c0e4ec2b9e6464611371dbb"
              >
-      <label for="_anim_radio1_2b3e9e530ab54845af1acb557948ca8e">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_2b3e9e530ab54845af1acb557948ca8e"
+      <label for="_anim_radio1_c87f8faa6c0e4ec2b9e6464611371dbb">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_c87f8faa6c0e4ec2b9e6464611371dbb"
              checked>
-      <label for="_anim_radio2_2b3e9e530ab54845af1acb557948ca8e">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_2b3e9e530ab54845af1acb557948ca8e"
+      <label for="_anim_radio2_c87f8faa6c0e4ec2b9e6464611371dbb">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_c87f8faa6c0e4ec2b9e6464611371dbb"
              >
-      <label for="_anim_radio3_2b3e9e530ab54845af1acb557948ca8e">Reflect</label>
+      <label for="_anim_radio3_c87f8faa6c0e4ec2b9e6464611371dbb">Reflect</label>
     </form>
   </div>
 </div>
@@ -3315,9 +3344,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img2b3e9e530ab54845af1acb557948ca8e";
-    var slider_id = "_anim_slider2b3e9e530ab54845af1acb557948ca8e";
-    var loop_select_id = "_anim_loop_select2b3e9e530ab54845af1acb557948ca8e";
+    var img_id = "_anim_imgc87f8faa6c0e4ec2b9e6464611371dbb";
+    var slider_id = "_anim_sliderc87f8faa6c0e4ec2b9e6464611371dbb";
+    var loop_select_id = "_anim_loop_selectc87f8faa6c0e4ec2b9e6464611371dbb";
     var frames = new Array(100);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz\
@@ -33323,7 +33352,7 @@ AElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim2b3e9e530ab54845af1acb557948ca8e = new Animation(frames, img_id, slider_id, 200.0,
+        animc87f8faa6c0e4ec2b9e6464611371dbb = new Animation(frames, img_id, slider_id, 200.0,
                                  loop_select_id);
     }, 0);
   })()
