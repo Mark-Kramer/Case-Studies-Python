@@ -17,8 +17,8 @@
 # - header: My Header  # Will insert a header with no link in the sidebar
 
 
-
-- url: /intro
+- title: Home
+  url: /intro
   not_numbered: true
 
 - divider: true
