@@ -2,7 +2,7 @@
 
 ### Quick start to reading and running the Python code in your browser:
 
-- Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master)
+- Click here to start working in Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master?filepath=content)
 - Select a section, and click on the `.ipynb` file
 
 ----
@@ -12,7 +12,7 @@ This [repository](https://github.com/Mark-Kramer/Case-Studies-Python.git) is a c
 
 Our intended audience is the "practicing neuroscientist" - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we've tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you're interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).
 
-There are two ways to interact with these notebooks.  First, you could run it locally in <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice because you'll be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in [eLife here](https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder).  In any case, we encourage you to execute each line of code in the files!
+There are two ways to interact with these notebooks.  First, you could run it locally in <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice because you'll be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master?filepath=content">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in [eLife here](https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder).  In any case, we encourage you to execute each line of code in the files!
 
 We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,
 
