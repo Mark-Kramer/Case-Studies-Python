@@ -26,15 +26,15 @@ There are multiple ways to interact with these notebooks.
 
 - **Intermediate**  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master?filepath=content">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in [eLife](https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder).
 
-- **Advanced**: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook, visit the [Contents](#contents). You will need to [install Python](#install) and we recommend [configure Python](#config).
+- **Advanced**: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook, visit the [Contents](#contents). You will need to [install Python](#install-python) and we recommend [configure Python](#configure-python).
 
 ---
 
-# Install Python[](#install)
+# Install Python
 
 We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,
 
-- [Python.org](https://docs.conda.io/en/latest/miniconda.html)
+- [Python.org](https://www.python.org/)
 
 - [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
@@ -44,7 +44,7 @@ If this is your first time working with Python, using [Anaconda](https://www.ana
 
 --- 
 
-# Configure Python[](#config)
+# Configure Python
 
 Once you have installed Anaconda or Miniconda, we recommend setting up an [environment](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) to run the notebooks. Type the following code into your terminal to create and activate an environment called `csn`. 
 
