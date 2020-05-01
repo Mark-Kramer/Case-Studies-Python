@@ -12,9 +12,9 @@ kernelspec:
   name: python3
 ---
 
-# Python *for the practicing neuroscientist*
+# Python for the practicing neuroscientist
 
-To be frank:  this section is boring.  Throughout all of the case studies, we will use the software package [Python](https://www.python.org/). The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
+To be frank:  this notebook is rather boring.  Throughout all of the case studies, we will use the software package [Python](https://www.python.org/). The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
 
 +++
 
@@ -47,7 +47,7 @@ import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
 
-mat = sio.loadmat('sample_data.mat') # Load the example data set.
+mat = sio.loadmat('content/01/sample_data.mat') # Load the example data set.
 t   = mat['t'][0]                    # Get the values associated with the key 't' from the dictorary.
 LFP = mat['LFP'][0]                  # Get the values associated with the key 'LFP' from the dictorary
 
