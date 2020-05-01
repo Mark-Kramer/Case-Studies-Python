@@ -47,7 +47,7 @@ _**Synopsis**_
     * [Visualizing the Phase Difference across Trials](#Visualizing_the_Phase_Difference)
     * [Single-Trial Coherence](#single_trial_coherence)
 * [Relation between Statistical Modeling and Coherence](#Relation_between_Statistical_Modeling_and_Coherence)
-* [Summary](#summary)    
+* [Summary](#summary)
 
 +++
 
@@ -123,8 +123,14 @@ In most of the other modules, we focused on field data recorded from a single el
 
 
 
+[Return to top](#introduction)
+
+
 ### Case Study Data <a class="anchor" id="case-study-data"><a/>
 We conside a patient with epilepsy admitted to the hospital for [resective surgery](https://www.ncbi.nlm.nih.gov/pubmed/25602999). As part of her routine clinical workup before resective surgery, numerous electrodes were implanted [directly on the cortical surface](https://en.wikipedia.org/wiki/Electrocorticography). The purpose of this invasive recording procedure was to monitor and localize her seizures for eventual surgical treatment. During this recording procedure, in which electrocorticogram (ECoG) electrodes were implanted and recordings performed for one week, the patient volunteered to participate in an auditory task study administered by a collaborating researcher. The task required the patient to listen to individual phonemes through headphones and respond with a button click whenever she heard the [phoneme](http://www.jneurosci.org/content/30/49/16643) “ba” (the other phonemes were different, e.g., “pa,” ”ma”). The tone presentation was repeated 100 times, and her ECoG recorded (sampling rate 500 Hz) from two cortical electrodes over the auditory brain area for 1 s.
+
+
+[Return to top](#introduction)
 
 
 ### Goal <a id="goal"></a>
@@ -134,13 +140,11 @@ Our goal is to understand the coupling between the voltage activity recorded fro
 ### Tools
 Here you will develop an understanding for the cross-covariance and coherence measures. For the latter, we will explore and understand the Fourier transform and examine in detail the notion of phase. We also briefly discuss strategies to assess the coherence for a single trial of data.
 
-
-[Return to top](#introduction)
-
 +++
 
 ## Data Analysis <a id="data-analysis"></a>
 
++++
 
 ### Visual inspection <a id="visual-inspection"></a>
 
@@ -512,7 +516,7 @@ where $A_j$ is the amplitude and $\phi_j$ is the phase at frequency index $j$.  
 <a id="eq:8" title="Spectrum"></a>
 $$
 \begin{align}
-S_{xx, \, j} 	&= \frac{2 \mathrm{dt}^2}{T} X_j X^*_j \label{eq:Sxx} \, , \\
+S_{xx, \, j} 	&= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \\
 		&= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
 \tag{Spectrum}
@@ -795,7 +799,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 
 ## Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a>
 
-Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a [supplement](../03#supplements) at the end of chapter 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners. 
+Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a [supplement](../03#supplements) at the end of chapter 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.
 
 +++
 
