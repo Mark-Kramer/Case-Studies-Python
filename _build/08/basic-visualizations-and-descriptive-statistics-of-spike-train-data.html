@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /09/point-process-glms.html
 suffix: .ipynb
-search: data div lambda light x class spike condition process isi question ms model bin poisson low isis autocorrelation value q n between spiking high spikes values distribution function plot eq s lets frac bins e sum k conditions increment lag likelihood imgs png fit activity axis probability id compute fano consider not factor case vector does train interval times counts rate second xi href src span mu any neuron statistical where firing count observed correlation positive l right small variable range histogram left top inspection here expect above visual intervals difference using size f instead compare fig isislow increments structure
+search: data div lambda light x class condition spike process isi question ms model bin poisson low isis autocorrelation value q between n spiking high spikes values distribution function plot eq s lets frac bins e sum k conditions increment likelihood imgs png fit lag id activity axis probability compute fano consider not factor case vector does train interval times counts rate second xi href src span mu any neuron statistical where firing histogram observed correlation positive l right count small variable range left top inspection here expect above visual intervals difference using size f instead compare increments structure our spikeslow
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -67,7 +67,7 @@ _**Synopsis**_
 </ol>
 </li>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process">Appendix: Spike Count Mean and Variance for a Poisson Process</a></li>
+<li><a href="#appendix">Appendix: Spike Count Mean and Variance for a Poisson Process</a></li>
 </ul>
 
 </div>
@@ -155,6 +155,21 @@ _**Synopsis**_
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>dict_keys([&#39;__header__&#39;, &#39;__version__&#39;, &#39;__globals__&#39;, &#39;SpikesLow&#39;, &#39;SpikesHigh&#39;])
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -335,6 +350,21 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>f = 25.0
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -381,7 +411,7 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These calculations allow us to compute a simple number representative of one aspect of the data: the firing rate over the entire duration of the recording. Do the two datasets exhibit a statistically significant change in the firing structure between conditions? Or, does the difference in firing rates lie within the range of expected fluctuations between any two trials of random spiking data? To answer these types of questions, we need to develop statistical methods that are appropriate for analyzing spike trains. Let’s look at the data more carefully and visualize the structure of the spiking in the low ambient light condition. Motivated by the results of the previous chapters, it may be tempting to visualize the spike train by simply plotting the <code>SpikesLow</code> variable,</p>
+<p>These calculations allow us to compute a simple number representative of one aspect of the data: the firing rate over the entire duration of the recording. Do the two datasets exhibit a statistically significant change in the firing structure between conditions? Or, does the difference in firing rates lie within the range of expected fluctuations between any two trials of random spiking data? To answer these types of questions, we need to develop statistical methods that are appropriate for analyzing spike trains. Let’s look at the data more carefully and visualize the structure of the spiking in the low ambient light condition. It may be tempting to visualize the spike train by simply plotting the <code>SpikesLow</code> variable,</p>
 
 </div>
 </div>
@@ -403,6 +433,24 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_22_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -420,7 +468,7 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 
 
-**A.** These data are stored as a sequence of $N$ time stamps representing an increasing sequence of times at which the neuron spiked. When we run the plot command with only one input vector, we plot an index that runs from 1 to $n$ (the length of the vector) on the $x$-axis against the numerical values in that vector on the $y$-axis. Therefore the plot shows an increasing line where the $x$-axis represents the spike number and the $y$-axis represents the spike time. Notice that the vector ends at an $x$-axis value of 750, which corresponds to the length of the vector. Also, the values on the $y$-axis range from 0 to 30; these correspond to times starting near 0 s and ending near 30 s, as we expect for the 30 s recording. Although this plot is not immediately useful, the results are consistent with our expectations for the data.
+**A.** These data are stored as a sequence of time stamps representing an increasing sequence of times at which the neuron spiked. When we run the plot command with only one input vector, we plot an index that runs from 1 to the length of the vector on the $x$-axis against the numerical values in that vector on the $y$-axis. Therefore the plot shows an increasing line where the $x$-axis represents the spike number and the $y$-axis represents the spike time. Notice that the vector ends at an $x$-axis value of 750, which corresponds to the length of the vector. Also, the values on the $y$-axis range from 0 to 30; these correspond to times starting near 0 s and ending near 30 s, as we expect for the 30 s recording. Although this plot is not immediately useful, the results are consistent with our expectations for the data.
 
 
 
@@ -460,6 +508,24 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_25_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -473,14 +539,14 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 **A.** The plot function receives three inputs. The first input defines the $x$-axis values for the plot, which here are the spike times. The second input is itself a function: 
 
-    np.ones_like(SpikesLow). 
+    np.ones_like(SpikesLow)
 
 The function `ones_like` produces an array filled entirely with 1s that is the same dimensions as `SpikesLow`. The last input to `plot` instructs Python to display the data using the dot symbol. To summarize, we’re calling the `plot` command to display 
 
 * $x$-axis values: spike times in the low ambient light condition
 * $y$-axis values: 1
 
-as blue dots. The next two commands set the range of the $x$-axis (in this case from 0 s to 5 s) and provide an $x$-axis label. The last command removes the $y$-axis tick marks since they don't carry any real information in this case.
+as dots. The next two commands set the range of the $x$-axis (in this case from 0 s to 5 s) and provide an $x$-axis label. The last command removes the $y$-axis tick marks since they don't carry any real information in this case.
 
 </div>
 </div>
@@ -492,7 +558,7 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the plot of the spike train above each spike time corresponds to a blue dot at a $y$-axis value of 1. The value on the $y$-axis is arbitrary. We could have chosen to use a $y$-axis value of 2 or -100 or 412. What matters is the $x$-axis, which indicates the time at which each spike occurs in the 5 s interval.</p>
+<p>In the plot of the spike train above each spike time corresponds to a dot at a $y$-axis value of 1. The value on the $y$-axis is arbitrary. We could have chosen to use a $y$-axis value of 2 or -100 or 412. What matters is the $x$-axis, which indicates the time at which each spike occurs in the 5 s interval.</p>
 <p>To compare the spiking in the low- and high-light conditions, we can plot both in the same figure:
 <a id="fig:8.2b"></a></p>
 
@@ -514,10 +580,29 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>              <span class="c1"># ... and set the y-axis limits</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>            <span class="c1"># ... label the x-axis</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>   <span class="c1"># ... show a legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>                <span class="c1"># ... remove y-axis ticks</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_28_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -532,10 +617,10 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 
 
 
-**Q.** What's happening in the fifth line of this code segment?
+**Q.** What's happening in the second line of this code segment?
 
 
-**A.** The fifth line of this code segment is similar to the second line, but it plots the data for the high ambient light condition. The first input to the `plot` function is the variable `SpikesHigh`. The second input to `plot` is a function; here we’re creating an array of 1s, this time with dimensions to match the variable `SpikesHigh`. Notice that we multiply this array by a scalar value of 2; this command acts to create a vector of 2s with the same dimensions as the vector `SpikesHigh`. The last input to `plot` indicates to display the data using another dot symbol. To summarize, here we’re calling the `plot` command to display
+**A.** The second line of this code segment is similar to the first line, but it plots the data for the high ambient light condition. The first input to the `plot` function is the variable `SpikesHigh`. The second input to `plot` is a function; here we’re creating an array of 1s, this time with dimensions to match the variable `SpikesHigh`. Notice that we multiply this array by a scalar value of 2; this command acts to create a vector of 2s with the same dimensions as the vector `SpikesHigh`. The last input to `plot` indicates to display the data using another dot symbol. To summarize, here we’re calling the `plot` command to display
 
 * x-axis values: spike times in the high ambient light condition 
 * y-axis values: 2.
@@ -566,7 +651,7 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the data visualized in this way, we’re now able to ask an interesting question: What structure do you notice in the two spike trains <a href="#fig:8.2b">(figure)</a>? At first glance, your answer might be “not much.” Spikes occur fairly regularly throughout the 5 s interval under both conditions. Perhaps a careful visual inspection suggests there are fewer spikes in the low-light than in the high-light condition. But the spike times themselves do not seem to be directly comparable between these conditions. Often, when we examine data from a stimulus response experiment, we expect to see regions where spiking activity increases or decreases as a function of a changing stimulus. In this case, the stimulus is the ambient light level, which remains constant over the entire experiment. How else can we analyze these data and identify differences in the spiking activity (if any) between the two conditions?</p>
+<p>With the data visualized in this way, we’re now able to ask an interesting question: What structure do you notice in the two spike trains? At first glance, your answer might be “not much.” Spikes occur fairly regularly throughout the 5 s interval under both conditions. Perhaps a careful visual inspection suggests there are fewer spikes in the low-light than in the high-light condition. But the spike times themselves do not seem to be directly comparable between these conditions. Often, when we examine data from a stimulus response experiment, we expect to see regions where spiking activity increases or decreases as a function of a changing stimulus. In this case, the stimulus is the ambient light level, which remains constant over the entire experiment. How else can we analyze these data and identify differences in the spiking activity (if any) between the two conditions?</p>
 
 </div>
 </div>
@@ -617,16 +702,35 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># Plot the low-light condition spikes</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>        <span class="c1"># Plot the low-light condition spikes</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the high-light condition spikes </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>              <span class="c1"># Display times 0 to 5 s on the x-axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>              <span class="c1"># Display times 10 to 11 s on the x-axis</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                <span class="c1"># ... and set the y-axis limits</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>              <span class="c1"># ... label the x-axis</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>     <span class="c1"># ... show a legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>                  <span class="c1"># ... remove y-axis ticks</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_35_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -639,7 +743,7 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** The code above was copied and pasted from the previous section with one minor update to change the time interval. What adjustments did we need to make to the code so that we see an interval of 1 s instead of 5 s?
+**Q.** The code above was copied and pasted from the previous section with one minor update to change the time interval. What adjustments did we make to the code so that we see an interval of 1 s instead of 5 s?
 
 </div>
 </div>
@@ -691,7 +795,7 @@ as blue dots. The next two commands set the range of the $x$-axis (in this case 
 
 
 
-**A.** Let’s focus on the first command, which defines the variable ISIsLow. Here, we use the function `diff()` with input `SpikesLow`. If you have not seen the command `diff()` before, look it up using `np.diff()?`. Briefly, the `diff()` command computes the difference between adjacent elements of the input. In this case, the vector `SpikesLow` represents the times at which spikes occur. Therefore, the difference between adjacent elements of `SpikesLow` produces the time interval or waiting time between successive spikes. To further explore the concept of an ISI, let’s write the spike times as a vector,
+**A.** Let’s focus on the first command, which defines the variable `ISIsLow`. Here, we use the function `diff()` with input `SpikesLow`. If you have not seen the command `diff()` before, look it up using `np.diff()?`. Briefly, the `diff()` command computes the difference between adjacent elements of the input. In this case, the vector `SpikesLow` represents the times at which spikes occur. Therefore, the difference between adjacent elements of `SpikesLow` produces the time interval or waiting time between successive spikes. To further explore the concept of an ISI, let’s write the spike times as a vector,
 
 $$
 v = {t_1, t_2, t_3, ..., T_N}, 
@@ -701,14 +805,14 @@ $$
 where $t_i$ is the time of the $i^{th}$ spike. The difference between the first two adjacent elements of $v$ is 
 
 $$
-t_2 - t_1
+t_2 - t_1 \, .
 \tag{3}
 $$
 
 By convention, the `diff()` function subtracts the first element from the second. In words, this difference represents the time of the second spike ($t_2$) minus the time of the first spike ($t_1$), or the first interspike interval in the data. The difference between the next two adjacent elements of $v$ is
 
 $$
-t_3 - t_2
+t_3 - t_2 \, ,
 \tag{4}
 $$
 
@@ -769,7 +873,7 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The x-axis is the vector index, which ranges from 1 to the length of the vector ISIsLow. The y-axis is the value of the ISI at each index. We see that the ISI values range from small times (less than 0.05 s) to large times (over 0.4 s). In this way, the visualization provides some insight into the ISI values for the low-light condition.</p>
+<p>The x-axis is the vector index, which ranges from 1 to the length of the vector <code>ISIsLow</code>. The y-axis is the value of the ISI at each index. We see that the ISI values range from small times (less than 0.05 s) to large times (over 0.4 s). In this way, the visualization provides some insight into the ISI values for the low-light condition.</p>
 
 </div>
 </div>
@@ -808,7 +912,7 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Plots of the ISI vectors provide some information about the data (e.g., the approximate range of the ISI values), but there’s more insight to be gained. To that end, let’s now implement another approach to visualizing these types of data: the histogram. The idea of a histogram is to count the number of occurrences of each value in the data. In this case, we count the number of times we observe an ISI value in different bins of time. Let’s define the time bins for the histogram. Inspection of the ISI data for the low-light condition reveals values that range from near 0 s to over 0.4 s. Therefore, we choose the following time bins:</p>
+<p>Plots of the ISI vectors provide some information about the data (e.g., the approximate range of the ISI values), but there’s more insight to be gained. To that end, let’s now implement another approach to visualizing these types of data: the <a href="https://en.wikipedia.org/wiki/Histogram">histogram</a>. The idea of a histogram is to count the number of occurrences of each value in the data. In this case, we count the number of times we observe an ISI value in different bins of time. Let’s define the time bins for the histogram. Inspection of the ISI data for the low-light condition reveals values that range from near 0 s to over 0.4 s. Therefore, we choose the following time bins:</p>
 <p>Bin 0 [0.00 0.01]</p>
 <p>Bin 1 [0.01 0.02]</p>
 <p>Bin 2 [0.02 0.03]</p>
@@ -818,7 +922,7 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 <p>Bin 6 [0.06 0.07]</p>
 <p>...</p>
 <p>Bin N [0.49 0.50]</p>
-<p>The bins begin at time 0 s and end at time 0.5 s, with a bin size of 0.01 s. The purpose of the histogram is to count the number of times the data values fall into each bin. Notice that we’ve chosen the range of bins to extend beyond the observed range of data ISIsLow; that’s fine, and we expect to count no values in the bins near 0.5 s. To further explore this counting process, let’s examine the first eight values of the data <code>ISIsLow</code>:</p>
+<p>The bins begin at time 0 s and end at time 0.5 s, with a bin size of 0.01 s. The purpose of the histogram is to count the number of times the data values fall into each bin. Notice that we’ve chosen the range of bins to extend beyond the observed range of data <code>ISIsLow</code>; that’s fine, and we expect to count no values in the bins near 0.5 s. To further explore this counting process, let’s examine the first eight values of the data <code>ISIsLow</code>:</p>
 
 </div>
 </div>
@@ -860,7 +964,7 @@ Recall that Python uses *zero-based indexing*. This means that elements in array
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see that the first value of ISIsLow is approximately 0.0410. In which bin does this value belong? Examining the list of bins, we find that <code>ISIsLow[0]</code> lies in bin 4, so we increment the number of counts in bin 4 by 1. The second value of the vector <code>ISIsLow</code> (<code>ISIsLow[1]</code> $\approx$ 0.0290) lies in bin 2, so we increment the number of counts in bin 2 by 1. The third value, <code>ISIsLow[2]</code> $\approx$ 0.0075, lies in bin 0, so we increment the number of counts in bin 0 by 1. The fourth value, <code>ISIsLow[4]</code> $\approx$ 0.0521, lies in bin 5, so we increment the number of counts in bin 5 by 1. And the fifth value, <code>ISIsLow[4]</code> $\approx$ 0.0555, also lies in bin 5, so we again increment the number of counts in bin 5 by 1.</p>
+<p>We see that the first value of <code>ISIsLow</code> is approximately 0.0410. In which bin does this value belong? Examining the list of bins, we find that <code>ISIsLow[0]</code> lies in bin 4, so we increment the number of counts in bin 4 by 1. The second value of the vector <code>ISIsLow[1]</code> $\approx$ 0.0290 lies in bin 2, so we increment the number of counts in bin 2 by 1. The third value, <code>ISIsLow[2]</code> $\approx$ 0.0075, lies in bin 0, so we increment the number of counts in bin 0 by 1. The fourth value, <code>ISIsLow[4]</code> $\approx$ 0.0521, lies in bin 5, so we increment the number of counts in bin 5 by 1. And the fifth value, <code>ISIsLow[4]</code> $\approx$ 0.0555, also lies in bin 5, so we again increment the number of counts in bin 5 by 1.</p>
 
 </div>
 </div>
@@ -878,9 +982,12 @@ Recall that Python uses *zero-based indexing*. This means that elements in array
 
 **A.** We find for the first five ISIs in the low-light condition, zero counts in all bins except
 
-Bin 0: 1 count 
+Bin 0: 1 count
+
 Bin 2: 1 count 
+
 Bin 4: 1 count 
+
 Bin 5: 2 counts 
 
 Notice that only four bins have counts and that bin 5 has two counts; for the first five ISIs in the low-light condition, we observe two ISIs in the interval (0.05, 0.06).
@@ -1141,7 +1248,7 @@ The intervals of rapid spiking produce many shorter ISIs, and the longer interva
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to top</a>
 <a id="bsi"></a></p>
-<h3 id="Examining-Binned-Spike-Increments">Examining Binned Spike Increments<a class="anchor-link" href="#Examining-Binned-Spike-Increments"> </a></h3><p>Another common approach to analyzing spiking data is to discretize time into bins of fixed width and count the number of events that occur in each time bin. The sequence of spike counts across all the bins is sometimes called the increment process for the spike train. When the time bins are sufficiently small, say, 1 ms for typical spike train data, the resulting increment process is just a sequence of zeros and ones. In this case, the time bins are so small that the probability of more than one spike occurring in each bin is zero or negligibly small.<sup><abbr title="The biophysical mechanisms that produce a spike support this statement. After generating a spike, the neuron experiences a refractory period typically lasting a few milliseconds, in which generating a subsequent spike is very unlikely.">note</abbr></sup> Each tiny time bin then contains a spike (and we assign that bin a value of 1) or does not (and we assign that bin a value of 0). This idea of representing the spike train as a sequence of zeros and ones for small bin increments will be important when we build statistical models of the spike trains in a <a href="../09/">later chapter</a>. In this section, we compute the increment process with multiple bin sizes in order to characterize the amount of variability in the spiking data and to examine temporal dependencies between spikes.</p>
+<h3 id="Examining-Binned-Spike-Increments">Examining Binned Spike Increments<a class="anchor-link" href="#Examining-Binned-Spike-Increments"> </a></h3><p>Another common approach to analyzing spiking data is to discretize time into bins of fixed width and count the number of events that occur in each time bin. The sequence of spike counts across all the bins is sometimes called the increment process for the spike train. When the time bins are sufficiently small, say, 1 ms for typical spike train data, the resulting increment process is just a sequence of zeros and ones. In this case, the time bins are so small that the probability of more than one spike occurring in each bin is zero or negligibly small.<sup><abbr title="The biophysical mechanisms that produce a spike support this statement. After generating a spike, the neuron experiences a refractory period typically lasting a few milliseconds, in which generating a subsequent spike is very unlikely.">note</abbr></sup> Each tiny time bin then contains a spike (and we assign that bin a value of 1) or does not (and we assign that bin a value of 0). This idea of representing the spike train as a sequence of zeros and ones for small bin increments will be important when we build statistical models of the spike trains in a <a href="../09/point-process-glms.html">later notebook</a>. In this section, we compute the increment process with multiple bin sizes in order to characterize the amount of variability in the spiking data and to examine temporal dependencies between spikes.</p>
 <p>Let’s bin the spike train data of the low-light condition into time bins of size 50 ms. To do so, we make use of the function <code>histogram()</code>:</p>
 
 </div>
@@ -1156,7 +1263,7 @@ The intervals of rapid spiking produce many shorter ISIs, and the longer interva
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>                    <span class="c1"># Define the time bins</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>                       <span class="c1"># Define the time bins</span>
 <span class="n">IncrementsLow50</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span>  <span class="c1"># ... and compute a histogram of the data</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">IncrementsLow50</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>               <span class="c1"># Plot the resulting counts over time</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                                       <span class="c1"># ... with axes labeled</span>
@@ -1214,7 +1321,7 @@ A descriptive choice of variable name is often useful.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>One question that arises quite often is how variable these binned counts are. To illustrate this variability, let’s consider two scenarios. In the first, consider a neuron that fires perfectly regularly, like a metronome. In this case, we expect the number of spikes in each time bin to be nearly identical. On the other hand, consider the scenario of a neuron that fires in irregular bursts. In this case, we expect much more variability in the number of spikes in each time bin, depending on whether a time bin contained a burst of spikes or a quiet period. To characterize this variability, a standard measure to compute is the sample Fano factor (FF). It’s easy to define the Fano factor: FF is the sample variance of the increment process divided by the sample mean of the increment process. The implementation of FF in Python is also relatively simple:</p>
+<p>One question that arises quite often is how variable these binned counts are. To illustrate this variability, let’s consider two scenarios. In the first, consider a neuron that fires perfectly regularly, like a metronome. In this case, we expect the number of spikes in each time bin to be nearly identical. On the other hand, consider the scenario of a neuron that fires in irregular bursts. In this case, we expect much more variability in the number of spikes in each time bin, depending on whether a time bin contained a burst of spikes or a quiet period. To characterize this variability, a standard measure to compute is the sample <strong>Fano factor (FF)</strong>. It’s easy to define the Fano factor: FF is the sample variance of the increment process divided by the sample mean of the increment process. The implementation of FF in Python is also relatively simple:</p>
 
 </div>
 </div>
@@ -1257,7 +1364,7 @@ A descriptive choice of variable name is often useful.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To answer that question, we need to introduce the concept of a Poisson process. A Poisson process is a model for a spiking process for which each spike occurrence is independent of every other spike occurrence. In other words, the probability of a neuron spiking at any instant does not depend on when the neuron fired (or did not fire) previously. A useful way to conceptualize this process is as a coin flip. For example, consider the following outcome of 20 coin flips:</p>
+<p>To answer that question, we need to introduce the concept of a <strong>Poisson process</strong>. A Poisson process is a model for a spiking process for which each spike occurrence is independent of every other spike occurrence. In other words, the probability of a neuron spiking at any instant does not depend on when the neuron fired (or did not fire) previously. A useful way to conceptualize this process is as a coin flip. For example, consider the following outcome of 20 coin flips:</p>
 <p>HTHTTTHTTTTTHHHHHHTH</p>
 <p>where H indicates heads, and T indicates tails.</p>
 
@@ -1294,7 +1401,7 @@ A descriptive choice of variable name is often useful.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The Poisson process is rarely an accurate model for spike train data. Our biological knowl- edge reveals that the occurrence of a spike does depend on the occurrence of previous spikes (e.g., because of the refractory period of a neuron, we do not expect a spike to occur immediately after another spike). However, the Poisson process has many nice theoretical properties, that make it a good model against which to compare the data. For example, for any Poisson process, the number of spikes in any time interval has a Poisson probability distribution for which the theoretical variance and mean are equal (see the <a href="#appendix">appendix</a> at the end of the chapter).</p>
+<p>The Poisson process is rarely an accurate model for spike train data. Our biological knowledge reveals that the occurrence of a spike does depend on the occurrence of previous spikes (e.g., because of the refractory period of a neuron, we do not expect a spike to occur immediately after another spike). However, the Poisson process has many nice theoretical properties that make it a good model against which to compare the data. For example, for any Poisson process, the number of spikes in any time interval has a Poisson probability distribution for which the theoretical variance and mean are equal (see the <a href="#appendix">appendix</a> at the end of the notebook).</p>
 
 </div>
 </div>
@@ -1355,7 +1462,7 @@ The theoretical Fano factor for a Poisson process is exactly equal to 1.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Does-the-observed-Fano-factor-differ-from-1?">Does the observed Fano factor differ from 1?<a class="anchor-link" href="#Does-the-observed-Fano-factor-differ-from-1?"> </a></h4><p>The preceding results are somewhat unsatisfying. We claimed that in the low-light condition, the calculated Fano factor of 0.72 was well below 1. What if, instead, we calculated a Fano factor of 0.8; is that well below 1? Is a Fano factor of 0.9 well below 1? These questions highlight an important issue when drawing a conclusion from a Fano factor calculation: How far above or below the value of 1 does the calculated Fano factor have to be before we are confident that there is really a statistically significant difference in the variability from a Poisson process? After all, even if we had spiking from a true Poisson process, from one experiment to the next we would expect to find different values for the increments, and values for the sample Fano factor that fluctuate slightly above and below 1. Fortunately, a bit of statistical theory can help us out. It can be shown that the distribution of Fano factors that we might compute from a Poisson process follows a gamma distribution with shape parameter $(N - 1)/2$ and scale parameter
+<h3 id="Does-the-observed-Fano-factor-differ-from-1?">Does the observed Fano factor differ from 1?<a class="anchor-link" href="#Does-the-observed-Fano-factor-differ-from-1?"> </a></h3><p>The preceding results are somewhat unsatisfying. We claimed that in the low-light condition, the calculated Fano factor of 0.72 was well below 1. What if, instead, we calculated a Fano factor of 0.8; is that well below 1? Is a Fano factor of 0.9 well below 1? These questions highlight an important issue when drawing a conclusion from a Fano factor calculation: How far above or below the value of 1 does the calculated Fano factor have to be before we are confident that there is really a statistically significant difference in the variability from a Poisson process? After all, even if we had spiking from a true Poisson process, from one experiment to the next we would expect to find different values for the increments, and values for the sample Fano factor that fluctuate slightly above and below 1. Fortunately, a bit of statistical theory can help us out. It can be shown that the distribution of Fano factors that we might compute from a Poisson process follows a gamma distribution with shape parameter $(N - 1)/2$ and scale parameter
 $2/(N - 1)$, where $N$ is the number of time bins used in the Fano factor calculation [<a href="https://doi.org/10.1016/j.jneumeth.2010.04.012">Eden &amp; Kramer, 2010</a>].</p>
 
 </div>
@@ -1520,15 +1627,15 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 <p>Mathematically, the formula for the sample autocorrelation at a lag $L$ is
 <a id="eq:5"></a></p>
 $$
-\rho_{xx}[L] = \frac{
+\rho_{xx}[L] = \dfrac{
 \sum_{i=1}^{N - L}
-(x_i - \overline x)(x_{i+L} - \overline x)
+(x_i - \bar{x})(x_{i+L} - \bar{x})
 }
 {
-\sum_{i=1}^{N}(x_i - \overline x)^2
+\sum_{i=1}^{N}(x_i - \bar{x})^2
 }
 \tag{5}
-$$<p>where $x_i$ is the $i^{th}$ data point, and $\overline x$ is the sample mean of the data over index $i$.</p>
+$$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of the data over index $i$.</p>
 
 </div>
 </div>
@@ -1543,30 +1650,30 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\overline x$ is the sample mea
 
 
 
-**Q.** This formula is rather complicated, so let's consider a simple case: $L = 0$. What is $\rho_{xx}[0]$ at lag 0?
+**Q.** This formula is rather complicated, so let's consider a simple case: $L = 0$. What is $\rho_{xx}[0]$?
 
 
 
 
 
-**A.** To answer this, let's substitute $L=0$ into the mathematical expression fo rthe autcorrelation,
+**A.** To answer this, let's substitute $L=0$ into the mathematical expression for the autcorrelation,
 
 
 \begin{eqnarray}
 \rho_{xx}[0] &=& 
-\bigg ( \sum_{i=1}^{N-0} (x_i - \overline x)(x_{i+0} - \overline x) \bigg ) 
+\bigg ( \sum_{i=1}^{N-0} (x_i - \bar{x})(x_{i+0} - \bar{x}) \bigg ) 
 \bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \overline x)^2 \bigg ) 
+\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
 \\
 &=&
-\bigg ( \sum_{i=1}^{N} (x_i - \overline x)(x_{i} - \overline x) \bigg ) 
+\bigg ( \sum_{i=1}^{N} (x_i - \bar{x})(x_{i} - \bar{x}) \bigg ) 
 \bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \overline x)^2 \bigg ) 
+\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
 \\
 &=&
-\bigg ( \sum_{i=1}^N (x_i - \overline x)^2 \bigg ) 
+\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
 \bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \overline x)^2 \bigg ) 
+\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
 \\
 &=& 1.
 \end{eqnarray}
@@ -2854,7 +2961,8 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="#top">Back to Top</a></p>
+<p><a href="#top">Back to Top</a>
+<a id="appendix"></a></p>
 <h2 id="Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process">Appendix: Spike Count Mean and Variance for a Poisson Process<a class="anchor-link" href="#Appendix:-Spike-Count-Mean-and-Variance-for-a-Poisson-Process"> </a></h2><p>In this appendix, we compute the theoretical mean $\mu$ and the theoretical variance of the spike count $\sigma^2$ for a Poisson process. Let’s compute $\mu$ using a general formula that makes use of the probability $P(k)$ of observing $k$ spikes,
 <a id="eq:15"></a></p>
 $$
