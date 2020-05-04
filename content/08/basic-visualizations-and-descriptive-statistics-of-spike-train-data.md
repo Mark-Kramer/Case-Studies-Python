@@ -56,11 +56,11 @@ A researcher examining the background firing properties of one of these neurons 
 
 ### Goal
 
-Typically the first step in any data analysis involves visualizing and using simple descriptive statistics to characterize pertinent features of the data. For time series data that take on a continuous value at each time point, like the field potentials analyzed in earlier chapters, we typically start by simply plotting each data value as a function of time. For spike train data, things can become a bit more complicated. One reason for this is that there are multiple equivalent ways to describe the same spike train data. The data could be stored as a sequence of spike times; as a sequence of waiting times between spikes, or interspike intervals; or as a discrete time series indicating the number of spikes in discrete time bins. Knowing how to manipulate and visualize spike train data using all these different representations is the first step to understanding the structure present in the data and is the primary goal of this chapter.
+Typically the first step in any data analysis involves visualizing and using simple descriptive statistics to characterize pertinent features of the data. For time series data that take on a continuous value at each time point, like the field potentials analyzed in earlier notebooks, we typically start by simply plotting each data value as a function of time. For spike train data, things can become a bit more complicated. One reason for this is that there are multiple equivalent ways to describe the same spike train data. The data could be stored as a sequence of spike times; as a sequence of waiting times between spikes, or interspike intervals; or as a discrete time series indicating the number of spikes in discrete time bins. Knowing how to manipulate and visualize spike train data using all these different representations is the first step to understanding the structure present in the data and is the primary goal of this notebook.
 
 ### Tools
 
-We develop tools in this chapter to visualize spike train data and to provide basic statistical methods appropriate for analyzing spike trains.
+We develop tools in this notebook to visualize spike train data and to provide basic statistical methods appropriate for analyzing spike trains.
 
 +++
 
@@ -841,53 +841,13 @@ where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of the 
 
 +++
 
-<div class="question">
-
-
-    
-**Q.** This formula is rather complicated, so let's consider a simple case: $L = 0$. What is $\rho_{xx}[0]$?
-
-
-
-
-    
-**A.** To answer this, let's substitute $L=0$ into the mathematical expression for the autcorrelation,
-
-
-\begin{eqnarray}
-\rho_{xx}[0] &=& 
-\bigg ( \sum_{i=1}^{N-0} (x_i - \bar{x})(x_{i+0} - \bar{x}) \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=&
-\bigg ( \sum_{i=1}^{N} (x_i - \bar{x})(x_{i} - \bar{x}) \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=&
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=& 1.
-\end{eqnarray}
-
-At $L=0$, the autocorrelation is by definition equal to 1. In words, an individual dataset $x$ is perfectly correlated with itself at zero lag.
-
-
-
-</div>
-
-+++
-
 To gain some intuition for the autocorrelation, let’s consider the following relatively simple increment process:
 
 <a id="fig:8-10a"></a>
 
 ![Example data for visual inspection of autocorrelation of an increment process.](imgs/8-10a.png "Data x as a function of time (arbitrary units).")
 
-Our goal is to understand the autocorrelation of these data, labeled $x$. From visual inspection of the figure, we conclude that the data $x$ have mean 0, so that $\overline x = 0$; note that the data appear to oscillate between equal and opposite values over time. For simplicity, let’s focus on the numerator of equation (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>). At lag zero (i.e., $L = 0$), the numerator of (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>) tells us to multiply the data by themselves at each time index, and then sum the product. To visualize this multiplication and sum, consider multiplying the data in figure above by the following data at each index in time and then summing the result.
+Our goal is to understand the autocorrelation of these data, labeled $x$. From visual inspection of the figure, we conclude that the data $x$ have mean 0, so that $\overline x = 0$; note that the data appear to oscillate between equal and opposite values over time. For simplicity, let’s focus on the numerator of equation (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>). At lag zero (i.e., $L = 0$), the numerator of (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>) tells us to multiply the data by themselves at each time index, and then sum the product. To visualize this multiplication and sum, consider multiplying the data in the figure above by the following data at each index in time and then summing the result.
 
 <a id="fig:8-10b"></a>
 
@@ -921,19 +881,7 @@ Let’s consider the numerator of the autocorrelation (<a href="#eq:5" class="fi
 
 ![Example data for visual inspection of autocorrelation of an increment process.](imgs/8-10c.png "Data x at lag L>0.")
 
-Now, to compute the numerator of the autocorrelation, we multiply $x$ by a shifted version of $x$ at each time index and then sum the result. In this case, we find some indices where the product of $x_i$ and $x_{i+L}$ is positive, and some indices where the product of $x_i$ and $x_{i+L}$ is negative; an example of an index where the product is negative is indicated above by the black circle. Visual comparison of figures two plots suggests that the product will be positive more often then negative. Therefore, we expect the sum of these products to still be positive, although not as large as we found for the $L = 0$ case. You may have noticed some points where the data do not overlap, at the far right and far left of the figure. At these locations, the product is zero.
-
-+++
-
-<div class="question">
-
-**Q.**  Consider the autocorrelation of the data $x$ at the positive lag $L_1$ shown here:
-
-![Example data for visual inspection of autocorrelation of an increment process.](imgs/8-10d.png "Data x at lag L1>L.")
-
-What is the sign (positive or negative) and relative size of the numerator of the autocorrelation at this lag?
-
-</div>
+Now, to compute the numerator of the autocorrelation, we multiply $x$ by a shifted version of $x$ at each time index and then sum the result. In this case, we find some indices where the product of $x_i$ and $x_{i+L}$ is positive, and some indices where the product of $x_i$ and $x_{i+L}$ is negative; an example of an index where the product is negative is indicated above by the black circle. Visual comparison of the two plots suggests that the product will be positive more often then negative. Therefore, we expect the sum of these products to still be positive, although not as large as we found for the $L = 0$ case. You may have noticed some points where the data do not overlap, at the far right and far left of the figure. At these locations, the product is zero.
 
 +++
 
@@ -1016,20 +964,22 @@ ACFLow = autocorr(IncrementsLow1, 100)                 # ... and the autocorrela
 
 +++
 
-In order to examie history dependence going back 100 ms, we need 100 lags (because each lag index corresponds to 1 ms). There are now too many values to examine them printed one by one at the command line, so instead we construct a plot fo the autocorrelation function with lag on the $x$-axis and correlation on the $y$-axis. Let's also include in this figure two approximate significance lines at $\pm2/\sqrt N$.
+In order to examie history dependence going back 100 ms, we need 100 lags (because each lag index corresponds to 1 ms). There are now too many values to examine them printed one by one on the screen, so instead we construct a plot of the autocorrelation function with lag on the $x$-axis and correlation on the $y$-axis. Let's also include in this figure two approximate significance lines at $\pm2/\sqrt N$.
 
 ```{code-cell} ipython3
-plot(ACFLow, '.')        # Plot autocorrelation vs lags,
-N1 = len(IncrementsLow1)                    # ... compute the sample size
-sig = 2 / np.sqrt(N1)                       # ... and the significance level
-plot([0, 100], [sig, sig], 'r:')           # ... and plot the upper and lower significance lines
+plot(ACFLow, '.')                  # Plot autocorrelation vs lags,
+N1 = len(IncrementsLow1)           # ... compute the sample size
+sig = 2 / np.sqrt(N1)              # ... and the significance level
+plot([0, 100], [sig, sig], 'r:')   # ... and plot the upper and lower significance lines
 plot([0, 100], [-sig, -sig], 'r:')
-plt.xlim([0, 100])                          # ... set x-limits
-plt.ylim([-.1, .1])                         # ... and y-limits
+plt.xlim([0, 100])                 # ... set x-limits
+plt.ylim([-.1, .1])                # ... and y-limits
+xlabel('Time [ms]')                # ... with axes labeled
+ylabel('Autocorrelation')
 show()
 ```
 
-We see that, the two approximate significance lines at $\pm2/\sqrt N$ suggest significant negative correlation structure is present up to about $6$ ms. This reflects the refractory period of the neuron: if you observed a spike in the previous 6 ms, you are less likely to observe a spike in the next few milliseconds. Beyond this point, the values of the autocorrelation mostly remain between the two significance bounds.
+We see that the two approximate significance lines at $\pm2/\sqrt N$ suggest significant negative correlation structure is present up to about $6$ ms. This reflects the refractory period of the neuron: if you observed a spike in the previous 6 ms, you are less likely to observe a spike in the next few milliseconds. Beyond this point, the values of the autocorrelation mostly remain between the two significance bounds.
 
 +++
 
@@ -1048,14 +998,14 @@ Now that we’ve computed and interpreted the autocorrelation function for the l
 
 ```{code-cell} ipython3
 IncrementsHigh1, _ = np.histogram(SpikesHigh, time_bins) # Compute the histogram to create increment process
-ACFHigh = autocorr(IncrementsHigh1, 100)                 # ... and the autocorrelation
+ACFHigh = autocorr(IncrementsHigh1, 100)                 # ... and the autocorrelation.
 plot(ACFHigh, '.')                                       # Plot the autocorrelation,
 sig = 2 / np.sqrt(len(IncrementsHigh1))                  # ... compute and plot the significance level,
 plot([0, 100], [sig, sig], 'r:')                               
 plot([0, 100], [-sig, -sig], 'r:')
-plt.xlim([0, 100])                                       # ... and set the plot limits
+plt.xlim([0, 100])                                       # ... and set the plot limits,
 plt.ylim([-.1, .1])
-xlabel('Time [ms]')
+xlabel('Time [ms]')                                      # ... with axes labeled.
 ylabel('Autocorrelation')
 show()
 ```
@@ -1077,10 +1027,10 @@ Now that we’ve visualized the autocorrelations in the two light conditions, we
 N2 = len(IncrementsHigh1)
 ACFDiff = ACFHigh - ACFLow                    # Compute differences of autocorrelations
 plot(ACFDiff, '.')                            # ... and plot them
-sd = np.sqrt(1/N1+1/N2)                      # ... with significance bounds
+sd = np.sqrt(1/N1+1/N2)                       # ... with significance bounds.
 plot([0, 100], [2 * sd * x for x in [1, 1]], 'r:')
 plot([0, 100], [-2 * sd * x for x in [1, 1]], 'r:')
-plt.xlim([0, 100])                            # Set the plot limits and label the axes
+plt.xlim([0, 100])                            # Set the plot limits and label the axes.
 plt.ylim([-.1, .1])
 xlabel('Time [ms]')
 ylabel('Autocorrelation difference')
@@ -1099,18 +1049,15 @@ The autocorrelation of the increments indicates the amount of time for which the
 <a id="fig:8-14"></a>
 
 ```{code-cell} ipython3
-# Compute and plot the autocorrelation of the low-light ISIs,
-ISI_ACF_Low = autocorr(ISIsLow, 20)
+ISI_ACF_Low = autocorr(ISIsLow, 20)  # Compute and plot the autocorrelation of the low-light ISIs,
 plot(ISI_ACF_Low, '.')
-# ... with upper and lower significance lines,
-N3 = len(ISIsLow)
+N3 = len(ISIsLow)                    # ... with upper and lower significance lines.
 sd = 1 / np.sqrt(N3)
 plot(2 * sd * np.ones_like(ISI_ACF_Low), 'r:')
 plot(-2 * sd * np.ones_like(ISI_ACF_Low), 'r:')
-# Set plot limits and label axes
-plt.xlim([0, 20])
+plt.xlim([0, 20])                    # Set plot limits and label axes.
 plt.ylim([-.2, .2])
-xlabel('Lags')
+xlabel('Number of spikes in the past')
 ylabel('Autocorrelation')
 show()
 ```
@@ -1130,9 +1077,9 @@ We see that the autocorrelation function has just a few isolated lags that are o
 
 [Back to top](#top)
 <a id="models"></a>
-### Building Statistical Models of the ISIs
+## Building Statistical Models of the ISIs
 
-In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [[Hodgkin & Huxley, 1952](https://doi.org/10.1113/jphysiol.1952.sp004764)]. The notion of a model can be confusing and is audience dependent, so we clarify here.
+In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a *statistical model* of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations <a href="https://doi.org/10.1113/jphysiol.1952.sp004764" target="blank">[Hodgkin & Huxley, 1952]</a>). The notion of a model can be confusing and is audience dependent, so we clarify here.
 
 To construct a statistical model for these data we assume that the ISIs are independent samples from some unknown distribution. We typically posit some class of distributions from which the data might arise, and identify the one distribution in that class that maximizes the chance of observing the actual data.
 
@@ -1148,7 +1095,7 @@ k!
 \tag{6}
 $$
 
-where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution [[Kass, Eden & Brown, 2014](http://dx.doi.org/10.1007/978-1-4614-9602-1)]. Mathematically, the probability density function for any ISI taking on a value $x$ is
+where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution <a href="http://dx.doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>. Mathematically, the probability density function for any ISI taking on a value $x$ is
 <a id="eq:7"></a>
 
 $$
@@ -1162,13 +1109,13 @@ where $\lambda$ is the rate parameter for the Poisson process.
 
 <div class="math-note">
 
-**Alert!** This is a common point of confusion. The increments of a Poisson process have a Poisson distribution, and the ISIs have an exponential distribution. The Poisson distribution takes on non-negative integer values {0,1,...,$\infty$}, which make it appropriate for counting the number of spikes in an interval. The Poisson distribu- tion does not make sense to describe the waiting time between spikes, since this typically takes on a continuous value in [0, $\infty$].
+**Alert!** This is a common point of confusion. The increments of a Poisson process have a Poisson distribution, and the ISIs have an exponential distribution. The Poisson distribution takes on non-negative integer values {0,1,...,$\infty$}, which make it appropriate for counting the number of spikes in an interval. The Poisson distribution does not make sense to describe the waiting time between spikes, since this typically takes on a continuous value in [0, $\infty$].
 
 </div>
 
 +++
 
-Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. We plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:
+Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. Let's plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:
 
 ```{code-cell} ipython3
 bins = np.arange(0, .5, 0.001)           # Define 1 ms bins for histogram,
@@ -1215,7 +1162,7 @@ f(x_1, x_2, ..., x_n) &=& f(x_1) f(x_2) ... f(x_n) \\
 \tag{8}
 $$
 
-We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$ , multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$, multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$, and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.
+We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$; multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$; multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.
 
 When considered as a function of the unknown parameters, the joint distribution of the data (<a href="#eq:8" class="thumb">8<span><img src="imgs/eq8.png"></span></a>) is also called the *likelihood*. In this case, we write
 <a id="eq:9"></a>
@@ -1225,14 +1172,14 @@ L(\lambda) = \lambda^n e^{-\lambda (x_1 + x_2 + ... + x_n)},
 \tag{9}
 $$
 
-to indicate that the likelihood $L$ is a function of $\lambda$. To understand what the likelihood function $L(\lambda)$ looks like , let's plot it. We do so for the data from the low-ight condition, and consider a range of possible $\lambda$ values.
+to indicate that the likelihood $L$ is a function of $\lambda$. To understand what the likelihood function $L(\lambda)$ looks like, let's plot it. We do so for the data from the low-light condition, and consider a range of possible $\lambda$ values.
 <a id="fig:8-16"></a>
 
 ```{code-cell} ipython3
 lambdas = np.arange(50)  # Range of lambda values.
 N3 = len(ISIsLow)        # Number of low-light ISIs observed.
 L = lambdas ** N3 * np.exp(-lambdas * sum(ISIsLow))  # Compute the likelihood,
-plot(lambdas, L)         # ... and plot it
+plot(lambdas, L)         # ... and plot it.
 xlabel('$\lambda$')
 ylabel('Likelihood')
 show()
@@ -1262,13 +1209,13 @@ show()
 
 <div class="question">
 
-**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$ (<a href="#eq:9" class="thumb">eq.<span><img src="imgs/eq9.png"></span></a>)? *Hint*: It should. Remember $\log(x^a)=a \log x$, and $\log(e^b)=b$.
+**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$ where the likelihood $L(\lambda)$ is defined in (<a href="#eq:9" class="thumb">eq.<span><img src="imgs/eq9.png"></span></a>)? *Hint*: It should. Remember $\log(x^a)=a \, \log x$, and $\log(e^b)=b$.
 
 </div>
 
 +++
 
-We see that the log likelihood is low for small $\lambda$, rises quickly as $\lambda$ increases, and then starts to fall off once $\lambda$ becomes larger than $\approx$ 25. The point $\lambda$ = 25, where the log likelihood is maximized, is called the maximum likelihood estimate of $\lambda$. We use the symbol $\hat\lambda$ to denote the maximum likelihood estimate of $\lambda$.
+We see that the log likelihood is low for small $\lambda$, rises quickly as $\lambda$ increases, and then starts to fall off once $\lambda$ becomes larger than $\approx$ 25. The point $\lambda$ = 25, where the log likelihood is maximized, is called the **maximum likelihood estimate** of $\lambda$. We use the symbol $\hat\lambda$ to denote the maximum likelihood estimate of $\lambda$.
 
 We observe that although the values of the likelihood go beyond the precision range in Python, the peak in the log likelihood stands out very clearly. Note that the likelihood (<a href="#fig:8-16" class="fig">figure<span><img src="imgs/8-16.png"></span></a>) is maximized at the same point as the log likelihood (<a href="#fig:8-17" class="fig">figure<span><img src="imgs/8-17.png"></span></a>). This is always true.
 
@@ -1282,7 +1229,7 @@ We observe that although the values of the likelihood go beyond the precision ra
 
 +++
 
-We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.
+We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=n(\sum_{i=1}^n x_i)^{-1} = 1 / \bar{x} = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.
 
 +++
 
@@ -1291,7 +1238,7 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 **Q.** What is the maximum likelihood estimate for the Poisson rate parameter in the high-light condition?
 
     
-**A.** Repeating the analysis for the high-light condition, the maximum likelihood estimate for a Poisson rate parameter is $\hat \lambda = n(\sum{i=1}^nx_i)^{-1} = 1 / \bar x = 32.3$ spikes/s. The differenc ein the Poisson rate parameter of 32.3 - 25.0 = 7.3 spikes/s reflects the difference in the overall firing rate of the neuron between the low-and high-light conditions.
+**A.** Repeating the analysis for the high-light condition, the maximum likelihood estimate for a Poisson rate parameter is $\hat \lambda = n(\sum{i=1}^nx_i)^{-1} = 1 / \bar x = 32.3$ spikes/s. The difference in the Poisson rate parameter of 32.3 - 25.0 = 7.3 spikes/s reflects the difference in the overall firing rate of the neuron between the low-and high-light conditions.
     
 </div>
 
@@ -1305,26 +1252,26 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 
 +++
 
-To address this last question, let’s use a bootstrap analysis (see [chapter 2](../2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential.ipynb#bootstrap)). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
+To address this last question, let’s use a bootstrap analysis (see <a href="https://mark-kramer.github.io/Case-Studies-Python/02/the-event-related-potential.html#bootstrap" target="blank">[an introdcution to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
 
 ```{code-cell} ipython3
-# Compute the observed difference in lambdas
+# Compute the observed difference in lambdas.
 MLDiff = 1 / ISIsHigh.mean() - 1 / ISIsLow.mean()
 
 # Then, perform the bootstrap analysis.
 ISIs = np.hstack([ISIsLow, ISIsHigh])  # Merge all ISIs.
-Nall = len(ISIs)  # Save length of all ISIs.
-Nlo = len(ISIsLow)  # Save length for the low-light condition
-Nhi = len(ISIsHigh)  # Save length high-light condition
+Nall = len(ISIs)                       # Save length of all ISIs.
+Nlo = len(ISIsLow)                     # Save length for the low-light condition.
+Nhi = len(ISIsHigh)                    # Save length high-light condition.
 
 # Compute the difference in lambdas from resampled data
 sampDiff = [1 / np.mean(ISIs[np.random.randint(Nall, size=Nhi)]) -  # Resample the high-light ISIs and subtract
-           1 / np.mean(ISIs[np.random.randint(Nall, size=Nlo)])     # ... the resampled low-light ISIs
-           for _ in range(1000)]                                    # ... 1000 times
+            1 / np.mean(ISIs[np.random.randint(Nall, size=Nlo)])    # ... the resampled low-light ISIs
+           for _ in range(1000)]                                    # ... 1000 times.
 
 # Compare the bootstrap distribution to the empirical
-plt.hist(sampDiff, bins=30)       # Plot resampled ISIs distribution
-plot([MLDiff, MLDiff], [0, 100])  # ... and the empirical ISIs.
+plt.hist(sampDiff, bins=30)            # Plot resampled ISIs distribution,
+plot([MLDiff, MLDiff], [0, 100])       # ... and the empirical ISIs.
 xlabel('Counts')
 ylabel('Difference in rate (spikes/s)')
 show()
@@ -1332,25 +1279,25 @@ show()
 
 <div class=math-note>
 
-There are more powerful tests we could use to compare the Poisson rate parameters. By more powerful, we mean that the tests are more likely to show a significant difference when one is actually present. However, the fact that the bootstrap test gives a significant result suggests that these more powerful tests would also be significant.
+There are more powerful tests we could use to compare the Poisson rate parameters. By more powerful, we mean that the tests are more likely to show a significant difference when one is actually present. However, here we find that the bootstrap test gives a significant result; notice that the observed difference in rate parameters (blue) lines lies well outside the bootstrap distribution of values (red). We conclude that a more powerful test would also be significant.
 
 </div>
 
 +++
 
-But, is the Poisson model good? To answer this, let’s visualize the model fits compared to the data. There are a number of ways to do this. We start by comparing the expected proportion of ISIs for a Poisson process to the ISI histograms we actually observe in each condition. Let’s do so first for the low-light condition:
+We've now fit a Possion model to the data. But, does the Poisson model provide a good fit to the data? To answer this, let’s visualize the model fits compared to the data. There are a number of ways to do this. We start by comparing the expected proportion of ISIs for a Poisson process to the ISI histograms we actually observe in each condition. Let’s do so first for the low-light condition:
 
 ```{code-cell} ipython3
-bins = np.arange(0, .5, 0.001)            # Define 1 ms bins for histogram
-counts, _ = np.histogram(ISIsLow, bins)   # Compute histogram
+bins = np.arange(0, .5, 0.001)            # Define 1 ms bins for histogram.
+counts, _ = np.histogram(ISIsLow, bins)   # Compute histogram,
 prob = counts / len(ISIsLow)              # ... convert to probability,
 plt.bar(bins[:-1], prob, width=0.001)     # ... and plot probability.
 lbda = 1 / ISIsLow.mean()                 # Compute best guess for lambda,
 model = lbda * np.exp(-lbda * bins) * 0.001  # ... build the model,
-plot(bins, model, 'r')                    # ... and plot it
+plot(bins, model, 'b')                    # ... and plot it.
 plt.xlim([0, 0.15])                       # ... xlim from 0 to 150 ms,
 xlabel('ISI [s]')                         # ... label the x-axis,
-ylabel('Probability')                     # ... and the y-axis
+ylabel('Probability')                     # ... and the y-axis.
 show()
 ```
 
@@ -1372,7 +1319,7 @@ show()
 
 +++
 
-To go beyond visual inspection of the model fits and quantify the goodness of fit, we compare the cumulative distributions computed from the data and model. The *cumulative distribution function* (CDF), $F(x)$, is the probability that a random variable will take on a value less than or equal to $x$. For the exponential ISI model with rate parameter $\lambda$, the model CDF is
+To go beyond visual inspection of the model fits and quantify the goodness of fit, we compare the cumulative distributions computed from the data and model. The **cumulative distribution function** (CDF), $F(x)$, is the probability that a random variable will take on a value less than or equal to $x$. For the exponential ISI model with rate parameter $\lambda$, the model CDF is
 
 $$
 \begin{eqnarray}
@@ -1387,13 +1334,13 @@ $$
 We compare this to the empirical CDF of the data, $F_{emp}(x)$, which is defined as the proportion of observations less than or equal to $x$. The code to compute and plot these CDFs for the low light-condition is as follows:
 
 ```{code-cell} ipython3
-bins = np.arange(0, 0.5, 0.001)     # Define 1 ms bins for histogram
-lbda = 1 / ISIsLow.mean()           # Compute best guess for lbda,
+bins = np.arange(0, 0.5, 0.001)     # Define 1 ms bins for histogram,
+lbda = 1 / ISIsLow.mean()           # Compute best guess for lambda,
 FmodLow = 1 - np.exp(-lbda * bins)  # ... and define model CDF.
-FempLow = np.cumsum(prob)           # Define empirical CDF
-plot(bins, FmodLow)                 # Plot the model CDF,
+FempLow = np.cumsum(prob)           # Define empirical CDF.
+plot(bins, FmodLow,'b')                 # Plot the model CDF,
 plot(bins[:-1], FempLow, 'r')       # ... and the empirical CDF,
-plt.xlim([0, 0.2])                  # ... with specified x-limits
+plt.xlim([0, 0.2])                  # ... with specified x-limits.
 xlabel('Time [s]')
 ylabel('CDF')
 show()
@@ -1411,7 +1358,7 @@ show()
 
 **Q.** Compare the model and empirical CDFs in the plot above. What do you think?
 
-**A.** If the model were a perfect fit, the red and blue curves would align. However, that's not what we find here. We conclude that the model may not provide a good fit to the data.
+**A.** If the model were a perfect fit, the two curves would align. However, that's not what we find here. We conclude that the model may not provide a good fit to the data.
 
 </div>
 
@@ -1431,12 +1378,12 @@ Another common way to visualize the difference between the model and empirical d
 fig, ax = plt.subplots()
 plot(FmodLow[:-1], FempLow)    # Plot the model vs empirical CDFs.
 plt.axis([0, 1, 0, 1])         # Set the axes ranges.
-xlabel('Model CDF')
+xlabel('Model CDF')            # And label the axes.
 ylabel('Empirical CDF')
 show()
 ```
 
-Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot [[Kass, Eden & Brown, 2014](http://dx.doi.org/10.1007/978-1-4614-9602-1)]. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:
+Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot <a href="http://dx.doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:
 
 ```{code-cell} ipython3
 Nlow = len(ISIsLow)  # Length of the low-light condition
@@ -1458,15 +1405,15 @@ A well-fit model should stay entirely within these bounds. In this case, the KS 
 
 +++
 
-#### A More Advanced Statistical Model.
-We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system [Hodgkin & Huxley, 1952](https://doi.org/10.1007/BF02459568). The mathematical expression for the inverse Gaussian probability density is 
+### A More Advanced Statistical Model.
+We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system <a href="https://www.ncbi.nlm.nih.gov/pubmed/9394447" target="blank">[Iyengar & Liao, 1997]</a>). The mathematical expression for the inverse Gaussian probability density is,
 
 $$
-f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right)
+f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right) \, .
 \tag{10}
 $$
 
-The inverse Gaussian distribution has two parameters that determine its shape: $\mu$, which determines the mean of the distribution, and $\lambda$, which is called the shape parameter. At $x$ = 0, the inverse Gaussian has a probability density equal to zero, which suggests it could capture some of the refractoriness seen in the data.
+The inverse Gaussian distribution has two parameters that determine its shape: $\mu$, which determines the mean of the distribution; and $\lambda$, which is called the shape parameter. At $x$ = 0, the inverse Gaussian has a probability density equal to zero, which suggests it could capture some of the refractoriness seen in the data.
 
 If we again assume that the ISIs are independent of each other, then the likelihood of observing the sequence of ISIs, $x_1 , x_2 , . . . , x_n$, is the product of the probabilities of each ISI,
 
@@ -1478,7 +1425,7 @@ $$
 The log likelihood is then
 
 $$
-\log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
+\log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log\frac{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
 \tag{12}
 $$
 
@@ -1509,7 +1456,7 @@ model = (                                   # ... to create the model.
            2 / mu ** 2 / bins) * 0.001
 )
 model[0] = 0                      # Numerator to 0 faster than denominator.
-print('mu = ', mu)                # Display the MLEs
+print('mu = ', mu)                # Display the MLEs.
 print('lambda = ', lbda)
 ```
 
@@ -1528,10 +1475,10 @@ From the computations, we find maximum likelihood estimates $\mu$ = 40.0 ms and 
 plt.subplot(121)
 counts, _ = np.histogram(ISIsLow, bins)  # Compute histogram,
 prob = counts / len(ISIsLow)             # ... convert to probability,
-plt.bar(bins[:-1], prob, width=1e-3)     # ... and plot probability
-plot(bins, model, 'r')                   # Plot the model
+plt.bar(bins[:-1], prob, width=1e-3)     # ... and plot probability.
+plot(bins, model, 'b')                   # Plot the model.
 plt.xlim([0, 0.2])                       # xlim from 0 to 200 ms.
-xlabel('ISI [s]')                        # Label the axes
+xlabel('ISI [s]')                        # Label the axes.
 ylabel('Probability')
 
 # Plot the KS plot
@@ -1539,8 +1486,8 @@ plt.subplot(122)
 FmodLow = np.cumsum(model[:-1])          # Define the model CDF,
 FempLow = np.cumsum(prob)                # ... and define empirical CDF,
 plot(FmodLow, FempLow)                   # ... plot model vs empirical CDF,
-plot([0, 1], np.arange(2) + 1.36 / np.sqrt(Nlow))  # ... upper confidence bound,
-plot([0, 1], np.arange(2) - 1.36 / np.sqrt(Nlow))  # ... lower confidence bound,
+plot([0, 1], np.arange(2) + 1.36 / np.sqrt(Nlow),'k:')  # ... upper confidence bound,
+plot([0, 1], np.arange(2) - 1.36 / np.sqrt(Nlow),'k:')  # ... lower confidence bound,
 plt.axis([0, 1, 0, 1])                   # ... set the axes ranges,
 xlabel('Model CDF')                      # ... and label the axes.
 ylabel('Empirical CDF')
@@ -1559,7 +1506,7 @@ show()
 
 <div class=question>
 
-**Q.** Consider the fit of the inverse Gaussian model to the data in the high-light con- dition. Does the inverse Gaussian model provide a good fit to these ISIs?
+**Q.** Consider the fit of the inverse Gaussian model to the data in the high-light condition. Does the inverse Gaussian model provide a good fit to these ISIs?
 
 </div>
 
@@ -1576,7 +1523,7 @@ show()
 [Back to top](#top)
 <a id="summary"></a>
 ## Summary
-In this chapter, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.
+In this notebook, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.
 
 +++
 
@@ -1714,7 +1661,8 @@ $$
 $$
 
 We can simplify by recognizing that 
-$\left[
+$$
+\left[
 1 + 
 \lambda + 
 \frac{\lambda^2}{2!} + 
@@ -1722,7 +1670,9 @@ $\left[
 \cdots
 \right]
 =
-e^\lambda$.
+e^\lambda \, .
+$$
+
 Then
 <a id="eq:18"></a>
 
@@ -1736,7 +1686,6 @@ e^\lambda +
 \lambda
 \left[
 1 + 
-\lambda + 
 \frac{\lambda^1}{1!} + 
 \frac{\lambda^2}{2!} + 
 \cdots

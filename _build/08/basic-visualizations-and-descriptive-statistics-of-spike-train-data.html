@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /09/point-process-glms.html
 suffix: .ipynb
-search: data div lambda light x class condition spike process isi question ms model bin poisson low isis autocorrelation value q between n spiking high spikes values distribution function plot eq s lets frac bins e sum k conditions increment likelihood imgs png fit lag id activity axis probability compute fano consider not factor case vector does train interval times counts rate second xi href src span mu any neuron statistical where firing histogram observed correlation positive l right count small variable range left top inspection here expect above visual intervals difference using size f instead compare increments structure our spikeslow
+search: data lambda div light class condition spike process x isi model ms bin question poisson low isis value q autocorrelation distribution between values spiking high spikes function plot n eq s lets frac bins e k fit likelihood conditions increment id activity axis imgs png probability compute fano not sum href does factor lag case consider vector train interval rate times counts second src span mu any where neuron statistical observed firing histogram correlation right count small difference variable range left top here expect above positive inspection intervals using f instead compare l xi visual increments structure our spikeslow size
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -81,8 +81,8 @@ _**Synopsis**_
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.</p>
 <h3 id="Case-Study-Data">Case Study Data<a class="anchor-link" href="#Case-Study-Data"> </a></h3><p>A researcher examining the background firing properties of one of these neurons contacts you to discuss his data. He records the spiking activity in one of two states, with the room lights off (low ambient light levels) or with the room lights on (high ambient light levels). He would like to collaborate with you to determine whether there is a difference in background firing between these two conditions, and whether one environment is more conducive to future experimental analyses. He records the spiking activity for 30 seconds in each condition.</p>
-<h3 id="Goal">Goal<a class="anchor-link" href="#Goal"> </a></h3><p>Typically the first step in any data analysis involves visualizing and using simple descriptive statistics to characterize pertinent features of the data. For time series data that take on a continuous value at each time point, like the field potentials analyzed in earlier chapters, we typically start by simply plotting each data value as a function of time. For spike train data, things can become a bit more complicated. One reason for this is that there are multiple equivalent ways to describe the same spike train data. The data could be stored as a sequence of spike times; as a sequence of waiting times between spikes, or interspike intervals; or as a discrete time series indicating the number of spikes in discrete time bins. Knowing how to manipulate and visualize spike train data using all these different representations is the first step to understanding the structure present in the data and is the primary goal of this chapter.</p>
-<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>We develop tools in this chapter to visualize spike train data and to provide basic statistical methods appropriate for analyzing spike trains.</p>
+<h3 id="Goal">Goal<a class="anchor-link" href="#Goal"> </a></h3><p>Typically the first step in any data analysis involves visualizing and using simple descriptive statistics to characterize pertinent features of the data. For time series data that take on a continuous value at each time point, like the field potentials analyzed in earlier notebooks, we typically start by simply plotting each data value as a function of time. For spike train data, things can become a bit more complicated. One reason for this is that there are multiple equivalent ways to describe the same spike train data. The data could be stored as a sequence of spike times; as a sequence of waiting times between spikes, or interspike intervals; or as a discrete time series indicating the number of spikes in discrete time bins. Knowing how to manipulate and visualize spike train data using all these different representations is the first step to understanding the structure present in the data and is the primary goal of this notebook.</p>
+<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>We develop tools in this notebook to visualize spike train data and to provide basic statistical methods appropriate for analyzing spike trains.</p>
 
 </div>
 </div>
@@ -866,6 +866,24 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_42_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -954,6 +972,24 @@ Recall that Python uses *zero-based indexing*. This means that elements in array
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([0.04098354, 0.02902169, 0.00746714, 0.05205904, 0.05553601,
+       0.06204051, 0.02267623, 0.02132764])</pre>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1057,6 +1093,24 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_54_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1122,6 +1176,36 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_0.png"
+>
+</div>
+
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_1.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1275,6 +1359,24 @@ The intervals of rapid spiking produce many shorter ISIs, and the longer interva
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_67_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1340,6 +1442,21 @@ A descriptive choice of variable name is often useful.
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>FF50Low = 0.7164927285225824
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1525,6 +1642,24 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_83_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1551,6 +1686,23 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([0.88985257, 1.11648138])</pre>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1646,56 +1798,10 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="question">
-
-
-
-**Q.** This formula is rather complicated, so let's consider a simple case: $L = 0$. What is $\rho_{xx}[0]$?
-
-
-
-
-
-**A.** To answer this, let's substitute $L=0$ into the mathematical expression for the autcorrelation,
-
-
-\begin{eqnarray}
-\rho_{xx}[0] &=& 
-\bigg ( \sum_{i=1}^{N-0} (x_i - \bar{x})(x_{i+0} - \bar{x}) \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=&
-\bigg ( \sum_{i=1}^{N} (x_i - \bar{x})(x_{i} - \bar{x}) \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=&
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\bigg / 
-\bigg ( \sum_{i=1}^N (x_i - \bar{x})^2 \bigg ) 
-\\
-&=& 1.
-\end{eqnarray}
-
-At $L=0$, the autocorrelation is by definition equal to 1. In words, an individual dataset $x$ is perfectly correlated with itself at zero lag.
-
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <p>To gain some intuition for the autocorrelation, let’s consider the following relatively simple increment process:</p>
 <p><a id="fig:8-10a"></a></p>
 <p><img src="imgs/8-10a.png" alt="Example data for visual inspection of autocorrelation of an increment process." title="Data x as a function of time (arbitrary units)."></p>
-<p>Our goal is to understand the autocorrelation of these data, labeled $x$. From visual inspection of the figure, we conclude that the data $x$ have mean 0, so that $\overline x = 0$; note that the data appear to oscillate between equal and opposite values over time. For simplicity, let’s focus on the numerator of equation (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>). At lag zero (i.e., $L = 0$), the numerator of (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>) tells us to multiply the data by themselves at each time index, and then sum the product. To visualize this multiplication and sum, consider multiplying the data in figure above by the following data at each index in time and then summing the result.</p>
+<p>Our goal is to understand the autocorrelation of these data, labeled $x$. From visual inspection of the figure, we conclude that the data $x$ have mean 0, so that $\overline x = 0$; note that the data appear to oscillate between equal and opposite values over time. For simplicity, let’s focus on the numerator of equation (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>). At lag zero (i.e., $L = 0$), the numerator of (<a href="#eq:5" class="thumb">5<span><img src="imgs/eq5.png"></span></a>) tells us to multiply the data by themselves at each time index, and then sum the product. To visualize this multiplication and sum, consider multiplying the data in the figure above by the following data at each index in time and then summing the result.</p>
 <p><a id="fig:8-10b"></a></p>
 <p><img src="imgs/8-10b.png" alt="Example data for visual inspection of autocorrelation of an increment process." title="Data x at lag L=0."></p>
 
@@ -1736,26 +1842,8 @@ At $L=0$, the autocorrelation is by definition equal to 1. In words, an individu
 <p><a id="fig:8-10c"></a></p>
 <p><img src="imgs/8-10a.png" alt="Example data for visual inspection of autocorrelation of an increment process." title="Data x."></p>
 <p><img src="imgs/8-10c.png" alt="Example data for visual inspection of autocorrelation of an increment process." title="Data x at lag L&gt;0."></p>
-<p>Now, to compute the numerator of the autocorrelation, we multiply $x$ by a shifted version of $x$ at each time index and then sum the result. In this case, we find some indices where the product of $x_i$ and $x_{i+L}$ is positive, and some indices where the product of $x_i$ and $x_{i+L}$ is negative; an example of an index where the product is negative is indicated above by the black circle. Visual comparison of figures two plots suggests that the product will be positive more often then negative. Therefore, we expect the sum of these products to still be positive, although not as large as we found for the $L = 0$ case. You may have noticed some points where the data do not overlap, at the far right and far left of the figure. At these locations, the product is zero.</p>
+<p>Now, to compute the numerator of the autocorrelation, we multiply $x$ by a shifted version of $x$ at each time index and then sum the result. In this case, we find some indices where the product of $x_i$ and $x_{i+L}$ is positive, and some indices where the product of $x_i$ and $x_{i+L}$ is negative; an example of an index where the product is negative is indicated above by the black circle. Visual comparison of the two plots suggests that the product will be positive more often then negative. Therefore, we expect the sum of these products to still be positive, although not as large as we found for the $L = 0$ case. You may have noticed some points where the data do not overlap, at the far right and far left of the figure. At these locations, the product is zero.</p>
 
-</div>
-</div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="question">
-
-**Q.**  Consider the autocorrelation of the data $x$ at the positive lag $L_1$ shown here:
-
-![Example data for visual inspection of autocorrelation of an increment process.](imgs/8-10d.png "Data x at lag L1>L.")
-
-What is the sign (positive or negative) and relative size of the numerator of the autocorrelation at this lag?
-
-</div>
 </div>
 </div>
 </div>
@@ -1789,6 +1877,23 @@ What is the sign (positive or negative) and relative size of the numerator of th
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([1.        , 0.03894992, 0.07055464, 0.04431669])</pre>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1912,7 +2017,7 @@ What is the sign (positive or negative) and relative size of the numerator of th
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In order to examie history dependence going back 100 ms, we need 100 lags (because each lag index corresponds to 1 ms). There are now too many values to examine them printed one by one at the command line, so instead we construct a plot fo the autocorrelation function with lag on the $x$-axis and correlation on the $y$-axis. Let's also include in this figure two approximate significance lines at $\pm2/\sqrt N$.</p>
+<p>In order to examie history dependence going back 100 ms, we need 100 lags (because each lag index corresponds to 1 ms). There are now too many values to examine them printed one by one on the screen, so instead we construct a plot of the autocorrelation function with lag on the $x$-axis and correlation on the $y$-axis. Let's also include in this figure two approximate significance lines at $\pm2/\sqrt N$.</p>
 
 </div>
 </div>
@@ -1926,17 +2031,37 @@ What is the sign (positive or negative) and relative size of the numerator of th
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">ACFLow</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>        <span class="c1"># Plot autocorrelation vs lags,</span>
-<span class="n">N1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IncrementsLow1</span><span class="p">)</span>                    <span class="c1"># ... compute the sample size</span>
-<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>                       <span class="c1"># ... and the significance level</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>           <span class="c1"># ... and plot the upper and lower significance lines</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">ACFLow</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                  <span class="c1"># Plot autocorrelation vs lags,</span>
+<span class="n">N1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IncrementsLow1</span><span class="p">)</span>           <span class="c1"># ... compute the sample size</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>              <span class="c1"># ... and the significance level</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>   <span class="c1"># ... and plot the upper and lower significance lines</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">sig</span><span class="p">,</span> <span class="o">-</span><span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                          <span class="c1"># ... set x-limits</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>                         <span class="c1"># ... and y-limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                 <span class="c1"># ... set x-limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>                <span class="c1"># ... and y-limits</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>                <span class="c1"># ... with axes labeled</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_103_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -1947,7 +2072,7 @@ What is the sign (positive or negative) and relative size of the numerator of th
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see that, the two approximate significance lines at $\pm2/\sqrt N$ suggest significant negative correlation structure is present up to about $6$ ms. This reflects the refractory period of the neuron: if you observed a spike in the previous 6 ms, you are less likely to observe a spike in the next few milliseconds. Beyond this point, the values of the autocorrelation mostly remain between the two significance bounds.</p>
+<p>We see that the two approximate significance lines at $\pm2/\sqrt N$ suggest significant negative correlation structure is present up to about $6$ ms. This reflects the refractory period of the neuron: if you observed a spike in the previous 6 ms, you are less likely to observe a spike in the next few milliseconds. Beyond this point, the values of the autocorrelation mostly remain between the two significance bounds.</p>
 
 </div>
 </div>
@@ -1989,19 +2114,37 @@ What is the sign (positive or negative) and relative size of the numerator of th
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span> <span class="c1"># Compute the histogram to create increment process</span>
-<span class="n">ACFHigh</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>                 <span class="c1"># ... and the autocorrelation</span>
+<span class="n">ACFHigh</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>                 <span class="c1"># ... and the autocorrelation.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ACFHigh</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                                       <span class="c1"># Plot the autocorrelation,</span>
 <span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">))</span>                  <span class="c1"># ... compute and plot the significance level,</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>                               
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">sig</span><span class="p">,</span> <span class="o">-</span><span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                       <span class="c1"># ... and set the plot limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                       <span class="c1"># ... and set the plot limits,</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>                                      <span class="c1"># ... with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_107_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2046,10 +2189,10 @@ What is the sign (positive or negative) and relative size of the numerator of th
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">N2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">)</span>
 <span class="n">ACFDiff</span> <span class="o">=</span> <span class="n">ACFHigh</span> <span class="o">-</span> <span class="n">ACFLow</span>                    <span class="c1"># Compute differences of autocorrelations</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ACFDiff</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                            <span class="c1"># ... and plot them</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">N1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">N2</span><span class="p">)</span>                      <span class="c1"># ... with significance bounds</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">N1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">N2</span><span class="p">)</span>                       <span class="c1"># ... with significance bounds.</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                            <span class="c1"># Set the plot limits and label the axes</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                            <span class="c1"># Set the plot limits and label the axes.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation difference&#39;</span><span class="p">)</span>
@@ -2057,6 +2200,24 @@ What is the sign (positive or negative) and relative size of the numerator of th
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_110_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2095,23 +2256,38 @@ What is the sign (positive or negative) and relative size of the numerator of th
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute and plot the autocorrelation of the low-light ISIs,</span>
-<span class="n">ISI_ACF_Low</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ISI_ACF_Low</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Compute and plot the autocorrelation of the low-light ISIs,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="c1"># ... with upper and lower significance lines,</span>
-<span class="n">N3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>
+<span class="n">N3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                    <span class="c1"># ... with upper and lower significance lines.</span>
 <span class="n">sd</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N3</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="c1"># Set plot limits and label axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                    <span class="c1"># Set plot limits and label axes.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lags&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of spikes in the past&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_113_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2150,7 +2326,7 @@ We see that the autocorrelation function has just a few isolated lags that are o
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to top</a>
 <a id="models"></a></p>
-<h3 id="Building-Statistical-Models-of-the-ISIs">Building Statistical Models of the ISIs<a class="anchor-link" href="#Building-Statistical-Models-of-the-ISIs"> </a></h3><p>In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a <em>statistical model</em> of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations [<a href="https://doi.org/10.1113/jphysiol.1952.sp004764">Hodgkin &amp; Huxley, 1952</a>]. The notion of a model can be confusing and is audience dependent, so we clarify here.</p>
+<h2 id="Building-Statistical-Models-of-the-ISIs">Building Statistical Models of the ISIs<a class="anchor-link" href="#Building-Statistical-Models-of-the-ISIs"> </a></h2><p>In the previous sections, we constructed autocorrelation functions of the increment processes and autocorrelation functions of the sequences of ISIs. The former suggested dependence going back up to $\approx$ 50 ms (<a href="#fig:8-12" class="fig">figure<span><img src="imgs/8-12.png"></span></a>), while the latter suggested that the spiking at any time depends only on the timing of the most recent spike (<a href="#fig:8-14" class="fig">figure<span><img src="imgs/8-14.png"></span></a>). We now consider another powerful technique to understand these data: building a model. More specifically, we construct a <em>statistical model</em> of these data. This model captures important features of the data but does not consist of explicit biophysical components (an example of a biologically explicit model is the Hodgkin-Huxley equations <a href="https://doi.org/10.1113/jphysiol.1952.sp004764" target="blank">[Hodgkin & Huxley, 1952]</a>). The notion of a model can be confusing and is audience dependent, so we clarify here.</p>
 <p>To construct a statistical model for these data we assume that the ISIs are independent samples from some unknown distribution. We typically posit some class of distributions from which the data might arise, and identify the one distribution in that class that maximizes the chance of observing the actual data.</p>
 <p>What class of distributions should we use to build an ISI model? Previously, we discussed a Poisson process as a basic model for a spiking process, consistent with the conceptual idea of spikes as coin flips. Let’s fit a Poisson process with a constant firing rate to the observed data. In other words, we begin with a model where the number of spikes in any time bin is independent of all previous (and future) spiking and has a Poisson distribution with a fixed but unknown rate parameter $\lambda$. The probability $P$ of $k$ spikes in any time bin is given by the Poisson distribution,
 <a id="eq:6"></a></p>
@@ -2161,7 +2337,7 @@ P(k) = \frac{
 k!
 },
 \tag{6}
-$$<p>where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution [<a href="http://dx.doi.org/10.1007/978-1-4614-9602-1">Kass, Eden &amp; Brown, 2014</a>]. Mathematically, the probability density function for any ISI taking on a value $x$ is
+$$<p>where $k!$ is the factorial of $k$. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution <a href="http://dx.doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>. Mathematically, the probability density function for any ISI taking on a value $x$ is
 <a id="eq:7"></a></p>
 $$
 f(x) = \lambda \exp(-\lambda x),
@@ -2179,7 +2355,7 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="math-note">
 
-**Alert!** This is a common point of confusion. The increments of a Poisson process have a Poisson distribution, and the ISIs have an exponential distribution. The Poisson distribution takes on non-negative integer values {0,1,...,$\infty$}, which make it appropriate for counting the number of spikes in an interval. The Poisson distribu- tion does not make sense to describe the waiting time between spikes, since this typically takes on a continuous value in [0, $\infty$].
+**Alert!** This is a common point of confusion. The increments of a Poisson process have a Poisson distribution, and the ISIs have an exponential distribution. The Poisson distribution takes on non-negative integer values {0,1,...,$\infty$}, which make it appropriate for counting the number of spikes in an interval. The Poisson distribution does not make sense to describe the waiting time between spikes, since this typically takes on a continuous value in [0, $\infty$].
 
 </div>
 </div>
@@ -2191,7 +2367,7 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. We plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:</p>
+<p>Our goal is to find a good value of $\lambda$ so that our statistical model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>) matches the observed ISI distributions. Let’s guess some values for $\lambda$, evaluate the model (<a href="#eq:7" class="thumb">7<span><img src="imgs/eq7.png"></span></a>), and see how well the model matches the data. Let's plot the probability of observing ISI values in 1 ms bins for the low-light condition. This is similar to the ISI histogram we plotted previously except that the $y$-axis should represent probability instead of counts. To do so, we simply divide each count value by the total number of ISIs in the low-light condition:</p>
 
 </div>
 </div>
@@ -2217,6 +2393,34 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+  &#34;&#34;&#34;
+</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_119_1.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2248,6 +2452,24 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea output_execute_result">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2292,13 +2514,13 @@ f(x_1, x_2, ..., x_n) &amp;=&amp; f(x_1) f(x_2) ... f(x_n) \\
 &amp;=&amp; \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
 \end{eqnarray}
 \tag{8}
-$$<p>We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$ , multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$, multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$, and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.</p>
+$$<p>We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$; multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$; multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.</p>
 <p>When considered as a function of the unknown parameters, the joint distribution of the data (<a href="#eq:8" class="thumb">8<span><img src="imgs/eq8.png"></span></a>) is also called the <em>likelihood</em>. In this case, we write
 <a id="eq:9"></a></p>
 $$
 L(\lambda) = \lambda^n e^{-\lambda (x_1 + x_2 + ... + x_n)},
 \tag{9}
-$$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understand what the likelihood function $L(\lambda)$ looks like , let's plot it. We do so for the data from the low-ight condition, and consider a range of possible $\lambda$ values.
+$$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understand what the likelihood function $L(\lambda)$ looks like, let's plot it. We do so for the data from the low-light condition, and consider a range of possible $\lambda$ values.
 <a id="fig:8-16"></a></p>
 
 </div>
@@ -2316,13 +2538,31 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lambdas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># Range of lambda values.</span>
 <span class="n">N3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>        <span class="c1"># Number of low-light ISIs observed.</span>
 <span class="n">L</span> <span class="o">=</span> <span class="n">lambdas</span> <span class="o">**</span> <span class="n">N3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lambdas</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">))</span>  <span class="c1"># Compute the likelihood,</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>         <span class="c1"># ... and plot it</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>         <span class="c1"># ... and plot it.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_125_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2376,6 +2616,24 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_128_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2385,7 +2643,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$ (<a href="#eq:9" class="thumb">eq.<span><img src="imgs/eq9.png"></span></a>)? *Hint*: It should. Remember $\log(x^a)=a \log x$, and $\log(e^b)=b$.
+**Q.** Consider the second line of code above. Does the definition for `l` correspond to $\log[L(\lambda)]$ where the likelihood $L(\lambda)$ is defined in (<a href="#eq:9" class="thumb">eq.<span><img src="imgs/eq9.png"></span></a>)? *Hint*: It should. Remember $\log(x^a)=a \, \log x$, and $\log(e^b)=b$.
 
 </div>
 </div>
@@ -2397,7 +2655,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see that the log likelihood is low for small $\lambda$, rises quickly as $\lambda$ increases, and then starts to fall off once $\lambda$ becomes larger than $\approx$ 25. The point $\lambda$ = 25, where the log likelihood is maximized, is called the maximum likelihood estimate of $\lambda$. We use the symbol $\hat\lambda$ to denote the maximum likelihood estimate of $\lambda$.</p>
+<p>We see that the log likelihood is low for small $\lambda$, rises quickly as $\lambda$ increases, and then starts to fall off once $\lambda$ becomes larger than $\approx$ 25. The point $\lambda$ = 25, where the log likelihood is maximized, is called the <strong>maximum likelihood estimate</strong> of $\lambda$. We use the symbol $\hat\lambda$ to denote the maximum likelihood estimate of $\lambda$.</p>
 <p>We observe that although the values of the likelihood go beyond the precision range in Python, the peak in the log likelihood stands out very clearly. Note that the likelihood (<a href="#fig:8-16" class="fig">figure<span><img src="imgs/8-16.png"></span></a>) is maximized at the same point as the log likelihood (<a href="#fig:8-17" class="fig">figure<span><img src="imgs/8-17.png"></span></a>). This is always true.</p>
 
 </div>
@@ -2423,7 +2681,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.</p>
+<p>We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=n(\sum_{i=1}^n x_i)^{-1} = 1 / \bar{x} = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.</p>
 
 </div>
 </div>
@@ -2439,7 +2697,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 **Q.** What is the maximum likelihood estimate for the Poisson rate parameter in the high-light condition?
 
 
-**A.** Repeating the analysis for the high-light condition, the maximum likelihood estimate for a Poisson rate parameter is $\hat \lambda = n(\sum{i=1}^nx_i)^{-1} = 1 / \bar x = 32.3$ spikes/s. The differenc ein the Poisson rate parameter of 32.3 - 25.0 = 7.3 spikes/s reflects the difference in the overall firing rate of the neuron between the low-and high-light conditions.
+**A.** Repeating the analysis for the high-light condition, the maximum likelihood estimate for a Poisson rate parameter is $\hat \lambda = n(\sum{i=1}^nx_i)^{-1} = 1 / \bar x = 32.3$ spikes/s. The difference in the Poisson rate parameter of 32.3 - 25.0 = 7.3 spikes/s reflects the difference in the overall firing rate of the neuron between the low-and high-light conditions.
 
 </div>
 </div>
@@ -2465,7 +2723,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To address this last question, let’s use a bootstrap analysis (see <a href="../2.%20The%20Event-Related%20Potential/The%20Event-Related%20Potential.ipynb#bootstrap">chapter 2</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.</p>
+<p>To address this last question, let’s use a bootstrap analysis (see <a href="https://mark-kramer.github.io/Case-Studies-Python/02/the-event-related-potential.html#bootstrap" target="blank">[an introdcution to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.</p>
 
 </div>
 </div>
@@ -2479,29 +2737,47 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute the observed difference in lambdas</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute the observed difference in lambdas.</span>
 <span class="n">MLDiff</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsHigh</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Then, perform the bootstrap analysis.</span>
 <span class="n">ISIs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">ISIsHigh</span><span class="p">])</span>  <span class="c1"># Merge all ISIs.</span>
-<span class="n">Nall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIs</span><span class="p">)</span>  <span class="c1"># Save length of all ISIs.</span>
-<span class="n">Nlo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>  <span class="c1"># Save length for the low-light condition</span>
-<span class="n">Nhi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">)</span>  <span class="c1"># Save length high-light condition</span>
+<span class="n">Nall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIs</span><span class="p">)</span>                       <span class="c1"># Save length of all ISIs.</span>
+<span class="n">Nlo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                     <span class="c1"># Save length for the low-light condition.</span>
+<span class="n">Nhi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">)</span>                    <span class="c1"># Save length high-light condition.</span>
 
 <span class="c1"># Compute the difference in lambdas from resampled data</span>
 <span class="n">sampDiff</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nhi</span><span class="p">)])</span> <span class="o">-</span>  <span class="c1"># Resample the high-light ISIs and subtract</span>
-           <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nlo</span><span class="p">)])</span>     <span class="c1"># ... the resampled low-light ISIs</span>
-           <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>                                    <span class="c1"># ... 1000 times</span>
+            <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nlo</span><span class="p">)])</span>    <span class="c1"># ... the resampled low-light ISIs</span>
+           <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>                                    <span class="c1"># ... 1000 times.</span>
 
 <span class="c1"># Compare the bootstrap distribution to the empirical</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sampDiff</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>       <span class="c1"># Plot resampled ISIs distribution</span>
-<span class="n">plot</span><span class="p">([</span><span class="n">MLDiff</span><span class="p">,</span> <span class="n">MLDiff</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>  <span class="c1"># ... and the empirical ISIs.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sampDiff</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>            <span class="c1"># Plot resampled ISIs distribution,</span>
+<span class="n">plot</span><span class="p">([</span><span class="n">MLDiff</span><span class="p">,</span> <span class="n">MLDiff</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>       <span class="c1"># ... and the empirical ISIs.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Difference in rate (spikes/s)&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_136_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2514,7 +2790,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class=math-note>
 
-There are more powerful tests we could use to compare the Poisson rate parameters. By more powerful, we mean that the tests are more likely to show a significant difference when one is actually present. However, the fact that the bootstrap test gives a significant result suggests that these more powerful tests would also be significant.
+There are more powerful tests we could use to compare the Poisson rate parameters. By more powerful, we mean that the tests are more likely to show a significant difference when one is actually present. However, here we find that the bootstrap test gives a significant result; notice that the observed difference in rate parameters (blue) lines lies well outside the bootstrap distribution of values (red). We conclude that a more powerful test would also be significant.
 
 </div>
 </div>
@@ -2526,7 +2802,7 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>But, is the Poisson model good? To answer this, let’s visualize the model fits compared to the data. There are a number of ways to do this. We start by comparing the expected proportion of ISIs for a Poisson process to the ISI histograms we actually observe in each condition. Let’s do so first for the low-light condition:</p>
+<p>We've now fit a Possion model to the data. But, does the Poisson model provide a good fit to the data? To answer this, let’s visualize the model fits compared to the data. There are a number of ways to do this. We start by comparing the expected proportion of ISIs for a Poisson process to the ISI histograms we actually observe in each condition. Let’s do so first for the low-light condition:</p>
 
 </div>
 </div>
@@ -2540,20 +2816,38 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>            <span class="c1"># Define 1 ms bins for histogram</span>
-<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>   <span class="c1"># Compute histogram</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>            <span class="c1"># Define 1 ms bins for histogram.</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>   <span class="c1"># Compute histogram,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>              <span class="c1"># ... convert to probability,</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
 <span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                 <span class="c1"># Compute best guess for lambda,</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">lbda</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>  <span class="c1"># ... build the model,</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>                    <span class="c1"># ... and plot it</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                    <span class="c1"># ... and plot it.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>                       <span class="c1"># ... xlim from 0 to 150 ms,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                         <span class="c1"># ... label the x-axis,</span>
-<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>                     <span class="c1"># ... and the y-axis</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>                     <span class="c1"># ... and the y-axis.</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_139_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2594,7 +2888,7 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To go beyond visual inspection of the model fits and quantify the goodness of fit, we compare the cumulative distributions computed from the data and model. The <em>cumulative distribution function</em> (CDF), $F(x)$, is the probability that a random variable will take on a value less than or equal to $x$. For the exponential ISI model with rate parameter $\lambda$, the model CDF is</p>
+<p>To go beyond visual inspection of the model fits and quantify the goodness of fit, we compare the cumulative distributions computed from the data and model. The <strong>cumulative distribution function</strong> (CDF), $F(x)$, is the probability that a random variable will take on a value less than or equal to $x$. For the exponential ISI model with rate parameter $\lambda$, the model CDF is</p>
 $$
 \begin{eqnarray}
 F_{mod}(x) &amp;=&amp; \Pr(\mbox{ISI} \leq x) \\
@@ -2625,19 +2919,37 @@ $$
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># Define 1 ms bins for histogram</span>
-<span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>           <span class="c1"># Compute best guess for lbda,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># Define 1 ms bins for histogram,</span>
+<span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>           <span class="c1"># Compute best guess for lambda,</span>
 <span class="n">FmodLow</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># ... and define model CDF.</span>
-<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>           <span class="c1"># Define empirical CDF</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">FmodLow</span><span class="p">)</span>                 <span class="c1"># Plot the model CDF,</span>
+<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>           <span class="c1"># Define empirical CDF.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">FmodLow</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>                 <span class="c1"># Plot the model CDF,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">FempLow</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>       <span class="c1"># ... and the empirical CDF,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                  <span class="c1"># ... with specified x-limits</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                  <span class="c1"># ... with specified x-limits.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_144_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2666,7 +2978,7 @@ $$
 
 **Q.** Compare the model and empirical CDFs in the plot above. What do you think?
 
-**A.** If the model were a perfect fit, the red and blue curves would align. However, that's not what we find here. We conclude that the model may not provide a good fit to the data.
+**A.** If the model were a perfect fit, the two curves would align. However, that's not what we find here. We conclude that the model may not provide a good fit to the data.
 
 </div>
 </div>
@@ -2709,12 +3021,30 @@ $$
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">FempLow</span><span class="p">)</span>    <span class="c1"># Plot the model vs empirical CDFs.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>         <span class="c1"># Set the axes ranges.</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>            <span class="c1"># And label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_149_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2725,7 +3055,7 @@ $$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot [<a href="http://dx.doi.org/10.1007/978-1-4614-9602-1">Kass, Eden &amp; Brown, 2014</a>]. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:</p>
+<p>Since the KS plot compares CDFs, both the $x$-axis and $y$-axis range from 0 to 1. A perfect fit between the model and empirical CDFs would look like a straight, 45-degree line between the points (0,0) and (1,1). Any deviation from this line represents deviation between the observed and model distributions. One nice result for comparing CDFs is that with enough data, the maximum difference between the model and empirical CDFs has a known asymptotic distribution, which can be used to put confidence bounds about the KS plot <a href="http://dx.doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>. For 95% confidence bounds, a well-fit model should stay within ±1.36/$\sqrt N$ of the 45-degree line, where $N$ is the number of ISIs observed. Let’s place these confidence bounds on the KS plot:</p>
 
 </div>
 </div>
@@ -2747,6 +3077,24 @@ $$
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea output_execute_result">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_151_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2782,18 +3130,18 @@ $$
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="A-More-Advanced-Statistical-Model.">A More Advanced Statistical Model.<a class="anchor-link" href="#A-More-Advanced-Statistical-Model."> </a></h4><p>We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system <a href="https://doi.org/10.1007/BF02459568">Hodgkin &amp; Huxley, 1952</a>. The mathematical expression for the inverse Gaussian probability density is</p>
+<h3 id="A-More-Advanced-Statistical-Model.">A More Advanced Statistical Model.<a class="anchor-link" href="#A-More-Advanced-Statistical-Model."> </a></h3><p>We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system <a href="https://www.ncbi.nlm.nih.gov/pubmed/9394447" target="blank">[Iyengar & Liao, 1997]</a>). The mathematical expression for the inverse Gaussian probability density is,</p>
 $$
-f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right)
+f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right) \, .
 \tag{10}
-$$<p>The inverse Gaussian distribution has two parameters that determine its shape: $\mu$, which determines the mean of the distribution, and $\lambda$, which is called the shape parameter. At $x$ = 0, the inverse Gaussian has a probability density equal to zero, which suggests it could capture some of the refractoriness seen in the data.</p>
+$$<p>The inverse Gaussian distribution has two parameters that determine its shape: $\mu$, which determines the mean of the distribution; and $\lambda$, which is called the shape parameter. At $x$ = 0, the inverse Gaussian has a probability density equal to zero, which suggests it could capture some of the refractoriness seen in the data.</p>
 <p>If we again assume that the ISIs are independent of each other, then the likelihood of observing the sequence of ISIs, $x_1 , x_2 , . . . , x_n$, is the product of the probabilities of each ISI,</p>
 $$
 L(\mu, \lambda) = f(x_1, x_2, ..., x_n) = \prod_{i=1}^N\sqrt{\frac{\lambda}{2\pi x_i^3}}\exp\left(\frac{-\lambda(x_i - \mu)^2}{2 x_i \mu^2}\right)
 \tag{11}
 $$<p>The log likelihood is then</p>
 $$
-\log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
+\log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log\frac{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
 \tag{12}
 $$<p>Since this distribution has two parameters, the maximum likelihood solution for this model is the pair of parameter estimates $\hat\mu$, $\hat\lambda$ that maximizes the likelihood of the data. We can solve for the maximum likelihood estimate analytically by taking the derivative with respect to both parameters, setting these equal to zero, and solving the resulting set of equations. In this case, the maximum likelihood estimators are</p>
 $$
@@ -2827,11 +3175,39 @@ $$<p>Using this expression, we can fit an inverse Gaussian model to the data in 
            <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
 <span class="p">)</span>
 <span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                      <span class="c1"># Numerator to 0 faster than denominator.</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu = &#39;</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>                <span class="c1"># Display the MLEs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu = &#39;</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>                <span class="c1"># Display the MLEs.</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;lambda = &#39;</span><span class="p">,</span> <span class="n">lbda</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>mu =  0.039988397284383186
+lambda =  0.04931816769253932
+</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
+  
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
+  
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -2874,10 +3250,10 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
 <span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>             <span class="c1"># ... convert to probability,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the model</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the model.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># Label the axes</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># Label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plot the KS plot</span>
@@ -2885,8 +3261,8 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 <span class="n">FmodLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
 <span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">,</span> <span class="n">FempLow</span><span class="p">)</span>                   <span class="c1"># ... plot model vs empirical CDF,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">))</span>  <span class="c1"># ... upper confidence bound,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">))</span>  <span class="c1"># ... lower confidence bound,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                      <span class="c1"># ... and label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
@@ -2894,6 +3270,24 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_158_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2922,7 +3316,7 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class=question>
 
-**Q.** Consider the fit of the inverse Gaussian model to the data in the high-light con- dition. Does the inverse Gaussian model provide a good fit to these ISIs?
+**Q.** Consider the fit of the inverse Gaussian model to the data in the high-light condition. Does the inverse Gaussian model provide a good fit to these ISIs?
 
 </div>
 </div>
@@ -2950,7 +3344,7 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="#top">Back to top</a>
 <a id="summary"></a></p>
-<h2 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h2><p>In this chapter, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.</p>
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary"> </a></h2><p>In this notebook, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.</p>
 
 </div>
 </div>
@@ -3071,14 +3465,16 @@ $$
 \right) - 
 \lambda^2.
 $$<p>We can simplify by recognizing that 
-$\left[
+$$
+\left[
 1 + 
 \lambda + 
 \frac{\lambda^2}{2!} + 
 \frac{\lambda^3}{3!} + 
 \cdots</p>
-<h1 id="\right]">\right]<a class="anchor-link" href="#\right]"> </a></h1><p>e^\lambda$.
-Then
+<h1 id="\right]">\right]<a class="anchor-link" href="#\right]"> </a></h1><p>e^\lambda \, .
+$$</p>
+<p>Then
 <a id="eq:18"></a></p>
 $$
 \begin{eqnarray}
@@ -3090,7 +3486,6 @@ e^\lambda +
 \lambda
 \left[
 1 + 
-\lambda + 
 \frac{\lambda^1}{1!} + 
 \frac{\lambda^2}{2!} + 
 \cdots
@@ -3135,6 +3530,120 @@ $$\mu = \sigma^2 = \lambda,$$<p>and therefore for a Poisson process, the Fano fa
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<style>
+.left {
+    margin-left: 0px;
+}
+.warning {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.math-note {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    /*border: 1px solid;*/
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.python-note {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    /*border: 1px solid;*/
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+.question {
+    display: block;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    /*border: 1px solid;*/
+    padding: 12px;
+    margin-bottom: 12px;
+    margin-top: 12px;
+    border-radius: 5px;
+}
+.question p, .math-note p, .python-note p, .warning p {
+    /*margin-top: 1em;*/
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
+    /*margin-bottom: 0;*/
+    margin-top: 1em;
+}
+.output_area img, .output_area iframe, .output_html iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.inner_cell img {
+    max-width:90%;
+    /*max-width:700px;*/
+    /*max-height: 90%;*/
+}
+.fig, .thumb, .sup {
+    position: inherit;
+    color: #57b733;
+    cursor: help;
+    text-decoration: underline dotted;
+    max-width: 700px;
+}   
+.thumb img{ 
+    max-width: 400px;
+}
+.sup {
+    top: -.5em;
+    font-size: 75%;
+    vertical-align: super;
+}
+.fig img, .sup img, .thumb img { 
+    /*width: 100%;*/
+    max-width: 90%;
+    max-height: 50vh;
+    border:1px solid #000;
+    visibility: hidden;
+    background-color: black;
+    border-radius: 6px;
+    padding: 5px 5px;
+    position: absolute;
+    transition: 5ms visibility;
+    z-index: 99;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
+    visibility:visible;
+    transition-delay: 500ms;
+}
+</style>
+
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
