@@ -1660,7 +1660,8 @@ $$
 \lambda^2.
 $$
 
-We can simplify by recognizing that 
+We can simplify by recognizing that,
+
 $$
 \left[
 1 + 
@@ -1674,8 +1675,8 @@ e^\lambda \, .
 $$
 
 Then
-<a id="eq:18"></a>
 
+<a id="eq:18"></a>
 $$
 \begin{eqnarray}
 \sigma^2
