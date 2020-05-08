@@ -33,7 +33,7 @@ _**Synopsis**_
 
 +++
 
-* [Introduction](#.)
+* [Introduction](#introduction)
 * [Data analysis](#data-analysis)
     1. [Visual inspection](#visual-inspection)
     2. [Examining the Interspike Intervals](#isi)
@@ -70,7 +70,7 @@ We develop tools in this chapter to visualize spike train data and to provide ba
 
 <a id="visual-inspection"></a>
 
-Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands: 
+Our data analysis begins with visual inspection. We load the ECoG data into Python and plot them by issuing the following commands:
 
 ```{code-cell} ipython3
 # Prepare the modules and plot settings
@@ -736,8 +736,6 @@ For the 50 ms binned spikes in the low-light condition, we obtained a sample Fan
 The preceding results are somewhat unsatisfying. We claimed that in the low-light condition, the calculated Fano factor of 0.72 was well below 1. What if, instead, we calculated a Fano factor of 0.8; is that well below 1? Is a Fano factor of 0.9 well below 1? These questions highlight an important issue when drawing a conclusion from a Fano factor calculation: How far above or below the value of 1 does the calculated Fano factor have to be before we are confident that there is really a statistically significant difference in the variability from a Poisson process? After all, even if we had spiking from a true Poisson process, from one experiment to the next we would expect to find different values for the increments, and values for the sample Fano factor that fluctuate slightly above and below 1. Fortunately, a bit of statistical theory can help us out. It can be shown that the distribution of Fano factors that we might compute from a Poisson process follows a gamma distribution with shape parameter $(N - 1)/2$ and scale parameter
 $2/(N - 1)$, where $N$ is the number of time bins used in the Fano factor calculation [[Eden & Kramer, 2010](https://doi.org/10.1016/j.jneumeth.2010.04.012)].
 
-
-
 +++
 
 <div class="question">
@@ -1186,7 +1184,7 @@ ax.plot(bins, model, 'g')                # ... and plot the model in green
 fig
 ```
 
-In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical model at each time bin. We’ve also scaled the statistical model by a factor of 0.001 to match the 1 ms bin size, and plotted the model on top of the empirical ISI probability distribution. 
+In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical model at each time bin. We’ve also scaled the statistical model by a factor of 0.001 to match the 1 ms bin size, and plotted the model on top of the empirical ISI probability distribution.
 
 +++
 
@@ -1195,7 +1193,6 @@ In this code, we have chosen $\lambda$ = 5 Hz and evaluated the statistical mode
 **Q.** Try using some different values of $\lambda$. What values of $\lambda$ appear to provide a good fit to the empirical distribution of ISI values?
 
 </div>
-
 
 +++
 
@@ -1278,7 +1275,7 @@ We observe that although the values of the likelihood go beyond the precision ra
 
 +++
 
-We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates. 
+We could also have computed the maximum likelihood estimator theoretically, by differentiating the log likelihood with respect to $\lambda$, setting that equal to zero, and solving for $\lambda$. This gives $\frac{n}{\hat\lambda} - \sum_{i=1}^n x_i = 0$, which can be solved to find $\hat\lambda=(\sum_{i=1}^n x_i)^{-1} = 1 / \hat x = 25.0$ spikes/s. Remember that $x_i$ is the $i^{th}$ ISI value, so $\bar x$ is the average ISI value. This computation shows that the maximum likelihood estimate for the rate parameter of a Poisson process is just 1 divided by the average ISI value. For some statistical models, it is convenient to compute maximum likelihood estimates theoretically in this manner, but sometimes no closed-form solution exists. In these cases, we typically use numerical methods to solve for the maximum likelihood estimates.
 
 +++
 
