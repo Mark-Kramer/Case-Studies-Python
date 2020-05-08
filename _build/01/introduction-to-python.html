@@ -91,7 +91,7 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 <span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;content/01/sample_data.mat&#39;</span><span class="p">)</span> <span class="c1"># Load the example data set.</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;sample_data.mat&#39;</span><span class="p">)</span> <span class="c1"># Load the example data set.</span>
 <span class="n">t</span>   <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                    <span class="c1"># Get the values associated with the key &#39;t&#39; from the dictorary.</span>
 <span class="n">LFP</span> <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s1">&#39;LFP&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                  <span class="c1"># Get the values associated with the key &#39;LFP&#39; from the dictorary</span>
 

@@ -7,7 +7,7 @@ prev_page:
 next_page:
   url: /01/introduction-to-python.html
 suffix: .md
-search: python case conda org studies data f run href jupyter code binder mark kramer notebooks custom startup running here mybinder material get concepts interact files io docs user guide environment following csn assets ipython profiledefault start browser click working v gh master filepath file very git textbook neural analysis matlab examples neuronal e g students main directly possible useful choice read execute any want notebook easy installed ul lia li install index htmlconda using recommend miniconda version software anaconda needed terminal create activate mkdir cp ir ls echo done quick reading badge svg content select section ipynb much work progress
+search: python content data case jupyter studies analysis notebooks org f mark kramer run contents conda anaconda neural io html interact custom startup appendix start visit web version read code started material concepts spike field power spectrum notebook install configure www miniconda following csn assets ipython profiledefault learning formatted github intro browser repository textbook examples neuronal e g get main directly fields potential useful simple href binder provides interface computer want recommend installed docs en latest com products individual environment terminal create activate point mkdir cp ir files ls echo done part cross coherence model quick book slow below companion mitpress
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -19,38 +19,73 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Case-Studies-Python">Case-Studies-Python<a class="anchor-link" href="#Case-Studies-Python"> </a></h1><h3 id="Quick-start-to-reading-and-running-the-Python-code-in-your-browser:">Quick start to reading and running the Python code in your browser:<a class="anchor-link" href="#Quick-start-to-reading-and-running-the-Python-code-in-your-browser:"> </a></h3><ul>
-<li>Click here to start working in Binder: <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master?filepath=content"><img src="https://mybinder.org/badge.svg" alt="Binder"></a></li>
-<li>Select a section, and click on the <code>.ipynb</code> file</li>
+<h1 id="Case-Studies-Python">Case-Studies-Python<a class="anchor-link" href="#Case-Studies-Python"> </a></h1><h3 id="Quick-start-to-learning-Python-for-neural-data-analysis:">Quick start to learning Python for neural data analysis:<a class="anchor-link" href="#Quick-start-to-learning-Python-for-neural-data-analysis:"> </a></h3><ul>
+<li>Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html">web-formatted version of the book</a>.</li>
+<li>Read and interact with the Python code in your web browser.</li>
+</ul>
+<h3 id="Slow-start-to-learning-Python-for-neural-data-analysis:">Slow start to learning Python for neural data analysis:<a class="anchor-link" href="#Slow-start-to-learning-Python-for-neural-data-analysis:"> </a></h3><ul>
+<li>See <a href="#started">below</a></li>
 </ul>
 <hr>
-<h3 id="THIS-IS-VERY-MUCH-A-WORK-IN-PROGRESS">THIS IS VERY MUCH A WORK IN PROGRESS<a class="anchor-link" href="#THIS-IS-VERY-MUCH-A-WORK-IN-PROGRESS"> </a></h3><p>This <a href="https://github.com/Mark-Kramer/Case-Studies-Python.git">repository</a> is a companion to the textbook <a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden.  In the textbook, we use MATLAB to analyze examples of neuronal data.  The material here is very similar, except that we use Python (instead of MATLAB).</p>
-<p>Our intended audience is the "practicing neuroscientist" - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we've tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you're interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).</p>
-<p>There are two ways to interact with these notebooks.  First, you could run it locally in <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice because you'll be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master?filepath=content">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder">eLife here</a>.  In any case, we encourage you to execute each line of code in the files!</p>
-<p>We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,</p>
-<ul>
-  <li><a href="https://www.python.org/">Python.org</a></li>
-  <li><a href="https://conda.io/docs/user-guide/install/index.html">Conda</a></li>
-</ul><p>If this is your first time working with Python, using <a href="https://conda.io/docs/user-guide/install/index.html">conda</a> is probably a good choice. Conda is a package and environment manager that makes it really easy to get up and running in Python. In particular, we recommend installing Miniconda - a light version of the software distribution Anaconda - and using conda to add software as needed.</p>
-<p>We'd like to thank all of the students, collaborators, and funders who have helped make this possible!</p>
+<p>This repository is a companion to the textbook <a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden. That textbook used MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.</p>
+<p>The intended audience is the <em>practicing neuroscientist</em> - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we've tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you're interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).</p>
+<p>This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.</p>
 <hr>
-<h1 id="Getting-Started">Getting Started<a class="anchor-link" href="#Getting-Started"> </a></h1><p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code>csn</code>.</p>
+<h1 id="Getting-Started">Getting Started<a href="#started" /><a class="anchor-link" href="#Getting-Started"> </a></h1><p>There are multiple ways to interact with these notebooks.</p>
+<ul>
+<li><p><strong>Simple</strong>: Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html">web-formatted version of the notebooks</a>.</p>
+</li>
+<li><p><strong>Intermediate</strong>  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master?filepath=content">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder">eLife</a>.</p>
+</li>
+<li><p><strong>Advanced</strong>: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook, visit the <a href="#contents">Contents</a>. You will need to <a href="#install-python">install Python</a> and we recommend <a href="#configure-python">configure Python</a>.</p>
+</li>
+</ul>
+<hr>
+<h1 id="Install-Python">Install Python<a class="anchor-link" href="#Install-Python"> </a></h1><p>We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,</p>
+<ul>
+<li><p><a href="https://www.python.org/">Python.org</a></p>
+</li>
+<li><p><a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a></p>
+</li>
+<li><p><a href="https://www.anaconda.com/products/individual">Anaconda</a></p>
+</li>
+</ul>
+<p>If this is your first time working with Python, using <a href="https://www.anaconda.com/products/individual">Anaconda</a> is probably a good choice. It provides a simple, graphical interface to start <a href="https://jupyter.org/">Jupyter</a>.</p>
+<hr>
+<h1 id="Configure-Python">Configure Python<a class="anchor-link" href="#Configure-Python"> </a></h1><p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code>csn</code>.</p>
 
-<pre><code>
-conda create env --file csn.yml
+<pre><code>conda create env --file csn.yml
 conda activate csn</code></pre>
 <p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
 
-<pre><code>
-mkdir ~/.jupyter
+<pre><code>mkdir ~/.jupyter
 cp -ir assets/custom ~/.jupyter/
 mkdir -p ~/.ipython/profile_default/
 cp -ir startup ~/.ipython/profile_default/</code></pre>
 <p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
 
-<pre><code>
-for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
+<pre><code>for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
 for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done</code></pre>
+<hr>
+<h1 id="Contents">Contents<a href="#contents" /><a class="anchor-link" href="#Contents"> </a></h1><ol>
+<li><a href="content/01">Introduction to Python</a></li>
+<li><a href="content/02">The Event-Related Potential</a></li>
+<li><a href="content/03">The Power Spectrum (Part 1)</a></li>
+<li><a href="content/04">The Power Spectrum (Part 2)</a></li>
+<li><a href="content/05">The Cross Covariance and Coherence</a></li>
+<li><a href="content/06">Filtering Field Data</a></li>
+<li><a href="content/07">Cross Frequency Coupling</a></li>
+<li><a href="content/08">Basic Visualizations and Descriptive Statistics of Spike Train Data</a></li>
+<li><a href="content/09">Modeling place Fields with Point Process Generalized Linear Models</a></li>
+<li><a href="content/10">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a></li>
+<li><a href="content/11">Analysis of Spike-Field Coherence</a></li>
+</ol>
+<h1 id="Appendices">Appendices<a class="anchor-link" href="#Appendices"> </a></h1><ol>
+<li><a href="content/A01">Appendix: Backpropagation</a></li>
+<li><a href="content/A02">Appendix: Hodgkin Huxley Model</a></li>
+<li><a href="content/A03">Appendix: Integrate and Fire Model</a></li>
+<li><a href="content/A04">Appendix: Training a Perceptron</a></li>
+</ol>
 
 </div>
 </div>

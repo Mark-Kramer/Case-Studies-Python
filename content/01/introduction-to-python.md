@@ -47,7 +47,7 @@ import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
 
-mat = sio.loadmat('content/01/sample_data.mat') # Load the example data set.
+mat = sio.loadmat('sample_data.mat') # Load the example data set.
 t   = mat['t'][0]                    # Get the values associated with the key 't' from the dictorary.
 LFP = mat['LFP'][0]                  # Get the values associated with the key 'LFP' from the dictorary
 
