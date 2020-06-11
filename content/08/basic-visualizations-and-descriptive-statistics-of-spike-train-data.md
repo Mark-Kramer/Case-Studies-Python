@@ -1252,7 +1252,7 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 
 +++
 
-To address this last question, let’s use a bootstrap analysis (see <a href="https://mark-kramer.github.io/Case-Studies-Python/02/the-event-related-potential.html#bootstrap" target="blank">[an introdcution to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
+To address this last question, let’s use a bootstrap analysis (see <a href="https://mark-kramer.github.io/Case-Studies-Python/02/the-event-related-potential.html#bootstrap" target="blank">[an introduction to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
 
 ```{code-cell} ipython3
 # Compute the observed difference in lambdas.

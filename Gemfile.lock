@@ -181,6 +181,9 @@ GEM
     jekyll-sitemap (1.2.0)
       jekyll (~> 3.3)
     jekyll-swiss (0.4.0)
+    jekyll-target-blank (2.0.0)
+      jekyll (>= 3.0, < 5.0)
+      nokogiri (~> 1.10)
     jekyll-theme-architect (0.1.1)
       jekyll (~> 3.5)
       jekyll-seo-tag (~> 2.0)
@@ -301,6 +304,7 @@ DEPENDENCIES
   jekyll-feed (~> 0.6)
   jekyll-redirect-from
   jekyll-scholar
+  jekyll-target-blank
   tzinfo-data
 
 BUNDLED WITH
