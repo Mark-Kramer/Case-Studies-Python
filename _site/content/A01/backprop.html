@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>Backpropagation</title>
+  <meta name="description" content="# BackpropagationIn this module, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpro...">
+
+  <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/content/A01/backprop.html">
+  <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://mark-kramer.github.io/Case-Studies-Python/feed.xml">
+
+  <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/content/A01/backprop.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Backpropagation" />
+<meta property="og:description" content="# BackpropagationIn this module, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpro..." />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "https://mark-kramer.github.io/Case-Studies-Python/content/A01/backprop.html",
+  "headline": "Backpropagation",
+  "datePublished": "2020-06-11T19:24:49-04:00",
+  "dateModified": "2020-06-11T19:24:49-04:00",
+  "description": "# BackpropagationIn this module, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpro...",
+  "author": {
+    "@type": "Person",
+    "name": "Mark Kramer and Uri Eden"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mark-kramer.github.io/Case-Studies-Python",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://mark-kramer.github.io/Case-Studies-Python",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/Case-Studies-Python/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/Case-Studies-Python/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/Case-Studies-Python/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/Case-Studies-Python';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/Case-Studies-Python/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/Case-Studies-Python/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/Case-Studies-Python/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/Case-Studies-Python/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/Case-Studies-Python/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+<script>
+/**
+  * To auto-embed hub URLs in interact links if given in a RESTful fashion
+ */
+
+function getJsonFromUrl(url) {
+  var query = url.split('?');
+  if (query.length < 2) {
+    // No queries so just return false
+    return false;
+  }
+  query = query[1];
+  // Collect REST params into a dictionary
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+    
+function dict2param(dict) {
+    params = Object.keys(dict).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(dict[k])
+    });
+    return params.join('&')
+}
+
+// Parse a Binder URL, converting it to the string needed for JupyterHub
+function binder2Jupyterhub(url) {
+  newUrl = {};
+  parts = url.split('v2/gh/')[1];
+  // Grab the base repo information
+  repoinfo = parts.split('?')[0];
+  var [org, repo, ref] = repoinfo.split('/');
+  newUrl['repo'] = ['https://github.com', org, repo].join('/');
+  newUrl['branch'] = ref
+  // Grab extra parameters passed
+  params = getJsonFromUrl(url);
+  if (params['filepath'] !== undefined) {
+    newUrl['subPath'] = params['filepath']
+  }
+  return dict2param(newUrl);
+}
+
+// Filter out potentially unsafe characters to prevent xss
+function safeUrl(url)
+{
+   return String(encodeURIComponent(url))
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function addParamToInternalLinks(hub) {
+  var links = document.querySelectorAll("a").forEach(function(link) {
+    var href = link.href;
+    // If the link is an internal link...
+    if (href.search("https://mark-kramer.github.io") !== -1 || href.startsWith('/') || href.search("127.0.0.1:") !== -1) {
+      // Assume we're an internal link, add the hub param to it
+      var params = getJsonFromUrl(href);
+      if (params !== false) {
+        // We have REST params, so append a new one
+        params['jupyterhub'] = hub;
+      } else {
+        // Create the REST params
+        params = {'jupyterhub': hub};
+      }
+      // Update the link
+      var newHref = href.split('?')[0] + '?' + dict2param(params);
+      link.setAttribute('href', decodeURIComponent(newHref));
+    }
+  });
+  return false;
+}
+
+
+// Update interact links
+function updateInteractLink() {
+    // hack to make this work since it expects a ? in the URL
+    rest = getJsonFromUrl("?" + location.search.substr(1));
+    jupyterHubUrl = rest['jupyterhub'];
+    var hubType = null;
+    var hubUrl = null;
+    if (jupyterHubUrl !== undefined) {
+      hubType = 'jupyterhub';
+      hubUrl = jupyterHubUrl;
+    }
+
+    if (hubType !== null) {
+      // Sanitize the hubUrl
+      hubUrl = safeUrl(hubUrl);
+
+      // Add HTTP text if omitted
+      if (hubUrl.indexOf('http') < 0) {hubUrl = 'http://' + hubUrl;}
+      var interactButtons = document.querySelectorAll("button.interact-button")
+      var lastButton = interactButtons[interactButtons.length-1];
+      var link = lastButton.parentElement;
+
+      // If we've already run this, skip the link updating
+      if (link.nextElementSibling !== null) {
+        return;
+      }
+
+      // Update the link and add context div
+      var href = link.getAttribute('href');
+      if (lastButton.id === 'interact-button-binder') {
+        // If binder links exist, we need to re-work them for jupyterhub
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // If localhost, assume we're working from a local Jupyter server and remove `/hub`
+          first = [hubUrl, 'git-sync'].join('/')
+        } else {
+          first = [hubUrl, 'hub', 'user-redirect', 'git-sync'].join('/')
+        }
+        href = first + '?' + binder2Jupyterhub(href);
+      } else {
+        // If interact button isn't binderhub, assume it's jupyterhub
+        // If JupyterHub links, we only need to replace the hub url
+        href = href.replace("", hubUrl);
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // Assume we're working from a local Jupyter server and remove `/hub`
+          href = href.replace("/hub/user-redirect", "");
+        }
+      }
+      link.setAttribute('href', decodeURIComponent(href));
+
+      // Add text after interact link saying where we're launching
+      hubUrlNoHttp = decodeURIComponent(hubUrl).replace('http://', '').replace('https://', '');
+      link.insertAdjacentHTML('afterend', '<div class="interact-context">on ' + hubUrlNoHttp + '</div>');
+
+      // Update internal links so we retain the hub url
+      addParamToInternalLinks(hubUrl);
+    }
+}
+
+runWhenDOMLoaded(updateInteractLink)
+document.addEventListener('turbolinks:load', updateInteractLink)
+</script>
+
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/Case-Studies-Python/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/Case-Studies-Python/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/Case-Studies-Python/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "mark-kramer/Case-Studies-Python",
+    ref: "master",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis" target="_blank" rel="noopener noreferrer"><img src="/Case-Studies-Python/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent></a>
+  <h2 class="c-sidebar__title">Case Studies in Neural Data Analysis</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/intro">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/intro.html">
+          
+          Home
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider">
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Contents</h2></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/01/introduction-to-python">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/01/introduction-to-python.html">
+          
+            1.
+          
+          Introduction to Python
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/02/the-event-related-potential">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/02/the-event-related-potential.html">
+          
+            2.
+          
+          The Event-Related Potential
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/03/the-power-spectrum-part-1">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/03/the-power-spectrum-part-1.html">
+          
+            3.
+          
+          The Power Spectrum (Part 1)
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/04/ecog-rhythms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/04/ecog-rhythms.html">
+          
+            4.
+          
+          The Power Spectrum (Part 2)
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/05/the-cross-covariance-and-coherence">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/05/the-cross-covariance-and-coherence.html">
+          
+            5.
+          
+          The Cross Covariance and Coherence
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/06/filtering-scalp-eeg">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/06/filtering-scalp-eeg.html">
+          
+            6.
+          
+          Filtering Field Data
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/07/cross-frequency-coupling">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/07/cross-frequency-coupling.html">
+          
+            7.
+          
+          Cross Frequency Coupling
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html">
+          
+            8.
+          
+          Basic Visualizations and Descriptive Statistics of Spike Train Data
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/09/point-process-glms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/09/point-process-glms.html">
+          
+            9.
+          
+          Modeling place Fields with Point Process Generalized Linear Models
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/10/spiking-rhythms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/10/spiking-rhythms.html">
+          
+            10.
+          
+          Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/11/spike-field-coherence">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/11/spike-field-coherence.html">
+          
+            11.
+          
+          Analysis of Spike-Field Coherence
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider">
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Appendices</h2></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A01/backprop">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A01/backprop.html">
+          
+            12.
+          
+          Backpropagation
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A02/HH">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A02/HH.html">
+          
+            13.
+          
+          Hodgkin Huxley Model
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A03/LIF">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A03/LIF.html">
+          
+            14.
+          
+          Integrate and Fire Model
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A04/perceptron">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A04/perceptron.html">
+          
+            15.
+          
+          Training a Perceptron
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book" target="_blank" rel="noopener noreferrer">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button id="js-sidebar-toggle" class="hamburger hamburger--arrowalt is-active">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/Case-Studies-Python/assets/images/download-solid.svg" alt="Download"></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title">
+<img src="/Case-Studies-Python/assets/images/list-solid.svg" alt="Search">   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/Case-Studies-Python/search.html" class="topbar-right-button" id="search-button">
+    <img src="/Case-Studies-Python/assets/images/search-solid.svg" alt="Search">
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <h1 id="backpropagation">Backpropagation</h1>
+
+<p>In this module, we will implement the backpropagation procedure for a two-node network. We’ll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.</p>
+
+<p>+++</p>
+
+<h2 id="preliminaries">Preliminaries</h2>
+<p>Text preceded by a <code class="language-plaintext highlighter-rouge">#</code> indicates a ‘comment’.  I will use comments to explain what we’re doing and to ask you questions.  Also, comments are useful in your own code to note what you’ve done (so it makes sense when you return to the code in the future).  It’s a good habit to <em>always</em> comment your code.  I’ll try to set a good example, but won’t always . . .</p>
+
+<p>Before beginning, let’s load in the Python packages we’ll need:</p>
+
+<p>```{code-cell} ipython3
+import numpy as np
+%matplotlib inline
+import matplotlib.pyplot as plt</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+##  Steps to backpropagation
+
+We outlined 4 steps to perform backpropagation,
+
+   1. Choose random initial weights.
+   2. Fix input at desired value, and calculate output.
+   3. Update the weights.
+   4. Repeat steps 2 &amp; 3 many times.
+
+Let's now implement these steps.
+
++++
+
+## Step 1. Choose random initial weights.
+  This step is easy. We need to choose the three initial weights in our
+  2-node model.  We can choose these weights to be anything we like,
+  within reason.  Let's set:
+
+```{code-cell} ipython3
+w0 = 2
+w1 = 1
+w2 = 0.5
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong>  Why choose these weights?</p>
+</div>
+
+<p>Then, in backpropagation, we’ll update these weights so that our neural
+network - when given a specific input - produces a desired output.</p>
+
+<p>+++</p>
+
+<h2 id="step-2--fix-input-at-desired-value-and-calculate-output">Step 2.  Fix input at desired value, and calculate output.</h2>
+<p>Our next step is to choose an input, send this input to our neural
+  network, and compute the output.  This is called the <em>feedforward
+  solution</em>; we’re “feeding” our neural network the input, sending this
+  input “forward” through the network, and returning the output.</p>
+
+<p>Let’s start by choosing an input,</p>
+
+<p>```{code-cell} ipython3
+s0 = 2</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+  Then, we need to send this input through our network. We'll do this in
+  multiple steps.  First, let's compute the activity of the first neuron:
+
+```{code-cell} ipython3
+x1 = w0*s0
+</code></pre></div></div>
+
+<p>Then, to determine the output of the first neuron, we need to send this
+  activity through a sigmoid function.  To do that, we first need to
+  <em>define</em> the sigmoid function … Let’s do so here in Python,</p>
+
+<p>```{code-cell} ipython3
+def sigmoid(x):
+    return 1/(1+np.exp(-x))</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+  This function takes one input (`x`), and returns one output equal to the numerical
+  value of the sigmoid function at that value of `x`. For example, to
+  compute the value of the sigmoid function at `x=0.5`, and save this output
+  in a variable `s`, we execute the following command,
+
+```{code-cell} ipython3
+s = sigmoid(0.5)
+print(s)
+</code></pre></div></div>
+
+<p>Now we’re able to compute the output of our first neuron,</p>
+
+<p>```{code-cell} ipython3
+s1 = sigmoid(x1)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+We can ontinue our feedforward computation to determine the output of our neural network.
+
+```{code-cell} ipython3
+x2 = w1*s1
+s2 = sigmoid(x2)
+out = w2*s2
+print(out)
+</code></pre></div></div>
+
+<h2 id="step-3--update-the-weights">Step 3.  Update the weights.</h2>
+<p>To update the weights, we’ll use the expressions we derived in class 
+ for the updated values of <code class="language-plaintext highlighter-rouge">w0</code> and <code class="language-plaintext highlighter-rouge">w1</code>.  Let’s write those here …</p>
+
+<p>But first, remember that to compute the weight update, we need to define
+ a learning rate,</p>
+
+<p>```{code-cell} ipython3
+alpha  = 0.1    #Here we’ll set the learning rate to 0.1.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+And we also need to define a target value we would like our neural network to produce as output,
+
+```{code-cell} ipython3
+target = 0.7
+</code></pre></div></div>
+
+<p>Then, let’s define two weight updates,</p>
+
+<p>```{code-cell} ipython3
+w2 = w2 - alpha<em>(out-target)</em>s2
+w1 = w1 - alpha<em>(out-target)</em>(w2<em>s2</em>(1-s2)*s1)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&lt;div class="alert alert-block alert-info"&gt;
+
+**Q:**  Do these two expressions match the equations for the weight updates we derived in class?  HINT: They should!
+&lt;/div&gt;
+
++++
+
+We need one more expression, to update the last weight, w0.
+
+```{code-cell} ipython3
+w0 = '????????'  # &lt;-- Fill in the proper expression
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong> What is the expression for <code class="language-plaintext highlighter-rouge">w0</code> in the equation above?</p>
+</div>
+
+<p>+++</p>
+
+<h2 id="step-4--repeat-steps-2--3-many-times">Step 4.  Repeat steps 2 &amp; 3 many times.</h2>
+<p>Now, we’d like to repeat Steps 2 &amp; 3 many times. In doing so, we’ll
+ perform gradient descent, and move (slowly) down our cost function,
+ until we reach a minimum.</p>
+
+<p>We could try to compute these repetitions by hand, for example by repeating
+ the cells above. To do so, we’d need to take the new weights we just
+ found in Step 3, compute the feedforward solution to our neural network,
+ and then update the neural network’s weights (which depends on how close
+ our neural network’s output is to the target value).</p>
+
+<p>But, we want to evaluate this procedure 1000 times. We could do this by
+ hand, but it’d be a total pain, and highly error prone. Instead, let’s
+ ask a computer to do the boring work of multiple repetitions. To do so,
+ let’s collect the code above, and repeat it 1000 times. We’ll wrap our
+ code above inside a <code class="language-plaintext highlighter-rouge">for-loop</code> to make this efficient,</p>
+
+<p>```{code-cell} ipython3
+s0 = 2                          # Define the input,
+target = 0.7                    # … and the target output.</p>
+
+<p>w0 = 2                          # Choose initial values for the weights.
+w1 = 1
+w2 = 0.5</p>
+
+<p>alpha = 0.1                     # Set the learning constant.</p>
+
+<p>def sigmoid(x):
+    return 1/(1+np.exp(-x))     # Define the sigmoid anonymous function.</p>
+
+<p>results = np.zeros([1000,4])    # Define a variable to hold the results of each iteration.  <br>
+for k in range(1000):           # For 1000 iteractions,</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#Step 2. Calculate feedforward solution to get output.
+x1 = w0*s0                  # ... activity of first neuron,
+s1 = sigmoid(x1)            # ... output of first neuron,
+x2 = w1*s1                  # ... activity of second neuron,
+s2 = sigmoid(x2)            # ... output of second neuron,
+out= w2*s2                  # Output of neural network.
+
+#Step 3. Update the weights.
+w2 = w2 - alpha*(out-target)*s2
+w1 = w1 - alpha*(out-target)*(w2*s2*(1-s2)*s1)
+w0 = w0 - alpha*(out-target)*(w2*s2*(1-s2)*w1)*(s1*(1-s1)*s0)
+
+# Save the results of this step! --------------------------------------
+results[k,:] = [w2,w1,w0,  out]
+# Here we save the 3 weights, the neural network output.
+</code></pre></div></div>
+
+<p>plt.clf()
+plt.plot(results[:,0], label=’w2’)
+plt.plot(results[:,1], label=’w1’)
+plt.plot(results[:,2], label=’w0’)
+plt.plot(results[:,3], label=’out’)
+plt.plot(np.arange(1000), 1000<em>[target], ‘k’, label=’target’)  #… and plot the *target</em>.
+plt.legend() #Iclude a legend,
+plt.xlabel(‘Iteration number’);         #… and axis label.
+```</p>
+
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://github.com/jupyter/jupyter-book/graphs/contributors" target="_blank" rel="noopener noreferrer">The Jupyter Book Community</a></p>
+</footer>
+
+            </div>
+
+        </main>
+</div>
+      
+    
+  </body>
+</html>

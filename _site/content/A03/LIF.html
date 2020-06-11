@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,minimum-scale=1">
+
+  <title>The integrate and fire neuron</title>
+  <meta name="description" content="# The integrate and fire neuronIn this module we will use Python to simulate the integrate and fire (I&F) neuron model.  We'll investigate, in particular, ho...">
+
+  <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/content/A03/LIF.html">
+  <link rel="alternate" type="application/rss+xml" title="Case Studies in Neural Data Analysis" href="https://mark-kramer.github.io/Case-Studies-Python/feed.xml">
+
+  <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/content/A03/LIF.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="The integrate and fire neuron" />
+<meta property="og:description" content="# The integrate and fire neuronIn this module we will use Python to simulate the integrate and fire (I&F) neuron model.  We'll investigate, in particular, ho..." />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/images/logo/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  <script type="application/ld+json">
+  {
+  "@context": "http://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": "https://mark-kramer.github.io/Case-Studies-Python/content/A03/LIF.html",
+  "headline": "The integrate and fire neuron",
+  "datePublished": "2020-06-11T19:24:49-04:00",
+  "dateModified": "2020-06-11T19:24:49-04:00",
+  "description": "# The integrate and fire neuronIn this module we will use Python to simulate the integrate and fire (I&F) neuron model.  We'll investigate, in particular, ho...",
+  "author": {
+    "@type": "Person",
+    "name": "Mark Kramer and Uri Eden"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Data 100 at UC Berkeley",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mark-kramer.github.io/Case-Studies-Python",
+      "width": 60,
+      "height": 60
+    }
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://mark-kramer.github.io/Case-Studies-Python",
+    "height": 60,
+    "width": 60
+  }
+}
+
+  </script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/css/styles.css">
+
+  <!-- <link rel="manifest" href="/manifest.json"> -->
+  <!-- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#efae0a"> -->
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#233947">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="/Case-Studies-Python/images/logo/favicon.ico">
+
+  <!-- MathJax Config -->
+  <!-- Allow inline math using $ and automatically break long math lines -->
+<!-- (mostly) copied from nbconvert configuration -->
+<!-- https://github.com/jupyter/nbconvert/blob/master/nbconvert/templates/html/mathjax.tpl -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true },
+    },
+    
+});
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML' async></script>
+
+
+  <!-- DOM updating function -->
+  <script src="/Case-Studies-Python/assets/js/page/dom-update.js"></script>
+
+  <!-- Selectors for elements on the page -->
+  <script src="/Case-Studies-Python/assets/js/page/documentSelectors.js"></script>
+
+  <!-- Define some javascript variables that will be useful in other javascript -->
+  <script>
+    const site_basename = '/Case-Studies-Python';
+  </script>
+
+  <!-- Add AnchorJS to let headers be linked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js" async></script>
+  <script src="/Case-Studies-Python/assets/js/page/anchors.js" async></script>
+
+  <!-- Include Turbolinks to make page loads fast -->
+  <!-- https://github.com/turbolinks/turbolinks -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js" async></script>
+  <meta name="turbolinks-cache-control" content="no-cache">
+
+  <!-- Load nbinteract for widgets -->
+  
+
+  <!-- Load Thebelab for interactive widgets -->
+  <!-- Include Thebelab for interactive code if it's enabled -->
+
+
+<!-- Display Thebelab button in each code cell -->
+<script>
+/**
+ * Set up thebelab button for code blocks
+ */
+
+const thebelabCellButton = id =>
+  `<a id="thebelab-cell-button-${id}" class="btn thebebtn o-tooltip--left" data-tooltip="Interactive Mode">
+    <img src="/Case-Studies-Python/assets/images/edit-button.svg" alt="Start thebelab interactive mode">
+  </a>`
+
+
+const addThebelabButtonToCodeCells =  () => {
+
+  const codeCells = document.querySelectorAll('div.input_area > div.highlight:not(.output) pre')
+  codeCells.forEach((codeCell, index) => {
+    const id = codeCellId(index)
+    codeCell.setAttribute('id', id)
+    if (document.getElementById("thebelab-cell-button-" + id) == null) {
+      codeCell.insertAdjacentHTML('afterend', thebelabCellButton(id));
+    }
+  })
+}
+
+initFunction(addThebelabButtonToCodeCells);
+</script>
+
+
+<script src="https://unpkg.com/thebelab@latest/lib/index.js" async></script>
+<script>
+    /**
+     * Add attributes to Thebelab blocks
+     */
+
+    const initThebelab = () => {
+        const addThebelabToCodeCells = () => {
+            console.log("Adding thebelab to code cells...");
+            // If Thebelab hasn't loaded, wait a bit and try again. This
+            // happens because we load ClipboardJS asynchronously.
+            if (window.thebelab === undefined) {
+                setTimeout(addThebelabToCodeCells, 250)
+            return
+            }
+
+            // If we already detect a Thebelab cell, don't re-run
+            if (document.querySelectorAll('div.thebelab-cell').length > 0) {
+                return;
+            }
+
+            // Find all code cells, replace with Thebelab interactive code cells
+            const codeCells = document.querySelectorAll('.input_area pre')
+            codeCells.forEach((codeCell, index) => {
+                const id = codeCellId(index)
+
+                // Clean up the language to make it work w/ CodeMirror and add it to the cell
+                dataLanguage = ""
+                dataLanguage = detectLanguage(dataLanguage);
+                codeCell.setAttribute('data-language', dataLanguage)
+                codeCell.setAttribute('data-executable', 'true')
+
+                // If the code cell is hidden, show it
+                var inputCheckbox = document.querySelector(`input#hidebtn${codeCell.id}`);
+                if (inputCheckbox !== null) {
+                    setCodeCellVisibility(inputCheckbox, 'visible');
+                }
+            });
+
+            // Remove the event listener from the page so keyboard press doesn't
+            // Change page
+            document.removeEventListener('keydown', initPageNav)
+            keyboardListener = false;
+
+            // Init thebelab
+            thebelab.bootstrap();
+
+            // Remove copy buttons since they won't work anymore
+            const copyAndThebeButtons = document.querySelectorAll('.copybtn, .thebebtn')
+            copyAndThebeButtons.forEach((button, index) => {
+                button.remove();
+            });
+
+            // Remove outputs since they'll be stale
+            const outputs = document.querySelectorAll('.output *, .output')
+            outputs.forEach((output, index) => {
+                output.remove();
+            });
+
+            // Find any cells with an initialization tag and ask ThebeLab to run them when ready
+            var thebeInitCells = document.querySelectorAll('div.tag_thebelab-init');
+            thebeInitCells.forEach((cell) => {
+                console.log("Initializing ThebeLab with cell: " + cell.id);
+                cell.querySelector('.thebelab-run-button').click();
+            });
+        }
+
+        // Add event listener for the function to modify code cells
+        const thebelabButtons = document.querySelectorAll('[id^=thebelab], [id$=thebelab]')
+        thebelabButtons.forEach((thebelabButton,index) => {
+            if (thebelabButton === null) {
+                setTimeout(initThebelab, 250)
+                return
+            };
+            thebelabButton.addEventListener('click', addThebelabToCodeCells);
+        });
+    }
+
+    // Initialize Thebelab
+    initFunction(initThebelab);
+
+// Helper function to munge the language name
+var detectLanguage = (language) => {
+    if (language.indexOf('python') > -1) {
+        language = "python";
+    }
+    return language;
+}
+</script>
+
+
+
+  <!-- Load the auto-generating TOC (non-async otherwise the TOC won't load w/ turbolinks) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.8.1/tocbot.min.js" async></script>
+  <script src="/Case-Studies-Python/assets/js/page/tocbot.js"></script>
+
+  <!-- Google analytics -->
+  
+
+
+  <!-- Clipboard copy button -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" async></script>
+
+  <!-- Load custom website scripts -->
+  <script src="/Case-Studies-Python/assets/js/scripts.js" async></script>
+
+  <!-- Load custom user CSS and JS  -->
+  <script src="/Case-Studies-Python/assets/custom/custom.js" async></script>
+  <link rel="stylesheet" href="/Case-Studies-Python/assets/custom/custom.css">
+
+  <!-- Update interact links w/ REST param, is defined in includes so we can use templates -->
+  
+<script>
+/**
+  * To auto-embed hub URLs in interact links if given in a RESTful fashion
+ */
+
+function getJsonFromUrl(url) {
+  var query = url.split('?');
+  if (query.length < 2) {
+    // No queries so just return false
+    return false;
+  }
+  query = query[1];
+  // Collect REST params into a dictionary
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
+}
+    
+function dict2param(dict) {
+    params = Object.keys(dict).map(function(k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(dict[k])
+    });
+    return params.join('&')
+}
+
+// Parse a Binder URL, converting it to the string needed for JupyterHub
+function binder2Jupyterhub(url) {
+  newUrl = {};
+  parts = url.split('v2/gh/')[1];
+  // Grab the base repo information
+  repoinfo = parts.split('?')[0];
+  var [org, repo, ref] = repoinfo.split('/');
+  newUrl['repo'] = ['https://github.com', org, repo].join('/');
+  newUrl['branch'] = ref
+  // Grab extra parameters passed
+  params = getJsonFromUrl(url);
+  if (params['filepath'] !== undefined) {
+    newUrl['subPath'] = params['filepath']
+  }
+  return dict2param(newUrl);
+}
+
+// Filter out potentially unsafe characters to prevent xss
+function safeUrl(url)
+{
+   return String(encodeURIComponent(url))
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+}
+
+function addParamToInternalLinks(hub) {
+  var links = document.querySelectorAll("a").forEach(function(link) {
+    var href = link.href;
+    // If the link is an internal link...
+    if (href.search("https://mark-kramer.github.io") !== -1 || href.startsWith('/') || href.search("127.0.0.1:") !== -1) {
+      // Assume we're an internal link, add the hub param to it
+      var params = getJsonFromUrl(href);
+      if (params !== false) {
+        // We have REST params, so append a new one
+        params['jupyterhub'] = hub;
+      } else {
+        // Create the REST params
+        params = {'jupyterhub': hub};
+      }
+      // Update the link
+      var newHref = href.split('?')[0] + '?' + dict2param(params);
+      link.setAttribute('href', decodeURIComponent(newHref));
+    }
+  });
+  return false;
+}
+
+
+// Update interact links
+function updateInteractLink() {
+    // hack to make this work since it expects a ? in the URL
+    rest = getJsonFromUrl("?" + location.search.substr(1));
+    jupyterHubUrl = rest['jupyterhub'];
+    var hubType = null;
+    var hubUrl = null;
+    if (jupyterHubUrl !== undefined) {
+      hubType = 'jupyterhub';
+      hubUrl = jupyterHubUrl;
+    }
+
+    if (hubType !== null) {
+      // Sanitize the hubUrl
+      hubUrl = safeUrl(hubUrl);
+
+      // Add HTTP text if omitted
+      if (hubUrl.indexOf('http') < 0) {hubUrl = 'http://' + hubUrl;}
+      var interactButtons = document.querySelectorAll("button.interact-button")
+      var lastButton = interactButtons[interactButtons.length-1];
+      var link = lastButton.parentElement;
+
+      // If we've already run this, skip the link updating
+      if (link.nextElementSibling !== null) {
+        return;
+      }
+
+      // Update the link and add context div
+      var href = link.getAttribute('href');
+      if (lastButton.id === 'interact-button-binder') {
+        // If binder links exist, we need to re-work them for jupyterhub
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // If localhost, assume we're working from a local Jupyter server and remove `/hub`
+          first = [hubUrl, 'git-sync'].join('/')
+        } else {
+          first = [hubUrl, 'hub', 'user-redirect', 'git-sync'].join('/')
+        }
+        href = first + '?' + binder2Jupyterhub(href);
+      } else {
+        // If interact button isn't binderhub, assume it's jupyterhub
+        // If JupyterHub links, we only need to replace the hub url
+        href = href.replace("", hubUrl);
+        if (hubUrl.indexOf('http%3A%2F%2Flocalhost') > -1) {
+          // Assume we're working from a local Jupyter server and remove `/hub`
+          href = href.replace("/hub/user-redirect", "");
+        }
+      }
+      link.setAttribute('href', decodeURIComponent(href));
+
+      // Add text after interact link saying where we're launching
+      hubUrlNoHttp = decodeURIComponent(hubUrl).replace('http://', '').replace('https://', '');
+      link.insertAdjacentHTML('afterend', '<div class="interact-context">on ' + hubUrlNoHttp + '</div>');
+
+      // Update internal links so we retain the hub url
+      addParamToInternalLinks(hubUrl);
+    }
+}
+
+runWhenDOMLoaded(updateInteractLink)
+document.addEventListener('turbolinks:load', updateInteractLink)
+</script>
+
+
+  <!-- Lunr search code - will only be executed on the /search page -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.6/lunr.min.js" async></script>
+  <script>var initQuery = function() {
+  // See if we have a search box
+  var searchInput = document.querySelector('input#lunr_search');
+  if (searchInput === null) {
+    return;
+  }
+
+  // Function to parse our lunr cache
+  var idx = lunr(function () {
+    this.field('title')
+    this.field('excerpt')
+    this.field('categories')
+    this.field('tags')
+    this.ref('id')
+
+    this.pipeline.remove(lunr.trimmer)
+
+    for (var item in store) {
+      this.add({
+        title: store[item].title,
+        excerpt: store[item].excerpt,
+        categories: store[item].categories,
+        tags: store[item].tags,
+        id: item
+      })
+    }
+  });
+
+  // Run search upon keyup
+  searchInput.addEventListener('keyup', function () {
+    var resultdiv = document.querySelector('#results');
+    var query = document.querySelector("input#lunr_search").value.toLowerCase();
+    var result =
+      idx.query(function (q) {
+        query.split(lunr.tokenizer.separator).forEach(function (term) {
+          q.term(term, { boost: 100 })
+          if(query.lastIndexOf(" ") != query.length-1){
+            q.term(term, {  usePipeline: false, wildcard: lunr.Query.wildcard.TRAILING, boost: 10 })
+          }
+          if (term != ""){
+            q.term(term, {  usePipeline: false, editDistance: 1, boost: 1 })
+          }
+        })
+      });
+
+      // Empty the results div
+      while (resultdiv.firstChild) {
+        resultdiv.removeChild(resultdiv.firstChild);
+      }
+
+    resultdiv.insertAdjacentHTML('afterbegin', '<p class="results__found">'+result.length+' Result(s) found</p>');
+    for (var item in result) {
+      var ref = result[item].ref;
+      if(store[ref].teaser){
+        var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<div class="archive__item-teaser">'+
+                '<img src="'+store[ref].teaser+'" alt="">'+
+              '</div>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      else{
+    	  var searchitem =
+          '<div class="list__item">'+
+            '<article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">'+
+              '<h2 class="archive__item-title" itemprop="headline">'+
+                '<a href="'+store[ref].url+'" rel="permalink">'+store[ref].title+'</a>'+
+              '</h2>'+
+              '<p class="archive__item-excerpt" itemprop="description">'+store[ref].excerpt.split(" ").splice(0,20).join(" ")+'...</p>'+
+            '</article>'+
+          '</div>';
+      }
+      resultdiv.insertAdjacentHTML('beforeend', searchitem);
+    }
+  });
+};
+
+initFunction(initQuery);
+</script>
+
+  <!-- Load JS that depends on site variables -->
+  <script src="/Case-Studies-Python/assets/js/page/copy-button.js" async></script>
+
+  <!-- Hide cell code -->
+  <script src="/Case-Studies-Python/assets/js/page/hide-cell.js" async></script>
+
+  <!-- Printing the screen -->
+  <!-- Include nbinteract for interactive widgets -->
+<script src="https://printjs-4de6.kxcdn.com/print.min.js" async></script>
+<script>
+printContent = () => {
+    // MathJax displays a second version of any math for assistive devices etc.
+    // This prevents double-rendering in the PDF output.
+    var ignoreAssistList = [];
+    assistives = document.querySelectorAll('.MathJax_Display span.MJX_Assistive_MathML').forEach((element, index) => {
+        var thisId = 'MathJax-assistive-' + index.toString();
+        element.setAttribute('id', thisId);
+        ignoreAssistList.push(thisId)
+    });
+
+    // Print the actual content object
+    printJS({
+        printable: 'textbook_content',
+        type: 'html',
+        css: "/Case-Studies-Python/assets/css/styles.css",
+        style: "#textbook_content {padding-top: 40px};",
+        scanStyles: false,
+        targetStyles: ["*"],
+        ignoreElements: ignoreAssistList,
+        documentTitle: "Made with Jupyter Book"
+    })
+};
+
+initPrint = () => {
+    document.querySelector('#interact-button-print').addEventListener('click', printContent)
+}
+
+initFunction(initPrint)
+</script>
+
+</head>
+
+  <body>
+    <!-- Include the ThebeLab config so it gets reloaded on each page -->
+    <script type="text/x-thebe-config">{
+    requestKernel: true,
+    binderOptions: {
+    repo: "mark-kramer/Case-Studies-Python",
+    ref: "master",
+    },
+    codeMirrorConfig: {
+    theme: "abcdef",
+    mode: "python"
+    },
+    kernelOptions: {
+    kernelName: "python3",
+    path: ""
+    }
+}
+</script>
+
+    <!-- .js-show-sidebar shows sidebar by default -->
+    <div id="js-textbook" class="c-textbook js-show-sidebar">
+      
+
+
+
+<nav id="js-sidebar" class="c-textbook__sidebar">
+  <a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis" target="_blank" rel="noopener noreferrer"><img src="/Case-Studies-Python/images/logo/logo.png" class="textbook_logo" id="sidebar-logo" alt="textbook logo" data-turbolinks-permanent></a>
+  <h2 class="c-sidebar__title">Case Studies in Neural Data Analysis</h2>
+  <ul class="c-sidebar__chapters">
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/intro">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/intro.html">
+          
+          Home
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider">
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Contents</h2></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/01/introduction-to-python">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/01/introduction-to-python.html">
+          
+            1.
+          
+          Introduction to Python
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/02/the-event-related-potential">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/02/the-event-related-potential.html">
+          
+            2.
+          
+          The Event-Related Potential
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/03/the-power-spectrum-part-1">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/03/the-power-spectrum-part-1.html">
+          
+            3.
+          
+          The Power Spectrum (Part 1)
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/04/ecog-rhythms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/04/ecog-rhythms.html">
+          
+            4.
+          
+          The Power Spectrum (Part 2)
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/05/the-cross-covariance-and-coherence">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/05/the-cross-covariance-and-coherence.html">
+          
+            5.
+          
+          The Cross Covariance and Coherence
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/06/filtering-scalp-eeg">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/06/filtering-scalp-eeg.html">
+          
+            6.
+          
+          Filtering Field Data
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/07/cross-frequency-coupling">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/07/cross-frequency-coupling.html">
+          
+            7.
+          
+          Cross Frequency Coupling
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html">
+          
+            8.
+          
+          Basic Visualizations and Descriptive Statistics of Spike Train Data
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/09/point-process-glms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/09/point-process-glms.html">
+          
+            9.
+          
+          Modeling place Fields with Point Process Generalized Linear Models
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/10/spiking-rhythms">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/10/spiking-rhythms.html">
+          
+            10.
+          
+          Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/11/spike-field-coherence">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/11/spike-field-coherence.html">
+          
+            11.
+          
+          Analysis of Spike-Field Coherence
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+        <li class="c-sidebar__divider">
+        
+      
+      
+        <li><h2 class="c-sidebar__title">Appendices</h2></li>
+        
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A01/backprop">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A01/backprop.html">
+          
+            12.
+          
+          Backpropagation
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A02/HH">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A02/HH.html">
+          
+            13.
+          
+          Hodgkin Huxley Model
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A03/LIF">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A03/LIF.html">
+          
+            14.
+          
+          Integrate and Fire Model
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+      
+      
+
+      
+      
+      
+      
+
+      
+      
+      <li class="c-sidebar__chapter" data-url="/A04/perceptron">
+        <a class="c-sidebar__entry" href="/Case-Studies-Python/A04/perceptron.html">
+          
+            15.
+          
+          Training a Perceptron
+        </a>
+      </li>
+
+      
+      
+
+      
+
+      
+      
+
+      
+
+      
+    
+  </ul>
+  <p class="sidebar_footer">Powered by <a href="https://github.com/jupyter/jupyter-book" target="_blank" rel="noopener noreferrer">Jupyter Book</a></p>
+</nav>
+
+      
+      <div class="c-topbar" id="top-navbar">
+  <!-- We show the sidebar by default so we use .is-active -->
+  <div class="c-topbar__buttons">
+    <button id="js-sidebar-toggle" class="hamburger hamburger--arrowalt is-active">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+    <div class="buttons">
+<div class="download-buttons-dropdown">
+    <button id="dropdown-button-trigger" class="interact-button"><img src="/Case-Studies-Python/assets/images/download-solid.svg" alt="Download"></button>
+    <div class="download-buttons">
+        
+        <a id="interact-button-print"><button id="interact-button-download" class="interact-button">.pdf</button></a>
+    </div>
+</div>
+
+
+</div>
+
+  </div>
+  <!-- Empty sidebar placeholder that we'll auto-fill with javascript -->
+  <aside class="sidebar__right">
+    <header><h4 class="nav__title">
+<img src="/Case-Studies-Python/assets/images/list-solid.svg" alt="Search">   On this page</h4></header>
+    <nav class="onthispage">
+    </nav>
+  </aside>
+  <a href="/Case-Studies-Python/search.html" class="topbar-right-button" id="search-button">
+    <img src="/Case-Studies-Python/assets/images/search-solid.svg" alt="Search">
+  </a>
+</div>
+
+      <main class="c-textbook__page" tabindex="-1">
+            <div class="c-textbook__content" id="textbook_content">
+              <h1 id="the-integrate-and-fire-neuron">The integrate and fire neuron</h1>
+
+<p>In this module we will use Python to simulate the integrate and fire (I&amp;F) neuron model.  We’ll investigate, in particular, how the spiking activity varies as we adjust the input current $I$.</p>
+
+<p>+++</p>
+
+<h1 id="background-information-about-the-if-model">Background information about the I&amp;F model</h1>
+
+<p>+++</p>
+
+<p>Here’s a video that describes a slightly more complicated model, the <em>leaky</em> integrate and fire model.</p>
+
+<p>```{code-cell} ipython3
+from IPython.lib.display import VimeoVideo
+VimeoVideo(‘140084447’)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Here's some additional intereting videos and references:
+
+- [Lecture by Prof. Gerstner](http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=1)
+
++++
+
+##  Preliminaries
+Before beginning, let's load in the Python packages we'll need:
+
+```{code-cell} ipython3
+import numpy as np
+%matplotlib inline
+import matplotlib.pyplot as plt
+</code></pre></div></div>
+
+<h2 id="part-1--numerical-solutions---introduction">Part 1:  Numerical solutions - Introduction</h2>
+
+<p>How do we compute a numerical solution to the integrate and fire model?
+  The basic idea is to rearrange the differential equation to get $V(t+1)$ on
+  the left hand side, and $V(t)$ on the right hand side.  Then, if we know
+  what’s happening at time $t$, we can solve for what’s happening at time $t+1$.</p>
+
+<p>For example, consider the differential equation:</p>
+
+<script type="math/tex; mode=display">\dfrac{dV}{dt} = \dfrac{I}{C}</script>
+
+<p>In words, we can think of:</p>
+
+<p>$dV$ as the “change in voltage V”,</p>
+
+<p>$dt$ as the “change in time t”.</p>
+
+<p>Let’s consider the case that we record the voltage $V$ in discrete time steps. So
+  we observe:</p>
+
+<p>$V[0], V[1], V[2], \ldots$</p>
+
+<p>at times:</p>
+
+<p>$dt, \, 2<em>dt, \, 3</em>dt, \ldots$</p>
+
+<p>where $dt$ is the time between our samples of $V$.</p>
+
+<p>We can now write the “change in voltage V” as:</p>
+
+<script type="math/tex; mode=display">dV = V(t+1) - V(t)</script>
+
+<p>Notice that the change in voltage is the difference in V between two
+  sequential time samples.  Now, let’s rewrite $\dfrac{dV}{dt}$ as,</p>
+
+<script type="math/tex; mode=display">\dfrac{dV}{dt} = \dfrac{ V(t+1) - V(t) }{ dt }</script>
+
+<p>where we’ve replaced $dV$.  Now, let’s substitute this expression into the equation at the top of this file:</p>
+
+<script type="math/tex; mode=display">\dfrac{ V(t+1) - V(t) }{ dt } = \dfrac{I}{C}.</script>
+
+<p>Solving this equation for $V(t+1)$ you’ll find  that:</p>
+
+<script type="math/tex; mode=display">V(t+1) = V(t) + dt*(I/C)</script>
+
+<p>Notice that, in this expression, we use our current value of the voltage V(t) and the model (I/C) to determine the next value of the voltage V(t+1).</p>
+
+<p>Now, let’s program this equation in Python.  First, let’s set the values
+  for the parameters $I$ and $C$.</p>
+
+<p>```{code-cell} ipython3
+C=1.0
+I=1.0</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+  We also need to set the value for $dt$.  This defines the time step for our
+  model.  We must choose it small enough so that we don't miss anything
+  interesting.  We'll choose:
+
+```{code-cell} ipython3
+dt=0.01
+</code></pre></div></div>
+
+<p>Let’s assume the units of time are seconds.  So, we step forward in time by $0.01$ s.</p>
+
+<p>The right hand side of our equation is nearly defined, but we’re still missing one thing, $V(t)$.</p>
+
+<p>+++</p>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong>  What value do we assign to $V(t)$?<br><br></p>
+
+  <p><strong>A:</strong>  We don’t know — that’s why we’re running the simulation in the first place!</p>
+</div>
+
+<p>+++</p>
+
+<p>So here’s an easier question:  what <em>initial</em> value do we assign to $V(t)$?</p>
+
+<p>To start, we’ll create an array of zeros to hold our results for $V$:</p>
+
+<p>```{code-cell} ipython3
+V = np.zeros([1000,1])
+V.shape</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+This array `V` consists of 1000 rows and 1 column. We can think of each row entry as corresponding to a discrete step in time. Our goal is to fill-in the values of `V` (i.e., step forward in time), in a way consistent with our model.
+
+Let's choose an initial value for `V` of 0.2, which in our simple model we'll assume represents the rest state.
+
+```{code-cell} ipython3
+V[0]=0.2
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+
+  <p><strong>Q:</strong>  Given the initial state <code class="language-plaintext highlighter-rouge">V[0]=0.2</code>, calculate <code class="language-plaintext highlighter-rouge">V[1]</code>.  Then calcualte <code class="language-plaintext highlighter-rouge">V[2]</code>.</p>
+
+</div>
+
+<p>+++</p>
+
+<p>After the two calculations above, we’ve moved forward two time steps into
+  the future, from $t=0$ s to $t=0.01$ s, and then from $t=0.01$ s to $t=0.02$ s.  But what
+  if we want to know $V$ at $t=10$ s?  Then, this iteration-by-hand procedure becomes
+  much too boring and error-prone.  So, what do we do?  Let’s make the
+  computer do it …</p>
+
+<p>+++</p>
+
+<h2 id="part-2--numerical-solutions---implementation">Part 2:  Numerical solutions - implementation</h2>
+
+<p>Let’s computerize this iteration-by-hand procedure to find <code class="language-plaintext highlighter-rouge">V[999]</code>. To do so, we’ll use a <a href="https://wiki.python.org/moin/ForLoop" target="_blank" rel="noopener noreferrer">for-loop</a>.  Here’s what it looks like:</p>
+
+<p>```{code-cell} ipython3
+for k in range(1,999):
+    V[k+1] = V[k] + dt*(I/C)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&lt;div class="alert alert-block alert-info"&gt;
+**Q:**  Does this loop make sense?  Describe what's happening here.
+&lt;/div&gt;
+
++++
+
+&lt;div class="alert alert-block alert-info"&gt;
+**Q:**  Why does the `range` command end at `999`?
+&lt;/div&gt;
+
++++
+
+Execute this for-loop and examine the results in vector `V`.  To do so, let's plot `V`:
+
+```{code-cell} ipython3
+plt.figure()
+plt.plot(V);
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong>  What happens to the voltage after 1000 steps?</p>
+</div>
+
+<p>+++</p>
+
+<p>This plot is informative, but not great.  Really, we’d like to plot the
+  voltage as a function of <em>time</em>, not steps or indices.  To do so, we
+  need to define a time axis:</p>
+
+<p>```{code-cell} ipython3
+t = np.arange(0,len(V))*dt</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+&lt;div class="alert alert-block alert-info"&gt;
+**Q:**  What's happening in the command above?  Does it make sense?  (If not, trying printing or plotting `t`.)
+&lt;/div&gt;
+
++++
+
+Now, with *time* defined, let's redo the plot of the voltage with the axes labeled appropriately.
+
+```{code-cell} ipython3
+plt.figure()
+plt.plot(t,V)
+plt.xlabel('Time [s]');
+plt.ylabel('V');
+</code></pre></div></div>
+
+<p>Finally, let’s put it all together . . .</p>
+
+<p>+++</p>
+
+<h2 id="part-3-if-code-version-1">Part 3: I&amp;F CODE (version 1)</h2>
+
+<p>+++</p>
+
+<p>In Parts 1 and 2, we constructed parts of the I&amp;F model in bits-and-pieces.
+  Let’s now collect all of this code, compute a numerical solution to
+  the I&amp;F model, and plot the results (with appropriate axes).</p>
+
+<p>First, let’s clear all the variables:</p>
+
+<p>```{code-cell} ipython3
+%reset</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+```{code-cell} ipython3
+import numpy as np      #Import useful packages.
+%matplotlib inline
+import matplotlib.pyplot as plt
+
+I=1                     #Set the parameter I.
+C=1                     #Set the parameter C.
+dt=0.01                 #Set the timestep.
+V = np.zeros([1000,1])  #Initialize V.
+V[0]=0.2;               #Set the initial value of V.
+
+for k in range(1,999):            #March forward in time,
+    V[k+1] = V[k] + dt*(I/C)      #... updating V along the way.
+
+t = np.arange(0,len(V))*dt        #Define the time axis.
+
+plt.figure()            #Plot the results.
+plt.plot(t,V)
+plt.xlabel('Time [s]')
+plt.ylabel('Voltage [mV]');
+</code></pre></div></div>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong>  Adjust the parameter <code class="language-plaintext highlighter-rouge">I</code>.  What happens to <code class="language-plaintext highlighter-rouge">V</code> if <code class="language-plaintext highlighter-rouge">I=0</code>?  Can you set <code class="language-plaintext highlighter-rouge">I</code> so that <code class="language-plaintext highlighter-rouge">V</code> &gt; 20 within 10 s?</p>
+</div>
+
+<p>+++</p>
+
+<h2 id="part-4--voltage-threshold">Part 4:  Voltage threshold</h2>
+
+<p>Notice, our model is missing something important:  <strong>the reset</strong>.
+  Without
+  the reset, the voltage increases forever (if $I&gt;0$). Now, let’s update
+  our model to include the reset.  To do so, we’ll need to add two things
+  to our code.</p>
+
+<ul>
+  <li>First, we’ll define the voltage threshold <code class="language-plaintext highlighter-rouge">Vth</code>, and
+  reset voltage <code class="language-plaintext highlighter-rouge">Vreset</code>.</li>
+  <li>Second, we’ll check to see if <code class="language-plaintext highlighter-rouge">V</code> exceeds
+  <code class="language-plaintext highlighter-rouge">Vth</code> using an <a href="https://docs.python.org/3/tutorial/controlflow.html" target="_blank" rel="noopener noreferrer">if-statement</a>;  if it does, then we’ll set <code class="language-plaintext highlighter-rouge">V</code> equal to
+  <code class="language-plaintext highlighter-rouge">Vreset</code>.</li>
+</ul>
+
+<p>Here’s what we’ll add to the code:</p>
+
+<p>```{code-cell} ipython3
+Vth = 1;        #Define the voltage threshold.
+Vreset = 0;     #Define the reset voltage.</p>
+
+<p>for k in range(1,999):            #March forward in time,
+    V[k+1] = V[k] + dt*(I/C)      #Update the voltage,
+    if V[k+1] &gt; Vth:              #… and check if the voltage exceeds the threshold.
+        V[k+1] = Vreset</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## Part 5: I&amp;F CODE (version 2)
+
+Now, let's put it all together to make a complete I&amp;F model (with a thershold and reset), simulate it, and plot the result.
+
+```{code-cell} ipython3
+%reset
+</code></pre></div></div>
+
+<p>```{code-cell} ipython3
+import numpy as np      #Import useful packages.
+%matplotlib inline
+import matplotlib.pyplot as plt</p>
+
+<p>I=1                     #Set the parameter I.
+C=1                     #Set the parameter C.
+Vth = 1;                #Define the voltage threshold.
+Vreset = 0;             #Define the reset voltage.
+dt=0.01                 #Set the timestep.
+V = np.zeros([1000,1])  #Initialize V.
+V[0]=0.2;               #Set the initial condition.</p>
+
+<p>for k in range(1,999):            #March forward in time,
+    V[k+1] = V[k] + dt*(I/C)      #Update the voltage,
+    if V[k+1] &gt; Vth:              #… and check if the voltage exceeds the threshold.
+        V[k+1] = Vreset</p>
+
+<p>t = np.arange(0,len(V))*dt        #Define the time axis.</p>
+
+<p>plt.figure()            #Plot the results.
+plt.plot(t,V)
+plt.xlabel(‘Time [s]’)
+plt.ylabel(‘Voltage [mV]’);
+```</p>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong> Adjust the parameter <code class="language-plaintext highlighter-rouge">I</code>.  What happens to <code class="language-plaintext highlighter-rouge">V</code> if <code class="language-plaintext highlighter-rouge">I=10</code>?  If <code class="language-plaintext highlighter-rouge">I=100</code>?</p>
+</div>
+
+<p>+++</p>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong> Adjust the parameter <code class="language-plaintext highlighter-rouge">C</code>.  What happens to <code class="language-plaintext highlighter-rouge">V</code> if <code class="language-plaintext highlighter-rouge">C=0.1</code>?  If <code class="language-plaintext highlighter-rouge">C=10</code>?</p>
+</div>
+
+<p>+++</p>
+
+<div class="alert alert-block alert-info">
+  <p><strong>Q:</strong> What is “spiking” in this I&amp;F model?</p>
+</div>
+
+            </div>
+            <div class="c-textbook__footer" id="textbook_footer">
+              
+<nav class="c-page__nav">
+  
+
+  
+</nav>
+
+              <footer>
+  <p class="footer">This page was created by <a href="https://github.com/jupyter/jupyter-book/graphs/contributors" target="_blank" rel="noopener noreferrer">The Jupyter Book Community</a></p>
+</footer>
+
+            </div>
+
+        </main>
+</div>
+      
+    
+  </body>
+</html>
