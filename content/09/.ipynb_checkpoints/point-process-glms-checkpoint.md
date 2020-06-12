@@ -33,7 +33,8 @@ _**Synopsis**_
 
 +++
 
-* [Introduction](#.)
+* [On-ramp: point process generalized linear models in Python](#onramp)
+* [Introduction](#introduction)
 * [Data analysis](#data-analysis)
     1. [Visual Inspection](#visual-inspection)
     1. [Fitting a Point Process Model (Poisson GLM)](#fitting-a-poisson-glm)
@@ -46,7 +47,63 @@ _**Synopsis**_
 
 +++
 
-## Introduction
+## On-ramp: filtering field data in Python <a id="onramp"></a>
+We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+
+```{code-cell} ipython3
+# Import modules ...
+from scipy.io import loadmat                     # To load .mat files
+import statsmodels.api as sm                     # To fit GLMs
+from statsmodels.genmod.families import Poisson  # ... Poisson GLMs
+from pandas import DataFrame as df               # Table object for working with data
+from pylab import *                              # Numerical and plotting functions
+%matplotlib inline
+
+data = loadmat('spikes-1.mat')                             # Load the data,
+t = data['t'][:, 0]                                        # Extract the t variable,
+X = data['X'][:, 0]                                        # Extract the X variable,
+spiketimes = data['spiketimes']                            # ... and the spike times.
+spiketrain = histogram(spiketimes, 
+                         bins = len(t), 
+                         range = (t[0], t[-1]))[0] 
+spikeindex = where(spiketrain!=0)[0]                       # Get the spike indices.
+
+bin_edges = arange(-5, 106, 10)                            # Define spatial bins.
+spikehist = histogram(X[spikeindex], bin_edges)[0]         # Histogram positions @ spikes.
+occupancy = histogram(X, bin_edges)[0]*0.001               # Convert occupancy to seconds.
+predictors = df(data={                                     # Create a dataframe of predictors
+  'Intercept': ones_like(X),
+  'X': X,
+  'X2': X**2
+  })
+
+# GLM model with Poisson family and identity link function
+model3 = sm.GLM(spiketrain, predictors, family=Poisson())  # Create the model
+model3_results = model3.fit()                              # Fit model to our data
+b3 = model3_results.params                                 # Get the predicted coefficient vector
+
+bins = linspace(0, 100, 11)
+bar(bins, spikehist / occupancy, width=8)                  # Plot results as bars.
+plot(bins,                                                 # Plot model.
+     exp(b3[0] + b3[1] * bins + b3[2] * bins**2) * 1000,
+     'k', label='Model')
+xlabel('Position [cm]')                                    # Label the axes.
+ylabel('Occupancy norm. hist. [spikes/s]')
+legend()
+show()
+```
+
+<div class="question">
+    
+**Q:** Try to read the code above. Can you see how it loads data, estimates the parameters of a model, and then plots the model over the observations?
+
+**A:** There is a lot happening here. Please continue on to learn this **and more**!
+
+</div>
+
++++
+
+## Introduction <a id="introduction"></a>
 In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.
 
 This stimulus-response paradigm relates to the important concept of *neural coding*: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this notebook.
@@ -200,7 +257,7 @@ In the third line of this code, we multiply the occupancy by 0.001 to put the oc
 
 ## Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm"></a>
 
-Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In [notebook 8](https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html), we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.
+Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.
 
 +++
 
@@ -208,13 +265,13 @@ Any statistical model that describes data occurring at localized points in time,
     
 **Q:** Do the notions of point process model, Poisson model, and rate parameter seem familiar?
 
-**A:** If not, consider reviewing the case study in [notebook 8](https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html).
+**A:** If not, consider reviewing the case study in <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>.
 
 </div>
 
 +++
 
-One approach we used to model the spiking data in [notebook 8](https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html) was a Poisson model, in which we used a rate parameter, $\lambda$, to define the expected rate of spiking in any time interval. We then computed the value of $\lambda$ that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.
+One approach we used to model the spiking data in <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> was a Poisson model, in which we used a rate parameter, $\lambda$, to define the expected rate of spiking in any time interval. We then computed the value of $\lambda$ that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.
 
 Let’s define some terms. Let $x(t)$ represent the rat’s position at time $t$, and let $d(t)$ represent the direction of motion; we set $d(t) = 0$ when $x(t)$ is decreasing or the rat is stopped, and $d(t) = 1$ when $x(t)$ is increasing. Since these position and direction signals change as a function of time, so does the firing rate. We write $\lambda(t) = g(x(t), d(t))$, where $\lambda(t)$ is called the **Poisson rate function**, and $g(·, ·)$ is a function that we need to define the model.
 
@@ -313,7 +370,7 @@ properties. As desired, it ensures that the rate function is positive.
 
 +++
 
-The choice of a log link also ensures that the likelihood of the data is concave with respect to the model parameters. This means that the likelihood only has one local maximum value, which is the maximum likelihood (ML) estimate. It can also be shown that in many cases, the parameter estimators will be asymptotically normal, which will allow us to construct confidence intervals and make significance statements about them [[Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)].
+The choice of a log link also ensures that the likelihood of the data is concave with respect to the model parameters. This means that the likelihood only has one local maximum value, which is the maximum likelihood (ML) estimate. It can also be shown that in many cases, the parameter estimators will be asymptotically normal, which will allow us to construct confidence intervals and make significance statements about them <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>.
 
 To fit Model 2 in Python, we use the same model as before but replace the the link function with log:
 
@@ -451,7 +508,7 @@ $$ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),$$
 
 where $\mu = −\beta_1/(2\beta_2)$ is the point along the track where the firing rate is maximal (the center of the place field), $\sigma^2 = −1/(2\beta_2)$ determines the range over which the firing rate is elevated (the size of the place field), and $\alpha = \exp(\beta_0−\beta_1^2/(4\beta_2))$ is the maximum firing rate at the place field center.
 
-In this example, we can use the estimated GLM coefficients to estimate these new model parameters related to the center, size, and maximum firing rate of the place field. The fit method has given us the maximum likelihood estimates for $\beta_0$, $\beta_1$, and $\beta_2$. An important result from statistical theory is that the maximum likelihood estimate of any function of model parameters is just that same function of the maximum likelihood estimates of the parameters. This is often called invariance or equivariance [[Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)]. So $\hat{\mu} = −\hat{\beta_1}/(2\hat{\beta_2})$ is the maximum likelihood estimate of the place field center, $\hat{\sigma} = \sqrt{-1/(2\hat{\beta_2})}$ is the maximum likelihood estimate of the place field size, and so on.
+In this example, we can use the estimated GLM coefficients to estimate these new model parameters related to the center, size, and maximum firing rate of the place field. The fit method has given us the maximum likelihood estimates for $\beta_0$, $\beta_1$, and $\beta_2$. An important result from statistical theory is that the maximum likelihood estimate of any function of model parameters is just that same function of the maximum likelihood estimates of the parameters. This is often called invariance or equivariance <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>. So $\hat{\mu} = −\hat{\beta_1}/(2\hat{\beta_2})$ is the maximum likelihood estimate of the place field center, $\hat{\sigma} = \sqrt{-1/(2\hat{\beta_2})}$ is the maximum likelihood estimate of the place field size, and so on.
 
 Let’s now use these expressions to compute the maximum likelihood estimates in Python:
 
@@ -563,7 +620,7 @@ The resulting difference in AICs (variable dAIC) matches the value we computed e
 
 The AIC provides a method for identifying parsimonious models and comparing between models but does not, on its own, indicate whether a particular model provides a statistically significant improvement in its description of a dataset. For example, we might add a predictor to a model that has no real connection to the observed data and yet decreases the AIC by chance. In order to assess whether a model provides a significant improvement over another, we can use hypothesis tests based on the model likelihoods.
 
-In particular, there is a general class of hypothesis tests called *maximum likelihood ratio tests* (MLRTs) that often provide the most statistically powerful comparison between models. In general, it can be challenging to compute the test statistic and its sampling distribution for MLRTs. However, it becomes easy to perform this test in cases where we are comparing two nested GLMs, that is, when one of the models can be made equivalent to the other by setting some parameters to specific values. For example, it is possible to make Model 3 equivalent to Model 2 by setting $\beta_2 = 0$. We say that Model 2 is nested in Model 3. However, there is no way to set any parameters to make Model 2 equivalent to Model 1 or vice versa, so these models are not nested. It can be shown that when we compare two nested Poisson GLMs for spike train data, the MLRT will asymptotically be a simple chi-square ($\chi^2$) test. The proof for this result can be found in many textbooks on GLMs, such as [McCullagh & Nelder, 1989](https://doi.org/10.1201/9780203753736).
+In particular, there is a general class of hypothesis tests called *maximum likelihood ratio tests* (MLRTs) that often provide the most statistically powerful comparison between models. In general, it can be challenging to compute the test statistic and its sampling distribution for MLRTs. However, it becomes easy to perform this test in cases where we are comparing two nested GLMs, that is, when one of the models can be made equivalent to the other by setting some parameters to specific values. For example, it is possible to make Model 3 equivalent to Model 2 by setting $\beta_2 = 0$. We say that Model 2 is nested in Model 3. However, there is no way to set any parameters to make Model 2 equivalent to Model 1 or vice versa, so these models are not nested. It can be shown that when we compare two nested Poisson GLMs for spike train data, the MLRT will asymptotically be a simple chi-square ($\chi^2$) test. The proof for this result can be found in many textbooks on GLMs, such as <a href="https://doi.org/10.1201/9780203753736" target="blank">[McCullagh & Nelder, 1989]</a>.
 
 Let’s specify the components of this hypothesis test. Assume that the nested model has $n_1$ parameters $\{\beta_1, \cdots, \beta_{n_1} \}$, and that the larger model has $n_2$ parameters, $\{\tilde{\beta_1}, \cdots, \tilde{\beta_{n_2}} \}$. The null hypothesis for this test is $H_0 : \tilde{\beta}_{n_1 + 1} = \cdots = \tilde{\beta}_{n_2}= 0$, that all the additional parameters not contained in the nested model are equal to zero. The alternative hypothesis is that at least one of these additional parameters are different from zero. The test statistic for this MLRT is equivalent to the difference in the deviances between the nested model (here, $\text{Dev}_1$) and the larger model (here, $\text{Dev}_2$),
 
@@ -578,13 +635,13 @@ p = 1 - chi2.cdf(dev2 - dev3, 1) # Compare Models 2 and 3, nested GLMs.
 print('p:', p)
 ```
 
-In this case, the difference in parameters between Model 2 and Model 3 is 1; Model 3 has one additional parameter. We therefore set the degrees of freedom of the chi-square distribution to 1, the second input to the function `chi2.cdf()`. We find the computed p-value is zero, to the precision that Python is able to compute the chi-square distribution. In practice, this means that the p-value for this test is not exactly zero but is smaller than approximately $2^{−16}$ (see [here](https://stackoverflow.com/questions/19141432/python-numpy-machine-epsilon) for a discussion of [machine epsilon](https://en.wikipedia.org/wiki/Machine_epsilon) in Python). We have a great deal of evidence that the additional, quadratic parameter in Model 3, $\beta_2$, is nonzero.
+In this case, the difference in parameters between Model 2 and Model 3 is 1; Model 3 has one additional parameter. We therefore set the degrees of freedom of the chi-square distribution to 1, the second input to the function `chi2.cdf()`. We find the computed p-value is zero, to the precision that Python is able to compute the chi-square distribution. In practice, this means that the p-value for this test is not exactly zero but is smaller than approximately $2^{−16}$ (see <a href="https://stackoverflow.com/questions/19141432/python-numpy-machine-epsilon" target="blank">here </a> for a discussion of <a href="https://en.wikipedia.org/wiki/Machine_epsilon" target="blank">machine epsilon</a> in Python). We have a great deal of evidence that the additional, quadratic parameter in Model 3, $\beta_2$, is nonzero.
 
 ### Method 3: Confidence Intervals for Individual Model Parameters. 
 
-If we want to test directly for whether a single parameter contributes significantly to the model, we can examine its interval estimate. The GLM fitting procedure not only computes the maximum likelihood estimator for each model parameter but also computes the *Fisher information*, a quantity related to the curvature of the likelihood, which can be used to compute confidence intervals about any individual parameters or any combination of parameters. We do not discuss the Fisher information in detail here (for more, see [Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)), but the basic idea is intuitive. If the likelihood is very flat at its maximum, then changing the parameter values slightly will not decrease the likelihood substantially. Therefore, there is a potentially large range of parameter values that could make the data likely. If the likelihood is very peaked at its maximum, then a slight change in the parameter values would cause a large change in the likelihood, and therefore a much narrower range of parameter values would be consistent with the data.
+If we want to test directly for whether a single parameter contributes significantly to the model, we can examine its interval estimate. The GLM fitting procedure not only computes the maximum likelihood estimator for each model parameter but also computes the *Fisher information*, a quantity related to the curvature of the likelihood, which can be used to compute confidence intervals about any individual parameters or any combination of parameters. We do not discuss the Fisher information in detail here (for more, see <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>), but the basic idea is intuitive. If the likelihood is very flat at its maximum, then changing the parameter values slightly will not decrease the likelihood substantially. Therefore, there is a potentially large range of parameter values that could make the data likely. If the likelihood is very peaked at its maximum, then a slight change in the parameter values would cause a large change in the likelihood, and therefore a much narrower range of parameter values would be consistent with the data.
 
-The `GLMResults` [class](https://www.statsmodels.org/stable/glm.html#results-class) contains a variety of useful attributes. Two components that are useful for examining the significance of individual model parameters are `bse` and `pvalues`. The first, `bse`, provides the standard error of each parameter estimate. Since maximum likelihood estimators have approximately normal distributions with enough data, an approximate 95% confidence interval for any parameter $\beta_i$ would be $\beta_i \pm 2\hat{\sigma}_{\beta_i}$ , where $\beta_i$ is the parameter estimate and $\hat{\sigma}_{\beta_i}$ is the estimated standard error.
+The `GLMResults` <a href="https://www.statsmodels.org/stable/glm.html#results-class" target="blank">class</a> contains a variety of useful attributes. Two components that are useful for examining the significance of individual model parameters are `bse` and `pvalues`. The first, `bse`, provides the standard error of each parameter estimate. Since maximum likelihood estimators have approximately normal distributions with enough data, an approximate 95% confidence interval for any parameter $\beta_i$ would be $\beta_i \pm 2\hat{\sigma}_{\beta_i}$ , where $\beta_i$ is the parameter estimate and $\hat{\sigma}_{\beta_i}$ is the estimated standard error.
 
 Let’s now use the `bse` attribute to compute confidence intervals for the parameters of Model 2:
 
@@ -639,11 +696,12 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 for $i = 2, \cdots, n$. By the time-rescaling theorem, the rescaled variables, $Z_1 , Z_2 ,\cdots , Z_n,$ are independent and identically distributed random variables from the exponential distribution with parameter 1.
 <hr>
 
-We do not prove the time-rescaling theorem here but note that it comes from the change-of-variables formula from basic probability theory; see [[Kass, Eden & Brown, 2014](https://doi.org/10.1007/978-1-4614-9602-1)] for a detailed proof.
+We do not prove the time-rescaling theorem here but note that it comes from the change-of-variables formula from basic probability theory; see <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>
+ for a detailed proof.
 
 How do we use the time-rescaling theorem to analyze spike train data? If we have a collection of spike times, $S_1 , S_2 , \cdots , S_n$, and any Poisson rate model, say, from a fit GLM, then we can compute the rescaled waiting times, $Z_1,Z_2,\cdots ,Z_n$. We then perform any standard goodness-of-fit method to compare $Z_1,Z_2,\cdots ,Z_n$ to the exponential probability model. If the Poisson rate model describes the data well, then the exponential model should describe the rescaled times well.
 
-The actual goodness-of-fit technique we use for the rescaled data is the *Kolmogorov-Smirnov (KS) plot*. Recall from [module 8](../08) that the KS plot compares the empirical cumulative distribution function (CDF) of the data to a model CDF. In that module, we compared the empirical CDF for observed interspike intervals against various model CDFs. In this case, we compare the empirical CDF of the rescaled waiting times to an exponential CDF.
+The actual goodness-of-fit technique we use for the rescaled data is the *Kolmogorov-Smirnov (KS) plot*. Recall from <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> that the KS plot compares the empirical cumulative distribution function (CDF) of the data to a model CDF. In that module, we compared the empirical CDF for observed interspike intervals against various model CDFs. In this case, we compare the empirical CDF of the rescaled waiting times to an exponential CDF.
 
 Let’s now apply the time-rescaling theorem to evaluate Model 3. First we must compute the rescaled waiting times.
 
@@ -700,7 +758,7 @@ show()
 
 Residuals represent the difference between the data and the model prediction at the level of individual data points. While quantities such as the deviance or KS plot are useful for getting an overall picture of how well the model fits the data as a whole, residual analysis is essential for understanding which components of a dataset are well or ill fit by the model. It is therefore one of the best tools for determining what is missing in a model.
 
-There are many types of residuals that can be computed for point process data (including raw residuals, Pearson residuals, and deviance residuals [[McCullagh & Nelder, 1989](https://doi.org/10.1201/9780203753736)]). We do not go into detail about the advantages of each type of residual. Instead, let’s focus on one type of residual that is particularly useful for spiking data: the cumulative raw residual process. In continuous time, we would compute this residual process, $R(t)$, as
+There are many types of residuals that can be computed for point process data (including raw residuals, Pearson residuals, and deviance residuals <a href="https://doi.org/10.1201/9780203753736" target="blank">[McCullagh & Nelder, 1989]</a>). We do not go into detail about the advantages of each type of residual. Instead, let’s focus on one type of residual that is particularly useful for spiking data: the cumulative raw residual process. In continuous time, we would compute this residual process, $R(t)$, as
 
 $$\begin{align}
 R(t) &= \text{ total observed no. of spikes at time } t - \text{ total expected no. of spikes at time } t \\
@@ -769,7 +827,7 @@ $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direc
 \tag{Model 4}
 $$
 
-We then fit this model and interpret the parameter estimates. With our previous experience in this chapter, fitting the model in Python is now relatively straightforward:
+We then fit this model and interpret the parameter estimates. With our previous experience in this module, fitting the model in Python is now relatively straightforward:
 
 ```{code-cell} ipython3
 #Fit Model 4, and return estimates and useful statistics.
@@ -958,7 +1016,7 @@ show()
 
 +++
 
-We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in [module 10](../10), the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.
+We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="https://mark-kramer.github.io/Case-Studies-Python/10/spiking-rhythms.html" target="blank">module 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.
 
 [Back to top](#top)
 
