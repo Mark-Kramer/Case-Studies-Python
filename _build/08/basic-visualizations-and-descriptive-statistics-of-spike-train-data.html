@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /09/point-process-glms.html
 suffix: .ipynb
-search: data lambda div light class condition spike process x isi model ms bin question poisson low isis value q autocorrelation distribution between values spiking high spikes function plot n eq s lets frac bins e k fit likelihood conditions increment id activity axis imgs png probability compute fano not sum href does factor lag case consider vector train interval rate times counts second src span mu any where neuron statistical observed firing histogram correlation right count small difference variable range left top here expect above positive inspection intervals using f instead compare l xi visual increments structure our spikeslow size
+search: data div lambda light spike class condition process x isi model question ms bin poisson isis low value q autocorrelation distribution between values spiking high spikes function plot n eq s lets frac bins e fit k id likelihood conditions not increment activity axis imgs png probability train compute fano sum href does factor lag case consider vector interval rate times counts second src span mu statistical any where neuron observed firing histogram correlation right count here above small difference variable range left top intervals instead expect positive python inspection our using f compare l xi visual increments structure spikeslow
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -56,6 +56,7 @@ _**Synopsis**_
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
+<li><a href="#onramp">On-ramp: visualizing spike train data in Python</a></li>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#data-analysis">Data analysis</a><ol>
 <li><a href="#visual-inspection">Visual inspection</a></li>
@@ -79,7 +80,118 @@ _**Synopsis**_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.</p>
+<h2 id="On-ramp:-visualizing-spike-train-data-in-Python">On-ramp: visualizing spike train data in Python<a id="onramp" /><a class="anchor-link" href="#On-ramp:-visualizing-spike-train-data-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: techniques to visualize spike train data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>              
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the spike train data</span>
+<span class="n">SpikesLow</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SpikesLow&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and get the spike times for low-light condition.</span>
+
+<span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>             <span class="c1"># Compute ISIs in the low-light condition</span>
+                                         <span class="c1"># Fit a statistical model to the ISIs.</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>           <span class="c1"># Define 1 ms bins.</span>
+<span class="n">Nlow</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                      <span class="c1"># Length of low-light condition.</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                      <span class="c1"># Mean of inverse Gaussian</span>
+<span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># ... and shape parameter</span>
+<span class="n">model</span> <span class="o">=</span> <span class="p">(</span>                                   <span class="c1"># ... to create the model.</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lbda</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">bins</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> 
+    <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                             <span class="c1"># Numerator to 0 faster than denominator.</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>                         <span class="c1"># Plot the data and the model,</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
+<span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>             <span class="c1"># ... convert to probability,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the model.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>                         <span class="c1"># Plot the KS plot</span>
+<span class="n">FmodLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
+<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">,</span> <span class="n">FempLow</span><span class="p">)</span>                   <span class="c1"># ... plot model vs empirical CDF,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                      <span class="c1"># ... and label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
+  app.launch_new_instance()
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
+  app.launch_new_instance()
+</pre>
+</div>
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_4_1.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q:** Try to read the code above. Can you see how it loads data, computes the interspike intervals (ISIs) and fits a statistical model, and assess the model fit?
+
+**A:** If you've not analyzed spike train data before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a id="introduction" /><a class="anchor-link" href="#Introduction"> </a></h2><p>Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.</p>
 <h3 id="Case-Study-Data">Case Study Data<a class="anchor-link" href="#Case-Study-Data"> </a></h3><p>A researcher examining the background firing properties of one of these neurons contacts you to discuss his data. He records the spiking activity in one of two states, with the room lights off (low ambient light levels) or with the room lights on (high ambient light levels). He would like to collaborate with you to determine whether there is a difference in background firing between these two conditions, and whether one environment is more conducive to future experimental analyses. He records the spiking activity for 30 seconds in each condition.</p>
 <h3 id="Goal">Goal<a class="anchor-link" href="#Goal"> </a></h3><p>Typically the first step in any data analysis involves visualizing and using simple descriptive statistics to characterize pertinent features of the data. For time series data that take on a continuous value at each time point, like the field potentials analyzed in earlier notebooks, we typically start by simply plotting each data value as a function of time. For spike train data, things can become a bit more complicated. One reason for this is that there are multiple equivalent ways to describe the same spike train data. The data could be stored as a sequence of spike times; as a sequence of waiting times between spikes, or interspike intervals; or as a discrete time series indicating the number of spikes in discrete time bins. Knowing how to manipulate and visualize spike train data using all these different representations is the first step to understanding the structure present in the data and is the primary goal of this notebook.</p>
 <h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>We develop tools in this notebook to visualize spike train data and to provide basic statistical methods appropriate for analyzing spike trains.</p>
@@ -150,7 +262,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the ECoG data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the spike train data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 
@@ -442,7 +554,7 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_22_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_25_0.png"
 >
 </div>
 
@@ -517,7 +629,7 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_25_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_28_0.png"
 >
 </div>
 
@@ -597,7 +709,7 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_28_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_31_0.png"
 >
 </div>
 
@@ -725,7 +837,7 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_35_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_38_0.png"
 >
 </div>
 
@@ -875,7 +987,7 @@ which is the second ISI, and so on. In this way, `diff()` converts the spike tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_42_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_45_0.png"
 >
 </div>
 
@@ -1102,7 +1214,7 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_54_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_57_0.png"
 >
 </div>
 
@@ -1188,7 +1300,7 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_61_0.png"
 >
 </div>
 
@@ -1200,7 +1312,7 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_58_1.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_61_1.png"
 >
 </div>
 
@@ -1368,7 +1480,7 @@ The intervals of rapid spiking produce many shorter ISIs, and the longer interva
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_67_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_70_0.png"
 >
 </div>
 
@@ -1651,7 +1763,7 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_83_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_86_0.png"
 >
 </div>
 
@@ -2056,7 +2168,7 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_103_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_106_0.png"
 >
 </div>
 
@@ -2139,7 +2251,7 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_107_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_110_0.png"
 >
 </div>
 
@@ -2212,7 +2324,7 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_110_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_113_0.png"
 >
 </div>
 
@@ -2282,7 +2394,7 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_113_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_116_0.png"
 >
 </div>
 
@@ -2415,7 +2527,7 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_119_1.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_122_1.png"
 >
 </div>
 
@@ -2464,7 +2576,7 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 
 
 <div class="output_png output_subarea output_execute_result">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_121_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_124_0.png"
 >
 </div>
 
@@ -2557,7 +2669,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_125_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_128_0.png"
 >
 </div>
 
@@ -2625,7 +2737,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_128_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_131_0.png"
 >
 </div>
 
@@ -2772,7 +2884,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_136_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_139_0.png"
 >
 </div>
 
@@ -2842,7 +2954,7 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_139_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_142_0.png"
 >
 </div>
 
@@ -2944,7 +3056,7 @@ $$
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_144_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_147_0.png"
 >
 </div>
 
@@ -3039,7 +3151,7 @@ $$
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_149_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_152_0.png"
 >
 </div>
 
@@ -3089,7 +3201,7 @@ $$
 
 
 <div class="output_png output_subarea output_execute_result">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_151_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_154_0.png"
 >
 </div>
 
@@ -3282,7 +3394,7 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 
 
 <div class="output_png output_subarea ">
-<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_158_0.png"
+<img src="../images/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data_161_0.png"
 >
 </div>
 

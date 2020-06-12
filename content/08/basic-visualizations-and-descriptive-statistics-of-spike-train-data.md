@@ -33,6 +33,7 @@ _**Synopsis**_
 
 +++
 
+* [On-ramp: visualizing spike train data in Python](#onramp)
 * [Introduction](#introduction)
 * [Data analysis](#data-analysis)
     1. [Visual inspection](#visual-inspection)
@@ -46,7 +47,61 @@ _**Synopsis**_
 
 +++
 
-## Introduction
+## On-ramp: visualizing spike train data in Python<a id="onramp"></a>
+We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: techniques to visualize spike train data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+
+```{code-cell} ipython3
+import scipy.io as sio              
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+data = sio.loadmat('spikes-1.mat')       # Load the spike train data
+SpikesLow = data['SpikesLow'][0]         # ... and get the spike times for low-light condition.
+
+ISIsLow = np.diff(SpikesLow)             # Compute ISIs in the low-light condition
+                                         # Fit a statistical model to the ISIs.
+bins = np.arange(0, .5, 0.001)           # Define 1 ms bins.
+Nlow = len(ISIsLow)                      # Length of low-light condition.
+mu = ISIsLow.mean()                      # Mean of inverse Gaussian
+lbda = 1 / (1 / ISIsLow - 1 / mu).mean()    # ... and shape parameter
+model = (                                   # ... to create the model.
+    np.sqrt(lbda / 2 / np.pi / bins ** 3) * 
+    np.exp(-lbda * (bins - mu) ** 2 / 2 / mu ** 2 / bins) * 0.001
+)
+model[0] = 0                             # Numerator to 0 faster than denominator.
+
+plt.subplot(121)                         # Plot the data and the model,
+counts, _ = np.histogram(ISIsLow, bins)  # Compute histogram,
+prob = counts / len(ISIsLow)             # ... convert to probability,
+plt.bar(bins[:-1], prob, width=1e-3)     # ... and plot probability.
+plot(bins, model, 'b')                   # Plot the model.
+plt.xlim([0, 0.2])                       # xlim from 0 to 200 ms.
+xlabel('ISI [s]')                        # Label the axes.
+ylabel('Probability')
+
+plt.subplot(122)                         # Plot the KS plot
+FmodLow = np.cumsum(model[:-1])          # Define the model CDF,
+FempLow = np.cumsum(prob)                # ... and define empirical CDF,
+plot(FmodLow, FempLow)                   # ... plot model vs empirical CDF,
+plot([0, 1], np.arange(2) + 1.36 / np.sqrt(Nlow),'k:')  # ... upper confidence bound,
+plot([0, 1], np.arange(2) - 1.36 / np.sqrt(Nlow),'k:')  # ... lower confidence bound,
+plt.axis([0, 1, 0, 1])                   # ... set the axes ranges,
+xlabel('Model CDF')                      # ... and label the axes.
+ylabel('Empirical CDF')
+show()
+```
+
+<div class="question">
+
+**Q:** Try to read the code above. Can you see how it loads data, computes the interspike intervals (ISIs) and fits a statistical model, and assess the model fit?
+
+**A:** If you've not analyzed spike train data before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+
++++
+
+## Introduction<a id="introduction"></a>
 
 Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.
 
@@ -88,7 +143,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 ```
 
 ```{code-cell} ipython3
-data = sio.loadmat('spikes-1.mat')  # Load the ECoG data
+data = sio.loadmat('spikes-1.mat')  # Load the spike train data
 print(data.keys())
 ```
 
