@@ -500,9 +500,9 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 <div class="question">
     
-**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted in [this figure](#fig:FTA). How does the peak in the spike-field coherence relate to interesting structure in the FTA?
+**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted above.<a href="#fig:FTA" class="sup">fig<img src="imgs/fta.png"></a> How does the peak in the spike-field coherence relate to interesting structure in the FTA?
     
-<div>
+</div>
 
 +++
 
