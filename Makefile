@@ -18,7 +18,7 @@ install:
 	jupyter-book install ./
 
 book:
-	jupyter-book build ./
+	jupyter-book build ./ && ./scripts/create_indices.sh
 
 runall:
 	jupyter-book run ./content
