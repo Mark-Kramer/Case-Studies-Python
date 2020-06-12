@@ -728,7 +728,7 @@ Now, for this frequency interval, we find a modulation of the estimated conditio
 
 +++
 
-For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [MODULE](add ref)):
+For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [notebook 9](../09)):
 
 ```{code-cell} ipython3
 pval1=res.pvalues[1];       #Significance of parameter beta_1.
