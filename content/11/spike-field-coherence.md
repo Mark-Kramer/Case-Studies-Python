@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Analysis of spike-field cohernece *for the practicing neuroscientist* <a id="top"></a>
+# Analysis of spike-field coherence *for the practicing neuroscientist* <a id="top"></a>
 
 +++
 
@@ -460,13 +460,13 @@ ylabel('Coherence');
 savefig('imgs/sf_coh')
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the spike spectrum, `Snn`, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?
 
-**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.<br>
+**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.
 
-To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [MODULE](add ref)). For these data, we can estimate the expected spike rate as
+To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [notebook 10](../10)). For these data, we can estimate the expected spike rate as
 
 `firing_rate = np.mean(np.sum(n,1))/(N*dt)`
 
