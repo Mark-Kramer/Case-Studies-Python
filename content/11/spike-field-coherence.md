@@ -233,9 +233,9 @@ In this Python code, we must be careful to include only appropriate time interva
 
 <div class="question">
     
-**Q.** Q: What is the purpose of the if-statement:
+**Q.** What is the purpose of the if-statement:
 
-` if win < spike_t < N-win-1:`
+    `if win < spike_t < N-win-1:`
 
 in the code?
     
@@ -268,7 +268,7 @@ ylabel('Voltage [mV]');
 The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at $t = 0$ in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.
 
 
-However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a>.\ Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
+However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
 
 +++
 
@@ -415,8 +415,6 @@ As discussed in other modules ([The Power Spectrum (Part 1)](../03) and [Analysi
 
 Let’s now compute the spike-field coherence for the data of interest here. It’s relatively straightforward to do so in Python:
 
-+++ 
-
 ```{code-cell} ipython3
 SYY = np.zeros(int(N/2+1))                                       # Variable to store field spectrum.
 SNN = np.zeros(int(N/2+1))                                       # Variable to store spike spectrum.
@@ -461,7 +459,6 @@ xlabel('Frequency [Hz]')
 ylabel('Coherence');
 savefig('imgs/sf_coh')
 ```
-+++
 
 <div class="question">
     
@@ -493,7 +490,7 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the field spectrum on a decibel scale (see [The Power Spectrum (Part 1)](../03)). What rhythms do you observe?
     
