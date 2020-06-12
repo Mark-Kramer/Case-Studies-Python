@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /10/spiking-rhythms.html
 suffix: .ipynb
-search: model data rate beta models t position function fit div firing parameter not spiking likelihood parameters direction spike spikes x process poisson class between maximum rat python lets compute values aic lambda p place question observed plot point covariates where q value case does confidence variable distribution link text activity goodness cm linear glm our field structure n movement interval any exp comparing href target times using estimate well test top set compare log zero analysis here difference residual id train rats fitting statistical variables however same occupancy hat used new vector therefore ks back regression whether histogram consider s
+search: model data rate beta models t position function fit div firing not parameter spiking parameters likelihood direction spike spikes x process poisson class python between maximum rat lets compute values aic lambda question p place point q observed plot covariates where value case does confidence variable distribution link text field our activity goodness cm linear glm structure n movement interval any exp comparing here href target times using estimate well test top analysis set compare log zero difference residual id train rats fitting statistical variables however same occupancy hat used new vector therefore ks back regression whether histogram consider s
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -71,6 +71,107 @@ _**Synopsis**_
 <li><a href="#summary">Summary</a></li>
 </ul>
 
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="On-ramp:-filtering-field-data-in-Python">On-ramp: filtering field data in Python<a class="anchor-link" href="#On-ramp:-filtering-field-data-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import modules ...</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                     <span class="c1"># To load .mat files</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>                     <span class="c1"># To fit GLMs</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="kn">import</span> <span class="n">Poisson</span>  <span class="c1"># ... Poisson GLMs</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>               <span class="c1"># Table object for working with data</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                              <span class="c1"># Numerical and plotting functions</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>                             <span class="c1"># Load the data,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>                                        <span class="c1"># Extract the t variable,</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>                                        <span class="c1"># Extract the X variable,</span>
+<span class="n">spiketimes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spiketimes&#39;</span><span class="p">]</span>                            <span class="c1"># ... and the spike times.</span>
+<span class="n">spiketrain</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
+                         <span class="n">bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> 
+                         <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="n">spikeindex</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">spiketrain</span><span class="o">!=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>                       <span class="c1"># Get the spike indices.</span>
+
+<span class="n">bin_edges</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                            <span class="c1"># Define spatial bins.</span>
+<span class="n">spikehist</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># Histogram positions @ spikes.</span>
+<span class="n">occupancy</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.001</span>               <span class="c1"># Convert occupancy to seconds.</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>                                     <span class="c1"># Create a dataframe of predictors</span>
+  <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
+  <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">,</span>
+  <span class="s1">&#39;X2&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span>
+  <span class="p">})</span>
+
+<span class="c1"># GLM model with Poisson family and identity link function</span>
+<span class="n">model3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span>  <span class="c1"># Create the model</span>
+<span class="n">model3_results</span> <span class="o">=</span> <span class="n">model3</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>                              <span class="c1"># Fit model to our data</span>
+<span class="n">b3</span> <span class="o">=</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">params</span>                                 <span class="c1"># Get the predicted coefficient vector</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span> <span class="o">/</span> <span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>                  <span class="c1"># Plot results as bars.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span>                                                 <span class="c1"># Plot model.</span>
+     <span class="n">exp</span><span class="p">(</span><span class="n">b3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+     <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                                    <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/09/point-process-glms_4_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="question">
+
+**Q:** Try to read the code above. Can you see how it loads data, estimates the parameters of a model, and then plots the model over the observations?
+
+**A:** There is a lot happening here. Please continue on to learn this **and more**!
+
+</div>
 </div>
 </div>
 </div>
@@ -201,7 +302,7 @@ _**Synopsis**_
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_9_0.png"
+<img src="../images/09/point-process-glms_12_0.png"
 >
 </div>
 
@@ -301,7 +402,7 @@ _**Synopsis**_
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_14_0.png"
+<img src="../images/09/point-process-glms_17_0.png"
 >
 </div>
 
@@ -368,7 +469,7 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_16_0.png"
+<img src="../images/09/point-process-glms_19_0.png"
 >
 </div>
 
@@ -422,7 +523,7 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_18_0.png"
+<img src="../images/09/point-process-glms_21_0.png"
 >
 </div>
 
@@ -545,7 +646,7 @@ Let’s now use this function to fit the parameters of Model 1 to the observed l
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/anaconda3/lib/python3.6/site-packages/statsmodels/genmod/generalized_linear_model.py:273: DomainWarning: The identity link function does not respect the domain of the Poisson family.
+<pre>/opt/miniconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:278: DomainWarning: The identity link function does not respect the domain of the Poisson family.
   DomainWarning)
 </pre>
 </div>
@@ -617,7 +718,7 @@ To further visualize the quality of this model, we can compare the dependence it
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_26_0.png"
+<img src="../images/09/point-process-glms_29_0.png"
 >
 </div>
 
@@ -823,7 +924,7 @@ $$\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_36_0.png"
+<img src="../images/09/point-process-glms_39_0.png"
 >
 </div>
 
@@ -1008,7 +1109,7 @@ dtype: float64
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_45_0.png"
+<img src="../images/09/point-process-glms_48_0.png"
 >
 </div>
 
@@ -1060,9 +1161,9 @@ $$ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),$$<p>whe
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>mu: 63.162957804047075
-sigma: 9.566890841873294
-alpha: 0.01128549519917575
+<pre>mu: 63.16295780404678
+sigma: 9.566890841873429
+alpha: 0.01128549519917976
 </pre>
 </div>
 </div>
@@ -1145,8 +1246,8 @@ However, the calculation is not difficult. For Model 2, we can compute the AIC a
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>AIC2:  3344.7908629386075
-model2_results.aic:  3344.7908629386075
+<pre>AIC2:  3344.790862938608
+model2_results.aic:  3344.790862938608
 </pre>
 </div>
 </div>
@@ -1250,7 +1351,7 @@ model2_results.aic:  3344.7908629386075
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dAIC:  636.0145006465605
+<pre>dAIC:  636.0145006465609
 </pre>
 </div>
 </div>
@@ -1302,8 +1403,8 @@ $$\Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{De
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>dAIC:  636.0145006465605
-Another method:  636.0145006465605
+<pre>dAIC:  636.0145006465609
+Another method:  636.0145006465609
 </pre>
 </div>
 </div>
@@ -1345,6 +1446,21 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>p: 0.0
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1377,6 +1493,23 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CI2:
+ [[-7.73444907  0.00892032]
+ [-7.14332531  0.01696651]]
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1403,6 +1536,22 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[4.37493342e-04 1.00896023e+00]
+ [7.90120328e-04 1.01711126e+00]]
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1437,6 +1586,22 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[-2.99542831e+01  5.77810706e-01 -6.30948487e-03]
+ [-2.26038307e+01  8.02417242e-01 -4.61644384e-03]]
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1464,6 +1629,21 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>4.117080430226506e-38
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -1572,7 +1752,7 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_73_0.png"
+<img src="../images/09/point-process-glms_76_0.png"
 >
 </div>
 
@@ -1688,7 +1868,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_79_0.png"
+<img src="../images/09/point-process-glms_82_0.png"
 >
 </div>
 
@@ -1743,7 +1923,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_81_0.png"
+<img src="../images/09/point-process-glms_84_0.png"
 >
 </div>
 
@@ -1755,7 +1935,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 
 
 <div class="output_png output_subarea ">
-<img src="../images/09/point-process-glms_81_1.png"
+<img src="../images/09/point-process-glms_84_1.png"
 >
 </div>
 
@@ -1949,6 +2129,21 @@ dtype: float64
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>233.86944739331216
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -1992,6 +2187,21 @@ dtype: float64
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>0.0
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2022,6 +2232,22 @@ dtype: float64
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>CI_beta3:  [2.5549560544169054, 3.995607396537344]
+p_beta3:  9.555627447425901e-20
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -2068,6 +2294,24 @@ dtype: float64
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/09/point-process-glms_102_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -2103,6 +2347,36 @@ dtype: float64
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/09/point-process-glms_104_0.png"
+>
+</div>
+
+</div>
+</div>
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/09/point-process-glms_104_1.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
@@ -2152,6 +2426,23 @@ dtype: float64
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>mu:  63.18440082980659
+sigma:  9.57690511379084
+alpha:  0.0008199709288922659
+</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -2210,6 +2501,24 @@ dtype: float64
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/09/point-process-glms_110_0.png"
+>
+</div>
+
+</div>
+</div>
 </div>
 </div>
 
