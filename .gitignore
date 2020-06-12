@@ -10,4 +10,5 @@
 *_ignore*
 local/
 template.ipynb
+_site/
 Case*pdf

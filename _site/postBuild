@@ -1,4 +1,0 @@
-mkdir ~/.jupyter
-cp -r assets/custom ~/.jupyter/
-mkdir -p ~/.ipython/profile_default/
-cp -r startup ~/.ipython/profile_default/
