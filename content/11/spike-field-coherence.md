@@ -415,6 +415,8 @@ As discussed in other modules ([The Power Spectrum (Part 1)](../03) and [Analysi
 
 Let’s now compute the spike-field coherence for the data of interest here. It’s relatively straightforward to do so in Python:
 
++++ 
+
 ```{code-cell} ipython3
 SYY = np.zeros(int(N/2+1))                                       # Variable to store field spectrum.
 SNN = np.zeros(int(N/2+1))                                       # Variable to store spike spectrum.
@@ -433,7 +435,7 @@ f = np.fft.rfftfreq(N, dt)                                       # Frequency axi
 
 Inside of the `for` statement, we first compute the Fourier transform of the field (`yf`) and the spikes (`nf`) for trial `k`. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (`SYY`) and the spikes (`SNN`), and the cross spectrum (`SYN`) averaged across all trials. We then compute the coherence (`cohr`) and define a frequency axis to plot the results (`f`).
 
-Let's now display the results, <a id="fig:spike-field-coherence">
+Let's now display the results, <a id="fig:spike-field-coherence"></a>
 
 ```{code-cell} ipython3
 plt.subplot(1,3,1)         # Plot the spike spectrum.
@@ -459,6 +461,7 @@ xlabel('Frequency [Hz]')
 ylabel('Coherence');
 savefig('imgs/sf_coh')
 ```
++++
 
 <div class="question">
     
