@@ -33,7 +33,8 @@ _**Synopsis**_
 
 +++
 
-* [Introduction](#.)
+* [On-ramp: point process generalized linear models in Python](#onramp)
+* [Introduction](#introduction)
 * [Data analysis](#data-analysis)
     1. [Visual Inspection](#visual-inspection)
     1. [Fitting a Point Process Model (Poisson GLM)](#fitting-a-poisson-glm)
@@ -46,7 +47,7 @@ _**Synopsis**_
 
 +++
 
-## On-ramp: filtering field data in Python
+## On-ramp: filtering field data in Python <a id="onramp"></a>
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 ```{code-cell} ipython3
@@ -102,7 +103,7 @@ show()
 
 +++
 
-## Introduction
+## Introduction <a id="introduction"></a>
 In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.
 
 This stimulus-response paradigm relates to the important concept of *neural coding*: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this notebook.
