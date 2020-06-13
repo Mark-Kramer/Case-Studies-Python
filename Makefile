@@ -18,7 +18,7 @@ install:
 	jupyter-book install ./
 
 book:
-	jupyter-book build ./
+	./scripts/make_book.sh
 
 runall:
 	jupyter-book run ./content
