@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /A01/backprop.html
 suffix: .ipynb
-search: field spike coherence data lfp spikes div phase lets fta frequency class between activity rate hz spectrum spiking trial firing analysis thinning python compute beta sta model not n glm j id trials inspection e estimate train here k procedure visual average point process t question s across org our q results note doi triggered above consider figure does transform module interval impact lepage et al models association function change src signal apply series mid factor different rhythmic important fig array same result imgs png rhythm amplitude signals compare parameters sec computing code probability sampling y notice href dominant however
+search: field spike coherence data lfp spikes div phase fta lets frequency class between activity rate hz spectrum spiking trial firing analysis thinning python compute beta sta model not n glm j id trials inspection e estimate question train here k procedure visual average point process t s across org our above results note doi triggered q consider does transform interval impact figure src lepage et al models association function change imgs png signal apply series mid factor module different rhythmic important fig array same result href rhythm amplitude signals compare parameters sec computing code probability sampling y notice dominant however
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -23,7 +23,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Analysis-of-spike-field-cohernece-for-the-practicing-neuroscientist-">Analysis of spike-field cohernece <em>for the practicing neuroscientist</em> <a id="top" /><a class="anchor-link" href="#Analysis-of-spike-field-cohernece-for-the-practicing-neuroscientist-"> </a></h1>
+<h1 id="Analysis-of-spike-field-coherence-for-the-practicing-neuroscientist-">Analysis of spike-field coherence <em>for the practicing neuroscientist</em> <a id="top" /><a class="anchor-link" href="#Analysis-of-spike-field-coherence-for-the-practicing-neuroscientist-"> </a></h1>
 </div>
 </div>
 </div>
@@ -443,9 +443,9 @@ _**Synopsis**_
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** Q: What is the purpose of the if-statement:
+**Q.** What is the purpose of the if-statement:
 
-` if win < spike_t < N-win-1:`
+    `if win < spike_t < N-win-1:`
 
 in the code?
 
@@ -562,7 +562,7 @@ in the code?
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at $t = 0$ in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.</p>
-<p>However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a>.\ Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.</p>
+<p>However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.</p>
 
 </div>
 </div>
@@ -851,7 +851,7 @@ We could instead write the *sample* coherence, because this equation uses the ob
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Inside of the <code>for</code> statement, we first compute the Fourier transform of the field (<code>yf</code>) and the spikes (<code>nf</code>) for trial <code>k</code>. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (<code>SYY</code>) and the spikes (<code>SNN</code>), and the cross spectrum (<code>SYN</code>) averaged across all trials. We then compute the coherence (<code>cohr</code>) and define a frequency axis to plot the results (<code>f</code>).</p>
-<p>Let's now display the results, <a id="fig:spike-field-coherence"></p>
+<p>Let's now display the results, <a id="fig:spike-field-coherence"></a></p>
 
 </div>
 </div>
@@ -918,13 +918,13 @@ We could instead write the *sample* coherence, because this equation uses the ob
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:** Consider the spike spectrum, `Snn`, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?
 
-**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.<br>
+**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.
 
-To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [MODULE](add ref)). For these data, we can estimate the expected spike rate as
+To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [notebook 10](../10)). For these data, we can estimate the expected spike rate as
 
 `firing_rate = np.mean(np.sum(n,1))/(N*dt)`
 
@@ -967,7 +967,7 @@ Computing this quantity in Python, we find an expected spike rate of approximate
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:** Consider the field spectrum on a decibel scale (see [The Power Spectrum (Part 1)](../03)). What rhythms do you observe?
 
@@ -983,8 +983,9 @@ Computing this quantity in Python, we find an expected spike rate of approximate
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-<p><strong>Q:</strong> Compare the results of your spike-field coherence analysis with the FTA plotted in <a href="#fig:FTA">this figure</a>. How does the peak in the spike-field coherence relate to interesting structure in the FTA?</p>
-<div>
+**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted above.<a href="#fig:FTA" class="sup">fig<img src="imgs/fta.png"></a> How does the peak in the spike-field coherence relate to interesting structure in the FTA?
+
+</div>
 </div>
 </div>
 </div>
@@ -1506,7 +1507,7 @@ $$<p>where $\phi(t)$ is the instantaneous phase of a narrowband signal in the LF
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see <a href="add ref">MODULE</a>):</p>
+<p>For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see <a href="../09">notebook 9</a>):</p>
 
 </div>
 </div>
