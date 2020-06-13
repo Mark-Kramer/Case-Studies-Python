@@ -8,7 +8,7 @@ help:
 	@echo "  runall      to run all notebooks in-place, capturing outputs with the notebook"
 	@echo "  sync_md     to sync content in ipynb files from md files"
 	@echo "  index       create an index file from _config/intro.md"
-	@echo "  push        push site in _book to gh-pages branch"
+	@echo "  site        push site in _book to gh-pages branch"
 
 sync_md:
 	./scripts/sync_md.sh
@@ -25,6 +25,6 @@ runall:
 clean:
 	rm -r _book/*
 
-push: 
+site: 
 	ghp-import -n -p -f _book/_build/html
 
