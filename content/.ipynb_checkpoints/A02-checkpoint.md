@@ -14,7 +14,7 @@ kernelspec:
 
 # The Hodgkin-Huxley model
 
-In this module we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the *most* important computational model in neuroscience.  We'll focus here on simulating this model and understanding its pieces.
+In this notebook we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the *most* important computational model in neuroscience.  We'll focus here on simulating this model and understanding its pieces.
 
 +++
 
@@ -43,8 +43,12 @@ Before beginning, let's load in the Python packages we'll need:
 
 ```{code-cell} ipython3
 from pylab import *
+<<<<<<< HEAD:content/.ipynb_checkpoints/A02-checkpoint.md
 import math
 %matplotlib inline
+=======
+%matplotlib
+>>>>>>> 5bd5f197e2a1e987cdf0f00e3abbd143bc334677:content/A02/HH.md
 ```
 
 In addition, let's import the functions we'll need to simulate the HH model, which are available on this repository:
@@ -66,11 +70,11 @@ import inspect
 inspect.getsourcelines(HH)
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  Examine this code.  Can you make sense of it?  Can you identify the
 gating variables?  The rate functions?  The equations that define the dynamics?
-We'll answer these questions in this in module, but try so on your own first.
+We'll answer these questions in this in notebook, but try so on your own first.
 
 </div>
 
@@ -116,7 +120,7 @@ Notice that the function returns five outputs, which we assign to the variables 
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the dynamics of the voltage (variable `V`) resulting
 from this simulation?<br>
@@ -126,7 +130,7 @@ HINT:  Plot `V` vs `t`.
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**   What are the dynamics of the gating variables (`m`, `h`, `n`)
 resulting from this simulation?<br>
@@ -136,7 +140,7 @@ HINT:  Plot them!
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the final values (after the 100 ms of simulation) of
 `V`, `m`, `h`, and `n`?
@@ -165,9 +169,12 @@ We can now simulate this model,
 [V,m,h,n,t] = HH(I0,T0)
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What happens to the dynamics?<br>
+
 HINT:  Plot V vs t.
+
 </div>
 
 +++
@@ -235,8 +242,10 @@ Now, let's add a legend to help us keep track of the different curves,
 legend();
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Using the figure you created above, describe how the gates swing open and closed during a spike.
+
 </div>
 
 +++
@@ -287,8 +296,10 @@ gL0  = 0.3
 gL   = gL0*ones(shape(gK))   # Leak conductance
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Where do these terms come from?
+
 </div>
 
 +++
@@ -306,8 +317,10 @@ ylabel('mS/cm^2')               #... and label the y-axis.
 legend();                       #... make a legend.
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 
 +++
@@ -343,12 +356,16 @@ ylabel('mA/cm^2')              #... and label the y-axis.
 legend();                      #... make a legend.
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
+
 </div>

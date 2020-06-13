@@ -18,7 +18,7 @@ To be frank:  this notebook is rather boring.  Throughout all of the case studie
 
 +++
 
-Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)).
+Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)).
 
 +++
 
@@ -39,13 +39,12 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 +++
 
 ## On-ramp: analysis of neural data in Python
-We begin this module with an "*on-ramp*" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens...
+We begin this notebook with an "*on-ramp*" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens...
 
 ```{code-cell} ipython3
 import scipy.io as sio               # Import packages to read data, do analysis, and plot it.
-import numpy as np
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 
 mat = sio.loadmat('matfiles/sample_data.mat') # Load the example data set.
 t   = mat['t'][0]                    # Get the values associated with the key 't' from the dictorary.
@@ -54,14 +53,14 @@ LFP = mat['LFP'][0]                  # Get the values associated with the key 'L
                                      # Print useful information about the data.
 print("Sampling frequency is " + str( 1/(t[2]-t[1]))  + ' Hz.')
 print("Total duration of recording is " + str(t[-1]) + ' s.')
-print("Dimensions of data are " + str(np.shape(LFP)) + ' data points.')
+print("Dimensions of data are " + str(shape(LFP)) + ' data points.')
 
 initial_time_interval = t < 5        # Choose an initial interval of time, from onset to 5 s,
                                      # ... and plot it.
-plt.plot(t[initial_time_interval], LFP[initial_time_interval])
-plt.xlabel('Time [s]')
-plt.ylabel('LFP')
-plt.title('Initial interval of LFP data');
+plot(t[initial_time_interval], LFP[initial_time_interval])
+xlabel('Time [s]')
+ylabel('LFP')
+title('Initial interval of LFP data');
 ```
 
 <div class="question">
@@ -120,23 +119,34 @@ Enter the following command in Python:
 
 ##  Example 3.  Python has useful built in functions.
 
-A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the `math` and `numpy` modules. To use the `math` and `numpy` modules, we must first import both:
+A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the `math` and `pylab` modules. To use the `math` and `pylab` modules, we must first import both:
 
 ```{code-cell} ipython3
-import numpy as np
+from pylab import *
 import math
 ```
+
+<div class="python-note">
+
+The `pylab` module bundles commonly used numeric and plotting functions. Another common alternative is to use
+
+	import numpy as np
+	import matplotlib.pyplot as plt
+
+In this style, we would need to indicate which module, or *namespace*, contains the function we want to call: `x = np.arange(10)` or `plt.plot(x, y)`.
+
+</div>
 
 You will often begin your data analysis with `import` statements, to load the functionality you need. We can now call functions from math using `numpy.*`.  For example,
 
 ```{code-cell} ipython3
-np.sin(2*np.pi)
+sin(2*pi)
 ```
 
-Above, `np.sin` is the sine function.  It operates on the argument `2*np.pi`.  Notice that, once we have imported the `numpy` module, Python knows the value of `np.pi`. Here's another example function that operates on arguments:
+Above, `sin` is the sine function.  It operates on the argument `2*pi`.  Notice that, once we have imported the `numpy` module, Python knows the value of `pi`. Here's another example function that operates on arguments:
 
 ```{code-cell} ipython3
-math.atan(2*np.pi)
+math.atan(2*pi)
 ```
 
 <div class="question">
@@ -162,7 +172,7 @@ You should see a description of the function pop up at the bottom of the window.
 In Python, there are several different data structures that are designed to store more than one element. Here we will focus on the `array` data structure, but if you are curious to know how and when to use other structures, there is a good explanation <a href='http://www.physics.nyu.edu/pine/pymanual/html/chap3/chap3_arrays.html'>here</a>. Let's define an array:
 
 ```{code-cell} ipython3
-a = np.array([[1, 2, 3, 4]])
+a = array([[1, 2, 3, 4]])
 ```
 
 ##  Example 5.  We can manipulate arrays by scalars.
@@ -170,7 +180,7 @@ a = np.array([[1, 2, 3, 4]])
 A scalar is a single number.  Consider,
 
 ```{code-cell} ipython3
-a = np.array( [[1, 2, 3, 4]] )
+a = array( [[1, 2, 3, 4]] )
 print( a * 3 )
 print( 4 * a )
 print( a + 1 )
@@ -191,7 +201,7 @@ print( a + 1 )
 Let's create an array and multiply it by itself,
 
 ```{code-cell} ipython3
-a = np.array([1,2,3,4])
+a = array([1,2,3,4])
 a * a
 ```
 
@@ -209,17 +219,17 @@ a * a
 
 ```{code-cell} ipython3
 a = 2
-b = np.array( [[0, 4, 7, 6]] )
-c = np.array( [[1, 5, 6, 8]] )
+b = array( [[0, 4, 7, 6]] )
+c = array( [[1, 5, 6, 8]] )
 
 print( b * c )
 print( b / c + a)
-print( np.multiply( b, c ))
+print( multiply( b, c ))
 ```
 
 <div class="question">
 
-**Q:** What operation does `np.multiply()` perform?
+**Q:** What operation does `multiply()` perform?
 
 </div>
 
@@ -242,16 +252,16 @@ whos
 To examine the dimensions of an array, we can ask for the `shape`,
 
 ```{code-cell} ipython3
-a = np.array([[1,2,3,4]])
+a = array([[1,2,3,4]])
 print(a.shape)
-print(np.shape(a))
+print(shape(a))
 ```
 
 We find that the shape of `a` is `(1,4)` or 1 row and 4 columns. Notice we have two options to execute the `shape` function:
 
 - In `a.shape` we return the attribute `shape` of the variable `a`. 
 
-- In `np.shape(a)` we apply the function `np.shape` to the variable `a`.
+- In `shape(a)` we apply the function `shape` to the variable `a`.
 
 The result is equivalent.
 
@@ -289,9 +299,9 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 A matrix is an array with more than one dimensio.  Consider the following:
 
 ```{code-cell} ipython3
-import numpy as np  # Have to reimport as we cleared the workspace above!
+from pylab import *  # Have to reimport as we cleared the workspace above!
 
-p = np.array( [[1,2,3],[4,5,6]] )
+p = array( [[1,2,3],[4,5,6]] )
 ```
 
 This creates a matrix with two rows and three columns. Consider,
@@ -320,8 +330,8 @@ access individual elements or small subsets of these lists.  That's
 easy to do in Python.  Consider,
 
 ```{code-cell} ipython3
-a = np.array( [1, 2, 3, 4, 5] )
-b = np.array( [6, 7, 8, 9, 10] )
+a = array( [1, 2, 3, 4, 5] )
+b = array( [6, 7, 8, 9, 10] )
 ```
 
  Python indexes from 0 (like C, C++, Java, and unlike MATLAB and Fortran which start at 1). 
@@ -344,18 +354,18 @@ print( "b[1] = " + str(b[1]) )
 +++
 
   We can combine `a` and `b` to form a matrix with `a` as the first row and `b` as the second.
-  Note that we apply the function `np.array()` to the *list* `[a,b]`, which it converts to a matrix.
+  Note that we apply the function `array()` to the *list* `[a,b]`, which it converts to a matrix.
 
 ```{code-cell} ipython3
-c = np.array([a,b])
+c = array([a,b])
 print( "c = \n" + str(c) )    # \n is a newline, or carriage return, which makes the printed matrix lineup better 
 ```
 
   To learn the size (or shape)
- of `c` we use `np.shape()`:
+ of `c` we use `shape()`:
 
 ```{code-cell} ipython3
-print( "shape of c = " + str( np.shape(c) ) )
+print( "shape of c = " + str( shape(c) ) )
 ```
 
   The shape of `c` is `[2 5]`.  It has two rows and five columns.  To access
@@ -426,7 +436,7 @@ This code tells Python to start at 0, continue to the end, and step by 2. The re
   matrix or vector.  As an example, let's first define a vector.
 
 ```{code-cell} ipython3
-a = np.arange(1,10)    # this creates a vector of increasing values from 1 to 9
+a = arange(1,10)    # this creates a vector of increasing values from 1 to 9
 a = 2*a 
 
 print( "a = " + str(a) )
@@ -435,7 +445,7 @@ print( "a = " + str(a) )
 <div class="question">
 
 **Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? 
-*Hint:* Use the `np.max()` function.
+*Hint:* Use the `max()` function.
 
 </div>
 
@@ -471,7 +481,7 @@ lgIdx.nonzero()
 
 <div class="python-note">
     
-The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `np.nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `np.` at the beginning of the function call). 
+The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `` at the beginning of the function call). 
 
 </div>
 
@@ -496,7 +506,7 @@ print("a = " + str(a))
 We can perform these same logical operations for a matrix,
 
 ```{code-cell} ipython3
-b = np.array([[1,2,3],[4,5,6],[7,8,9]])
+b = array([[1,2,3],[4,5,6],[7,8,9]])
 print( "b = \n" + str(b) )
 print( " b > 5 is \n" + str(b > 5) )
 print(" b[b>5] is an array: " + str(b[b>5]) )
@@ -519,13 +529,13 @@ these cases, it's better to visualize the lists of numbers by
 plotting them.  Consider
 
 ```{code-cell} ipython3
-x = np.linspace(0,10,11)   
+x = linspace(0,10,11)   
 print( "x = " + str(x) )
 
 #   The above line constructs a vector that starts at 0, ends at 10, and
 #   has 11 entries (takes steps of size 1 from 0 to 10). Let
 
-y = np.sin(x)
+y = sin(x)
 print( "y = " + str(y) )
 ```
 
@@ -546,12 +556,12 @@ Let's start by plotting a simple example for `x` and `y`,
 
 ```{code-cell} ipython3
 %matplotlib inline
-import matplotlib.pyplot as plt
+from pylab import *
 
 x = ([1, 2, 3, 4])
 y = x
-plt.plot(x,y) 
-plt.show()          # this is the plotting equivalent of print()
+plot(x,y) 
+show()          # this is the plotting equivalent of print()
 ```
 
 <div class="question">
@@ -563,11 +573,11 @@ plt.show()          # this is the plotting equivalent of print()
 Now, let's go back to the definitions of `x` and `y` that we started this example with and plot `y` versus `x`.
 
 ```{code-cell} ipython3
-x = np.linspace(0,10,11)   
-y = np.sin(x)
+x = linspace(0,10,11)   
+y = sin(x)
 
-plt.plot(x, y)
-plt.show()
+plot(x, y)
+show()
 ```
 
  The plot of `x` versus `y` should look a bit jagged, and not 
@@ -575,7 +585,7 @@ plt.show()
  let's redefine `x` as,
 
 ```{code-cell} ipython3
-x = np.linspace(0,10, 101)
+x = linspace(0,10, 101)
 print(x)
 ```
 
@@ -599,9 +609,9 @@ two definitions differ?
 Now let's replot the sine function.
 
 ```{code-cell} ipython3
-y = np.sin(x)
-plt.plot(x,y,'k')   # the 'k' we've added makes the curve black instead of blue
-plt.show()
+y = sin(x)
+plot(x,y,'k')   # the 'k' we've added makes the curve black instead of blue
+show()
 ```
 
 <div class="question">
@@ -619,81 +629,79 @@ plt.show()
 Continuing the example in the previous section, let’s define a second vector
 
 ```{code-cell} ipython3
-z = np.cos(x)
+z = cos(x)
 ```
 
 and plot it:
 
 ```{code-cell} ipython3
-plt.plot(x,z)
-plt.show()
+plot(x,z)
+show()
 ```
 
 We’d now like to compare the two variables `y` and `z`. To do this, let’s plot both vectors on
 the same figure, label the axes, and provide a legend,
 
 ```{code-cell} ipython3
-plt.plot(x,z)                     # plot z vs x.
-plt.plot(x,y,'r')                 # plot y vs x in red
-plt.show()
+plot(x,z)                     # plot z vs x.
+plot(x,y,'r')                 # plot y vs x in red
+show()
 ```
 
-Notice that we’ve included a third input to the function `plt.plot`. Here the third input tells Python to draw the curve in a particular color: `'r'` for red. There are many options we can use to plot; to see more, check out the documentation for [plot](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html).
+Notice that we’ve included a third input to the function `plot`. Here the third input tells Python to draw the curve in a particular color: `'r'` for red. There are many options we can use to plot; to see more, check out the documentation for [plot](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html).
 
 We can also label the axes, give the figure a title, and provide a legend,
 
 ```{code-cell} ipython3
-plt.plot(x,z)                     # plot z vs x
-plt.plot(x,y,'r')                 # plot y vs x in red
-plt.xlabel('x')                   # x-axis label
-plt.ylabel('y or z')              # y-axis label
-plt.title('y vs x and z vs x')    # title
-plt.legend(('y','z'))             # make a legend labeling each line
-plt.show()
+plot(x,z)                     # plot z vs x
+plot(x,y,'r')                 # plot y vs x in red
+xlabel('x')                   # x-axis label
+ylabel('y or z')              # y-axis label
+title('y vs x and z vs x')    # title
+legend(('y','z'))             # make a legend labeling each line
+show()
 ```
 
 To futher edit this plot, you might decide - for example - that the font size for the labels is too small. We can change the default with:
 
 ```{code-cell} ipython3
-import matplotlib as mpl # we need to import the functions that will do this
-
-mpl.rcParams.update({'font.size': 12})  
-mpl.rcParams['axes.labelsize']=14      # make the xlabel/ylabel sizes a bit bigger to match up better
+rcParams.update({'font.size': 12})  
+rcParams['axes.labelsize']=14      # make the xlabel/ylabel sizes a bit bigger to match up better
 
 # we can change the default linewidth with
-mpl.rcParams['lines.linewidth']=2
+rcParams['lines.linewidth']=2
 
 # let's make a new plot to check 
-plt.plot(x,y, label='y')     # sometimes it is easier to name a trace within the plot() call
-plt.plot(x,z, label='z')     # notice without a color matplotlib will assign one
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('y vs x')
-plt.legend()
-plt.show()
+plot(x,y, label='y')     # sometimes it is easier to name a trace within the plot() call
+plot(x,z, label='z')     # notice without a color matplotlib will assign one
+xlabel('x')
+ylabel('y')
+title('y vs x')
+legend()
+show()
 ```
 
 ##  Example 16:  We can make random numbers in Python.
 To generate a single Gaussian random number in Python, use the function in the NumPy `random` module.
 
 ```{code-cell} ipython3
-print("a Gaussian random number (mean=0, variance=1): " + str( np.random.randn() ))
+print("a Gaussian random number (mean=0, variance=1): " + str( randn() ))
 
 # a uniform random number on [0,1)
-print("a uniform random number from [0,1): " + str(np.random.rand()))
+print("a uniform random number from [0,1): " + str(rand()))
 ```
 
 Let's generate a vector of 1000 Gaussian random numbers:
 
 ```{code-cell} ipython3
-r = np.random.randn(1000)
+r = randn(1000)
 ```
 
 ... and look at a histogram of the vector:
 
 ```{code-cell} ipython3
-plt.hist(r)
-plt.show()
+hist(r)
+show()
 ```
 
 <div class="question">
@@ -706,7 +714,7 @@ plt.show()
 
 <div class="python-note">
     
-See Python Help (`plt.hist?`) to learn about the function `hist()`.
+See Python Help (`hist?`) to learn about the function `hist()`.
 
 </div>
 
@@ -718,47 +726,47 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
   steps of 1;  how do we do it?  Consider the following:
 
 ```{code-cell} ipython3
-x = np.arange(0,10,0.1)  # Define a vector x that ranges from 0 to 9.9 with step 0.1.
+x = arange(0,10,0.1)  # Define a vector x that ranges from 0 to 9.9 with step 0.1.
 k = 1                    # Fix k=1,
-y = np.sin(x + k*np.pi/4)# ... and define y at this k.
+y = sin(x + k*pi/4)# ... and define y at this k.
 
-plt.figure()             # Make a new figure,
-plt.plot(x,y)            # ... and plot y versus x.
+figure()             # Make a new figure,
+plot(x,y)            # ... and plot y versus x.
 
 k = 2                    # Let's repeat this, for k=2,
-y = np.sin(x + k*np.pi/4)# ... and redefine y at this k,
-plt.plot(x,y)            # ... and plot it.
+y = sin(x + k*pi/4)# ... and redefine y at this k,
+plot(x,y)            # ... and plot it.
 
 k = 3                    # Let's repeat this, for k=3,
-y = np.sin(x + k*np.pi/4)# ... and redefine y at this k,
-plt.plot(x,y)            # ... and plot it.
+y = sin(x + k*pi/4)# ... and redefine y at this k,
+plot(x,y)            # ... and plot it.
 
 k = 4                    # Let's repeat this, for k=4,
-y = np.sin(x + k*np.pi/4)# ... and redefine y at this k,
-plt.plot(x,y)            # ... and plot it.
+y = sin(x + k*pi/4)# ... and redefine y at this k,
+plot(x,y)            # ... and plot it.
 
 k = 5                    # Let's repeat this, for k=5,
-y = np.sin(x + k*np.pi/4)# ... and redefine y at this k,
-plt.plot(x,y)            # ... and plot it.
+y = sin(x + k*pi/4)# ... and redefine y at this k,
+plot(x,y)            # ... and plot it.
 
-plt.show()
+show()
 ```
 
 That's horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you're repeatedly cutting and pasting in code, what you're doing is inefficient and typically error prone.  There's a much more elegant way to do this, and it involves making a `for` loop.  Consider:
 
 ```{code-cell} ipython3
-x = np.arange(0,10,0.1)        #First, define the vector x.
+x = arange(0,10,0.1)        #First, define the vector x.
 ```
 
-Now let's declare a `for` loop where `k` successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case `plt.show()` below, executes after the for loop completes
+Now let's declare a `for` loop where `k` successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case `show()` below, executes after the for loop completes
 
 ```{code-cell} ipython3
 for k in range(1,6):               
-    y = np.sin(x + k*np.pi/4)      #Define y (note the variable 'k' in sin), also note we have indented here!
-    plt.plot(x,y)                  #Plot y versus x
+    y = sin(x + k*pi/4)      #Define y (note the variable 'k' in sin), also note we have indented here!
+    plot(x,y)                  #Plot y versus x
     
 # no indentation now, so this code follows the loop
-plt.show() 
+show() 
 ```
 
 The small section of code above replaces all the cutting-and-pasting.
@@ -827,7 +835,7 @@ The keyword `return` exits the function, and in this case returns the expression
 With the function defined, let's now call it. To do so we first define the inputs, and then run the function, as follows:
 
 ```{code-cell} ipython3
-v = np.linspace(0.,10.,11)
+v = linspace(0.,10.,11)
 b = 2.5
 
 # Now let's run the code,
@@ -876,16 +884,16 @@ In English, we set up (or initialize) the figure and then make a function that d
 Here's an example in which we plot a sinusoid of different heights, and allow the user to adjust the heights with a slider.
 
 ```{code-cell} ipython3
-x = np.linspace(0.,2.,1001)                 # Define x from 0 to 2 with 1001 steps.
-lines = plt.plot(x, 0. * np.sin(x*np.pi))   # Make the first plot, save the curve in "lines"
-plt.axis([0, 2, -1, 1])                     # Set the x and y limits in the plot
-plt.title("plot number = 0")                # ... and label the plot.
+x = linspace(0.,2.,1001)                 # Define x from 0 to 2 with 1001 steps.
+lines = plot(x, 0. * sin(x*pi))   # Make the first plot, save the curve in "lines"
+axis([0, 2, -1, 1])                     # Set the x and y limits in the plot
+title("plot number = 0")                # ... and label the plot.
 
 def animate(frame):                         # Define the function to perform the animation.
-    lines[0].set_ydata(float(frame) / 100. * np.sin(x * np.pi)) # Change the y values at each x location
-    plt.title('plot number = ' + str(frame))# Update the title with the new plot number
+    lines[0].set_ydata(float(frame) / 100. * sin(x * pi)) # Change the y values at each x location
+    title('plot number = ' + str(frame))# Update the title with the new plot number
     
-fig = FuncAnimation(plt.gcf(), animate, frames=range(100))
+fig = FuncAnimation(gcf(), animate, frames=range(100))
 HTML(fig.to_jshtml())
 ```
 
@@ -933,16 +941,16 @@ LFP = mat['LFP'][0]                  # Get the values associated with the key 'L
 Now, let's plot the LFP data versus the time axis,
 
 ```{code-cell} ipython3
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 
 # Choose a subset to plot
 t = t[0:500]
 LFP = LFP[0:500]
 
-plt.plot(t, LFP)
-plt.title('My plot')
-plt.xlabel('Time [s]')
-plt.ylabel('Voltage [$\mu$ V]') # Wrap latex characters in $..$
-plt.show()
+plot(t, LFP)
+title('My plot')
+xlabel('Time [s]')
+ylabel('Voltage [$\mu$ V]') # Wrap latex characters in $..$
+show()
 ```
