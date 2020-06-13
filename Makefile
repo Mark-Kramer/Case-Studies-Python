@@ -32,6 +32,9 @@ serve:
 build:
 	jupyter-book build ./ --overwrite
 
+push: 
+	ghp-import -n -p -f _book/_build/html
+
 site: build
 	bundle exec jekyll build
 	touch _site/.nojekyll
