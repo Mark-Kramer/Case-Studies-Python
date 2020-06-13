@@ -19,11 +19,8 @@ index:
 book:
 	./scripts/make_book.sh
 
-run:
-	"jupyter nbconvert --to notebook --execute $1"
-
 runall:
-	jupyter-book run ./content
+	jupyter nbconvert --to notebook --execute --inplace -y content/*.ipynb	
 
 clean:
 	rm -r _book/*

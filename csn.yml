@@ -118,11 +118,12 @@ dependencies:
     - click==7.1.2
     - colorama==0.4.3
     - docutils==0.16
+    - ghp-import==0.5.5
     - gitdb==4.0.4
     - gitpython==3.1.1
     - idna==2.9
     - imagesize==1.2.0
-    - jupyter-book==0.6.5
+    - jupyter-book==0.7.0
     - jupyter-cache==0.2.1
     - jupyter-contrib-core==0.3.3
     - jupyter-contrib-nbextensions==0.5.1
@@ -146,7 +147,7 @@ dependencies:
     - py==1.8.1
     - pybtex==0.22.2
     - pybtex-docutils==0.2.2
-    - pydata-sphinx-theme==0.2.1
+    - pydata-sphinx-theme==0.3.0
     - pytest==5.4.1
     - pyyaml==5.3.1
     - requests==2.23.0
@@ -155,7 +156,7 @@ dependencies:
     - smmap==3.0.2
     - snowballstemmer==2.0.0
     - sphinx==2.4.4
-    - sphinx-book-theme==0.0.7
+    - sphinx-book-theme==0.0.23
     - sphinx-copybutton==0.2.11
     - sphinx-togglebutton==0.1.0
     - sphinxcontrib-applehelp==1.0.2
