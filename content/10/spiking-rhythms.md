@@ -812,14 +812,16 @@ show()
     
 **Q.** Compare the KS plot for Model 2 to the [KS plot for Model 1](#fig:ks1). Does the updated model provide an improvement over the original model?
 
+**A.** This KS plot of Model 2 looks similar to that of Model 1. We observe some improvements at intermediate rescaled ISIs, but we are still seeing too few small rescaled ISIs. The updated model represents a slight improvement over the first model but is still well outside the confidence bounds of the KS plot.
+</div>
+
++++
+
 <div style="width:60%; margin: auto">
     <span style="width:50%; float: left"><img src="imgs/ks1.png"></span>
     <span style="width:50%; float: left"><img src="imgs/ks2.png"></span>
 </div>
 <div style="clear: both; display: table"></div>
-
-**A.** This KS plot of Model 2 looks similar to that of Model 1. We observe some improvements at intermediate rescaled ISIs, but we are still seeing too few small rescaled ISIs. The updated model represents a slight improvement over the first model but is still well outside the confidence bounds of the KS plot.
-</div>
 
 +++
 
@@ -1062,6 +1064,7 @@ pval
 We find `pval = 2.3190e-08`, and we would be very unlikely to see this result if Model 3—the model with identical history dependence structure—were correct.
 Finally, let’s construct a KS plot to see how well Model 4 fits the data. When we introduced the time-rescaling theorem in [module 9](../09), we assumed that the data came from a Poisson process. Now that we are modeling history-dependent point processes, we need to make a slight update to the time-rescaling theorem:
 
+
 <div class="math-note" id="time-rescaling-history-dependent">
     
 **Time-Rescaling Theorem for History-Dependent Point Processes.** 
@@ -1080,23 +1083,23 @@ for $i = 1, \ldots, n$. Then the rescaled variables $Z_1, \ldots, Z_n$, are inde
 
 </div>
 
-This looks nearly identical to the time-rescaling theorem for Poisson processes, with the Poisson rate functions replaced by history-dependent conditional intensity functions. However, the fact that the rescaled times, $Z_i$, are still independent is perhaps more surprising in this case, since the original point process (i.e., $S_1, S_2, \ldots, S3$) does have history dependence. This result suggests that if we have the right model, we can rescale the spiking process to account for history dependence as well as changes in the firing intensity related to time and other covariates.
+This looks nearly identical to the time-rescaling theorem for Poisson processes, with the Poisson rate functions replaced by history-dependent conditional intensity functions. However, the fact that the rescaled times, $Z_i$, are still independent is perhaps more surprising in this case, since the original point process (i.e., $S_1, S_2, \ldots, S_3$) does have history dependence. This result suggests that if we have the right model, we can rescale the spiking process to account for history dependence as well as changes in the firing intensity related to time and other covariates.
 
 Let’s now return to constructing a KS plot to see how well Model 4 fits the data. 
 
 We use `predict()` to compute the model intensity at each time step: <a id="fig:m4ks"></a>
 
 ```{code-cell} ipython3
-lambda4 = M4.predict(glmHist)  # Compute the model prediction
-spikeindex = where(glmHist.spikes)[0]  # Find the spike times
+lambda4 = M4.predict(glmHist)          # Compute the model prediction.
+spikeindex = where(glmHist.spikes)[0]  # Find the spike times.
 
-Z = [sum(lambda4[a : b])  # Compute the rescaled waiting time
-     for a,b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... for each ISI
+Z = [sum(lambda4[a : b])               # Compute the rescaled waiting time,
+     for a,b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... for each ISI.
 
-eCDF = ECDF(Z)  # Empirical CDF
-mCDF = 1 - exp(-eCDF.x)  # Model CDF
+eCDF = ECDF(Z)                         # Empirical CDF
+mCDF = 1 - exp(-eCDF.x)                # Model CDF
 
-figure(figsize=(3, 3))  # Plot results
+figure(figsize=(3, 3))                 # Plot the results
 plot(mCDF, eCDF.y)
 N = len(spikeindex)
 plot([0, 1], [0, 1] + 1.36 / sqrt(N), 'k--')
@@ -1126,11 +1129,11 @@ show()
 
 +++
 
-##### Choice of Model Order
+### Choice of Model Order
 
 Before we settle on Model 4, let’s return to the question of how to select the order of a model such as [Model 4](#eq:model4)<span class="sup">eq<img src="imgs/eq10-6.png"></span>. We chose somewhat arbitrarily a model order of 70 for the number of history-dependent terms for both the planning and movement periods, based on the visualization analyses. In subsequent modeling, we found that many of these parameters did not contribute significantly to the model fit on their own. One approach to selecting model order is to start by fitting a higher-order model than you suspect is necessary, and then paring down the parameters that are not significant on their own. In this example, this process would leave a few parameters at small lags for both the planning and movement periods, and one parameter corresponding to a lag of 50 ms for the planning period. However, the MLRT example showed that although many of the history-dependent parameters in this model are not significant on their own, together they substantially improve the model.
 
-Instead of starting with a large model and paring it down, another approach to model selection is to start with a small model and step up the model order while examining the change in goodness-of-fit for each subsequent model. Of course, we have to be careful in comparing goodness-of-fit, since larger models tend to fit the data better even if they do not better predict future data. In [chapter 9](../09), we used Akaike’s information criterion (AIC) to compare the goodness-of-fit of models of different sizes. Let’s examine the change in AIC as we change the model order.
+Instead of starting with a large model and paring it down, another approach to model selection is to start with a small model and step up the model order while examining the change in goodness-of-fit for each subsequent model. Of course, we have to be careful in comparing goodness-of-fit, since larger models tend to fit the data better even if they do not better predict future data. In [module 9](../09), we used Akaike’s information criterion (AIC) to compare the goodness-of-fit of models of different sizes. Let’s examine the change in AIC as we change the model order.
 
 Before comparing models of different sizes, let’s consider the classes of models to explore. For the most recent model, we have separate history terms related to the planning and movement periods. The visualization analyses and previous modeling results suggest that the extent to which past spiking influences current spiking likely differs between these two periods. Therefore, let’s fit models with different orders for the history dependence in these separate periods. Mathematically, we would search for the value of the pair, $(p, q)$, that minimizes the AIC of the model
 
