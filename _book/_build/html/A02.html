@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+  </li>
+  <li class="">
+    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="active">
-    <a href="">13. The Hodgkin-Huxley model</a>
+    <a href="">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="A03.html">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -295,15 +298,9 @@
 <p>Before beginning, let’s load in the Python packages we’ll need:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">math</span>
-<span class="o">%</span><span class="n">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Using matplotlib backend: MacOSX
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
 </div>
@@ -365,7 +362,7 @@
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
+<div class="question">
 <p><strong>Q:</strong>  Examine this code.  Can you make sense of it?  Can you identify the
 gating variables?  The rate functions?  The equations that define the dynamics?
 We’ll answer these questions in this in module, but try so on your own first.</p>
@@ -411,15 +408,15 @@ case when <code class="docutils literal notranslate"><span class="pre">I0</span>
 </div>
 </div>
 <p>Notice that the function returns five outputs, which we assign to the variables <code class="docutils literal notranslate"><span class="pre">V</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, and <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
-<div class="alert alert-block alert-info">
+<div class="question">
 <p><strong>Q:</strong>  What are the dynamics of the voltage (variable <code class="docutils literal notranslate"><span class="pre">V</span></code>) resulting
 from this simulation?<br>
 HINT:  Plot <code class="docutils literal notranslate"><span class="pre">V</span></code> vs <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
-</div><div class="alert alert-block alert-info">
+</div><div class="question">
 <p><strong>Q:</strong>   What are the dynamics of the gating variables (<code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>)
 resulting from this simulation?<br>
 HINT:  Plot them!</p>
-</div><div class="alert alert-block alert-info">
+</div><div class="question">
 <p><strong>Q:</strong>  What are the final values (after the 100 ms of simulation) of
 <code class="docutils literal notranslate"><span class="pre">V</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code>?</p>
 </div><div class="section" id="observation-for-part-2">
@@ -447,9 +444,9 @@ to generate repeated spiking activity.  To do so, let’s set,</p>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:**  What happens to the dynamics?<br>
-HINT:  Plot V vs t.
+<div class="question">
+<p><strong>Q:</strong>  What happens to the dynamics?
+HINT:  Plot V vs t.</p>
 </div><div class="section" id="observation-for-part-3">
 <h3>Observation for Part 3<a class="headerlink" href="#observation-for-part-3" title="Permalink to this headline">¶</a></h3>
 <p>You should have found that, at this value of input current, the model
@@ -460,27 +457,31 @@ single spike.  As a first step, we’ll make a new figure with a seperate subfig
 the voltage,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x114230c50&gt;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11c084250&gt;
 </pre></div>
 </div>
+<img alt="_images/A02_30_1.png" src="_images/A02_30_1.png" />
 </div>
 </div>
 <p>This <code class="docutils literal notranslate"><span class="pre">subplot</span></code> command divides the figure into two rows, and one column, and tells Python we’ll start in the first row. See Python Help for more details:</p>
-<p><code class="docutils literal notranslate"><span class="pre">plt.subplot??</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">subplot??</span></code></p>
 <p>Now, let’s plot the voltage, and choose the time axis to focus on a single spike,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_33_0.png" src="_images/A02_33_0.png" />
 </div>
 </div>
 <p>Okay, we’ve now plotted the voltage dynamics for a single spike (and
@@ -488,66 +489,88 @@ colored the curve black).  Let’s now plot the three gating variables.
 To do so, we’ll move to the next subplot,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_35_0.png" src="_images/A02_35_0.png" />
 </div>
 </div>
 <p>(the next row in the figure).  Within this subplot, let’s start by displaying the gating variable <code class="docutils literal notranslate"><span class="pre">m</span></code> over the same x-limits,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_37_0.png" src="_images/A02_37_0.png" />
 </div>
 </div>
 <p>Notice that, in the call to <code class="docutils literal notranslate"><span class="pre">plot</span></code> we included the input <code class="docutils literal notranslate"><span class="pre">label</span></code>. This will be useful when we create a legend … <br><br>Within this subplot, we can also simultaneously show the gating
 variables <code class="docutils literal notranslate"><span class="pre">h</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code>,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_39_0.png" src="_images/A02_39_0.png" />
 </div>
 </div>
 <p>Label the x-axis,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_41_0.png" src="_images/A02_41_0.png" />
 </div>
 </div>
 <p>Now, let’s add a legend to help us keep track of the different curves,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="stderr docutils container">
+<pre class="stderr literal-block">No handles with labels found to put in legend.
+</pre>
 </div>
-<div class="alert alert-block alert-info">
-**Q:** Using the figure you created above, describe how the gates swing open and closed during a spike.
+<img alt="_images/A02_43_1.png" src="_images/A02_43_1.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Using the figure you created above, describe how the gates swing open and closed during a spike.</p>
 </div></div>
 <div class="section" id="aside">
 <h3>ASIDE:<a class="headerlink" href="#aside" title="Permalink to this headline">¶</a></h3>
 <p>Here’s a nice plotting trick, to link the x-axes of our two subfigures.  Linking the axes is useful so that, when we zoom or move one subfigure, the other subfigure will match the x-axis.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span>                 <span class="c1"># Define axis for 1st subplot,</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">);</span>     <span class="c1"># ... and link axis of 2nd subplot to the 1st.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span>                 <span class="c1"># Define axis for 1st subplot,</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">);</span>     <span class="c1"># ... and link axis of 2nd subplot to the 1st.</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>                       <span class="c1"># Plot the voltage in the first subplot,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>            <span class="c1"># ... and the gating variables in the other subplot.</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+<span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_46_0.png" src="_images/A02_46_0.png" />
 </div>
 </div>
 <p>Now, in the figure, you may use the pan/zoom tool to adjust the linked subplots.</p>
@@ -562,13 +585,16 @@ simulation results we generated in Part 3, and focus our plot on a
 single spike,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax1</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>                <span class="c1"># Make a subplot,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>                <span class="c1"># Make a subplot,</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>                   <span class="c1">#... and plot the voltage,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>               <span class="c1">#... with y-axis labeled.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>               <span class="c1">#... with y-axis labeled.</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_49_0.png" src="_images/A02_49_0.png" />
 </div>
 </div>
 <p>Now, to plot the conductances, let’s define three new variables,</p>
@@ -579,30 +605,33 @@ single spike,</p>
 <span class="n">gK0</span>  <span class="o">=</span> <span class="mi">36</span>
 <span class="n">gK</span>   <span class="o">=</span> <span class="n">gK0</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">4</span>                    <span class="c1"># Potassium conductance</span>
 <span class="n">gL0</span>  <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">gL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">gK</span><span class="p">))</span>   <span class="c1"># Leak conductance</span>
+<span class="n">gL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">gK</span><span class="p">))</span>   <span class="c1"># Leak conductance</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:** Where do these terms come from?
+<div class="question">
+<p><strong>Q:</strong> Where do these terms come from?</p>
 </div><p>Then, let’s plot these conductances,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1">#Make a second subplot,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1">#Make a second subplot,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gNa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gNa&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the sodium conductance,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gK&#39;</span><span class="p">)</span>     <span class="c1">#... and plot the potassium conductance,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gL&#39;</span><span class="p">)</span>     <span class="c1">#... and plot the leak conductance.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>             <span class="c1">#... label the x-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mS/cm^2&#39;</span><span class="p">)</span>               <span class="c1">#... and label the y-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>                       <span class="c1">#... make a legend.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>             <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mS/cm^2&#39;</span><span class="p">)</span>               <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                       <span class="c1">#... make a legend.</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_54_0.png" src="_images/A02_54_0.png" />
 </div>
-<div class="alert alert-block alert-info">
-**Q:** How do the conductances evolve during a spike?
+</div>
+<div class="question">
+<p><strong>Q:</strong> How do the conductances evolve during a spike?</p>
 </div></div>
 <div class="section" id="part-5-at-high-input-current-i0-describe-the-dynamics-of-the-currents">
 <h2>Part 5:  At high input current (<code class="docutils literal notranslate"><span class="pre">I0</span></code>), describe the dynamics of the <em>currents</em>.<a class="headerlink" href="#part-5-at-high-input-current-i0-describe-the-dynamics-of-the-currents" title="Permalink to this headline">¶</a></h2>
@@ -624,22 +653,25 @@ on a single spike.</p>
 <span class="n">EL</span>   <span class="o">=</span> <span class="mf">10.6</span><span class="p">;</span>
 <span class="n">IL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="p">(</span><span class="n">EL</span><span class="o">-</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mi">65</span><span class="p">))</span>             <span class="c1"># Leak current.</span>
 
-<span class="n">ax3</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>   <span class="c1"># Make a third subplot,</span>
+<span class="n">ax3</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>   <span class="c1"># Make a third subplot,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">INa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;INa&#39;</span><span class="p">)</span>   <span class="c1">#... and plot the sodium current,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IK&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the potassium current,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IL&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the leak current.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                 <span class="c1">#... focus on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>            <span class="c1">#... label the x-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mA/cm^2&#39;</span><span class="p">)</span>              <span class="c1">#... and label the y-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>                      <span class="c1">#... make a legend.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                 <span class="c1">#... focus on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>            <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mA/cm^2&#39;</span><span class="p">)</span>              <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                      <span class="c1">#... make a legend.</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/A02_57_0.png" src="_images/A02_57_0.png" />
 </div>
-<div class="alert alert-block alert-info">
-**Q:** How do the conductances evolve during a spike?
-</div><div class="alert alert-block alert-info">
-**Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
+</div>
+<div class="question">
+<p><strong>Q:</strong> How do the conductances evolve during a spike?</p>
+</div><div class="question">
+<p><strong>Q:</strong> You may notice a small, transient decrease in the sodium current <code class="docutils literal notranslate"><span class="pre">INa</span></code> near 47 ms. What causes this?</p>
 </div></div>
 </div>
 

@@ -35,7 +35,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysis of spike-field cohernece for the practicing neuroscientist" href="11.html" />
+    <link rel="next" title="Analysis of spike-field coherence for the practicing neuroscientist" href="11.html" />
     <link rel="prev" title="Modeling Place Fields with Point Process Generalized Linear Models" href="09.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="active">
-    <a href="">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="A02.html">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="A03.html">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -340,9 +343,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the usual suspects ...</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
 <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
 <span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
 <span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
 <span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
@@ -632,9 +633,9 @@
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:14: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
   
-/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:20: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:20: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
 </pre>
 </div>
 <img alt="_images/10_43_1.png" src="_images/10_43_1.png" />
@@ -714,7 +715,7 @@
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
   &quot;&quot;&quot;
 </pre>
 </div>
@@ -898,10 +899,10 @@ $\)</span></p>
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18990.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:14:01</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
+  <th>Time:</th>                <td>00:53:22</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>6</td>        <th>                     </th>     <td> </td>   
@@ -1064,10 +1065,10 @@ mated rate between spike times:</p>
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18990.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:14:02</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
+  <th>Time:</th>                <td>00:53:25</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>6</td>        <th>                     </th>     <td> </td>   
@@ -1117,10 +1118,10 @@ mated rate between spike times:</p>
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18843.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  28293.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28293.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:14:02</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
+  <th>Time:</th>                <td>00:53:26</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1477,10 +1478,10 @@ print(id(breakfast))
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -17967.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  26792.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26792.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:14:05</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
+  <th>Time:</th>                <td>00:53:33</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1783,10 +1784,10 @@ print(id(breakfast))
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -17889.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  26637.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26637.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:14:08</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
+  <th>Time:</th>                <td>00:53:44</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -2550,10 +2551,10 @@ smoothing spline basis. Here we use a set of Gaussian kernel functions with mean
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18014.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Fri, 01 May 2020</td> <th>  Deviance:          </th> <td>  26885.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26885.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>16:15:07</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
+  <th>Time:</th>                <td>00:56:51</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -2786,7 +2787,7 @@ and its reduction, and compute its significance based on the chi-square distribu
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="09.html" title="previous page">Modeling Place Fields with Point Process Generalized Linear Models</a>
-    <a class='right-next' id="next-link" href="11.html" title="next page">Analysis of spike-field cohernece <em>for the practicing neuroscientist</em> <a id="top"></a></a>
+    <a class='right-next' id="next-link" href="11.html" title="next page">Analysis of spike-field coherence <em>for the practicing neuroscientist</em> <a id="top"></a></a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+  </li>
+  <li class="">
+    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="A02.html">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="active">
-    <a href="">14. The integrate and fire neuron</a>
+    <a href="">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -309,14 +312,14 @@ interesting.  We’ll choose:</p>
 </div>
 <p>Let’s assume the units of time are seconds.  So, we step forward in time by <span class="math notranslate nohighlight">\(0.01\)</span> s.</p>
 <p>The right hand side of our equation is nearly defined, but we’re still missing one thing, <span class="math notranslate nohighlight">\(V(t)\)</span>.</p>
-<div class="alert alert-block alert-info">
-**Q:**  What value do we assign to $V(t)$?<br><br>
+<div class="question">
+<p><strong>Q:</strong>  What value do we assign to <span class="math notranslate nohighlight">\(V(t)\)</span>?<br><br></p>
 <p><strong>A:</strong>  We don’t know — that’s why we’re running the simulation in the first place!</p>
 </div><p>So here’s an easier question:  what <em>initial</em> value do we assign to <span class="math notranslate nohighlight">\(V(t)\)</span>?</p>
 <p>To start, we’ll create an array of zeros to hold our results for <span class="math notranslate nohighlight">\(V\)</span>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">V</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
@@ -336,7 +339,7 @@ interesting.  We’ll choose:</p>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
+<div class="question">
 <p><strong>Q:</strong>  Given the initial state <code class="docutils literal notranslate"><span class="pre">V[0]=0.2</span></code>, calculate <code class="docutils literal notranslate"><span class="pre">V[1]</span></code>.  Then calcualte <code class="docutils literal notranslate"><span class="pre">V[2]</span></code>.</p>
 </div><p>After the two calculations above, we’ve moved forward two time steps into
 the future, from <span class="math notranslate nohighlight">\(t=0\)</span> s to <span class="math notranslate nohighlight">\(t=0.01\)</span> s, and then from <span class="math notranslate nohighlight">\(t=0.01\)</span> s to <span class="math notranslate nohighlight">\(t=0.02\)</span> s.  But what
@@ -355,15 +358,15 @@ computer do it …</p>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:**  Does this loop make sense?  Describe what's happening here.
-</div><div class="alert alert-block alert-info">
-**Q:**  Why does the `range` command end at `999`?
+<div class="question">
+<p><strong>Q:</strong>  Does this loop make sense?  Describe what’s happening here.</p>
+</div><div class="question">
+<p><strong>Q:</strong>  Why does the <code class="docutils literal notranslate"><span class="pre">range</span></code> command end at <code class="docutils literal notranslate"><span class="pre">999</span></code>?</p>
 </div><p>Execute this for-loop and examine the results in vector <code class="docutils literal notranslate"><span class="pre">V</span></code>.  To do so, let’s plot <code class="docutils literal notranslate"><span class="pre">V</span></code>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">V</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">V</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -371,27 +374,27 @@ computer do it …</p>
 <img alt="_images/A03_24_0.png" src="_images/A03_24_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:**  What happens to the voltage after 1000 steps?
+<div class="question">
+<p><strong>Q:</strong>  What happens to the voltage after 1000 steps?</p>
 </div><p>This plot is informative, but not great.  Really, we’d like to plot the
 voltage as a function of <em>time</em>, not steps or indices.  To do so, we
 need to define a time axis:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:**  What's happening in the command above?  Does it make sense?  (If not, trying printing or plotting `t`.)
+<div class="question">
+<p><strong>Q:</strong>  What’s happening in the command above?  Does it make sense?  (If not, trying printing or plotting <code class="docutils literal notranslate"><span class="pre">t</span></code>.)</p>
 </div><p>Now, with <em>time</em> defined, let’s redo the plot of the voltage with the axes labeled appropriately.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">);</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">);</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -416,25 +419,24 @@ the I&amp;F model, and plot the results (with appropriate axes).</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>      <span class="c1">#Import useful packages.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>      <span class="c1">#Import useful packages.</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">I</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter I.</span>
 <span class="n">C</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter C.</span>
 <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                 <span class="c1">#Set the timestep.</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
 <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>               <span class="c1">#Set the initial value of V.</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>            <span class="c1">#March forward in time,</span>
     <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span>      <span class="c1">#... updating V along the way.</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+<span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -442,8 +444,8 @@ the I&amp;F model, and plot the results (with appropriate axes).</p>
 <img alt="_images/A03_35_0.png" src="_images/A03_35_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:**  Adjust the parameter `I`.  What happens to `V` if `I=0`?  Can you set `I` so that `V` > 20 within 10 s?
+<div class="question">
+<p><strong>Q:</strong>  Adjust the parameter <code class="docutils literal notranslate"><span class="pre">I</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">I=0</span></code>?  Can you set <code class="docutils literal notranslate"><span class="pre">I</span></code> so that <code class="docutils literal notranslate"><span class="pre">V</span></code> &gt; 20 within 10 s?</p>
 </div></div>
 <div class="section" id="part-4-voltage-threshold">
 <h2>Part 4:  Voltage threshold<a class="headerlink" href="#part-4-voltage-threshold" title="Permalink to this headline">¶</a></h2>
@@ -486,16 +488,15 @@ reset voltage <code class="docutils literal notranslate"><span class="pre">Vrese
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>      <span class="c1">#Import useful packages.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>     <span class="c1">#Import useful packages.</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">I</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter I.</span>
 <span class="n">C</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter C.</span>
 <span class="n">Vth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                <span class="c1">#Define the voltage threshold.</span>
 <span class="n">Vreset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">#Define the reset voltage.</span>
 <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                 <span class="c1">#Set the timestep.</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
 <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>               <span class="c1">#Set the initial condition.</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>            <span class="c1">#March forward in time,</span>
@@ -503,12 +504,12 @@ reset voltage <code class="docutils literal notranslate"><span class="pre">Vrese
     <span class="k">if</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Vth</span><span class="p">:</span>              <span class="c1">#... and check if the voltage exceeds the threshold.</span>
         <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vreset</span>
         
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span> <span class="o">*</span> <span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+<span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -516,12 +517,12 @@ reset voltage <code class="docutils literal notranslate"><span class="pre">Vrese
 <img alt="_images/A03_41_0.png" src="_images/A03_41_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info">
-**Q:** Adjust the parameter `I`.  What happens to `V` if `I=10`?  If `I=100`?
-</div><div class="alert alert-block alert-info">
-**Q:** Adjust the parameter `C`.  What happens to `V` if `C=0.1`?  If `C=10`?
-</div><div class="alert alert-block alert-info">
-**Q:** What is "spiking" in this I&F model?
+<div class="question">
+<p><strong>Q:</strong> Adjust the parameter <code class="docutils literal notranslate"><span class="pre">I</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">I=10</span></code>?  If <code class="docutils literal notranslate"><span class="pre">I=100</span></code>?</p>
+</div><div class="question">
+<p><strong>Q:</strong> Adjust the parameter <code class="docutils literal notranslate"><span class="pre">C</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">C=0.1</span></code>?  If <code class="docutils literal notranslate"><span class="pre">C=10</span></code>?</p>
+</div><div class="question">
+<p><strong>Q:</strong> What is “spiking” in this I&amp;F model?</p>
 </div></div>
 </div>
 

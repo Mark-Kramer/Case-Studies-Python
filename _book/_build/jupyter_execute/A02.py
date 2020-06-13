@@ -19,10 +19,9 @@ Here are some additional usual videos and references:
 
 Before beginning, let's load in the Python packages we'll need:
 
-import numpy as np
+from pylab import *
 import math
-%matplotlib
-import matplotlib.pyplot as plt
+%matplotlib inline
 
 In addition, let's import the functions we'll need to simulate the HH model, which are available on this repository:
 
@@ -39,7 +38,7 @@ To start, let's examine the code for the HH model. We can do so in (at least) tw
 import inspect
 inspect.getsourcelines(HH)
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  Examine this code.  Can you make sense of it?  Can you identify the
 gating variables?  The rate functions?  The equations that define the dynamics?
@@ -77,7 +76,7 @@ We've now defined both inputs to the `HH` function, and can execute it, as follo
 
 Notice that the function returns five outputs, which we assign to the variables `V`, `m`, `h`, `n`, and `t`.
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the dynamics of the voltage (variable `V`) resulting
 from this simulation?<br>
@@ -85,7 +84,7 @@ HINT:  Plot `V` vs `t`.
 
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**   What are the dynamics of the gating variables (`m`, `h`, `n`)
 resulting from this simulation?<br>
@@ -93,7 +92,7 @@ HINT:  Plot them!
 
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the final values (after the 100 ms of simulation) of
 `V`, `m`, `h`, and `n`?
@@ -114,9 +113,11 @@ We can now simulate this model,
 
 [V,m,h,n,t] = HH(I0,T0)
 
-<div class="alert alert-block alert-info">
-**Q:**  What happens to the dynamics?<br>
+<div class="question">
+
+**Q:**  What happens to the dynamics?
 HINT:  Plot V vs t.
+
 </div>
 
   ### Observation for Part 3
@@ -128,61 +129,63 @@ HINT:  Plot V vs t.
   single spike.  As a first step, we'll make a new figure with a seperate subfigure to plot
   the voltage,
 
-plt.figure()
-plt.subplot(211)
+figure()
+subplot(211)
 
 This `subplot` command divides the figure into two rows, and one column, and tells Python we'll start in the first row. See Python Help for more details:
 
-`plt.subplot??`
+`subplot??`
 
 Now, let's plot the voltage, and choose the time axis to focus on a single spike,
 
-plt.plot(t,V,'k')
-plt.xlim([42, 56])
-plt.ylabel('V [mV]');
+plot(t,V,'k')
+xlim([42, 56])
+ylabel('V [mV]');
 
   Okay, we've now plotted the voltage dynamics for a single spike (and
   colored the curve black).  Let's now plot the three gating variables.
   To do so, we'll move to the next subplot,
 
-plt.subplot(212);
+subplot(212);
 
 (the next row in the figure).  Within this subplot, let's start by displaying the gating variable `m` over the same x-limits,
 
-plt.plot(t,m,'r', label='m')
-plt.xlim([42, 56]);
+plot(t,m,'r', label='m')
+xlim([42, 56]);
 
   Notice that, in the call to `plot` we included the input `label`. This will be useful when we create a legend ... <br><br>Within this subplot, we can also simultaneously show the gating
   variables `h` and `n`,
 
-plt.plot(t,h,'b', label='h')
-plt.plot(t,n,'g', label='n');
+plot(t,h,'b', label='h')
+plot(t,n,'g', label='n');
 
 Label the x-axis,
 
-plt.xlabel('Time [ms]');
+xlabel('Time [ms]');
 
 Now, let's add a legend to help us keep track of the different curves,
 
-plt.legend();
+legend();
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Using the figure you created above, describe how the gates swing open and closed during a spike.
+
 </div>
 
 ### ASIDE: 
 Here's a nice plotting trick, to link the x-axes of our two subfigures.  Linking the axes is useful so that, when we zoom or move one subfigure, the other subfigure will match the x-axis.
 
-plt.figure()
-ax1 = plt.subplot(211);                 # Define axis for 1st subplot,
-ax2 = plt.subplot(212, sharex=ax1);     # ... and link axis of 2nd subplot to the 1st.
+figure()
+ax1 = subplot(211);                 # Define axis for 1st subplot,
+ax2 = subplot(212, sharex=ax1);     # ... and link axis of 2nd subplot to the 1st.
 ax1.plot(t,V,'k')                       # Plot the voltage in the first subplot,
-plt.xlim([42, 56]);
+xlim([42, 56]);
 ax2.plot(t,m,'r', label='m')            # ... and the gating variables in the other subplot.
 ax2.plot(t,h,'b', label='h')
 ax2.plot(t,n,'g', label='n');
-plt.xlabel('Time [ms]');
-plt.legend();
+xlabel('Time [ms]');
+legend();
 
 Now, in the figure, you may use the pan/zoom tool to adjust the linked subplots.
 
@@ -193,11 +196,11 @@ Now, in the figure, you may use the pan/zoom tool to adjust the linked subplots.
   simulation results we generated in Part 3, and focus our plot on a
   single spike,
 
-plt.figure()
-ax1=plt.subplot(311)                # Make a subplot,
+figure()
+ax1=subplot(311)                # Make a subplot,
 ax1.plot(t,V,'k')                   #... and plot the voltage,
-plt.xlim([42, 56])                  #... focused on a single spike,
-plt.ylabel('V [mV]');               #... with y-axis labeled.
+xlim([42, 56])                  #... focused on a single spike,
+ylabel('V [mV]');               #... with y-axis labeled.
 
 Now, to plot the conductances, let's define three new variables,
 
@@ -206,25 +209,29 @@ gNa  = gNa0*m**3*h                 # Sodium conductance
 gK0  = 36
 gK   = gK0*n**4                    # Potassium conductance
 gL0  = 0.3
-gL   = gL0*np.ones(np.shape(gK))   # Leak conductance
+gL   = gL0*ones(shape(gK))   # Leak conductance
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Where do these terms come from?
+
 </div>
 
 Then, let's plot these conductances,
 
-ax2 = plt.subplot(312, sharex=ax1)  #Make a second subplot,
+ax2 = subplot(312, sharex=ax1)  #Make a second subplot,
 ax2.plot(t,gNa,'m', label='gNa')    #... and plot the sodium conductance,
 ax2.plot(t,gK, 'g', label='gK')     #... and plot the potassium conductance,
 ax2.plot(t,gL, 'k', label='gL')     #... and plot the leak conductance.
-plt.xlim([42, 56])                  #... focused on a single spike,
-plt.xlabel('Time [ms]')             #... label the x-axis.
-plt.ylabel('mS/cm^2')               #... and label the y-axis.
-plt.legend();                       #... make a legend.
+xlim([42, 56])                  #... focused on a single spike,
+xlabel('Time [ms]')             #... label the x-axis.
+ylabel('mS/cm^2')               #... and label the y-axis.
+legend();                       #... make a legend.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 
 ## Part 5:  At high input current (`I0`), describe the dynamics of the *currents*.
@@ -247,19 +254,23 @@ gL0  = 0.3
 EL   = 10.6;
 IL   = gL0*(EL-(V+65))             # Leak current.
 
-ax3=plt.subplot(313, sharex=ax1)   # Make a third subplot,
+ax3=subplot(313, sharex=ax1)   # Make a third subplot,
 ax3.plot(t,INa,'m', label='INa')   #... and plot the sodium current,
 ax3.plot(t,IK, 'g', label='IK')    #... and plot the potassium current,
 ax3.plot(t,IL, 'k', label='IL')    #... and plot the leak current.
-plt.xlim([42, 56])                 #... focus on a single spike,
-plt.xlabel('Time [ms]')            #... label the x-axis.
-plt.ylabel('mA/cm^2')              #... and label the y-axis.
-plt.legend();                      #... make a legend.
+xlim([42, 56])                 #... focus on a single spike,
+xlabel('Time [ms]')            #... label the x-axis.
+ylabel('mA/cm^2')              #... and label the y-axis.
+legend();                      #... make a legend.
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
+
 </div>

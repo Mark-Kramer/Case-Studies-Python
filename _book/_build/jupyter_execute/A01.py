@@ -7,9 +7,8 @@ Text preceded by a `#` indicates a 'comment'.  I will use comments to explain wh
 
 Before beginning, let's load in the Python packages we'll need:
 
-import numpy as np
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 
 ##  Steps to backpropagation
 
@@ -58,7 +57,7 @@ x1 = w0*s0
   *define* the sigmoid function ... Let's do so here in Python,
 
 def sigmoid(x):
-    return 1/(1+np.exp(-x))
+    return 1/(1+exp(-x))
 
   This function takes one input (`x`), and returns one output equal to the numerical
   value of the sigmoid function at that value of `x`. For example, to
@@ -137,9 +136,9 @@ w2 = 0.5
 alpha = 0.1                     # Set the learning constant.
 
 def sigmoid(x):
-    return 1/(1+np.exp(-x))     # Define the sigmoid anonymous function.
+    return 1/(1+exp(-x))     # Define the sigmoid anonymous function.
 
-results = np.zeros([1000,4])    # Define a variable to hold the results of each iteration.    
+results = zeros([1000,4])    # Define a variable to hold the results of each iteration.    
 for k in range(1000):           # For 1000 iteractions,
     
     #Step 2. Calculate feedforward solution to get output.
@@ -158,11 +157,11 @@ for k in range(1000):           # For 1000 iteractions,
     results[k,:] = [w2,w1,w0,  out]
     # Here we save the 3 weights, the neural network output.
 
-plt.clf()
-plt.plot(results[:,0], label='w2')
-plt.plot(results[:,1], label='w1')
-plt.plot(results[:,2], label='w0')
-plt.plot(results[:,3], label='out')
-plt.plot(np.arange(1000), 1000*[target], 'k', label='target')  #... and plot the *target*.
-plt.legend() #Iclude a legend,
-plt.xlabel('Iteration number');         #... and axis label.
+clf()
+plot(results[:,0], label='w2')
+plot(results[:,1], label='w1')
+plot(results[:,2], label='w0')
+plot(results[:,3], label='out')
+plot(arange(1000), 1000*[target], 'k', label='target')  #... and plot the *target*.
+legend() #Iclude a legend,
+xlabel('Iteration number');         #... and axis label.

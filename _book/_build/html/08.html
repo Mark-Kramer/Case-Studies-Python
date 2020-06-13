@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
+  </li>
+  <li class="">
+    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="active">
-    <a href="">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="A02.html">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="A03.html">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -315,7 +318,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the spike train data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/08_spikes-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the spike train data</span>
 <span class="n">SpikesLow</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SpikesLow&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and get the spike times for low-light condition.</span>
 
 <span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>             <span class="c1"># Compute ISIs in the low-light condition</span>
@@ -354,9 +357,9 @@
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
   app.launch_new_instance()
-/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
+/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
   app.launch_new_instance()
 </pre>
 </div>
@@ -394,8 +397,7 @@
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 </div>
@@ -403,15 +405,14 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the spike train data</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/08_spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the spike train data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -1068,7 +1069,7 @@ f(x) = \lambda \exp(-\lambda x),
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
   &quot;&quot;&quot;
 </pre>
 </div>
@@ -1346,9 +1347,9 @@ lambda =  0.04931816769253932
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
   
-/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
+/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
   
 </pre>
 </div>
@@ -1580,115 +1581,6 @@ we conclude that for a Poisson process,</p>
 \[\mu = \sigma^2 = \lambda,\]</div>
 <p>and therefore for a Poisson process, the Fano factor <span class="math notranslate nohighlight">\(\sigma^2/\mu=1\)</span>.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;assets/custom/custom.css&#39;</span><span class="p">)</span>
-<span class="c1"># NO CODE</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><style>
-.left {
-    margin-left: 0px;
-}
-.warning {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    display: block;
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    /*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    border-radius: 5px;
-}
-.question p, .math-note p, .python-note p, .warning p {
-    /*margin-top: 1em;*/
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
-    /*margin-bottom: 0;*/
-    margin-top: 1em;
-}
-.output_area img, .output_area iframe, .output_html iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-    max-width:90%;
-    /*max-width:700px;*/
-    /*max-height: 90%;*/
-}
-.fig, .thumb, .sup {
-    position: inherit;
-    color: #57b733;
-    cursor: help;
-    text-decoration: underline dotted;
-    max-width: 700px;
-}   
-.thumb img{ 
-    max-width: 400px;
-}
-.sup {
-    top: -.5em;
-    font-size: 75%;
-    vertical-align: super;
-}
-.fig img, .sup img, .thumb img { 
-    /*width: 100%;*/
-    max-width: 90%;
-    max-height: 50vh;
-    border:1px solid #000;
-    visibility: hidden;
-    background-color: black;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    transition: 5ms visibility;
-    z-index: 99;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
-    visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-</div></div>
-</div>
 </div>
 </div>
 

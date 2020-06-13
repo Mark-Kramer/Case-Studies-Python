@@ -1,0 +1,98 @@
+Traceback (most recent call last):
+  File "/opt/miniconda3/envs/csn/lib/python3.7/site-packages/jupyter_cache/executors/basic.py", line 157, in execute
+    executenb(nb_bundle.nb, cwd=tmpdirname)
+  File "/opt/miniconda3/envs/csn/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 737, in executenb
+    return ep.preprocess(nb, resources, km=km)[0]
+  File "/opt/miniconda3/envs/csn/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 405, in preprocess
+    nb, resources = super(ExecutePreprocessor, self).preprocess(nb, resources)
+  File "/opt/miniconda3/envs/csn/lib/python3.7/site-packages/nbconvert/preprocessors/base.py", line 69, in preprocess
+    nb.cells[index], resources = self.preprocess_cell(cell, resources, index)
+  File "/opt/miniconda3/envs/csn/lib/python3.7/site-packages/nbconvert/preprocessors/execute.py", line 448, in preprocess_cell
+    raise CellExecutionError.from_cell_and_msg(cell, out)
+nbconvert.preprocessors.execute.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import numpy as np
+from numpy.fft import fft, ifft, rfft, fftfreq
+from scipy.signal import firwin, lfilter, filtfilt
+from scipy.io import loadmat
+import matplotlib.pyplot as plt
+from matplotlib.pyplot import *
+%matplotlib inline
+
+data = loadmat('matfiles/EEG-1.mat')    # Load the data,
+eeg = data['EEG']              # ... and define the EEG,
+t = data['t'][0]               # ... and a time axis.
+
+dt = t[1] - t[0]               # Define the sampling interval.
+fNQ = 1 / dt / 2               # Determine the Nyquist frequency.
+K = len(eeg)                   # Determine no. of trials.
+
+n = 100                        # Define the filter order
+Wn = 30 / fNQ                  # ... and specify the cutoff frequency,
+b = firwin(n, Wn)              # ... build lowpass FIR filter,
+                               # ... and zero-phase filter each trial
+eeg_lo = np.array([filtfilt(b, 1, eeg[k]) for k in range(K)])
+
+mn = eeg_lo.mean(0)            # Compute mean of filtered EEG across trials (ERP)
+sd = eeg_lo.std(0)             # Compute std of filtered EEG data across trials.
+sdmn = sd / np.sqrt(K);        # Compute the std of the mean.
+
+plot(t, mn)                    # Plot the ERP of the filtered data
+plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
+plot(t, mn - 2 * sdmn, 'r:');
+xlabel('Time [s]')             # ... and label the axes.
+ylabel('Voltage [ mV]')
+title('Evoked response of filtered EEG')
+show()
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[0;32m/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py[0m in [0;36m_open_file[0;34m(file_like, appendmat, mode)[0m
+[1;32m     38[0m     [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 39[0;31m         [0;32mreturn[0m [0mopen[0m[0;34m([0m[0mfile_like[0m[0;34m,[0m [0mmode[0m[0;34m)[0m[0;34m,[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     40[0m     [0;32mexcept[0m [0mIOError[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'matfiles/EEG-1.mat'
+
+During handling of the above exception, another exception occurred:
+
+[0;31mFileNotFoundError[0m                         Traceback (most recent call last)
+[0;32m<ipython-input-1-70d4c11f6c91>[0m in [0;36m<module>[0;34m[0m
+[1;32m      7[0m [0mget_ipython[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0mrun_line_magic[0m[0;34m([0m[0;34m'matplotlib'[0m[0;34m,[0m [0;34m'inline'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      8[0m [0;34m[0m[0m
+[0;32m----> 9[0;31m [0mdata[0m [0;34m=[0m [0mloadmat[0m[0;34m([0m[0;34m'matfiles/EEG-1.mat'[0m[0;34m)[0m    [0;31m# Load the data,[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     10[0m [0meeg[0m [0;34m=[0m [0mdata[0m[0;34m[[0m[0;34m'EEG'[0m[0;34m][0m              [0;31m# ... and define the EEG,[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     11[0m [0mt[0m [0;34m=[0m [0mdata[0m[0;34m[[0m[0;34m't'[0m[0;34m][0m[0;34m[[0m[0;36m0[0m[0;34m][0m               [0;31m# ... and a time axis.[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py[0m in [0;36mloadmat[0;34m(file_name, mdict, appendmat, **kwargs)[0m
+[1;32m    214[0m     """
+[1;32m    215[0m     [0mvariable_names[0m [0;34m=[0m [0mkwargs[0m[0;34m.[0m[0mpop[0m[0;34m([0m[0;34m'variable_names'[0m[0;34m,[0m [0;32mNone[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 216[0;31m     [0;32mwith[0m [0m_open_file_context[0m[0;34m([0m[0mfile_name[0m[0;34m,[0m [0mappendmat[0m[0;34m)[0m [0;32mas[0m [0mf[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    217[0m         [0mMR[0m[0;34m,[0m [0m_[0m [0;34m=[0m [0mmat_reader_factory[0m[0;34m([0m[0mf[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    218[0m         [0mmatfile_dict[0m [0;34m=[0m [0mMR[0m[0;34m.[0m[0mget_variables[0m[0;34m([0m[0mvariable_names[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/miniconda3/envs/csn/lib/python3.7/contextlib.py[0m in [0;36m__enter__[0;34m(self)[0m
+[1;32m    110[0m         [0;32mdel[0m [0mself[0m[0;34m.[0m[0margs[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mkwds[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mfunc[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    111[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 112[0;31m             [0;32mreturn[0m [0mnext[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mgen[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    113[0m         [0;32mexcept[0m [0mStopIteration[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    114[0m             [0;32mraise[0m [0mRuntimeError[0m[0;34m([0m[0;34m"generator didn't yield"[0m[0;34m)[0m [0;32mfrom[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py[0m in [0;36m_open_file_context[0;34m(file_like, appendmat, mode)[0m
+[1;32m     17[0m [0;34m@[0m[0mcontextmanager[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     18[0m [0;32mdef[0m [0m_open_file_context[0m[0;34m([0m[0mfile_like[0m[0;34m,[0m [0mappendmat[0m[0;34m,[0m [0mmode[0m[0;34m=[0m[0;34m'rb'[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 19[0;31m     [0mf[0m[0;34m,[0m [0mopened[0m [0;34m=[0m [0m_open_file[0m[0;34m([0m[0mfile_like[0m[0;34m,[0m [0mappendmat[0m[0;34m,[0m [0mmode[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     20[0m     [0;32myield[0m [0mf[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     21[0m     [0;32mif[0m [0mopened[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m/opt/miniconda3/envs/csn/lib/python3.7/site-packages/scipy/io/matlab/mio.py[0m in [0;36m_open_file[0;34m(file_like, appendmat, mode)[0m
+[1;32m     43[0m             [0;32mif[0m [0mappendmat[0m [0;32mand[0m [0;32mnot[0m [0mfile_like[0m[0;34m.[0m[0mendswith[0m[0;34m([0m[0;34m'.mat'[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     44[0m                 [0mfile_like[0m [0;34m+=[0m [0;34m'.mat'[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 45[0;31m             [0;32mreturn[0m [0mopen[0m[0;34m([0m[0mfile_like[0m[0;34m,[0m [0mmode[0m[0;34m)[0m[0;34m,[0m [0;32mTrue[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     46[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     47[0m             [0;32mraise[0m [0mIOError[0m[0;34m([0m[0;34m'Reader needs file name or open file-like object'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'matfiles/EEG-1.mat'
+FileNotFoundError: [Errno 2] No such file or directory: 'matfiles/EEG-1.mat'
+

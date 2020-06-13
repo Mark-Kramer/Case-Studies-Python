@@ -34,7 +34,7 @@ import scipy.io as sio
 import matplotlib.pyplot as plt
 %matplotlib inline
 
-data = sio.loadmat('matfiles/spikes-1.mat')       # Load the spike train data
+data = sio.loadmat('matfiles/08_spikes-1.mat')       # Load the spike train data
 SpikesLow = data['SpikesLow'][0]         # ... and get the spike times for low-light condition.
 
 ISIsLow = np.diff(SpikesLow)             # Compute ISIs in the low-light condition
@@ -105,14 +105,12 @@ Our data analysis begins with visual inspection. To start, let's load the data i
 import scipy.io as sio
 import matplotlib.pyplot as plt
 import warnings
-from matplotlib.pyplot import xlabel, ylabel, plot, show, title
-from matplotlib import rcParams
+from pylab import *
 %matplotlib inline
 
-rcParams['figure.figsize'] = (12,3)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-data = sio.loadmat('matfiles/spikes-1.mat')  # Load the spike train data
+data = sio.loadmat('matfiles/08_spikes-1.mat')  # Load the spike train data
 print(data.keys())
 
 <div class="question">
@@ -1496,7 +1494,3 @@ $$\mu = \sigma^2 = \lambda,$$
 and therefore for a Poisson process, the Fano factor $\sigma^2/\mu=1$.
 
 [Back to top](#top)
-
-from IPython.core.display import HTML
-HTML('assets/custom/custom.css')
-# NO CODE

@@ -45,7 +45,7 @@ from numpy.random import randint
 
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
-data = loadmat('matfiles/EEG-1.mat')  # Load the data,
+data = loadmat('matfiles/02_EEG-1.mat')  # Load the data,
 EEGa = data['EEGa']  # ... and get the EEG from one condition,
 t = data['t'][0]   # ... and a time axis,
 ntrials = len(EEGa)  # ... and compute the number of trials.
@@ -108,7 +108,7 @@ Our collaborator leading this research study has agreed to provide us with EEG d
 Our first step is to load the data into Python.  To do so, we use the function `loadmat()` from the `scipy.io` module as follows:
 
 from scipy.io import loadmat       # Import function to read data.
-data = loadmat('matfiles/EEG-1.mat')
+data = loadmat('matfiles/02_EEG-1.mat')
 
 To understand the outcome of issuing this command, let's examine the variable `data` now present in the workspace.  This variable is a *dictionary* variable (to see this, execute `type(data)`). To see the *keys* of a dictionary, use the `keys()` method.
 

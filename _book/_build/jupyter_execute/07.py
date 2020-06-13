@@ -33,7 +33,7 @@ from scipy import signal
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = loadmat('LFP-1.mat')          # Load the LFP data, 
+data = loadmat('matfiles/LFP-1.mat')          # Load the LFP data, 
 t = data['t'][0]                     # ... extract t, the time variable,
 LFP = data['LFP'][0]                 # ... and LFP, the voltage variable,
 dt = t[1] - t[0]                     # Define the sampling interval,
@@ -104,12 +104,9 @@ Let's begin with visual inspection of the LFP data.
 # Load the modules and set plot defaults
 from scipy.io import loadmat
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
 %matplotlib inline
-rcParams['figure.figsize'] = (12,3)
-rcParams['axes.xmargin'] = 0
 
-data = loadmat('LFP-1.mat')  # Load the LFP data, 
+data = loadmat('matfiles/LFP-1.mat')  # Load the LFP data, 
 t = data['t'][0]             # ... extract t, the time variable,
 LFP = data['LFP'][0]         # ... and LFP, the voltage variable,
 plt.plot(t, LFP)             # ... and plot the trace,
@@ -502,6 +499,3 @@ So, in the time domain, the Hilbert transform becomes
 $$H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.$$
 
 This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, "*The Hilbert Transform is a 90-degree phase shift in the frequency domain.*" The latter, we propose, is much more intuitive.
-
-from IPython.core.display import HTML
-HTML('../../assets/custom/custom.css')

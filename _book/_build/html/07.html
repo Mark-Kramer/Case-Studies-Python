@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="active">
-    <a href="">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="A02.html">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="A03.html">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -331,7 +334,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;LFP-1.mat&#39;</span><span class="p">)</span>          <span class="c1"># Load the LFP data, </span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/LFP-1.mat&#39;</span><span class="p">)</span>          <span class="c1"># Load the LFP data, </span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                     <span class="c1"># ... extract t, the time variable,</span>
 <span class="n">LFP</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;LFP&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                 <span class="c1"># ... and LFP, the voltage variable,</span>
 <span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                     <span class="c1"># Define the sampling interval,</span>
@@ -439,12 +442,9 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the modules and set plot defaults</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.xmargin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;LFP-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the LFP data, </span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/LFP-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the LFP data, </span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>             <span class="c1"># ... extract t, the time variable,</span>
 <span class="n">LFP</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;LFP&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and LFP, the voltage variable,</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>             <span class="c1"># ... and plot the trace,</span>
@@ -605,7 +605,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/IPython/core/pylabtools.py:132: UserWarning: Creating legend with loc=&quot;best&quot; can be slow with large amounts of data.
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/IPython/core/pylabtools.py:132: UserWarning: Creating legend with loc=&quot;best&quot; can be slow with large amounts of data.
   fig.canvas.print_figure(bytes_io, **kw)
 </pre>
 </div>
@@ -998,114 +998,6 @@ ix &amp; \mbox{for negative frequencies of }x \\
 <div class="math notranslate nohighlight">
 \[H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.\]</div>
 <p>This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, “<em>The Hilbert Transform is a 90-degree phase shift in the frequency domain.</em>” The latter, we propose, is much more intuitive.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;../../assets/custom/custom.css&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><style>
-.left {
-    margin-left: 0px;
-}
-.warning {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    display: block;
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    /*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    border-radius: 5px;
-}
-.question p, .math-note p, .python-note p, .warning p {
-    /*margin-top: 1em;*/
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
-    /*margin-bottom: 0;*/
-    margin-top: 1em;
-}
-.output_area img, .output_area iframe, .output_html iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-    max-width:90%;
-    /*max-width:700px;*/
-    /*max-height: 90%;*/
-}
-.fig, .thumb, .sup {
-    position: inherit;
-    color: #57b733;
-    cursor: help;
-    text-decoration: underline dotted;
-    max-width: 700px;
-}   
-.thumb img{ 
-    max-width: 400px;
-}
-.sup {
-    top: -.5em;
-    font-size: 75%;
-    vertical-align: super;
-}
-.fig img, .sup img, .thumb img { 
-    /*width: 100%;*/
-    max-width: 90%;
-    max-height: 50vh;
-    border:1px solid #000;
-    visibility: hidden;
-    background-color: black;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    transition: 5ms visibility;
-    z-index: 99;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
-    visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-</div></div>
-</div>
 </div>
 </div>
 

@@ -1,4 +1,4 @@
-# Analysis of spike-field cohernece *for the practicing neuroscientist* <a id="top"></a>
+# Analysis of spike-field coherence *for the practicing neuroscientist* <a id="top"></a>
 
 <div class="question">
     
@@ -28,8 +28,8 @@ _**Synopsis**_
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the spike-field cohernece in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 import scipy.io as sio
+from pylab import *
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Load the data and plot it.
 data = sio.loadmat('matfiles/spikes-LFP-1.mat')       # Load the multiscale data,
@@ -54,11 +54,11 @@ for k in np.arange(K):                                           # For each tria
 cohr = np.real(SYN*np.conj(SYN)) / SYY / SNN                     # Spike-field coherence
 f = np.fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
 
-plt.plot(f,cohr)                             # Plot the result.
-plt.xlim([0, 100])
-plt.ylim([0, 1])
-plt.xlabel('Frequency [Hz]')
-plt.ylabel('Coherence');
+plot(f,cohr)                             # Plot the result.
+xlim([0, 100])
+ylim([0, 1])
+xlabel('Frequency [Hz]')
+ylabel('Coherence');
 
 <div class="question">
 
@@ -104,11 +104,8 @@ We begin the analysis by visualizing examples of the simultaneously recorded spi
 import scipy.io as sio
 from scipy import signal
 from scipy import stats
-import numpy as np
 import statsmodels.api as sm
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
-import setup
+from pylab import *
 %matplotlib inline
 
 # Load the data and plot it.
@@ -119,7 +116,7 @@ t = data['t'].reshape(-1)                    # ... get the time axis,
 plot(t,y[1,:])                               # ... and visualize the data, for the first trial.
 plot(t,n[1,:])
 xlabel('Time [s]')
-plt.autoscale(tight=True)                    # ... with white space minimized.
+autoscale(tight=True)                    # ... with white space minimized.
 savefig("imgs/lfp_ex")
 
 <div class="python-note">
@@ -181,9 +178,9 @@ In this Python code, we must be careful to include only appropriate time interva
 
 <div class="question">
     
-**Q.** Q: What is the purpose of the if-statement:
+**Q.** What is the purpose of the if-statement:
 
-` if win < spike_t < N-win-1:`
+    `if win < spike_t < N-win-1:`
 
 in the code?
     
@@ -210,7 +207,7 @@ ylabel('Voltage [mV]');
 The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at $t = 0$ in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.
 
 
-However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a>.\ Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
+However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
 
 <div class="question">
     
@@ -345,38 +342,38 @@ f = np.fft.rfftfreq(N, dt)                                       # Frequency axi
 
 Inside of the `for` statement, we first compute the Fourier transform of the field (`yf`) and the spikes (`nf`) for trial `k`. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (`SYY`) and the spikes (`SNN`), and the cross spectrum (`SYN`) averaged across all trials. We then compute the coherence (`cohr`) and define a frequency axis to plot the results (`f`).
 
-Let's now display the results, <a id="fig:spike-field-coherence">
+Let's now display the results, <a id="fig:spike-field-coherence"></a>
 
-plt.subplot(1,3,1)         # Plot the spike spectrum.
+subplot(1,3,1)         # Plot the spike spectrum.
 plot(f,SNN)
-plt.xlim([0, 100])
+xlim([0, 100])
 xlabel('Frequency [Hz]')
 ylabel('Power [Hz]')
 title('SNN')
 
-plt.subplot(1,3,2)         # Plot the field spectrum,
+subplot(1,3,2)         # Plot the field spectrum,
 T = t[-1]
 plot(f,dt**2/T*SYY)        # ... with the standard scaling.
-plt.xlim([0, 100])
+xlim([0, 100])
 xlabel('Frequency [Hz]')
 ylabel('Power [Hz]')
 title('SYY')
 
-plt.subplot(1,3,3)        # Plot the coherence
+subplot(1,3,3)        # Plot the coherence
 plot(f,cohr)
-plt.xlim([0, 100])
-plt.ylim([0, 1])
+xlim([0, 100])
+ylim([0, 1])
 xlabel('Frequency [Hz]')
 ylabel('Coherence');
 savefig('imgs/sf_coh')
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the spike spectrum, `Snn`, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?
 
-**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.<br>
+**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.
 
-To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [MODULE](add ref)). For these data, we can estimate the expected spike rate as
+To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [notebook 10](../10)). For these data, we can estimate the expected spike rate as
 
 `firing_rate = np.mean(np.sum(n,1))/(N*dt)`
 
@@ -394,7 +391,7 @@ Computing this quantity in Python, we find an expected spike rate of approximate
 
 These observations of the spike spectrum and field spectrum reveal that both signals exhibit rhythmic activity at 10 Hz. Therefore, a reasonable place to look for spike-field coherence is near 10 Hz, where both the spikes and the field are rhythmic. However, visual inspection of the spike-field coherence does not indicate coherence at this frequency. Instead, we find a large peak in the spike-field coherence at 45 Hz. Identifying this strong coherence at 45 Hz suggests that we reexamine the spectra. Indeed, careful inspection of the spike spectrum and field spectrum does suggest rhythmic activity at 45 Hz.
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the field spectrum on a decibel scale (see [The Power Spectrum (Part 1)](../03)). What rhythms do you observe?
     
@@ -402,9 +399,9 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 <div class="question">
     
-**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted in [this figure](#fig:FTA). How does the peak in the spike-field coherence relate to interesting structure in the FTA?
+**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted above.<a href="#fig:FTA" class="sup">fig<img src="imgs/fta.png"></a> How does the peak in the spike-field coherence relate to interesting structure in the FTA?
     
-<div>
+</div>
 
 The spike-field coherence result again reveals an important feature of coherence analysis. Two signals with high power at the same frequency are not necessarily coherent at this frequency; two signals may possess rhythmic activity at the same frequency, but these rhythms may not coordinate across trials. Conversely, two signals with low power at the same frequency may have strong coherence at that frequency; although the rhythm is weak, the two signals may still coordinate activity across trials at this frequency. These notions apply both to spike-field coherence and field-field coherence (the latter illustrated in [The Cross Covariance and Coherence](../05)).
 
@@ -444,7 +441,7 @@ Now, with the fucntion `coherence` defined, let's examine how a multiplicative c
 
 [cohr, f, SYY, SNN, SYN] = coherence(n,y,t)             # Compute spike-field cohernece with original y.
 plot(f,cohr)
-plt.xlim([0, 100])
+xlim([0, 100])
 [cohr, f, SYY, SNN, SYN] = coherence(n,y_scaled,t)      # Compute spike-field cohernece with scaled y.
 plot(f,cohr,'.');
 xlabel('Frequency [Hz]')
@@ -478,7 +475,7 @@ Let's apply this thinning procedure.
 plot(f,cohr)
 [cohr, f, SYY, SNN, SYN] = coherence(thinned_spike_train(n,0.5),y,t) # ... and for the thinned spike train.
 plot(f,cohr, 'r')
-plt.xlim([35, 55])
+xlim([35, 55])
 xlabel('Frequency [Hz]')
 ylabel('Coherence');
 
@@ -594,7 +591,7 @@ ylabel('Probability of a spike');
 
 Now, for this frequency interval, we find a modulation of the estimated conditional intensity, with an increase in the probability of a spike near 0 radians. These results illustrate the close correspondence between the FTA and GLM procedures. An important advantage of the GLM approach is the ability to estimate confidence intervals. The confidence intervals in the figure above are estimated in the `get_prediction` function and returned as the outputs `Y_predict.conf_int()`.
 
-For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [MODULE](add ref)):
+For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [notebook 9](../09)):
 
 pval1=res.pvalues[1];       #Significance of parameter beta_1.
 pval2=res.pvalues[2];       #Significance of parameter beta_2.

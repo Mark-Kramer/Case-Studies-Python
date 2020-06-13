@@ -38,7 +38,7 @@ from matplotlib.pyplot import xlabel, ylabel, plot, show, title
 import nitime.algorithms.spectral as spectrum
 from scipy.stats import chi2
 
-data = sio.loadmat('matfiles/ECoG-1.mat')    # Load the ECoG data.
+data = sio.loadmat('matfiles/04_ECoG-1.mat')    # Load the ECoG data.
 x    = data['ECoG'].reshape(-1)     # Extract the ECoG variable,
 t    = data['t'][0]                 # ... and the t variable
 
@@ -87,7 +87,7 @@ In this notebook, we continue to develop understanding of the Fourier transform 
 
 As always, we begin by looking at the data. Let's load the ECoG data into Python and plot it by issuing the following commands:
 
-data = sio.loadmat('matfiles/ECoG-1.mat')  # Load the ECoG data
+data = sio.loadmat('matfiles/04_ECoG-1.mat')  # Load the ECoG data
 ecog = data['ECoG'].reshape(-1)   # Extract the ECoG variable
 t = data['t'][0]                  # ... and the t variable
 
@@ -427,7 +427,7 @@ These two features illustrate the trade-off between the two window choices. By a
 
 The Hanning taper is applied to time series data in the same way as the rectangular taper. The data are multiplied element by element by the taper. Let’s begin by applying the Hanning taper to the ECoG data:
 
-data = sio.loadmat('matfiles/ECoG-1.mat')     # Load the ECoG data,
+data = sio.loadmat('matfiles/04_ECoG-1.mat')     # Load the ECoG data,
 x = data['ECoG'].reshape(-1)         # ... get the voltage trace,
 t = data['t'].reshape(-1)            # ... and the time axis,
 plot(t, x, label="Raw")              # ... and plot it.

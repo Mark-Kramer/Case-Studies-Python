@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Analysis of spike-field cohernece for the practicing neuroscientist &#8212; Case Studies in Neural Data Analysis</title>
+    <title>Analysis of spike-field coherence for the practicing neuroscientist &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -45,8 +45,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/11.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Analysis of spike-field cohernece <em>for the practicing neuroscientist</em> <a id="top"></a>" />
-<meta property="og:description" content="Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a>  <div class="question">   Synopsis  Data: 100 trials of 1 s of local field " />
+<meta property="og:title"       content="Analysis of spike-field coherence <em>for the practicing neuroscientist</em> <a id="top"></a>" />
+<meta property="og:description" content="Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a>  <div class="question">   Synopsis  Data: 100 trials of 1 s of local field " />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -81,52 +81,55 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="01.html">1. Python for the practicing neuroscientist</a>
+    <a href="intro.html">1. Case-Studies-Python</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="01.html">2. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="04.html">5. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="active">
-    <a href="">11. Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+    <a href="">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="A01.html">13. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="A02.html">14. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="A03.html">15. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="A04.html">16. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -286,8 +289,8 @@
         
               <div>
                 
-  <div class="section" id="analysis-of-spike-field-cohernece-for-the-practicing-neuroscientist-a-id-top-a">
-<h1>Analysis of spike-field cohernece <em>for the practicing neuroscientist</em> <a id="top"></a><a class="headerlink" href="#analysis-of-spike-field-cohernece-for-the-practicing-neuroscientist-a-id-top-a" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="analysis-of-spike-field-coherence-for-the-practicing-neuroscientist-a-id-top-a">
+<h1>Analysis of spike-field coherence <em>for the practicing neuroscientist</em> <a id="top"></a><a class="headerlink" href="#analysis-of-spike-field-coherence-for-the-practicing-neuroscientist-a-id-top-a" title="Permalink to this headline">¶</a></h1>
 <div class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> 100 trials of 1 s of local field potential and spike train data sampled at 1000 Hz.</p>
@@ -314,8 +317,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="c1"># Load the data and plot it.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-LFP-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the multiscale data,</span>
@@ -340,11 +343,11 @@
 <span class="n">cohr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">SYN</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">SYN</span><span class="p">))</span> <span class="o">/</span> <span class="n">SYY</span> <span class="o">/</span> <span class="n">SNN</span>                     <span class="c1"># Spike-field coherence</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                                       <span class="c1"># Frequency axis for plotting</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>                             <span class="c1"># Plot the result.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">);</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>                             <span class="c1"># Plot the result.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -394,11 +397,8 @@
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">setup</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 
 <span class="c1"># Load the data and plot it.</span>
@@ -409,7 +409,7 @@
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>                               <span class="c1"># ... and visualize the data, for the first trial.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># ... with white space minimized.</span>
+<span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># ... with white space minimized.</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;imgs/lfp_ex&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -460,8 +460,10 @@
 </div>
 <p>In this Python code, we must be careful to include only appropriate time intervals when computing the STA.</p>
 <div class="question">
-<p><strong>Q.</strong> Q: What is the purpose of the if-statement:</p>
-<p><code class="docutils literal notranslate"> <span class="pre">if</span> <span class="pre">win</span> <span class="pre">&lt;</span> <span class="pre">spike_t</span> <span class="pre">&lt;</span> <span class="pre">N-win-1:</span></code></p>
+<p><strong>Q.</strong> What is the purpose of the if-statement:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>`if win &lt; spike_t &lt; N-win-1:`
+</pre></div>
+</div>
 <p>in the code?</p>
 </div><p>Notice that the variable <code class="docutils literal notranslate"><span class="pre">STA</span></code> is a matrix, with each row corresponding to a separate trial. Let’s plot the results for the STA in four trials<a id="plt:STA"></a>,</p>
 <div class="cell docutils container">
@@ -496,7 +498,7 @@
 </div>
 </div>
 <p>The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at <span class="math notranslate nohighlight">\(t = 0\)</span> in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.</p>
-<p>However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a>.\ Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP … Let’s continue the search.</p>
+<p>However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP … Let’s continue the search.</p>
 <div class="question">
 <p><strong>Q.</strong> How would you update the preceding Python code to compute both the average LFP (i.e., the STA) and the standard deviation of the LFP across spikes for each trial?</p>
 </div></div>
@@ -608,28 +610,28 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 </div>
 </div>
 <p>Inside of the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, we first compute the Fourier transform of the field (<code class="docutils literal notranslate"><span class="pre">yf</span></code>) and the spikes (<code class="docutils literal notranslate"><span class="pre">nf</span></code>) for trial <code class="docutils literal notranslate"><span class="pre">k</span></code>. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (<code class="docutils literal notranslate"><span class="pre">SYY</span></code>) and the spikes (<code class="docutils literal notranslate"><span class="pre">SNN</span></code>), and the cross spectrum (<code class="docutils literal notranslate"><span class="pre">SYN</span></code>) averaged across all trials. We then compute the coherence (<code class="docutils literal notranslate"><span class="pre">cohr</span></code>) and define a frequency axis to plot the results (<code class="docutils literal notranslate"><span class="pre">f</span></code>).</p>
-<p>Let’s now display the results, <a id="fig:spike-field-coherence"></p>
+<p>Let’s now display the results, <a id="fig:spike-field-coherence"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>         <span class="c1"># Plot the spike spectrum.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>         <span class="c1"># Plot the spike spectrum.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">SNN</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [Hz]&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;SNN&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>         <span class="c1"># Plot the field spectrum,</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>         <span class="c1"># Plot the field spectrum,</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="n">SYY</span><span class="p">)</span>        <span class="c1"># ... with the standard scaling.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [Hz]&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;SYY&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>        <span class="c1"># Plot the coherence</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>        <span class="c1"># Plot the coherence</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">);</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/sf_coh&#39;</span><span class="p">)</span>
@@ -640,21 +642,21 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 <img alt="_images/11_45_0.png" src="_images/11_45_0.png" />
 </div>
 </div>
-<div class="alert alert-block alert-info">
+<div class="question">
 <p><strong>Q:</strong> Consider the spike spectrum, <code class="docutils literal notranslate"><span class="pre">Snn</span></code>, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?</p>
-<p><strong>A.</strong> To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.<br></p>
-<p>To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [MODULE](add ref)). For these data, we can estimate the expected spike rate as</p>
+<p><strong>A.</strong> To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.</p>
+<p>To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see <a class="reference internal" href="10.html"><span class="doc">notebook 10</span></a>). For these data, we can estimate the expected spike rate as</p>
 <p><code class="docutils literal notranslate"><span class="pre">firing_rate</span> <span class="pre">=</span> <span class="pre">np.mean(np.sum(n,1))/(N*dt)</span></code></p>
 <p>Computing this quantity in Python, we find an expected spike rate of approximately 89 Hz, consistent with the high-frequency behavior of <code class="docutils literal notranslate"><span class="pre">Snn</span></code> plotted in the figure.</p>
 </div><div class="question">
 <p><strong>Q:</strong> Consider the field spectrum, <code class="docutils literal notranslate"><span class="pre">Syy</span></code>, plotted in the figure above. What are the dominant rhythms? Do you observe any other interesting features in this spectrum?</p>
 <p><strong>A:</strong> Visual inspection of the figure reveals that the dominant rhythm occurs at 10 Hz. At first glance, no additional spectral features stand out.</p>
 </div><p>These observations of the spike spectrum and field spectrum reveal that both signals exhibit rhythmic activity at 10 Hz. Therefore, a reasonable place to look for spike-field coherence is near 10 Hz, where both the spikes and the field are rhythmic. However, visual inspection of the spike-field coherence does not indicate coherence at this frequency. Instead, we find a large peak in the spike-field coherence at 45 Hz. Identifying this strong coherence at 45 Hz suggests that we reexamine the spectra. Indeed, careful inspection of the spike spectrum and field spectrum does suggest rhythmic activity at 45 Hz.</p>
-<div class="alert alert-block alert-info">
+<div class="question">
 <p><strong>Q:</strong> Consider the field spectrum on a decibel scale (see <a class="reference internal" href="03.html"><span class="doc">The Power Spectrum (Part 1)</span></a>). What rhythms do you observe?</p>
 </div><div class="question">
-<p><strong>Q:</strong> Compare the results of your spike-field coherence analysis with the FTA plotted in <a class="reference external" href="#fig:FTA">this figure</a>. How does the peak in the spike-field coherence relate to interesting structure in the FTA?</p>
-<div><p>The spike-field coherence result again reveals an important feature of coherence analysis. Two signals with high power at the same frequency are not necessarily coherent at this frequency; two signals may possess rhythmic activity at the same frequency, but these rhythms may not coordinate across trials. Conversely, two signals with low power at the same frequency may have strong coherence at that frequency; although the rhythm is weak, the two signals may still coordinate activity across trials at this frequency. These notions apply both to spike-field coherence and field-field coherence (the latter illustrated in <a class="reference internal" href="05.html"><span class="doc">The Cross Covariance and Coherence</span></a>).</p>
+<p><strong>Q:</strong> Compare the results of your spike-field coherence analysis with the FTA plotted above.<a href="#fig:FTA" class="sup">fig<img src="imgs/fta.png"></a> How does the peak in the spike-field coherence relate to interesting structure in the FTA?</p>
+</div><p>The spike-field coherence result again reveals an important feature of coherence analysis. Two signals with high power at the same frequency are not necessarily coherent at this frequency; two signals may possess rhythmic activity at the same frequency, but these rhythms may not coordinate across trials. Conversely, two signals with low power at the same frequency may have strong coherence at that frequency; although the rhythm is weak, the two signals may still coordinate activity across trials at this frequency. These notions apply both to spike-field coherence and field-field coherence (the latter illustrated in <a class="reference internal" href="05.html"><span class="doc">The Cross Covariance and Coherence</span></a>).</p>
 <p>The spike-field coherence is a powerful tool in our data analysis arsenal. There’s much more to say about this approach, and interested readers are directed to <a class="reference external" href="https://doi.org/10.1162/089976601300014312">Jarvis and Mitra, 2001</a>, <a class="reference external" href="https://doi.org/10.1162/NECO_a_00169">Lepage et al, 2011</a> and <a class="reference external" href="https://doi.org/10.1016/j.jneumeth.2012.10.010">Lepage et al, 2013</a>.</p>
 </div>
 <div class="section" id="the-impact-of-firing-rate-on-the-spike-field-coherence">
@@ -699,7 +701,7 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">cohr</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">SYY</span><span class="p">,</span> <span class="n">SNN</span><span class="p">,</span> <span class="n">SYN</span><span class="p">]</span> <span class="o">=</span> <span class="n">coherence</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>             <span class="c1"># Compute spike-field cohernece with original y.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="p">[</span><span class="n">cohr</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">SYY</span><span class="p">,</span> <span class="n">SNN</span><span class="p">,</span> <span class="n">SYN</span><span class="p">]</span> <span class="o">=</span> <span class="n">coherence</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y_scaled</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>      <span class="c1"># Compute spike-field cohernece with scaled y.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">);</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
@@ -741,7 +743,7 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>
 <span class="p">[</span><span class="n">cohr</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">SYY</span><span class="p">,</span> <span class="n">SNN</span><span class="p">,</span> <span class="n">SYN</span><span class="p">]</span> <span class="o">=</span> <span class="n">coherence</span><span class="p">(</span><span class="n">thinned_spike_train</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="c1"># ... and for the thinned spike train.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">35</span><span class="p">,</span> <span class="mi">55</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">35</span><span class="p">,</span> <span class="mi">55</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">);</span>
 </pre></div>
@@ -862,7 +864,7 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 </div>
 </div>
 <p>Now, for this frequency interval, we find a modulation of the estimated conditional intensity, with an increase in the probability of a spike near 0 radians. These results illustrate the close correspondence between the FTA and GLM procedures. An important advantage of the GLM approach is the ability to estimate confidence intervals. The confidence intervals in the figure above are estimated in the <code class="docutils literal notranslate"><span class="pre">get_prediction</span></code> function and returned as the outputs <code class="docutils literal notranslate"><span class="pre">Y_predict.conf_int()</span></code>.</p>
-<p>For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>, via a Wald test (see [MODULE](add ref)):</p>
+<p>For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, <span class="math notranslate nohighlight">\(\beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>, via a Wald test (see <a class="reference internal" href="09.html"><span class="doc">notebook 9</span></a>):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pval1</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>       <span class="c1">#Significance of parameter beta_1.</span>
@@ -872,7 +874,7 @@ S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>1.484034529060339e-52 0.7187267797864678
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>1.4840345290585181e-52 0.7187267797864634
 </pre></div>
 </div>
 </div>
@@ -948,7 +950,7 @@ compute the p-value for this test in Python,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5137925487970073
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5145019210034323
 </pre></div>
 </div>
 </div>
@@ -963,8 +965,8 @@ compute the p-value for this test in Python,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[1.2737293264421767, 1.2604558073768586]
-[0.9997475534029581, 0.9945940761801922]
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[1.2584813326866522, 1.2604558073768592]
+[1.0106439296970364, 0.9945940761801921]
 </pre></div>
 </div>
 </div>

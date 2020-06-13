@@ -9,10 +9,10 @@ Text preceded by a `#` indicates a 'comment'.  I will use comments to explain wh
 
 Before beginning, let's load in the Python packages we'll need:
 
-import numpy as np
-%matplotlib inline
-import matplotlib.pyplot as plt
+from pylab import *
+from numpy import random
 import time
+%matplotlib inline
 
 ##  Part 1:   A simple perceptron model.
 
@@ -240,12 +240,12 @@ wx,wy,wz = 3*[0.5];                 # Choose initial values for the perceptron's
 
 learning_constant = 0.01;           # And, set the learning constant.
 
-estimated_slope = np.zeros(2000)    # Variables to hold the perceptron estimates.
-estimated_intercept = np.zeros(2000)
+estimated_slope = zeros(2000)    # Variables to hold the perceptron estimates.
+estimated_intercept = zeros(2000)
 
-for k in np.arange(2000):           # For 2000 iteractions,
-    x = np.random.randn(1);         # Choose a random (x,y) point in the plane
-    y = np.random.randn(1);
+for k in arange(2000):           # For 2000 iteractions,
+    x = random.randn(1);         # Choose a random (x,y) point in the plane
+    y = random.randn(1);
                                     # Step 1: Calculate known answer.
     correct_answer = known_answer(slope, intercept, x, y);
     
@@ -264,14 +264,14 @@ for k in np.arange(2000):           # For 2000 iteractions,
     estimated_intercept[k] = -wb/wy;# Compute estimated intercept from perceptron.
 
 # Display the results! ------------------------------------------------------------------------
-x_range = np.linspace(-2,2,100);                  # For a range of x-values,
-fig, ax = plt.subplots()
+x_range = linspace(-2,2,100);                  # For a range of x-values,
+fig, ax = subplots()
 ax.plot(x_range, slope*x_range+intercept, 'k')    # ... plot the true line,
 
 for k in range(1,2000,100):                       # ... and plot some intermediate perceptron guess
     ax.plot(x_range, estimated_slope[k]*x_range+estimated_intercept[k], 'r')
                                                   # ... and plot the last perceptron guess
 ax.plot(x_range, estimated_slope[-1]*x_range+estimated_intercept[-1], 'b')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Known answer (black), Perceptron final guess (blue)');
+xlabel('x')
+ylabel('y')
+title('Known answer (black), Perceptron final guess (blue)');
