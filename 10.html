@@ -713,21 +713,29 @@
 <p>where  <span class="math notranslate nohighlight">\(\lambda_0 \Delta t\)</span> is the expected number of spikes in a single time bin. The discrete spectrum is the discrete Fourier transform of this sequence. Using this definition, we can compute the theoretical autocovariance and spectrum for any stationary point process model.</p>
 <p><strong>Example 1: Spectral density of a homogeneous Poisson process.</strong></p>
 <p>For a homogeneous Poisson process, the increments <span class="math notranslate nohighlight">\(\Delta N_i\)</span> are independent, and each has a Poisson distribution with the same mean. Assume the mean number of spikes in any bin is  <span class="math notranslate nohighlight">\(\lambda_0 \Delta t\)</span>. Since the mean and variance of a Poisson random variable are the same (see <a class="reference internal" href="08.html"><span class="doc">module 8</span></a>), this is also the variance of any increment. The autocovariance at lag <span class="math notranslate nohighlight">\(h = 0\)</span> is just the variance of <span class="math notranslate nohighlight">\(\Delta N_i\)</span>, which is  <span class="math notranslate nohighlight">\(\lambda_0 \Delta t\)</span>. At any other lag, the increments are independent and therefore the autocovariance is zero. The autocovariance function is therefore given by</p>
-<p title="homogeneous">$$\gamma(h) = \begin{cases}
-\lambda_0 \Delta t & \text{if }h = 0,\\
-0 & \text{otherwise}.\\
-\end{cases}$$</p>
+<p title="homogeneous">
+$$
+  \gamma(h) = \begin{cases}
+  \lambda_0 \Delta t & \text{if }h = 0,\\
+  0 & \text{otherwise}.\\
+  \end{cases}
+$$
+</p>
 <p>The spectral density of this homogeneous Poisson process is the Fourier transform of this autocovariance sequence in the limit as <span class="math notranslate nohighlight">\(\Delta t \to 0\)</span>, which is</p>
 <div class="math notranslate nohighlight">
-\[F(\omega)=\lambda _ 0.\]</div>
+\[
+  F(\omega)=\lambda _ 0.
+\]</div>
 <p>The Fourier transform <span class="math notranslate nohighlight">\(F(\omega)\)</span> does not vary as a function of <span class="math notranslate nohighlight">\(\omega\)</span>, that is, the spectral density is flat. This suggests that constant power is required at all frequencies to describe a homogeneous Poisson process. This is the point process analogue of white noise.</p>
 <p><strong>Example 2: Spectral density of a refractory point process.</strong></p>
 <p>Assume now that we modify the spiking process to include a relative refractory period. We do this by adding a negative autocorrelation at small lags that diminishes in magnitude as the lag increases. Thus, a spike 1 ms in the past would substantially decrease the probability of observing another spike in the current time interval, but a spike many milliseconds in the past would have little to no effect on the current spike probability. Mathematically, we assume that the autocovariance function has the form</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\gamma(h) = \begin{cases}
-\lambda_0 \Delta t  - \alpha f_{\sigma}(h) &amp; \text{if }h = 0,\\
--\alpha f_{\sigma}(h) &amp; \text{otherwise},\\
-\end{cases}\end{split}\]</div>
+\[\begin{split}
+  \gamma(h) = \begin{cases}
+  \lambda_0 \Delta t  - \alpha f_{\sigma}(h) &amp; \text{if }h = 0,\\
+  -\alpha f_{\sigma}(h) &amp; \text{otherwise},\\
+  \end{cases}
+\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is a constant representing the degree of refractoriness, and <span class="math notranslate nohighlight">\(f_{\sigma}(h)\)</span> is the Gaussian function (or equivalently, the normal probability density function) with a mean of zero, and a standard deviation of <span class="math notranslate nohighlight">\(\sigma\)</span>. Let’s define some functions so that we can look at some examples of how different values of <span class="math notranslate nohighlight">\({\sigma}\)</span> affect <span class="math notranslate nohighlight">\(\gamma(h)\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -770,7 +778,9 @@
 </div>
 </div>
 <p>The reason we chose the Gaussian function is that it captures a smooth decay of the refractory effect and its Fourier transform is easy to compute. The spectral density <span class="math notranslate nohighlight">\(F(\omega)\)</span> of this refractory point process is
-<span class="math notranslate nohighlight">\($F(\omega)  = \lambda_0 - \alpha \sqrt{2\pi\sigma} \cdot f_{1/\sigma} (\omega).\)</span>$</p>
+<span class="math notranslate nohighlight">\($
+  F(\omega)  = \lambda_0 - \alpha \sqrt{2\pi\sigma} \cdot f_{1/\sigma} (\omega).
+$\)</span></p>
 <p>This spectral density does depend on <span class="math notranslate nohighlight">\(\omega\)</span>; as <span class="math notranslate nohighlight">\(\omega\)</span> becomes large, <span class="math notranslate nohighlight">\(f_{1/\sigma}(\omega)\)</span> goes to zero and the spectrum approaches the constant level of a Poisson process; however, as <span class="math notranslate nohighlight">\(\omega\)</span> becomes small, the spectrum decreases below this level. Therefore, the effect of the refractory period on the spectrum is a dip at low frequencies. Adjust the value of <code class="docutils literal notranslate"><span class="pre">sig</span></code> in the following code block to verify this for different values of <span class="math notranslate nohighlight">\(\sigma\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -896,8 +906,8 @@ SPlan *= Fs ** 2 / 2
 <p>Let’s build a model to compare the firing rate between the planning and movement periods; subsequent models will also include the effects of history dependence. In this model, the design matrix consists of one column that is zero whenever <span class="math notranslate nohighlight">\(t &lt; 0\)</span>, corresponding to the planning period, and that is 1 whenever <span class="math notranslate nohighlight">\(t \geq 0\)</span>, corresponding to the movement period. The resulting model has the form<a id="model:1"></a></p>
 <p><a id="eq:3"></a>
 <span class="math notranslate nohighlight">\($
-\lambda(t) = e^{\beta_0 + \beta_1 I_\text{move}(t)},
-\tag{Model 1}
+  \lambda(t) = e^{\beta_0 + \beta_1 I_\text{move}(t)},
+  \tag{Model 1}
 $\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(I_\text{move}(t)\)</span> is the movement period indicator function. We must also remember to reshape the spike train matrix into a single response vector.
 <a id="repeatvtile"></a></p>
@@ -936,7 +946,7 @@ $\)</span></p>
   <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:09:06</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
+  <th>Time:</th>                <td>17:58:43</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>6</td>        <th>                     </th>     <td> </td>   
@@ -1066,8 +1076,8 @@ dtype: float64
 <p>We find that the integrated residuals tend to increase for left trials, suggesting that Model 1 consistently underestimates the firing rate for these trials, and tend to decrease for right trials, suggesting that Model 1 overestimates the rate for those trials. Including trial direction may therefore help improve the model. Let’s now add the predictor <code class="docutils literal notranslate"><span class="pre">xdir</span></code> to the <a class="reference external" href="#model:1">initial model</a><span class="thumb"><sup>eq</sup><img src="imgs/model1.png"></span> to create the second model,<a id="model:2"></a></p>
 <div class="math notranslate nohighlight">
 \[
-\lambda(t) = \exp\big(\beta_0 + \beta_1 I_\text{move}(t) + \beta_2 I_\text{dir}(t)\big),
-\tag{Model 2}
+  \lambda(t) = \exp\big(\beta_0 + \beta_1 I_\text{move}(t) + \beta_2 I_\text{dir}(t)\big),
+  \tag{Model 2}
 \]</div>
 <p>and fit the model in Python:</p>
 <div class="cell docutils container">
@@ -1102,7 +1112,7 @@ dtype: float64
   <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28293.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:09:09</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
+  <th>Time:</th>                <td>17:58:46</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1457,7 +1467,7 @@ print(id(breakfast))
   <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26792.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:09:15</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
+  <th>Time:</th>                <td>17:58:52</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1697,33 +1707,33 @@ print(id(breakfast))
 <p>This model would have a total of 73 parameters—one intercept parameter, one movement parameter, one direction parameter, and 70 parameters representing the columns of the history matrix. Mathematically,</p>
 <div class="math notranslate nohighlight">
 \[
-\tag{Model 3}
-\lambda\big(t | H(t)\big) = 
-\exp\big(
-    \beta_0 + 
-    \beta_1 I_\text{move}(t) +
-    \beta_2 I_\text{dir}(t) +
-    \sum_{j=1}^{70} \beta_{2+j}\Delta N_{t-j}
-\big).
+  \tag{Model 3}
+  \lambda\big(t | H(t)\big) = 
+  \exp\big(
+      \beta_0 + 
+      \beta_1 I_\text{move}(t) +
+      \beta_2 I_\text{dir}(t) +
+      \sum_{j=1}^{70} \beta_{2+j}\Delta N_{t-j}
+  \big).
 \]</div>
 <p>However, Model 3 implies that the influences of the trial period (<span class="math notranslate nohighlight">\(I_{dir}(t)\)</span>) and of the past history (<span class="math notranslate nohighlight">\(\Delta N_{t-j}\)</span>) are multiplicatively separable; that is, that the only difference between the planning and movement period is a change in the average firing rate and the spike rhythms are the same in both periods. The autocovariance and spectral analyses suggest that the influence of past spiking differs between these trial periods. Therefore, we should instead construct a model that has an interaction between the <code class="docutils literal notranslate"><span class="pre">Imove</span></code> and <code class="docutils literal notranslate"><span class="pre">lag</span></code> variables. We do this by including columns that represent the product of these two variables. Mathematically, we propose a model of the form
 <a id="eq:model4"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\tag{Model 4}
-\begin{eqnarray}
-\lambda\big(t | H(t)\big) &amp;=&amp; 
-\exp\bigg(
-    \beta_0 + 
-    \beta_1 I_\text{move}(t) +
-    \beta_2 I_\text{dir}(t) + \\ &amp;&amp; \qquad
-    \sum_{j=1}^{70}
-    \big[
-    \big(\mathbb{1} - I_\text{move}(t)\big)\beta_{1 + 2j} + 
-        I_\text{move}(t)\beta_{2 + 2j}
-    \big]
-\bigg)
-\end{eqnarray}
+  \tag{Model 4}
+  \begin{eqnarray}
+  \lambda\big(t | H(t)\big) &amp;=&amp; 
+  \exp\bigg(
+      \beta_0 + 
+      \beta_1 I_\text{move}(t) +
+      \beta_2 I_\text{dir}(t) + \\ &amp;&amp; \qquad
+      \sum_{j=1}^{70}
+      \big[
+      \big(\mathbb{1} - I_\text{move}(t)\big)\beta_{1 + 2j} + 
+          I_\text{move}(t)\beta_{2 + 2j}
+      \big]
+  \bigg)
+  \end{eqnarray}
 \end{split}\]</div>
 <p>Model 4 has 143 parameters—one intercept parameter, one parameter for each of the movement and direction indicator variables, 70 parameters describing the history dependence in the planning period, and 70 more parameters describing the history dependence in the movement period. Whenever we construct a point process model that includes history dependence, we call it a conditional intensity model rather than a rate model. To fit this model in Python, we will take advantage of the dataframe structure using the <code class="docutils literal notranslate"><span class="pre">filter()</span></code> method:</p>
 <div class="cell docutils container">
@@ -1763,7 +1773,7 @@ print(id(breakfast))
   <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26637.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:09:25</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
+  <th>Time:</th>                <td>17:59:10</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -2317,11 +2327,11 @@ Finally, let’s construct a KS plot to see how well Model 4 fits the data. When
 <p>Let <span class="math notranslate nohighlight">\(S_1 , S_2 , \ldots , S_n\)</span> be a collection of spike times from any point process with conditional intensity function <span class="math notranslate nohighlight">\(\lambda(t|H_t)\)</span>. Let</p>
 <div class="math notranslate nohighlight">
 \[
-Z_1 = \int_0^{S_1} \lambda(t | H_t)dt
-\quad
-\text{and}
-\quad
-Z_i =  \int_{S_{i-1}}^{S_i} \lambda(t | H_t)dt,
+  Z_1 = \int_0^{S_1} \lambda(t | H_t)dt
+  \quad
+  \text{and}
+  \quad
+  Z_i =  \int_{S_{i-1}}^{S_i} \lambda(t | H_t)dt,
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(i = 1, \ldots, n\)</span>. Then the rescaled variables <span class="math notranslate nohighlight">\(Z_1, \ldots, Z_n\)</span>, are independent and identically distributed random variables from the exponential distribution with parameter 1.</p>
 </div>
@@ -2368,38 +2378,38 @@ Z_i =  \int_{S_{i-1}}^{S_i} \lambda(t | H_t)dt,
 <p>Before comparing models of different sizes, let’s consider the classes of models to explore. For the most recent model, we have separate history terms related to the planning and movement periods. The visualization analyses and previous modeling results suggest that the extent to which past spiking influences current spiking likely differs between these two periods. Therefore, let’s fit models with different orders for the history dependence in these separate periods. Mathematically, we would search for the value of the pair, <span class="math notranslate nohighlight">\((p, q)\)</span>, that minimizes the AIC of the model</p>
 <div class="math notranslate nohighlight">
 \[
-\lambda(t) = 
-\exp\big[
-    \beta_0 + 
-    \beta_1I_\text{move}(t) + 
-    \beta_2I_\text{dir}(t) + 
-    \sum_{j=1}^p \big(\mathbb 1 - I_\text{move}(t)\big)\beta_{2+j}\Delta N_{t-j} + 
-    \sum_{j=1}^q \beta_{p + 2 + j}I_\text{move}(t)\Delta N_{t-j}
-\big].
+  \lambda(t) = 
+  \exp\big[
+      \beta_0 + 
+      \beta_1I_\text{move}(t) + 
+      \beta_2I_\text{dir}(t) + 
+      \sum_{j=1}^p \big(\mathbb 1 - I_\text{move}(t)\big)\beta_{2+j}\Delta N_{t-j} + 
+      \sum_{j=1}^q \beta_{p + 2 + j}I_\text{move}(t)\Delta N_{t-j}
+  \big].
 \]</div>
 <p>This might be the best choice if the goal were to find the most parsimonious model that captures the full dataset.</p>
 <p>Alternatively, we could decide to fix a single value for the model order and force the history-dependent component to be the same size in both periods. In that case, we would find the single value <span class="math notranslate nohighlight">\(p\)</span> that minimizes the AIC of the model</p>
 <div class="math notranslate nohighlight">
 \[
-\lambda(t) = 
-\exp\big[
-    \beta_0 + 
-    \beta_1I_\text{move}(t) + 
-    \beta_2I_\text{dir}(t) + 
-    \sum_{j=1}^p \big(\mathbb 1 - I_\text{move}(t)\big)\beta_{2+j}\Delta N_{t-j} + 
-    \sum_{j=1}^p \beta_{p + 2 + j}I_\text{move}(t)\Delta N_{t-j}
-\big].
+  \lambda(t) = 
+  \exp\big[
+      \beta_0 + 
+      \beta_1I_\text{move}(t) + 
+      \beta_2I_\text{dir}(t) + 
+      \sum_{j=1}^p \big(\mathbb 1 - I_\text{move}(t)\big)\beta_{2+j}\Delta N_{t-j} + 
+      \sum_{j=1}^p \beta_{p + 2 + j}I_\text{move}(t)\Delta N_{t-j}
+  \big].
 \]</div>
 <p>This might be the best choice if the goal were to compare the rhythmic spiking features between the planning and movement periods with a parsimonious model, since it allows us to test for differences, as with the preceding MLRT.</p>
 <p>In this case, let’s consider a simpler problem: for the data in the planning period alone, let’s find the model order that minimizes the AIC of</p>
 <div class="math notranslate nohighlight">
 \[
-\lambda(t) = 
-\exp\big[
-    \beta_0 + 
-    \beta_1I_\text{dir}(t) + 
-    \sum_{j=1}^p \beta_{1 + j}I_\text{move}(t)\Delta N_{t-j}
-\big].
+  \lambda(t) = 
+  \exp\big[
+      \beta_0 + 
+      \beta_1I_\text{dir}(t) + 
+      \sum_{j=1}^p \beta_{1 + j}I_\text{move}(t)\Delta N_{t-j}
+  \big].
 \]</div>
 <p>We will build models of order 1 up to order 100 and compute the AIC for each model. Because we are fitting many models, each with a large dataset, the following code might take a few minutes to run:</p>
 <div class="cell docutils container">
@@ -2453,23 +2463,23 @@ Z_i =  \int_{S_{i-1}}^{S_i} \lambda(t | H_t)dt,
 <p>Motivated by this observation, let’s replace the separate terms for each single millisecond lag. We do so with a small set of basis functions on the spiking history that can flexibly capture smooth history dependence structure. Mathematically, we fit a model of the form <a id="eq:model5"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\tag{Model 5}
-\begin{eqnarray}
-\lambda(t | H_t) &amp;=&amp; 
-\exp\big(
-    \beta_0 + 
-    \beta_1I_\text{move}(t) +
-    \beta_2I_\text{dir}(t)\ + \\ &amp;&amp; \quad
-    \sum_{j=1}^p 
-    \big[
-        \big(
-            \mathbb 1 - I_\text{move}(t)
-        \big)
-        \beta_{1+2j} + 
-        I_\text{move}(t)\beta_{2 + 2j}
-    \big]g_j(H_t)
-\big),
-\end{eqnarray}
+  \tag{Model 5}
+  \begin{eqnarray}
+  \lambda(t | H_t) &amp;=&amp; 
+  \exp\big(
+      \beta_0 + 
+      \beta_1I_\text{move}(t) +
+      \beta_2I_\text{dir}(t)\ + \\ &amp;&amp; \quad
+      \sum_{j=1}^p 
+      \big[
+          \big(
+              \mathbb 1 - I_\text{move}(t)
+          \big)
+          \beta_{1+2j} + 
+          I_\text{move}(t)\beta_{2 + 2j}
+      \big]g_j(H_t)
+  \big),
+  \end{eqnarray}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(H_t\)</span> is the full past firing history, and <span class="math notranslate nohighlight">\(g_j(H_t)\)</span> is a small collection of basis functions that together provide a smooth influence of the history on the current spiking intensity.</p>
 <p>There are many sensible choices for these basis functions. A common choice is a
@@ -2529,7 +2539,7 @@ smoothing spline basis. Here we use a set of Gaussian kernel functions with mean
   <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26885.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:11:52</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
+  <th>Time:</th>                <td>18:02:06</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
