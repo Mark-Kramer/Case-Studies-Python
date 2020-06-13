@@ -20,7 +20,7 @@ book:
 	./scripts/make_book.sh
 
 runall:
-	jupyter nbconvert --to notebook --execute --inplace -y content/*.ipynb	
+	jupyter nbconvert --to notebook --execute --inplace -y --ExecutePreprocessor.timeout=-1 content/*.ipynb	
 
 clean:
 	rm -r _book/*
