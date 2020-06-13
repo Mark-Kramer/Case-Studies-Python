@@ -69,3 +69,5 @@ for f in $(ls assets/custom); do echo $(assets/custom/$f) >> ~/.jupyter/custom/$
 for f in $(ls startup); do echo $(startup/$f) >> ~/.ipython/profile_default/startup/$f; done
 ```
 
+---
+
