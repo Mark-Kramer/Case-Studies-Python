@@ -1038,9 +1038,11 @@ In the first line, we created the portion of the `formula` variable that include
 
     spikes ~ IMove*IDir*lag01
 
-Moreover, if we wanted to exclude a specific term&mdash;for example, `IMove:IDir:lag01`&mdash;we could write
+Moreover, if we wanted to exclude a specific term - for example, `IMove:IDir:lag01`- we could write
 
     spikes ~ IMove*IDir*lag01 - IMove:IDir:lag01
+    
+</div>
 
 +++
 
@@ -1081,6 +1083,8 @@ Each of these values represents a modulation to the firing intensity when a prev
 
 **A.** One approach we could take is to visualize the p-values (based on the Wald t- test) for each parameter. Since it can be hard to tell visually whether p-values are sufficiently close to zero, let’s plot the negative of the natural logarithm of the p-values. Any value of the negative log above 3 indicates a p-value below 0.05. In Python,
 
+</div>
+
 ```{code-cell} ipython3
 _, a = subplots(1, 2)                   # Create a figure with two subplots
 a[0].plot(range(1, ordK + 1), 
@@ -1114,6 +1118,8 @@ pval
 <div class="question">
     
 **Q.** Why do we set the second input to the function `chi2.cdf()` to `okdK`?
+    
+</div>
 
 +++
 

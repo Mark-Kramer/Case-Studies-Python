@@ -3395,20 +3395,19 @@ $$<p>Model 4 has 143 parameters&mdash;one intercept parameter, one parameter for
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-<p><strong>Q.</strong> What is a shorter way to call the following formula?</p>
+**Q.** What is a shorter way to call the following formula?
 
-<pre><code>spikes ~ IMove + IDir + lag01 + IMove:IDir + IMove:lag01 + IDir:lag01 + IMove:IDir:lag01
+    spikes ~ IMove + IDir + lag01 + IMove:IDir + IMove:lag01 + IDir:lag01 + IMove:IDir:lag01
 
-</code></pre>
-<p><strong>A.</strong> Because we want to model <code>spikes</code> on all individual and cross-terms, we can write</p>
+**A.** Because we want to model `spikes` on all individual and cross-terms, we can write
 
-<pre><code>spikes ~ IMove*IDir*lag01
+    spikes ~ IMove*IDir*lag01
 
-</code></pre>
-<p>Moreover, if we wanted to exclude a specific term&mdash;for example, <code>IMove:IDir:lag01</code>&mdash;we could write</p>
+Moreover, if we wanted to exclude a specific term - for example, `IMove:IDir:lag01`- we could write
 
-<pre><code>spikes ~ IMove*IDir*lag01 - IMove:IDir:lag01</code></pre>
+    spikes ~ IMove*IDir*lag01 - IMove:IDir:lag01
 
+</div>
 </div>
 </div>
 </div>
@@ -3540,9 +3539,11 @@ dtype: float64</pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-<p><strong>Q.</strong> Are these history effects statistically significant?</p>
-<p><strong>A.</strong> One approach we could take is to visualize the p-values (based on the Wald t- test) for each parameter. Since it can be hard to tell visually whether p-values are sufficiently close to zero, let’s plot the negative of the natural logarithm of the p-values. Any value of the negative log above 3 indicates a p-value below 0.05. In Python,</p>
+**Q.** Are these history effects statistically significant?
 
+**A.** One approach we could take is to visualize the p-values (based on the Wald t- test) for each parameter. Since it can be hard to tell visually whether p-values are sufficiently close to zero, let’s plot the negative of the natural logarithm of the p-values. Any value of the negative log above 3 indicates a p-value below 0.05. In Python,
+
+</div>
 </div>
 </div>
 </div>
@@ -3652,8 +3653,9 @@ dtype: float64</pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-<p><strong>Q.</strong> Why do we set the second input to the function <code>chi2.cdf()</code> to <code>okdK</code>?</p>
+**Q.** Why do we set the second input to the function `chi2.cdf()` to `okdK`?
 
+</div>
 </div>
 </div>
 </div>
