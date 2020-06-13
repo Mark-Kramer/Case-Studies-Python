@@ -1,15 +1,11 @@
-<<<<<<< HEAD
-## Case-Studies-Python
-=======
 # Case-Studies-Python
->>>>>>> old_master
 
-### Quick start to learning Python for neural data analysis:
+## Quick start to learning Python for neural data analysis:
 
 - Visit the [web-formatted version of the book](https://mark-kramer.github.io/Case-Studies-Python/intro.html).
 - Read and interact with the Python code in your web browser.
 
-### Slow start to learning Python for neural data analysis:
+## Slow start to learning Python for neural data analysis:
 
 - See [below](#started)
 
@@ -22,11 +18,7 @@ This repository was created by Emily Schlafly and Mark Kramer, with important co
 
 ---
 
-<<<<<<< HEAD
 ## Getting Started[](#started)
-=======
-# Getting Started[](#started)
->>>>>>> old_master
 
 There are multiple ways to interact with these notebooks.
 
@@ -38,11 +30,7 @@ There are multiple ways to interact with these notebooks.
 
 ---
 
-<<<<<<< HEAD
 ## Install Python
-=======
-# Install Python
->>>>>>> old_master
 
 We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,
 
@@ -56,11 +44,7 @@ If this is your first time working with Python, using [Anaconda](https://www.ana
 
 --- 
 
-<<<<<<< HEAD
 ## Configure Python
-=======
-# Configure Python
->>>>>>> old_master
 
 Once you have installed Anaconda or Miniconda, we recommend setting up an [environment](https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html) to run the notebooks. Type the following code into your terminal to create and activate an environment called `csn`. 
 
