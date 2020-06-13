@@ -32,7 +32,8 @@ _**Synopsis**_
 
 +++
 
-* [Introduction](#.)<a id="top"></a>
+* [On-ramp: analyzing rhythmic spiking in Python](#onramp)
+* [Introduction](#introduction)
     * [Tools](#tools)
 * [Data analysis](#data-analysis)
     1. [Visual Inspection](#visual-inspection)
@@ -43,13 +44,18 @@ _**Synopsis**_
 
 +++
 
-## Introduction
+## On-ramp: analyzing rhythmic spiking in Python<a id="onramp"></a>
+We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to analyze rhythmic spiking in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+
++++
+
+## Introduction<a id="introduction"></a>
 
 ### Background
 
 The subthalamic nucleus (STN) is a component of the basal ganglia that is thought to play an important role in the regulation of motor function. Neurons in the STN often have rhythmic spiking dynamics, and aberrations in the spike rhythms in STN have been associated with tremor and other motor symptoms in Parkinson’s disease. In fact, the STN is one of the primary targets for deep brain stimulation (DBS) to treat Parkinsonian disorders. While the mechanisms by which DBS works are largely unknown, many researchers have hypothesized that altering rhythmic activity in the STN is an important component. Therefore, it is important to be able to characterize spike rhythms in STN neurons and to know with statistical confidence when these rhythms have changed.
 
-In previous chapters, we developed and used methods to uncover rhythmic dynamics in field recordings. Many of the methods used to characterize rhythms in spiking data will be familiar, like autocorrelation functions and spectral estimators, but will require additional care to interpret. In some cases, rhythmic spiking dynamics can be much more subtle than the rhythms we found previously, and statistical modeling methods will be needed to make powerful inferences from spiking data.
+In previous modules, we developed and used methods to uncover rhythmic dynamics in field recordings. Many of the methods used to characterize rhythms in *spiking data* may be familiar, like autocorrelation functions and spectral estimators, but will require additional care to interpret. In some cases, rhythmic spiking dynamics can be much more subtle than the rhythms identified fields, and statistical modeling methods will be needed to make powerful inferences from spiking data.
 
 ### Case Study Data
 
@@ -59,11 +65,11 @@ The data consist of single unit spiking activity from one STN neuron recorded ov
 
 ### Goal
 
-It is well known that the spiking activity of some STN neurons in patients with Parkinson’s disease shows rhythmic properties in the beta frequency range, 11–30 Hz [[Jasper & Andrews, 1938](https://doi.org/10.1001/archneurpsyc.1938.02270010106010); [Brittain & Brown, 2014](https://doi.org/10.1016/j.neuroimage.2013.05.084)]. The neurosurgeon hypothesizes that information related to the movement task, such as the planning versus the movement period and whether the movement is to the left or right, will influence this rhythmic spiking activity. Our goal is to characterize the spiking properties, identify whether rhythmic activity is present and statistically significant, and how such activity is influenced by the task variables.
+It is well known that the spiking activity of some STN neurons in patients with Parkinson’s disease shows rhythmic properties in the beta frequency range, 11–30 Hz (<a href="https://doi.org/10.1001/archneurpsyc.1938.02270010106010" target="blank">[Jasper & Andrews, 1938]</a>, <a href="https://doi.org/10.1016/j.neuroimage.2013.05.084" target="blank">[Brittain & Brown, 2014]</a>). The neurosurgeon hypothesizes that information related to the movement task, such as the planning versus the movement period and whether the movement is to the left or right, will influence this rhythmic spiking activity. Our goal is to characterize the spiking properties, identify whether rhythmic activity is present and statistically significant, and how such activity is influenced by the task variables.
 
 ### Tools<a id="tools"></a>
 
-We extend some of the tools already developed for studying rhythms and modeling spike trains. Many of the basic visualization tools, such as raster plots, ISI histograms, and autocorrelation functions are useful without modification. We compute spectral estimators for spiking data using the same methods as before, but we have to think carefully about how to interpret the spectrum of a point process. Finally, we extend the GLM methods we previously developed for spike train data to allow us to model history-dependent, non-Poisson spiking processes.
+We extend some of the tools already developed for studying rhythms and modeling spike trains. Many of the [basic visualization tools](../08/), such as raster plots, ISI histograms, and autocorrelation functions are useful without modification. We compute spectral estimators for spiking data using the same methods as before, but we have to think carefully about how to interpret the spectrum of a point process. Finally, we extend the [GLM methods we previously developed for spike train data](../09/) to allow us to model history-dependent, non-Poisson spiking processes.
 
 ```{code-cell} ipython3
 # Import the usual suspects ...
@@ -93,13 +99,13 @@ from scipy.stats import chi2, norm
 
 ### Visual Inspection<a id="visual-inspection"></a>
 
-To access the data for this chapter, visit `http://github.com/Mark-Kramer/Case-Studies-Kramer-Eden` and download the file `Ch10-spikes-1.mat`. Let’s start by loading the data into Python:
+Let’s start by loading the data into Python:
 
 ```{code-cell} ipython3
-data = loadmat('Ch10-spikes-1.mat')  # Load the EEG data
-t = data['t'][0]  # Extract the t variable
-direction = data['direction'].flatten()  # Extract the direction variable
-train = data['train']  # Extract the train variable
+data = loadmat('spikes-1.mat')           # Load the spike train data.
+t = data['t'][0]                         # Extract the t variable.
+direction = data['direction'].flatten()  # Extract the direction variable.
+train = data['train']                    # Extract the train variable
 ```
 
 We find three variables:
@@ -128,7 +134,6 @@ Our first goal is to construct a raster plot to visualize the spikes through tim
 
 ```{code-cell} ipython3
 imshow(train, aspect='auto',cmap='gray_r')
-savefig('imgs/raster')
 show()
 ```
 
@@ -137,16 +142,18 @@ Here, we have adjusted the colormap to draw black ticks on a white background fo
 Visually, we do not observe much obvious structure in the raster plot. There does not seem to be substantially more spiking either before or after the GO cue. It is also difficult to see any effect of the movement direction for each trial, since left and right trials are interspersed. We can remedy this by grouping all 25 of the left trials together, and all 25 of the right trials together, and generating a new set of raster plots for each trial type.
 
 ```{code-cell} ipython3
-Ltrials = where(direction==0)
-Rtrials = where(direction==1)
-imshow(train[Ltrials], aspect = 'auto', cmap='gray_r', extent = (-1000,1000,50,0))
+Ltrials = where(direction==0)   #Identify left trials,
+Rtrials = where(direction==1)   #... and right trials.
+imshow(train[Ltrials], aspect = 'auto', cmap='gray_r', extent = (-1000,1000,50,0))  # Image left trials,
 xlabel('Time (ms)')
 ylabel('Trial')
+title('Left trials')
 show()
 
-imshow(train[Rtrials], aspect = 'auto', cmap='gray_r', extent = (-1000,1000,50,0))
+imshow(train[Rtrials], aspect = 'auto', cmap='gray_r', extent = (-1000,1000,50,0))  # ... and right trials.
 xlabel('Time (ms)')
 ylabel('Trial')
+title('Right trials')
 show()
 ```
 
@@ -162,25 +169,25 @@ show()
 
 Often when people think about rhythms in spiking data, they think about spiking occurring almost perfectly regularly at some fixed frequency, like a metronome. However, it is rare to find neural spiking systems with this kind of regularity. Instead, if we think about spiking activity as arising from a random point process, we can consider rhythmic spiking as the influence of past spiking on the probability of observing a spike at some time in the future. In other words, another way to think about rhythmic spiking is as a history-dependent point process. Later, we build specific probability models to capture this history dependence. But first we visualize the other influences in the data, those related to planning and movement, and to direction.
 
-We initially construct a peristimulus time histogram, (PSTH). These PSTHs are useful for visualizing the relation between spike rates and the time relative to a specific time point in repeated trial data. In this case, we look at the spiking rate relative to the time of the GO cue. To compute the PSTH, we partition the time interval into bins, add up the number of spikes that occur within each bin over all trials, and then divide by the number of trials and by the length of the bin. Most often, we select a fixed time width for all the bins.
+We initially construct a **peristimulus time histogram** (PSTH). These PSTHs are useful for visualizing the relation between spike rates and the time relative to a specific time point in repeated trial data. In this case, we look at the spiking rate relative to the time of the GO cue. To compute the PSTH, we partition the time interval into bins, add up the number of spikes that occur within each bin over all trials, and then divide by the number of trials and by the length of the bin. Most often, we select a fixed time width for all the bins.
 
-The matrix train already contains the binned spiking data, where the bins are each 1 ms in duration. If we want to use 1 ms bins for the PSTH, all that needs to be done is to sum over all the trials and scale by the number of trials and bin length.
+The matrix `train` already contains the binned spiking data, where the bins are each 1 ms in duration. If we want to use 1 ms bins for the PSTH, all that needs to be done is to sum over all the trials and scale by the number of trials and bin length.
 
 ```{code-cell} ipython3
 PSTH = sum(train) / 50 / 1e-3
 ```
 
-Here we divide by 50 because we sum the spiking over 50 trials, and we divide by 1e-3 = 0.001 because the bin width is 1 ms = 0.001 s, and we would like to express the rate in units of spikes/s, or Hz. However, this method will only work for 1 ms bins. A more general approach is to find the times of all the spikes and use the hist command to compute the PSTH:
+Here we divide by 50 because we sum the spiking over 50 trials, and we divide by 1e-3 = 0.001 because the bin width is 1 ms = 0.001 s, and we would like to express the rate in units of spikes/s, or Hz. However, this method will only work for 1 ms bins. A more general approach is to find the times of all the spikes and use the `histogram` command to compute the PSTH:
 
 ```{code-cell} ipython3
 spiketrials, spiketimes = where(train)
 hist = histogram(spiketimes,2000)[0]/50/1e-3
 ```
 
-Either method produces the same PSTH result. Now let’s use the bar function to produce a bar graph of the PSTH:
+Either method produces the same PSTH result. Now let’s use the `bar` function to produce a bar graph of the PSTH:
 
 ```{code-cell} ipython3
-bar(t, hist) 
+bar(t, hist, 2) 
 xlabel('Time (ms)')
 ylabel('Spike Rate (spikes/s)')
 show()
@@ -189,9 +196,8 @@ show()
 Although it was not immediately clear from the raster plot, it is evident in the PSTH that there is a difference in the firing rate between planning and movement periods. The firing rate during planning (time < 0 ms) appears to average around 60 spikes/s, and the firing rate during movement (time > 0 ms) appears to be slightly elevated, averaging around 80 spikes/s. However, this PSTH may be a bit misleading because of the very small bin widths used. In each bin, the PSTH only appears to take a few discrete values (e.g., 40, 60, 80 spikes/s) with nothing in between. Also, there are many bins where the PSTH value is equal to zero; these bins are not obvious in the figure because they are masked by nearby bins. The initial PSTH therefore gives a false sense of the average spike rate. To investigate further, let’s increase the PSTH bin width:
 
 ```{code-cell} ipython3
-PSTH10 = histogram(spiketimes, 200)[0]   #Compute histogram.
-figure()
-bar(t[arange(0, 2000, 10)], PSTH10/50/10*1000,width=10)
+PSTH10 = histogram(spiketimes, 200)[0]                  #Compute histogram using 10 ms bins
+bar(t[arange(0, 2000, 10)], PSTH10/50/10*1000,width=10) #... and plot it.
 show()
 ```
 
@@ -218,30 +224,21 @@ With 10 ms bin widths, the difference in firing rate between planning and moveme
 We can also compute the average spike rate in the movement and planning periods directly. To do so, we need to average the spiking data over both trials and time in each period.
 
 ```{code-cell} ipython3
-i_plan = where(t < 0)[0]                            #Indices for planning.
-i_move = where(t >= 0)[0]                           #Indices for movement.
-#Compute the average spike rate,
+i_plan = where(t < 0)[0]                   #Indices for planning.
+i_move = where(t >= 0)[0]                  #Indices for movement.
+                                           #Compute the average spike rate,
 PlanRate = mean(train[:, i_plan]) / 1e-3   #...during planning,
 MoveRate = mean(train[:, i_move]) / 1e-3   #...during movement.
 ```
 
-<div class="question">
-
-**Q:** You might notice that we call the function mean twice in this code. What is the effect of these two (nested) function calls?
-
-**A:** The variable train is a matrix. The first application of mean computes the mean of each column of train, corresponding to the mean over trials. The result is a (row) vector. The second application of mean operates on this row vector and computes the mean over time to produce a scalar.
-</div>
-
-+++
-
-Executing these commands, we find `PlanRate = 38.96`, and `MoveRate = 54.96`. These results are consistent with our estimation of the average firing rates through visual inspection of the histogram with 10ms bins.
+Executing these commands, we find `PlanRate = 38.96`, and `MoveRate = 54.96`. These results are consistent with our estimation of the average firing rates through visual inspection of the histogram with 10 ms bins.
 
 In addition to the planning and movement periods, the task can be broken down based on the direction of movement that is cued. The variable direction contains an indicator variable for each trial, which is 0 for left trials and 1 for right trials. Since the left and right trials are interspersed, we need to first find which trials correspond to each direction, and then compute the firing rates for each type of trial.
 
 ```{code-cell} ipython3
-Ltrials = where(direction==0)       #Find left trials,
-Rtrials = where(direction==1)       #... and right trials,
-LRate = mean(train[Ltrials, :]) / 1e-3 #... and compute rates.
+Ltrials = where(direction==0)           #Find left trials,
+Rtrials = where(direction==1)           #... and right trials,
+LRate = mean(train[Ltrials, :]) / 1e-3  #... and compute rates.
 RRate = mean(train[Rtrials, :]) / 1e-3
 ```
 
@@ -271,7 +268,7 @@ show()
 
 <div class="question">
     
-**Q:** Have you used the function boxplot before? If not, look it up in Matplotlib Help.
+**Q:** Have you used the function `boxplot` before? If not, <a href="https://matplotlib.org/3.2.1/api/_as_gen/matplotlib.pyplot.boxplot.html" target="blank">look it up</a>.
 
 </div>
 
@@ -289,15 +286,13 @@ show()
 
 The box plot corroborates our previous findings that the firing rate is increased in left trials and in the movement period of each trial. Further, it suggests that these effects may occur independently and additively; the difference between left and right trials seems approximately the same for both planning and movement periods. At this stage, it would be natural to ask whether these differences between mean firing rates are statistically significant. We explore issues of significance later, and discuss why some traditional approaches for comparing means across groups (such as *t*-tests between pairs or analysis of variance between all groups) might not capture the structure in the data very well.
 
-While these visualizations have helped elucidate the long-term spiking structure over periods of about 1 s, they have not provided much information about short-term rhythmic structure. In chapter 8, we used interspike interval (ISI) histograms to help visualize fine time scale history dependence in spiking activity. Let’s do so again here. To compute the ISI histogram, we first need to compute the ISIs. One approach is to write a for-loop that iterates through each trial in the `train` matrix, finds the spike times, and computes the ISIs. However, in constructing the PSTH, we computed the variable `spiketimes`, which already contains the spike times in trial 1, followed by the spike times in trial 2, and so on, all in one array. If we compute the differences in these spike times, we will have the ISIs for each trial mixed with an occasional negative value when an element of spiketimes is the first spike time for any trial. Let’s eliminate these spurious values and plot a histogram of the ISIs:
+While these visualizations have helped elucidate the long-term spiking structure over periods of about 1 s, they have not provided much information about short-term rhythmic structure. In [module 8](../08/), we used interspike interval (ISI) histograms to help visualize fine time scale history dependence in spiking activity. Let’s do so again here. To compute the ISI histogram, we first need to compute the ISIs. One approach is to write a for-loop that iterates through each trial in the `train` matrix, finds the spike times, and computes the ISIs. However, in constructing the PSTH, we computed the variable `spiketimes`, which already contains the spike times in trial 1, followed by the spike times in trial 2, and so on, all in one array. If we compute the differences in these spike times, we will have the ISIs for each trial mixed with an occasional negative value when an element of spiketimes is the first spike time for any trial. Let’s eliminate these spurious values and plot a histogram of the ISIs:
 
 ```{code-cell} ipython3
-ISIs = diff(spiketimes)
-ISIs = ISIs[where(ISIs > 0)]
-hist = histogram(ISIs, 250)[0]
-
-figure(figsize=(5, 3))
-bar(linspace(0, 250, 250), hist, width = 1)
+ISIs = diff(spiketimes)                     #Compute ISIs for all trials,
+ISIs = ISIs[where(ISIs > 0)]                #... and ignore ISIs "across trials"
+hist = histogram(ISIs, 250)[0]              #Compute histogram of ISIs,
+bar(linspace(0, 250, 250), hist, width = 1) #... and plot it.
 xlabel('Interspike Interval (ms)')
 ylabel('Count')
 title('Histogram of ISIs')
@@ -318,28 +313,26 @@ The ISI histogram in the above figure reveals a few interesting features, includ
 
 ```{code-cell} ipython3
 #In the planning period,       
-spiketrialsPlan, spiketimesPlan = where(train[:,i_plan] > 0) # find spikes
-PlanISIs = diff(spiketimesPlan)                            # compute ISIs,
-PlanISIs = PlanISIs[where(PlanISIs > 0)]                   # drop spurious ones,
+spiketrialsPlan, spiketimesPlan = where(train[:,i_plan] > 0) #Find spikes
+PlanISIs = diff(spiketimesPlan)                              #... compute ISIs,
+PlanISIs = PlanISIs[where(PlanISIs > 0)]                     #... drop spurious ones.
 planhist = histogram(PlanISIs, 250)[0]
 
-figure(figsize=(12, 3))
 subplot(121)
-bar(linspace(0, 250, 250), planhist, width = 2)            # plot ISIs
-xlabel('Interspike Interval (ms)')                         # label axes
+bar(linspace(0, 250, 250), planhist, width = 2)              #Plot ISIs,
+xlabel('Interspike Interval (ms)')                           #... label axes.
 ylabel('Count')
 title('Planning')
 
-
 #In the movement period,       
-spiketrialsMove, spiketimesMove = where(train[:, i_move] > 0) # find spikes
-MoveISIs = diff(spiketimesMove)                            # compute ISIs,
-MoveISIs = MoveISIs[where(MoveISIs>0)]                     # drop spurious ones,
+spiketrialsMove, spiketimesMove = where(train[:, i_move] > 0)#Find spikes
+MoveISIs = diff(spiketimesMove)                              #... compute ISIs,
+MoveISIs = MoveISIs[where(MoveISIs>0)]                       #... drop spurious ones.
 movehist = histogram(MoveISIs, 250)[0]
 
 subplot(122)
-bar(linspace(0, 250, 250), movehist, width = 2)            # plot ISIs
-xlabel('Interspike Interval (ms)')                         # label axes
+bar(linspace(0, 250, 250), movehist, width = 2)              #Plot ISIs,
+xlabel('Interspike Interval (ms)')                           #... label axes.
 ylabel('Count')
 title('Movement')
 show()
@@ -355,29 +348,29 @@ show()
 
 +++
 
-In [chapter 8](../08), we also used the sample autocorrelation function (ACF) to visualize history-dependent spiking properties. Recall that the ACF shows the correlation between a signal at two points in time separated by a fixed lag, evaluated over different values of the lag. For these spike train data, let’s use the increments (i.e., the number of spikes in each time bin) as the signal, compute the ACF for each trial, and average the results over all the trials.
+In [module 8](../08), we also used the sample **autocorrelation function** (ACF) to visualize history-dependent spiking properties. Recall that the ACF shows the correlation between a signal at two points in time separated by a fixed lag, evaluated over different values of the lag. For these spike train data, let’s use the increments (i.e., the number of spikes in each time bin) as the signal, compute the ACF for each trial, and average the results over all the trials.
 
 ```{code-cell} ipython3
-acf1 = zeros((50, 1999))
-acf2 = zeros((50, 1999))
+acf1 = zeros((50, 1999))     #Variable to hold ACF during planning,
+acf2 = zeros((50, 1999))     #... and during movement.
 
-for k in range(50):
-    plan = train[k, i_plan]  # get planning data,
-    move = train[k, i_move]  # get movement data,
-    corr1 = correlate(plan - mean(plan), plan - mean(plan), 'full')
-    acf1[k] = corr1 / linalg.norm(plan - mean(plan))**2              #Normalize autocorrelation
-    corr2 = correlate(move - mean(move), move - mean(move), 'full')
-    acf2[k] = corr2 / linalg.norm(move - mean(move))**2              #Normalize autocorrelation
+for k in range(50):          #For each trial,
+    plan = train[k, i_plan]  #... get planning data,
+    move = train[k, i_move]  # ... get movement data,
+    corr1 = correlate(plan - mean(plan), plan - mean(plan), 'full') #Compute ACF,
+    acf1[k] = corr1 / linalg.norm(plan - mean(plan))**2             #... and normalize,
+    corr2 = correlate(move - mean(move), move - mean(move), 'full') #... for both conditions.
+    acf2[k] = corr2 / linalg.norm(move - mean(move))**2 
     
 figure(figsize=(12, 3))
-subplot(121)
-stem(mean(acf1[:,1000:1100], axis = 0))
+subplot(121)                 #Show the ACFs
+stem(mean(acf1[:,1000:1100], axis = 0), use_line_collection=1)
 xlabel('Lag [ms]')
 ylabel('Autocorrelation')
 title('Planning')
 
 subplot(122)
-stem(mean(acf2[:,1000:1100], axis = 0))
+stem(mean(acf2[:,1000:1100], axis = 0), use_line_collection=1)
 xlabel('Lag [ms]')
 ylabel('Autocorrelation')
 title('Movement')
@@ -386,9 +379,9 @@ show()
 
 <div class="question">
     
-**Q:** Why do we examine the variables acf1 and acf2 at columns 1000:1100?
+**Q:** Why do we examine the variables `acf1` and `acf2` at columns `1000:1100`?
 
-**A:** The columns of both matrices specify the lags, which extend from  1 s to +1 s. We choose indices 1000:1100 to investigate positive lags beginning at 1 ms and ending at 100 ms. Notice that we compute the mean of both matrices across trials (rows) before displaying the results.
+**A:** The columns of both matrices specify the lags, which extend from -1 s to +1 s. We choose indices `1000:1100` to investigate positive lags beginning at 1 ms and ending at 100 ms. Notice that we compute the mean of both matrices across trials (rows) before displaying the results.
 
 </div>
 
@@ -400,13 +393,13 @@ The autocorrelation plots for both the planning and movement periods show very c
 
 [Back to top](#top)
 
-### Spectral Analysis of Spiking Data <a id="spectral-analysis"></a>
+## Spectral Analysis of Spiking Data <a id="spectral-analysis"></a>
 
-So far, we have focused on statistical characterizations of spike trains in the time domain. Another approach to visualizing and describing structure in point processes focuses on estimating rhythmic (or harmonic) features of the data in the frequency domain. In [chapters 3](../03) and [4](../04), we discussed methods to decompose field data (or continuous valued functions and random processes) into harmonic components. The same type of approach can be used to decompose point processes and to determine the relative contributions to their variability attributable to each frequency. Point process spectral estimation provides a useful tool for spike train analysis but should be performed with care. On the one hand, computing spectral estimates for discrete spike train data is similar to the approaches used for continuous valued signals. On the other hand, the interpretation of point process spectra can differ from continuous process spectra, and blindly applying intuition from continuous spectral estimation to point process data can lead to incorrect interpretations.
+So far, we have focused on statistical characterizations of spike trains in the time domain. Another approach to visualizing and describing structure in point processes focuses on estimating rhythmic (or harmonic) features of the data in the frequency domain. In [modules 3](../03) and [4](../04), we discussed methods to decompose field data (or continuous valued functions and random processes) into harmonic components. The same type of approach can be used to decompose point processes and to determine the relative contributions to their variability attributable to each frequency. Point process spectral estimation provides a useful tool for spike train analysis but should be performed with care. On the one hand, computing spectral estimates for discrete spike train data is similar to the approaches used for continuous valued signals. On the other hand, the interpretation of point process spectra can differ from continuous process spectra, and blindly applying intuition from continuous spectral estimation to point process data can lead to incorrect interpretations.
 
-#### Point Process Spectral Theory. 
+### Point Process Spectral Theory
 
-In this section, we develop some of the theory needed to understand and interpret spectral estimators for spiking data. As with the spectrum for continuous valued processes (chapter 3), the spectrum for a point process can be expressed as the Fourier transform of its autocovariance function. In discrete time, assume we have binned the spiking activity into intervals of length $\Delta t$, and that $\Delta N_i$ represents the number of spikes fired in the $i^{th}$ interval, which is called the $i^{th}$ increment. The autocovariance sequence is then
+In this section, we develop some of the theory needed to understand and interpret spectral estimators for spiking data. As with the spectrum for continuous valued processes ([module 3](../03/)), the spectrum for a point process can be expressed as the Fourier transform of its autocovariance function. In discrete time, assume we have binned the spiking activity into intervals of length $\Delta t$, and that $\Delta N_i$ represents the number of spikes fired in the $i^{th}$ interval, which is called the $i^{th}$ increment. The autocovariance sequence is then
 
 \begin{align}
 \gamma(h) &=E[(\Delta N_i - \lambda_0\Delta t)( \Delta N_{i+h} - \lambda_0\Delta t)]\\
@@ -415,7 +408,9 @@ In this section, we develop some of the theory needed to understand and interpre
 
 where  $\lambda_0 \Delta t$ is the expected number of spikes in a single time bin. The discrete spectrum is the discrete Fourier transform of this sequence. Using this definition, we can compute the theoretical autocovariance and spectrum for any stationary point process model.
 
-**Example 1: Spectral density of a homogeneous Poisson process.** For a homogeneous Poisson process, the increments $\Delta N_i$ are independent, and each has a Poisson distribution with the same mean. Assume the mean number of spikes in any bin is  $\lambda_0 \Delta t$. Since the mean and variance of a Poisson random variable are the same (see chapter 8 appendix), this is also the variance of any increment. The autocovariance at a lag $h = 0$ is just the variance of $\Delta N_i$, which is  $\lambda_0 \Delta t$. At any other lag, the increments are independent and therefore the autocovariance is zero. The autocovariance function is given by
+**Example 1: Spectral density of a homogeneous Poisson process.**
+
+For a homogeneous Poisson process, the increments $\Delta N_i$ are independent, and each has a Poisson distribution with the same mean. Assume the mean number of spikes in any bin is  $\lambda_0 \Delta t$. Since the mean and variance of a Poisson random variable are the same (see [module 8](../08/)), this is also the variance of any increment. The autocovariance at lag $h = 0$ is just the variance of $\Delta N_i$, which is  $\lambda_0 \Delta t$. At any other lag, the increments are independent and therefore the autocovariance is zero. The autocovariance function is therefore given by
 
 <p title="homogeneous">$$\gamma(h) = \begin{cases}
 \lambda_0 \Delta t & \text{if }h = 0,\\
@@ -440,16 +435,14 @@ $$\gamma(h) = \begin{cases}
 where $\alpha$ is a constant representing the degree of refractoriness, and $f_{\sigma}(h)$ is the Gaussian function (or equivalently, the normal probability density function) with a mean of zero, and a standard deviation of $\sigma$. Let's define some functions so that we can look at some examples of how different values of ${\sigma}$ affect $\gamma(h)$.
 
 ```{code-cell} ipython3
-# Define f_sigma(h) as a gaussian with default mean (mu=0) 
-# and standard deviation (sig=1)
+# Define f_sigma(h) as a gaussian with default mean (mu=0) and standard deviation (sig=1)
 def gaussian(x, mu=0, sig=1):
     return exp(-pow(x - mu, 2) / (2 * pow(sig, 2)))
-
 
 # Define some default parameter values for the autocovariance function
 lbda0, alpha, dt = .01, 1e-4, 1e-3
 
-# Define gamma, again with some default values for the parameters
+# Define the ACF gamma, again with some default values for the parameters
 def gamma(lag, sig, lbda0=lbda0, dt=dt, alpha=alpha):
     if lag==0:
         return lbda0 * dt - alpha * gaussian(lag, sig=sig)
@@ -464,8 +457,8 @@ Now that we have the functions, try plugging in different values of `sig`.
 sig = 2  # Change the value here to see how the autocovariance changes
 autocov = [gamma(lag, sig) for lag in range(1, 60)]
 
-figure(figsize=(4,3))
-stem(autocov)
+figure(figsize=(12,3))
+stem(autocov,use_line_collection=1)
 xlabel('Lag (ms)')
 ylabel('Autocovariance')
 title('σ = {:}'.format(sig))
@@ -474,7 +467,6 @@ show()
 ```
 
 The reason we chose the Gaussian function is that it captures a smooth decay of the refractory effect and its Fourier transform is easy to compute. The spectral density $F(\omega)$ of this refractory point process is
-
 $$F(\omega)  = \lambda_0 - \alpha \sqrt{2\pi\sigma} \cdot f_{1/\sigma} (\omega).$$
 
 +++
@@ -482,15 +474,13 @@ $$F(\omega)  = \lambda_0 - \alpha \sqrt{2\pi\sigma} \cdot f_{1/\sigma} (\omega).
 This spectral density does depend on $\omega$; as $\omega$ becomes large, $f_{1/\sigma}(\omega)$ goes to zero and the spectrum approaches the constant level of a Poisson process; however, as $\omega$ becomes small, the spectrum decreases below this level. Therefore, the effect of the refractory period on the spectrum is a dip at low frequencies. Adjust the value of `sig` in the following code block to verify this for different values of $\sigma$.
 
 ```{code-cell} ipython3
-sig = 2
-
-# Compute F(omega)
-spectral_density = (lbda0 - 
+sig = 20                         #Set the width of the refractory period,
+spectral_density = (lbda0 -     #... and compute the spectral density.
                     alpha * sqrt(2 * pi * sig) * 
                     gaussian(arange(0, 1, dt), sig=1/sig))
 figure(figsize=(4,3))
-plot(spectral_density * 1 / dt)  # Plot the spectral density in Hz
-xlabel('Frequency (Hz)')  # ... with axes labeled
+plot(spectral_density * 1 / dt)  #Plot the spectral density in Hz,
+xlabel('Frequency (Hz)')         #... with axes labeled.
 ylabel('Spectral Density (Hz)')
 show()
 ```
@@ -503,15 +493,15 @@ This example illustrates a counterintuitive result. To understand the mean firin
 
 +++
 
-**Spectral Estimates for STN Data.**
+### Spectral Estimates for the STN Data
 
-With a new appreciation for interpreting point process spectra, let’s compute spectral estimators for the STN data for the planning and movement periods. As in chapters [4](../04) and [5](../05), we use multitaper spectral estimators. Since the data follow a trial structure, we compute estimators for each trial and average the results across trials. The planning and movement periods for each trial are 1 s in duration, so we can achieve a 4 Hz frequency resolution by setting the time-bandwidth product to 4. This allows us to use seven tapers, each providing independent and informative estimates.
+With a new appreciation for interpreting point process spectra, let’s compute spectral estimators for the STN data for the planning and movement periods. As in modules [4](../04) and [5](../05), we use multitaper spectral estimators. Since the data follow a trial structure, we compute estimators for each trial and average the results across trials. The planning and movement periods for each trial are 1 s in duration, so we can achieve a 4 Hz frequency resolution by setting the time-bandwidth product to 4. This allows us to use seven tapers, each providing independent and informative estimates.
 
 +++
 
 <div class="python-note">
 
-Here, we again compute the spectrum by hand. The main reason for this is that we are working with point process data and most packages assume that a signal is continuous. Below, we define a function, `mt_spec` to calculate spectrum. The line marked with a pair of asterisks (**) is where the computation of the spectrum of point process data differs from that of continuous data. In this case, because the mean firing rate is so low, the difference is trivial. Using the `multi_taper_psd()` function from the [Nitime](http://nipy.org/nitime/documentation.html) package produces nearly the same result, though it must be rescaled to see this. Try the following to compare results from the packaged function to those from the function we define below.
+Here we compute the spectrum by hand. The main reason for this is that we are working with point process data and most packages assume that a signal is continuous. Below, we define a function, `mt_spec` to calculate spectrum. The line marked with a pair of asterisks (**) is where the computation of the spectrum of point process data differs from that of continuous data. In this case, because the mean firing rate is so low, the difference is trivial. Using the `multi_taper_psd()` function from the [Nitime](http://nipy.org/nitime/documentation.html) package produces nearly the same result, though it must be rescaled to see this. Try the following to compare results from the packaged function to those from the function we define below.
 
     from nitime.algorithms import multi_taper_psd
     f, SPlanP, var = multi_taper_psd(train[:, i_plan] * Fs, Fs=1000, NW=4)
@@ -522,38 +512,36 @@ Here, we again compute the spectrum by hand. The main reason for this is that we
 ```{code-cell} ipython3
 def mt_specpb(data, Fs=1000, NW=4, trial_ave=True):
     
-    tapers, _ = dpss_windows(data.shape[-1], NW, 2*NW-1)  # Compute the tapers
-    tapers *= sqrt(Fs)  # ... and scale them
+    tapers, _ = dpss_windows(data.shape[-1], NW, 2*NW-1) # Compute the tapers,
+    tapers *= sqrt(Fs)                                   # ... and scale them.
     
-    dataT = [[trial * t for t in tapers]  # Multiply the data by the tapers
-             for trial in data]  # ... for each trial in the data
-    T = fft.rfft(tapers)  # Compute the fft of the tapers
-    J = fft.rfft(dataT)  # Compute the fft of the tapered data
+    dataT = [[trial * t for t in tapers]                 # Multiply the data by the tapers,
+             for trial in data]                          # ... for each trial in the data.
+    T = fft.rfft(tapers)                                 # Compute the fft of the tapers.
+    J = fft.rfft(dataT)                                  # Compute the fft of the tapered data.
     # Recall that rfft assumes the data are real, and thus 
-    J -= [T * trial.mean() for trial in data]  # Subtract the dc (**)
-    J *= J.conj()  # Compute the spectrum
+    J -= [T * trial.mean() for trial in data]            # Subtract the dc (**)
+    J *= J.conj()                                        # Compute the spectrum
     S = J.mean(1).real
     f = fft.rfftfreq(data.shape[-1], 1 / Fs)
-    if trial_ave : S = S.mean(0) 
+    if trial_ave : S = S.mean(0)                         # Average across trials.
     return f, S
 
 
 f, SPlan = mt_specpb(train[:, i_plan])  # Compute the spectrum of the planning period
 _, SMove = mt_specpb(train[:, i_move])  # ... and the movement period
 
-plot(f, SPlan, label="Planning")  # Plot the planning period,
-plot(f, SMove, label="Movement")  # ... and the movement period
-
-xlabel('Freq (Hz)')  # Prettify
+plot(f, SPlan, label="Planning")        # Plot the planning period,
+plot(f, SMove, label="Movement")        # ... and the movement period
+xlabel('Freq (Hz)')                     # ... with axes labeled
 ylabel('Power (Hz)')
 legend()
-title('Trial-averaged spectra of spiking data')
-savefig('imgs/10-10.png')
+title('Trial-averaged spectra of spiking data');
 ```
 
 A number of distinct features are evident in these spectral estimates for the planning and movement periods. At higher frequencies, the spectral density for the planning period asymptotes to about 35 Hz, while for the movement period it asymptotes closer to 55 Hz. This corroborates our previous results based on the observed mean firing rates. Both spectral estimates show a decrease at frequencies below 200 Hz, suggesting an approximately 5 ms refractory period. However, in the planning period, we see a large peak at about 18 Hz that does not appear during the movement period. This suggests that the STN neuron spikes rhythmically during the planning period and that this rhythm is attenuated during movement.
 
-Here we have separated each trial into planning and movement periods and computed separate spectral estimates for each period. This assumes that the data are stationary—that the mean and autocovariance structure do not change in time—during the planning period, that there is a sudden change between the planning and movement period, and that the data are stationary again during the movement period. Is this a reasonable assumption? One way to explore this is to compute a spectrogram, as we did in [chapter 3](../03). Let’s use a moving window of 500 ms duration and a step size of 50 ms.
+Here we have separated each trial into planning and movement periods and computed separate spectral estimates for each period. This assumes that the data are stationary—that the mean and autocovariance structure do not change in time—during the planning period, that there is a sudden change between the planning and movement period, and that the data are stationary again during the movement period. Is this a reasonable assumption? One way to explore this is to compute a spectrogram, as we did in [module 3](../03). Let’s use a moving window of 500 ms duration and a step size of 50 ms.
 
 +++
 
@@ -570,31 +558,24 @@ Here we have separated each trial into planning and movement periods and compute
 We also focus on the frequency range from 0 to 50 Hz, which includes the large peak near 18 Hz that we previously observed during the planning period.
 
 ```{code-cell} ipython3
-window, step = .5, .05  # Define the duration and step size for the spectrogram in seconds
-fpass = [0, 50]  # Define the frequency band of interest
-Fs = 1000  # ... and sampling rate
+window, step = .5, .05  # Define the duration and step size for the spectrogram in seconds.
+fpass = [0, 50]         # Define the frequency band of interest,
+Fs = 1000               # ... and sampling rate.
 
-window, step = [int(Fs * x) for x in [window, step]]  # Convert step and window to samples
-starts = range(0, train.shape[-1] - window, step)  # Determine where spectrogram windows should start
-f = mt_specpb(train[:, range(window)], NW=2)[0]  # Get the frequencies,
-findx = (f >= fpass[0]) & (f <= fpass[1])  # ... create a mask of frequencies of interest,
-f = f[findx]  # ... and filter to frequencies of interest
-spectrogram = [mt_specpb(train[:, range(s, s + window)], NW=2)[1][findx]  # Compute the spectrum on each 500 ms window
-               for s in starts]  # ... starting every 50 ms
-```
+window, step = [int(Fs * x) for x in [window, step]]  # Convert step and window to samples.
+starts = range(0, train.shape[-1] - window, step)     # Determine where spectrogram windows should start.
+f = mt_specpb(train[:, range(window)], NW=2)[0]       # Get the frequencies,
+findx = (f >= fpass[0]) & (f <= fpass[1])             # ... create a mask of frequencies of interest,
+f = f[findx]                                          # ... and select these frequencies of interest.
+spectrogram = [mt_specpb(train[:, range(s, s + window)], NW=2)[1][findx]  # Compute the spectrum on each 500 ms window.
+               for s in starts]                       # ... starting every 50 ms
 
-```{code-cell} ipython3
-T = t[starts] + window / 2  # Centers of spectrogram windows
-
-# Plot the result
-contourf(T, f, array(spectrogram).T)  # Also consider using pcolormesh instead of contourf
-
-# Prettify
-title('Trial averaged spectrogram of spiking data across\n planning and movement periods')
-xlabel('Time [ms]')
+T = t[starts] + window / 2                            # Centers of spectrogram windows.
+contourf(T, f, array(spectrogram).T)                  # Plot the result,
+xlabel('Time [ms]')                                   # ... with axes labeled.
 ylabel('Frequency [Hz]')
+title('Trial averaged spectrogram of spiking data across\n planning and movement periods')
 colorbar()
-savefig('imgs/10-11.png')
 show()
 ```
 
@@ -619,15 +600,15 @@ To make the figure above we used the `contour()` function. This function breaks 
 [Back to top](#top)
 
 <a id="ppm"></a>
-### Point Process Models
+## Point Process Models
 
-So far we have focused on descriptive statistics and visualization methods to characterize the properties of the spike train data. In [chapter 9](../09), we developed point process models to understand the factors influencing a spiking process. We can use the same types of models to describe how past spiking activity influences future activity to produce rhythmic spiking and other forms of history dependence. In doing so, we utilize all the tools that we previously developed for point process modeling: tools to fit parameters and construct confidence bounds, tools to measure the goodness-of-fit between the model and the data, and tools for testing whether individual model components or combinations of components provide significant improvements in fitting the data.
+So far we have focused on descriptive statistics and visualization methods to characterize the properties of the spike train data. In [module 9](../09), we developed point process models to understand the factors influencing a spiking process. We can use the same types of models to describe how past spiking activity influences future activity to produce rhythmic spiking and other forms of history dependence. In doing so, we utilize all the tools that we previously developed for point process modeling: tools to fit parameters and construct confidence bounds, tools to measure the goodness-of-fit between the model and the data, and tools for testing whether individual model components or combinations of components provide significant improvements in fitting the data.
 
-In this case study, we continue to use a specific class of models, GLMs for point processes. As discussed in [chapter 9](../09), GLMs have a number of attractive properties, including the fact that we can guarantee that the likelihood of the data as a function of the model parameters is convex and therefore has one peak that is easy to find. As in [chapter 9](../09), we will use the Statsmodels package to fit our GLM parameters. Let's revisit how to do this. 
+In this case study, we continue to use a specific class of models, **generalized linear models** (GLMs) for point processes. As discussed in [module 9](../09), GLMs have a number of attractive properties, including the fact that we can guarantee that the likelihood of the data as a function of the model parameters is convex and therefore has one peak that is easy to find. As in [module 9](../09), we will use the `Statsmodels` <a href="https://www.statsmodels.org/stable/index.html" target="blank">package</a> to fit our GLM parameters. Let's revisit how to do this. 
 
-The first input to `sm.GLM` is the response vector—the spike train—which is an $n \times 1$ vector. We have to reshape the spike train to be one long vector containing all the trials sequentially, and also construct the design matrix accordingly. The second input to this function is the design matrix or predictors. This is an $n \times p$ matrix, where $n$ is the total number of time steps in the dataset, and $p$ is the number of predictors in the model. For these data, we have 50 trials, each comprising 2,000 time steps, so $n = 50 \times 2000 = 100,000$ data points. The third input is the GLM distribution to use. Here we assume that the spike count in each bin is approximately Poisson, as we did in [chapter 9](../09). Recall that by selecting the Poisson GLM, we implicitly use a log link function. In other words, we set the log of the firing rate to be a linear function of the predictors and model parameters. Equivalently, we construct a model of the form $\lambda(t) = e^{\beta X(t)}$, where $\lambda(t)$ is the spiking intensity at time $t$, $X(t)$ is a $p \times 1$ column vector of the predictors at time $t$, and $\beta$ is a $1 \times p$ column vector of the model parameters. Since each bin contains either 0 or 1 spike, we could also use the binomial distribution with a maximum of one count in each bin. However, choosing the Poisson count distribution will make it easier to interpret the resulting models.
+The first input to `sm.GLM` is the response vector—the spike train—which is an $n \times 1$ vector. We have to reshape the spike train to be one long vector containing all the trials sequentially, and also construct the design matrix accordingly. The second input to this function is the design matrix or predictors. This is an $n \times p$ matrix, where $n$ is the total number of time steps in the dataset, and $p$ is the number of predictors in the model. For these data, we have 50 trials, each comprising 2,000 time steps, so $n = 50 \times 2000 = 100,000$ data points. The third input is the GLM distribution to use. Here we assume that the spike count in each bin is approximately Poisson, as we did in [module 9](../09). Recall that by selecting the Poisson GLM, we implicitly use a log link function. In other words, we set the log of the firing rate to be a linear function of the predictors and model parameters. Equivalently, we construct a model of the form $\lambda(t) = e^{\beta X(t)}$, where $\lambda(t)$ is the spiking intensity at time $t$, $X(t)$ is a $p \times 1$ column vector of the predictors at time $t$, and $\beta$ is a $1 \times p$ column vector of the model parameters. Since each bin contains either 0 or 1 spike, we could also use the binomial distribution with a maximum of one count in each bin. However, choosing the Poisson count distribution will make it easier to interpret the resulting models.
 
-In this chapter, we will change this approach slightly to demonstrate the use of *Dataframes* and *formulae*. A Dataframe is an object from the Pandas module that allows us to mimic the programming style used in [R](https://www.r-project.org/). It stores data in a table under named columns and has some handy built-in functions that make it easy to use. Moreover, dataframes are often used in Pythonic data analyses, so you will likely see them again. A *formula* is a character string that describes the model. It will look something like `responses ~ predictors` (read "responses as a function of predictors"). Note that this is simply a different style of programming; the underlying mathematics is the same.
+In this module, we will change this approach slightly to demonstrate the use of *Dataframes* and *formulae*. A <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html" target="blank">Dataframe</a> is an object from the Pandas module that allows us to mimic the programming style used in <a href="https://www.r-project.org/" target="blank">[R]</a>. It stores data in a table under named columns and has some handy built-in functions that make it easy to use. Moreover, dataframes are often used in Pythonic data analyses, so you will likely see them again. A *formula* is a character string that describes the model. It will look something like `responses ~ predictors` (read "responses as a function of predictors"). Note that this is simply a different style of programming; the underlying mathematics is the same.
 
 <div class="math-note">
 
@@ -637,7 +618,7 @@ One important note: Although we are approximating the number of spikes in each b
 
 +++
 
-#### Model 1
+### Model 1
 
 Let’s build a model to compare the firing rate between the planning and movement periods; subsequent models will also include the effects of history dependence. In this model, the design matrix consists of one column that is zero whenever $t < 0$, corresponding to the planning period, and that is 1 whenever $t \geq 0$, corresponding to the movement period. The resulting model has the form<a id="model:1"></a>
 
@@ -651,21 +632,21 @@ $$
 
 +++
 
-where $I_\text{move}(t)$ is the movement period indicator function. We must also remember to reshape the spike train matrix into a single response vector $y$.
+where $I_\text{move}(t)$ is the movement period indicator function. We must also remember to reshape the spike train matrix into a single response vector.
 <a id="repeatvtile"></a>
 
 ```{code-cell} ipython3
-nTrial, nTime = train.shape  # Number of trials and number of time points
-IMove = tile(t >= 0, nTrial)  # Define when the animal is moving
-spikes = train.flatten()  # Reshape the trials into a single vector
+nTrial, nTime = train.shape    # Number of trials and number of time points.
+IMove = tile(t >= 0, nTrial)   # Define movement period.
+spikes = train.flatten()       # Reshape the trials into a single vector
 glmdata = df({'IMove': IMove, 'spikes': spikes})  # Create a dataframe with the data to fit
-M1 = smf.glm('spikes ~ IMove',  # Write a formula to fit y as a function of IMove,
+M1 = smf.glm('spikes ~ IMove', # Write a formula to fit spikes as a function of IMove,
              data=glmdata, family=sm.families.Poisson()  # ... supply the data,
-            ).fit()  # ... and fit the model
-M1.summary()  # Show results of the fit
+            ).fit()            # ... and fit the model.
+M1.summary()                   # Show results of the fit.
 ```
 
-The variable `M1` now contains all the information we will need about our model fit. This includes the fitted parameters (`M1.params`), model deviance (`M1.deviance`), and standard error (`M1.bse`), among [others](http://www.statsmodels.org/dev/generated/statsmodels.genmod.generalized_linear_model.GLMResults.html#statsmodels.genmod.generalized_linear_model.GLMResults). Let’s examine the model parameters, remembering to exponentiate them to improve interpretability.
+The variable `M1` now contains all the information we will need about our model fit. This includes the fitted parameters (`M1.params`), model deviance (`M1.deviance`), and standard error (`M1.bse`), among <a href="http://www.statsmodels.org/dev/generated/statsmodels.genmod.generalized_linear_model.GLMResults.html#statsmodels.genmod.generalized_linear_model.GLMResults" target="blank">others</a>. Let’s examine the model parameters, remembering to exponentiate them to improve interpretability.
 
 ```{code-cell} ipython3
 exp(M1.params)
@@ -683,7 +664,7 @@ The first parameter estimate indicates that the firing rate during the planning 
 
     exp(M1.conf_int(.05))
 
-We find the 95% confidence interval [1.3297, 1.4965], which suggests that the firing rate during the movement period is between 33% and 50% higher than the planning period. The fact that this interval does not contain 1 suggests that this effect is significant at the 0.05 level. More directly, we can examine the p-value for this parameter (based on a Wald test) having a nonzero modulation.
+We find the 95% confidence interval [1.33, 1.50], which suggests that the firing rate during the movement period is between 33% and 50% higher than the planning period. The fact that this interval does not contain 1 suggests that this effect is significant at the 0.05 level. More directly, we can examine the p-value for this parameter (based on a Wald test) having a nonzero modulation.
 
     M1.pvalues;     # p-value from Wald test.
  
@@ -695,44 +676,41 @@ We find p = 3.3864e-31 and are therefore quite certain that the difference in fi
 
 <div class="math-note">
     
-A common practice is to calculate the upper (lower) confidence bounds by adding (subtracting) twice the standard deviation. If you do this, you will notice that the bounds you get will not be identical to what you see when you use `M1.conf_int(.05)`. The reason is that in a normal distribution, there is actually slightly more than 95% of the data within two standard deviations of the mean&mdash;more like [95.45%](https://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function). This means that if you compute the confidence bounds using the two standard deviations rule of thumb, you will get a very slightly wider confidence interval.
+A common practice is to calculate the upper (lower) confidence bounds by adding (subtracting) twice the standard deviation. If you do this, you will notice that the bounds you get will not be identical to what you see when you use `M1.conf_int(.05)`. The reason is that in a normal distribution, there is actually slightly more than 95% of the data within two standard deviations of the mean&mdash;more like <a href="https://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function" target="blank">95.45%</a>. This means that if you compute the confidence bounds using the two standard deviations rule of thumb, you will get a very slightly wider confidence interval.
     
 </div>
 
 +++
 
-In other case studies (see chapters [8](../08) and [9](../09)), we explored a number of tools to assess goodness-of-fit of spiking models. Here, we examine just a few of these tools to investigate how well the initial simple model fits the spiking data. First, let’s construct a KS plot of the rescaled interspike intervals. We compute the estimated firing rate based on the model:
+In other case studies (see modules [8](../08) and [9](../09)), we explored a number of tools to assess goodness-of-fit of spiking models. Here, we examine just a few of these tools to investigate how well the initial simple model fits the spiking data. First, let’s construct a KS plot of the rescaled interspike intervals. We compute the estimated firing rate based on the model:
 
 ```{code-cell} ipython3
 lambda1 = M1.predict(glmdata)  # Predict firing rate of Model 1
 ```
 
-Next, we compute the rescaled intervals by integrating, or in this case summing, the esti-
-mated rate between spike times:
+Next, we compute the rescaled intervals by integrating, or in this case summing, the estimated rate between spike times:
 
 ```{code-cell} ipython3
-spikeindex = where(spikes)[0]  # Find spikes
-Z = [sum(lambda1[a:b])  # Sum firing rate
-     for a, b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... over each ISI
+spikeindex = where(spikes)[0]                                    # Find spikes.
+Z = [sum(lambda1[a:b])                                           # Sum firing rate,
+     for a, b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... over each ISI.
 ```
 
-Finally, we compute the empirical CDF of the rescaled spike times (`Z`) and compare it to the model CDF, which is an exponential distribution with parameter 1 if the model is correct (see [chapter 9](../09)):<a id="fig:ks1"></a>
+Finally, we compute the empirical CDF of the rescaled spike times (`Z`) and compare it to the model CDF, which is an exponential distribution with parameter 1 if the model is correct (see [module 9](../09)):<a id="fig:ks1"></a>
 
 ```{code-cell} ipython3
-eCDF = ECDF(Z);  # Empirical CDF at Z values
-mCDF = 1 - exp(-eCDF.x)  # Model CDF at Z values
-nISI = len(Z)  # Total number of ISIs
+eCDF = ECDF(Z);         # Empirical CDF at Z values.
+mCDF = 1 - exp(-eCDF.x) # Model CDF at Z values.
+nISI = len(Z)           # Total number of ISIs.
 
-figure(figsize=(3, 3))
-plot(mCDF, eCDF.y)  # Create a KS plot
+figure(figsize=(5, 5))
+plot(mCDF, eCDF.y)       # Create a KS plot
 plot([0,1], [0,1] + 1.36 / sqrt(nISI),'k--', ms = 2)  # ... with confidence bounds
 plot([0,1], [0,1] - 1.36 / sqrt(nISI),'k--', ms = 2)
 
-# Prettify
-xlabel('Model CDF')
+xlabel('Model CDF')      # With axes labeled.
 ylabel('Empirical CDF')
 title('Model 1 KS plot')
-savefig('imgs/ks1.png')
 show()
 ```
 
@@ -750,7 +728,7 @@ The KS plot reveals that the initial model tends to fit the distribution of the 
 
 +++
 
-#### Refining the Model: Movement Direction
+### Refining the Model: Movement Direction
 
 With an eye toward improving the initial model, we first visualize the impact of movement direction on Model 1. We create a column vector for the design matrix that indicates the trial movement direction for each time step:
 
@@ -769,12 +747,11 @@ IDir = repeat(direction == 1, nTime)
 We could add the variable `xdir` directly to the initial Model 1, and proceed immediately with a model fit. But first let’s examine the point process residuals for Model 1, and whether these residuals depend on the trial movement direction.
 
 ```{code-cell} ipython3
-R = cumsum(M1.resid_response);  # Cumulative sum of Model 1 residuals.
-plot(where(IDir == 1)[0], R[IDir == 1], '.', label="Right")  # Right movement trials
-plot(where(IDir == 0)[0], R[IDir == 0], '.', label="Left")  # Left movement trials
+R = cumsum(M1.resid_response);              # Cumulative sum of Model 1 residuals.
+plot(where(IDir == 1)[0], R[IDir == 1], '.', label="Right")  # Plot right movement trials,
+plot(where(IDir == 0)[0], R[IDir == 0], '.', label="Left")   # ... and left movement trials.
 
-# Prettify
-xlabel('Trial')
+xlabel('Trial')                             # Label axes.
 ylabel('Integrate Point Process Residual')
 title('Point process residuals for Model 1')
 legend()
@@ -784,22 +761,18 @@ show()
 We find that the integrated residuals tend to increase for left trials, suggesting that Model 1 consistently underestimates the firing rate for these trials, and tend to decrease for right trials, suggesting that Model 1 overestimates the rate for those trials. Including trial direction may therefore help improve the model. Let’s now add the predictor `xdir` to the [initial model](#model:1)<span class="thumb"><sup>eq</sup><img src="imgs/model1.png"></span> to create the second model,<a id="model:2"></a>
 
 $$
-\lambda(t) = \exp\big(\beta_0 + \beta_1 I_\text{move}(t) + \beta(2) I_\text{dir}(t)\big),
+\lambda(t) = \exp\big(\beta_0 + \beta_1 I_\text{move}(t) + \beta_2 I_\text{dir}(t)\big),
 \tag{Model 2}
 $$
 
 and fit the model in Python:
 
 ```{code-cell} ipython3
-M1.summary()
-```
-
-```{code-cell} ipython3
-glmdata['IDir'] = IDir  # Add direction information to the glm dataframe
-M2 = smf.glm('spikes ~ IMove + IDir',  # Model formula
-             data=glmdata, 
-             family=Poisson()).fit()  # ... and data
-M2.summary()
+glmdata['IDir'] = IDir                 # Add direction information to the glm dataframe
+M2 = smf.glm('spikes ~ IMove + IDir',  # Model 2 formula
+             data=glmdata,             # ... supply the data,
+             family=Poisson()).fit()   # ... and fit the model.
+M2.summary()                           # Show results of the fit.
 ```
 
 ```{code-cell} ipython3
@@ -812,31 +785,26 @@ When adding the direction for each trial to the model, we find that the baseline
 M2.pvalues
 ```
 
-We find $p_\text{direction} = 5.2818\times 10^{-64}$ and conclude that the decrease in firing rate is highly significant. Finally, let’s construct a KS plot for Model 2:
+We find $p_\text{direction} = 5.28\times 10^{-64}$ and conclude that the decrease in firing rate is highly significant. Finally, let’s construct a KS plot for Model 2:
 
 ```{code-cell} ipython3
-lambda2 = M2.predict(glmdata)  # Predict firing rate of Model 2
-spikeindex = where(glmdata.spikes)[0]
+lambda2 = M2.predict(glmdata)          # Predict firing rate of Model 2
+spikeindex = where(glmdata.spikes)[0]  # Find the spikes.
+                                       # Compute the rescaled waiting times.
+Z = [sum(lambda2[a:b])                 # Sum firing rate,
+     for a, b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... over each ISI.
 
-# Compute the rescaled waiting times
-Z = [sum(lambda2[a:b])  # Sum firing rate
-     for a, b in zip(hstack((0, spikeindex[:-1])), spikeindex)]  # ... over each ISI
-
-# Compute the empirical CDF
-eCDF = ECDF(Z);  # Empirical CDF at Z values
-mCDF = 1 - exp(-eCDF.x)  # Model CDF at Z values
-N = len(Z)  # Total number of ISIs
+eCDF = ECDF(Z);                        # Empirical CDF at Z values.
+mCDF = 1 - exp(-eCDF.x)                # Model CDF at Z values.
+N = len(Z)                             # Total number of ISIs.
 
 figure(figsize=(3,3))
-plot(mCDF, eCDF.y)  # Create a KS plot
-plot([0,1], [0,1] + 1.36 / sqrt(N),'k--', ms = 2)  # ... with confidence bounds
+plot(mCDF, eCDF.y)                     # Create a KS plot
+plot([0,1], [0,1] + 1.36 / sqrt(N),'k--', ms = 2)  # ... with confidence bounds,
 plot([0,1], [0,1] - 1.36 / sqrt(N),'k--', ms = 2)
-
-# Prettify
-xlabel('Model CDF')
+xlabel('Model CDF')                    # ... and axes labeled.
 ylabel('Empirical CDF')
 title('Model 2 KS plot')
-savefig('imgs/ks2.png')
 show()
 ```
 
@@ -852,8 +820,6 @@ show()
 
 **A.** This KS plot of Model 2 looks similar to that of Model 1. We observe some improvements at intermediate rescaled ISIs, but we are still seeing too few small rescaled ISIs. The updated model represents a slight improvement over the first model but is still well outside the confidence bounds of the KS plot.
 
-</div>
-
 +++
 
 <div class="question">
@@ -866,11 +832,11 @@ show()
 
 +++
 
-#### Refining the Model: History Dependence<a id="history-dependence"></a>
+## Refining the Model: History Dependence<a id="history-dependence"></a>
 
 Up to this point, we have used Poisson regression models for the spiking data that did not incorporate any history-dependent terms. For those models, the number of spikes in each of the small discrete-time bins is assumed to have a Poisson distribution, and the number of spikes in any two nonoverlapping bins is assumed to be independent. A simple result from probability theory is that the sum of independent Poisson random variables also has a Poisson distribution. Therefore, for those previous models, the number of spikes over multiple time bins, which is the sum of the number of spikes in each bin, still has a Poisson distribution, and all those previous models would be considered Poisson process models.
 
-Now, we would like to add predictors to the model related to the past history of spiking. Thus, we do not expect the number of spikes in nonoverlapping bins to be independent; a spike at the current time will change the probability of seeing a spike in the near future. Even if the number of spikes in a small time bin is assumed to be Poisson, it is no longer the case that the number of spikes in any larger interval will be Poisson. Thus, we would no longer call the resulting spike train a Poisson process. We still use the notation $\lambda(t)$ to represent the expected number of spikes in the $t^{th}$ time bin, but this is no longer called a Poisson rate function. Instead, we call it the conditional intensity function and write $\lambda(t|H_t)$, where $H_t$ represents the past history of spiking.
+Now, we would like to add predictors to the model related to the past history of spiking. Thus, we do not expect the number of spikes in nonoverlapping bins to be independent; a spike at the current time will change the probability of seeing a spike in the near future. Even if the number of spikes in a small time bin is assumed to be Poisson, it is no longer the case that the number of spikes in any larger interval will be Poisson. Thus, we would no longer call the resulting spike train a Poisson process. We still use the notation $\lambda(t)$ to represent the expected number of spikes in the $t^{th}$ time bin, but this is no longer called a Poisson rate function. Instead, we call it the **conditional intensity function** and write $\lambda(t|H_t)$, where $H_t$ represents the past history of spiking.
 
 There are many different functions of past spiking that we could use in the model. The simplest option is to use the binned spike train itself, lagged by different amounts of time. Mathematically, we are building a probability model for $\Delta N_i$ as a function of $\Delta N_{i-j}$ for $j = 1,\dots,k$ for some model order $k$.
 
@@ -883,8 +849,8 @@ ordK = 70  # Define the model order
 To predict the spiking at the current time, we need to observe the spiking history up to `ordK` lags in the past. Therefore, we make a new dataframe, `glmHist`, including data from starting from index `ordK` (recall that Python uses 0-indexing, so index $n$ is actually the $[n+1]^{th}$ element in the array). We then insert a new column with the spiking history for each lag.
 
 ```{code-cell} ipython3
-for k in range(1, ordK + 1):  # For each lag
-    # scroll the spiking history forward
+for k in range(1, ordK + 1):  # For each lag,
+                              # ... scroll the spiking history forward.
     glmdata['lag{:02d}'.format(k)] = roll(glmdata.spikes, k)  
 
 # Add a Time column to glmdata so we can filter by time
@@ -918,7 +884,7 @@ In Python, when you assign a value to a variable, the value gets stored at a spe
     
 You should see the same value printed twice. If `breakfast` is the address to an *immutable* object like an **int** or a **string**, then changing the value of `breakfast` (or any other variable pointing to that address) forces the variable to point to a new address&mdash;immutable objects cannot be changed (mutated) in memory.
 
-On the other hand, if `breakfast` is the address to a *mutable* object like a **dictionary** or a **list**, then the value of the object will change in memory, and `breakfast` will continue to point to the same address. This is why in the example above, changing `lunch` also changes breakfast. Both variables point to the same address and changes to the dictionary object result in changes at that location in memory.
+On the other hand, if `breakfast` is the address to a *mutable* object like a **dictionary** or a **list**, then the value of the object will change in memory, and `breakfast` will continue to point to the same address. This is why in the example above, changing `lunch` also changes `breakfast`. Both variables point to the same address and changes to the dictionary object result in changes at that location in memory.
 
 If this seems confusing, don't worry. When you want to make a true copy in memory that you can safely manipulate, simply include the constructor function for the object type. In the `breakfast` example, use `lunch = dict(breakfast)` since `breakfast` is a dictionary. In our code above, we could have used `df()` (our imported abbreviation for `pandas.DataFrame()`) to create a new dataframe. 
 
@@ -926,7 +892,7 @@ If this seems confusing, don't worry. When you want to make a true copy in memor
 
 Other mutable datatypes include **lists** and **arrays** (`list()`, `array()`). 
 
-For a more thorough discussion of mutable and immutable objects see [here](https://towardsdatascience.com/https-towardsdatascience-com-python-basics-mutable-vs-immutable-objects-829a0cb1530a). 
+For a more thorough discussion of mutable and immutable objects see <a href="https://towardsdatascience.com/https-towardsdatascience-com-python-basics-mutable-vs-immutable-objects-829a0cb1530a" target="blank">here</a>.
 
 </div>
 
@@ -943,12 +909,12 @@ For a more thorough discussion of mutable and immutable objects see [here](https
 We can now include the history in the GLM as follows:
 
 ```{code-cell} ipython3
-formula = ('spikes ~' +  # Observed spikes as a function of ...
+formula = ('spikes ~' +              # Observed spikes as a function of ...
            '+'.join(glmHist.drop(columns='spikes').columns))  # ... all other columns
-M3 = smf.glm(formula,  # Fit a glm using the formula
-             data=glmHist,  # ... on the data with spiking history
-             family=Poisson()).fit()  # ... using a Poisson GLM
-M3.summary()  # Summary of fit
+M3 = smf.glm(formula,                # Fit a glm using the formula,
+             data=glmHist,           # ... on the data with spiking history,
+             family=Poisson()).fit() # ... using a Poisson GLM.
+M3.summary()                         # Summary of fit
 ```
 
 This model would have a total of 73 parameters—one intercept parameter, one movement parameter, one direction parameter, and 70 parameters representing the columns of the history matrix. Mathematically,
@@ -999,7 +965,7 @@ M4 = smf.glm(formula=formula, data=glmHist, family=Poisson()).fit()
 M4.summary()  # Summarize the fit
 ```
 
-In the first line, we created the portion of the `formula` variable that includes the history terms. The `filter()` method can be used to filter rows or columns of a dataframe according to their names (use `df.filter?` for details). In this case, we asked for all column names that include the phrase 'lag'. In the second line, we compose the formula as we have before except this time we include *cross-terms*. Cross-terms are the product of two variables. There are two ways to include cross-terms in a formula: `*` and `:`. The asterisk (`*`) indicates individual terms in addition to cross-terms; the colon (`:`) indicates that we would like to include only the cross terms.
+In the first line, we created the portion of the `formula` variable that includes the history terms. The `filter()` method can be used to filter rows or columns of a dataframe according to their names (use `df.filter?` for details). In this case, we asked for all column names that include the phrase `'lag'`. In the second line, we compose the formula as we have before except this time we include *cross-terms*. Cross-terms are the product of two predictor variables. There are two ways to include cross-terms in a formula: `*` and `:`. The asterisk (`*`) indicates individual terms in addition to cross-terms; the colon (`:`) indicates that we would like to include only the cross terms.
 
 +++
 
@@ -1031,13 +997,13 @@ Since Model 4 has 140 additional parameters related to history dependence, inspe
 ```{code-cell} ipython3
 plot(range(1, ordK + 1), 
      exp(M4.params[3::2]), 
-     label='Planning')  # Plot the planning parameters
+     label='Planning')     # Plot the planning parameters.
 
 plot(range(1, ordK+1), 
      exp(M4.params[4::2]), 
-     label='Movement')  # Plot the movement parameters
+     label='Movement')     # Plot the movement parameters.
 
-xticks(range(0, 70, 10))  # Prettify
+xticks(range(0, 70, 10))   # With axes labeled.
 xlabel('Lag (ms)')
 legend()
 title('Exponentiated GLM parameters related to history dependence in Model 4')
@@ -1054,30 +1020,26 @@ Each of these values represents a modulation to the firing intensity when a prev
     
 **Q.** Are these history effects statistically significant?
 
-**A.** One approach we could take is to visualize the p-values (based on the Wald t- test) for each parameter. Since it can be hard to tell visually whether p-values are sufficiently close to zero, let’s plot the negative of the natural logarithm of the p- values. Any value of the negative log above 3 indicates a p-value below 0.05. In Python,
+**A.** One approach we could take is to visualize the p-values (based on the Wald t- test) for each parameter. Since it can be hard to tell visually whether p-values are sufficiently close to zero, let’s plot the negative of the natural logarithm of the p-values. Any value of the negative log above 3 indicates a p-value below 0.05. In Python,
 
 ```{code-cell} ipython3
-_, a = subplots(1, 2)  # Create a figure with two subplots
+_, a = subplots(1, 2)                   # Create a figure with two subplots
 a[0].plot(range(1, ordK + 1), 
-          -log(M4.pvalues[3::2]), 'o')  # Plot the planning p-values
-a[0].axhline(3)  # Indicate significance level
-a[0].set_xticks(range(0, 70, 10))  # Prettify
-a[0].set_xlabel('Lag (ms)')
+          -log(M4.pvalues[3::2]), 'o')  # Plot the planning p-values.
+a[0].axhline(3)                         # Indicate significance level,
+a[0].set_xticks(range(0, 70, 10))       # ... over a range of lags,
+a[0].set_xlabel('Lag (ms)')             # ... with axes labeled.
 a[0].set_ylabel('-Log(p)')
 a[0].set_title('Planning')
 
 a[1].plot(range(1, ordK + 1), 
-          -log(M4.pvalues[4::2]), 'o')  # Plot the movement p-values
-a[1].axhline(3)  # Indicate significance level
-a[1].set_xticks(range(0, 70, 10))  # Prettify
-a[1].set_xlabel('Lag (ms)')
+          -log(M4.pvalues[4::2]), 'o')  # Plot the movement p-values.
+a[1].axhline(3)                         # Indicate significance level.
+a[1].set_xticks(range(0, 70, 10))       # ... over a range of lags,
+a[1].set_xlabel('Lag (ms)')             # ... with axes labeled.
 a[1].set_title('Movement')
 show()
 ```
-
-</div>
-
-+++
 
 We see that for both the planning and movement periods, the p-values corresponding to lags up to about 8 ms tend to be significant. For the movement period, most of the parameters for lags above 8 ms do not suggest significant modulation. For the planning period, we find a few parameters for higher lags that are significant on their own. However, in this case we have to be careful about multiple comparisons. As discussed in [chapter 8](../08), if we control the probability of a single test or comparison being significant by chance at 0.05, then after performing multiple tests or comparisons, the probability that any of them are deemed significant by chance becomes much higher. For 140 independent comparisons, even if no effects are actually present, the probability of finding at least one to be significant by chance is $1 - 0.95^{140} = 0.99$.
 

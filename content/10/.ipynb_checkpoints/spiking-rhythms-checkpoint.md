@@ -236,7 +236,7 @@ MoveRate = mean(train[:, i_move]) / 1e-3   #...during movement.
 
 Executing these commands, we find `PlanRate = 38.96`, and `MoveRate = 54.96`. These results are consistent with our estimation of the average firing rates through visual inspection of the histogram with 10ms bins.
 
-In addition to the planning and movement periods, the task can be broken down based on the direction of movement that is cued. The variable direction contains an indicator variable for each trial, which is 0 for left trials and 1 for right trials. Since the left and right trials are interspersed, we need to first find which trials correspond to each direction, and then compute the firing rates for each type of trial. 
+In addition to the planning and movement periods, the task can be broken down based on the direction of movement that is cued. The variable direction contains an indicator variable for each trial, which is 0 for left trials and 1 for right trials. Since the left and right trials are interspersed, we need to first find which trials correspond to each direction, and then compute the firing rates for each type of trial.
 
 ```{code-cell} ipython3
 Ltrials = where(direction==0)       #Find left trials,
@@ -505,7 +505,7 @@ This example illustrates a counterintuitive result. To understand the mean firin
 
 **Spectral Estimates for STN Data.**
 
-With a new appreciation for interpreting point process spectra, let’s compute spectral estimators for the STN data for the planning and movement periods. As in chapters [4](../04) and [5](../05), we use multitaper spectral estimators. Since the data follow a trial structure, we compute estimators for each trial and average the results across trials. The planning and movement periods for each trial are 1 s in duration, so we can achieve a 4 Hz frequency resolution by setting the time-bandwidth product to 4. This allows us to use seven tapers, each providing independent and informative estimates. 
+With a new appreciation for interpreting point process spectra, let’s compute spectral estimators for the STN data for the planning and movement periods. As in chapters [4](../04) and [5](../05), we use multitaper spectral estimators. Since the data follow a trial structure, we compute estimators for each trial and average the results across trials. The planning and movement periods for each trial are 1 s in duration, so we can achieve a 4 Hz frequency resolution by setting the time-bandwidth product to 4. This allows us to use seven tapers, each providing independent and informative estimates.
 
 +++
 
@@ -604,7 +604,7 @@ show()
 
 **A.** The period before time 0 s, corresponding to the planning period, shows a clear peak at 15–20 Hz. As we approach time 0 s, there is a rapid change in the spectral structure. The peak starts to vanish, not only because the spectral density at 15–20 Hz decreases but also because the spectral density across all frequencies increases. This reflects a combination of a change in rhythmic spiking and a change in the overall firing rate. The fact that the spectral content seems to undergo a sudden shift from one regime (planning) to another regime (movement) suggests that it is reasonable to construct models with different spike dynamics in these two periods.
 
-</div>    
+</div>
 
 +++
 
@@ -625,11 +625,15 @@ So far we have focused on descriptive statistics and visualization methods to ch
 
 In this case study, we continue to use a specific class of models, GLMs for point processes. As discussed in [chapter 9](../09), GLMs have a number of attractive properties, including the fact that we can guarantee that the likelihood of the data as a function of the model parameters is convex and therefore has one peak that is easy to find. As in [chapter 9](../09), we will use the Statsmodels package to fit our GLM parameters. Let's revisit how to do this. 
 
-[**TBD: go back and fill in explanation of glm.fit()**]
+The first input to `sm.GLM` is the response vector—the spike train—which is an $n \times 1$ vector. We have to reshape the spike train to be one long vector containing all the trials sequentially, and also construct the design matrix accordingly. The second input to this function is the design matrix or predictors. This is an $n \times p$ matrix, where $n$ is the total number of time steps in the dataset, and $p$ is the number of predictors in the model. For these data, we have 50 trials, each comprising 2,000 time steps, so $n = 50 \times 2000 = 100,000$ data points. The third input is the GLM distribution to use. Here we assume that the spike count in each bin is approximately Poisson, as we did in [chapter 9](../09). Recall that by selecting the Poisson GLM, we implicitly use a log link function. In other words, we set the log of the firing rate to be a linear function of the predictors and model parameters. Equivalently, we construct a model of the form $\lambda(t) = e^{\beta X(t)}$, where $\lambda(t)$ is the spiking intensity at time $t$, $X(t)$ is a $p \times 1$ column vector of the predictors at time $t$, and $\beta$ is a $1 \times p$ column vector of the model parameters. Since each bin contains either 0 or 1 spike, we could also use the binomial distribution with a maximum of one count in each bin. However, choosing the Poisson count distribution will make it easier to interpret the resulting models.
 
-The first input to this function is the design matrix or predictors. This is an $n \times p$ matrix, where n is the total number of time steps in the dataset, and p is the number of predictors in the model. For these data, we have 50 trials, each comprising 2,000 time steps, so $n = 50 \times 2000 = 100,000$ data points. The second input to glmfit is the response vector—the spike train—which is an $n \times 1$ vector. We have to reshape the spike train to be one long vector containing all the trials sequentially, and also construct the design matrix accordingly. The third input is the GLM distribution to use. Here we assume that the spike count in each bin is approximately Poisson, as we did in [chapter 9](../09). Recall that by selecting the Poisson GLM, we implicitly use a log link function. In other words, we set the log of the firing rate to be a linear function of the predictors and model parameters. Equivalently, we construct a model of the form $\lambda(t) = e^{\beta X(t)}$, where $\lambda(t)$ is the spiking intensity at time $t$, $X(t)$ is a $p \times 1$ column vector of the predictors at time t, and $\beta$ is a $1 \times p$ column vector of the model parameters. Since each bin contains either 0 or 1 spike, we could also use the binomial distribution with a maximum of one count in each bin. However, choosing the Poisson count distribution will make it easier to interpret the resulting models.
+In this chapter, we will change this approach slightly to demonstrate the use of *Dataframes* and *formulae*. A Dataframe is an object from the Pandas module that allows us to mimic the programming style used in [R](https://www.r-project.org/). It stores data in a table under named columns and has some handy built-in functions that make it easy to use. Moreover, dataframes are often used in Pythonic data analyses, so you will likely see them again. A *formula* is a character string that describes the model. It will look something like `responses ~ predictors` (read "responses as a function of predictors"). Note that this is simply a different style of programming; the underlying mathematics is the same.
+
+<div class="math-note">
 
 One important note: Although we are approximating the number of spikes in each bin as Poisson, this does not mean we are modeling the data as a Poisson process. A Poisson process is one that has Poisson spike counts in each interval but also requires that the counts in two separate intervals be independent. Here, we explicitly model the spike count in one bin as a function of the number of spikes fired in previous bins. Therefore, the spike counts will not be independent between bins.
+
+</div>
 
 +++
 
@@ -762,7 +766,7 @@ IDir = repeat(direction == 1, nTime)
 
 +++
 
-We could add the variable `xdir` directly to the initial Model 1, and proceed immediately with a model fit. But first let’s examine the point process residuals for Model 1, and whether these residuals depend on the trial movement direction. 
+We could add the variable `xdir` directly to the initial Model 1, and proceed immediately with a model fit. But first let’s examine the point process residuals for Model 1, and whether these residuals depend on the trial movement direction.
 
 ```{code-cell} ipython3
 R = cumsum(M1.resid_response);  # Cumulative sum of Model 1 residuals.
@@ -980,7 +984,7 @@ $$
 \end{eqnarray}
 $$
 
-Model 4 has 143 parameters&mdash;one intercept parameter, one parameter for each of the movement and direction indicator variables, 70 parameters describing the history dependence in the planning period, and 70 more parameters describing the history dependence in the movement period. Whenever we construct a point process model that includes history dependence, we call it a conditional intensity model rather than a rate model. To fit this model in Python, we will take advantage of the dataframe structure using the `filter()` method: 
+Model 4 has 143 parameters&mdash;one intercept parameter, one parameter for each of the movement and direction indicator variables, 70 parameters describing the history dependence in the planning period, and 70 more parameters describing the history dependence in the movement period. Whenever we construct a point process model that includes history dependence, we call it a conditional intensity model rather than a rate model. To fit this model in Python, we will take advantage of the dataframe structure using the `filter()` method:
 
 ```{code-cell} ipython3
 # Create a string with all lag columns joined by plus signs
@@ -1293,7 +1297,7 @@ plot(C)
 show()
 ```
 
-The result in `C` is a [70 &times; 8] matrix that we will use to convert the previous 70 history columns in `glmdata` into a new set of 8 columns to include in the design matrix. 
+The result in `C` is a [70 &times; 8] matrix that we will use to convert the previous 70 history columns in `glmdata` into a new set of 8 columns to include in the design matrix.
 
 ```{code-cell} ipython3
 lags = glmdata.filter(like='lag').columns[:ordK]  # Get the first ordK lags
