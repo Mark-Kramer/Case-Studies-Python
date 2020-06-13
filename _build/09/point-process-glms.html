@@ -81,7 +81,7 @@ _**Synopsis**_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="On-ramp:-filtering-field-data-in-Python-">On-ramp: filtering field data in Python <a id="onramp" /><a class="anchor-link" href="#On-ramp:-filtering-field-data-in-Python-"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+<h2 id="On-ramp:-filtering-field-data-in-Python-">On-ramp: filtering field data in Python <a id="onramp" /><a class="anchor-link" href="#On-ramp:-filtering-field-data-in-Python-"> </a></h2><p>We begin this notebook with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
 
 </div>
 </div>
@@ -202,12 +202,7 @@ _**Synopsis**_
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import the usual suspects ...</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
-<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
-<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
-<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting and numerical functions</span>
 </pre></div>
 
     </div>
@@ -353,7 +348,7 @@ _**Synopsis**_
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">spiketimes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spiketimes&#39;</span><span class="p">]</span>
 <span class="n">n_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 <span class="c1"># Histogram spikes into bins centered at times t:</span>
-<span class="n">spiketrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
+<span class="n">spiketrain</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
                          <span class="n">bins</span> <span class="o">=</span> <span class="n">n_bins</span><span class="p">,</span> 
                          <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
 </pre></div>
@@ -385,8 +380,8 @@ _**Synopsis**_
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>               <span class="c1"># Plot the position,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">spiketrain</span><span class="p">)</span> <span class="c1"># Plot the spikes,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>   <span class="c1"># ... and label the axes.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>   <span class="c1"># ... and label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -425,14 +420,14 @@ _**Synopsis**_
 
 **A**: Keeping the variable `spiketrain`, let’s compute a new variable, `spikeindex`, using the numpy command `where()`:
 
-    spikeindex=np.where(spiketrain!=0)[0]  #Determine index of each spike.
+    spikeindex=where(spiketrain!=0)[0]  #Determine index of each spike.
 
 The vector `spikeindex` represents the vector indices at which spikes occur. We can use this to index any of the variables whose size matches the number of time bins in the recording. So, another visualization we can now employ is to plot the times and positions of the spikes overlaid on the full movement trajectory. In Python:
 
     plot(t, X)                             #Plot the position.
     plot(t[spikeindex],X[spikeindex],'r.') #Plot spikes @ positions.
-    plt.xlabel('Time [sec]')               #Label the axes.
-    plt.ylabel('Position [cm]')
+    xlabel('Time [sec]')               #Label the axes.
+    ylabel('Position [cm]')
 
 Note that by using the `'r.'` term in the plot function, we indicate the times and positions of the spikes as red dots.
 
@@ -505,7 +500,7 @@ Note that by using the `'r.'` term in the plot function, we indicate the times a
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bin_edges</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                              <span class="c1"># Define spatial bins.</span>
 <span class="n">spikehist</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>           <span class="c1"># Histogram positions @ spikes.</span>
 <span class="n">occupancy</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.001</span>                 <span class="c1"># Convert occupancy to seconds.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Plot results as bars.</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Plot results as bars.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                                      <span class="c1"># Label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -1532,7 +1527,7 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eCI2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CI2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">eCI2</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">CI2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">eCI2</span><span class="p">)</span>
 </pre></div>
 
@@ -1658,7 +1653,7 @@ $$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$<p>Under the null hypothesis, this
 <p>We find <code>p_beta2 = 4.12e-38</code>, which is very close to zero. This result is consistent with our previous finding, via the MLRT, that the improvement of Model 3 over Model 2 suggested that the quadratic model component was significant at a level of $p &lt; 2^{−16}$.</p>
 <h3 id="Method-4:-KS-Test-for-Model-Goodness-of-Fit.">Method 4: KS Test for Model Goodness-of-Fit.<a class="anchor-link" href="#Method-4:-KS-Test-for-Model-Goodness-of-Fit."> </a></h3><p>The goodness-of-fit methods we have developed so far are useful for comparing models and for determining whether individual variables contribute significantly to a model. However, these methods do not tell us whether the model captures the structure of the spiking data well overall. There are a number of methods to evaluate the overall goodness-of-fit between a model and data, but here we focus on an approach specific to point process (spike) data. The method is based on an important result known as the <em>time-rescaling theorem</em>.</p>
 <p>In many statistical analyses, we assume that the data are identically distributed, that is, that all the data come from the same probability model and have the same mean. A common goodness-of-fit method is then to compare the empirical distribution of the data to that single probability model. However, for most spike trains, the data are not identically distributed. For example, the rate of spiking may change as a function of time or with other covariates, so the expected interspike interval changes for each data point. The time-rescaling theorem provides a transformation of the data that is identically distributed if the rate model is correct.</p>
-<p>We first state the time-rescaling theorem for Poisson processes<abbr title="This result is extended to general point process data in module 10."><sup>note</sup></abbr>.</p>
+<p>We first state the time-rescaling theorem for Poisson processes<abbr title="This result is extended to general point process data in notebook 10."><sup>note</sup></abbr>.</p>
 <hr>
 <h3 id="Time-Rescaling-Theorem:">Time-Rescaling Theorem:<a class="anchor-link" href="#Time-Rescaling-Theorem:"> </a></h3><p>Consider a collection of spike times $(S_1 , S_2 , \cdots, S_n)$ from a Poisson process with rate function $\lambda(t)$. Then let</p>
 $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^{S_i} \lambda(t) dt,$$<p>for $i = 2, \cdots, n$. By the time-rescaling theorem, the rescaled variables, $Z_1 , Z_2 ,\cdots , Z_n,$ are independent and identically distributed random variables from the exponential distribution with parameter 1.</p>
@@ -1667,7 +1662,7 @@ $$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^
 <p>We do not prove the time-rescaling theorem here but note that it comes from the change-of-variables formula from basic probability theory; see <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden & Brown, 2014]</a>
  for a detailed proof.</p>
 <p>How do we use the time-rescaling theorem to analyze spike train data? If we have a collection of spike times, $S_1 , S_2 , \cdots , S_n$, and any Poisson rate model, say, from a fit GLM, then we can compute the rescaled waiting times, $Z_1,Z_2,\cdots ,Z_n$. We then perform any standard goodness-of-fit method to compare $Z_1,Z_2,\cdots ,Z_n$ to the exponential probability model. If the Poisson rate model describes the data well, then the exponential model should describe the rescaled times well.</p>
-<p>The actual goodness-of-fit technique we use for the rescaled data is the <em>Kolmogorov-Smirnov (KS) plot</em>. Recall from <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> that the KS plot compares the empirical cumulative distribution function (CDF) of the data to a model CDF. In that module, we compared the empirical CDF for observed interspike intervals against various model CDFs. In this case, we compare the empirical CDF of the rescaled waiting times to an exponential CDF.</p>
+<p>The actual goodness-of-fit technique we use for the rescaled data is the <em>Kolmogorov-Smirnov (KS) plot</em>. Recall from <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> that the KS plot compares the empirical cumulative distribution function (CDF) of the data to a model CDF. In that notebook, we compared the empirical CDF for observed interspike intervals against various model CDFs. In this case, we compare the empirical CDF of the rescaled waiting times to an exponential CDF.</p>
 <p>Let’s now apply the time-rescaling theorem to evaluate Model 3. First we must compute the rescaled waiting times.</p>
 
 </div>
@@ -2001,7 +1996,7 @@ where $\Delta N_i$ is the number of spikes that are observed in the discrete-tim
 <p>With the indicator function for the direction of movement now defined, we must incorporate this new signal into the model. The simplest solution is to add the <code>direction</code> variable directly as a new predictor. This would lead to a new model,</p>
 $$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direction}.
 \tag{Model 4}
-$$<p>We then fit this model and interpret the parameter estimates. With our previous experience in this module, fitting the model in Python is now relatively straightforward:</p>
+$$<p>We then fit this model and interpret the parameter estimates. With our previous experience in this notebook, fitting the model in Python is now relatively straightforward:</p>
 
 </div>
 </div>
@@ -2560,7 +2555,7 @@ alpha:  0.0008199709288913803
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="https://mark-kramer.github.io/Case-Studies-Python/10/spiking-rhythms.html" target="blank">module 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.</p>
+<p>We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="https://mark-kramer.github.io/Case-Studies-Python/10/spiking-rhythms.html" target="blank">notebook 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.</p>
 <p><a href="#top">Back to top</a></p>
 
 </div>
@@ -2573,7 +2568,7 @@ alpha:  0.0008199709288913803
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Summary-">Summary <a id="summary" /><a class="anchor-link" href="#Summary-"> </a></h2><p>In this case study, we used an iterative process to identify a statistical model for a hipocampal place cell. We started by visualizing the data, and then proposed point process models, compared and evaluated those models, refined the models, and finally drew inferences from a model that sufficiently captured the structure in the data that we were trying to explain. Each step of this procedure should inform the next. The goal of the visualization analysis is to identify covariates and receptive field structure to include in the first proposed models. The goodness-of-fit analysis should provide insight into features of the statistical model that are lacking and suggest new models. In this case study, we settled on a good model after just two iterations of model refinement. In practice, it may take many more iterations — or even iterations between model identification and new experiments — to identify good models.</p>
-<p>It is worth noting that more than half of this case study is devoted to model interpretation and goodness-of-fit methods. This is common for advanced statistical analyses; fitting models to data is often the easy part. The challenge often comes in being able to interpret and evaluate the results of the fitting procedure. Since there is not a single correct way to evaluate a model, we instead use a range of tools to evaluate multiple aspects of model quality. Here we focused on a few that are generally useful for point process data and for Poisson modeling in particular. In the next module, we look at additional goodness-of-fit methods, in particular, ones to get at history dependence and rhythmicity in spiking data.</p>
+<p>It is worth noting that more than half of this case study is devoted to model interpretation and goodness-of-fit methods. This is common for advanced statistical analyses; fitting models to data is often the easy part. The challenge often comes in being able to interpret and evaluate the results of the fitting procedure. Since there is not a single correct way to evaluate a model, we instead use a range of tools to evaluate multiple aspects of model quality. Here we focused on a few that are generally useful for point process data and for Poisson modeling in particular. In the next notebook, we look at additional goodness-of-fit methods, in particular, ones to get at history dependence and rhythmicity in spiking data.</p>
 
 </div>
 </div>

@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /A02/HH.html
 suffix: .ipynb
-search: our output weights lets input network need alert step steps neural backpropagation well value update compute choose div function code times class repeat sigmoid define w weight above procedure example initial desired block info q send feedforward through neuron x implement node start comment comments doing ask also good always try set python perform random fix calculate solution multiple activity determine here expressions derived target updates expression wed repetitions hand networks module implementing combine together create complete algorithm preliminaries text preceded indicates explain questions useful own note youve done makes sense return future its habit ill wont before beginning load
+search: our output weights lets input network need alert step steps neural backpropagation well value update compute choose div function code times class repeat sigmoid define w weight above procedure example initial desired block info q send feedforward through neuron x implement node start comment comments doing ask also good always try set python perform random fix calculate solution multiple activity determine here expressions derived target updates expression wed repetitions hand networks notebook implementing combine together create complete algorithm preliminaries text preceded indicates explain questions useful own note youve done makes sense return future its habit ill wont before beginning load
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -25,7 +25,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Backpropagation">Backpropagation<a class="anchor-link" href="#Backpropagation"> </a></h1><p>In this module, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.</p>
+<h1 id="Backpropagation">Backpropagation<a class="anchor-link" href="#Backpropagation"> </a></h1><p>In this notebook, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.</p>
 
 </div>
 </div>
@@ -51,9 +51,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 
     </div>
@@ -209,7 +208,7 @@ network - when given a specific input - produces a desired output.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -521,9 +520,9 @@ network - when given a specific input - produces a desired output.</p>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>                     <span class="c1"># Set the learning constant.</span>
 
 <span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>     <span class="c1"># Define the sigmoid anonymous function.</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>     <span class="c1"># Define the sigmoid anonymous function.</span>
 
-<span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>    <span class="c1"># Define a variable to hold the results of each iteration.    </span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>    <span class="c1"># Define a variable to hold the results of each iteration.    </span>
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>           <span class="c1"># For 1000 iteractions,</span>
     
     <span class="c1">#Step 2. Calculate feedforward solution to get output.</span>
@@ -542,14 +541,14 @@ network - when given a specific input - produces a desired output.</p>
     <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w2</span><span class="p">,</span><span class="n">w1</span><span class="p">,</span><span class="n">w0</span><span class="p">,</span>  <span class="n">out</span><span class="p">]</span>
     <span class="c1"># Here we save the 3 weights, the neural network output.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w2&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w1&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w0&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="mi">1000</span><span class="o">*</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">)</span>  <span class="c1">#... and plot the *target*.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> <span class="c1">#Iclude a legend,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration number&#39;</span><span class="p">);</span>         <span class="c1">#... and axis label.</span>
+<span class="n">clf</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w2&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w1&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w0&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="mi">1000</span><span class="o">*</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">)</span>  <span class="c1">#... and plot the *target*.</span>
+<span class="n">legend</span><span class="p">()</span> <span class="c1">#Iclude a legend,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration number&#39;</span><span class="p">);</span>         <span class="c1">#... and axis label.</span>
 </pre></div>
 
     </div>

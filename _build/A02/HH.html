@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /A03/LIF.html
 suffix: .ipynb
-search: alert div lets model current plot spike hh part dynamics class block info q well input code examine variables simulation evolve during conductances v m h n python neuron start gating t voltage variable single figure subplot simulate focus useful ms axis our three x hodgkin huxley define inputs outputs notice br hint high gates new subfigure same describe module here its heres details lecture prof gerstner detailed klewel com conferences epfl neural networks index php talkid need functions repository case identify five activation na plotting focusing small weve function resulting vs observation value point repeated row help move next
+search: div lets model current plot spike hh part dynamics class question q well input code examine variables simulation evolve during conductances v m h n python neuron start gating t voltage variable single figure subplot simulate focus useful ms axis our three x hodgkin huxley define inputs outputs notice br hint high gates new subfigure same describe notebook here its heres details lecture prof gerstner detailed klewel com conferences epfl neural networks index php talkid need functions repository case identify five activation na plotting focusing small weve function resulting vs observation value point repeated row help move next label legend
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -25,7 +25,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-Hodgkin-Huxley-model">The Hodgkin-Huxley model<a class="anchor-link" href="#The-Hodgkin-Huxley-model"> </a></h1><p>In this module we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the <em>most</em> important computational model in neuroscience.  We'll focus here on simulating this model and understanding its pieces.</p>
+<h1 id="The-Hodgkin-Huxley-model">The Hodgkin-Huxley model<a class="anchor-link" href="#The-Hodgkin-Huxley-model"> </a></h1><p>In this notebook we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the <em>most</em> important computational model in neuroscience.  We'll focus here on simulating this model and understanding its pieces.</p>
 
 </div>
 </div>
@@ -130,10 +130,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 
     </div>
@@ -268,11 +266,11 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  Examine this code.  Can you make sense of it?  Can you identify the
 gating variables?  The rate functions?  The equations that define the dynamics?
-We'll answer these questions in this in module, but try so on your own first.
+We'll answer these questions in this in notebook, but try so on your own first.
 
 </div>
 </div>
@@ -403,7 +401,7 @@ We'll answer these questions in this in module, but try so on your own first.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the dynamics of the voltage (variable `V`) resulting
 from this simulation?<br>
@@ -419,7 +417,7 @@ HINT:  Plot `V` vs `t`.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**   What are the dynamics of the gating variables (`m`, `h`, `n`)
 resulting from this simulation?<br>
@@ -435,7 +433,7 @@ HINT:  Plot them!
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  What are the final values (after the 100 ms of simulation) of
 `V`, `m`, `h`, and `n`?
@@ -519,9 +517,12 @@ approach a "fixed point", whose location we can identify as a point in four dime
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What happens to the dynamics?<br>
+
 HINT:  Plot V vs t.
+
 </div>
 </div>
 </div>
@@ -551,8 +552,8 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -584,7 +585,7 @@ HINT:  Plot V vs t.
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This <code>subplot</code> command divides the figure into two rows, and one column, and tells Python we'll start in the first row. See Python Help for more details:</p>
-<p><code>plt.subplot??</code></p>
+<p><code>subplot??</code></p>
 
 </div>
 </div>
@@ -609,9 +610,9 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -641,7 +642,7 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -669,8 +670,8 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
 </pre></div>
 
     </div>
@@ -699,8 +700,8 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -728,7 +729,7 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -756,7 +757,7 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 
     </div>
@@ -770,8 +771,10 @@ HINT:  Plot V vs t.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Using the figure you created above, describe how the gates swing open and closed during a spike.
+
 </div>
 </div>
 </div>
@@ -796,16 +799,16 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span>                 <span class="c1"># Define axis for 1st subplot,</span>
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">);</span>     <span class="c1"># ... and link axis of 2nd subplot to the 1st.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span>                 <span class="c1"># Define axis for 1st subplot,</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">);</span>     <span class="c1"># ... and link axis of 2nd subplot to the 1st.</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>                       <span class="c1"># Plot the voltage in the first subplot,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>            <span class="c1"># ... and the gating variables in the other subplot.</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+<span class="n">legend</span><span class="p">();</span>
 </pre></div>
 
     </div>
@@ -848,11 +851,11 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax1</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>                <span class="c1"># Make a subplot,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>                <span class="c1"># Make a subplot,</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>                   <span class="c1">#... and plot the voltage,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>               <span class="c1">#... with y-axis labeled.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>               <span class="c1">#... with y-axis labeled.</span>
 </pre></div>
 
     </div>
@@ -885,7 +888,7 @@ HINT:  Plot V vs t.
 <span class="n">gK0</span>  <span class="o">=</span> <span class="mi">36</span>
 <span class="n">gK</span>   <span class="o">=</span> <span class="n">gK0</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">4</span>                    <span class="c1"># Potassium conductance</span>
 <span class="n">gL0</span>  <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">gL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">gK</span><span class="p">))</span>   <span class="c1"># Leak conductance</span>
+<span class="n">gL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">gK</span><span class="p">))</span>   <span class="c1"># Leak conductance</span>
 </pre></div>
 
     </div>
@@ -899,8 +902,10 @@ HINT:  Plot V vs t.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Where do these terms come from?
+
 </div>
 </div>
 </div>
@@ -925,14 +930,14 @@ HINT:  Plot V vs t.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1">#Make a second subplot,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1">#Make a second subplot,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gNa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gNa&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the sodium conductance,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gK&#39;</span><span class="p">)</span>     <span class="c1">#... and plot the potassium conductance,</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gL&#39;</span><span class="p">)</span>     <span class="c1">#... and plot the leak conductance.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>             <span class="c1">#... label the x-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mS/cm^2&#39;</span><span class="p">)</span>               <span class="c1">#... and label the y-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>                       <span class="c1">#... make a legend.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>             <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mS/cm^2&#39;</span><span class="p">)</span>               <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                       <span class="c1">#... make a legend.</span>
 </pre></div>
 
     </div>
@@ -946,8 +951,10 @@ HINT:  Plot V vs t.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 </div>
 </div>
@@ -987,14 +994,14 @@ HINT:  Plot V vs t.
 <span class="n">EL</span>   <span class="o">=</span> <span class="mf">10.6</span><span class="p">;</span>
 <span class="n">IL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="p">(</span><span class="n">EL</span><span class="o">-</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mi">65</span><span class="p">))</span>             <span class="c1"># Leak current.</span>
 
-<span class="n">ax3</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>   <span class="c1"># Make a third subplot,</span>
+<span class="n">ax3</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>   <span class="c1"># Make a third subplot,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">INa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;INa&#39;</span><span class="p">)</span>   <span class="c1">#... and plot the sodium current,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IK&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the potassium current,</span>
 <span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IL&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the leak current.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                 <span class="c1">#... focus on a single spike,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>            <span class="c1">#... label the x-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mA/cm^2&#39;</span><span class="p">)</span>              <span class="c1">#... and label the y-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>                      <span class="c1">#... make a legend.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                 <span class="c1">#... focus on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>            <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mA/cm^2&#39;</span><span class="p">)</span>              <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                      <span class="c1">#... make a legend.</span>
 </pre></div>
 
     </div>
@@ -1008,8 +1015,10 @@ HINT:  Plot V vs t.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** How do the conductances evolve during a spike?
+
 </div>
 </div>
 </div>
@@ -1020,8 +1029,10 @@ HINT:  Plot V vs t.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
+
 </div>
 </div>
 </div>

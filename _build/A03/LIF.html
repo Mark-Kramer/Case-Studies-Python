@@ -13,7 +13,7 @@ prev_page:
 next_page:
   url: /A04/perceptron.html
 suffix: .ipynb
-search: v alert t div lets model voltage dt well our class block info q c dfrac s equation dv value plot python heres part hand code reset integrate fire adjust need numerical whats happening change steps set step does happens notice choose forward initial results loop not parameter neuron simulate spiking current solutions compute solution differential right consider think discrete ldots where between samples weve expression into values dont assume defined missing assign why array state after above iteration procedure org sense command define axes put together version parts threshold add vth vreset module investigate particular activity varies input background
+search: v t div lets model voltage dt well our question class q c dfrac s equation dv value plot python heres part hand code reset integrate fire adjust need numerical whats happening change steps set step does happens notice choose forward initial results loop not parameter neuron simulate spiking current solutions compute solution differential right consider think discrete ldots where between samples weve expression into values dont assume defined missing assign why array state after above iteration procedure org sense command define axes put together version parts threshold add vth vreset notebook investigate particular activity varies input background information video
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -25,7 +25,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="The-integrate-and-fire-neuron">The integrate and fire neuron<a class="anchor-link" href="#The-integrate-and-fire-neuron"> </a></h1><p>In this module we will use Python to simulate the integrate and fire (I&amp;F) neuron model.  We'll investigate, in particular, how the spiking activity varies as we adjust the input current $I$.</p>
+<h1 id="The-integrate-and-fire-neuron">The integrate and fire neuron<a class="anchor-link" href="#The-integrate-and-fire-neuron"> </a></h1><p>In this notebook we will use Python to simulate the integrate and fire (I&amp;F) neuron model.  We'll investigate, in particular, how the spiking activity varies as we adjust the input current $I$.</p>
 
 </div>
 </div>
@@ -127,9 +127,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 
     </div>
@@ -240,10 +239,12 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-**Q:**  What value do we assign to $V(t)$?<br><br>
+<div class="question">
+
+**Q:**  What value do we assign to $V(t)$?
 
 **A:**  We don't know --- that's why we're running the simulation in the first place!
+
 </div>
 </div>
 </div>
@@ -269,7 +270,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">V</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
@@ -330,7 +331,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  Given the initial state `V[0]=0.2`, calculate `V[1]`.  Then calcualte `V[2]`.
 
@@ -388,8 +389,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Does this loop make sense?  Describe what's happening here.
+
 </div>
 </div>
 </div>
@@ -400,8 +403,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Why does the `range` command end at `999`?
+
 </div>
 </div>
 </div>
@@ -426,8 +431,8 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">V</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">V</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -459,8 +464,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What happens to the voltage after 1000 steps?
+
 </div>
 </div>
 </div>
@@ -487,7 +494,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>
 </pre></div>
 
     </div>
@@ -501,8 +508,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What's happening in the command above?  Does it make sense?  (If not, trying printing or plotting `t`.)
+
 </div>
 </div>
 </div>
@@ -527,10 +536,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">);</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">);</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -617,25 +626,24 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>      <span class="c1">#Import useful packages.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">I</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter I.</span>
 <span class="n">C</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter C.</span>
 <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                 <span class="c1">#Set the timestep.</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
 <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>               <span class="c1">#Set the initial value of V.</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>            <span class="c1">#March forward in time,</span>
     <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span>      <span class="c1">#... updating V along the way.</span>
 
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+<span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -667,8 +675,10 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Adjust the parameter `I`.  What happens to `V` if `I=0`?  Can you set `I` so that `V` > 20 within 10 s?
+
 </div>
 </div>
 </div>
@@ -756,16 +766,15 @@ reset voltage <code>Vreset</code>.</li>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>      <span class="c1">#Import useful packages.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">I</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter I.</span>
 <span class="n">C</span><span class="o">=</span><span class="mi">1</span>                     <span class="c1">#Set the parameter C.</span>
 <span class="n">Vth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                <span class="c1">#Define the voltage threshold.</span>
 <span class="n">Vreset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>             <span class="c1">#Define the reset voltage.</span>
 <span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                 <span class="c1">#Set the timestep.</span>
-<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>  <span class="c1">#Initialize V.</span>
 <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>               <span class="c1">#Set the initial condition.</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>            <span class="c1">#March forward in time,</span>
@@ -773,12 +782,12 @@ reset voltage <code>Vreset</code>.</li>
     <span class="k">if</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Vth</span><span class="p">:</span>              <span class="c1">#... and check if the voltage exceeds the threshold.</span>
         <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vreset</span>
         
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>        <span class="c1">#Define the time axis.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+<span class="n">figure</span><span class="p">()</span>            <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -810,8 +819,10 @@ reset voltage <code>Vreset</code>.</li>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Adjust the parameter `I`.  What happens to `V` if `I=10`?  If `I=100`?
+
 </div>
 </div>
 </div>
@@ -822,8 +833,10 @@ reset voltage <code>Vreset</code>.</li>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Adjust the parameter `C`.  What happens to `V` if `C=0.1`?  If `C=10`?
+
 </div>
 </div>
 </div>
@@ -834,8 +847,10 @@ reset voltage <code>Vreset</code>.</li>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** What is "spiking" in this I&F model?
+
 </div>
 </div>
 </div>

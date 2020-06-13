@@ -47,15 +47,12 @@ _**Synopsis**_
 +++
 
 ## On-ramp: filtering field data in Python
-We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to filter field data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to filter field data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 ```{code-cell} ipython3
-import numpy as np
-from numpy.fft import fft, ifft, rfft, fftfreq
+from pylab import *
 from scipy.signal import firwin, lfilter, filtfilt
 from scipy.io import loadmat
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
 %matplotlib inline
 
 data = loadmat('EEG-1.mat')    # Load the data,
@@ -70,11 +67,11 @@ n = 100                        # Define the filter order
 Wn = 30 / fNQ                  # ... and specify the cutoff frequency,
 b = firwin(n, Wn)              # ... build lowpass FIR filter,
                                # ... and zero-phase filter each trial
-eeg_lo = np.array([filtfilt(b, 1, eeg[k]) for k in range(K)])
+eeg_lo = array([filtfilt(b, 1, eeg[k]) for k in range(K)])
 
 mn = eeg_lo.mean(0)            # Compute mean of filtered EEG across trials (ERP)
 sd = eeg_lo.std(0)             # Compute std of filtered EEG data across trials.
-sdmn = sd / np.sqrt(K);        # Compute the std of the mean.
+sdmn = sd / sqrt(K);        # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP of the filtered data
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -98,7 +95,7 @@ show()
 ## Introduction
 In previous case studies, we analyzed brain rhythms and discussed techniques to characterize these rhythms. Observed brain rhythms are often corrupted by noise. Sometimes this noise is obvious (e.g., electrical noise). In general, however, identifying the components of a brain signal that constitute signal versus noise is a difficult problem.
 
-In this module, we develop techniques to isolate, emphasize, or remove rhythmic activity in neural field data. To do so we introduce a broad area of study and research: **filtering**. In general, filtering is a very common procedure in the analysis of neural data. Although it is typically considered a preprocessing step, how filtering is performed may make or break subsequent analysis. This is a vast area, and we focus here on only some of the important concepts and tools.
+In this notebook, we develop techniques to isolate, emphasize, or remove rhythmic activity in neural field data. To do so we introduce a broad area of study and research: **filtering**. In general, filtering is a very common procedure in the analysis of neural data. Although it is typically considered a preprocessing step, how filtering is performed may make or break subsequent analysis. This is a vast area, and we focus here on only some of the important concepts and tools.
 
 ### Case study data
 Our colleague recorded the electroencephalogram (EEG) from a human subject during a task. After performing the experiment, he analyzed the data with the hope of finding an evoked response over visual cortex. However, his initial analysis suggested no evoked response. He therefore asked us to assist in his data analysis. He provided us with the EEG data recorded on the scalp surface above the left occipital lobe of one subject. He would like to understand the rhythmic features that appear in these data during the recording, and in particular whether an evoked response can be detected. He provided us with ten trials of EEG data, each of duration 1 s, recorded during the subject’s response to a visual stimulus (a small flash of light).
@@ -107,16 +104,12 @@ Our colleague recorded the electroencephalogram (EEG) from a human subject durin
 Our goal is to better understand whether an evoked response appears in the data. We first make a visual inspection of the data, using techniques we developed to [study evoked responses](../02). However, our main goal is to understand the fundamental procedures of filtering neural field data, and we examine filtering methods applied to these example EEG data. We start by developing an intuitive approach to filtering and then implement and apply more sophisticated methods. We explain procedures to visualize filter properties and the resulting impact on the input signal.
 
 ### Tools
-In this chapter, we rely on the Fourier transform (and associated measures) to develop a basic understanding of filters. If you are not confident using the Fourier transform, we strongly recommend reviewing modules [3](../03) and [4](../04). This case study reinforces concepts in those modules and provides another opportunity to compute and to examine spectra, and to examine the relationships between the time and frequency domain representations of a time series. Upon completing this module, you should be familiar with basic filtering principles and methods to visualize the impact of filters, and equipped for further study and development of filtering procedures.
+In this notebook, we rely on the Fourier transform (and associated measures) to develop a basic understanding of filters. If you are not confident using the Fourier transform, we strongly recommend reviewing notebooks [3](../03) and [4](../04). This case study reinforces concepts in those notebooks and provides another opportunity to compute and to examine spectra, and to examine the relationships between the time and frequency domain representations of a time series. Upon completing this notebook, you should be familiar with basic filtering principles and methods to visualize the impact of filters, and equipped for further study and development of filtering procedures.
 
 ```{code-cell} ipython3
-import numpy as np
-from numpy import hanning, angle
-from numpy.fft import fft, ifft, rfft, fftfreq
+from pylab import *
 from scipy.signal import firwin, lfilter, filtfilt
 from scipy.io import loadmat
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
 %matplotlib inline
 ```
 
@@ -180,7 +173,7 @@ Visual inspection of the 1 s interval of the first trial suggests at least two d
 
 ### Spectral Analysis<a id="spectral-analysis"></a>
 
-Initial visual inspection of the single-trial data suggests that a 60 Hz rhythm dominates each individual trial. To further characterize this observation, let’s compute the spectrum of a single trial of EEG data <sup><abbr title="We could instead write the sample spectrum because this equation uses the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment, but this distinction is not essential to the discussion here.">note</abbr></sup>. We do so here for the first trial, and apply a Hanning taper before computing the spectrum (see [chapter 4](../04)):
+Initial visual inspection of the single-trial data suggests that a 60 Hz rhythm dominates each individual trial. To further characterize this observation, let’s compute the spectrum of a single trial of EEG data <sup><abbr title="We could instead write the sample spectrum because this equation uses the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment, but this distinction is not essential to the discussion here.">note</abbr></sup>. We do so here for the first trial, and apply a Hanning taper before computing the spectrum (see [notebook 4](../04)):
 <a id="fig:2"></a>
 
 ```{code-cell} ipython3
@@ -196,9 +189,9 @@ Sxx = 2 * dt ** 2 / T * (xf * xf.conj());  #... and compute spectrum.
 
 df = 1 / T;               # Determine frequency resolution.
 fNQ = 1 / dt / 2;         # Determine Nyquist frequency.
-faxis = np.arange(0, fNQ, df)              # Construct frequency axis
+faxis = arange(0, fNQ, df)              # Construct frequency axis
 
-semilogx(faxis, 10 * np.log10(Sxx.real))   # Plot decibels vs frequency,
+semilogx(faxis, 10 * log10(Sxx.real))   # Plot decibels vs frequency,
 xlim([df, 100])           # ... in limited frequency range,
 xlabel('Frequency [Hz]')  # ... with axes labeled.
 ylabel('Power [dB]')
@@ -215,7 +208,7 @@ Notice that in the second line of code, we remove the mean from the single trial
 
 **Q.** What is the resulting frequency resolution?
 
-**A.** The total duration of a trial is 1 s. Therefore the frequency resolution is 1/(1 s) = 1 Hz. If this answer makes no sense, we recommend reviewing the case study in [chapter 3](../03).
+**A.** The total duration of a trial is 1 s. Therefore the frequency resolution is 1/(1 s) = 1 Hz. If this answer makes no sense, we recommend reviewing the case study in [notebook 3](../03).
 
 </div>
 
@@ -238,14 +231,14 @@ A 60 Hz peak is common in EEG data recorded in North America, where the alternat
 [Back to Top](#top)
 ### Evoked Response and the Average Spectrum<a id="evoked-response"></a>
 
-Initial inspection of the features observable in the individual trials of EEG data has not been encouraging; the data appear to be dominated by 60 Hz line noise, with an occasional large-amplitude deviation. Through this initial inspection, it’s not clear whether an evoked response occurs in these data. We may therefore conclude that if an evoked response does occur in the data, the effect is weak and not apparent in a single trial. To further search for a weak evoked effect, let’s average the EEG responses across trials. In doing so, we hope that events unrelated to the stimulus will be reduced while responses evoked by the stimulus will be enhanced (see [chapter 2](../02)). More specifically, let’s compute the mean and standard deviation of the mean EEG response at each time across trials:
+Initial inspection of the features observable in the individual trials of EEG data has not been encouraging; the data appear to be dominated by 60 Hz line noise, with an occasional large-amplitude deviation. Through this initial inspection, it’s not clear whether an evoked response occurs in these data. We may therefore conclude that if an evoked response does occur in the data, the effect is weak and not apparent in a single trial. To further search for a weak evoked effect, let’s average the EEG responses across trials. In doing so, we hope that events unrelated to the stimulus will be reduced while responses evoked by the stimulus will be enhanced (see [notebook 2](../02)). More specifically, let’s compute the mean and standard deviation of the mean EEG response at each time across trials:
 <a id="fig:3"></a>
 
 ```{code-cell} ipython3
 K = len(eeg)                   # Define variable to record no. of trials
 mn = eeg.mean(0)               # Compute mean EEG across trials (ERP)
 sd = eeg.std(0)                # Compute std of EEG data across trials.
-sdmn = sd / np.sqrt(K);        # Compute the std of the mean.
+sdmn = sd / sqrt(K);        # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP,
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -277,8 +270,8 @@ def spectrum(x, t, hann=True):
     return Sxx.real
 
 Sxx = [spectrum(trial, t, False) for trial in eeg] # Compute the spectrum for each trial.
-Sxxmn = np.array(Sxx).mean(0)                      # Convert the result into an array and compute the mean.
-semilogx(faxis, 10 * np.log10(Sxxmn))              # Plot the result in decibels vs frequency,
+Sxxmn = array(Sxx).mean(0)                      # Convert the result into an array and compute the mean.
+semilogx(faxis, 10 * log10(Sxxmn))              # Plot the result in decibels vs frequency,
 xlim([df, 100])                                    # ... in limited frequency range,
 ylim([-40,0])                                      # ... and limited power range,
 xlabel('Frequency [Hz]')                           # ... with axes labeled.
@@ -305,7 +298,7 @@ Compared to the <a href="fig:2" class="fig">single-trial spectrum<span><img src=
 [Back to Top](#top)
 ### Naive Filtering<a id="naive-filters"></a>
 
-In this section, we introduce some fundamental concepts related to filtering. An easy approach to filtering is simply to use packaged Python functions to implement standard filtering methods. However, this approach can be dangerous. If we treat the filter as a black box, then we may not understand what a filter actually does and when it might fail to perform as we hope. To gain intuition for filtering, we therefore begin with a naive approach. This approach uses understanding of the Fourier transform and spectrum, and allows us to investigate how a simple filter performs. We then attempt to improve this naive approach, again using notions familiar from the study of spectra in previous chapters (see chapters [3](../03) and [4](../04)). Through this approach we do not implement the most sophisticated or useful filters; in fact, we do not recommend using this approach in practice. But we develop a deeper understanding of what a filter actually does. Later, we use packaged functions to implement standard filtering approaches. Ideally, these built-in functions will seem more interpretable with the knowledge gained through the initial naive filtering investigations.
+In this section, we introduce some fundamental concepts related to filtering. An easy approach to filtering is simply to use packaged Python functions to implement standard filtering methods. However, this approach can be dangerous. If we treat the filter as a black box, then we may not understand what a filter actually does and when it might fail to perform as we hope. To gain intuition for filtering, we therefore begin with a naive approach. This approach uses understanding of the Fourier transform and spectrum, and allows us to investigate how a simple filter performs. We then attempt to improve this naive approach, again using notions familiar from the study of spectra in previous notebooks (see notebooks [3](../03) and [4](../04)). Through this approach we do not implement the most sophisticated or useful filters; in fact, we do not recommend using this approach in practice. But we develop a deeper understanding of what a filter actually does. Later, we use packaged functions to implement standard filtering approaches. Ideally, these built-in functions will seem more interpretable with the knowledge gained through the initial naive filtering investigations.
 
 #### A Naive Rectangular Filter.
 
@@ -350,7 +343,7 @@ xf = fft(x)       # ... and compute the FT
 
 ##### Step 2.
 
-We first define the frequency axis that corresponds to `xf`. We do so in the standard way implemented in previous chapters:
+We first define the frequency axis that corresponds to `xf`. We do so in the standard way implemented in previous notebooks:
 
 ```{code-cell} ipython3
 dt = t[1] - t[0]        # Define the sampling interval.
@@ -413,7 +406,7 @@ we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consis
 With the indices surrounding the line noise frequency located, we’re ready to set the frequency domain components of the EEG signal at 60 Hz to zero. Let’s first define the filter in the frequency domain. This filter will have a value of 1 at all frequencies except near &plusmn;60 Hz, where we set the filter to 0. We then apply this filter to the frequency domain representation of the EEG data. By doing so, we set the (complex) values of `xf` (i.e., the frequency domain representation of the EEG data) to zero at the indices surrounding the line noise frequency. At all other indices, we leave `xf` unaltered (i.e., we multiply by 1).
 
 ```{code-cell} ipython3
-rectangular_filter = np.ones_like(x)   # Define filter in frequency domain
+rectangular_filter = ones_like(x)   # Define filter in frequency domain
 rectangular_filter[indices] = 0        # ... set the filter at line-noise frequencies to zero
 xf_filtered = xf * rectangular_filter  # ... apply filter to data
 ```
@@ -422,7 +415,7 @@ Before continuing, let’s visualize the filter and anticipate the impact on the
 <a id="fig:4"></a>
 
 ```{code-cell} ipython3
-isorted = np.argsort(faxis)                       # Sort the frequency axis
+isorted = argsort(faxis)                       # Sort the frequency axis
 plot(faxis[isorted], rectangular_filter[isorted]) # Plot rectangular filter vs frequency
 xlabel('Freq (Hz)')                               # ... with axes labeled
 ylabel('Naive square filter')
@@ -448,7 +441,7 @@ show()
 
 Recall that `faxis` starts with the positive frequencies and then jumps to the negative frequencies. To display clearly the plots requires an additional step:
 
-    isorted = np.argsort(faxis)
+    isorted = argsort(faxis)
     
 where `isorted` are the indices that sort the frequency axis in ascending order. In the code above we use these indices to plot `rectangular_filter`, `xf` and `xf_filtered` according to the sorted values of `faxis`.
 
@@ -503,9 +496,9 @@ An initial visual inspection suggests that the filter has the desired effect; th
 
 ```{code-cell} ipython3
 # Compute and plot the spectrum of the unfiltered signal.
-plot(np.arange(0, fNQ, df), 10 * np.log10(spectrum(x, t)), label='xf')
+plot(arange(0, fNQ, df), 10 * log10(spectrum(x, t)), label='xf')
 # Compute and plot the spectrum of the filtered signal.
-plot(np.arange(0, fNQ, df), 10 * np.log10(spectrum(xnew.real, t)), label='xf_filtered')
+plot(arange(0, fNQ, df), 10 * log10(spectrum(xnew.real, t)), label='xf_filtered')
 xlim([0, 100])
 xlabel('Freq (Hz)')
 ylabel('Power (dB)')
@@ -544,11 +537,11 @@ So far we’ve characterized the naive rectangular filter by its impact in the f
 <a id="fig:6a"></a>
 
 ```{code-cell} ipython3
-impulse = np.zeros_like(rectangular_filter)  # Define the input signal,
+impulse = zeros_like(rectangular_filter)  # Define the input signal,
 impulse[N // 2] = 1                          # ... with an impulse at the midpoint.
 impulsef = fft(impulse) * rectangular_filter # Apply naive filter,
 impulse_response = ifft(impulsef).real       # ... and iFT back to time domain
-lag_axis = np.arange(-N // 2, N // 2) * dt   # Define lag axis,
+lag_axis = arange(-N // 2, N // 2) * dt   # Define lag axis,
 
 fig, ax = subplots()                         # ... and plot the results.
 ax.plot(lag_axis, impulse_response, label="impulse response")
@@ -595,7 +588,7 @@ Therefore, as an alternative method for computing the impulse response, we convo
 
 ```{code-cell} ipython3
 i_rectangular_filter = ifft(rectangular_filter).real  # Transform the filter to the time domain,
-impulse_response_t = np.zeros_like(t)                 # ... and define the impulse response,
+impulse_response_t = zeros_like(t)                 # ... and define the impulse response,
 for ii in range(N):                                   # ... at each time point
     inds = [(ii - n) % N for n in range(N)]           # ... by computing the convolution
     impulse_response_t[ii] = (i_rectangular_filter[inds] * impulse).sum()
@@ -632,7 +625,7 @@ The time domain representation of the naive rectangular filter is more complicat
 
 Through the interpretation of filtering as convolution in time, we gain additional insight into the naive rectangular filter’s impact. When we looked closely, we identified suspicious behavior in the; we found that after filtering, the large-amplitude discharge was surrounded by small-amplitude oscillations with frequency near 60 Hz. Under the interpretation of filtering as convolution, we expect that a sudden large change in the input signal (i.e., the brief discharge in the EEG) will clearly impact the resulting filtered signal across an extended interval of time. Indeed, because the brief EEG discharge is so large, the small amplitude oscillations surrounding the central peak of the impulse function are apparent in the filtered EEG signal. For these brief large-amplitude peaks in the EEG data, the temporal impact of the filter is obvious in the filtered signal. However, this temporal impact occurs throughout the filtered signal; using the naive rectangular filter, each time point in the original signal impacts every time point in the [filtered signal](#fig:5c)<span class="fig"><sup>fig</sup><img src="imgs/6-5c.png"></span>.
 
-We conclude this section by noting that these results are analogous to our discussion of the rectangular window function in [chapter 4](../04). In that chapter, we applied a rectangular taper in the time domain and showed that this produced broad effects in the frequency domain. Here, we instead apply an (inverted) rectangular taper in the frequency domain and find broad effects in the time domain. The fundamental concept is that the Fourier transform of a sharp transition in one domain (in this case, the abrupt edge of a rectangular taper) produces broad effects in the other domain.
+We conclude this section by noting that these results are analogous to our discussion of the rectangular window function in [notebook 4](../04). In that notebook, we applied a rectangular taper in the time domain and showed that this produced broad effects in the frequency domain. Here, we instead apply an (inverted) rectangular taper in the frequency domain and find broad effects in the time domain. The fundamental concept is that the Fourier transform of a sharp transition in one domain (in this case, the abrupt edge of a rectangular taper) produces broad effects in the other domain.
 
 +++
 
@@ -641,7 +634,7 @@ We conclude this section by noting that these results are analogous to our discu
 
 In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the [filter](#fig:4)<span class="sup">fig<img src="imgs/6-4.png"></span> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.
 
-Let’s begin our filter design in the frequency domain. Our goal is to eliminate the 60 Hz component (i.e., the electrical noise) from the EEG signal without introducing long-lasting temporal effects. To do so, instead of the naive rectangular function employed in our first filter, we’ll use a smooth Hanning function (first introduced in our computations of the spectrum in [chapter 4](../04)). First, we need to load the data and identify the indices corresponding to &plusmn;60 Hz, and then apply a Hanning window centered at each of these indices. Some of the following commands are redundant with commands we used previously, but they are repeated here for completeness.
+Let’s begin our filter design in the frequency domain. Our goal is to eliminate the 60 Hz component (i.e., the electrical noise) from the EEG signal without introducing long-lasting temporal effects. To do so, instead of the naive rectangular function employed in our first filter, we’ll use a smooth Hanning function (first introduced in our computations of the spectrum in [notebook 4](../04)). First, we need to load the data and identify the indices corresponding to &plusmn;60 Hz, and then apply a Hanning window centered at each of these indices. Some of the following commands are redundant with commands we used previously, but they are repeated here for completeness.
 
 ```{code-cell} ipython3
 data = loadmat('EEG-1.mat')  # Load,
@@ -658,10 +651,10 @@ win = 15                     # Set the size of the Hann window,
                              # ... and find indices within win of 60 Hz.
 inds = (abs(faxis) >= (60 - win * df)) & (abs(faxis) <= (60 + win * df))
 
-hann_filter = np.ones_like(t) # Define filter in frequency domain.
-hann_filter[inds] = np.hstack([1 - hanning(2 * win + 1), 1 - hanning(2 * win + 1)])
+hann_filter = ones_like(t) # Define filter in frequency domain.
+hann_filter[inds] = hstack([1 - hanning(2 * win + 1), 1 - hanning(2 * win + 1)])
 
-isorted = np.argsort(faxis)                  # Sort the frequency axis.
+isorted = argsort(faxis)                  # Sort the frequency axis.
 plot(faxis[isorted], hann_filter[isorted])   # Plot the filter.
 xlim([-80, 80])
 xlabel('Freq (Hz)')
@@ -694,7 +687,7 @@ def convolution(impulse, filt):
     time domain) using convolution.
     '''
     N = len(impulse)
-    response = np.zeros_like(impulse)
+    response = zeros_like(impulse)
     for ii in range(N):
         inds = [(ii + n) % N for n in range(N)]
         response[ii] = sum(impulse[inds] * filt)
@@ -702,12 +695,12 @@ def convolution(impulse, filt):
 ```
 
 ```{code-cell} ipython3
-impulse = np.zeros_like(x)              # Define the input signal,
+impulse = zeros_like(x)              # Define the input signal,
 impulse[N // 2] = 1                     # ... with impulse at the midpoint
 i_hann_filter = ifft(hann_filter).real  # Transform filter to time domain,
                                         # ... and compute the impulse response by convolution.
 impulse_response_t = convolution(i_hann_filter, impulse)
-lag_axis = np.arange(-N/2, N/2) * dt    # Define the lag axis for plotting
+lag_axis = arange(-N/2, N/2) * dt    # Define the lag axis for plotting
 plot(lag_axis, impulse_response_t)      # Display the result
 xlabel('Time (s)')
 ylabel('Impulse response')
@@ -771,9 +764,9 @@ In the first three lines of code above, the EEG data are first transformed to th
 We can additionally compare the filters by looking at the spectra near 60 Hz:
 
 ```{code-cell} ipython3
-plot(faxis[:N//2], 10 * np.log10(spectrum(x, t)), label='x')
-plot(faxis[:N//2], 10 * np.log10(spectrum(xnew, t)), label='rectangle filter')
-plot(faxis[:N//2], 10 * np.log10(spectrum(xnew_h, t)), label='hanning filter')
+plot(faxis[:N//2], 10 * log10(spectrum(x, t)), label='x')
+plot(faxis[:N//2], 10 * log10(spectrum(xnew, t)), label='rectangle filter')
+plot(faxis[:N//2], 10 * log10(spectrum(xnew_h, t)), label='hanning filter')
 xlim([40, 80])
 xlabel('Freq (Hz)')
 ylabel('Power (dB)')
@@ -803,7 +796,7 @@ Having filtered the EEG data in two ways and analyzed the results, we may now ma
 <a id="advanced-filters"></a>
 ### More Sophisticated Filtering
 
-In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous modules when studying the spectrum (chapters [3](../03) and [4](../04)). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.
+In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous notebooks when studying the spectrum (notebooks [3](../03) and [4](../04)). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.
 
 <div class="warning">
 
@@ -826,7 +819,7 @@ We focus specifically on the application of a lowpass FIR filter to the EEG data
 n = 100                                        # Define the filter order.
 Wn = 30 / fNQ                                  # Define the cutoff frequency,
 b = firwin(n, Wn)                              # ... build the lowpass filter,
-bz = np.pad(b, [N - n, 0], 'constant')         # ... amend the filter with leading zeros,
+bz = pad(b, [N - n, 0], 'constant')         # ... amend the filter with leading zeros,
 impulse_response = convolution(impulse, bz)  # ... and apply it to the impulse.
 
 plot(lag_axis, impulse, label='impulse')
@@ -855,8 +848,8 @@ To further explore this idea, let’s examine in more detail the computation of 
 To examine this filter, let’s break down what it does and visualize it in the time and frequency domains. In the time domain, we have already computed the impulse response using the convolution:
 
 ```{code-cell} ipython3
-plot(np.arange(0, N) * dt, impulse, label='impulse')                          # Plot the original impulse,
-plot(np.arange(0, N) * dt, impulse_response, lw=3, label="impulse response")  # ... and the impulse response.
+plot(arange(0, N) * dt, impulse, label='impulse')                          # Plot the original impulse,
+plot(arange(0, N) * dt, impulse_response, lw=3, label="impulse response")  # ... and the impulse response.
 ylim([-.02, .08])                                                             # ... with axes labeled
 legend()
 savefig('imgs/6-10a')
@@ -871,7 +864,7 @@ Now, let's examine this computation closely to understand why there is a lag. To
     
 **Q.** What are the implications of the delay induced by the FIR filter? How might this delay impact subsequent analysis?
 
-**A.** We consider this question in more detail later in this module.
+**A.** We consider this question in more detail later in this notebook.
 
 </div>
 
@@ -885,7 +878,7 @@ bf = fft(b, N);                 # Transform filter to frequency domain and compu
 Mb = bf * bf.conj();            # ...and compute the magnitude response.
 df = 1 / (N * dt)               # Define the frequency resolution,
 faxis = fftfreq(N, dt);         # ...create frequency axis,
-sort_order = np.argsort(faxis)  # ...with axes sorted,
+sort_order = argsort(faxis)  # ...with axes sorted,
 plot(faxis[sort_order], Mb.real[sort_order])   # ...plot magnitude response.
 xlim([-50, 50])
 xlabel('Frequency (Hz)')
@@ -894,7 +887,7 @@ savefig('imgs/6-10b')
 show()
 ```
 
-We take the Fourier transform of the filter, with zero padding (see [chapter 4](../04)) to match the size of the EEG data, and compute the product of the Fourier transform of the filter and its complex conjugate. We then define the frequency axis, and plot the sorted frequency axis to avoid any unwanted lines.
+We take the Fourier transform of the filter, with zero padding (see [notebook 4](../04)) to match the size of the EEG data, and compute the product of the Fourier transform of the filter and its complex conjugate. We then define the frequency axis, and plot the sorted frequency axis to avoid any unwanted lines.
 
 +++
 
@@ -926,8 +919,8 @@ Inspection of the resulting filtered signal reveals important features of the ne
 <a id="fig:11b"></a>
 
 ```{code-cell} ipython3
-plot(faxis[:N // 2], 10 * np.log10(spectrum(x, t)), label='x')                 # Spectrum of data.
-plot(faxis[:N // 2], 10 * np.log10(spectrum(xnew_fir_conv, t)), label='x filtered') # Spectrum of filtered data.
+plot(faxis[:N // 2], 10 * log10(spectrum(x, t)), label='x')                 # Spectrum of data.
+plot(faxis[:N // 2], 10 * log10(spectrum(xnew_fir_conv, t)), label='x filtered') # Spectrum of filtered data.
 xlim([0, 100])
 ylim([-80, 0])
 xlabel('Freq (Hz)')
@@ -1014,9 +1007,9 @@ To actually execute these lines of code, we must first define the filter paramet
 
 +++
 
-We saw in the previous section that the FIR filter (implemented using the `lfilter()` function) introduced a time shift in the resulting signal; this shift appeared in both the <a href="#fig:10a" class="fig">impulse response<span><img src="imgs/6-10a.png"></span></a> and in application to the <a href="#fig:11a" class="fig">EEG signal<span><img src="imgs/6-11a.png"></span></a>. In many applications, we’re interested in the precise timing of neural events. For example, if we’d like to understand the EEG response following a stimulus presentation, we must carefully preserve the timing of EEG features. We discuss in [chapter 7](../07) a specific context in which such timing of features is important to preserve (e.g., cross-frequency coupling). In these contexts and others, shifts in the EEG signal must be either well understood and accounted for, or avoided.
+We saw in the previous section that the FIR filter (implemented using the `lfilter()` function) introduced a time shift in the resulting signal; this shift appeared in both the <a href="#fig:10a" class="fig">impulse response<span><img src="imgs/6-10a.png"></span></a> and in application to the <a href="#fig:11a" class="fig">EEG signal<span><img src="imgs/6-11a.png"></span></a>. In many applications, we’re interested in the precise timing of neural events. For example, if we’d like to understand the EEG response following a stimulus presentation, we must carefully preserve the timing of EEG features. We discuss in [notebook 7](../07) a specific context in which such timing of features is important to preserve (e.g., cross-frequency coupling). In these contexts and others, shifts in the EEG signal must be either well understood and accounted for, or avoided.
 
-To assess how a filter impacts a signal, we develop another visualization technique. Recall that the Fourier transform of a signal consists of both a real and an imaginary component, or equivalently, a magnitude and phase in the complex plane (see, for example, the discussion of phase in [chapter 5](../05)). We have already discussed how to visualize the <a href="#fig:10b" class="fig">magnitude response<span><img src="imgs/6-10b.png"></span></a> of a filter. We now consider a second visualization in the frequency domain: the phase response. The phase response is similar to the magnitude response in that both are frequency domain visualizations of the filter. The primary difference is that the phase response illustrates the impact of the filter on phase at each frequency.
+To assess how a filter impacts a signal, we develop another visualization technique. Recall that the Fourier transform of a signal consists of both a real and an imaginary component, or equivalently, a magnitude and phase in the complex plane (see, for example, the discussion of phase in [notebook 5](../05)). We have already discussed how to visualize the <a href="#fig:10b" class="fig">magnitude response<span><img src="imgs/6-10b.png"></span></a> of a filter. We now consider a second visualization in the frequency domain: the phase response. The phase response is similar to the magnitude response in that both are frequency domain visualizations of the filter. The primary difference is that the phase response illustrates the impact of the filter on phase at each frequency.
 
 Let’s compute the phase response for the lowpass FIR filter. We first construct this filter using the same procedure as above, and then compute and display the phase response. Repeating some commands from previous sections for completeness,
 
@@ -1031,7 +1024,7 @@ dt = t[1] - t[0]                        # Define the sampling interval.
 fNQ = 1 / dt / 2                        # Define the Nyquist frequency,
 df = 1 / (N * dt)                       # ... and the frequency resolution,
 faxis = fftfreq(N, dt);                 # ... create frequency axis,
-sort_order = np.argsort(faxis)          # ... with axes sorted.
+sort_order = argsort(faxis)          # ... with axes sorted.
 
 n = 100                                 # Define the filter order,
 Wn = 30 / fNQ                           # ... specify the cutoff frequency,
@@ -1056,12 +1049,12 @@ We first load the data and define the frequency axis. We then construct the lowp
 
 **A.** Visual inspection reveals that the phase response varies with frequency. This variation is linear except for discrete jumps occurring at &plusmn;$\pi$. To make this linear variation clear, we can unwrap the phase:
 
-    plot(faxis[sort_order], np.unwrap(angle(bf[sort_order])))
+    plot(faxis[sort_order], unwrap(angle(bf[sort_order])))
     
 Notice the application of the `unwrap` function to the angle computed in this line of code. With the phase unwrapped, the smooth and linear variation in the phase response versus frequency becomes clear. The wrapped phase response allows us to identify frequencies at which the filter phase advances the signal (e.g., when the phase response is positive, such as at 15 Hz), when the filter phase delays the signal (e.g., when the phase response is negative, such as at 25 Hz), or when the filter leaves the phase unchanged (e.g., when the phase is zero, such as at 20 Hz).
 
 ```{code-cell} ipython3
-plot(faxis[sort_order], np.unwrap(angle(bf[sort_order])))  # Plot the unwrapped phase response
+plot(faxis[sort_order], unwrap(angle(bf[sort_order])))  # Plot the unwrapped phase response
 xlim([-30, 30])                         # Examine a specific frequency range,
 xlabel('Frequency (Hz)')                # ... with axes labeled.
 ylabel('Phase (rad)')
@@ -1074,9 +1067,9 @@ Analysis of the phase response for the FIR filter shows that, consistent with ou
 
 ```{code-cell} ipython3
 x1 = lfilter(b, 1, x)             # Apply the filter to the EEG data,
-x1 = np.flip(x1)                  # ... reverse the sequence,
+x1 = flip(x1)                  # ... reverse the sequence,
 x2 = lfilter(b, 1, x1)            # ... reapply the filter,
-x2 = np.flip(x2);                 # ... and reverse the sequence.
+x2 = flip(x2);                 # ... and reverse the sequence.
 
 fig, ax = subplots()              # Plot the results
 ax.plot(t, x, label='x')
@@ -1091,7 +1084,7 @@ savefig('imgs/6-13')
 show()
 ```
 
-In these lines of code, we apply the FIR filter using `lfilter()`.The first line of code applies the filter once, and the resulting filtered signal is phase shifted relative to the original EEG. We then reverse the filtered signal. To do so, we redefine the variable `x1` using `np.flip()` to reverse the sequence. We then filter the reversed sequence, and reverse the result. The resulting double-filtered (and double-reversed) signal no longer exhibits phase distortion relative to the EEG; prominent features in the original EEG signal and the zero-phase filtered signal, such as the large-amplitude discharge, appear better aligned.
+In these lines of code, we apply the FIR filter using `lfilter()`.The first line of code applies the filter once, and the resulting filtered signal is phase shifted relative to the original EEG. We then reverse the filtered signal. To do so, we redefine the variable `x1` using `flip()` to reverse the sequence. We then filter the reversed sequence, and reverse the result. The resulting double-filtered (and double-reversed) signal no longer exhibits phase distortion relative to the EEG; prominent features in the original EEG signal and the zero-phase filtered signal, such as the large-amplitude discharge, appear better aligned.
 
 In general, in neuroscience applications, it’s often useful to remove phase distortion through zero-phase filtering. The [SciPy Signal module](https://docs.scipy.org/doc/scipy/reference/signal.html) provides a simple function to perform zero-phase filtering,
 
@@ -1132,7 +1125,7 @@ K = len(eeg)                   # Determine no. of trials.
 n = 100                        # Define the filter order
 Wn = 30 / fNQ                  # ... and specify the cutoff frequency,
 b = firwin(n, Wn)              # ... build lowpass filter.
-eeg_lo = np.array([filtfilt(b, 1, eeg[k]) for k in range(K)])  # Zero-phase filter each trial
+eeg_lo = array([filtfilt(b, 1, eeg[k]) for k in range(K)])  # Zero-phase filter each trial
 ```
 
 Here we use the function `firwin()` to design the filter and the function `filtfilt()` to apply the filter with zero-phase distortion. The design and application of the filter to each trial requires only a few lines of code (including the for-loop). However, we now perform this analysis with a thorough understanding of how the filter behaves; we examined its
@@ -1143,7 +1136,7 @@ Here we use the function `firwin()` to design the filter and the function `filtf
 ```{code-cell} ipython3
 mn = eeg_lo.mean(0)      # Compute mean of filtered EEG across trials (ERP)
 sd = eeg_lo.std(0)       # Compute std of filtered EEG data across trials.
-sdmn = sd / np.sqrt(K);  # Compute the std of the mean.
+sdmn = sd / sqrt(K);  # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP of the filtered data
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -1171,8 +1164,8 @@ def spectrum(x, t, hann=True):
 N = len(t)                             # Define the number of time points per trial.
 faxis = fftfreq(N, dt)[:N // 2]        # Define the positive frequency axis,
 Sxx = [spectrum(trial, t, False) for trial in eeg_lo]  # Compute the spectrum for each trial.
-Sxxmn = np.array(Sxx).mean(0)          # Convert the result into an array and compute the mean.
-semilogx(faxis, 10 * np.log10(Sxxmn))  # Plot the result in decibels vs frequency,
+Sxxmn = array(Sxx).mean(0)          # Convert the result into an array and compute the mean.
+semilogx(faxis, 10 * log10(Sxxmn))  # Plot the result in decibels vs frequency,
 xlim([df, 100])                        # ... in limited frequency range,
 ylim([-60, 0])                         # ... and a limited power range,
 xlabel('Frequency [Hz]')               # ... with axes labeled.
@@ -1199,7 +1192,7 @@ Inspection of the average spectrum for the filtered EEG data reveals power at lo
 
 +++
 
-We began this chapter with visual analysis of the single-trial data and computation of an ERP and trial-averaged spectrum. The spectrum revealed a large peak at 60 Hz, consistent with visual inspection of the single-trial data. The ERP showed some suggestive evidence for an evoked response; however, we did not find a significant effect. We made an initial conjecture that an interesting evoked response might occur in the data but was hidden by the large-amplitude 60 Hz noise.
+We began this notebook with visual analysis of the single-trial data and computation of an ERP and trial-averaged spectrum. The spectrum revealed a large peak at 60 Hz, consistent with visual inspection of the single-trial data. The ERP showed some suggestive evidence for an evoked response; however, we did not find a significant effect. We made an initial conjecture that an interesting evoked response might occur in the data but was hidden by the large-amplitude 60 Hz noise.
 
 To isolate the evoked response, we then focused on reducing the 60 Hz activity in the signal. We introduced the notion of filtering. We put forward two naive approaches, the naive rectangular filter, and the naive Hanning filter and developed these approaches in great detail. We defined the notion of an impulse response and examined how filtering may be equivalently applied in the frequency domain (through multiplication) or in the time domain (through convolution). Through these example filters, we observed the trade-offs that occur in the time and frequency domains. In particular, we observed that the sharp edge in the frequency domain of the naive rectangular filter created long-lasting effects in the time domain, acting to distort the original signal.
 
@@ -1207,6 +1200,6 @@ We then discussed the application of a finite impulse response (FIR) filter to t
 
 We concluded by reanalyzing the EEG data. To do so, we first lowpass filtered the data and then computed the evoked response and trial-averaged spectrum. After filtering, we found a significant evoked response in the data. Consistent with our initial conjecture, the evoked response was hidden by the high-amplitude 60 Hz noise present in the original signal. Upon filtering to remove this noise, the evoked response became clear.
 
-The design and application of filters is an enormous and rich field of study. The goal of this chapter is not a thorough discussion of filtering. Instead, we introduced only a handful of filtering concepts that motivate a basic understanding of filtering. These concepts extend directly from ideas developed to compute the spectrum in chapters [3](../03) and [4](../04). Through tools such as the Fourier transform and convolution, we are able to visualize and apply filters in the frequency and time domains. These same tools apply and provide context for alternative approaches to filtering. For further details in the design and application of filters see [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161)]. We apply filters in [chapter 7](../07) to assess cross-frequency coupling in neural field data.
+The design and application of filters is an enormous and rich field of study. The goal of this notebook is not a thorough discussion of filtering. Instead, we introduced only a handful of filtering concepts that motivate a basic understanding of filtering. These concepts extend directly from ideas developed to compute the spectrum in notebooks [3](../03) and [4](../04). Through tools such as the Fourier transform and convolution, we are able to visualize and apply filters in the frequency and time domains. These same tools apply and provide context for alternative approaches to filtering. For further details in the design and application of filters see [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161)]. We apply filters in [notebook 7](../07) to assess cross-frequency coupling in neural field data.
 
 [Back to Top](#top)

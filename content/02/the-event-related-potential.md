@@ -43,29 +43,19 @@ _**Synopsis**_
 
 +++
 
-Before we start any computations, let's import some modules and functions that we will use throughout the chapter. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning. 
-
-You will see that we have imported `matlab.pyplot` and can call any functions in the module with `plt.f()`, where `f` should be replaced with the name of the desired function. Hence, if we want to plot something, we would call `plt.plot()`. However, we will use that function so often that it will be convenient to import `plot()` directly without typing `plt` first.
+Before we start any computations, let's import some modules and functions that we will use throughout the notebook. A module can be imported any time, but there are a few things that we know we will need straight off the bat. For clarity, it is best practice to import packages at the beginning.
 
 ```{code-cell} ipython3
 from scipy.io import loadmat       # Import function to read data.
+from pylab import *                # Import numerical and plotting functions
 from IPython.lib.display import YouTubeVideo  # Enable YouTube videos
-import numpy as np                 # Import numpy for computations
-import matplotlib.pyplot as plt    # Import a useful plotting package, 
-from matplotlib.pyplot import plot, xlabel, ylabel, title, show, subplots, savefig
-                                   # ... and a few specific functions that are used often
 # ... make the plots "inline".
 %matplotlib inline                 
-
-# Tools for this chapter
-from matplotlib.pyplot import imshow, colorbar, hlines, vlines
-from numpy import sqrt
-from numpy.random import randint
 ```
 
 ## On-ramp: computing the event-related potential in Python
 
-We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 ```{code-cell} ipython3
 data = loadmat('EEG-1.mat')  # Load the data,
@@ -77,7 +67,7 @@ mn = EEGa.mean(0)  # Compute the mean signal across trials (the ERP)
 sd = EEGa.std(0)  # Compute the std of the signal across trials
 sdmn = sd / sqrt(ntrials)  # Compute the std of the mean
 
-plt.figure(figsize=(12,3))  # Resize the figure
+figure(figsize=(12,3))  # Resize the figure
 plot(t, mn, 'k', lw=3)  # Plot the ERP of condition A
 plot(t, mn + 2 * sdmn, 'k:', lw=1)  # ... and include the upper CI
 plot(t, mn - 2 * sdmn, 'k:', lw=1)  # ... and the lower CI
@@ -112,7 +102,7 @@ Compared to other modalities for measuring brain activity, the EEG possesses bot
 
 However, the EEG measure also suffers from significant disadvantages, the most devastating being the poor spatial resolution;  a single scalp electrode detects the summed activity from approximately 10 cm<sup>2</sup> of cortex.
 
-In this chapter, we consider EEG data recorded from a single scalp electrode.  We will analyze these data to determine what (if any) activity is evoked following two different types of stimuli presented to a human subject.  In doing so, we will use Python, and see how this powerful tool can help us understand these time series data.  We begin with a brief description of the EEG data.
+In this notebook, we consider EEG data recorded from a single scalp electrode.  We will analyze these data to determine what (if any) activity is evoked following two different types of stimuli presented to a human subject.  In doing so, we will use Python, and see how this powerful tool can help us understand these time series data.  We begin with a brief description of the EEG data.
 
 +++
 
@@ -340,7 +330,7 @@ So far we have visualized only the data from condition A. Because we are interes
 <a id="fig:3"></a>
 
 ```{code-cell} ipython3
-plt.figure(figsize=(12, 3))     # Resize the figure to make it easier to see
+figure(figsize=(12, 3))     # Resize the figure to make it easier to see
 plot(t,EEGa[0])                 # Plot condition A, trial 1, data vs t,
 plot(t,EEGb[0], 'r')            # ... and the data from condition B, trial 1,
 xlabel('Time [s]')              # Label the x-axis as time.
@@ -350,17 +340,10 @@ savefig('imgs/2-3')
 show()
 ```
 
-<div class="python-note">
-
-Note that because we did not import the function `figure()` directly, we need to include the prefix `plt`.
-
-</div>
-
-+++
-
 <div class="question">
     
 **Q.** Compare the voltage traces from the first trial of conditions A and B as plotted above. What similarities and differences do you observe?
+
 </div>
 
 +++
@@ -398,7 +381,7 @@ The `imshow` command allows us to visualize the entire matrix `EEGa` as a functi
 
 <div class="python-note">
     
-We have used the *BuPu* color map for the plot above. There are many other options; use `plt.colormaps?` for details.
+We have used the *BuPu* color map for the plot above. There are many other options; use `colormaps?` for details.
 </div>
 
 +++
@@ -540,7 +523,6 @@ A good rule of thumb when you are programming is that you should not be rewritin
 
 ```{code-cell} ipython3
 # Change the default figure size
-from matplotlib import rcParams
 rcParams['figure.figsize'] = (12, 3)
 
 # Create a function to label plots
@@ -556,7 +538,7 @@ def labelPlot(title_string="Title"):
     xlabel('Time [s]')           # x-axis is time
     ylabel('Voltage [$/mu V$]')  # y-axis is voltage
     title(title_string)          # use the input here
-    plt.autoscale(tight=True)    # no white-space in plot
+    autoscale(tight=True)    # no white-space in plot
 ```
 
 <div class="question">
@@ -693,7 +675,7 @@ YouTubeVideo('vVXH4XsPFEs')
 # NO CODE
 ```
 
-So far we have computed confidence intervals for the ERPs by relying on the central limit theorem and approximating the average voltage values at each point in time as normally distributed. That’s a completely reasonable approach. And because the normal distribution is so well-behaved, it’s easy to compute the 95% confidence intervals. An alternative approach to generate confidence intervals is through a **bootstrap** procedure. Bootstrapping is a resampling method that allows us to estimate the sampling distribution of many different statistics. In this chapter, we implement a *nonparametric bootstrap* (see note). To do so, we generate new *pseudodata* from the observed EEG data. We begin by using a bootstrapping procedure to create confidence intervals for the ERPs observed in each condition.
+So far we have computed confidence intervals for the ERPs by relying on the central limit theorem and approximating the average voltage values at each point in time as normally distributed. That’s a completely reasonable approach. And because the normal distribution is so well-behaved, it’s easy to compute the 95% confidence intervals. An alternative approach to generate confidence intervals is through a **bootstrap** procedure. Bootstrapping is a resampling method that allows us to estimate the sampling distribution of many different statistics. In this notebook, we implement a *nonparametric bootstrap* (see note). To do so, we generate new *pseudodata* from the observed EEG data. We begin by using a bootstrapping procedure to create confidence intervals for the ERPs observed in each condition.
 
 +++
 
@@ -722,10 +704,10 @@ YouTubeVideo('mqDEJyW_z4c')
 
 ```{code-cell} ipython3
 # Draw 1000 integers with replacement from [0, 1000)
-i = np.random.randint(0, ntrials, size=ntrials)
+i = randint(0, ntrials, size=ntrials)
 ```
 
-The first and second inputs to `randint()` specify the minimum and maximum integers to draw, respectively. Note that the low number is included in the set, but the high number is not. If only the upper bound is given, the lower bound is assumed to be zero (i.e., we can rewrite the above line as `np.random.randint(ntrials, size=ntrials)`). The last input indicats the number of samples to draw (as always, use `np.random.randint?` to find out more).
+The first and second inputs to `randint()` specify the minimum and maximum integers to draw, respectively. Note that the low number is included in the set, but the high number is not. If only the upper bound is given, the lower bound is assumed to be zero (i.e., we can rewrite the above line as `randint(ntrials, size=ntrials)`). The last input indicats the number of samples to draw (as always, use `randint?` to find out more).
 
 +++
 
@@ -790,15 +772,15 @@ YouTubeVideo('feQk_vKloXk')
 **Step 3.** In the first two steps of the resampling procedure we created a single resampled ERP. In step 3 we are instructed to repeat this procedure 3,000 times and create a distribution of ERPs. How can we do so? One potential solution is to cut and paste the code we developed over and over again, for example:
 
 ```{code-cell} ipython3
-i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
+i = randint(ntrials, size=ntrials);  # Draw integers,
 EEG1 = EEGa[i];  # ... create resampled EEG,
 ERP1 = EEG1.mean(0);  # ... create resampled ERP.
 
-i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
+i = randint(ntrials, size=ntrials);  # Draw integers,
 EEG2 = EEGa[i];  # ... create resampled EEG,
 ERP2 = EEG2.mean(0);  # ... create resampled ERP.
 
-i = np.random.randint(ntrials, size=ntrials);  # Draw integers,
+i = randint(ntrials, size=ntrials);  # Draw integers,
 EEG3 = EEGa[i];  # ... create resampled EEG,
 ERP3 = EEG3.mean(0);  # ... create resampled ERP.
 ```
@@ -824,12 +806,12 @@ def bootstrapERP(EEGdata, size=None):  # Steps 1-2
     ntrials = len(EEGdata)  # Get the number of trials
     if size == None:  # Unless the size is specified,
         size = ntrials  # ... choose ntrials
-    i = np.random.randint(ntrials, size=size)  # ... draw random trials,
+    i = randint(ntrials, size=size)  # ... draw random trials,
     EEG0 = EEGdata[i]  # ... create resampled EEG,
     return EEG0.mean(0)  # ... return resampled ERP.
 
 ERP0 = [bootstrapERP(EEGa) for _ in range(3000)]  # Step 3: Repeat 3000 times 
-ERP0 = np.array(ERP0)  # ... and convert the result to an array
+ERP0 = array(ERP0)  # ... and convert the result to an array
 ```
 
 In the first line, we define a function that performs the calculations that we wish to repeat. In this case, the function performs steps 1 and 2 of the bootstrapping procedure. The last two lines call the function 3,000 times and convert the result from a *list* into an *array*. This completes step 3 of the bootstrapping procedure.
@@ -852,7 +834,7 @@ In Python it is common to see for-loops written in the form
 This will return a *list* datatype, which is why we had to convert it to an array in the code above. We could also have written the loop in an alternative way:
 
 
-    `ERP0 = np.zeros((3000, EEGa.shape[1]))`
+    `ERP0 = zeros((3000, EEGa.shape[1]))`
     
     `for k in range(3000):`
     
@@ -914,10 +896,10 @@ YouTubeVideo('K6pgCxFdELc')
 The bootstrapping procedure provides a powerful technique to construct confidence intervals for the ERPs using only the observed EEG measurements. We can apply a similar technique to search for significant differences between the ERPs in conditions A and B. To do so, we first choose a *statistic*, a measure of some attribute of the difference between the two ERPs. There are many choices, some informative and some not. Let’s choose as our statistic the maximum absolute value of the difference in the ERPs across time. Computing this statistic is straightforward in Python:
 
 ```{code-cell} ipython3
-mbA = np.mean(EEGa,0)          # Determine ERP for condition A
-mnB = np.mean(EEGb,0)          # Determine ERP for condition B
+mbA = mean(EEGa,0)          # Determine ERP for condition A
+mnB = mean(EEGb,0)          # Determine ERP for condition B
 mnD = mnA - mnB                # Compute the differenced ERP
-stat = max(np.abs(mnD))        # Compute the statistic
+stat = max(abs(mnD))        # Compute the statistic
 print('stat = {:.4f}'.format(stat))
 ```
 
@@ -947,8 +929,8 @@ To create the distribution of `stat` values under the null hypothesis of no diff
 The code to implement this procedure is similar to the bootstrapping procedure that we have already implemented to compute the confidence intervals for the ERP:
 
 ```{code-cell} ipython3
-EEG = np.vstack((EEGa, EEGb))  # Step 1. Merge EEG data from all trials
-np.random.seed(123)  # For reproducibility
+EEG = vstack((EEGa, EEGb))  # Step 1. Merge EEG data from all trials
+seed(123)  # For reproducibility
 
 def bootstrapStat(EEG):  # Steps 2-4.
     mnA = bootstrapERP(EEG, size=ntrials)  # Create resampled ERPa. The function 'bootstrapERP' is defined above!

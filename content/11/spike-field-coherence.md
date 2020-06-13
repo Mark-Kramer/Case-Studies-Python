@@ -45,41 +45,40 @@ _**Synopsis**_
 
 <a id="onramp"></a>
 ## On-ramp: computing the spike-field coherence in Python
-We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the spike-field cohernece in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to compute the spike-field cohernece in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 ```{code-cell} ipython3
 import scipy.io as sio
-import numpy as np
-import matplotlib.pyplot as plt
+from pylab import *
 
 # Load the data and plot it.
 data = sio.loadmat('spikes-LFP-1.mat')       # Load the multiscale data,
 y = data['y']                                # ... get the LFP data,
 n = data['n']                                # ... get the spike data,
 t = data['t'].reshape(-1)                    # ... get the time axis,
-K = np.shape(n)[0]                           # Get the number of trials,
-N = np.shape(n)[1]                           # ... and the number of data points in each trial,
+K = shape(n)[0]                           # Get the number of trials,
+N = shape(n)[1]                           # ... and the number of data points in each trial,
 dt = t[1]-t[0]                               # Get the sampling interval.
 
-SYY = np.zeros(int(N/2+1))                                       # Variable to store field spectrum.
-SNN = np.zeros(int(N/2+1))                                       # Variable to store spike spectrum.
-SYN = np.zeros(int(N/2+1), dtype=complex)                        # Variable to store cross spectrum.
+SYY = zeros(int(N/2+1))                                       # Variable to store field spectrum.
+SNN = zeros(int(N/2+1))                                       # Variable to store spike spectrum.
+SYN = zeros(int(N/2+1), dtype=complex)                        # Variable to store cross spectrum.
 
-for k in np.arange(K):                                           # For each trial,
-    yf = np.fft.rfft((y[k,:]-np.mean(y[k,:])) *np.hanning(N))    # Hanning taper the field,
-    nf = np.fft.rfft((n[k,:]-np.mean(n[k,:])))                   # ... but do not taper the spikes.
-    SYY = SYY + ( np.real( yf*np.conj(yf) ) )/K                  # Field spectrum
-    SNN = SNN + ( np.real( nf*np.conj(nf) ) )/K                  # Spike spectrum
-    SYN = SYN + (          yf*np.conj(nf)   )/K                  # Cross spectrum
+for k in arange(K):                                           # For each trial,
+    yf = fft.rfft((y[k,:]-mean(y[k,:])) *hanning(N))    # Hanning taper the field,
+    nf = fft.rfft((n[k,:]-mean(n[k,:])))                   # ... but do not taper the spikes.
+    SYY = SYY + ( real( yf*conj(yf) ) )/K                  # Field spectrum
+    SNN = SNN + ( real( nf*conj(nf) ) )/K                  # Spike spectrum
+    SYN = SYN + (          yf*conj(nf)   )/K                  # Cross spectrum
 
-cohr = np.real(SYN*np.conj(SYN)) / SYY / SNN                     # Spike-field coherence
-f = np.fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
+cohr = real(SYN*conj(SYN)) / SYY / SNN                     # Spike-field coherence
+f = fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
 
-plt.plot(f,cohr)                             # Plot the result.
-plt.xlim([0, 100])
-plt.ylim([0, 1])
-plt.xlabel('Frequency [Hz]')
-plt.ylabel('Coherence');
+plot(f,cohr)                             # Plot the result.
+xlim([0, 100])
+ylim([0, 1])
+xlabel('Frequency [Hz]')
+ylabel('Coherence');
 ```
 
 <div class="question">
@@ -98,7 +97,7 @@ plt.ylabel('Coherence');
 
 <a id="intro"></a>
 ## Introduction
-In other modules, we focused on two types of data: field data (e.g., EEG, ECoG, LFP) and spiking data (i.e., action potentials), and we developed techniques to analyze these data. In this module, we consider the simultaneous observation of both data types. We analyze these multiscale data using the techniques developed in other modules and focus specifically on computing the coherence between the spike and field recordings. Understanding the relations between activity recorded at different spatial scales (i.e., a macroscopic field and microscopic spikes) remains an active research area.
+In other notebooks, we focused on two types of data: field data (e.g., EEG, ECoG, LFP) and spiking data (i.e., action potentials), and we developed techniques to analyze these data. In this notebook, we consider the simultaneous observation of both data types. We analyze these multiscale data using the techniques developed in other notebooks and focus specifically on computing the coherence between the spike and field recordings. Understanding the relations between activity recorded at different spatial scales (i.e., a macroscopic field and microscopic spikes) remains an active research area.
 
 ### Case study data
 Our experimental collaborator has implanted an electrode in rat hippocampus as the animal performs a task requiring navigation and decision making. From these data, he is able to extract the local field potential (LFP) as well as the spiking activity of a single neuron. He would like to characterize how these multiscale data—the population field activity and the single neuron spiking activity—relate. Based on existing evidence in the literature and experimental intuition, he expects that rhythmic activity in the LFP impacts the probability that a spike will occur. As his collaborator, we will help him to develop tools to examine this hypothesis. He provides us with 100 trials of simultaneous LFP and spike train data with a sampling frequency of 1000 Hz. The duration of each trial is 1 s, corresponding to a fixed temporal interval following a particular decision of the rat.
@@ -107,7 +106,7 @@ Our experimental collaborator has implanted an electrode in rat hippocampus as t
 Our goal is to understand the coupling between the spiking activity and the LFP following the stimulus. To do so, we analyze the multiscale data recorded simultaneously. To assess this coupling, we will start with two visualizations of the data: the spike-triggered average and the field-triggered average. We then compute the spike-field coherence, a coupling measure that builds upon the Fourier transform and spectrum. We also examine how the firing rate impacts measures of coupling and how to mitigate this impact.
 
 ### Tools
-In this module, we focus primarily on computing the spike-field coherence. Development of this measure makes use of skills developed in other modules. In computing the spike-field coherence, we continue to utilize the Fourier transform. We also consider how generalized linear models (GLMs) can be used to construct a measure of spike-field association with an important advantage over the spike-field coherence.
+In this notebook, we focus primarily on computing the spike-field coherence. Development of this measure makes use of skills developed in other notebooks. In computing the spike-field coherence, we continue to utilize the Fourier transform. We also consider how generalized linear models (GLMs) can be used to construct a measure of spike-field association with an important advantage over the spike-field coherence.
 
 
 [Return to top](#top)
@@ -133,15 +132,12 @@ We will go through the following steps to analyze the data:
 We begin the analysis by visualizing examples of the simultaneously recorded spike train and LFP data. Let’s load these multi-scale data into Python and plot the activity of the first trial:<a id='fig:LFP_ex'></a>
 
 ```{code-cell} ipython3
-# Prepare the modules and plot settings
+# Prepare the notebooks and plot settings
+from pylab import *
 import scipy.io as sio
 from scipy import signal
 from scipy import stats
-import numpy as np
 import statsmodels.api as sm
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
-import setup
 %matplotlib inline
 
 # Load the data and plot it.
@@ -152,7 +148,7 @@ t = data['t'].reshape(-1)                    # ... get the time axis,
 plot(t,y[1,:])                               # ... and visualize the data, for the first trial.
 plot(t,n[1,:])
 xlabel('Time [s]')
-plt.autoscale(tight=True)                    # ... with white space minimized.
+autoscale(tight=True)                    # ... with white space minimized.
 savefig("imgs/lfp_ex")
 ```
 
@@ -214,11 +210,11 @@ Despite this seemingly complicated descriptions, the STA is a relatively intuiti
 
 ```{code-cell} ipython3
 win = 100                                      # Define a temporal window to examine around each spike.
-K = np.shape(n)[0]                             # Get the number of trials,
-N = np.shape(n)[1]                             # ... and the number of data points in each trial.
-STA = np.zeros([K,2*win+1])                    # Define a variable to hold the STA.
-for k in np.arange(K):                         # For each trial,
-    spike_times = np.where(n[k,:]==1)[0]       # ... find the spikes.
+K = shape(n)[0]                             # Get the number of trials,
+N = shape(n)[1]                             # ... and the number of data points in each trial.
+STA = zeros([K,2*win+1])                    # Define a variable to hold the STA.
+for k in arange(K):                         # For each trial,
+    spike_times = where(n[k,:]==1)[0]       # ... find the spikes.
     counter=0
     for spike_t in spike_times:                # For each spike,
         if win < spike_t < N-win-1:            # ... add the LFP to the STA.
@@ -247,7 +243,7 @@ Notice that the variable `STA` is a matrix, with each row corresponding to a sep
 
 ```{code-cell} ipython3
 dt = t[1]-t[0]                    # Get the sampling interval.
-lags = np.arange(-win,win+1)*dt   # Make a time axis for plotting.
+lags = arange(-win,win+1)*dt   # Make a time axis for plotting.
 plot(lags, STA[0,:])              # Show the STA for 4 trials.
 plot(lags, STA[5,:])
 plot(lags, STA[9,:])
@@ -260,7 +256,7 @@ savefig('imgs/sta')
 And, let's plot the STA results across *all* trials,
 
 ```{code-cell} ipython3
-plot(lags,np.transpose(STA))        # Plot the STA results across all trials.
+plot(lags,transpose(STA))        # Plot the STA results across all trials.
 xlabel('Time [ms]')
 ylabel('Voltage [mV]');
 ```
@@ -296,7 +292,7 @@ For each trial $k = \{1, \ldots, K\}$,
 - Sort the spike data in trial $k$ according to the phase of the LFP.
 
 
-For more information about the Hilbert transform and instantaneous phase, check out this module discussing [cross-frequency coupling](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/5.%20Cross-Frequency%20Coupling). We apply the same procedures here, but to a different end. Let's now define a function to compute the FTA in Python, <a id="fig:FTA"></a>
+For more information about the Hilbert transform and instantaneous phase, check out this notebook discussing [cross-frequency coupling](https://github.com/Mark-Kramer/Case-Studies-Python/tree/master/5.%20Cross-Frequency%20Coupling). We apply the same procedures here, but to a different end. Let's now define a function to compute the FTA in Python, <a id="fig:FTA"></a>
 
 ```{code-cell} ipython3
 def FTA_function(y,n,t,Wn):                  #INPUTS: y=field, n=spikes, t=time, Wn=passband [low,high]
@@ -304,14 +300,14 @@ def FTA_function(y,n,t,Wn):                  #INPUTS: y=field, n=spikes, t=time,
     fNQ = 1/dt/2                             #Define the Nyquist frequency.
     ord  = 100                               #...and filter order,
     b = signal.firwin(ord, Wn, nyq=fNQ, pass_zero=False, window='hamming'); #...build bandpass filter.
-    FTA=np.zeros([K,N])                      #Create a variable to hold the FTA.
-    for k in np.arange(K):                   #For each trial,
+    FTA=zeros([K,N])                      #Create a variable to hold the FTA.
+    for k in arange(K):                   #For each trial,
         Vlo = signal.filtfilt(b, 1, y[k,:])  # ... apply the filter.
-        phi = np.angle(signal.hilbert(Vlo))  # Compute the phase of low-freq signal
-        indices = np.argsort(phi)            #... get indices of sorted phase,
+        phi = angle(signal.hilbert(Vlo))  # Compute the phase of low-freq signal
+        indices = argsort(phi)            #... get indices of sorted phase,
         FTA[k,:] = n[k,indices]              #... and store the sorted spikes.
-    phi_axis = np.linspace(-np.pi,np.pi,N)   #Compute phase axis for plotting.
-    return np.mean(FTA,0), phi_axis
+    phi_axis = linspace(-pi,pi,N)   #Compute phase axis for plotting.
+    return mean(FTA,0), phi_axis
 
 Wn = [9,11]                                  #Define the passband, here from 9-11 Hz.
 FTA, phi_axis = FTA_function(y,n,t,Wn)       #Compute the FTA.
@@ -347,15 +343,15 @@ One final note about the FTA. The purpose of this measure is visualization, not 
 
 +++
 
-To characterize the relation between the LFP and spikes, we have so far visualized the data and computed relatively simple and intuitive aids to visualization. Now we examine a more sophisticated and powerful method: the **spike-field coherence**. It's common to investigate the coherence  applied to field activity; we may refer to this type of coherence as field-field coherence to distinguish it from spike-field coherence of interest here. In practice, this distinction is usually unnecessary, as in most cases the context is clear. However, in this module, we are careful to distinguish field-field coherence from spike-field coherence.
+To characterize the relation between the LFP and spikes, we have so far visualized the data and computed relatively simple and intuitive aids to visualization. Now we examine a more sophisticated and powerful method: the **spike-field coherence**. It's common to investigate the coherence  applied to field activity; we may refer to this type of coherence as field-field coherence to distinguish it from spike-field coherence of interest here. In practice, this distinction is usually unnecessary, as in most cases the context is clear. However, in this notebook, we are careful to distinguish field-field coherence from spike-field coherence.
 
-The field-field coherence is a frequency domain measure of linear association between two continuous time series. Note that, in practice, we observe a sampled version of a presumably continuous signal. This sampling impacts aspects of our data analysis, for example spectral estimators (see [The Power Spectrum (Part 1)](../03)). We showed in [The Cross Covariance and Coherence](../05) that two fields are coherent across trials at frequency $f_0$ if the fields possess a constant phase relation across trials at that frequency. The same relation holds for the spike-field coherence. However, differences arise because of the point process nature of the spike train data. These differences have profound implications with dangerous consequences. In this module, we explore some of these issues. For a deeper mathematical discussion and potential solutions, see [Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169) and [Lepage et al, 2013](https://doi.org/10.1016/j.jneumeth.2012.10.010).
+The field-field coherence is a frequency domain measure of linear association between two continuous time series. Note that, in practice, we observe a sampled version of a presumably continuous signal. This sampling impacts aspects of our data analysis, for example spectral estimators (see [The Power Spectrum (Part 1)](../03)). We showed in [The Cross Covariance and Coherence](../05) that two fields are coherent across trials at frequency $f_0$ if the fields possess a constant phase relation across trials at that frequency. The same relation holds for the spike-field coherence. However, differences arise because of the point process nature of the spike train data. These differences have profound implications with dangerous consequences. In this notebook, we explore some of these issues. For a deeper mathematical discussion and potential solutions, see [Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169) and [Lepage et al, 2013](https://doi.org/10.1016/j.jneumeth.2012.10.010).
 
 +++
 
 ### Mathematical description of spike-field coherence
 
-Let’s begin with a mathematical description of the spike-field coherence. To do so, we need to introduce some notation, which is identical to that used in earlier modules, but we include it here for completeness. A more detailed description may be found in [Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169).
+Let’s begin with a mathematical description of the spike-field coherence. To do so, we need to introduce some notation, which is identical to that used in earlier notebooks, but we include it here for completeness. A more detailed description may be found in [Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169).
 
 We considered spectral estimators for a field in [The Power Spectrum (Part 1)](../03) and for a point process in [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](../10). We restate the Fourier transform for a time series $x$,
 
@@ -403,7 +399,7 @@ In the equation above, the numerator is now the magnitude of the trial averaged 
 
 <div class="math-note">
     
-We could instead write the *sample* coherence, because this equation uses the observed data to estimate the theoretical coherence that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this module and others, we omit the term "sample" when referring to sample means, variances, covariances, spectra, and so forth, unless this distinction becomes essential to our discussion.
+We could instead write the *sample* coherence, because this equation uses the observed data to estimate the theoretical coherence that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this notebook and others, we omit the term "sample" when referring to sample means, variances, covariances, spectra, and so forth, unless this distinction becomes essential to our discussion.
     
 </div>
 
@@ -411,24 +407,24 @@ We could instead write the *sample* coherence, because this equation uses the ob
 
 ### Computing the Spike-Field-Coherence in Python.
 
-As discussed in other modules ([The Power Spectrum (Part 1)](../03) and [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](../10)), many issues are involved in spectral analysis, for example, the notions of tapering. These important issues apply for the computation of spike-field coherence as well. In practice, multitaper methods are often used to compute the spike-field coherence. In what follows, we simply a simple tapering approach to the field data.
+As discussed in other notebooks ([The Power Spectrum (Part 1)](../03) and [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](../10)), many issues are involved in spectral analysis, for example, the notions of tapering. These important issues apply for the computation of spike-field coherence as well. In practice, multitaper methods are often used to compute the spike-field coherence. In what follows, we simply a simple tapering approach to the field data.
 
 Let’s now compute the spike-field coherence for the data of interest here. It’s relatively straightforward to do so in Python:
 
 ```{code-cell} ipython3
-SYY = np.zeros(int(N/2+1))                                       # Variable to store field spectrum.
-SNN = np.zeros(int(N/2+1))                                       # Variable to store spike spectrum.
-SYN = np.zeros(int(N/2+1), dtype=complex)                        # Variable to store cross spectrum.
+SYY = zeros(int(N/2+1))                                       # Variable to store field spectrum.
+SNN = zeros(int(N/2+1))                                       # Variable to store spike spectrum.
+SYN = zeros(int(N/2+1), dtype=complex)                        # Variable to store cross spectrum.
 
-for k in np.arange(K):                                           # For each trial,
-    yf = np.fft.rfft((y[k,:]-np.mean(y[k,:])) *np.hanning(N))    # Hanning taper the field,
-    nf = np.fft.rfft((n[k,:]-np.mean(n[k,:])))                   # ... but do not taper the spikes.
-    SYY = SYY + ( np.real( yf*np.conj(yf) ) )/K                  # Field spectrum
-    SNN = SNN + ( np.real( nf*np.conj(nf) ) )/K                  # Spike spectrum
-    SYN = SYN + (          yf*np.conj(nf)   )/K                  # Cross spectrum
+for k in arange(K):                                           # For each trial,
+    yf = fft.rfft((y[k,:]-mean(y[k,:])) *hanning(N))    # Hanning taper the field,
+    nf = fft.rfft((n[k,:]-mean(n[k,:])))                   # ... but do not taper the spikes.
+    SYY = SYY + ( real( yf*conj(yf) ) )/K                  # Field spectrum
+    SNN = SNN + ( real( nf*conj(nf) ) )/K                  # Spike spectrum
+    SYN = SYN + (          yf*conj(nf)   )/K                  # Cross spectrum
 
-cohr = np.real(SYN*np.conj(SYN)) / SYY / SNN                     # Coherence
-f = np.fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
+cohr = real(SYN*conj(SYN)) / SYY / SNN                     # Coherence
+f = fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
 ```
 
 Inside of the `for` statement, we first compute the Fourier transform of the field (`yf`) and the spikes (`nf`) for trial `k`. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (`SYY`) and the spikes (`SNN`), and the cross spectrum (`SYN`) averaged across all trials. We then compute the coherence (`cohr`) and define a frequency axis to plot the results (`f`).
@@ -436,25 +432,25 @@ Inside of the `for` statement, we first compute the Fourier transform of the fie
 Let's now display the results, <a id="fig:spike-field-coherence"></a>
 
 ```{code-cell} ipython3
-plt.subplot(1,3,1)         # Plot the spike spectrum.
+subplot(1,3,1)         # Plot the spike spectrum.
 plot(f,SNN)
-plt.xlim([0, 100])
+xlim([0, 100])
 xlabel('Frequency [Hz]')
 ylabel('Power [Hz]')
 title('SNN')
 
-plt.subplot(1,3,2)         # Plot the field spectrum,
+subplot(1,3,2)         # Plot the field spectrum,
 T = t[-1]
 plot(f,dt**2/T*SYY)        # ... with the standard scaling.
-plt.xlim([0, 100])
+xlim([0, 100])
 xlabel('Frequency [Hz]')
 ylabel('Power [Hz]')
 title('SYY')
 
-plt.subplot(1,3,3)        # Plot the coherence
+subplot(1,3,3)        # Plot the coherence
 plot(f,cohr)
-plt.xlim([0, 100])
-plt.ylim([0, 1])
+xlim([0, 100])
+ylim([0, 1])
 xlabel('Frequency [Hz]')
 ylabel('Coherence');
 savefig('imgs/sf_coh')
@@ -468,7 +464,7 @@ savefig('imgs/sf_coh')
 
 To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [notebook 10](../10)). For these data, we can estimate the expected spike rate as
 
-`firing_rate = np.mean(np.sum(n,1))/(N*dt)`
+`firing_rate = mean(sum(n,1))/(N*dt)`
 
 Computing this quantity in Python, we find an expected spike rate of approximately 89 Hz, consistent with the high-frequency behavior of `Snn` plotted in the figure.
     
@@ -526,22 +522,22 @@ With this change in the LFP data (`y`), we now recompute the spike-field coheren
 
 ```{code-cell} ipython3
 def coherence(n,y,t):                           #INPUT (spikes, fields, time)
-    K = np.shape(n)[0]                          #... where spikes and fields are arrays [trials, time]
-    N = np.shape(n)[1]
+    K = shape(n)[0]                          #... where spikes and fields are arrays [trials, time]
+    N = shape(n)[1]
     T = t[-1]
-    SYY = np.zeros(int(N/2+1))
-    SNN = np.zeros(int(N/2+1))
-    SYN = np.zeros(int(N/2+1), dtype=complex)
+    SYY = zeros(int(N/2+1))
+    SNN = zeros(int(N/2+1))
+    SYN = zeros(int(N/2+1), dtype=complex)
     
-    for k in np.arange(K):
-        yf = np.fft.rfft((y[k,:]-np.mean(y[k,:])) *np.hanning(N))    # Hanning taper the field,
-        nf = np.fft.rfft((n[k,:]-np.mean(n[k,:])))                   # ... but do not taper the spikes.
-        SYY = SYY + ( np.real( yf*np.conj(yf) ) )/K                  # Field spectrum
-        SNN = SNN + ( np.real( nf*np.conj(nf) ) )/K                  # Spike spectrum
-        SYN = SYN + (          yf*np.conj(nf)   )/K                  # Cross spectrum
+    for k in arange(K):
+        yf = fft.rfft((y[k,:]-mean(y[k,:])) *hanning(N))    # Hanning taper the field,
+        nf = fft.rfft((n[k,:]-mean(n[k,:])))                   # ... but do not taper the spikes.
+        SYY = SYY + ( real( yf*conj(yf) ) )/K                  # Field spectrum
+        SNN = SNN + ( real( nf*conj(nf) ) )/K                  # Spike spectrum
+        SYN = SYN + (          yf*conj(nf)   )/K                  # Cross spectrum
 
-    cohr = np.real(SYN*np.conj(SYN)) / SYY / SNN                     # Coherence
-    f = np.fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
+    cohr = real(SYN*conj(SYN)) / SYY / SNN                     # Coherence
+    f = fft.rfftfreq(N, dt)                                       # Frequency axis for plotting
     
     return (cohr, f, SYY, SNN, SYN)
 ```
@@ -551,7 +547,7 @@ Now, with the fucntion `coherence` defined, let's examine how a multiplicative c
 ```{code-cell} ipython3
 [cohr, f, SYY, SNN, SYN] = coherence(n,y,t)             # Compute spike-field cohernece with original y.
 plot(f,cohr)
-plt.xlim([0, 100])
+xlim([0, 100])
 [cohr, f, SYY, SNN, SYN] = coherence(n,y_scaled,t)      # Compute spike-field cohernece with scaled y.
 plot(f,cohr,'.');
 xlabel('Frequency [Hz]')
@@ -572,12 +568,12 @@ Let’s now thin the spiking data. Here, we implement a simple procedure by rand
 
 ```{code-cell} ipython3
 def thinned_spike_train(n, thinning_factor):              # Thin the spike train (n) by the thinning_factor.
-    n_thinned = np.copy(n)                                # Make a copy of the spike train data.
-    for k in np.arange(K):                                # For each trial,
-        spike_times = np.where(n[k,:]==1)                 # ...find the spikes.
-        n_spikes = np.size(spike_times)                   # ...determine number of spikes.
-        spike_times_random = spike_times[0][np.random.permutation(n_spikes)]    # ...permute spikes indices,
-        n_remove=int(np.floor(thinning_factor*n_spikes))  # ... determine number of spikes to remove,
+    n_thinned = copy(n)                                # Make a copy of the spike train data.
+    for k in arange(K):                                # For each trial,
+        spike_times = where(n[k,:]==1)                 # ...find the spikes.
+        n_spikes = size(spike_times)                   # ...determine number of spikes.
+        spike_times_random = spike_times[0][permutation(n_spikes)]    # ...permute spikes indices,
+        n_remove=int(floor(thinning_factor*n_spikes))  # ... determine number of spikes to remove,
         n_thinned[k,spike_times_random[0:n_remove-1]]=0   # remove the spikes.
     return n_thinned
 ```
@@ -591,7 +587,7 @@ Let's apply this thinning procedure.
 plot(f,cohr)
 [cohr, f, SYY, SNN, SYN] = coherence(thinned_spike_train(n,0.5),y,t) # ... and for the thinned spike train.
 plot(f,cohr, 'r')
-plt.xlim([35, 55])
+xlim([35, 55])
 xlabel('Frequency [Hz]')
 ylabel('Coherence');
 ```
@@ -651,17 +647,17 @@ Wn = [9,11]                        # Set the passband
 ord  = 100                         # ...and filter order,
 b = signal.firwin(ord, Wn, nyq=fNQ, pass_zero=False, window='hamming');
 
-phi=np.zeros([K,N])                # Create variable to hold phase.
-for k in np.arange(K):             # For each trial,
+phi=zeros([K,N])                # Create variable to hold phase.
+for k in arange(K):             # For each trial,
     Vlo = signal.filtfilt(b, 1, y[k,:])       # ... apply the filter,
-    phi[k,:] = np.angle(signal.hilbert(Vlo))  # ... and compute the phase.
+    phi[k,:] = angle(signal.hilbert(Vlo))  # ... and compute the phase.
 
-n_reshaped   = np.copy(n)                     # Make a copy of the spike data.
-n_reshaped   = np.reshape(n_reshaped,-1)      # Convert spike matrix to vector.
-phi_reshaped = np.reshape(phi, -1)            # Convert phase matrix to vector.
+n_reshaped   = copy(n)                     # Make a copy of the spike data.
+n_reshaped   = reshape(n_reshaped,-1)      # Convert spike matrix to vector.
+phi_reshaped = reshape(phi, -1)            # Convert phase matrix to vector.
                                               # Create a matrix of predictors [1, cos(phi), sin(phi)]
-X            = np.transpose([np.ones(np.shape(phi_reshaped)), np.cos(phi_reshaped), np.sin(phi_reshaped)])
-Y            = np.transpose([n_reshaped])     # Create a vector of responses.
+X            = transpose([ones(shape(phi_reshaped)), cos(phi_reshaped), sin(phi_reshaped)])
+Y            = transpose([n_reshaped])     # Create a vector of responses.
 
 model = sm.GLM(Y,X,family=sm.families.Poisson())    # Build the GLM model,
 res   = model.fit()                                 # ... and fit it.
@@ -672,8 +668,8 @@ Note that the variable definitions and filter settings in the variable `b` are s
 Let's compare the GLM results to the FTA:
 
 ```{code-cell} ipython3
-phi_predict = np.linspace(-np.pi, np.pi, 100)
-X_predict   = np.transpose([np.ones(np.shape(phi_predict)), np.cos(phi_predict), np.sin(phi_predict)])
+phi_predict = linspace(-pi, pi, 100)
+X_predict   = transpose([ones(shape(phi_predict)), cos(phi_predict), sin(phi_predict)])
 Y_predict   = res.get_prediction(X_predict, linear='False')
 
 Wn = [9,11]                                  #Define the passband, here from 9-11 Hz.
@@ -696,23 +692,23 @@ Wn = [44,46]                       # Set the passband
 b = signal.firwin(ord, Wn, nyq=fNQ, pass_zero=False, window='hamming');
 
 del phi
-phi=np.zeros([K,N])                # Create variable to hold phase.
-for k in np.arange(K):             # For each trial,
+phi=zeros([K,N])                # Create variable to hold phase.
+for k in arange(K):             # For each trial,
     Vlo = signal.filtfilt(b, 1, y[k,:])       # ... apply the filter,
-    phi[k,:] = np.angle(signal.hilbert(Vlo))  # ... and compute the phase.
+    phi[k,:] = angle(signal.hilbert(Vlo))  # ... and compute the phase.
 
-n_reshaped   = np.copy(n)
-n_reshaped   = np.reshape(n_reshaped,-1)   # Convert spike matrix to vector.
-phi_reshaped = np.reshape(phi, -1)         # Convert phase matrix to vector.
+n_reshaped   = copy(n)
+n_reshaped   = reshape(n_reshaped,-1)   # Convert spike matrix to vector.
+phi_reshaped = reshape(phi, -1)         # Convert phase matrix to vector.
                                            # Create a matrix of predictors [1, cos(phi), sin(phi)]
-X            = np.transpose([np.ones(np.shape(phi_reshaped)), np.cos(phi_reshaped), np.sin(phi_reshaped)])
-Y            = np.transpose([n_reshaped])  # Create a vector of responses.
+X            = transpose([ones(shape(phi_reshaped)), cos(phi_reshaped), sin(phi_reshaped)])
+Y            = transpose([n_reshaped])  # Create a vector of responses.
 
 model = sm.GLM(Y,X,family=sm.families.Poisson())    # Build the GLM model,
 res   = model.fit()                                 # ... and fit it,
 
-phi_predict = np.linspace(-np.pi, np.pi, 100)       # ... and evaluate the model results.
-X_predict   = np.transpose([np.ones(np.shape(phi_predict)), np.cos(phi_predict), np.sin(phi_predict)])
+phi_predict = linspace(-pi, pi, 100)       # ... and evaluate the model results.
+X_predict   = transpose([ones(shape(phi_predict)), cos(phi_predict), sin(phi_predict)])
 Y_predict   = res.get_prediction(X_predict, linear='False')
 
 FTA, phi_axis = FTA_function(y,n,t,Wn)       #Compute the FTA, in the new frequency interval
@@ -743,7 +739,7 @@ We find that $\beta_1$ is highly significant (`pval1=1.48e-52`) and $\beta_2$ is
 In [Modeling place Fields with Point Process Generalized Linear Models](../09), we showed that for nested models (where one model can be made equivalent to the other by setting some parameters to specific values), under the null hypothesis that the data arise from the smaller model, the difference in the deviance between the two models should have a chi-square distribution where the number of degrees of freedom is equal to the number of extra parameters in the larger model. In this case, let’s compare the model<a href="#eq:glm" class="sup">eq<img src="imgs/eq-glm.png"></a> we originally designed to a model that lacks dependence on the LFP phase (i.e., a reduced model in which  $\beta_1$ and $\beta_2$ are set to zero). First, we must construct and estimate this reduced model. In Python,
 
 ```{code-cell} ipython3
-X0 = np.ones(np.shape(Y))                               #Define constant predictor.
+X0 = ones(shape(Y))                               #Define constant predictor.
 null_model = sm.GLM(Y,X0,family=sm.families.Poisson())  #Define reduced model.
 null_res   = null_model.fit()                           #Fit reduced model.
 ```
@@ -771,8 +767,8 @@ We find `pval=0` and would therefore be very unlikely to see this result if the 
 Finally, let’s examine how thinning the spiking data impacts the results of the GLM procedure. We choose a [thinning factors](#sec:thin) of 0.5 and repeat the analysis for LFP filtered at 44–46 Hz to recompute the FTA and estimate the GLM model.
 
 ```{code-cell} ipython3
-n_thinned_reshaped   = np.reshape(thinned_spike_train(n,0.5),-1)   # Convert thinned spike matrix to vector.
-Y                    = np.transpose([n_thinned_reshaped])          # Create a vector of responses.
+n_thinned_reshaped   = reshape(thinned_spike_train(n,0.5),-1)   # Convert thinned spike matrix to vector.
+Y                    = transpose([n_thinned_reshaped])          # Create a vector of responses.
 
 thinned_model = sm.GLM(Y,X,family=sm.families.Poisson())           # Build the GLM model,
 res_thinned   = thinned_model.fit()                                # ... and fit it.
@@ -781,13 +777,13 @@ res_thinned   = thinned_model.fit()                                # ... and fit
 Let's now compare how the estimates of the exponentiated model parameters ($\beta_0$, $\beta_1$, and $\beta_2$) vary with the thinning factor. As the thinning factor increases, the probability of a spike decreases. This probability can be estimated from the spike train data `n` as
 
 ```{code-cell} ipython3
-p = np.mean(np.sum(n,1))/N
+p = mean(sum(n,1))/N
 ```
 
 To compare how the thinning factor impacts the probability of a spike, let's compute the expression above for the original spike train data (`n`) and the thinned spike train, and determine their ratio,
 
 ```{code-cell} ipython3
-(np.mean(np.sum(n_thinned_reshaped))/N) / (np.mean(np.sum(n_reshaped))/N)
+(mean(sum(n_thinned_reshaped))/N) / (mean(sum(n_reshaped))/N)
 ```
 
 As expected the ratio of the probabilities is near 0.5, which is consistent with a thinning factor of 0.5.
@@ -795,7 +791,7 @@ As expected the ratio of the probabilities is near 0.5, which is consistent with
 Now, let's compare the ratios of $\exp(\beta_0)$ estimated for the two models
 
 ```{code-cell} ipython3
-np.exp(res_thinned.params[0])/np.exp(res.params[0])
+exp(res_thinned.params[0])/exp(res.params[0])
 ```
 
 We find that this ratio is also near 0.5. We conclude that the two measures - the estimate of probability of a spike and $\exp(\beta_0)$ - are in excellent agreement; as expected, as the thinning factor increases, the probability of a spike decreases.
@@ -803,8 +799,8 @@ We find that this ratio is also near 0.5. We conclude that the two measures - th
 Finally, let's compare the exponentiated estimates of the other model parameters, $\beta_1$ and $\beta_2$, for the original and thinned spike data. Recall that these parameters represent the impact of the LFP phase on the firing rate.
 
 ```{code-cell} ipython3
-print([np.exp(res_thinned.params[1]), np.exp(res.params[1])])  # compare ratio of exp(beta_1)
-print([np.exp(res_thinned.params[2]), np.exp(res.params[2])])  # compare ratio of exp(beta_2)
+print([exp(res_thinned.params[1]), exp(res.params[1])])  # compare ratio of exp(beta_1)
+print([exp(res_thinned.params[2]), exp(res.params[2])])  # compare ratio of exp(beta_2)
 ```
 
 There are two important features to notice about these estimates:
@@ -821,6 +817,6 @@ There are two important features to notice about these estimates:
 <a id="summary"></a>
 ## Summary
 
-In this module, we considered associations between data recorded from different spatial scales: the macroscale LFP and the microscale spiking. We developed methods to visualize the associations between scales, and applied tools developed in other modules, such as the spectrum and coherence. We computed the spike-field coherence and found a strong association between the spatial scales near 45 Hz despite only the weak appearance of this rhythm in the spectra. We also considered the impact of firing rate on the spike-field coherence and illustrated that as the firing rate decreases, so does the spike-field coherence ([Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169)).
+In this notebook, we considered associations between data recorded from different spatial scales: the macroscale LFP and the microscale spiking. We developed methods to visualize the associations between scales, and applied tools developed in other notebooks, such as the spectrum and coherence. We computed the spike-field coherence and found a strong association between the spatial scales near 45 Hz despite only the weak appearance of this rhythm in the spectra. We also considered the impact of firing rate on the spike-field coherence and illustrated that as the firing rate decreases, so does the spike-field coherence ([Lepage et al, 2011](https://doi.org/10.1162/NECO_a_00169)).
 
 To account for the impact of firing rate on coherence we implemented a GLM, in which the firing rate depends on the LFP phase. In general, GLMs provide a powerful tool to estimate spike-field associations. The example considered here illustrates the ability of the GLM framework to estimate the influence of the LFP phase on the spiking and avoid the confounding effect of a changing firing rate. For details describing this approach and its extensions, see ([Lepage et al, 2013](https://doi.org/10.1016/j.jneumeth.2012.10.010)).

@@ -44,20 +44,17 @@ _**Synopsis**_
 +++
 
 ## On-ramp: computing the tapered power spectrum in Python
-We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute the power spectrum with a taper in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
+We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to compute the power spectrum with a taper in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 ```{code-cell} ipython3
 # Prepare the standard modules
-# Prepare the modules and plot settings
-%matplotlib inline
+from pylab import *
 import scipy.io as sio
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.pyplot import xlabel, ylabel, plot, show, title
+%matplotlib inline
 ```
 
 ```{code-cell} ipython3
-# Import the tools for the chapter
+# Import the tools for the notebook
 import nitime.algorithms.spectral as spectrum
 from scipy.stats import chi2
 ```
@@ -71,21 +68,21 @@ dt = t[1] - t[0]                    # Define the sampling interval.
 N = x.shape[0]                      # Define the total number of data points.
 T = N * dt                          # Define the total duration of the data.
 
-x  = np.hanning(N) * x              # Apply the Hanning taper to the data.
-xf = np.fft.fft(x - x.mean())               # Compute Fourier transform of x.
-Sxx = 2 * dt ** 2 / T * (xf * np.conj(xf))  # Compute the spectrum,
-Sxx = np.real(Sxx[:int(len(x) / 2)])        # ... and ignore negative frequencies.
+x  = hanning(N) * x              # Apply the Hanning taper to the data.
+xf = fft(x - x.mean())               # Compute Fourier transform of x.
+Sxx = 2 * dt ** 2 / T * (xf * conj(xf))  # Compute the spectrum,
+Sxx = real(Sxx[:int(len(x) / 2)])        # ... and ignore negative frequencies.
 
 df = 1 / T.max()                    # Determine the frequency resolution.
 fNQ = 1 / dt / 2                    # Determine the Nyquist frequency.
-faxis = np.arange(0,fNQ,df)         # Construct a frequency axis.
+faxis = arange(0,fNQ,df)         # Construct a frequency axis.
 
-plt.semilogx(faxis[1:],10*np.log10(Sxx[1:])) # Plot spectrum vs frequency,
-plt.xlim([faxis[1], 100])                    # Select frequency range,
-plt.ylim([-40, 20])                          # ... and the power range.
-plt.xlabel('Frequency [Hz]')                 # Label the axes
-plt.ylabel('Power [$\mu V^2$/Hz]')
-plt.show()
+semilogx(faxis[1:],10*log10(Sxx[1:])) # Plot spectrum vs frequency,
+xlim([faxis[1], 100])                    # Select frequency range,
+ylim([-40, 20])                          # ... and the power range.
+xlabel('Frequency [Hz]')                 # Label the axes
+ylabel('Power [$\mu V^2$/Hz]')
+show()
 ```
 
 <div class="question">
@@ -144,14 +141,14 @@ x = ecog          # Relabel the data variable
 dt = t[2] - t[1]  # Define the sampling interval
 T = t[-1]         # ... and duration of data
 
-xf = np.fft.rfft(x - x.mean())                       # Compute the Fourier transform of x,
-Sxx = np.real(2 * dt ** 2 / T * (xf * np.conj(xf)))  # ... and the spectrum.
+xf = rfft(x - x.mean())                       # Compute the Fourier transform of x,
+Sxx = real(2 * dt ** 2 / T * (xf * conj(xf)))  # ... and the spectrum.
 
 df = 1 / T                                           # Define the frequency resolution.
 fNQ = 1 / dt / 2                                     # Define the Nyquist frequency.
-faxis = np.arange(len(Sxx)) * df                     # Construct the frequency axis.
+faxis = arange(len(Sxx)) * df                     # Construct the frequency axis.
 plot(faxis, Sxx)                                     # Plot spectrum vs. frequency,
-plt.xlim([1, 100])                                   # ... in select frequency range,
+xlim([1, 100])                                   # ... in select frequency range,
 xlabel('Frequency (Hz)')                             # ... with axes labeled.
 ylabel('Power [$\mu V^2$/Hz]')
 savefig('imgs/4-2a')
@@ -177,9 +174,9 @@ show()
 The plot of the spectrum suggests a single dominant frequency near 6 Hz, consistent with the visual inspection of the [ECoG trace](#fig:4-1).<span class="sup">fig<img src="imgs/4-1.png"></span> Other interesting structure may also appear, perhaps at frequencies near 10 Hz; note the tiny peak barely visible in the spectrum. These initial observations suggest we can more appropriately scale the spectrum to emphasize both the low-frequency bands and weaker signals. Let’s utilize a logarithmic scale for both the power spectral density (decibels) and the frequency.
 
 ```{code-cell} ipython3
-plt.semilogx(faxis, 10 * np.log10(Sxx)) # Plot spectrum vs frequency,
-plt.xlim([1, 100])                      # ... in select frequency range,
-plt.ylim([-60, 20])                     # ... and power range,
+semilogx(faxis, 10 * log10(Sxx)) # Plot spectrum vs frequency,
+xlim([1, 100])                      # ... in select frequency range,
+ylim([-60, 20])                     # ... and power range,
 xlabel('Frequency [Hz]')                # ... with axes labeled.
 ylabel('Power [dB]')
 savefig('imgs/4-2b')
@@ -242,10 +239,10 @@ To compute the spectrum of the rectangular taper, we consider the following time
 <a id="fig:4-5a"></a>
 
 ```{code-cell} ipython3
-a = np.zeros(int(10/dt))      # Create 10 s of zeros,
-b = np.ones(int(1/dt))        # ... and 1 s of ones,
-taper = np.hstack((a,b,a))    # ... stack them together,
-t = np.arange(len(taper))*dt  # ... define a time axis,            
+a = zeros(int(10/dt))      # Create 10 s of zeros,
+b = ones(int(1/dt))        # ... and 1 s of ones,
+taper = hstack((a,b,a))    # ... stack them together,
+t = arange(len(taper))*dt  # ... define a time axis,            
 plot(t, taper)                # ... and plot taper vs time.
 xlabel('Time [s]')            # ... with axes labeled.
 ylabel('Rectangular Taper')
@@ -256,18 +253,18 @@ show()
 In theory, the rectangular taper is infinite, and is preceded and followed by infinite intervals of zeros (i.e., there’s an infinite period in which we do not observe the ECoG data). To represent the infinite extent of the rectangular taper, we add 10 s of zeros to the beginning and end of a 1 s interval of ones. Of course, 10 s of zeros is a poor representation of an infinite interval of time, but it’s sufficient for our purposes here. We note that the rectangular taper consists of two sharp edges, when the observation interval opens and closes (i.e., transitions from 0 to 1, and then back from 1 to 0).
 
 ```{code-cell} ipython3
-taperf = np.fft.rfft(taper - taper.mean())                # Compute Fourier transform of the taper,
-Sxx = np.real( 2*dt**2/t.max() * (taperf*np.conj(taperf)))# ... and the spectrum,
+taperf = rfft(taper - taper.mean())                # Compute Fourier transform of the taper,
+Sxx = real( 2*dt**2/t.max() * (taperf*conj(taperf)))# ... and the spectrum,
 Sxx = Sxx / Sxx.max()                                     # ... scaled to have maximum of 0.
 
 df = 1 /  t.max()                                         # Define the frequency resolution.
 fNQ = 1 / dt / 2                                          # Define the Nyquist frequency.
-faxis = np.arange(len(Sxx)) * df                          # Construct frequency axis.
+faxis = arange(len(Sxx)) * df                          # Construct frequency axis.
 
-Sxx[Sxx == 0] = np.nan                                    # Avoid division by 0 errors,
-plot(faxis, 10 * np.log10(Sxx))                           # Plot the spectrum vs frequency,
-plt.xlim([0, 5])                                          # ... in select range,
-plt.ylim([-40, 10])
+Sxx[Sxx == 0] = nan                                    # Avoid division by 0 errors,
+plot(faxis, 10 * log10(Sxx))                           # Plot the spectrum vs frequency,
+xlim([0, 5])                                          # ... in select range,
+ylim([-40, 10])
 xlabel('Frequency [Hz]')                                  # ... with axes labeled.
 ylabel('Power [dB]')
 show()
@@ -351,10 +348,10 @@ padding = 10
 
 # Create the taper signal
 sample_rate = int(1/dt)             # Define the sampling rate.
-a = np.zeros(sample_rate * padding) # Create an interval of zeros,
-b = np.ones( sample_rate)           # ... and 1 s of ones,
-taper = np.hstack((a,b,a))          # ... stack them together,
-t = np.arange(len(taper)) / sample_rate  # ... define a time axis,            
+a = zeros(sample_rate * padding) # Create an interval of zeros,
+b = ones( sample_rate)           # ... and 1 s of ones,
+taper = hstack((a,b,a))          # ... stack them together,
+t = arange(len(taper)) / sample_rate  # ... define a time axis,            
 
 # Since we have used much of this code before,
 # let's make a function out of it. This way we
@@ -363,23 +360,23 @@ t = np.arange(len(taper)) / sample_rate  # ... define a time axis,
 def show_spectrum(x, Fs, xlim=[0, 10], ylim=[-40, 10], display=True):
     dt = 1 / Fs                      # Define the time step
     T = len(x) * dt                  # Define the total time
-    X = np.fft.rfft(x - x.mean())    # Compute the Fourier transform
-    Sxx = np.real((X * np.conj(X)))  # ... and the spectrum
+    X = rfft(x - x.mean())    # Compute the Fourier transform
+    Sxx = real((X * conj(X)))  # ... and the spectrum
     Sxx = Sxx / Sxx.max()            # ... and scale it to have maximum of 0.
     
     df = 1 / T                       # Define the frequency resolution,
-    faxis = np.arange(len(Sxx)) * df # ... to create frequency axis
+    faxis = arange(len(Sxx)) * df # ... to create frequency axis
     
     if display:                      # If you'd like to display the results,
-        plt.subplot(1,2,1)
-        plot(np.arange(0, T, dt), x) # ... then plot the signal,
+        subplot(1,2,1)
+        plot(arange(0, T, dt), x) # ... then plot the signal,
         xlabel('Time [s]')           # ... with axes labeled.
         ylabel('Signal')
-        plt.subplot(1,2,2)           # ... and its spectrum
-        Sxx[Sxx == 0] = np.nan       # ... avoid division by 0 errors
-        plot(faxis,10.*np.log10(Sxx))# Plot the spectrum vs frequency,
-        plt.xlim(xlim)               # ... in select range,
-        plt.ylim(ylim)
+        subplot(1,2,2)           # ... and its spectrum
+        Sxx[Sxx == 0] = nan       # ... avoid division by 0 errors
+        plot(faxis,10.*log10(Sxx))# Plot the spectrum vs frequency,
+        xlim(xlim)               # ... in select range,
+        ylim(ylim)
         xlabel('Frequency [Hz]')     # ... with axes labeled.
         ylabel('Power [dB]')
         show()
@@ -406,8 +403,8 @@ To explore further the impact of this zero padding, let’s now consider an exam
 
 ```{code-cell} ipython3
 Fs = 500                                             # Define sampling frequency.
-d = np.sin(2. * np.pi * np.arange(0, 1, 1/Fs) * 10)  # Make a 10 Hz sinusoid,
-d = np.hstack((d, np.zeros(10 * Fs)))                # ... with 10 s of zero padding.
+d = sin(2. * pi * arange(0, 1, 1/Fs) * 10)  # Make a 10 Hz sinusoid,
+d = hstack((d, zeros(10 * Fs)))                # ... with 10 s of zero padding.
 
 # Use the function we created earlier to view the spectrum. 
 show_spectrum(d, Fs, xlim=[0, 20], ylim=[-60, 10]);
@@ -472,10 +469,10 @@ But, perhaps by zero padding the data, we can distinguish these two rhythms. Aft
 
 ```{code-cell} ipython3
 Fs = 500                                                # Define sampling frequency
-d1 = np.sin(2. * np.pi * np.arange(0, 1, 1/Fs) * 10)    # Make a 10 Hz sinusoid.
-d2 = np.sin(2. * np.pi * np.arange(0, 1, 1/Fs) * 10.5)  # Make a 10.5 Hz sinusoid.
+d1 = sin(2. * pi * arange(0, 1, 1/Fs) * 10)    # Make a 10 Hz sinusoid.
+d2 = sin(2. * pi * arange(0, 1, 1/Fs) * 10.5)  # Make a 10.5 Hz sinusoid.
 d = d1 + d2                                             # Make the summed signal,
-d = np.hstack((d, np.zeros(10 * Fs)))                   # ... with 10 s of zero padding.
+d = hstack((d, zeros(10 * Fs)))                   # ... with 10 s of zero padding.
 
 show_spectrum(d, Fs, xlim=[0, 20], ylim=[-40, 10]);     # ... and compute the spectrum.
 ```
@@ -504,12 +501,12 @@ We have considered so far a single type of taper (the default, a rectangular tap
 The problem with the rectangular taper is its sharp edges (i.e., the rapid transitions from 0 to 1, and from 1 back to 0). To represent these sharp edges in the frequency domain requires many sinusoids, oscillating at different frequencies,<span class="sup">fig<img src="imgs/4-6.png"></span> which manifest as side lobes in the spectrum. The Hanning taper acts to smooth the sharp edges of the rectangular taper. To see this, let's plot both the Hanning taper and the rectangular taper.
 
 ```{code-cell} ipython3
-padding       = np.zeros(5000)                                        # Create 5000 pts of zeros for padding.
-hanning_taper = np.hstack((padding, np.hanning(5000), padding))       # Create Hanning taper with padding.
-rect_taper    = np.hstack((padding, np.ones_like(padding), padding))  # Create rectangular taper with padding.
+padding       = zeros(5000)                                        # Create 5000 pts of zeros for padding.
+hanning_taper = hstack((padding, hanning(5000), padding))       # Create Hanning taper with padding.
+rect_taper    = hstack((padding, ones_like(padding), padding))  # Create rectangular taper with padding.
 plot(rect_taper, label='Rect')                                        # Plot the two tapers.
 plot(hanning_taper, label='Hann')
-plt.legend()
+legend()
 show()
 ```
 
@@ -517,10 +514,10 @@ Notice that the Hanning taper gradually increases from zero, reaches a maximum o
 
 ```{code-cell} ipython3
 Fs = 500                  # Define the sampling frequency.
-a  = np.zeros((Fs * 10))  # Create 10 seconds of zeropadding.
+a  = zeros((Fs * 10))  # Create 10 seconds of zeropadding.
 
-show_spectrum(np.hstack((a, np.hanning(Fs), a)), Fs, xlim=[0, 5]);  # Compute spectrum of Hanning taper.
-show_spectrum(np.hstack((a, np.ones(Fs), a)), Fs, xlim=[0, 5]);     # Compute spectrum of rectangular taper.
+show_spectrum(hstack((a, hanning(Fs), a)), Fs, xlim=[0, 5]);  # Compute spectrum of Hanning taper.
+show_spectrum(hstack((a, ones(Fs), a)), Fs, xlim=[0, 5]);     # Compute spectrum of rectangular taper.
 ```
 
 These spectra reveal two main differences between these tapers:
@@ -536,11 +533,11 @@ data = sio.loadmat('ECoG-1.mat')     # Load the ECoG data,
 x = data['ECoG'].reshape(-1)         # ... get the voltage trace,
 t = data['t'].reshape(-1)            # ... and the time axis,
 plot(t, x, label="Raw")              # ... and plot it.
-xH = np.hanning(len(x)) * x          # Apply the Hanning taper,
+xH = hanning(len(x)) * x          # Apply the Hanning taper,
 plot(t, xH, label='Tapered')         # ... and plot it,
 xlabel('Time [s]')                   # ... with axes labeled.
 ylabel('Voltage [mv]')
-plt.legend()
+legend()
 show()
 ```
 
@@ -564,13 +561,13 @@ X, _      = show_spectrum(x, Fs, xlim=[0, 100],   # Compute the rectangular tape
                      display=False);       
 XH, faxis = show_spectrum(xH, Fs, xlim=[0, 100],  # Compute the Hannning tapered spectrum.
                           display=False)  
-plt.loglog(faxis, X, label='Rectangular taper')   # Plot the two spectra,
-plt.loglog(faxis, XH, label='Hanning taper')
-plt.legend()
+loglog(faxis, X, label='Rectangular taper')   # Plot the two spectra,
+loglog(faxis, XH, label='Hanning taper')
+legend()
 xlabel('Frequency [Hz]')                          # ... with axes labeled.
 ylabel('Power [dB]')
-plt.ylim([1e-5, 10])
-plt.xlim([1, 100])
+ylim([1e-5, 10])
+xlim([1, 100])
 savefig('imgs/4-11d')
 show()
 ```
@@ -595,13 +592,13 @@ To get a sense for the multitaper method, let’s examine some of the tapers. We
 
 ```{code-cell} ipython3
 w, _ = spectrum.dpss_windows(N, 3, 5)               # Get the first 5 tapers,
-plt.subplot(1, 2, 1)               # ... and plot them
+subplot(1, 2, 1)               # ... and plot them
 plot(w.T)
-plt.legend(['1st taper','2nd taper','3rd taper','4th taper', '5th taper'])
-filtered_x = np.array([taper * x + 2.5*i for taper,i in zip(w, range(5))])
-plt.subplot(1,2,2)
+legend(['1st taper','2nd taper','3rd taper','4th taper', '5th taper'])
+filtered_x = array([taper * x + 2.5*i for taper,i in zip(w, range(5))])
+subplot(1,2,2)
 plot(filtered_x.T)
-plt.yticks(np.arange(0, 2.5 * 5, 2.5), [str(i+1) for i in range(5)])
+yticks(arange(0, 2.5 * 5, 2.5), [str(i+1) for i in range(5)])
 show()
 ```
 
@@ -660,13 +657,13 @@ faxis, Sxx, _ = spectrum.multi_taper_psd(x - x.mean(), Fs=1/dt, NW=NW);
 ```
 
 ```{code-cell} ipython3
-plt.loglog(X[:100], label='Rectangular taper')  # Plot the spectrum,
-plt.loglog(XH[:100], label='Hanning taper')     # ... computed in three wasy
-plt.loglog(faxis[:100], Sxx[:100] / Sxx.max(), label='Multitaper')
+loglog(X[:100], label='Rectangular taper')  # Plot the spectrum,
+loglog(XH[:100], label='Hanning taper')     # ... computed in three wasy
+loglog(faxis[:100], Sxx[:100] / Sxx.max(), label='Multitaper')
 xlabel('Frequency [Hz]')                        # ... with axes labeled.
 ylabel('Power [dB]')
-plt.legend()
-plt.ylim([1e-6, 10])
+legend()
+ylim([1e-6, 10])
 show()
 ```
 
@@ -721,19 +718,19 @@ def chi2conf(K, Sxx=1, ci=.95):  # Define a short function to compute confidence
 
 def dB(x):                       # For convenience, define a function to convert
     '''Convert to decibels'''    # ... a signal to decibels
-    return 10 * np.log10(x)
+    return 10 * log10(x)
 
 lb, ub = chi2conf(K, Sxx)        # Use the function to get confidence bounds
 
-plt.fill_between(faxis, dB(lb), dB(ub),  # Plot results
+fill_between(faxis, dB(lb), dB(ub),  # Plot results
                  color=[1,0,0], alpha=.3, label="95 CI")
-plt.semilogx(faxis[1:],dB(Sxx[1:]))
-plt.legend()
+semilogx(faxis[1:],dB(Sxx[1:]))
+legend()
 xlabel('Frequency (Hz)')
 ylabel('Power')
 title('Multitaper spectrum with confidence bounds')
-plt.xlim([faxis[1], 100])
-plt.show()
+xlim([faxis[1], 100])
+show()
 ```
 
 <div class="question">
@@ -758,7 +755,7 @@ plt.show()
 
 ### Summary
 
-In this module, we analyzed the rhythmic activity present in 1 s of ECoG data. We computed the spectrum and considered two issues: zero padding and tapering. We discussed that zero padding can increase the number of points along the frequency axis but cannot change the frequency resolution. We also explored the trade-off between three different tapers: the rectangular taper, the Hanning taper, and the multitaper method. The Hanning taper reduces the side lobes present in the rectangular taper, but fattens the spectral peaks. The multitaper method reduces the variance of the spectrum at the cost of worsened frequency resolution. Applying all three measures to the ECoG data allowed us to explore the rhythmic activity of these data in different ways. All three methods suggest rhythmic content at low frequencies, near 6–7 Hz, consistent with the visual inspection of the time series. Applying the Hanning taper, we uncovered activity in the 10–15 Hz range. Applying the multitaper method, we uncovered broadband activity at 30–50 Hz. This activity, hidden in the noisy spectrum, only became apparent upon increasing the number of tapers. However, this increase necessarily reduces the frequency resolution and can hide the low-frequency rhythms. In this case, we find it useful to examine the spectrum in a variety of ways.
+In this notebook, we analyzed the rhythmic activity present in 1 s of ECoG data. We computed the spectrum and considered two issues: zero padding and tapering. We discussed that zero padding can increase the number of points along the frequency axis but cannot change the frequency resolution. We also explored the trade-off between three different tapers: the rectangular taper, the Hanning taper, and the multitaper method. The Hanning taper reduces the side lobes present in the rectangular taper, but fattens the spectral peaks. The multitaper method reduces the variance of the spectrum at the cost of worsened frequency resolution. Applying all three measures to the ECoG data allowed us to explore the rhythmic activity of these data in different ways. All three methods suggest rhythmic content at low frequencies, near 6–7 Hz, consistent with the visual inspection of the time series. Applying the Hanning taper, we uncovered activity in the 10–15 Hz range. Applying the multitaper method, we uncovered broadband activity at 30–50 Hz. This activity, hidden in the noisy spectrum, only became apparent upon increasing the number of tapers. However, this increase necessarily reduces the frequency resolution and can hide the low-frequency rhythms. In this case, we find it useful to examine the spectrum in a variety of ways.
 
 Here we have only touched the surface of these concepts. Further discussions of zero padding, tapering, and the multitaper method may be found in 
 [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762), 
@@ -776,7 +773,7 @@ and [Press, Teukolsky, Vetterling & Flannery, 2007](http://www.cambridge.org/us/
 
 +++
 
-We stated in this module the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,
+We stated in this notebook the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,
 
 $$
 FT[xw] = FT[x]\star FT[w] \, ,
@@ -853,17 +850,17 @@ and therefore conclude that the Fourier transform of the convolution of $x$ and 
 We may compute a simple example to illustrate this relation:
 
 ```{code-cell} ipython3
-x = np.array([ 3,   4,    5, 6])               # Define a simple signal x,
-w = np.array([-1, 0.1, -0.2, 1])               # ... and another simple signal w.
-a = np.fft.fft(np.convolve(w, x))              # Take the Fourier transform of the convolution,
-b = np.fft.fft(np.hstack([w, [0, 0, 0]])) * \
-    np.fft.fft(np.hstack([x, [0, 0, 0]]))      # ... and the product of the Fourier transforms.
+x = array([ 3,   4,    5, 6])               # Define a simple signal x,
+w = array([-1, 0.1, -0.2, 1])               # ... and another simple signal w.
+a = fft(convolve(w, x))              # Take the Fourier transform of the convolution,
+b = fft(hstack([w, [0, 0, 0]])) * \
+    fft(hstack([x, [0, 0, 0]]))      # ... and the product of the Fourier transforms.
     
-plt.plot(a.real - b.real, label='real')        # Plot the difference
-plt.plot(a.imag - b.imag, label='imaginary')
-plt.legend()
-plt.title('Difference between Fourier transform of convolution \n and element-wise product of Fourier transforms\n')
-plt.show()
+plot(a.real - b.real, label='real')        # Plot the difference
+plot(a.imag - b.imag, label='imaginary')
+legend()
+title('Difference between Fourier transform of convolution \n and element-wise product of Fourier transforms\n')
+show()
 ```
 
 In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of $w$ and $x$, and then the Fourier transform. In the fourth and fifth lines, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing their Fourier transforms. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables $a$ and $b$ the same. Evaluating the statement, we find the difference between $a$ and $b$ to be on the order of $10^{-15}$, which is very close to zero.

@@ -80,7 +80,7 @@ _**Synopsis**_
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="On-ramp:-visualizing-spike-train-data-in-Python">On-ramp: visualizing spike train data in Python<a id="onramp" /><a class="anchor-link" href="#On-ramp:-visualizing-spike-train-data-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: techniques to visualize spike train data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+<h2 id="On-ramp:-visualizing-spike-train-data-in-Python">On-ramp: visualizing spike train data in Python<a id="onramp" /><a class="anchor-link" href="#On-ramp:-visualizing-spike-train-data-in-Python"> </a></h2><p>We begin this notebook with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: techniques to visualize spike train data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
 
 </div>
 </div>
@@ -94,41 +94,41 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>              
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>              
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the spike train data</span>
 <span class="n">SpikesLow</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SpikesLow&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and get the spike times for low-light condition.</span>
 
-<span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>             <span class="c1"># Compute ISIs in the low-light condition</span>
+<span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>             <span class="c1"># Compute ISIs in the low-light condition</span>
                                          <span class="c1"># Fit a statistical model to the ISIs.</span>
-<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>           <span class="c1"># Define 1 ms bins.</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>           <span class="c1"># Define 1 ms bins.</span>
 <span class="n">Nlow</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                      <span class="c1"># Length of low-light condition.</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                      <span class="c1"># Mean of inverse Gaussian</span>
 <span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># ... and shape parameter</span>
 <span class="n">model</span> <span class="o">=</span> <span class="p">(</span>                                   <span class="c1"># ... to create the model.</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lbda</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">bins</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> 
-    <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+    <span class="n">sqrt</span><span class="p">(</span><span class="n">lbda</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">bins</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> 
+    <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
 <span class="p">)</span>
 <span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                             <span class="c1"># Numerator to 0 faster than denominator.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>                         <span class="c1"># Plot the data and the model,</span>
-<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>                         <span class="c1"># Plot the data and the model,</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>             <span class="c1"># ... convert to probability,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the model.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># Label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>                         <span class="c1"># Plot the KS plot</span>
-<span class="n">FmodLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
-<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>                         <span class="c1"># Plot the KS plot</span>
+<span class="n">FmodLow</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
+<span class="n">FempLow</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">,</span> <span class="n">FempLow</span><span class="p">)</span>                   <span class="c1"># ... plot model vs empirical CDF,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
+<span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                      <span class="c1"># ... and label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -221,13 +221,14 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the modules and plot settings</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prepare the standard modules </span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">xlabel</span><span class="p">,</span> <span class="n">ylabel</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">show</span><span class="p">,</span> <span class="n">title</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="c1"># ... and notebook specific modules</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>   <span class="c1"># Import the gamma object from the SciPy stats toolbox</span>
 </pre></div>
 
     </div>
@@ -244,8 +245,7 @@ _**Synopsis**_
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -608,11 +608,10 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Import the NumPy module</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># Plot spikes as a row,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>                                <span class="c1"># ... display times (0, 5) s</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>                          <span class="c1"># ... label the x-axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>                                  <span class="c1"># ... remove y-axis ticks</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># Plot spikes as a row,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>                                <span class="c1"># ... display times (0, 5) s</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>                          <span class="c1"># ... label the x-axis</span>
+<span class="n">yticks</span><span class="p">([])</span>                                  <span class="c1"># ... remove y-axis ticks</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -647,11 +646,11 @@ $$<p>where $n$ is the number of spikes over the time interval $T$.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q.** The first line of code imports the NumPy module. What’s happening in the second line of this code?
+**Q.** What’s happening in the first line of this code?
 
 **A.** The plot function receives three inputs. The first input defines the $x$-axis values for the plot, which here are the spike times. The second input is itself a function: 
 
-    np.ones_like(SpikesLow)
+    ones_like(SpikesLow)
 
 The function `ones_like` produces an array filled entirely with 1s that is the same dimensions as `SpikesLow`. The last input to `plot` instructs Python to display the data using the dot symbol. To summarize, we’re calling the `plot` command to display 
 
@@ -686,13 +685,13 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># Plot the low-light condition spikes</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the high-light condition spikes </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>              <span class="c1"># Display times 0 to 5 s on the x-axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>              <span class="c1"># ... and set the y-axis limits</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># Plot the low-light condition spikes</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the high-light condition spikes </span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>              <span class="c1"># Display times 0 to 5 s on the x-axis</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>              <span class="c1"># ... and set the y-axis limits</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>            <span class="c1"># ... label the x-axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>   <span class="c1"># ... show a legend</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>                <span class="c1"># ... remove y-axis ticks</span>
+<span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>   <span class="c1"># ... show a legend</span>
+<span class="n">yticks</span><span class="p">([])</span>                <span class="c1"># ... remove y-axis ticks</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -751,7 +750,7 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 **Q.** Explain why the following command fails to execute:
 
-    plot(SpikesLow, np.ones_like(SpikesHigh), '.')
+    plot(SpikesLow, ones_like(SpikesHigh), '.')
 
 </div>
 </div>
@@ -814,13 +813,13 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>        <span class="c1"># Plot the low-light condition spikes</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the high-light condition spikes </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>              <span class="c1"># Display times 10 to 11 s on the x-axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                <span class="c1"># ... and set the y-axis limits</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>        <span class="c1"># Plot the low-light condition spikes</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the high-light condition spikes </span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>              <span class="c1"># Display times 10 to 11 s on the x-axis</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>                <span class="c1"># ... and set the y-axis limits</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>              <span class="c1"># ... label the x-axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>     <span class="c1"># ... show a legend</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>                  <span class="c1"># ... remove y-axis ticks</span>
+<span class="n">legend</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">})</span>     <span class="c1"># ... show a legend</span>
+<span class="n">yticks</span><span class="p">([])</span>                  <span class="c1"># ... remove y-axis ticks</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 
@@ -882,8 +881,8 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>    <span class="c1"># Compute ISIs in the low-light condition</span>
-<span class="n">ISIsHigh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">)</span>  <span class="c1"># Compute ISIs in the high-light condition</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ISIsLow</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">)</span>    <span class="c1"># Compute ISIs in the low-light condition</span>
+<span class="n">ISIsHigh</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">)</span>  <span class="c1"># Compute ISIs in the high-light condition</span>
 </pre></div>
 
     </div>
@@ -907,7 +906,7 @@ as dots. The next two commands set the range of the $x$-axis (in this case from 
 
 
 
-**A.** Let’s focus on the first command, which defines the variable `ISIsLow`. Here, we use the function `diff()` with input `SpikesLow`. If you have not seen the command `diff()` before, look it up using `np.diff()?`. Briefly, the `diff()` command computes the difference between adjacent elements of the input. In this case, the vector `SpikesLow` represents the times at which spikes occur. Therefore, the difference between adjacent elements of `SpikesLow` produces the time interval or waiting time between successive spikes. To further explore the concept of an ISI, let’s write the spike times as a vector,
+**A.** Let’s focus on the first command, which defines the variable `ISIsLow`. Here, we use the function `diff()` with input `SpikesLow`. If you have not seen the command `diff()` before, look it up using `diff()?`. Briefly, the `diff()` command computes the difference between adjacent elements of the input. In this case, the vector `SpikesLow` represents the times at which spikes occur. Therefore, the difference between adjacent elements of `SpikesLow` produces the time interval or waiting time between successive spikes. To further explore the concept of an ISI, let’s write the spike times as a vector,
 
 $$
 v = {t_1, t_2, t_3, ..., T_N}, 
@@ -1192,13 +1191,13 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>  <span class="c1"># Define the bins for the histogram</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>        <span class="c1"># Plot the histogram of the ISI data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">)</span>  <span class="c1"># Define the bins for the histogram</span>
+<span class="n">hist</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>        <span class="c1"># Plot the histogram of the ISI data</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>              <span class="c1"># ... label the x-axis</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>               <span class="c1"># ... and the y-axis</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Low-light&#39;</span><span class="p">)</span>             <span class="c1"># ... give the plot a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1273,18 +1272,18 @@ Notice that only four bins have counts and that bin 5 has two counts; for the fi
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>        <span class="c1"># Plot the histogram of the low-light ISI data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hist</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>        <span class="c1"># Plot the histogram of the low-light ISI data</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>               <span class="c1"># ... label the y-axis</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Low-light&#39;</span><span class="p">)</span>             <span class="c1"># ... give the plot a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>       <span class="c1"># Plot the histogram of the high-light ISI data</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
+<span class="n">hist</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>       <span class="c1"># Plot the histogram of the high-light ISI data</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>            <span class="c1"># ... focus on ISIs from 0 to 150 ms</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>              <span class="c1"># ... label the x-axis</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>               <span class="c1"># ... and the y-axis</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;High-light&#39;</span><span class="p">)</span>            <span class="c1"># ... give the plot a title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -1459,8 +1458,8 @@ The intervals of rapid spiking produce many shorter ISIs, and the longer interva
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>                       <span class="c1"># Define the time bins</span>
-<span class="n">IncrementsLow50</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span>  <span class="c1"># ... and compute a histogram of the data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>                       <span class="c1"># Define the time bins</span>
+<span class="n">IncrementsLow50</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span>  <span class="c1"># ... and compute a histogram of the data</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">time_bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">IncrementsLow50</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>               <span class="c1"># Plot the resulting counts over time</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                                       <span class="c1"># ... with axes labeled</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Spikes&#39;</span><span class="p">)</span>
@@ -1741,7 +1740,7 @@ is 600. Therefore, N = 600. This makes sense; 600 time bins of 50 ms duration fi
 <span class="n">N</span> <span class="o">=</span> <span class="n">IncrementsLow50</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>   <span class="c1"># Determine number of time bins.</span>
 <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>             <span class="c1"># Define the shape parameter of the gamma function</span>
 <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>             <span class="c1"># ... and the scale parameter </span>
-<span class="n">FF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># Define possible FF values</span>
+<span class="n">FF</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1"># Define possible FF values</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> 
               <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>      <span class="c1"># ... compute gamma distribution,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FF</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>                     <span class="c1"># ... and plot it</span>
@@ -1981,7 +1980,7 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">autocorr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lags</span><span class="p">):</span>
-    <span class="n">xcorr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># Compute the autocorrelation</span>
+    <span class="n">xcorr</span> <span class="o">=</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># Compute the autocorrelation</span>
     <span class="n">xcorr</span> <span class="o">=</span> <span class="n">xcorr</span><span class="p">[</span><span class="n">xcorr</span><span class="o">.</span><span class="n">size</span><span class="o">//</span><span class="mi">2</span><span class="p">:]</span> <span class="o">/</span> <span class="n">xcorr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>               <span class="c1"># Convert to correlation coefficients</span>
     <span class="k">return</span> <span class="n">xcorr</span><span class="p">[:</span><span class="n">lags</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>                                     <span class="c1"># Return only requested lags</span>
     
@@ -2089,8 +2088,8 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>                    <span class="c1"># Define the time bins</span>
-<span class="n">IncrementsLow1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span> <span class="c1"># ... compute the histogram to create increment process</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>                    <span class="c1"># Define the time bins</span>
+<span class="n">IncrementsLow1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">SpikesLow</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span> <span class="c1"># ... compute the histogram to create increment process</span>
 <span class="n">ACFLow</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">IncrementsLow1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>                 <span class="c1"># ... and the autocorrelation</span>
 </pre></div>
 
@@ -2145,11 +2144,11 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">ACFLow</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                  <span class="c1"># Plot autocorrelation vs lags,</span>
 <span class="n">N1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IncrementsLow1</span><span class="p">)</span>           <span class="c1"># ... compute the sample size</span>
-<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>              <span class="c1"># ... and the significance level</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">N1</span><span class="p">)</span>              <span class="c1"># ... and the significance level</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>   <span class="c1"># ... and plot the upper and lower significance lines</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">sig</span><span class="p">,</span> <span class="o">-</span><span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                 <span class="c1"># ... set x-limits</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>                <span class="c1"># ... and y-limits</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                 <span class="c1"># ... set x-limits</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>                <span class="c1"># ... and y-limits</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>                <span class="c1"># ... with axes labeled</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -2225,14 +2224,14 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span> <span class="c1"># Compute the histogram to create increment process</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">SpikesHigh</span><span class="p">,</span> <span class="n">time_bins</span><span class="p">)</span> <span class="c1"># Compute the histogram to create increment process</span>
 <span class="n">ACFHigh</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>                 <span class="c1"># ... and the autocorrelation.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ACFHigh</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                                       <span class="c1"># Plot the autocorrelation,</span>
-<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">))</span>                  <span class="c1"># ... compute and plot the significance level,</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">))</span>                  <span class="c1"># ... compute and plot the significance level,</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="n">sig</span><span class="p">,</span> <span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>                               
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">sig</span><span class="p">,</span> <span class="o">-</span><span class="n">sig</span><span class="p">],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                       <span class="c1"># ... and set the plot limits,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                       <span class="c1"># ... and set the plot limits,</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>                                      <span class="c1"># ... with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -2301,11 +2300,11 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">N2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">IncrementsHigh1</span><span class="p">)</span>
 <span class="n">ACFDiff</span> <span class="o">=</span> <span class="n">ACFHigh</span> <span class="o">-</span> <span class="n">ACFLow</span>                    <span class="c1"># Compute differences of autocorrelations</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ACFDiff</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>                            <span class="c1"># ... and plot them</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">N1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">N2</span><span class="p">)</span>                       <span class="c1"># ... with significance bounds.</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">N1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">N2</span><span class="p">)</span>                       <span class="c1"># ... with significance bounds.</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                            <span class="c1"># Set the plot limits and label the axes.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                            <span class="c1"># Set the plot limits and label the axes.</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation difference&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -2371,11 +2370,11 @@ $$<p>where $x_i$ is the $i^{th}$ data point, and $\bar{x}$ is the sample mean of
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ISI_ACF_Low</span> <span class="o">=</span> <span class="n">autocorr</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Compute and plot the autocorrelation of the low-light ISIs,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 <span class="n">N3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                    <span class="c1"># ... with upper and lower significance lines.</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N3</span><span class="p">)</span>
-<span class="n">plot</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                    <span class="c1"># Set plot limits and label axes.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">N3</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sd</span> <span class="o">*</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">ISI_ACF_Low</span><span class="p">),</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>                    <span class="c1"># Set plot limits and label axes.</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="o">.</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of spikes in the past&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocorrelation&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -2493,10 +2492,10 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>           <span class="c1"># Define 1 ms bins for histogram,</span>
-<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># ... compute histogram of the ISIs,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>           <span class="c1"># Define 1 ms bins for histogram,</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># ... compute histogram of the ISIs,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>             <span class="c1"># ... convert to probability,</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>                 <span class="c1"># ... create figure and axes objects that we can reuse later,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">()</span>                 <span class="c1"># ... create figure and axes objects that we can reuse later,</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">)</span>                 <span class="c1"># ... and plot the probabilities,</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>                   <span class="c1"># ... with fixed x-limits,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># ... and axes labeled.</span>
@@ -2558,7 +2557,7 @@ $$<p>where $\lambda$ is the rate parameter for the Poisson process.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">l</span> <span class="o">=</span> <span class="mi">5</span>                                    <span class="c1"># Choose a value for lambda,</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">l</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>    <span class="c1"># ... and create the model,</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">l</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>    <span class="c1"># ... and create the model,</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>                <span class="c1"># ... and plot the model in green</span>
 <span class="n">fig</span>
 </pre></div>
@@ -2647,9 +2646,9 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lambdas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># Range of lambda values.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lambdas</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># Range of lambda values.</span>
 <span class="n">N3</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>        <span class="c1"># Number of low-light ISIs observed.</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">lambdas</span> <span class="o">**</span> <span class="n">N3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lambdas</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">))</span>  <span class="c1"># Compute the likelihood,</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">lambdas</span> <span class="o">**</span> <span class="n">N3</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lambdas</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">))</span>  <span class="c1"># Compute the likelihood,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>         <span class="c1"># ... and plot it.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
@@ -2717,7 +2716,7 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lambdas</span> <span class="o">=</span> <span class="n">lambdas</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Update the lambda range to exclude 0.</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">N3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lambdas</span><span class="p">)</span> <span class="o">-</span> <span class="n">lambdas</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>  <span class="c1"># Compute the log likelihood,</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">N3</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">lambdas</span><span class="p">)</span> <span class="o">-</span> <span class="n">lambdas</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>  <span class="c1"># Compute the log likelihood,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">lambdas</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>       <span class="c1"># ... and plot it.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$\lambda$&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log likelihood&#39;</span><span class="p">)</span>
@@ -2853,18 +2852,18 @@ $$<p>to indicate that the likelihood $L$ is a function of $\lambda$. To understa
 <span class="n">MLDiff</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsHigh</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Then, perform the bootstrap analysis.</span>
-<span class="n">ISIs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">ISIsHigh</span><span class="p">])</span>  <span class="c1"># Merge all ISIs.</span>
+<span class="n">ISIs</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">ISIsHigh</span><span class="p">])</span>  <span class="c1"># Merge all ISIs.</span>
 <span class="n">Nall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIs</span><span class="p">)</span>                       <span class="c1"># Save length of all ISIs.</span>
 <span class="n">Nlo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                     <span class="c1"># Save length for the low-light condition.</span>
 <span class="n">Nhi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">)</span>                    <span class="c1"># Save length high-light condition.</span>
 
 <span class="c1"># Compute the difference in lambdas from resampled data</span>
-<span class="n">sampDiff</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nhi</span><span class="p">)])</span> <span class="o">-</span>  <span class="c1"># Resample the high-light ISIs and subtract</span>
-            <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nlo</span><span class="p">)])</span>    <span class="c1"># ... the resampled low-light ISIs</span>
+<span class="n">sampDiff</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nhi</span><span class="p">)])</span> <span class="o">-</span>  <span class="c1"># Resample the high-light ISIs and subtract</span>
+            <span class="mi">1</span> <span class="o">/</span> <span class="n">mean</span><span class="p">(</span><span class="n">ISIs</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">Nall</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">Nlo</span><span class="p">)])</span>    <span class="c1"># ... the resampled low-light ISIs</span>
            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>                                    <span class="c1"># ... 1000 times.</span>
 
 <span class="c1"># Compare the bootstrap distribution to the empirical</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sampDiff</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>            <span class="c1"># Plot resampled ISIs distribution,</span>
+<span class="n">hist</span><span class="p">(</span><span class="n">sampDiff</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>            <span class="c1"># Plot resampled ISIs distribution,</span>
 <span class="n">plot</span><span class="p">([</span><span class="n">MLDiff</span><span class="p">,</span> <span class="n">MLDiff</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>       <span class="c1"># ... and the empirical ISIs.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Difference in rate (spikes/s)&#39;</span><span class="p">)</span>
@@ -2928,14 +2927,14 @@ There are more powerful tests we could use to compare the Poisson rate parameter
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>            <span class="c1"># Define 1 ms bins for histogram.</span>
-<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>   <span class="c1"># Compute histogram,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>            <span class="c1"># Define 1 ms bins for histogram.</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>   <span class="c1"># Compute histogram,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>              <span class="c1"># ... convert to probability,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
 <span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>                 <span class="c1"># Compute best guess for lambda,</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">lbda</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>  <span class="c1"># ... build the model,</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">lbda</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>  <span class="c1"># ... build the model,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                    <span class="c1"># ... and plot it.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>                       <span class="c1"># ... xlim from 0 to 150 ms,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">])</span>                       <span class="c1"># ... xlim from 0 to 150 ms,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                         <span class="c1"># ... label the x-axis,</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>                     <span class="c1"># ... and the y-axis.</span>
 <span class="n">show</span><span class="p">()</span>
@@ -3031,13 +3030,13 @@ $$
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># Define 1 ms bins for histogram,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>     <span class="c1"># Define 1 ms bins for histogram,</span>
 <span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>           <span class="c1"># Compute best guess for lambda,</span>
-<span class="n">FmodLow</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># ... and define model CDF.</span>
-<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>           <span class="c1"># Define empirical CDF.</span>
+<span class="n">FmodLow</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># ... and define model CDF.</span>
+<span class="n">FempLow</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>           <span class="c1"># Define empirical CDF.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">FmodLow</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>                 <span class="c1"># Plot the model CDF,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">FempLow</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>       <span class="c1"># ... and the empirical CDF,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                  <span class="c1"># ... with specified x-limits.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                  <span class="c1"># ... with specified x-limits.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -3074,7 +3073,7 @@ $$
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class=question>
 
-**Q.** Have you used the function `cumsum()` before? If not, look it up using `np.cumsum?`
+**Q.** Have you used the function `cumsum()` before? If not, look it up using `cumsum?`
 
 </div>
 </div>
@@ -3130,9 +3129,9 @@ $$
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">()</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">FempLow</span><span class="p">)</span>    <span class="c1"># Plot the model vs empirical CDFs.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>         <span class="c1"># Set the axes ranges.</span>
+<span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>         <span class="c1"># Set the axes ranges.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>            <span class="c1"># And label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -3183,8 +3182,8 @@ $$
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">Nlow</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>  <span class="c1"># Length of the low-light condition</span>
 <span class="c1"># Plot the confidence bounds</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>
 <span class="n">fig</span>
 </pre></div>
 
@@ -3277,13 +3276,13 @@ $$<p>Using this expression, we can fit an inverse Gaussian model to the data in 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>    <span class="c1"># Define 1 ms bins.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">)</span>    <span class="c1"># Define 1 ms bins.</span>
 <span class="n">Nlow</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>               <span class="c1"># Length of low-light condition.</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>               <span class="c1"># Mean of inverse Gaussian</span>
 <span class="n">lbda</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">mu</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>    <span class="c1"># ... and shape parameter</span>
 <span class="n">model</span> <span class="o">=</span> <span class="p">(</span>                                   <span class="c1"># ... to create the model.</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lbda</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">bins</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> 
-    <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span>       
+    <span class="n">sqrt</span><span class="p">(</span><span class="n">lbda</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">bins</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> 
+    <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lbda</span> <span class="o">*</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span>       
            <span class="mi">2</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
 <span class="p">)</span>
 <span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>                      <span class="c1"># Numerator to 0 faster than denominator.</span>
@@ -3359,23 +3358,23 @@ Note that the first element of `bins` is 0, so dividing by `bins` causes a divid
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plot the data and the model,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
-<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>  <span class="c1"># Compute histogram,</span>
 <span class="n">prob</span> <span class="o">=</span> <span class="n">counts</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>             <span class="c1"># ... convert to probability,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">prob</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>     <span class="c1"># ... and plot probability.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the model.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>                       <span class="c1"># xlim from 0 to 200 ms.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ISI [s]&#39;</span><span class="p">)</span>                        <span class="c1"># Label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plot the KS plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
-<span class="n">FmodLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
-<span class="n">FempLow</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">FmodLow</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">model</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>          <span class="c1"># Define the model CDF,</span>
+<span class="n">FempLow</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>                <span class="c1"># ... and define empirical CDF,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">FmodLow</span><span class="p">,</span> <span class="n">FempLow</span><span class="p">)</span>                   <span class="c1"># ... plot model vs empirical CDF,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... upper confidence bound,</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.36</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Nlow</span><span class="p">),</span><span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... lower confidence bound,</span>
+<span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                   <span class="c1"># ... set the axes ranges,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                      <span class="c1"># ... and label the axes.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -3628,139 +3627,6 @@ $$\mu = \sigma^2 = \lambda,$$<p>and therefore for a Poisson process, the Fano fa
 
 </div>
 </div>
-</div>
-</div>
-
-<div class="jb_cell">
-
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;../../assets/custom/custom.css&#39;</span><span class="p">)</span>
-<span class="c1"># NO CODE</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="jb_output_wrapper }}">
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<style>
-.left {
-    margin-left: 0px;
-}
-.warning {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.math-note {
-    color: #3c763d;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.python-note {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-    border-color: #faebcc;
-    /*border: 1px solid;*/
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-}
-.question {
-    display: block;
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    /*border: 1px solid;*/
-    padding: 12px;
-    margin-bottom: 12px;
-    margin-top: 12px;
-    border-radius: 5px;
-}
-.question p, .math-note p, .python-note p, .warning p {
-    /*margin-top: 1em;*/
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.question * + p, .math-note * + p, .python-note * + p, .warning * + p {
-    /*margin-bottom: 0;*/
-    margin-top: 1em;
-}
-.output_area img, .output_area iframe, .output_html iframe {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.inner_cell img {
-    max-width:90%;
-    /*max-width:700px;*/
-    /*max-height: 90%;*/
-}
-.fig, .thumb, .sup {
-    position: inherit;
-    color: #57b733;
-    cursor: help;
-    text-decoration: underline dotted;
-    max-width: 700px;
-}   
-.thumb img{ 
-    max-width: 400px;
-}
-.sup {
-    top: -.5em;
-    font-size: 75%;
-    vertical-align: super;
-}
-.fig img, .sup img, .thumb img { 
-    /*width: 100%;*/
-    max-width: 90%;
-    max-height: 50vh;
-    border:1px solid #000;
-    visibility: hidden;
-    background-color: black;
-    border-radius: 6px;
-    padding: 5px 5px;
-    position: absolute;
-    transition: 5ms visibility;
-    z-index: 99;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.fig:hover, .fig:hover img, .sup:hover img, .thumb:hover, .thumb:hover img { 
-    visibility:visible;
-    transition-delay: 500ms;
-}
-</style>
-
-</div>
-
-</div>
-</div>
-</div>
-</div>
-
 </div>
 </div>
 

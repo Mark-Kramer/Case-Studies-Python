@@ -11,7 +11,7 @@ prev_page:
 next_page:
   url: /02/the-event-related-potential.html
 suffix: .ipynb
-search: python div function example class lets question q data c code plot note y x not does variables array notebook our np shape row matrix vector want using define values columns functions sense element consider access loop execute return sometimes matlab above command notice numbers type elements b method case org here following should same well math numpy need start arrays matrices tells matplotlib www useful examples used run line print import load argument help lists html means vectors column nonzero plotting figure random indented keys learn particular read instead get before e any second both while ramp module thats
+search: python div function example class lets question q data plot x c code note y notebook not does variables array our want shape row matrix vector using functions define values columns sense element consider access loop execute return sometimes matlab above command import matplotlib need notice numbers type elements b method case org here following should used same well math plotting start arrays matrices tells www useful examples run line print module numpy load argument help lists html means vectors column nonzero figure random indented keys learn particular read instead get before e any second both while ramp thats try
 
 comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /content***"
 ---
@@ -34,7 +34,7 @@ comment: "***PROGRAMMATICALLY GENERATED, DO NOT EDIT. SEE ORIGINAL FILES IN /con
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually <em>do</em> this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This chapter follows in spirit and sometimes in detail Chapter 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a>).</p>
+<p>Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually <em>do</em> this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/">Python Data Science Handbook</a>).</p>
 
 </div>
 </div>
@@ -72,7 +72,7 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="On-ramp:-analysis-of-neural-data-in-Python">On-ramp: analysis of neural data in Python<a class="anchor-link" href="#On-ramp:-analysis-of-neural-data-in-Python"> </a></h2><p>We begin this module with an "<em>on-ramp</em>" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens...</p>
+<h2 id="On-ramp:-analysis-of-neural-data-in-Python">On-ramp: analysis of neural data in Python<a class="anchor-link" href="#On-ramp:-analysis-of-neural-data-in-Python"> </a></h2><p>We begin this notebook with an "<em>on-ramp</em>" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens...</p>
 
 </div>
 </div>
@@ -87,9 +87,8 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>               <span class="c1"># Import packages to read data, do analysis, and plot it.</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">mat</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;sample_data.mat&#39;</span><span class="p">)</span> <span class="c1"># Load the example data set.</span>
 <span class="n">t</span>   <span class="o">=</span> <span class="n">mat</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                    <span class="c1"># Get the values associated with the key &#39;t&#39; from the dictorary.</span>
@@ -98,14 +97,14 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
                                      <span class="c1"># Print useful information about the data.</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sampling frequency is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>  <span class="o">+</span> <span class="s1">&#39; Hz.&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total duration of recording is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39; s.&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimensions of data are &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">LFP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; data points.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dimensions of data are &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">LFP</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; data points.&#39;</span><span class="p">)</span>
 
 <span class="n">initial_time_interval</span> <span class="o">=</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">5</span>        <span class="c1"># Choose an initial interval of time, from onset to 5 s,</span>
                                      <span class="c1"># ... and plot it.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">],</span> <span class="n">LFP</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;LFP&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Initial interval of LFP data&#39;</span><span class="p">);</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">],</span> <span class="n">LFP</span><span class="p">[</span><span class="n">initial_time_interval</span><span class="p">])</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;LFP&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Initial interval of LFP data&#39;</span><span class="p">);</span>
 </pre></div>
 
     </div>
@@ -330,7 +329,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Example-3.--Python-has-useful-built-in-functions.">Example 3.  Python has useful built in functions.<a class="anchor-link" href="#Example-3.--Python-has-useful-built-in-functions."> </a></h2><p>A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the <code>math</code> and <code>numpy</code> modules. To use the <code>math</code> and <code>numpy</code> modules, we must first import both:</p>
+<h2 id="Example-3.--Python-has-useful-built-in-functions.">Example 3.  Python has useful built in functions.<a class="anchor-link" href="#Example-3.--Python-has-useful-built-in-functions."> </a></h2><p>A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the <code>math</code> and <code>pylab</code> modules. To use the <code>math</code> and <code>pylab</code> modules, we must first import both:</p>
 
 </div>
 </div>
@@ -344,7 +343,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 
@@ -359,7 +358,16 @@ Dimensions of data are (100000,) data points.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You will often begin your data analysis with <code>import</code> statements, to load the functionality you need. We can now call functions from math using <code>numpy.*</code>.  For example,</p>
+<div class="python-note">
+
+The `pylab` module bundles commonly used numeric and plotting functions. Another common alternative is to use
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+In this style, we would need to indicate which module, or *namespace*, contains the function we want to call: `x = np.arange(10)` or `plt.plot(x, y)`.
+
+</div><p>You will often begin your data analysis with <code>import</code> statements, to load the functionality you need. We can now call functions from math using <code>numpy.*</code>.  For example,</p>
 
 </div>
 </div>
@@ -373,7 +381,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -404,7 +412,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Above, <code>np.sin</code> is the sine function.  It operates on the argument <code>2*np.pi</code>.  Notice that, once we have imported the <code>numpy</code> module, Python knows the value of <code>np.pi</code>. Here's another example function that operates on arguments:</p>
+<p>Above, <code>sin</code> is the sine function.  It operates on the argument <code>2*pi</code>.  Notice that, once we have imported the <code>numpy</code> module, Python knows the value of <code>pi</code>. Here's another example function that operates on arguments:</p>
 
 </div>
 </div>
@@ -418,7 +426,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -508,7 +516,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
 </pre></div>
 
     </div>
@@ -536,7 +544,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">3</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">a</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span>
@@ -600,7 +608,7 @@ Dimensions of data are (100000,) data points.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
 <span class="n">a</span> <span class="o">*</span> <span class="n">a</span>
 </pre></div>
 
@@ -662,12 +670,12 @@ Dimensions of data are (100000,) data points.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="n">b</span> <span class="o">/</span> <span class="n">c</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">multiply</span><span class="p">(</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">))</span>
 </pre></div>
 
     </div>
@@ -700,7 +708,7 @@ Dimensions of data are (100000,) data points.
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="question">
 
-**Q:** What operation does `np.multiply()` perform?
+**Q:** What operation does `multiply()` perform?
 
 </div>
 </div>
@@ -812,9 +820,9 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -848,7 +856,7 @@ t                       ndarray    100000: 100000 elems, type `float64`, 800000 
 <ul>
 <li><p>In <code>a.shape</code> we return the attribute <code>shape</code> of the variable <code>a</code>.</p>
 </li>
-<li><p>In <code>np.shape(a)</code> we apply the function <code>np.shape</code> to the variable <code>a</code>.</p>
+<li><p>In <code>shape(a)</code> we apply the function <code>shape</code> to the variable <code>a</code>.</p>
 </li>
 </ul>
 <p>The result is equivalent.</p>
@@ -966,9 +974,9 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>  <span class="c1"># Have to reimport as we cleared the workspace above!</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># Have to reimport as we cleared the workspace above!</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1096,8 +1104,8 @@ easy to do in Python.  Consider,</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1175,7 +1183,7 @@ b[1] = 7
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can combine <code>a</code> and <code>b</code> to form a matrix with <code>a</code> as the first row and <code>b</code> as the second.
-  Note that we apply the function <code>np.array()</code> to the <em>list</em> <code>[a,b]</code>, which it converts to a matrix.</p>
+  Note that we apply the function <code>array()</code> to the <em>list</em> <code>[a,b]</code>, which it converts to a matrix.</p>
 
 </div>
 </div>
@@ -1189,7 +1197,7 @@ b[1] = 7
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;c = </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span>    <span class="c1"># \n is a newline, or carriage return, which makes the printed matrix lineup better </span>
 </pre></div>
 
@@ -1222,7 +1230,7 @@ b[1] = 7
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To learn the size (or shape)
- of <code>c</code> we use <code>np.shape()</code>:</p>
+ of <code>c</code> we use <code>shape()</code>:</p>
 
 </div>
 </div>
@@ -1236,7 +1244,7 @@ b[1] = 7
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;shape of c = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;shape of c = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">shape</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1525,7 +1533,7 @@ c[0, 1:] = [2 3 4 5]
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>    <span class="c1"># this creates a vector of increasing values from 1 to 9</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>    <span class="c1"># this creates a vector of increasing values from 1 to 9</span>
 <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">a</span> 
 
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;a = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>
@@ -1560,7 +1568,7 @@ c[0, 1:] = [2 3 4 5]
 <div class="question">
 
 **Q.**  Calculate the shape of `a`.  What is the maximum value of `a`? 
-*Hint:* Use the `np.max()` function.
+*Hint:* Use the `max()` function.
 
 </div>
 </div>
@@ -1758,7 +1766,7 @@ index of all entries that were <code>True</code>, or non-zero.</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
 
-The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `np.nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `np.` at the beginning of the function call). 
+The command `nonzero()` can be used as both a *function* and a *method*. A method is called by adding it after the object it is meant to operate on with a period in between ( `lgIdx.nonzero()` ). A function is called with the *argument* explicitly provided inside the parentheses ( `nonzero(lgIdx)` ). Basically, a function and a method do the same thing, but a function needs to be given an argument, while a method assumes that the argument is the object that the method is attached to. Note that if we use `nonzero()` as a function, we need to tell it to look in NumPy for the definition (i.e. add `` at the beginning of the function call). 
 
 </div>
 </div>
@@ -1876,7 +1884,7 @@ a = [  2   4   6   8  10 100 100 100 100]
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">]])</span>
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;b = </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot; b &gt; 5 is </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">)</span> <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; b[b&gt;5] is an array: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">b</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">])</span> <span class="p">)</span>
@@ -1949,13 +1957,13 @@ plotting them.  Consider</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;x = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">)</span>
 
 <span class="c1">#   The above line constructs a vector that starts at 0, ends at 10, and</span>
 <span class="c1">#   has 11 entries (takes steps of size 1 from 0 to 10). Let</span>
 
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;y = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="p">)</span>
 </pre></div>
 
@@ -2019,12 +2027,12 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">x</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>          <span class="c1"># this is the plotting equivalent of print()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> 
+<span class="n">show</span><span class="p">()</span>          <span class="c1"># this is the plotting equivalent of print()</span>
 </pre></div>
 
     </div>
@@ -2074,11 +2082,11 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>   
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2126,7 +2134,7 @@ y = [ 0.          0.84147098  0.90929743  0.14112001 -0.7568025  -0.95892427
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 
@@ -2206,9 +2214,9 @@ two definitions differ?
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>   <span class="c1"># the &#39;k&#39; we&#39;ve added makes the curve black instead of blue</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>   <span class="c1"># the &#39;k&#39; we&#39;ve added makes the curve black instead of blue</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2278,7 +2286,7 @@ two definitions differ?
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">z</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2306,8 +2314,8 @@ two definitions differ?
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2354,9 +2362,9 @@ the same figure, label the axes, and provide a legend,</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c1"># plot z vs x.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>                 <span class="c1"># plot y vs x in red</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c1"># plot z vs x.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>                 <span class="c1"># plot y vs x in red</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2388,7 +2396,7 @@ the same figure, label the axes, and provide a legend,</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Notice that we’ve included a third input to the function <code>plt.plot</code>. Here the third input tells Python to draw the curve in a particular color: <code>'r'</code> for red. There are many options we can use to plot; to see more, check out the documentation for <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">plot</a>.</p>
+<p>Notice that we’ve included a third input to the function <code>plot</code>. Here the third input tells Python to draw the curve in a particular color: <code>'r'</code> for red. There are many options we can use to plot; to see more, check out the documentation for <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html">plot</a>.</p>
 <p>We can also label the axes, give the figure a title, and provide a legend,</p>
 
 </div>
@@ -2403,13 +2411,13 @@ the same figure, label the axes, and provide a legend,</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c1"># plot z vs x</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>                 <span class="c1"># plot y vs x in red</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>                   <span class="c1"># x-axis label</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y or z&#39;</span><span class="p">)</span>              <span class="c1"># y-axis label</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y vs x and z vs x&#39;</span><span class="p">)</span>    <span class="c1"># title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">))</span>             <span class="c1"># make a legend labeling each line</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>                     <span class="c1"># plot z vs x</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>                 <span class="c1"># plot y vs x in red</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>                   <span class="c1"># x-axis label</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y or z&#39;</span><span class="p">)</span>              <span class="c1"># y-axis label</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;y vs x and z vs x&#39;</span><span class="p">)</span>    <span class="c1"># title</span>
+<span class="n">legend</span><span class="p">((</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">))</span>             <span class="c1"># make a legend labeling each line</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2455,22 +2463,20 @@ the same figure, label the axes, and provide a legend,</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span> <span class="c1"># we need to import the functions that will do this</span>
-
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>  
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">14</span>      <span class="c1"># make the xlabel/ylabel sizes a bit bigger to match up better</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>  
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.labelsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">14</span>      <span class="c1"># make the xlabel/ylabel sizes a bit bigger to match up better</span>
 
 <span class="c1"># we can change the default linewidth with</span>
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span>
 
 <span class="c1"># let&#39;s make a new plot to check </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>     <span class="c1"># sometimes it is easier to name a trace within the plot() call</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>     <span class="c1"># notice without a color matplotlib will assign one</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y vs x&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>     <span class="c1"># sometimes it is easier to name a trace within the plot() call</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>     <span class="c1"># notice without a color matplotlib will assign one</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;y vs x&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2516,10 +2522,10 @@ the same figure, label the axes, and provide a legend,</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a Gaussian random number (mean=0, variance=1): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span> <span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a Gaussian random number (mean=0, variance=1): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">randn</span><span class="p">()</span> <span class="p">))</span>
 
 <span class="c1"># a uniform random number on [0,1)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a uniform random number from [0,1): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;a uniform random number from [0,1): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rand</span><span class="p">()))</span>
 </pre></div>
 
     </div>
@@ -2563,7 +2569,7 @@ a uniform random number from [0,1): 0.24194992309835917
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -2591,8 +2597,8 @@ a uniform random number from [0,1): 0.24194992309835917
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2640,7 +2646,7 @@ a uniform random number from [0,1): 0.24194992309835917
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="python-note">
 
-See Python Help (`plt.hist?`) to learn about the function `hist()`.
+See Python Help (`hist?`) to learn about the function `hist()`.
 
 </div>
 </div>
@@ -2668,30 +2674,30 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># Define a vector x that ranges from 0 to 9.9 with step 0.1.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># Define a vector x that ranges from 0 to 9.9 with step 0.1.</span>
 <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>                    <span class="c1"># Fix k=1,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and define y at this k.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and define y at this k.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>             <span class="c1"># Make a new figure,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot y versus x.</span>
+<span class="n">figure</span><span class="p">()</span>             <span class="c1"># Make a new figure,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot y versus x.</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">2</span>                    <span class="c1"># Let&#39;s repeat this, for k=2,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>                    <span class="c1"># Let&#39;s repeat this, for k=3,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>                    <span class="c1"># Let&#39;s repeat this, for k=4,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
 
 <span class="n">k</span> <span class="o">=</span> <span class="mi">5</span>                    <span class="c1"># Let&#39;s repeat this, for k=5,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="c1"># ... and redefine y at this k,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>            <span class="c1"># ... and plot it.</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -2737,7 +2743,7 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>        <span class="c1">#First, define the vector x.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>        <span class="c1">#First, define the vector x.</span>
 </pre></div>
 
     </div>
@@ -2751,7 +2757,7 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's declare a <code>for</code> loop where <code>k</code> successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case <code>plt.show()</code> below, executes after the for loop completes</p>
+<p>Now let's declare a <code>for</code> loop where <code>k</code> successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case <code>show()</code> below, executes after the for loop completes</p>
 
 </div>
 </div>
@@ -2766,11 +2772,11 @@ See Python Help (`plt.hist?`) to learn about the function `hist()`.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>               
-    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>      <span class="c1">#Define y (note the variable &#39;k&#39; in sin), also note we have indented here!</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                  <span class="c1">#Plot y versus x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">k</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>      <span class="c1">#Define y (note the variable &#39;k&#39; in sin), also note we have indented here!</span>
+    <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>                  <span class="c1">#Plot y versus x</span>
     
 <span class="c1"># no indentation now, so this code follows the loop</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> 
+<span class="n">show</span><span class="p">()</span> 
 </pre></div>
 
     </div>
@@ -2921,7 +2927,7 @@ When defining the function, the code the function executes should be indented on
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">10.</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mf">2.5</span>
 
 <span class="c1"># Now let&#39;s run the code,</span>
@@ -3062,16 +3068,16 @@ my_square_function<span class="o">?</span>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mi">1001</span><span class="p">)</span>                 <span class="c1"># Define x from 0 to 2 with 1001 steps.</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>   <span class="c1"># Make the first plot, save the curve in &quot;lines&quot;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                     <span class="c1"># Set the x and y limits in the plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;plot number = 0&quot;</span><span class="p">)</span>                <span class="c1"># ... and label the plot.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span><span class="mf">2.</span><span class="p">,</span><span class="mi">1001</span><span class="p">)</span>                 <span class="c1"># Define x from 0 to 2 with 1001 steps.</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">pi</span><span class="p">))</span>   <span class="c1"># Make the first plot, save the curve in &quot;lines&quot;</span>
+<span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                     <span class="c1"># Set the x and y limits in the plot</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;plot number = 0&quot;</span><span class="p">)</span>                <span class="c1"># ... and label the plot.</span>
 
 <span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>                         <span class="c1"># Define the function to perform the animation.</span>
-    <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="c1"># Change the y values at each x location</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;plot number = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span><span class="c1"># Update the title with the new plot number</span>
+    <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">pi</span><span class="p">))</span> <span class="c1"># Change the y values at each x location</span>
+    <span class="n">title</span><span class="p">(</span><span class="s1">&#39;plot number = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">frame</span><span class="p">))</span><span class="c1"># Update the title with the new plot number</span>
     
-<span class="n">fig</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">gcf</span><span class="p">(),</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
 <span class="n">HTML</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">())</span>
 </pre></div>
 
@@ -43137,18 +43143,18 @@ Use the `keys()` method to see what variables are contained in `mat`. In other w
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="c1"># Choose a subset to plot</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">500</span><span class="p">]</span>
 <span class="n">LFP</span> <span class="o">=</span> <span class="n">LFP</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">500</span><span class="p">]</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;My plot&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu$ V]&#39;</span><span class="p">)</span> <span class="c1"># Wrap latex characters in $..$</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;My plot&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu$ V]&#39;</span><span class="p">)</span> <span class="c1"># Wrap latex characters in $..$</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 
     </div>
