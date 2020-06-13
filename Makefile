@@ -3,35 +3,28 @@
 help:
 	@echo "Please use 'make <target>' where <target> is one of:"
 	@echo "  install     to install the necessary dependencies for jupyter-book to build"
-	@echo "  book        to convert the content/ folder into Jekyll markdown in _build/"
+	@echo "  book        to convert the content/ folder into book format in _book/"
 	@echo "  clean       to clean out site build files"
 	@echo "  runall      to run all notebooks in-place, capturing outputs with the notebook"
-	@echo "  serve       to serve the repository locally with Jekyll"
-	@echo "  build       to build the site HTML and store in _site/"
-	@echo "  site 		 to build the site HTML, store in _site/, and serve with Jekyll"
 	@echo "  sync_md     to sync content in ipynb files from md files"
+	@echo "  index       create an index file from _config/intro.md"
+	@echo "  push        push site in _book to gh-pages branch"
 
 sync_md:
 	./scripts/sync_md.sh
 
-install:
-	jupyter-book install ./
+index:
+	jb page _book/intro.md && echo "<meta http-equiv=\"Refresh\" content=\"0; url=intro.html\" />" > _book/_build/html/index.html
 
 book:
 	./scripts/make_book.sh
 
 runall:
-	jupyter-book run ./content
+	jupyter nbconvert --to notebook --execute --inplace -y content/*.ipynb	
 
 clean:
-	python scripts/clean.py
+	rm -r _book/*
 
-serve:
-	bundle exec guard
+push: 
+	ghp-import -n -p -f _book/_build/html
 
-build:
-	jupyter-book build ./ --overwrite
-
-site: build
-	bundle exec jekyll build
-	touch _site/.nojekyll
