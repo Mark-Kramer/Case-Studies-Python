@@ -47,6 +47,62 @@ _**Synopsis**_
 ## On-ramp: analyzing rhythmic spiking in Python<a id="onramp"></a>
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to analyze rhythmic spiking in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
+```{code-cell} ipython3
+# Import the usual suspects ...
+from scipy.io import loadmat            # To load .mat files
+import matplotlib.pyplot as plt                 # Load plotting functions
+from pylab import *                             # Import plotting functions
+from numpy import *                             # Import numerical functions
+
+# ... and the modules we need for this chapter
+import statsmodels.api as sm
+from statsmodels.genmod.families import Poisson
+import statsmodels.formula.api as smf
+from pandas import DataFrame as df
+from pandas import concat
+
+data = loadmat('spikes-1.mat')          # Load the spike train data.
+t = data['t'][0]                        # Extract the t variable.
+direction = data['direction'].flatten() # Extract the direction variable.
+train = data['train']                   # Extract the train variable
+
+nTrial, nTime = train.shape             # Number of trials and number of time points.
+IMove = tile(t >= 0, nTrial)            # Define movement period.
+IDir = repeat(direction == 1, nTime)    #  Define direction of movement
+spikes = train.flatten()                # Reshape  trials into a single vector
+                                        # Create a dataframe with the data to fit
+glmdata = df({'IMove': IMove, 'spikes': spikes, 'IDir': IDir})
+
+ordK = 70                               # Define the model order for spike history.
+for k in range(1, ordK + 1):            # For each lag,
+                                        # ... add spiking history to dataframe.
+    glmdata['lag{:02d}'.format(k)] = roll(glmdata.spikes, k)  
+
+glmdata['Time'] = tile(t, nTrial)       # Add a Time to dataframe.
+                                        # Reference only times >= ordK
+glmHist = glmdata.loc[lambda d: d['Time'] > t[ordK]]
+                                        # Create a string with all lag columns
+lagColumns = ' + '.join(glmHist.filter(like='lag', axis=1))
+
+# Model formula: spikes as a function of IMove, IDir and history
+formula = 'spikes ~ IMove + IDir + IMove : ({0})'.format(lagColumns)
+                                        # Fit the model
+M = smf.glm(formula=formula, data=glmHist, family=Poisson()).fit()
+                                        # Plot history dependence during planning period.
+plot(range(1, ordK + 1), exp(M.params[3::2]))
+xticks(range(0, 70, 10))                # With axes labeled.
+xlabel('Lag (ms)')
+title('Exponentiated GLM parameters related to history dependence');
+```
+
+<div class="question">
+
+**Q:** Try to read the code above. Can you see how it loads data, builds a statistical model of the data with history dependence, and fits the model?
+
+**A:** If you've never created a statistical model with history dependence before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+
 +++
 
 ## Introduction<a id="introduction"></a>
@@ -1179,21 +1235,21 @@ $$
 We will build models of order 1 up to order 100 and compute the AIC for each model. Because we are fitting many models, each with a large dataset, the following code might take a few minutes to run:
 
 ```{code-cell} ipython3
-maxord = 100  # Define the maximum order
-for k in range(ordK + 1, maxord + 1):  # Add a history column for each lag greater than ordK
+maxord = 100                                 # Define the maximum model order.
+for k in range(ordK + 1, maxord + 1):        # Add a history column for each lag greater than ordK
     glmdata['lag{:02d}'.format(k)] = roll(glmdata.spikes, k)
 
 planHist = glmdata.loc[lambda d: d['Time'] < 0]  # Isolate the planning period
 
-formula = 'spikes ~ IDir'  # Initialize the formula
-aic = zeros((maxord,))  # ... and the variable to store AIC values
+formula = 'spikes ~ IDir'                    # Initialize the formula,
+aic = zeros((maxord,))                       # ... and the variable to store AIC values.
 
-for k in range(maxord):  # For each model order
-    formula += ' + lag{:02d}'.format(k + 1)  # ... update the formula
-    M = smf.glm(formula=formula,  # ... create the model
-                data=planHist,  # ... supply the planning data
-                family=Poisson()).fit()  # ... fit the model
-    aic[k] = M.aic  # Store the model AIC
+for k in range(maxord):                      # For each model order,
+    formula += ' + lag{:02d}'.format(k + 1)  # ... update the formula,
+    M = smf.glm(formula=formula,             # ... create the model,
+                data=planHist,               # ... supply the planning data,
+                family=Poisson()).fit()      # ... fit the model.
+    aic[k] = M.aic                           # Store the model AIC.
 ```
 
 <div class="math-note">
@@ -1205,8 +1261,8 @@ Recall that the AIC is related to the deviance of the fitted model (modulo a fix
 </div>
 
 ```{code-cell} ipython3
-plot(range(1, maxord + 1), aic)  # Plot the AIC
-xlabel('Model Order')  # Prettify
+plot(range(1, maxord + 1), aic)  # Plot the AIC,
+xlabel('Model Order')            # ... with axes labeled.
 ylabel('AIC')
 title('AIC plot of models with increasing number of\n' +
       'history-dependent components for planning period')
@@ -1225,7 +1281,7 @@ We see that the AIC drops sharply (with one little blip) from order 1 through or
 
 +++
 
-##### Refining the Model: Smooth History Dependence
+### Refining the Model: Smooth History Dependence
 Let’s examine one more approach for constructing a parsimonious model that still captures history dependence in these data. Looking back at the [parameter estimates for Model 4](#fig:M4params)<span class="sup">fig<img src="imgs/fig-M4params.png"></span>, we see that nearby parameters have quite variable estimates. Do we really believe that the influence of a spike 25 ms in the past can be very different from the influence of a spike 26 ms in the past? If not, it might be preferable to define a model with fewer free parameters that guarantees a smooth modulation as a function of lag.
 
 Motivated by this observation, let’s replace the separate terms for each single millisecond lag. We do so with a small set of basis functions on the spiking history that can flexibly capture smooth history dependence structure. Mathematically, we fit a model of the form <a id="eq:model5"></a>
@@ -1266,39 +1322,37 @@ show()
 The result in `C` is a [70 &times; 8] matrix that we will use to convert the previous 70 history columns in `glmdata` into a new set of 8 columns to include in the design matrix.
 
 ```{code-cell} ipython3
-lags = glmdata.filter(like='lag').columns[:ordK]  # Get the first ordK lags
-basisCols = glmdata.filter(items=lags).dot(C)  # Matrix multiply lags up to ordK by C
+lags = glmdata.filter(like='lag').columns[:ordK]  # Get the first ordK lags.
+basisCols = glmdata.filter(items=lags).dot(C)     # Matrix multiply lags up to ordK by C.
 
-for c in range(C.shape[-1]):  # Add the new basis columns to glmdata
+for c in range(C.shape[-1]):                      # Add the new basis columns to glmdata.
     glmdata['b{}'.format(c)] = basisCols[c]
-
-# Write a formula to fit spikes to the basis vectors    
+                                                  # Formula to fit spikes with basis vectors.   
 formula = 'spikes ~ IMove + IDir + IMove : ({})'.format(
     ' + '.join(glmdata.filter(like='b').columns))
 
 glmHist = glmdata.loc[lambda d: d['Time'] > t[ordK]]
-M5 = smf.glm(formula=formula,  # Create the model,
-             data=glmHist,  # ... exclude the first ordK time points,
-             family=Poisson()).fit()  # ... fit the model.
+M5 = smf.glm(formula=formula,                     # Create the model,
+             data=glmHist,                        # ... exclude the first ordK time points,
+             family=Poisson()).fit()              # ... fit the model.
 M5.summary()
 ```
 
 Now let’s plot for this model the modulation in the spiking intensity due to a previous spike at any lag by multiplying the corresponding set of parameters by `C`.<a id="fig:model5"></a>
 
 ```{code-cell} ipython3
-plot(range(1, ordK + 1),  # Plot the planning modulation
+plot(range(1, ordK + 1),  # Plot the planning modulation,
      exp(matmul(C, array(M5.params[3::2]))), 
      label='Planning')
-plot(range(1, ordK + 1),  # ... and the movement modulation
+plot(range(1, ordK + 1),  # ... and the movement modulation,
      exp(matmul(C, array(M5.params[4::2]))), 
      label='Movement')
 
-xlabel('Lag (ms)')  # Prettify
+xlabel('Lag (ms)')        # ... with axes labeled.
 ylabel('Modulation')
 legend()
 title('Exponential GLM parameters related to history dependence\n' +
      'using Gaussian kernel basis functions of Model 5')
-savefig('imgs/fig-model5.png')
 show()
 ```
 
@@ -1337,16 +1391,17 @@ show()
     
 **Q.** Compare the KS plot for Model 5 to the KS plot for Model 4. How does the model with Gaussian kernel basis functions compare to the previous model?
 
+**A.** Model 5 appears very similar to the previous model, even though we are using far fewer parameters. However, Model 5 still does not pass the KS test completely, as can be seen by the KS plot exiting the 95% confidence region at a model CDF value around 0.1.
+
+</div>
+
++++
 
 <div style="width:70%; margin: auto">
     <span style="width:50%; float: left"><img src="imgs/fig-model4ks.png"></span>
     <span style="width:50%; float: left"><img src="imgs/fig-model5ks.png"></span>
 </div>
 <div style="clear: both; display: table"></div>
-
-**A.** Model 5 appears very similar to the previous model, even though we are using far fewer parameters. However, Model 5 still does not pass the KS test completely, as can be seen by the KS plot exiting the 95% confidence region at a model CDF value around 0.1.
-
-</div>
 
 +++
 
@@ -1356,7 +1411,7 @@ Although Model 5 does not completely pass the KS test, it does capture many of t
 
 [Back to top](#top)
 
-### Drawing Conclusions from the Model<a id="drawing-conclusions"></a>
+## Drawing Conclusions from the Model<a id="drawing-conclusions"></a>
 
 At last, let’s examine and interpret the Model 5 parameters. Exponentiating the first three, we get:
 
@@ -1368,13 +1423,13 @@ print('p-values:')
 print(M5.pvalues[:3])
 ```
 
-The best guess for the baseline firing intensity&mdash;for the planning period during left trials with no previous spiking in the past 70 ms&mdash;is approximately 0.048 spikes/ms, or 48 spikes/s. The firing intensity, excluding the effect of history dependence, increases about `exp(M5.params[1])=1.3881`, or 39%, when we move from the planning period to the movement period. This increase is highly significant (`M5.pvalues[1] = 1.5e-07`) according to the model. The relative firing intensity between left and right trials is `exp(M5.params[2]) = 0.6043`; we find there is an approximate 40% decrease in the firing intensity for right trials as compared to left trials. This difference is again highly significant (`M5.pvalues[2] = 8.7e-51`) according to the model.
+The best guess for the baseline firing intensity - for the planning period during left trials with no previous spiking in the past 70 ms - is approximately 0.048 spikes/ms, or 48 spikes/s. The firing intensity, excluding the effect of history dependence, increases about `exp(M5.params[1])=1.3881`, or 39%, when we move from the planning period to the movement period. This increase is highly significant (`M5.pvalues[1] = 1.5e-07`) according to the model. The relative firing intensity between left and right trials is `exp(M5.params[2]) = 0.6043`; we find there is an approximate 40% decrease in the firing intensity for right trials as compared to left trials. This difference is again highly significant (`M5.pvalues[2] = 8.7e-51`) according to the model.
 
 In the [estimated modulation due to past spiking in Model 5](#fig:model5)<span class="sup">fig<img src="imgs/fig-model5.png"></span> for both the planning and movement periods, we observe a refractory period followed by a period of bursting (i.e., increased spiking intensity) around 6 ms in both the planning and movement periods. During the planning period, we also observe a notable pattern of decreased firing intensity at 20–30 ms after a previous spike, followed by increased firing intensity at 50–60 ms after a previous spike. This pattern seems absent during the movement period. Are the individual parameters related to this history dependence significant? To address this, let’s plot the $p$-values:
 
 ```{code-cell} ipython3
-plot(range(8), -log(M5.pvalues[3::2]), 'o', label="Planning")
-plot(range(8), -log(M5.pvalues[4::2]), 'o', label="Movement")
+plot(range(8), -log(M5.pvalues[3::2]), 'o', label="Planning") # -Log p-values in planning.
+plot(range(8), -log(M5.pvalues[4::2]), 'o', label="Movement") # -Log p-values in movement.
 axhline(3, c='k')
 ylabel('-Log(p)')
 xlabel('Lag parameter')
@@ -1386,8 +1441,8 @@ show()
 For Model 5, all but one of the parameters related to history modulation during the planning period are significant at the 0.05 level. However, this leads to the same multiple comparisons problem discussed earlier. For Model 4 we performed 140 tests, while here we have only 16 tests, far fewer, so the multiplicity problem is slightly reduced but still present. Again, we can avoid this problem by instead focusing on a single test to address the question of whether the history dependence structure differs between the planning and movement periods. Let’s fit a reduced model that uses the same basis functions for history dependence as Model 5 but includes only a single set of parameters for both the planning and movement periods.
 
 ```{code-cell} ipython3
-formula = 'spikes ~ IMove + IDir + {}'.format(  # Write a formula
-    ' + '.join(glmHist.filter(like='b')))       # ... excluding IMove cross-terms
+formula = 'spikes ~ IMove + IDir + {}'.format(          # Write a formula
+    ' + '.join(glmHist.filter(like='b')))               # ... excluding IMove cross-terms
 M6 = smf.glm(formula, glmHist, family=Poisson()).fit()  # Fit the model
 ```
 
