@@ -280,13 +280,13 @@ Let’s begin with a mathematical description of the spike-field coherence. To d
 We considered spectral estimators for a field in [The Power Spectrum (Part 1)](../03) and for a point process in [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](../10). We restate the Fourier transform for a time series $x$,
 
 $$
-X_j = \sum_{n=1}^N x_n \exp(-2 \pi i \, f_j \, t_n)
+  X_j = \sum_{n=1}^N x_n \exp(-2 \pi i \, f_j \, t_n)
 $$
 
 where $x_n$ is the signal at time index $t_n = dt \{1, 2, 3, . . . N\}$, with sampling interval $dt$, and the frequencies $f_j = j/T$, where $j=\{-N/2+1, -N/2+2, \ldots , N/2-1, N/2\}$.  The spectral density of the time series is then,
 
 $$
-S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
+  S_{xx,j} = \frac{2 dt^2}{T} X_j X^*_j .
 $$
 
 Here, the time series can be either a field (i.e., the LFP) or a point process (i.e., the spike train).  Notice that we employ the same mathematical formula to compute the  spectrum  for each time series.
@@ -300,15 +300,15 @@ For the spike train data, we first subtract the mean or expected number of spike
 Then, to estimate the coherence between two time series $x$ and $y$, <a id="eq:field-field-coherence"></a>
 
 $$
-\kappa_{xy,j} = \frac{ \mid <S_{xy,j}> \mid }{ \sqrt{<S_{xx,j}>} \sqrt{<S_{yy,j}>}}
-\label{eq:SF_k0}
+  \kappa_{xy,j} = \frac{ \mid <S_{xy,j}> \mid }{ \sqrt{<S_{xx,j}>} \sqrt{<S_{yy,j}>}}
+  \label{eq:SF_k0}
 $$
 
 where $\mid <S_{xy,j}> \mid$ indicates the magnitude of the trial averaged cross spectrum, and $\mid <S_{xx,j}> \mid$ and $\mid <S_{yy,j}> \mid$ indicate the magnitude of the trial averaged spectra of $x$ and $y$, respectively.  So far, there's nothing new here;  we've just restated the standard expressions for the spectrum and coherence.  To compute the spike-field cohernece, we simply interpret one of the time series as a point process.  To make this more obvious in our mathematical expression, we replace $x$ in the equation above with the symbol $n$, as a reminder that this time series represents the "number" of spikes,
 
 $$
-\kappa_{ny,j} = \frac{ \mid <S_{ny,j}> \mid }{ \sqrt{<S_{nn,j}>} \sqrt{<S_{yy,j}>}}
-\label{eq:SF_k}
+  \kappa_{ny,j} = \frac{ \mid <S_{ny,j}> \mid }{ \sqrt{<S_{nn,j}>} \sqrt{<S_{yy,j}>}}
+  \label{eq:SF_k}
 $$
 
 In the equation above, the numerator is now the magnitude of the trial averaged cross spectrum between the field $y$ and spikes $n$, and the denominator contains the trial averaged spectrum of the spike $n$ and the trial averaged spectrum of the field $y$.
@@ -507,7 +507,7 @@ Spike-field coherence responds to overall neural spiking activity, making compar
 A variety of techniques exist to address the impact of firing rate on the spike-field coherence. We have already outlined the thinning procedure, a transformation-based technique in which the firing rates of two neurons are made equal by randomly removing spikes. Here, we focus on an additional technique that utilizes the generalized linear modeling (GLM) framework. We choose this technique (described in detail in [Lepage et al, 2013](https://doi.org/10.1016/j.jneumeth.2012.10.010)) because it allows us to utilize the GLM framework (see [Modeling place Fields with Point Process Generalized Linear Models](../09) and [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](../10)). The fundamental idea of this procedure is to model the conditional intensity of the point process as a function of the LFP phase. More specifically, we consider the model<a id="eq:glm"></a>:
 
 $$
-\lambda_t = e^{\beta_0 + \beta_1 \cos(\phi(t)) + \beta_2 \sin(\phi(t))} \, ,
+  \lambda_t = e^{\beta_0 + \beta_1 \cos(\phi(t)) + \beta_2 \sin(\phi(t))} \, ,
 $$
 
 where $\phi(t)$ is the instantaneous phase of a narrowband signal in the LFP.  To compute the phase, we bandpass filter the LFP and apply the Hilbert transform, as described above in our computation of the field-triggered average (FTA).  Then, using the canonical log link, we fit the GLM to the spike train data to estimate the model parameters.  We note that the first parameter $\beta_0$ accounts for the overall activity of the neuron, while the other two parameters $\beta_1$ and $\beta_2$ capture the association between the LFP phase and spiking activity.  In this way, the overall firing rate and the impact of the field on the spiking activity are separately modeled, which mitigates the impact of firing rate on the measure of spike-field association, as we'll see in the next series of examples.

@@ -652,12 +652,14 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div>
 <p>The first step in computing the analytic signal is to compute the <a class="reference external" href="https://en.wikipedia.org/wiki/Hilbert_transform">Hilbert transform</a>. We begin with some notation. Define <span class="math notranslate nohighlight">\(x\)</span> as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we’ve created). Then the Hilbert transform of <span class="math notranslate nohighlight">\(x\)</span>, let’s call it <span class="math notranslate nohighlight">\(y\)</span>, is</p>
 <div class="math notranslate nohighlight">
-\[y = H(x).\]</div>
+\[
+  y = H(x).
+\]</div>
 <p>It’s perhaps more intuitive to consider the effect of the Hilbert Transform on the frequencies
 <span class="math notranslate nohighlight">\(f\)</span> of <span class="math notranslate nohighlight">\(x\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{equation}
+  \begin{equation}
     H(x)=
     \begin{cases}
       -\pi/2 &amp; \text{ phase shift if } f&gt;0 \\
@@ -671,7 +673,9 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div>
 <p>The Hilbert Transform can also be described in the time domain, although its representation is hardly intuitive (see this <a class="reference external" href="#appendix">Appendix</a> for more details). Then the analytic signal <span class="math notranslate nohighlight">\(z\)</span> is</p>
 <div class="math notranslate nohighlight">
-\[ z = x + i y = x + i H(x). \]</div>
+\[
+   z = x + i y = x + i H(x). 
+\]</div>
 <p>The effect of the Hilbert transform is to remove negative frequencies from <span class="math notranslate nohighlight">\(z\)</span>. As it stands,
 this is not obvious. To get a sense for why this is so, let’s consider a simple example.</p>
 <p><a id="hilbert"></a></p>
@@ -698,11 +702,15 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 </div>
 <p>Let <span class="math notranslate nohighlight">\(x_0\)</span> be a sinusoid at frequency <span class="math notranslate nohighlight">\(f_0\)</span>,</p>
 <div class="math notranslate nohighlight">
-\[ x_0 = 2 \cos(2 \pi f_0 t) = 2 \cos(\omega_0 t),\]</div>
+\[
+   x_0 = 2 \cos(2 \pi f_0 t) = 2 \cos(\omega_0 t),
+\]</div>
 <p>where to simplify notation we have defined <span class="math notranslate nohighlight">\(\omega_0 = 2 \pi f_0\)</span>. We know from <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_formula">Euler’s formula</a> that
 <a id="eq:7.3"></a></p>
 <div class="math notranslate nohighlight">
-\[x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t}.\]</div>
+\[
+  x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t}.
+\]</div>
 <p>The real variable <span class="math notranslate nohighlight">\(x_0\)</span> possesses both a positive and a negative frequency component (i.e., <span class="math notranslate nohighlight">\(\omega_0\)</span> and <span class="math notranslate nohighlight">\(-\omega_0\)</span>). So, the spectrum has two peaks:</p>
 <img src="imgs/7-5.png" alt="Drawing" style="width: 500px;"/>
 <p>For real signals, which include nearly all recordings of brain activity, the negative frequency component is redundant, and we usually ignore it. However, the negative frequency component still remains. By definition, the effect of the Hilbert transform is to induce a phase shift. For positive frequencies, the phase shift is  <span class="math notranslate nohighlight">\(-\pi/2\)</span>. We can produce this phase shift by multiplying the positive frequency part of the signal by <span class="math notranslate nohighlight">\(-i\)</span>.</p>
@@ -710,23 +718,31 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><strong>Q:</strong> Why does a phase shift of  <span class="math notranslate nohighlight">\(-\pi/2\)</span> correspond to multiplication by <span class="math notranslate nohighlight">\(-i\)</span>?</p>
 <p><strong>A:</strong> Consider the complex exponential <span class="math notranslate nohighlight">\(e^{i \omega_0 t}\)</span>, which consists of only a positive frequency component (<span class="math notranslate nohighlight">\(\omega_0\)</span>). This signal shifted in phase by <span class="math notranslate nohighlight">\(-\pi/2\)</span> corresponds to the new signal <span class="math notranslate nohighlight">\(e^{i (\omega_0 t - \pi / 2)}\)</span>, which simplifies to</p>
 <div class="math notranslate nohighlight">
-\[e^{i \omega_0 t} e^{-i\pi/2} = e^{i\omega_0 t}\big(\cos(\pi/2) - i \sin(\pi/2)\big) = e^{i\omega_0 t} (-i).\]</div>
+\[
+  e^{i \omega_0 t} e^{-i\pi/2} = e^{i\omega_0 t}\big(\cos(\pi/2) - i \sin(\pi/2)\big) = e^{i\omega_0 t} (-i).
+\]</div>
 <p>Notice the result simplifies to the original complex exponential <span class="math notranslate nohighlight">\(e^{i\omega_0 t}\)</span> multiplied by <span class="math notranslate nohighlight">\(-i\)</span>. This shows that the <span class="math notranslate nohighlight">\(-\pi/2\)</span> phase shift corresponds to multiplication of the positive frequency component <span class="math notranslate nohighlight">\((e^{i\omega_0 t})\)</span> by <span class="math notranslate nohighlight">\(-i\)</span>.</p>
 </div><div class="question">
 <p><strong>Q.</strong> Can you show that a <span class="math notranslate nohighlight">\(\pi / 2\)</span> phase shift corresponds to multiplication by <span class="math notranslate nohighlight">\(i\)</span>?</p>
 </div><p>This analysis shows that we can represent the Hilbert transform of <span class="math notranslate nohighlight">\(x\)</span> at frequency <span class="math notranslate nohighlight">\(f\)</span> as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split} H(x) = \left\{\begin{array}{r}
--ix \mbox{ if } f &gt; 0, \\
-0 \mbox{ if } f = 0, \\
-ix \mbox{ if } f &lt; 0.
-\end{array}\right.\end{split}\]</div>
+\[\begin{split}
+  H(x) = \left\{\begin{array}{r}
+  -ix \mbox{ if } f &gt; 0, \\
+  0 \mbox{ if } f = 0, \\
+  ix \mbox{ if } f &lt; 0.
+  \end{array}\right.
+\end{split}\]</div>
 <p>Therefore, the Hilbert transform of <span class="math notranslate nohighlight">\(x_0 = e ^ {i \omega_0 t} + e ^ {-i \omega_0 t}\)</span> becomes</p>
 <div class="math notranslate nohighlight">
-\[y_0 = H(x_0) = -i e ^ {i \omega_0 t} + i e ^ {-i \omega_0 t}. \]</div>
+\[
+  y_0 = H(x_0) = -i e ^ {i \omega_0 t} + i e ^ {-i \omega_0 t}. 
+\]</div>
 <p>In this equation, we multiply the positive frequency part of <span class="math notranslate nohighlight">\(x_0\)</span> (i.e., <span class="math notranslate nohighlight">\(e ^ {-i \omega_0 t}\)</span>) by <span class="math notranslate nohighlight">\(i\)</span>. Simplifying this expression using Euler’s formula, we find</p>
 <div class="math notranslate nohighlight">
-\[ y_0 = 2 \sin( \omega_0 t ).\]</div>
+\[
+   y_0 = 2 \sin( \omega_0 t ).
+\]</div>
 <div class="question">
 <p><strong>Q.</strong> Can you perform this simplification? In other words, can you show that <span class="math notranslate nohighlight">\(-i e ^ {i \omega_0 t} + i e ^ {-i \omega_0 t} = 2 \sin( \omega_0 t )\)</span>?</p>
 </div><div class="cell docutils container">
@@ -766,10 +782,14 @@ ix \mbox{ if } f &lt; 0.
 </div>
 <p>We are now ready to define the analytic signal <span class="math notranslate nohighlight">\((z_0)\)</span> for this example. Using the expressions for <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(y_0\)</span> and Euler’s formula, we find</p>
 <div class="math notranslate nohighlight">
-\[z_0 = x_0 + i y_0 = 2 \cos( \omega_0 t ) + i 2 \sin(\omega_0 t ) = 2 e ^ {i \omega_0 t}.\]</div>
+\[
+  z_0 = x_0 + i y_0 = 2 \cos( \omega_0 t ) + i 2 \sin(\omega_0 t ) = 2 e ^ {i \omega_0 t}.
+\]</div>
 <p>Notice that this analytic signal <span class="math notranslate nohighlight">\(z_0\)</span> contains no negative frequencies; as mentioned, the effect of the Hilbert transform is to eliminate the negative frequencies from <span class="math notranslate nohighlight">\(x\)</span>. The spectrum of this signal consists of a single peak at <span class="math notranslate nohighlight">\(\omega_0\)</span>, compared to the two peaks at <span class="math notranslate nohighlight">\(\pm \omega_0\)</span> in the original signal <span class="math notranslate nohighlight">\(x\)</span>. In this sense, the analytic signal (<span class="math notranslate nohighlight">\(z_0\)</span>) is simpler than the original signal <span class="math notranslate nohighlight">\(x_0\)</span>. To express the original signal <span class="math notranslate nohighlight">\(x_0\)</span> required two complex exponential functions,</p>
 <div class="math notranslate nohighlight">
-\[x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},\]</div>
+\[
+  x_0 = e^{i \omega_0 t} + e^{-i \omega_0 t},
+\]</div>
 <p>compared to only one complex exponential required to express the corresponding analytic signal <span class="math notranslate nohighlight">\(z_0\)</span>. There’s an interesting geometrical interpretation of this. Consider plotting <span class="math notranslate nohighlight">\(x_0\)</span> in the complex plane:</p>
 <p><img id="fig:7.6" src="imgs/7-6.png" style="width:30vw"></img></p>
 <p>Because <span class="math notranslate nohighlight">\(x_0\)</span> is real, this quantity evolves in time along the real axis (red in the figure). To keep <span class="math notranslate nohighlight">\(x_0\)</span> on the real axis, the two complex exponentials (orange in the figure) that define <span class="math notranslate nohighlight">\(x_0\)</span> (i.e., <span class="math notranslate nohighlight">\(e^{i \omega_0 t}\)</span> and <span class="math notranslate nohighlight">\(e^{-i \omega_0 t}\)</span>) rotate in opposite directions along the unit circle (blue in the figure). By doing so, the imaginary components of these two vectors cancel, and we’re left with a purely real quantity <span class="math notranslate nohighlight">\(x_0\)</span>.</p>
@@ -822,12 +842,14 @@ ix \mbox{ if } f &lt; 0.
 <h3>The phase-amplitude plot<a class="headerlink" href="#the-phase-amplitude-plot" title="Permalink to this headline">¶</a></h3>
 <p>To start, define the two-column phase-amplitude vector,</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\left( \begin{array}{cc}
-\phi(1) &amp; A(1) \\
-\phi(2) &amp; A(2) \\
-\phi(3) &amp; A(3) \\
-\vdots &amp; \vdots \\
-\end{array}\right),\end{split}\]</div>
+\[\begin{split}
+  \left( \begin{array}{cc}
+  \phi(1) &amp; A(1) \\
+  \phi(2) &amp; A(2) \\
+  \phi(3) &amp; A(3) \\
+  \vdots &amp; \vdots \\
+  \end{array}\right),
+\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\phi(i)\)</span> is the phase of the low-frequency band activity at time index <span class="math notranslate nohighlight">\(i\)</span>, and <span class="math notranslate nohighlight">\(A(i)\)</span> is the amplitude of the high-frequency band activity at time index <span class="math notranslate nohighlight">\(i\)</span>. In other words, each row defines the instantaneous phase and amplitude of the low- and high-frequency filtered data, respectively.</p>
 <p>We now use this two-column vector to assess whether the phase and amplitude envelope are related. Let’s begin by plotting the average amplitude versus phase. We divide the phase interval into bins of size 0.1 beginning at <span class="math notranslate nohighlight">\(-\pi\)</span> and ending at <span class="math notranslate nohighlight">\(\pi.\)</span> the choice of bin size is somewhat arbitrary; this choice will work fine, but you might consider the impact of other choices.</p>
 <div class="cell docutils container">
@@ -972,29 +994,39 @@ ix \mbox{ if } f &lt; 0.
 <h2>Appendix: Hilbert Transform in the Time Domain<a class="headerlink" href="#appendix-hilbert-transform-in-the-time-domain" title="Permalink to this headline">¶</a></h2>
 <p>We have presented the Hilbert Transform in the frequency domain: it produces a quarter cycle phase shift. It’s reasonable to consider as well the <em>time domain</em> representation of the Hilbert Transform. To do so, let’s write the Hilbert Transform as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}H(x) = \left\{ \begin{array}{rl}
--ix &amp; \mbox{for positive frequencies of }x \\
-0 &amp; \mbox{for 0 frequency of }x \\
-ix &amp; \mbox{for negative frequencies of }x \\
-\end{array}\right\} = x(f)\big( -i\mbox{sgn}(f)\big),\end{split}\]</div>
+\[\begin{split}
+  H(x) = \left\{ \begin{array}{rl}
+  -ix &amp; \mbox{for positive frequencies of }x \\
+  0 &amp; \mbox{for 0 frequency of }x \\
+  ix &amp; \mbox{for negative frequencies of }x \\
+  \end{array}\right\} = x(f)\big( -i\mbox{sgn}(f)\big),
+\end{split}\]</div>
 <p>where we have written <span class="math notranslate nohighlight">\(x(f)\)</span> to make the frequency dependence of <span class="math notranslate nohighlight">\(x\)</span> explicit, and the sgn (pronounced “sign”) function is defined as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\mbox{sgn}(f) = \left\{ \begin{array}{rl}
-1 &amp; \mbox{if }f &gt; 0, \\
-0 &amp; \mbox{if }f = 0, \\
--1 &amp; \mbox{if }f &lt; 0, \\
-\end{array}\right.\end{split}\]</div>
+\[\begin{split}
+  \mbox{sgn}(f) = \left\{ \begin{array}{rl}
+  1 &amp; \mbox{if }f &gt; 0, \\
+  0 &amp; \mbox{if }f = 0, \\
+  -1 &amp; \mbox{if }f &lt; 0, \\
+  \end{array}\right.
+\end{split}\]</div>
 <p>In the frequency domain, we perform the Hilbert Transform by multiplying the signal <span class="math notranslate nohighlight">\(x(f)\)</span> by a constant (either <span class="math notranslate nohighlight">\(i\)</span> or <span class="math notranslate nohighlight">\(-i\)</span> depending on the frequency <span class="math notranslate nohighlight">\(f\)</span> of <span class="math notranslate nohighlight">\(x\)</span>).</p>
 <p>To convert the Hilbert transform in the frequency domain to the Hilbert Transform in the time domain, we take the inverse Fourier transform. Looking up the inverse Fourier transform of <span class="math notranslate nohighlight">\(-i\mbox{sgn}(f)\)</span>, we find</p>
 <div class="math notranslate nohighlight">
-\[\mbox{Inverse Fourier transform}\{-i\mbox{sgn}(f)\} = \frac{1}{\pi t}.\]</div>
+\[
+  \mbox{Inverse Fourier transform}\{-i\mbox{sgn}(f)\} = \frac{1}{\pi t}.
+\]</div>
 <p>Let’s represent the inverse Fourier transform of <span class="math notranslate nohighlight">\(x(f)\)</span> as <span class="math notranslate nohighlight">\(x(t)\)</span>.</p>
 <p>Now, let’s make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see <a class="reference internal" href="04.html"><span class="doc">Analysis of Rhythmic Activity in an Electrocorticogram</span></a>). The convolution of two signals <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is</p>
 <div class="math notranslate nohighlight">
-\[ x * y = \int_{-\infty}^{\infty}x(\tau)y(t-\tau)d\tau.\]</div>
+\[
+   x * y = \int_{-\infty}^{\infty}x(\tau)y(t-\tau)d\tau.
+\]</div>
 <p>So, in the time domain, the Hilbert transform becomes</p>
 <div class="math notranslate nohighlight">
-\[H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.\]</div>
+\[
+  H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.
+\]</div>
 <p>This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, “<em>The Hilbert Transform is a 90-degree phase shift in the frequency domain.</em>” The latter, we propose, is much more intuitive.</p>
 </div>
 </div>

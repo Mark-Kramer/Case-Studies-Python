@@ -458,8 +458,8 @@
 </div><p>Inspection of the sizes of the vectors <code class="docutils literal notranslate"><span class="pre">SpikesLow</span></code> and <code class="docutils literal notranslate"><span class="pre">SpikesHigh</span></code> reveals an important fact: the neuron fires more in the high-light condition. To make this observation more concrete, let’s compute the firing rate (<span class="math notranslate nohighlight">\(f\)</span>), defined mathematically as</p>
 <div class="math notranslate nohighlight">
 \[
-f = \frac{n}{T},
-\tag{1}
+  f = \frac{n}{T},
+  \tag{1}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(n\)</span> is the number of spikes over the time interval <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="question">
@@ -602,20 +602,20 @@ f = \frac{n}{T},
 <p><strong>A.</strong> Let’s focus on the first command, which defines the variable <code class="docutils literal notranslate"><span class="pre">ISIsLow</span></code>. Here, we use the function <code class="docutils literal notranslate"><span class="pre">diff()</span></code> with input <code class="docutils literal notranslate"><span class="pre">SpikesLow</span></code>. If you have not seen the command <code class="docutils literal notranslate"><span class="pre">diff()</span></code> before, look it up using <code class="docutils literal notranslate"><span class="pre">diff()?</span></code>. Briefly, the <code class="docutils literal notranslate"><span class="pre">diff()</span></code> command computes the difference between adjacent elements of the input. In this case, the vector <code class="docutils literal notranslate"><span class="pre">SpikesLow</span></code> represents the times at which spikes occur. Therefore, the difference between adjacent elements of <code class="docutils literal notranslate"><span class="pre">SpikesLow</span></code> produces the time interval or waiting time between successive spikes. To further explore the concept of an ISI, let’s write the spike times as a vector,</p>
 <div class="math notranslate nohighlight">
 \[
-v = {t_1, t_2, t_3, ..., T_N}, 
-\tag{2}
+  v = {t_1, t_2, t_3, ..., T_N}, 
+  \tag{2}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(t_i\)</span> is the time of the <span class="math notranslate nohighlight">\(i^{th}\)</span> spike. The difference between the first two adjacent elements of <span class="math notranslate nohighlight">\(v\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[
-t_2 - t_1 \, .
-\tag{3}
+  t_2 - t_1 \, .
+  \tag{3}
 \]</div>
 <p>By convention, the <code class="docutils literal notranslate"><span class="pre">diff()</span></code> function subtracts the first element from the second. In words, this difference represents the time of the second spike (<span class="math notranslate nohighlight">\(t_2\)</span>) minus the time of the first spike (<span class="math notranslate nohighlight">\(t_1\)</span>), or the first interspike interval in the data. The difference between the next two adjacent elements of <span class="math notranslate nohighlight">\(v\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[
-t_3 - t_2 \, ,
-\tag{4}
+  t_3 - t_2 \, ,
+  \tag{4}
 \]</div>
 <p>which is the second ISI, and so on. In this way, <code class="docutils literal notranslate"><span class="pre">diff()</span></code> converts the spike times in the vector <code class="docutils literal notranslate"><span class="pre">SpikesLow</span></code> into interspike intervals saved in the variable <code class="docutils literal notranslate"><span class="pre">ISIsLow</span></code>.</p>
 </div><div class="question">
@@ -859,14 +859,14 @@ t_3 - t_2 \, ,
 <a id="eq:5"></a></p>
 <div class="math notranslate nohighlight">
 \[
-\rho_{xx}[L] = \dfrac{
-\sum_{i=1}^{N - L}
-(x_i - \bar{x})(x_{i+L} - \bar{x})
-}
-{
-\sum_{i=1}^{N}(x_i - \bar{x})^2
-}
-\tag{5}
+  \rho_{xx}[L] = \dfrac{
+  \sum_{i=1}^{N - L}
+  (x_i - \bar{x})(x_{i+L} - \bar{x})
+  }
+  {
+  \sum_{i=1}^{N}(x_i - \bar{x})^2
+  }
+  \tag{5}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(x_i\)</span> is the <span class="math notranslate nohighlight">\(i^{th}\)</span> data point, and <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the sample mean of the data over index <span class="math notranslate nohighlight">\(i\)</span>.</p>
 <p>To gain some intuition for the autocorrelation, let’s consider the following relatively simple increment process:</p>
@@ -1036,19 +1036,19 @@ We see that the autocorrelation function has just a few isolated lags that are o
 <a id="eq:6"></a></p>
 <div class="math notranslate nohighlight">
 \[
-P(k) = \frac{
-\lambda^k e^{-\lambda}
-}{
-k!
-},
-\tag{6}
+  P(k) = \frac{
+  \lambda^k e^{-\lambda}
+  }{
+  k!
+  },
+  \tag{6}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(k!\)</span> is the factorial of <span class="math notranslate nohighlight">\(k\)</span>. Under this model, the distribution for the number of spikes in a bin is Poisson, but what is the distribution of the waiting time between spikes (i.e., what is the distribution of the ISIs)? It can be shown that for any Poisson process with constant firing rate the ISIs have an exponential distribution <a href="http://dx.doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden &amp; Brown, 2014]</a>. Mathematically, the probability density function for any ISI taking on a value <span class="math notranslate nohighlight">\(x\)</span> is
 <a id="eq:7"></a></p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \lambda \exp(-\lambda x),
-\tag{7}
+  f(x) = \lambda \exp(-\lambda x),
+  \tag{7}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is the rate parameter for the Poisson process.</p>
 <div class="math-note">
@@ -1098,20 +1098,20 @@ f(x) = \lambda \exp(-\lambda x),
 <a id="eq:8"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-f(x_1, x_2, ..., x_n) &amp;=&amp; f(x_1) f(x_2) ... f(x_n) \\ 
-&amp;=&amp; \lambda \exp(-\lambda x_1) \lambda \exp(-\lambda x_2) ... \lambda \exp(-\lambda x_n) \\
-&amp;=&amp; \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
-\end{eqnarray}
-\tag{8}
+  \begin{eqnarray}
+  f(x_1, x_2, ..., x_n) &amp;=&amp; f(x_1) f(x_2) ... f(x_n) \\ 
+  &amp;=&amp; \lambda \exp(-\lambda x_1) \lambda \exp(-\lambda x_2) ... \lambda \exp(-\lambda x_n) \\
+  &amp;=&amp; \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
+  \end{eqnarray}
+  \tag{8}
 \end{split}\]</div>
 <p>We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution <span class="math notranslate nohighlight">\(f(x_1,x_2,...,x_n)\)</span> into a product of probability distributions of each event (i.e., <span class="math notranslate nohighlight">\(f(x_1)\)</span>, the probability of the first ISI equaling <span class="math notranslate nohighlight">\(x_1\)</span>; multiplied by <span class="math notranslate nohighlight">\(f(x_2)\)</span>, the probability of the second ISI equaling <span class="math notranslate nohighlight">\(x_2\)</span>; multiplied by <span class="math notranslate nohighlight">\(f(x_3)\)</span>, the probability of the third ISI equaling <span class="math notranslate nohighlight">\(x_3\)</span>; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
 <p>When considered as a function of the unknown parameters, the joint distribution of the data (<a href="#eq:8" class="thumb">8<span><img src="imgs/eq8.png"></span></a>) is also called the <em>likelihood</em>. In this case, we write
 <a id="eq:9"></a></p>
 <div class="math notranslate nohighlight">
 \[
-L(\lambda) = \lambda^n e^{-\lambda (x_1 + x_2 + ... + x_n)},
-\tag{9}
+  L(\lambda) = \lambda^n e^{-\lambda (x_1 + x_2 + ... + x_n)},
+  \tag{9}
 \]</div>
 <p>to indicate that the likelihood <span class="math notranslate nohighlight">\(L\)</span> is a function of <span class="math notranslate nohighlight">\(\lambda\)</span>. To understand what the likelihood function <span class="math notranslate nohighlight">\(L(\lambda)\)</span> looks like, let’s plot it. We do so for the data from the low-light condition, and consider a range of possible <span class="math notranslate nohighlight">\(\lambda\)</span> values.
 <a id="fig:8-16"></a></p>
@@ -1224,11 +1224,11 @@ L(\lambda) = \lambda^n e^{-\lambda (x_1 + x_2 + ... + x_n)},
 </div><p>To go beyond visual inspection of the model fits and quantify the goodness of fit, we compare the cumulative distributions computed from the data and model. The <strong>cumulative distribution function</strong> (CDF), <span class="math notranslate nohighlight">\(F(x)\)</span>, is the probability that a random variable will take on a value less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. For the exponential ISI model with rate parameter <span class="math notranslate nohighlight">\(\lambda\)</span>, the model CDF is</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-F_{mod}(x) &amp;=&amp; \Pr(\mbox{ISI} \leq x) \\
-&amp;=&amp; \int_0^x \lambda e^{-\lambda t} dt \\
-&amp;=&amp; 1 - e^{-\lambda x}.
-\end{eqnarray}
+  \begin{eqnarray}
+  F_{mod}(x) &amp;=&amp; \Pr(\mbox{ISI} \leq x) \\
+  &amp;=&amp; \int_0^x \lambda e^{-\lambda t} dt \\
+  &amp;=&amp; 1 - e^{-\lambda x}.
+  \end{eqnarray}
 \end{split}\]</div>
 <p>We compare this to the empirical CDF of the data, <span class="math notranslate nohighlight">\(F_{emp}(x)\)</span>, which is defined as the proportion of observations less than or equal to <span class="math notranslate nohighlight">\(x\)</span>. The code to compute and plot these CDFs for the low light-condition is as follows:</p>
 <div class="cell docutils container">
@@ -1296,33 +1296,33 @@ F_{mod}(x) &amp;=&amp; \Pr(\mbox{ISI} \leq x) \\
 <p>We’ve now investigated one class of models, the exponential distribution, to fit the observed ISI distributions. However, through analysis, we’ve found that this statistical model is not sufficient to mimic the observed data. There are many other choices for statistical models; let’s try one other class of models. The inverse Gaussian probability model has already been used successfully to describe ISI structure in this system <a href="https://www.ncbi.nlm.nih.gov/pubmed/9394447" target="blank">[Iyengar &amp; Liao, 1997]</a>). The mathematical expression for the inverse Gaussian probability density is,</p>
 <div class="math notranslate nohighlight">
 \[
-f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right) \, .
-\tag{10}
+  f(x) = \sqrt{\frac{\lambda}{2 \pi x^3}}\exp\left(\frac{-\lambda(x - \mu)^2}{2 x \mu^2}\right) \, .
+  \tag{10}
 \]</div>
 <p>The inverse Gaussian distribution has two parameters that determine its shape: <span class="math notranslate nohighlight">\(\mu\)</span>, which determines the mean of the distribution; and <span class="math notranslate nohighlight">\(\lambda\)</span>, which is called the shape parameter. At <span class="math notranslate nohighlight">\(x\)</span> = 0, the inverse Gaussian has a probability density equal to zero, which suggests it could capture some of the refractoriness seen in the data.</p>
 <p>If we again assume that the ISIs are independent of each other, then the likelihood of observing the sequence of ISIs, <span class="math notranslate nohighlight">\(x_1 , x_2 , . . . , x_n\)</span>, is the product of the probabilities of each ISI,</p>
 <div class="math notranslate nohighlight">
 \[
-L(\mu, \lambda) = f(x_1, x_2, ..., x_n) = \prod_{i=1}^N\sqrt{\frac{\lambda}{2\pi x_i^3}}\exp\left(\frac{-\lambda(x_i - \mu)^2}{2 x_i \mu^2}\right)
-\tag{11}
+  L(\mu, \lambda) = f(x_1, x_2, ..., x_n) = \prod_{i=1}^N\sqrt{\frac{\lambda}{2\pi x_i^3}}\exp\left(\frac{-\lambda(x_i - \mu)^2}{2 x_i \mu^2}\right)
+  \tag{11}
 \]</div>
 <p>The log likelihood is then</p>
 <div class="math notranslate nohighlight">
 \[
-\log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log\frac{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
-\tag{12}
+  \log\big(L(\mu, \lambda)\big) = \frac{N}{2}\log\frac{\lambda}{2\pi} - \frac{3}{2}\sum_{i=1}^N \log{x_i} - \sum_{i=1}^N\frac{\lambda(x_i - \mu)^2}{2x_i \mu^2}.
+  \tag{12}
 \]</div>
 <p>Since this distribution has two parameters, the maximum likelihood solution for this model is the pair of parameter estimates <span class="math notranslate nohighlight">\(\hat\mu\)</span>, <span class="math notranslate nohighlight">\(\hat\lambda\)</span> that maximizes the likelihood of the data. We can solve for the maximum likelihood estimate analytically by taking the derivative with respect to both parameters, setting these equal to zero, and solving the resulting set of equations. In this case, the maximum likelihood estimators are</p>
 <div class="math notranslate nohighlight">
 \[
-\hat\mu = \frac{1}{N}\sum_{i=1}^N x_i
-\tag{13}
+  \hat\mu = \frac{1}{N}\sum_{i=1}^N x_i
+  \tag{13}
 \]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[
-\hat\lambda = \left( \frac{1}{N}\sum_{i=1}^N\left(\frac{1}{x_i} - \frac{1}{\bar \mu}\right)\right)^{-1}.
-\tag{14}
+  \hat\lambda = \left( \frac{1}{N}\sum_{i=1}^N\left(\frac{1}{x_i} - \frac{1}{\bar \mu}\right)\right)^{-1}.
+  \tag{14}
 \]</div>
 <p>Using this expression, we can fit an inverse Gaussian model to the data in each condition and evaluate the goodness-of-fit of the model. Let’s do so now for the low-light condition.</p>
 <div class="cell docutils container">
@@ -1412,49 +1412,49 @@ lambda =  0.04931816769253932
 <a id="eq:15"></a></p>
 <div class="math notranslate nohighlight">
 \[
-\mu = \sum_{k=1}^\infty k P(k).
+  \mu = \sum_{k=1}^\infty k P(k).
 \]</div>
 <p>Replacing <span class="math notranslate nohighlight">\(P(k)\)</span> with the expression for a Poisson distribution
 (<a href="#eq:6" class="thumb">eq.<span><img src="imgs/eq6.png"></span></a>)
 , we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-\mu &amp;=&amp; \sum_{k=0}^\infty k\left(\frac{\lambda^k e^{-k}}{k!}\right) \\
-&amp;=&amp; e^{-\lambda}\sum_{k=0}^\infty k\frac{\lambda^k}{k!}.
-\end{eqnarray}
+  \begin{eqnarray}
+  \mu &amp;=&amp; \sum_{k=0}^\infty k\left(\frac{\lambda^k e^{-k}}{k!}\right) \\
+  &amp;=&amp; e^{-\lambda}\sum_{k=0}^\infty k\frac{\lambda^k}{k!}.
+  \end{eqnarray}
 \end{split}\]</div>
 <p>To make progress, let’s write out the terms in the summation,
 <a id="eq:16"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-\mu &amp;=&amp; e^{-\lambda}
-\left( 
-0 + 
-\frac{\lambda^1}{1!} + 
-2\frac{\lambda^2}{2!} + 
-3\frac{\lambda^3}{3!} + 
-4\frac{\lambda^4}{4!} + 
-\cdots 
-\right) \\
-&amp;=&amp; e^{-\lambda}\lambda
-\left(
-1 + 
-\frac{\lambda^2}{2!} + 
-\frac{\lambda^3}{3!} + 
-\cdots 
-\right) \\
-&amp;=&amp; e^{-\lambda}\lambda(e^\lambda) \\
-&amp;=&amp; \lambda,
-\end{eqnarray}
+  \begin{eqnarray}
+  \mu &amp;=&amp; e^{-\lambda}
+  \left( 
+  0 + 
+  \frac{\lambda^1}{1!} + 
+  2\frac{\lambda^2}{2!} + 
+  3\frac{\lambda^3}{3!} + 
+  4\frac{\lambda^4}{4!} + 
+  \cdots 
+  \right) \\
+  &amp;=&amp; e^{-\lambda}\lambda
+  \left(
+  1 + 
+  \frac{\lambda^2}{2!} + 
+  \frac{\lambda^3}{3!} + 
+  \cdots 
+  \right) \\
+  &amp;=&amp; e^{-\lambda}\lambda(e^\lambda) \\
+  &amp;=&amp; \lambda,
+  \end{eqnarray}
 \end{split}\]</div>
 <p>where we have used the fact that <span class="math notranslate nohighlight">\(e^x = 1 + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \cdots\)</span>. Notice that the mean spike count equals the rate parameter of the Poisson process.</p>
 <p>To find the spike count variance for a Poisson process, we follow a similar procedure. In general, we compute the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of the spike count <span class="math notranslate nohighlight">\(k\)</span> with probability distribution <span class="math notranslate nohighlight">\(P(k)\)</span> as
 <a id="eq:17"></a></p>
 <div class="math notranslate nohighlight">
 \[
-\sigma^2 = \sum_{k=0}^\infty k^2 P(k) - \left(\sum_{k=0}^\infty k P(k)\right) ^2.
+  \sigma^2 = \sum_{k=0}^\infty k^2 P(k) - \left(\sum_{k=0}^\infty k P(k)\right) ^2.
 \]</div>
 <p>As in our computation of the mean spike count, we replace <span class="math notranslate nohighlight">\(P(k)\)</span> with (<a href=#eq:6 class=thumb>eq.<span><img src=imgs/eq6.png></span></a>)
 , the expression for a Poisson process. Notice that the second term is the square of the expression (<a href=#eq:15 class=thumb>eq.<span><img src=imgs/eq15.png></span></a>)
@@ -1462,115 +1462,115 @@ lambda =  0.04931816769253932
 with <span class="math notranslate nohighlight">\(\sigma^2\)</span> and substitute for <span class="math notranslate nohighlight">\(P(k)\)</span> in the first term of (<a href=#eq:17 class=thumb>eq.<span><img src=imgs/eq17.png></span></a>) to find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-\sigma^2 &amp;=&amp;
-\sum_{k=0}^\infty
-k^2
-\left(
-\frac{\lambda^k e^{-\lambda}}{k!}
-\right)
-- \lambda^2
-\\
-&amp;=&amp;
-e^{-\lambda}
-\sum_{k=0}^\infty
-k^2
-\frac{\lambda^k}{k!} 
-- \lambda^2.
-\end{eqnarray}
+  \begin{eqnarray}
+  \sigma^2 &amp;=&amp;
+  \sum_{k=0}^\infty
+  k^2
+  \left(
+  \frac{\lambda^k e^{-\lambda}}{k!}
+  \right)
+  - \lambda^2
+  \\
+  &amp;=&amp;
+  e^{-\lambda}
+  \sum_{k=0}^\infty
+  k^2
+  \frac{\lambda^k}{k!} 
+  - \lambda^2.
+  \end{eqnarray}
 \end{split}\]</div>
 <p>To make progress, we follow the same strategy and write out the terms in the summation,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{eqnarray}
-\sigma^2
-&amp;=&amp;
-e^{-\lambda}
-\left(
-0 + 
-\lambda +
-2^2\frac{\lambda^2}{2!} + 
-3^2\frac{\lambda^3}{3!} + 
-4^2\frac{\lambda^4}{4!} + 
-\cdots
-\right) - 
-\lambda^2
-\\
-&amp;=&amp;
-\lambda e ^{-\lambda}
-\left(
-1 + 
-2\lambda + 
-\frac{3}{2}\lambda ^2 + 
-\frac{4}{6}\lambda ^2 + 
-\cdots
-\right) - 
-\lambda^2.
-\end{eqnarray}
+  \begin{eqnarray}
+  \sigma^2
+  &amp;=&amp;
+  e^{-\lambda}
+  \left(
+  0 + 
+  \lambda +
+  2^2\frac{\lambda^2}{2!} + 
+  3^2\frac{\lambda^3}{3!} + 
+  4^2\frac{\lambda^4}{4!} + 
+  \cdots
+  \right) - 
+  \lambda^2
+  \\
+  &amp;=&amp;
+  \lambda e ^{-\lambda}
+  \left(
+  1 + 
+  2\lambda + 
+  \frac{3}{2}\lambda ^2 + 
+  \frac{4}{6}\lambda ^2 + 
+  \cdots
+  \right) - 
+  \lambda^2.
+  \end{eqnarray}
 \end{split}\]</div>
 <p>Now, we divide this sum of terms into two pieces, a “nice term” (in the first brackets) and “leftovers” (in the second brackets):</p>
 <div class="math notranslate nohighlight">
 \[
-\sigma^2 = \lambda e^{-\lambda}
-\left(
-\left[
-1 + 
-\lambda + 
-\frac{\lambda^2}{2!} + 
-\frac{\lambda^3}{3!} + 
-\cdots
-\right] + 
-\left[
-\lambda + 
-\frac{2\lambda^2}{2!} + 
-\frac{3\lambda^3}{3!} + 
-\cdots
-\right] 
-\right) - 
-\lambda^2.
+  \sigma^2 = \lambda e^{-\lambda}
+  \left(
+  \left[
+  1 + 
+  \lambda + 
+  \frac{\lambda^2}{2!} + 
+  \frac{\lambda^3}{3!} + 
+  \cdots
+  \right] + 
+  \left[
+  \lambda + 
+  \frac{2\lambda^2}{2!} + 
+  \frac{3\lambda^3}{3!} + 
+  \cdots
+  \right] 
+  \right) - 
+  \lambda^2.
 \]</div>
 <p>We can simplify by recognizing that,</p>
 <div class="math notranslate nohighlight">
 \[
-\left[
-1 + 
-\lambda + 
-\frac{\lambda^2}{2!} + 
-\frac{\lambda^3}{3!} + 
-\cdots
-\right]
-=
-e^\lambda \, .
+  \left[
+  1 + 
+  \lambda + 
+  \frac{\lambda^2}{2!} + 
+  \frac{\lambda^3}{3!} + 
+  \cdots
+  \right]
+  =
+  e^\lambda \, .
 \]</div>
 <p>Then</p>
 <p><a id="eq:18"></a>
 <span class="math notranslate nohighlight">\($
-\begin{eqnarray}
-\sigma^2
-&amp;=&amp;
-\lambda e^{-\lambda}
-\left(
-e^\lambda + 
-\lambda
-\left[
-1 + 
-\frac{\lambda^1}{1!} + 
-\frac{\lambda^2}{2!} + 
-\cdots
-\right] 
-\right)-
-\lambda^2 \\
-&amp;=&amp;
-\lambda e^{-\lambda}
-\left(
-e^\lambda + \lambda e^\lambda
-\right)
--\lambda^2 \\
-&amp;=&amp;
-\lambda + \lambda^2 - \lambda^2 \\
-&amp;=&amp;
-\lambda,
-\end{eqnarray}
+  \begin{eqnarray}
+  \sigma^2
+  &amp;=&amp;
+  \lambda e^{-\lambda}
+  \left(
+  e^\lambda + 
+  \lambda
+  \left[
+  1 + 
+  \frac{\lambda^1}{1!} + 
+  \frac{\lambda^2}{2!} + 
+  \cdots
+  \right] 
+  \right)-
+  \lambda^2 \\
+  &amp;=&amp;
+  \lambda e^{-\lambda}
+  \left(
+  e^\lambda + \lambda e^\lambda
+  \right)
+  -\lambda^2 \\
+  &amp;=&amp;
+  \lambda + \lambda^2 - \lambda^2 \\
+  &amp;=&amp;
+  \lambda,
+  \end{eqnarray}
 $\)</span></p>
 <p>where again we’ve used the definition of <span class="math notranslate nohighlight">\(e^\lambda\)</span>. We conclude that the spike count variance for a Poisson precess equals the firing rate <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
 <p>Combining these results for the mean spike count <span class="math notranslate nohighlight">\(\mu\)</span>

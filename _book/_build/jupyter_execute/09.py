@@ -223,8 +223,8 @@ What function should we use for $g(·, ·)$? We want something that captures the
 The following is a very basic model inspired by simple linear regression: 
 <p id="model:1" title="Model 1">
 $$ 
-\lambda(t) = \beta_0 + \beta_1x(t). 
-\tag{Model 1}
+  \lambda(t) = \beta_0 + \beta_1x(t). 
+  \tag{Model 1}
 $$
 </p>
 
@@ -284,15 +284,21 @@ We see that the model spike rate captures some features of the observed spiking,
 
 We conclude that our initial proposal, Model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:
 <a id="model:2"></a>
-<p title="Model 2a"> $$\log \lambda(t) = \beta_0 + \beta_1 x(t), 
-\tag{Model 2}
-$$</p>
+<p title="Model 2a"> 
+$$
+  \log \lambda(t) = \beta_0 + \beta_1 x(t), 
+  \tag{Model 2}
+$$
+</p>
+
 or equivalently,
+
 <p title="Model 2b">
 $$
-\lambda = e^{\beta_0+\beta_1x(t)}.
-\tag{Model 2}
-$$</p>
+  \lambda = e^{\beta_0+\beta_1x(t)}.
+  \tag{Model 2}
+$$
+</p>
 
 This link function is called the canonical link for Poisson data. It has a number of appealing
 properties. As desired, it ensures that the rate function is positive.
@@ -328,17 +334,21 @@ print(b2)
 
 Let’s examine the model fit more closely. When x = 0, the firing rate under Model 2 is
 
-$$\begin{align}\lambda(t) &= \exp(\beta_0 + \beta_1 \times 0)\\
-&= \exp(\beta_0)\\
-&= 0.0006\text{ spikes/ms}\\
-&= 0.6 \text{ spikes/s,}\end{align}$$
+$$
+  \begin{align}\lambda(t) &= \exp(\beta_0 + \beta_1 \times 0)\\
+  &= \exp(\beta_0)\\
+  &= 0.0006\text{ spikes/ms}\\
+  &= 0.6 \text{ spikes/s,}\end{align}
+$$
 
 where we have used the value $\beta_0 =$ `b2[0]`. If the rat moves from position x = 0 to x = 1, the firing rate becomes
 
-$$\begin{align}\lambda(t) &= \exp(\beta_0 + \beta_1 × 1) \\
-&= \exp(\beta_0 + \beta_1)\\
-&= \exp(\beta_0)\exp(\beta_1)\\
-&= 1.013 \exp(\beta_0),\end{align}$$
+$$
+  \begin{align}\lambda(t) &= \exp(\beta_0 + \beta_1 × 1) \\
+  &= \exp(\beta_0 + \beta_1)\\
+  &= \exp(\beta_0)\exp(\beta_1)\\
+  &= 1.013 \exp(\beta_0),\end{align}
+$$
 
 where we have used the value $\beta_1$ = `b2[1]`. That is, a 1 cm increase in position increases the firing rate 1.3%. Because of the link function, position now has a multiplicative rather than an additive effect on the firing rate. Instead of adding to the firing rate, each increase of position leads to a multiplicative modulation of the firing rate at about a 1% increase per cm. Let’s see how this model looks by comparing it to the occupancy normalized histogram of the data. In Python,
 
@@ -362,9 +372,10 @@ There are many variables we might think to add to this model, but what variables
 
 <p title="Model 3">
 $$
-\lambda(t) = \exp(\beta_0+\beta_1x(t)+\beta_2x(t)^2).
-\tag{Model 3}
-$$</p>
+  \lambda(t) = \exp(\beta_0+\beta_1x(t)+\beta_2x(t)^2).
+  \tag{Model 3}
+$$
+</p>
 
 Compared to Model 2, we’ve now included an additional $x(t)^2$ term and unknown coefficient $\beta_2$.
 
@@ -415,7 +426,9 @@ show()
 
 We see from the figure above that Model 3 aligns much more closely with the occupancy normalized histogram. The firing rate is small at the beginning of the track, increases to a maximum firing rate near 10 Hz about 60 cm along the track, and then decreases as the position increases further. The firing rate model as a function of position looks like the bell-shaped or mound-shaped density that we often associate with the Gaussian (or normal) distribution. The fact that the firing rate is the exponential of a quadratic function of position means that we can rewrite the model in a form that more closely resembles the Gaussian function:
 
-$$ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),$$
+$$
+   \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),
+$$
 
 where $\mu = −\beta_1/(2\beta_2)$ is the point along the track where the firing rate is maximal (the center of the place field), $\sigma^2 = −1/(2\beta_2)$ determines the range over which the firing rate is elevated (the size of the place field), and $\alpha = \exp(\beta_0−\beta_1^2/(4\beta_2))$ is the maximum firing rate at the place field center.
 
@@ -456,7 +469,9 @@ One common approach for preventing overfitting is *cross-validation*. There are 
 
 Here, instead of fitting a large number of models, we take another approach, which gives results equivalent to cross-validation when the dataset is large. Namely, we use penalized likelihood measures to compare model types. These measures make explicit the trade-off between fitting the data well (by increasing the likelihood) and using a small number of parameters (by penalizing large models). Let’s consider one such measure, **Akaike’s information criterion** (AIC). It is defined as,
 
-$$\text{AIC} = −2 \log L(\theta_{ML}) + 2p,$$
+$$
+  \text{AIC} = −2 \log L(\theta_{ML}) + 2p,
+$$
 
 where $L(\theta_{ML})$ is the likelihood of the data for the selected maximum likelihood parameter estimate $
 \theta_{ML}$, and $p$ is the number of parameters in the model. We think of the $2p$ in the expression as a penalty for models with large numbers of parameters.
@@ -493,11 +508,16 @@ print('dAIC: ', dAIC)
 We find a value of `dAIC = 636.0145`. This difference indicates that the AIC of Model 3 is smaller than that of Model 2, suggesting that Model 3 is superior. How should we interpret the value of the difference? The answer depends on the probability model we are using, and generally we are just interested in which model has the lowest AIC without worrying about the magnitude of the difference. However, one rough way of thinking about this value is in terms of the penalty. The fact that Model 3 has an AIC of about 636 less than the AIC of model 2 suggests that Model 3 would still be preferable to Model 2 even if Model 3 had 636/2 = 318 more parameters than it actually does.
 
 It turns out that there is a simpler way to compute the difference in AICs between two GLMs. Whenever Python (and most other computational software packages) computes the maximum likelihood solution for a GLM, it also computes the model deviance. The model deviance is a measure of lack of fit between the model and data, which is defined by
-$$\text{Deviance }= −2\log L(\theta_{ML}) + C, $$
+
+$$
+  \text{Deviance }= −2\log L(\theta_{ML}) + C, 
+$$
 
 where C is a constant <abbr title="The constant C is equal to −2 times the log likelihood of a saturated model that has as many parameters as points in the data. Such a model is guaranteed to overfit the data, namely, it will fit the observed data as well as possible but not generalize well to new data."><sup>note</sup></abbr>. Therefore the difference in AICs between two models can be computed as
 
-$$\Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{Dev}_2+2p_2,$$
+$$
+  \Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{Dev}_2+2p_2,
+$$
 
 where $\text{AIC}_1$, $\text{Dev}_1$, and $p_1$ are the AIC, deviance, and number of parameters for the first model, and $\text{AIC}_2$, $\text{Dev}_2$, and $p_2$ are the AIC, deviance, and number of parameters for the second model. The constant $C$ cancels out when computing the difference in AIC values.
 
@@ -519,7 +539,9 @@ In particular, there is a general class of hypothesis tests called *maximum like
 
 Let’s specify the components of this hypothesis test. Assume that the nested model has $n_1$ parameters $\{\beta_1, \cdots, \beta_{n_1} \}$, and that the larger model has $n_2$ parameters, $\{\tilde{\beta_1}, \cdots, \tilde{\beta_{n_2}} \}$. The null hypothesis for this test is $H_0 : \tilde{\beta}_{n_1 + 1} = \cdots = \tilde{\beta}_{n_2}= 0$, that all the additional parameters not contained in the nested model are equal to zero. The alternative hypothesis is that at least one of these additional parameters are different from zero. The test statistic for this MLRT is equivalent to the difference in the deviances between the nested model (here, $\text{Dev}_1$) and the larger model (here, $\text{Dev}_2$),
 
-$$\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .$$
+$$
+  \Lambda = \text{Dev}_1 - \text{Dev}_2 \, .
+$$
 
 Under the null hypothesis, this statistic should asymptotically have a chi-square distribution with $n_2 − n_1$ degrees of freedom. We can compute the p-value for a test comparing two nested GLMs for spiking data using the `chi2` object in the `scipy.stats` module from Python.
 
@@ -576,7 +598,9 @@ We first state the time-rescaling theorem for Poisson processes<abbr title="This
 
 Consider a collection of spike times $(S_1 , S_2 , \cdots, S_n)$ from a Poisson process with rate function $\lambda(t)$. Then let
 
-$$Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^{S_i} \lambda(t) dt,$$
+$$
+  Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^{S_i} \lambda(t) dt,
+$$
 
 for $i = 2, \cdots, n$. By the time-rescaling theorem, the rescaled variables, $Z_1 , Z_2 ,\cdots , Z_n,$ are independent and identically distributed random variables from the exponential distribution with parameter 1.
 <hr>
@@ -617,7 +641,13 @@ show()
 
 <div class="question">
     
-**Q:** Does the definition of the model CDF (variable `mCDF`) make sense? Remember that by the time-rescaling theorem, we expect that the rescaled variables $$(Z_1,Z_2,\cdots,Z_n)$$ are from the exponential distribution with parameter 1.
+**Q:** Does the definition of the model CDF (variable `mCDF`) make sense? Remember that by the time-rescaling theorem, we expect that the rescaled variables 
+
+$$
+  (Z_1,Z_2,\cdots,Z_n)
+$$ 
+
+are from the exponential distribution with parameter 1.
 
 </div>
 
@@ -635,12 +665,19 @@ Residuals represent the difference between the data and the model prediction at 
 
 There are many types of residuals that can be computed for point process data (including raw residuals, Pearson residuals, and deviance residuals <a href="https://doi.org/10.1201/9780203753736" target="blank">[McCullagh & Nelder, 1989]</a>). We do not go into detail about the advantages of each type of residual. Instead, let’s focus on one type of residual that is particularly useful for spiking data: the cumulative raw residual process. In continuous time, we would compute this residual process, $R(t)$, as
 
-$$\begin{align}
+$$
+  \begin{align}
 R(t) &= \text{ total observed no. of spikes at time } t - \text{ total expected no. of spikes at time } t \\
      &= N(t) - \int_0^t\lambda(u)du,
-     \end{align}$$
+     \end{align}
+$$
+
 where $N(t)$ is the counting process that gives the total number of spikes fired up to time $t$, and $\lambda(t)$ is the Poisson rate model at time $t$. The residual process $R(t)$ compares what’s observed (i.e., the spikes recorded in the data) to what the model produces. Since we are working in discrete time, at any time point $t_k$ we compute this as
-$$ R(t_k) = \sum_{i=1}^k \Delta N_i  - \lambda(t_i)\Delta t,$$
+
+$$
+   R(t_k) = \sum_{i=1}^k \Delta N_i  - \lambda(t_i)\Delta t,
+$$
+
 where $\Delta N_i$ is the number of spikes that are observed in the discrete-time interval $t_i$.
 
 In Python, we compute $R(t_k)$ by taking the cumulative sum of the raw residuals, which are returned as an attribute of the `GLMResults` class. Then, to compute the cumulative sum of these residuals, we use the function `cumsum()` as follows:
@@ -688,8 +725,9 @@ direction[increasing] = 1  # Set direction to 1 when X is increasing
 
 With the indicator function for the direction of movement now defined, we must incorporate this new signal into the model. The simplest solution is to add the `direction` variable directly as a new predictor. This would lead to a new model,
 
-$$ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direction}.
-\tag{Model 4}
+$$ 
+  \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direction}.
+  \tag{Model 4}
 $$
 
 We then fit this model and interpret the parameter estimates. With our previous experience in this notebook, fitting the model in Python is now relatively straightforward:

@@ -797,7 +797,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <p>The first taper looks familiar—it’s similar to the Hanning taper. Notice that the first taper starts at zero, increases throughout the interval, and then decreases back to zero. As we add more tapers, each contains more “wiggles.” In particular, as the number of tapers increases, the edges of the data become better represented. Unlike the Hanning taper, which slowly approaches zero at the taper edges, some of these tapers increase near the window edges (see taper 5). This can be useful, especially if we are interested in the spectral features near the beginning and end of the data. Just as with the Hanning taper, we multiply the time series data by each taper, which emphasizes different intervals of the data. We show examples of this multiplication for the ECoG data in the plot on the right. The first taper emphasizes the middle of the ECoG data, and the fifth taper emphasizes the beginning and end of the ECoG data.</p>
 <p>We only show the first five tapers. There are an infinite number more. How do we choose the number of tapers to use in the multitaper method? To answer this, we utilize the equation</p>
 <div class="math notranslate nohighlight">
-\[TW = X,\]</div>
+\[
+  TW = X,
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(T\)</span> is the duration of the recording, <span class="math notranslate nohighlight">\(2W\)</span> is the desired frequency resolution (or resolution bandwidth), and we’re free to choose <span class="math notranslate nohighlight">\(X\)</span>, the aptly named <em>time-bandwidth product</em>. For concreteness, let’s consider the 1 s of ECoG data.</p>
 <div class="question">
 <p><strong>Q.</strong> Given 1 s of data, what is the frequency resolution?</p>
@@ -805,7 +807,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div><p>Remember that a frequency resolution of 1 Hz indicates that we can resolve features in the spectrum separated in frequency by 1 Hz or more. For example, at a frequency resolution of 1 Hz, we can distinguish 10 Hz activity from 9 Hz or 11 Hz activity. However, we are unable to distinguish 10 Hz activity from 10.5 Hz or 9.5 Hz; those frequencies lie within the frequency resolution.</p>
 <p>Let’s assume we do not require a frequency resolution of 1 Hz; instead, we are satisfied with a frequency resolution of 6 Hz. Using the multitaper method, we trade off a worse frequency resolution to improve the estimate of the spectrum. In this case, <span class="math notranslate nohighlight">\(T = 1\)</span> s, and we are willing to accept a resolution bandwidth of <span class="math notranslate nohighlight">\(2 W = 6\)</span> Hz. So, from the equation above, we compute the time-bandwidth product and find <span class="math notranslate nohighlight">\(T W = 3\)</span>. Now, with this value, we select the number of tapers following this rule of thumb:</p>
 <div class="math notranslate nohighlight">
-\[\mbox{No. of tapers} = 2TW - 1.\]</div>
+\[
+  \mbox{No. of tapers} = 2TW - 1.
+\]</div>
 <p>We choose the first <span class="math notranslate nohighlight">\(2 T W - 1\)</span> tapers because doing so allows us to preserve most of the information present in the original data. We could choose fewer tapers, but in most cases we follow this rule of thumb and pick as many tapers as we can. Choosing more tapers does not improve the multitaper estimate of the spectrum and may lead to spurious results; for more details, see [<a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>]. So, for the ECoG data of interest here, we select the number of tapers to be <span class="math notranslate nohighlight">\(2 \times 3 - 1 = 5\)</span>. These five tapers are plotted above on the left. Applying these tapers to the ECoG data, we create the five time series shown on the right. We then compute the spectrum of each tapered ECoG time series, and average the resulting spectra across the five tapers. Through this averaging procedure across tapers, we reduce the variability of the spectral estimate.</p>
 <div class="math-note">
 <p><strong>Multitaper method tradeoff:</strong> The multitaper method permits a trade-off between frequency resolution and variance of the spectrum. If we can tolerate worse frequency resolution, we can include more tapers and reduce the spectrum variance.</p>
@@ -849,7 +853,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <h3>Confidence Intervals of the Spectrum<a class="headerlink" href="#confidence-intervals-of-the-spectrum" title="Permalink to this headline">¶</a></h3>
 <p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">pmtm()</span></code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with <span class="math notranslate nohighlight">\(K\)</span> tapers can be computed using a chi-square distribution with <span class="math notranslate nohighlight">\(2K\)</span> degrees of freedom [<a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>],</p>
 <div class="math notranslate nohighlight">
-\[\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) \]</div>
+\[
+  \frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) 
+\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\hat S(f)\)</span> is our estimate of the spectral power at frequency <span class="math notranslate nohighlight">\(f\)</span> (i.e., the values in <code class="docutils literal notranslate"><span class="pre">Sxx</span></code>), <span class="math notranslate nohighlight">\(S(f)\)</span> is the true spectral power that we want to estimate, and <span class="math notranslate nohighlight">\(\chi^2_{\alpha}(2K)\)</span> is the quantile corresponding the the probability <span class="math notranslate nohighlight">\(\alpha\)</span> according to a chi-square distribution with <span class="math notranslate nohighlight">\(2K\)</span> degrees of freedom. We can write this as a function to compute the confidence intervals.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -915,60 +921,62 @@ and <a class="reference external" href="http://www.cambridge.org/us/catalogue/ca
 <p>We stated in this notebook the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,</p>
 <div class="math notranslate nohighlight">
 \[
-FT[xw] = FT[x]\star FT[w] \, ,
-\tag{1}
+  FT[xw] = FT[x]\star FT[w] \, ,
+  \tag{1}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(w\)</span> are two time series, <span class="math notranslate nohighlight">\(FT[x]\)</span> is the Fourier transform of <span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(X \star Y\)</span> indicates the convolution of <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>,</p>
 <div class="math notranslate nohighlight">
-\[X \star Y[\beta] = \int_{-\infty}^{\infty}X[b]Y[\beta - b]db.\]</div>
+\[
+  X \star Y[\beta] = \int_{-\infty}^{\infty}X[b]Y[\beta - b]db.
+\]</div>
 <p>The convolution of two functions (with arguments <span class="math notranslate nohighlight">\(b\)</span> in this formula) is itself a function of the same argument (with symbol <span class="math notranslate nohighlight">\(\beta\)</span> in this formula). Equation (1) states that the Fourier transform of the element-by-element product of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(w\)</span> equals the convolution of the Fourier transform of <span class="math notranslate nohighlight">\(x\)</span> and the Fourier transform of <span class="math notranslate nohighlight">\(w\)</span>. We consider here an equivalent, alternative statement: that convolution in the time domain is equivalent to multiplication in the frequency domain. Mathematically,</p>
 <div class="math notranslate nohighlight">
 \[
-FT[x \star w] = FT[x]FT[w].
+  FT[x \star w] = FT[x]FT[w].
 \]</div>
 <p>This equation states that the Fourier transform of the convolution of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(w\)</span> equals the product of the Fourier transform of <span class="math notranslate nohighlight">\(x\)</span> and the Fourier transform of <span class="math notranslate nohighlight">\(w\)</span>. To prove this relation, let’s consider the Fourier transform of the convolution of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(w\)</span>. We use the following expression for the continuous-time Fourier transform,</p>
 <div class="math notranslate nohighlight">
 \[
-FT(x \star w[\tau]) = \int_{-\infty}^{\infty}\big(x\star w[\tau]\big)e^{-2 \pi i f \tau}d\tau,
+  FT(x \star w[\tau]) = \int_{-\infty}^{\infty}\big(x\star w[\tau]\big)e^{-2 \pi i f \tau}d\tau,
 \]</div>
 <p>where the notation <span class="math notranslate nohighlight">\([\tau]\)</span> indicates that the convolution <span class="math notranslate nohighlight">\((x\star w)\)</span> is a function of time <span class="math notranslate nohighlight">\(\tau\)</span>. Now, let’s substitute the definition of convolution into this expression and simiplify using an introduction of a second exponential expression,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{align}
-FT(x \star w[\tau]) = &amp; 
-\int_{-\infty}^{\infty}
-\bigg( \int_{-\infty}^\infty x[t]w[\tau-t]dt \bigg)
-e^{-2\pi i f \tau} 
-d\tau \\
-%
-= &amp; \int_{-\infty}^{\infty} 
-\int_{-\infty}^\infty 
-x[t]w[\tau-t]dt\ 
-e^{-2\pi i f (\tau - t)} 
-e^{-2\pi i f t} 
-d\tau \\
-%
-= &amp; \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
-\big( x[t] e^{-2\pi i f t} \big)
-\big( w[\tau - t] e^{-2\pi i f (\tau - t)}\big)
-dt\ d\tau.\\
-\end{align}
+  \begin{align}
+  FT(x \star w[\tau]) = &amp; 
+  \int_{-\infty}^{\infty}
+  \bigg( \int_{-\infty}^\infty x[t]w[\tau-t]dt \bigg)
+  e^{-2\pi i f \tau} 
+  d\tau \\
+  %
+  = &amp; \int_{-\infty}^{\infty} 
+  \int_{-\infty}^\infty 
+  x[t]w[\tau-t]dt\ 
+  e^{-2\pi i f (\tau - t)} 
+  e^{-2\pi i f t} 
+  d\tau \\
+  %
+  = &amp; \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
+  \big( x[t] e^{-2\pi i f t} \big)
+  \big( w[\tau - t] e^{-2\pi i f (\tau - t)}\big)
+  dt\ d\tau.\\
+  \end{align}
 \end{split}\]</div>
 <p>Setting <span class="math notranslate nohighlight">\(T \equiv \tau - t\)</span>, we find</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
-\begin{align}
-FT(x \star w[\tau]) = &amp; 
-\int_{-\infty}^{\infty} \int_{-\infty}^\infty 
-\big( x[t] e^{-2\pi i f t} dt \big)
-\big( w[T] e^{-2\pi i f (T)} dT \big) \\
-%
-= &amp; \bigg( \int_{-\infty}^{\infty}x[t] e^{-2\pi i f t} dt \bigg)
-\bigg(\int_{-\infty}^{\infty} w[T] e^{-2\pi i f (T)} dT \bigg) \\
-%
-= &amp; FT[x]FT[w]
-%
-\end{align}
+  \begin{align}
+  FT(x \star w[\tau]) = &amp; 
+  \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
+  \big( x[t] e^{-2\pi i f t} dt \big)
+  \big( w[T] e^{-2\pi i f (T)} dT \big) \\
+  %
+  = &amp; \bigg( \int_{-\infty}^{\infty}x[t] e^{-2\pi i f t} dt \bigg)
+  \bigg(\int_{-\infty}^{\infty} w[T] e^{-2\pi i f (T)} dT \bigg) \\
+  %
+  = &amp; FT[x]FT[w]
+  %
+  \end{align}
 \end{split}\]</div>
 <p>and therefore conclude that the Fourier transform of the convolution of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(w\)</span> equals the element-by-element product of their Fourier transforms.</p>
 <p>We may compute a simple example to illustrate this relation:</p>

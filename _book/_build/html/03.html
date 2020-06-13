@@ -606,11 +606,15 @@ If we find anything interesting in this 2 s snippet, our clinical collaborator h
 <h3>Step 2: Mean, variance, and standard deviation<a id="mean"></a><a class="headerlink" href="#step-2-mean-variance-and-standard-deviation-a-id-mean-a" title="Permalink to this headline">¶</a></h3>
 <p>As a first step in our analysis of the EEG data, let’s define two of the simplest measures we can use to characterize data <span class="math notranslate nohighlight">\(x\)</span>: the mean and variance <sup><abbr title="We could instead write the sample mean, because we use the observed data to estimate the theoretical mean that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this notebook and others, we omit the term “sample” when referring to sample means, variances, covariances, and so forth, unless this distinction becomes essential to our discussion."><em>note</em></abbr></sup>. To estimate the mean <span class="math notranslate nohighlight">\(\bar x\)</span>, or average value, of <span class="math notranslate nohighlight">\(x\)</span> we compute,</p>
 <p title="Mean">
-$$ \bar x = \frac{1}{N}\sum_{n=1}^N x_n. $$
+$$ 
+  \bar x = \frac{1}{N}\sum_{n=1}^N x_n. 
+$$
 </p>
 <p>In words, we sum the values of <span class="math notranslate nohighlight">\(x\)</span> for all <span class="math notranslate nohighlight">\(n\)</span> time indices, then divide by the total number of points summed (<span class="math notranslate nohighlight">\(N\)</span>). To estimate the variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> of <span class="math notranslate nohighlight">\(x\)</span> we compute,</p>
 <p title="Variance">
-$$ \sigma^2 = \frac{1}{N}\sum_{n=1}^N (x_n - \overline x)^2,$$
+$$ 
+  \sigma^2 = \frac{1}{N}\sum_{n=1}^N (x_n - \overline x)^2,
+$$
 </p>
 <p>which characterizes the extent of fluctuations about the mean. The <em>standard deviation</em> is simply the square root of the variance (i.e., <span class="math notranslate nohighlight">\(\sigma\)</span>). It’s straightforward to compute all three quantities on an <code class="docutils literal notranslate"><span class="pre">ndarray</span></code> in Python:</p>
 <div class="cell docutils container">
@@ -646,7 +650,9 @@ sd = 0.7104345436320261
 <p>Our visual inspection strongly suggests a prominent feature in the data—rhythmic activity. Rhythmic activity represents a type of dependent structure in the data. For example, if we know the data tends to oscillate near 60 Hz, then given the value of the EEG data now, we can accurately predict the value of the EEG data 1/60 s in the future (i.e., one cycle of the 60 Hz activity); it should
 be similar. One technique to assess the dependent structure in the data is the autocovariance. To start, let’s write down the formula for the autocovariance, <span class="math notranslate nohighlight">\(r_{xx}[L]\)</span>, evaluated at lag <span class="math notranslate nohighlight">\(L\)</span>,</p>
 <p><a id="eq:3.3"></a>
-<span class="math notranslate nohighlight">\($r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).\)</span>$</p>
+<span class="math notranslate nohighlight">\($
+  r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
+$\)</span></p>
 <p>In words, the autocovariance multiplies the data <span class="math notranslate nohighlight">\(x\)</span> at index <span class="math notranslate nohighlight">\(n + L\)</span>, by the data <span class="math notranslate nohighlight">\(x\)</span> at index <span class="math notranslate nohighlight">\(n\)</span>, and sums these products over all indices <span class="math notranslate nohighlight">\(n\)</span>. Notice that, in both terms, the mean value <span class="math notranslate nohighlight">\(\bar x\)</span> is subtracted from <span class="math notranslate nohighlight">\(x\)</span> before computing the product, and we divide the resulting sum by the total number of data points in <span class="math notranslate nohighlight">\(x\)</span>. We note that this is a <em>biased</em> estimate of the autocovariance; we compare this to an unbiased estimate of the autocovariance in the supplement entitled <a class="reference external" href="https://eschlaf2.github.io/Case-Studies-Python/03/supplement-autocovariance.html"><em>Biased versus unbiased autocovariance</em></a>.</p>
 <p>To gain some intuition for the autocovariance, let’s represent <span class="math notranslate nohighlight">\(x\)</span> graphically as a one-dimensional row vector.</p>
 <p><img alt="cartoon of a row vector" src="_images/3-3a.png" /></p>
@@ -706,10 +712,14 @@ be similar. One technique to assess the dependent structure in the data is the a
 </div>
 <p>At zero lag (<span class="math notranslate nohighlight">\(L = 0\)</span>), the two time series are identical. Therefore, the product</p>
 <div class="math notranslate nohighlight">
-\[(x_{n+0} - \bar x)(x_n - \bar x) = (x_n - \bar x)(x_n - \bar x) = (x_n - \bar x)^2\]</div>
+\[
+  (x_{n+0} - \bar x)(x_n - \bar x) = (x_n - \bar x)(x_n - \bar x) = (x_n - \bar x)^2
+\]</div>
 <p>is non-negative for all indices <span class="math notranslate nohighlight">\(n\)</span> (note that the product may sometimes be zero, but it’s never negative). To compute the autocovariance, we sum this product over all indices <span class="math notranslate nohighlight">\(n\)</span>, and divide by <span class="math notranslate nohighlight">\(N\)</span>, as defined in the equation for the autocovariance,</p>
 <div class="math notranslate nohighlight">
-\[r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).\]</div>
+\[
+  r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
+\]</div>
 <p>Because we sum many positive terms, we expect to find a large positive value for <span class="math notranslate nohighlight">\(r_{xx}[0]\)</span>. And indeed, that’s what we find; let’s print the value of the autocovariance at lag 0:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -741,7 +751,9 @@ be similar. One technique to assess the dependent structure in the data is the a
 </div>
 <p>Therefore, at this lag <span class="math notranslate nohighlight">\(L\)</span>, we again expect the summed product</p>
 <div class="math notranslate nohighlight">
-\[(x_{n+L} - \bar x)(x_n - \bar x)\]</div>
+\[
+  (x_{n+L} - \bar x)(x_n - \bar x)
+\]</div>
 <p>over all indices <span class="math notranslate nohighlight">\(n\)</span> to be large, and to find a large positive value for <span class="math notranslate nohighlight">\(r_{xx}[L]\)</span>. To see  that’s what we find let’s print the value of the autocovariance at lag 34:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -774,7 +786,9 @@ be similar. One technique to assess the dependent structure in the data is the a
 </div>
 <p>We observe a different type of relationship; at this lag, let’s call it <span class="math notranslate nohighlight">\(L^∗\)</span>, positive values in the unshifted EEG correspond to negative values in the shifted EEG. Therefore, most terms in the product</p>
 <div class="math notranslate nohighlight">
-\[(x_{n + L^*} - \bar x)(x_n - \bar x)\]</div>
+\[
+  (x_{n + L^*} - \bar x)(x_n - \bar x)
+\]</div>
 <p>are negative, and summing up these terms to compute the autocovariance we find a large <strong>negative</strong> value for <span class="math notranslate nohighlight">\(r_{xx}[L^*]\)</span>. To see that, let’s print the value of the autocovariance at lag 8:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -852,10 +866,14 @@ be similar. One technique to assess the dependent structure in the data is the a
 <strong>Computing the spectrum.</strong> We start by presenting all the formulas and code necessary to compute the spectrum of the data. Then throughout the rest of this notebook, we circle back and consider each step of the computation in detail.</p>
 <p>We first need a formula for the discrete-time Fourier transform of the data x:<a id="eq:3.8"></a></p>
 <div class="math notranslate nohighlight">
-\[X_j = \sum_{n=1}^N x_n \exp(-2 \pi i f_j t_n).\]</div>
+\[
+  X_j = \sum_{n=1}^N x_n \exp(-2 \pi i f_j t_n).
+\]</div>
 <p>The Fourier transform computes the sum over all the time indices <span class="math notranslate nohighlight">\(t_n = \Delta\{1, 2, 3, ..., N\}\)</span> of the data <span class="math notranslate nohighlight">\(x_n\)</span> multiplied by sinusoids oscillating at a given frequency <span class="math notranslate nohighlight">\(f_j = j / T\)</span>, where <span class="math notranslate nohighlight">\(j = \{N/2 + 1, -N/2 + 2, ..., N/2 - 1, N/2\}\)</span>. The result is a new quantity <span class="math notranslate nohighlight">\(X_j\)</span>, the signal as a function of frequency <span class="math notranslate nohighlight">\(f_j\)</span> rather than time <span class="math notranslate nohighlight">\(t_n\)</span>. The spectrum is then <a id="eq:3.9"></a></p>
 <div class="math notranslate nohighlight">
-\[S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,\]</div>
+\[
+  S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,
+\]</div>
 <p>which is the product of the Fourier transfrom of <span class="math notranslate nohighlight">\(x\)</span> with its complex conjugate (indicated by the superscript <span class="math notranslate nohighlight">\(*\)</span>), scaled by the sampling interval and the total duration of the recording. The term <span class="math notranslate nohighlight">\(2\Delta^2/T\)</span> is simply a numerical scaling. The units of the spectrum are, in this case, (<span class="math notranslate nohighlight">\(\mu\)</span>V)<span class="math notranslate nohighlight">\(^2/\)</span>Hz. Computing the spectrum in Python requires only a few lines of code:<a id="fig:3.6"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -951,10 +969,14 @@ be similar. One technique to assess the dependent structure in the data is the a
 </ul>
 <p>For the clinical EEG data considered here, the total recording duration is 2 s (<span class="math notranslate nohighlight">\(T = 2\)</span> s), so the frequency resolution</p>
 <div class="math notranslate nohighlight">
-\[df = 1 / (2\ s) = 0.5\ Hz.\]</div>
+\[
+  df = 1 / (2\ s) = 0.5\ Hz.
+\]</div>
 <p>The sampling frequency <span class="math notranslate nohighlight">\(f_0\)</span> is 1000 Hz, so</p>
 <div class="math notranslate nohighlight">
-\[f_{NQ} = 1000 / 2\ Hz = 500\ Hz.\]</div>
+\[
+  f_{NQ} = 1000 / 2\ Hz = 500\ Hz.
+\]</div>
 <p>There’s much more to say about both quantities, but for now let’s simply use both quantities to consider how Python relates the indices and frequencies of the vector <code class="docutils literal notranslate"><span class="pre">Sxx</span></code>.</p>
 <div class="python-note">
 <p>When we used the <code class="docutils literal notranslate"><span class="pre">rfft</span></code> function we utilized a useful property of the Fourier transform. If instead of using <code class="docutils literal notranslate"><span class="pre">rfft</span></code> we had used <code class="docutils literal notranslate"><span class="pre">fft</span></code>, we would see that the vector <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> is twice as long because the Fourier transform also calculates the spectrum for the negative frequencies. However, when a signal is real (i.e., the signal has zero imaginary component), the negative frequencies in the spectrum are redundant. So, the power we observe at frequency <span class="math notranslate nohighlight">\(f\)</span> is identical to the power we observe at frequency <span class="math notranslate nohighlight">\(-f\)</span>. For this reason, we can safely ignore the negative frequencies; these frequencies provide no additional information. Because the EEG data are real, we conclude that the negative frequencies in the variable <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> are redundant and can be ignored. As a specific example, the value of <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> at index <span class="math notranslate nohighlight">\(j = 2\)</span> is the same as the value of <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> at index <span class="math notranslate nohighlight">\(j = 2N - 2\)</span>; these indices correspond to frequencies <span class="math notranslate nohighlight">\(2df\)</span> and  <span class="math notranslate nohighlight">\(-2df\)</span>, respectively. We therefore need only plot the variable <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> for the positive frequencies, more specifically, from index <code class="docutils literal notranslate"><span class="pre">0</span></code> to index <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p>
@@ -999,7 +1021,9 @@ be similar. One technique to assess the dependent structure in the data is the a
 </div>
 <p>The formula for the Nyquist frequency is <a id="eq:3.13"></a></p>
 <div class="math notranslate nohighlight">
-\[f_{NQ} = \frac{f_0}{2}.\]</div>
+\[
+  f_{NQ} = \frac{f_0}{2}.
+\]</div>
 <p>The Nyquist frequency is the highest frequency we can possibly hope to observe in the data. To illustrate this, let’s consider a true EEG signal that consists of a very simple time series—a pure sinusoid that oscillates at some frequency <span class="math notranslate nohighlight">\(f_s\)</span>. Of course, we never observe the true signal. Instead, we observe a sampling of this signal, which depends on the sampling interval <span class="math notranslate nohighlight">\(\Delta\)</span>. We consider three cases for different values of <span class="math notranslate nohighlight">\(\Delta\)</span>. In the first case, we purchase a very expensive piece of equipment that can sample the true signal at a high rate, <span class="math notranslate nohighlight">\(f_0 \gg f_s\)</span>. In this case, we cover the true brain signal with many samples and given these samples, we can accurately reconstruct the underlying data.</p>
 <p><a id="fig:3.11top"><img src="imgs/3-11top.png" title="A sinusoid oscillating below the Nyquist frequency. When the sampling rate is high enough, the sampled data provide a good approximation to the true data. Here, the sampling frequency is 8 times the oscillation frequency (i.e. the sinusoid is sampled eight times in each oscillation of the function)." alt="Sampling a sinusoid at a high rate."></a></p>
 <p>Now, consider the case in which we purchase a cheaper piece of equipment that samples at a maximum rate equivalent to twice the frequency of the pure sinusoid: <span class="math notranslate nohighlight">\(f_0 = 2f_s\)</span>. In this case, we might collect sufficient samples to cover the underlying signal and approximate the oscillation frequency; if the first sample resides on a peak of the sinusoid, the next sample on a trough, and so on.</p>
@@ -1036,14 +1060,17 @@ be similar. One technique to assess the dependent structure in the data is the a
 </div>
 <p>The frequency resolution is defined as</p>
 <div class="math notranslate nohighlight">
-\[df = \frac{1}{T}\]</div>
+\[
+  df = \frac{1}{T}
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(T\)</span> is the total duration of the recording. For the EEG data used in this notebook, <span class="math notranslate nohighlight">\(T = 2\)</span> s, so the frequency resolution is <span class="math notranslate nohighlight">\(df = 1/(2\ \mbox s) = 0.5\)</span> Hz.</p>
 <div class="question">
 <p><strong>Q.</strong> How do we improve the frequency resolution?</p>
 <p><strong>A.</strong> There’s only one way to do it: increase <span class="math notranslate nohighlight">\(T\)</span>. That is, record more data. For example, if we demand a frequency resolution of 0.2 Hz, how much data must we record? We can rearrange the equation to solve for <span class="math notranslate nohighlight">\(T\)</span>,</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$$T = \frac{1}{df} = \frac{1}{0.2\mbox{ Hz}} = 5\mbox{ s}$$
-</pre></div>
-</div>
+<div class="math notranslate nohighlight">
+\[
+  T = \frac{1}{df} = \frac{1}{0.2\mbox{ Hz}} = 5\mbox{ s}
+\]</div>
 <p>So, record 5 s of data to obtain a frequency resolution of 0.2 Hz.</p>
 </div><div class="question">
 <p><strong>Q.</strong> We estimated the spectrum in the preceding code. As we record more and more data, does the estimate of the spectrum improve?</p>
@@ -1211,10 +1238,14 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 <h2>Biased versus unbiased autocovariance<a class="headerlink" href="#biased-versus-unbiased-autocovariance" title="Permalink to this headline">¶</a></h2>
 <p>Autocovariance is defined by the equation</p>
 <p><a id="eq:3.3"></a>
-<span class="math notranslate nohighlight">\($r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).\)</span>$</p>
+<span class="math notranslate nohighlight">\($
+  r_{xx}[L] = \frac{1}{N}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
+$\)</span></p>
 <p>This is a biased estimate of the true autocovariance. To compute an <em>unbiased</em> measure of the autocovariance we replace the <span class="math notranslate nohighlight">\(1/N\)</span> term with <span class="math notranslate nohighlight">\(1/(N-L)\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).\]</div>
+\[
+  r^*_{xx}[L] = \frac{1}{N - L}\sum_{n=1}^{N-L}(x_{n+L} - \bar x)(x_n - \bar x).
+\]</div>
 <p>To examine the difference in the biased versus the unbiased autocovariance, let’s compute both for the EEG data over a broad interval of lags.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1257,16 +1288,22 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 <img alt="cartoon representation f L=2 autocovariance" src="_images/3-3d.png" />
 Now consider the extension to <span class="math notranslate nohighlight">\(L=N-2\)</span>. Because we only compute the product</p>
 <div class="math notranslate nohighlight">
-\[(x_{n+L} - \bar x)(x_n - \bar x)\]</div>
+\[
+  (x_{n+L} - \bar x)(x_n - \bar x)
+\]</div>
 <p>for the overlapping indices of <span class="math notranslate nohighlight">\(x_n\)</span> and <span class="math notranslate nohighlight">\(x_{n+L}\)</span>, we only include two terms in the  summation <a href="#eq:3.3" class="thumb"><span><img src="imgs/eq3-3.png"></span></a> The sum of these two terms is then divided by <span class="math notranslate nohighlight">\(N\)</span>, which results in a small number that approaches zero as L approaches N.</p>
 </div><div class="question">
 <p><strong>Q.</strong> Why does the unbiased estimate of the autocovariance remain large at large lags?</p>
 <p><strong>A.</strong> As in the biased case, let’s again consider <span class="math notranslate nohighlight">\(L = N-2\)</span>. In this case, <span class="math notranslate nohighlight">\(L\)</span> is large, and we shift the time series <span class="math notranslate nohighlight">\(x\)</span> so that only a subset of indices overlap. Therefore, the product</p>
 <div class="math notranslate nohighlight">
-\[(x_{n+L} - \bar x)(x_n - \bar x)\]</div>
+\[
+  (x_{n+L} - \bar x)(x_n - \bar x)
+\]</div>
 <p>again only includes two terms in the autocovariance summation. However, in the unbiased case, the sum of these terms is divided by</p>
 <div class="math notranslate nohighlight">
-\[N - L = N - (N - 2) = 2\]</div>
+\[
+  N - L = N - (N - 2) = 2
+\]</div>
 <p>Notice that as <span class="math notranslate nohighlight">\(L\)</span> approaches <span class="math notranslate nohighlight">\(N\)</span>, the term <span class="math notranslate nohighlight">\(N - L\)</span> approaches zero. In this case, we find a “balance” between the summation of two terms then a division by the number of terms in the sum (in this example, division by 2). This balance allows the unbiased estimate of the autocovariance to remain large as <span class="math notranslate nohighlight">\(L\)</span> approaches <span class="math notranslate nohighlight">\(N\)</span>.</p>
 <p>Careful inspection of the blue curve reveals another feature of the biased estimate; the estimated values at large lags become more variable (look carefully at lags near ±1.75 s and beyond).</p>
 </div><div class="cell docutils container">
@@ -1284,7 +1321,9 @@ Now consider the extension to <span class="math notranslate nohighlight">\(L=N-2
 <p>Increased variability at large lags occurs because, as <span class="math notranslate nohighlight">\(L\)</span> approaches <span class="math notranslate nohighlight">\(N\)</span>, we have less data to compare in the assessment of the autocovariance. Notice that, when <span class="math notranslate nohighlight">\(L = N − 1\)</span>, the estimate of the autocovariance utilizes only two data points from <span class="math notranslate nohighlight">\(x\)</span> (i.e., the product consists only of one term: <span class="math notranslate nohighlight">\((x_N - \bar x)(x_1 - \bar x)\)</span>). We do not expect a reliable assessment of associations in the data with so few data points to compare.</p>
 </div><p>With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons <a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">[Percival &amp; Walden, 1998]</a>. First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:</p>
 <div class="math notranslate nohighlight">
-\[\mbox{mean squared error} = \mbox{variance + (bias)}^2.\]</div>
+\[
+  \mbox{mean squared error} = \mbox{variance + (bias)}^2.
+\]</div>
 <p>Although the biased estimator is “biased”, the variability of the unbiased estimator is more harmful. We saw a hint of this increased variability in the unbiased estimator at large lags. To make this observation more explicit, let’s consider the lag <span class="math notranslate nohighlight">\(L = N - 1\)</span>, and compute the expression for the <a class="reference external" href="#eq:3.3">biased estimator</a><span class="sup">eq<img src="imgs/eq3-3.png"></span>,</p>
 <p title="Variance of the biased estimator with lag N-1">
 <p>\begin{eqnarray}
@@ -1325,10 +1364,14 @@ r_{xx}^*[N-1] &amp;=&amp; \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} 
 </div>
 <p>The main component of this notebook discusses the analysis of rhythmic activity. One important component of this analysis is the power spectral density. In this supplement, we examine equation for the Fourier transform</p>
 <div class="math notranslate nohighlight">
-\[X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).\]</div>
+\[
+  X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).
+\]</div>
 <p>and the equation for the spectrum</p>
 <div class="math notranslate nohighlight">
-\[S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,\]</div>
+\[
+  S_{xx, j} = \frac{2\Delta^2}{T}X_j X_j^*,
+\]</div>
 <p>and the associated Python code. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data.</p>
 <p><a id="fourier-transform"></a></p>
 <div class="section" id="what-is-the-fourier-transform-actually-doing">
@@ -1352,19 +1395,29 @@ r_{xx}^*[N-1] &amp;=&amp; \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} 
 </div>
 <p>The Fourier transform represents the data <span class="math notranslate nohighlight">\(x\)</span> as a linear combination of sinusoids with different frequencies. To see this, consider again:</p>
 <div class="math notranslate nohighlight">
-\[X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).\]</div>
+\[
+  X_j = \sum_{n=1}^{N}x_n \exp(-2\pi i f_j t_n).
+\]</div>
 <p>What is this expression actually doing? Let’s consider this equation piece by piece. The first term,</p>
 <div class="math notranslate nohighlight">
-\[\sum_{n=1}^N\]</div>
+\[
+  \sum_{n=1}^N
+\]</div>
 <p>represents a sum over the indices of <span class="math notranslate nohighlight">\(x_n\)</span>. Because each subsequent index represents a step forward in time of <span class="math notranslate nohighlight">\(\Delta\)</span>, this sum represents a sum over time. In fact, this sum extends from the first index (<span class="math notranslate nohighlight">\(n=1\)</span>) to the last index (<span class="math notranslate nohighlight">\(n = N\)</span>) of the data, so the summation occurs over the entire duration of the recording. Adding the second term,</p>
 <div class="math notranslate nohighlight">
-\[\sum_{n=1}^N x_n\]</div>
+\[
+  \sum_{n=1}^N x_n
+\]</div>
 <p>the summation now acts on the data <span class="math notranslate nohighlight">\(x_n\)</span>, so we’re summing up the data over all indices or equivalently over the entire time of recording. The third term,</p>
 <div class="math notranslate nohighlight">
-\[\exp(-2\pi i f_j t_n),\]</div>
+\[
+  \exp(-2\pi i f_j t_n),
+\]</div>
 <p>consists of an exponential (<span class="math notranslate nohighlight">\(\exp\)</span>) operating on the product of five individual terms, each of which is a number. The first two numbers are simple: <span class="math notranslate nohighlight">\(-2 \pi\)</span>. The third number is <span class="math notranslate nohighlight">\(i \equiv \sqrt{-1}\)</span>, a quantity representing an <em>imaginary unit</em>. The utility of the imaginary unit is that we can rewrite the exponential as the sum of a sine and cosine function. Remember from caclulus the remarkable <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_formula">Euler’s formula</a>:</p>
 <div class="math notranslate nohighlight">
-\[\exp(-2\pi i f_j t_n) = \cos(-2\pi f_j t_n) + i \sin(-2\pi f_j t_n).\]</div>
+\[
+  \exp(-2\pi i f_j t_n) = \cos(-2\pi f_j t_n) + i \sin(-2\pi f_j t_n).
+\]</div>
 <p>Notice that the <span class="math notranslate nohighlight">\(i\)</span> now appears multiplying the sine term, and not inside the arguments of either sinusoid. Both sinusoids operate on the product of <span class="math notranslate nohighlight">\(2\pi\)</span> and two terms, the frequency <span class="math notranslate nohighlight">\(f_j\)</span> and the time <span class="math notranslate nohighlight">\(t_n\)</span>. Rewriting the equation for the Fourier transform using Euler’s formula, we find<a id="eq:3.10"></a></p>
 <p>\begin{equation}\tag{<em>}\label{eq:</em>}
 X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right),
@@ -1484,15 +1537,21 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 <h3>Relation of the Spectrum to Multiple Linear Regression<a class="headerlink" href="#relation-of-the-spectrum-to-multiple-linear-regression" title="Permalink to this headline">¶</a></h3>
 <p>As a final perspective, we consider a statistical modeling approach, with the goal of characterizing the rhythms that appear in the EEG data. To develop this approach, we first introduce <em>linear regression</em>. The idea of linear regression is to express a response variable at time <span class="math notranslate nohighlight">\(n\)</span> (call it <span class="math notranslate nohighlight">\(x_n\)</span>) in terms of predictor variables (call them <span class="math notranslate nohighlight">\(z_{1n}, z_{2n},...,z_{pn}\)</span> for <span class="math notranslate nohighlight">\(p\)</span> predictor variables) as <a id="eq:3.11"></a></p>
 <div class="math notranslate nohighlight">
-\[x_n = \beta_0 + \beta_1z_{1n} + \beta_2z_{2n} + ... + \beta_pz_{pn} + \epsilon_n,\]</div>
+\[
+  x_n = \beta_0 + \beta_1z_{1n} + \beta_2z_{2n} + ... + \beta_pz_{pn} + \epsilon_n,
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(\epsilon_n\)</span> is a random variable. This formulation represents the model we use in <em>multiple linear regression</em>. The term multiple comes from the multiple predictors used. The term linear expresses the fact that each predictor appears linearly in the expression. The challenge is to identify the unknown coefficients (the  <span class="math notranslate nohighlight">\(\beta\)</span>’s) given the observed response and predictor variables. We note that the case of <span class="math notranslate nohighlight">\(p = 1\)</span> corresponds to simple linear regression; in that case, the goal is to fit the line,</p>
 <div class="math notranslate nohighlight">
-\[x_n = \beta_0 + \beta_1z_{1n} + \epsilon_N,\]</div>
+\[
+  x_n = \beta_0 + \beta_1z_{1n} + \epsilon_N,
+\]</div>
 <p>with slope <span class="math notranslate nohighlight">\(\beta_1\)</span> and intercept <span class="math notranslate nohighlight">\(\beta_0\)</span>.</p>
 <p>Let’s consider the application of multiple linear regression to the EEG data with a specific
 purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum was dominated by a 60 Hz peak. <a href="#fig:3.6" class="fig"><span><img src="imgs/3-6.png"></span></a> We expect this 60 Hz is due to electrical noise in the system, and this large noise peak may mask other interesting features occurring in the EEG data. Therefore, our analysis of the EEG data may benefit by removing this large 60 Hz signal. To do so, we first fit a multiple linear regression model to the data <span class="math notranslate nohighlight">\(x_n\)</span> with the following form,<a id="eq:3.12"></a></p>
 <div class="math notranslate nohighlight">
-\[x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_n) + \epsilon_n,\]</div>
+\[
+  x_n = \beta_0 + \beta_1 \sin(2\pi \cdot 60 t_n) + \beta_2\cos(2\pi \cdot 60 t_n) + \epsilon_n,
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(x_n\)</span> is the EEG data at index <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(t_n\)</span> is the corresponding time axis at index <span class="math notranslate nohighlight">\(n\)</span> in units of seconds, and <span class="math notranslate nohighlight">\(\epsilon_n\)</span> is a random variable.</p>
 <div class="question">
 <p><strong>Q.</strong> The model consists of three predictors. What are they?</p>

@@ -265,7 +265,9 @@ the left hand side, and <span class="math notranslate nohighlight">\(V(t)\)</spa
 what’s happening at time <span class="math notranslate nohighlight">\(t\)</span>, we can solve for what’s happening at time <span class="math notranslate nohighlight">\(t+1\)</span>.</p>
 <p>For example, consider the differential equation:</p>
 <div class="math notranslate nohighlight">
-\[\dfrac{dV}{dt} = \dfrac{I}{C}\]</div>
+\[
+  \dfrac{dV}{dt} = \dfrac{I}{C}
+\]</div>
 <p>In words, we can think of:</p>
 <p><span class="math notranslate nohighlight">\(dV\)</span> as the “change in voltage V”,</p>
 <p><span class="math notranslate nohighlight">\(dt\)</span> as the “change in time t”.</p>
@@ -277,17 +279,25 @@ we observe:</p>
 <p>where <span class="math notranslate nohighlight">\(dt\)</span> is the time between our samples of <span class="math notranslate nohighlight">\(V\)</span>.</p>
 <p>We can now write the “change in voltage V” as:</p>
 <div class="math notranslate nohighlight">
-\[dV = V(t+1) - V(t)\]</div>
+\[
+  dV = V(t+1) - V(t)
+\]</div>
 <p>Notice that the change in voltage is the difference in V between two
 sequential time samples.  Now, let’s rewrite <span class="math notranslate nohighlight">\(\dfrac{dV}{dt}\)</span> as,</p>
 <div class="math notranslate nohighlight">
-\[\dfrac{dV}{dt} = \dfrac{ V(t+1) - V(t) }{ dt } \]</div>
+\[
+  \dfrac{dV}{dt} = \dfrac{ V(t+1) - V(t) }{ dt } 
+\]</div>
 <p>where we’ve replaced <span class="math notranslate nohighlight">\(dV\)</span>.  Now, let’s substitute this expression into the equation at the top of this file:</p>
 <div class="math notranslate nohighlight">
-\[\dfrac{ V(t+1) - V(t) }{ dt } = \dfrac{I}{C}.  \]</div>
+\[
+  \dfrac{ V(t+1) - V(t) }{ dt } = \dfrac{I}{C}.  
+\]</div>
 <p>Solving this equation for <span class="math notranslate nohighlight">\(V(t+1)\)</span> you’ll find  that:</p>
 <div class="math notranslate nohighlight">
-\[V(t+1) = V(t) + dt*(I/C)\]</div>
+\[
+  V(t+1) = V(t) + dt*(I/C)
+\]</div>
 <p>Notice that, in this expression, we use our current value of the voltage V(t) and the model (I/C) to determine the next value of the voltage V(t+1).</p>
 <p>Now, let’s program this equation in Python.  First, let’s set the values
 for the parameters <span class="math notranslate nohighlight">\(I\)</span> and <span class="math notranslate nohighlight">\(C\)</span>.</p>

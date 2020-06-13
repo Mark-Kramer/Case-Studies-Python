@@ -557,11 +557,16 @@
 <h4>A Naive Rectangular Filter.<a class="headerlink" href="#a-naive-rectangular-filter" title="Permalink to this headline">¶</a></h4>
 <p>Initial analysis of the data suggests that the dominant rhythmic activity is 60 Hz electrical noise. This activity is reassuring (we expect it) but also a nuisance; because the line noise is so dominant, other interesting features of lower amplitude may be masked. To search further for a weak evoked response in the data, we must reduce the dominant 60 Hz rhythm.</p>
 <p>We build our own filter to achieve this goal. The idea is simple: eliminate the 60 Hz rhythm from the EEG data. Recall that the Fourier transform converts a time domain representation of a signal to a frequency domain representation. Schematically, in symbols,</p>
-<p><a id="eq:1"></a>
-<span class="math notranslate nohighlight">\($ x_n \xrightarrow{\text{FT}} X_j \tag{1}\)</span>$</p>
+<p><a id="eq:1"></a></p>
+<div class="math notranslate nohighlight">
+\[ 
+  x_n \xrightarrow{\text{FT}} X_j \tag{1}
+\]</div>
 <p>where <span class="math notranslate nohighlight">\(x_n\)</span> is the data at each time index <span class="math notranslate nohighlight">\(n\)</span>, <span class="math notranslate nohighlight">\(X_j\)</span> is the data at each frequency index <span class="math notranslate nohighlight">\(j\)</span>, and <span class="math notranslate nohighlight">\(FT\)</span> denotes the Fourier transform. We also note that the inverse Fourier transform (<span class="math notranslate nohighlight">\(iFT\)</span>) converts the frequency domain representation of the data back to the time domain:</p>
 <p><a id="eq:2"></a>
-<span class="math notranslate nohighlight">\($ x_n \xleftarrow{\text{iFT}} X_j \tag{2}\)</span>$</p>
+<span class="math notranslate nohighlight">\($
+   x_n \xleftarrow{\text{iFT}} X_j \tag{2}
+$\)</span></p>
 <p>With these concepts, we may define three steps for a naive rectangular filter:</p>
 <ol class="simple">
 <li><p>Move the observed EEG data to the frequency domain by computing the Fourier transform.</p></li>
@@ -1277,7 +1282,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 </pre></div>
 </div>
 <p>Notice the application of the <code class="docutils literal notranslate"><span class="pre">unwrap</span></code> function to the angle computed in this line of code. With the phase unwrapped, the smooth and linear variation in the phase response versus frequency becomes clear. The wrapped phase response allows us to identify frequencies at which the filter phase advances the signal (e.g., when the phase response is positive, such as at 15 Hz), when the filter phase delays the signal (e.g., when the phase response is negative, such as at 25 Hz), or when the filter leaves the phase unchanged (e.g., when the phase is zero, such as at 20 Hz).</p>
-<div class="cell docutils container">
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">sort_order</span><span class="p">],</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">angle</span><span class="p">(</span><span class="n">bf</span><span class="p">[</span><span class="n">sort_order</span><span class="p">])))</span>  <span class="c1"># Plot the unwrapped phase response</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>                         <span class="c1"># Examine a specific frequency range,</span>

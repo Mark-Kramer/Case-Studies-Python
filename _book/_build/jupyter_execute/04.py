@@ -492,7 +492,9 @@ The first taper looks familiar—it’s similar to the Hanning taper. Notice tha
 
 We only show the first five tapers. There are an infinite number more. How do we choose the number of tapers to use in the multitaper method? To answer this, we utilize the equation
 
-$$TW = X,$$
+$$
+  TW = X,
+$$
 
 where $T$ is the duration of the recording, $2W$ is the desired frequency resolution (or resolution bandwidth), and we're free to choose $X$, the aptly named *time-bandwidth product*. For concreteness, let's consider the 1 s of ECoG data.
 
@@ -508,7 +510,9 @@ Remember that a frequency resolution of 1 Hz indicates that we can resolve featu
 
 Let’s assume we do not require a frequency resolution of 1 Hz; instead, we are satisfied with a frequency resolution of 6 Hz. Using the multitaper method, we trade off a worse frequency resolution to improve the estimate of the spectrum. In this case, $T = 1$ s, and we are willing to accept a resolution bandwidth of $2 W = 6$ Hz. So, from the equation above, we compute the time-bandwidth product and find $T W = 3$. Now, with this value, we select the number of tapers following this rule of thumb:
 
-$$\mbox{No. of tapers} = 2TW - 1.$$
+$$
+  \mbox{No. of tapers} = 2TW - 1.
+$$
 
 We choose the first $2 T W - 1$ tapers because doing so allows us to preserve most of the information present in the original data. We could choose fewer tapers, but in most cases we follow this rule of thumb and pick as many tapers as we can. Choosing more tapers does not improve the multitaper estimate of the spectrum and may lead to spurious results; for more details, see [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)]. So, for the ECoG data of interest here, we select the number of tapers to be $2 \times 3 - 1 = 5$. These five tapers are plotted above on the left. Applying these tapers to the ECoG data, we create the five time series shown on the right. We then compute the spectrum of each tapered ECoG time series, and average the resulting spectra across the five tapers. Through this averaging procedure across tapers, we reduce the variability of the spectral estimate.
 
@@ -558,7 +562,9 @@ The function `multi_taper_psd()` takes three inputs: the data (here `x-x.mean()`
 
 Another useful feature of the `pmtm()` function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with $K$ tapers can be computed using a chi-square distribution with $2K$ degrees of freedom [[Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)], 
 
-$$\frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) < S(f) < \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) $$
+$$
+  \frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) < S(f) < \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) 
+$$
 
 Here, $\hat S(f)$ is our estimate of the spectral power at frequency $f$ (i.e., the values in `Sxx`), $S(f)$ is the true spectral power that we want to estimate, and $\chi^2_{\alpha}(2K)$ is the quantile corresponding the the probability $\alpha$ according to a chi-square distribution with $2K$ degrees of freedom. We can write this as a function to compute the confidence intervals.
 
@@ -628,65 +634,67 @@ and [Press, Teukolsky, Vetterling & Flannery, 2007](http://www.cambridge.org/us/
 We stated in this notebook the important fact that multiplication in the time domain is equivalent to convolution in the frequency domain. Mathematically, we may express this relation as,
 
 $$
-FT[xw] = FT[x]\star FT[w] \, ,
-\tag{1}
+  FT[xw] = FT[x]\star FT[w] \, ,
+  \tag{1}
 $$
 
 where $x$ and $w$ are two time series, $FT[x]$ is the Fourier transform of $x$, and $X \star Y$ indicates the convolution of $X$ and $Y$, 
 
-$$X \star Y[\beta] = \int_{-\infty}^{\infty}X[b]Y[\beta - b]db.$$
+$$
+  X \star Y[\beta] = \int_{-\infty}^{\infty}X[b]Y[\beta - b]db.
+$$
 
 The convolution of two functions (with arguments $b$ in this formula) is itself a function of the same argument (with symbol $\beta$ in this formula). Equation (1) states that the Fourier transform of the element-by-element product of $x$ and $w$ equals the convolution of the Fourier transform of $x$ and the Fourier transform of $w$. We consider here an equivalent, alternative statement: that convolution in the time domain is equivalent to multiplication in the frequency domain. Mathematically,
 
 $$
-FT[x \star w] = FT[x]FT[w].
+  FT[x \star w] = FT[x]FT[w].
 $$
 
 This equation states that the Fourier transform of the convolution of $x$ and $w$ equals the product of the Fourier transform of $x$ and the Fourier transform of $w$. To prove this relation, let’s consider the Fourier transform of the convolution of $x$ and $w$. We use the following expression for the continuous-time Fourier transform,
 
 $$
-FT(x \star w[\tau]) = \int_{-\infty}^{\infty}\big(x\star w[\tau]\big)e^{-2 \pi i f \tau}d\tau,
+  FT(x \star w[\tau]) = \int_{-\infty}^{\infty}\big(x\star w[\tau]\big)e^{-2 \pi i f \tau}d\tau,
 $$
 
 where the notation $[\tau]$ indicates that the convolution $(x\star w)$ is a function of time $\tau$. Now, let's substitute the definition of convolution into this expression and simiplify using an introduction of a second exponential expression,
 
 $$
-\begin{align}
-FT(x \star w[\tau]) = & 
-\int_{-\infty}^{\infty}
-\bigg( \int_{-\infty}^\infty x[t]w[\tau-t]dt \bigg)
-e^{-2\pi i f \tau} 
-d\tau \\
-%
-= & \int_{-\infty}^{\infty} 
-\int_{-\infty}^\infty 
-x[t]w[\tau-t]dt\ 
-e^{-2\pi i f (\tau - t)} 
-e^{-2\pi i f t} 
-d\tau \\
-%
-= & \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
-\big( x[t] e^{-2\pi i f t} \big)
-\big( w[\tau - t] e^{-2\pi i f (\tau - t)}\big)
-dt\ d\tau.\\
-\end{align}
+  \begin{align}
+  FT(x \star w[\tau]) = & 
+  \int_{-\infty}^{\infty}
+  \bigg( \int_{-\infty}^\infty x[t]w[\tau-t]dt \bigg)
+  e^{-2\pi i f \tau} 
+  d\tau \\
+  %
+  = & \int_{-\infty}^{\infty} 
+  \int_{-\infty}^\infty 
+  x[t]w[\tau-t]dt\ 
+  e^{-2\pi i f (\tau - t)} 
+  e^{-2\pi i f t} 
+  d\tau \\
+  %
+  = & \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
+  \big( x[t] e^{-2\pi i f t} \big)
+  \big( w[\tau - t] e^{-2\pi i f (\tau - t)}\big)
+  dt\ d\tau.\\
+  \end{align}
 $$
 
 Setting $T \equiv \tau - t$, we find
 
 $$
-\begin{align}
-FT(x \star w[\tau]) = & 
-\int_{-\infty}^{\infty} \int_{-\infty}^\infty 
-\big( x[t] e^{-2\pi i f t} dt \big)
-\big( w[T] e^{-2\pi i f (T)} dT \big) \\
-%
-= & \bigg( \int_{-\infty}^{\infty}x[t] e^{-2\pi i f t} dt \bigg)
-\bigg(\int_{-\infty}^{\infty} w[T] e^{-2\pi i f (T)} dT \bigg) \\
-%
-= & FT[x]FT[w]
-%
-\end{align}
+  \begin{align}
+  FT(x \star w[\tau]) = & 
+  \int_{-\infty}^{\infty} \int_{-\infty}^\infty 
+  \big( x[t] e^{-2\pi i f t} dt \big)
+  \big( w[T] e^{-2\pi i f (T)} dT \big) \\
+  %
+  = & \bigg( \int_{-\infty}^{\infty}x[t] e^{-2\pi i f t} dt \bigg)
+  \bigg(\int_{-\infty}^{\infty} w[T] e^{-2\pi i f (T)} dT \bigg) \\
+  %
+  = & FT[x]FT[w]
+  %
+  \end{align}
 $$
 
 and therefore conclude that the Fourier transform of the convolution of $x$ and $w$ equals the element-by-element product of their Fourier transforms.

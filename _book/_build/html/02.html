@@ -1010,7 +1010,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div><p>As you can see, the plot of both ERPs is rather messy; it’s difficult to determine through visual inspection alone in which intervals the ERPs exhibit significant separation.</p>
 <p>To facilitate further inspection of the data, we compute the difference between the ERPs in the two conditions. In the differenced signal, large deviations between the two conditions will appear as large differences from zero. To determine whether a deviation is significantly different from zero, we need to determine the confidence interval for the differenced ERP. This requires we propagate the standard deviation of the mean for both ERPs to the new differenced ERP. The propagated standard deviation of the mean at a fixed moment in time is computed as:</p>
 <p><a id="eq:1"></a>
-<span class="math notranslate nohighlight">\($ \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}\)</span>$</p>
+<span class="math notranslate nohighlight">\($ 
+  \sigma = \sqrt{\frac{\sigma_A^2}{K} + \frac{\sigma_B^2}{K}}, \tag{1}
+$\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\sigma_A\)</span> is the standard deviation of the data from condition A, <span class="math notranslate nohighlight">\(\sigma_B\)</span> is the standard deviation of the data from condition B, and <span class="math notranslate nohighlight">\(K\)</span> is the number of trials.</p>
 <p>In Python we compute the differenced ERP and standard deviation of the mean of the difference as follows:
 <a id="plt:differencedERP"></a></p>
