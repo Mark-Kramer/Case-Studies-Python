@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Analysis of spike-field cohernece *for the practicing neuroscientist* <a id="top"></a>
+# Analysis of spike-field coherence *for the practicing neuroscientist* <a id="top"></a>
 
 +++
 
@@ -233,9 +233,9 @@ In this Python code, we must be careful to include only appropriate time interva
 
 <div class="question">
     
-**Q.** Q: What is the purpose of the if-statement:
+**Q.** What is the purpose of the if-statement:
 
-` if win < spike_t < N-win-1:`
+    `if win < spike_t < N-win-1:`
 
 in the code?
     
@@ -268,7 +268,7 @@ ylabel('Voltage [mV]');
 The individual trial results suggest an approximate rhythmicity in the STA; visual inspection reveals that the STA fluctuates with a period of approximately 100 ms. However, these fluctuations are not phase-locked across trials. For some trials, the LFP tends to be positive when the cell spikes (i.e., at $t = 0$ in the figure), while in other trials the LFP tends to be negative when the cell spikes. The initial results do not suggest a consistent relation exists between the spikes and the LFP across trials.
 
 
-However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a>.\ Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
+However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP ... Let’s continue the search.
 
 +++
 
@@ -433,7 +433,7 @@ f = np.fft.rfftfreq(N, dt)                                       # Frequency axi
 
 Inside of the `for` statement, we first compute the Fourier transform of the field (`yf`) and the spikes (`nf`) for trial `k`. Notice that we subtract the mean from each signal before computing the Fourier transform, and that we apply a Hanning taper to the field data. We estimate the spectra for the field (`SYY`) and the spikes (`SNN`), and the cross spectrum (`SYN`) averaged across all trials. We then compute the coherence (`cohr`) and define a frequency axis to plot the results (`f`).
 
-Let's now display the results, <a id="fig:spike-field-coherence">
+Let's now display the results, <a id="fig:spike-field-coherence"></a>
 
 ```{code-cell} ipython3
 plt.subplot(1,3,1)         # Plot the spike spectrum.
@@ -460,13 +460,13 @@ ylabel('Coherence');
 savefig('imgs/sf_coh')
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the spike spectrum, `Snn`, plotted in the figure above. What are the dominant rhythms? At frequencies beyond these dominant rhythms, the spectrum appears to fluctuate around a constant value. What is this constant value?
 
-**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.<br>
+**A.** To answer the first question, we determine through visual inspection of the figure that the dominant rhythm (i.e., the frequency with the most power) occurs at 10 Hz. We also note the presence of a second peak near 45 Hz.
 
-To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [MODULE](add ref)). For these data, we can estimate the expected spike rate as
+To answer the second question, we note that the spike spectrum asymptotes at the expected spike rate (see [notebook 10](../10)). For these data, we can estimate the expected spike rate as
 
 `firing_rate = np.mean(np.sum(n,1))/(N*dt)`
 
@@ -490,7 +490,7 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
     
 **Q:** Consider the field spectrum on a decibel scale (see [The Power Spectrum (Part 1)](../03)). What rhythms do you observe?
     
@@ -500,9 +500,9 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 <div class="question">
     
-**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted in [this figure](#fig:FTA). How does the peak in the spike-field coherence relate to interesting structure in the FTA?
+**Q:** Compare the results of your spike-field coherence analysis with the FTA plotted above.<a href="#fig:FTA" class="sup">fig<img src="imgs/fta.png"></a> How does the peak in the spike-field coherence relate to interesting structure in the FTA?
     
-<div>
+</div>
 
 +++
 
@@ -728,7 +728,7 @@ Now, for this frequency interval, we find a modulation of the estimated conditio
 
 +++
 
-For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [MODULE](add ref)):
+For the LFP data filtered at 44–46 Hz, let’s check the significance of the parameters related to the LFP phase, $\beta_1$ and $\beta_2$, via a Wald test (see [notebook 9](../09)):
 
 ```{code-cell} ipython3
 pval1=res.pvalues[1];       #Significance of parameter beta_1.
