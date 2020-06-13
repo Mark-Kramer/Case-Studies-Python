@@ -1,6 +1,10 @@
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
+=======
+
+>>>>>>> upstream/master:content/A04/perceptron.md
 # Training a Perceptron
 
-In this module, we will construct simple perceptron models. We'll start by implementing a perceptron model, and seeing how it behaves. We'll then outline the steps to train a perceptron to classify a point as above or below a line.
+In this notebook, we will construct simple perceptron models. We'll start by implementing a perceptron model, and seeing how it behaves. We'll then outline the steps to train a perceptron to classify a point as above or below a line.
 
 This discussion follows the excellent example and discussion at [The Nature of Code](https://natureofcode.com/book/chapter-10-neural-networks/). Please see that reference for additional details, and a more sophisticated coding strategy (using Classes in Python).
 
@@ -9,14 +13,20 @@ Text preceded by a `#` indicates a 'comment'.  I will use comments to explain wh
 
 Before beginning, let's load in the Python packages we'll need:
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
 import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
 import time
+=======
+```{code-cell} ipython3
+from pylab import *
+%matplotlib inline
+```
+>>>>>>> upstream/master:content/A04/perceptron.md
 
 ##  Part 1:   A simple perceptron model.
 
- 
 Let's examine a simple perceptron that accepts inputs, processes those inputs, and returns an output. To do so, please consider this function:
 
 def my_perceptron(input1, input2, w1, w2, theta):
@@ -29,21 +39,22 @@ def my_perceptron(input1, input2, w1, w2, theta):
     else:
         return 0
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
-**Q:** How many inputs does the function take?  How many outputs does it return?<p></p>
+**Q:** How many inputs does the function take?  How many outputs does it return?
 
-**Q:** Looking at this code, could you sketch a model of this perceptron?<p></p>
+**Q:** Looking at this code, could you sketch a model of this perceptron?
 
-**Q:** Apply this function to different sets of inputs. Consider,<p></p>
+**Q:** Apply this function to different sets of inputs. Consider,
 
-  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = 0`<p></p>
+  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = 0`
 
-  and<p></p>
+  and
 
-  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = -1`<p></p>
+  `input1 = 1, input2 = 0, w1 = 0.5, w2 = -0.5, theta = -1`
 
   What do you find?
+
 </div>
 
 ##   Part 2.  Build a perceptron classifier.
@@ -87,22 +98,21 @@ def known_answer(slope, intercept, x, y):
   else:                        # Otherwise, the input y is below the line,
       return 0
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
-**Q:** Consider the (x,y) point,<p></p>
+**Q:** Consider the (x,y) point,
 
-`x,y = 0.7,3` <p></p>
+`x,y = 0.7,3` 
 
-and the line with slope and intercept, <p></p>
+and the line with slope and intercept, 
 
-`slope = 2` <br></br>
-`intercept = 1`<p></p>
+`slope = 2` 
+`intercept = 1`
 
-Is the (x,y) point above or below the line?<p></p>
-<br>
-
+Is the (x,y) point above or below the line?
 
 **A:** To answer this, let's ask our function,
+
 </div>
 
 x,y = 0.7,3
@@ -111,11 +121,12 @@ intercept = 1
 correct_answer = known_answer(slope, intercept, x, y)
 print(correct_answer)
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
-**A (Continued):** We find a `correct_answer` of 1.<p></p>
+**A (Continued):** We find a `correct_answer` of 1.
 
 So, the point `(x,y)=(0.7,3)` is above the line with slope 2 and intercept 1.
+
 </div>
 
 ### Step 2: Ask perceptron to guess an answer.
@@ -151,28 +162,41 @@ And this function returns one output:
  
  - the perceptron's guess, is the point above (=1) or below (=0) the line.
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
 <div class="alert alert-block alert-info">
 **Q:**  Again consider the (x,y) point, <p></p>
+=======
++++
 
-`x,y = 0.7,3` <p></p>
+<div class="question">
 
-and set initial values for the perceptron weights. Let's just set these all to 0.5;  our goal in the rest of this module will be to train the perceptron by adjusting these weights.  But for now,<p></p>
+**Q:**  Again consider the (x,y) point, 
+>>>>>>> upstream/master:content/A04/perceptron.md
 
-`wx,wy,wb = 0.5` <p></p>
+`x,y = 0.7,3` 
 
-Then, ask the perceptron for it's guess for it's guess, is the point above or below the line?<p></p>
+and set initial values for the perceptron weights. Let's just set these all to 0.5;  our goal in the rest of this notebook will be to train the perceptron by adjusting these weights.  But for now,
+
+`wx,wy,wb = 0.5` 
+
+Then, ask the perceptron for it's guess for it's guess, is the point above or below the line?
 
 </div>
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
 x,y = 0.7,3
 wx,wy,wb = 3*[0.5]
+=======
+```{code-cell} ipython3
+x,y = 0.7, 3
+wx,wy,wb = 3 * [0.5]
+>>>>>>> upstream/master:content/A04/perceptron.md
 perceptron_guess = feedforward(x, y, wx, wy, wb)
 print(perceptron_guess)
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
-**A (Continued):** We find a `peceptron_guess` of 1.<br>
-<p>
+**A (Continued):** We find a `peceptron_guess` of 1.
 
 So, the perceptron guesses that the point `(x,y)=(0.7,3)` is above the line.
 
@@ -191,8 +215,10 @@ Let's compute the error as the difference between these two answers:
 error = correct_answer - perceptron_guess
 print(error)
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What do you find for the `error`? Does it make sense?
+
 </div>
 
 ### Step 4: Adjust all weights according to the error.
@@ -215,8 +241,16 @@ wb = wb + error*1   *learning_constant
 
 Notice that, in the update to `wb` we use the fact that the bias equals 1.
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
 <div class="alert alert-block alert-info">
+=======
++++
+
+<div class="question">
+
+>>>>>>> upstream/master:content/A04/perceptron.md
 **Q:**  What do you find for the new weights? Does it make sense?
+
 </div>
 
 ### Step 5: Return to Step 1 and repeat ... 
@@ -240,12 +274,12 @@ wx,wy,wz = 3*[0.5];                 # Choose initial values for the perceptron's
 
 learning_constant = 0.01;           # And, set the learning constant.
 
-estimated_slope = np.zeros(2000)    # Variables to hold the perceptron estimates.
-estimated_intercept = np.zeros(2000)
+estimated_slope = zeros(2000)    # Variables to hold the perceptron estimates.
+estimated_intercept = zeros(2000)
 
-for k in np.arange(2000):           # For 2000 iteractions,
-    x = np.random.randn(1);         # Choose a random (x,y) point in the plane
-    y = np.random.randn(1);
+for k in arange(2000):           # For 2000 iteractions,
+    x = randn(1);         # Choose a random (x,y) point in the plane
+    y = randn(1);
                                     # Step 1: Calculate known answer.
     correct_answer = known_answer(slope, intercept, x, y);
     
@@ -264,14 +298,21 @@ for k in np.arange(2000):           # For 2000 iteractions,
     estimated_intercept[k] = -wb/wy;# Compute estimated intercept from perceptron.
 
 # Display the results! ------------------------------------------------------------------------
-x_range = np.linspace(-2,2,100);                  # For a range of x-values,
-fig, ax = plt.subplots()
+x_range = linspace(-2,2,100);                  # For a range of x-values,
+fig, ax = subplots()
 ax.plot(x_range, slope*x_range+intercept, 'k')    # ... plot the true line,
 
 for k in range(1,2000,100):                       # ... and plot some intermediate perceptron guess
     ax.plot(x_range, estimated_slope[k]*x_range+estimated_intercept[k], 'r')
                                                   # ... and plot the last perceptron guess
 ax.plot(x_range, estimated_slope[-1]*x_range+estimated_intercept[-1], 'b')
+<<<<<<< HEAD:_book/_build/jupyter_execute/A04.py
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Known answer (black), Perceptron final guess (blue)');
+=======
+xlabel('x')
+ylabel('y')
+title('Known answer (black), Perceptron final guess (blue)');
+```
+>>>>>>> upstream/master:content/A04/perceptron.md

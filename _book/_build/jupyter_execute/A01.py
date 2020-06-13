@@ -1,15 +1,22 @@
 # Backpropagation
 
-In this module, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.
+In this notebook, we will implement the backpropagation procedure for a two-node network. We'll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.
 
 ##  Preliminaries
 Text preceded by a `#` indicates a 'comment'.  I will use comments to explain what we're doing and to ask you questions.  Also, comments are useful in your own code to note what you've done (so it makes sense when you return to the code in the future).  It's a good habit to *always* comment your code.  I'll try to set a good example, but won't always . . . 
 
 Before beginning, let's load in the Python packages we'll need:
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A01.py
 import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
+=======
+```{code-cell} ipython3
+from pylab import *
+%matplotlib inline
+```
+>>>>>>> upstream/master:content/A01/backprop.md
 
 ##  Steps to backpropagation
 
@@ -58,7 +65,12 @@ x1 = w0*s0
   *define* the sigmoid function ... Let's do so here in Python,
 
 def sigmoid(x):
+<<<<<<< HEAD:_book/_build/jupyter_execute/A01.py
     return 1/(1+np.exp(-x))
+=======
+    return 1/(1+exp(-x))
+```
+>>>>>>> upstream/master:content/A01/backprop.md
 
   This function takes one input (`x`), and returns one output equal to the numerical
   value of the sigmoid function at that value of `x`. For example, to
@@ -137,9 +149,9 @@ w2 = 0.5
 alpha = 0.1                     # Set the learning constant.
 
 def sigmoid(x):
-    return 1/(1+np.exp(-x))     # Define the sigmoid anonymous function.
+    return 1/(1+exp(-x))     # Define the sigmoid anonymous function.
 
-results = np.zeros([1000,4])    # Define a variable to hold the results of each iteration.    
+results = zeros([1000,4])    # Define a variable to hold the results of each iteration.    
 for k in range(1000):           # For 1000 iteractions,
     
     #Step 2. Calculate feedforward solution to get output.
@@ -158,6 +170,7 @@ for k in range(1000):           # For 1000 iteractions,
     results[k,:] = [w2,w1,w0,  out]
     # Here we save the 3 weights, the neural network output.
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/A01.py
 plt.clf()
 plt.plot(results[:,0], label='w2')
 plt.plot(results[:,1], label='w1')
@@ -166,3 +179,14 @@ plt.plot(results[:,3], label='out')
 plt.plot(np.arange(1000), 1000*[target], 'k', label='target')  #... and plot the *target*.
 plt.legend() #Iclude a legend,
 plt.xlabel('Iteration number');         #... and axis label.
+=======
+clf()
+plot(results[:,0], label='w2')
+plot(results[:,1], label='w1')
+plot(results[:,2], label='w0')
+plot(results[:,3], label='out')
+plot(arange(1000), 1000*[target], 'k', label='target')  #... and plot the *target*.
+legend() #Iclude a legend,
+xlabel('Iteration number');         #... and axis label.
+```
+>>>>>>> upstream/master:content/A01/backprop.md

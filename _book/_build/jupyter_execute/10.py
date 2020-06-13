@@ -418,6 +418,11 @@ This example illustrates a counterintuitive result. To understand the mean firin
 **Spectral Estimates for STN Data.**
 
 With a new appreciation for interpreting point process spectra, let’s compute spectral estimators for the STN data for the planning and movement periods. As in chapters [4](../04) and [5](../05), we use multitaper spectral estimators. Since the data follow a trial structure, we compute estimators for each trial and average the results across trials. The planning and movement periods for each trial are 1 s in duration, so we can achieve a 4 Hz frequency resolution by setting the time-bandwidth product to 4. This allows us to use seven tapers, each providing independent and informative estimates.
+<<<<<<< HEAD:_book/_build/jupyter_execute/10.py
+=======
+
++++
+>>>>>>> upstream/master:content/10/.ipynb_checkpoints/spiking-rhythms-checkpoint.md
 
 <div class="python-note">
 
@@ -505,6 +510,11 @@ show()
 **A.** The period before time 0 s, corresponding to the planning period, shows a clear peak at 15–20 Hz. As we approach time 0 s, there is a rapid change in the spectral structure. The peak starts to vanish, not only because the spectral density at 15–20 Hz decreases but also because the spectral density across all frequencies increases. This reflects a combination of a change in rhythmic spiking and a change in the overall firing rate. The fact that the spectral content seems to undergo a sudden shift from one regime (planning) to another regime (movement) suggests that it is reasonable to construct models with different spike dynamics in these two periods.
 
 </div>
+<<<<<<< HEAD:_book/_build/jupyter_execute/10.py
+=======
+
++++
+>>>>>>> upstream/master:content/10/.ipynb_checkpoints/spiking-rhythms-checkpoint.md
 
 <div class="python-note">
     
@@ -530,6 +540,11 @@ In this chapter, we will change this approach slightly to demonstrate the use of
 One important note: Although we are approximating the number of spikes in each bin as Poisson, this does not mean we are modeling the data as a Poisson process. A Poisson process is one that has Poisson spike counts in each interval but also requires that the counts in two separate intervals be independent. Here, we explicitly model the spike count in one bin as a function of the number of spikes fired in previous bins. Therefore, the spike counts will not be independent between bins.
 
 </div>
+<<<<<<< HEAD:_book/_build/jupyter_execute/10.py
+=======
+
++++
+>>>>>>> upstream/master:content/10/.ipynb_checkpoints/spiking-rhythms-checkpoint.md
 
 #### Model 1
 
@@ -634,6 +649,12 @@ IDir = repeat(direction == 1, nTime)
 
 We could add the variable `xdir` directly to the initial Model 1, and proceed immediately with a model fit. But first let’s examine the point process residuals for Model 1, and whether these residuals depend on the trial movement direction.
 
+<<<<<<< HEAD:_book/_build/jupyter_execute/10.py
+=======
+We could add the variable `xdir` directly to the initial Model 1, and proceed immediately with a model fit. But first let’s examine the point process residuals for Model 1, and whether these residuals depend on the trial movement direction.
+
+```{code-cell} ipython3
+>>>>>>> upstream/master:content/10/.ipynb_checkpoints/spiking-rhythms-checkpoint.md
 R = cumsum(M1.resid_response);  # Cumulative sum of Model 1 residuals.
 plot(where(IDir == 1)[0], R[IDir == 1], '.', label="Right")  # Right movement trials
 plot(where(IDir == 0)[0], R[IDir == 0], '.', label="Left")  # Left movement trials

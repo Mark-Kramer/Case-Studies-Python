@@ -14,7 +14,7 @@ kernelspec:
 
 # The integrate and fire neuron
 
-In this module we will use Python to simulate the integrate and fire (I&F) neuron model.  We'll investigate, in particular, how the spiking activity varies as we adjust the input current $I$.
+In this notebook we will use Python to simulate the integrate and fire (I&F) neuron model.  We'll investigate, in particular, how the spiking activity varies as we adjust the input current $I$.
 
 +++
 
@@ -39,9 +39,8 @@ Here's some additional intereting videos and references:
 Before beginning, let's load in the Python packages we'll need:
 
 ```{code-cell} ipython3
-import numpy as np
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 ```
 
 ##  Part 1:  Numerical solutions - Introduction
@@ -114,10 +113,12 @@ The right hand side of our equation is nearly defined, but we're still missing o
 
 +++
 
-<div class="alert alert-block alert-info">
-**Q:**  What value do we assign to $V(t)$?<br><br>
+<div class="question">
+
+**Q:**  What value do we assign to $V(t)$?
 
 **A:**  We don't know --- that's why we're running the simulation in the first place!
+
 </div>
 
 +++
@@ -127,7 +128,7 @@ So here's an easier question:  what *initial* value do we assign to $V(t)$?
  To start, we'll create an array of zeros to hold our results for $V$:
 
 ```{code-cell} ipython3
-V = np.zeros([1000,1])
+V = zeros([1000,1])
 V.shape
 ```
 
@@ -139,7 +140,7 @@ Let's choose an initial value for `V` of 0.2, which in our simple model we'll as
 V[0]=0.2
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
 
 **Q:**  Given the initial state `V[0]=0.2`, calculate `V[1]`.  Then calcualte `V[2]`.
 
@@ -164,14 +165,18 @@ for k in range(1,999):
     V[k+1] = V[k] + dt*(I/C)
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Does this loop make sense?  Describe what's happening here.
+
 </div>
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Why does the `range` command end at `999`?
+
 </div>
 
 +++
@@ -179,12 +184,14 @@ for k in range(1,999):
 Execute this for-loop and examine the results in vector `V`.  To do so, let's plot `V`:
 
 ```{code-cell} ipython3
-plt.figure()
-plt.plot(V);
+figure()
+plot(V);
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What happens to the voltage after 1000 steps?
+
 </div>
 
 +++
@@ -194,11 +201,13 @@ plt.plot(V);
   need to define a time axis:
 
 ```{code-cell} ipython3
-t = np.arange(0,len(V))*dt
+t = arange(0,len(V))*dt
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  What's happening in the command above?  Does it make sense?  (If not, trying printing or plotting `t`.)
+
 </div>
 
 +++
@@ -206,10 +215,10 @@ t = np.arange(0,len(V))*dt
 Now, with *time* defined, let's redo the plot of the voltage with the axes labeled appropriately.
 
 ```{code-cell} ipython3
-plt.figure()
-plt.plot(t,V)
-plt.xlabel('Time [s]');
-plt.ylabel('V');
+figure()
+plot(t,V)
+xlabel('Time [s]');
+ylabel('V');
 ```
 
 Finally, let's put it all together . . .
@@ -231,29 +240,30 @@ First, let's clear all the variables:
 ```
 
 ```{code-cell} ipython3
-import numpy as np      #Import useful packages.
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 
 I=1                     #Set the parameter I.
 C=1                     #Set the parameter C.
 dt=0.01                 #Set the timestep.
-V = np.zeros([1000,1])  #Initialize V.
+V = zeros([1000,1])  #Initialize V.
 V[0]=0.2;               #Set the initial value of V.
 
 for k in range(1,999):            #March forward in time,
     V[k+1] = V[k] + dt*(I/C)      #... updating V along the way.
 
-t = np.arange(0,len(V))*dt        #Define the time axis.
+t = arange(0,len(V))*dt        #Define the time axis.
 
-plt.figure()            #Plot the results.
-plt.plot(t,V)
-plt.xlabel('Time [s]')
-plt.ylabel('Voltage [mV]');
+figure()            #Plot the results.
+plot(t,V)
+xlabel('Time [s]')
+ylabel('Voltage [mV]');
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:**  Adjust the parameter `I`.  What happens to `V` if `I=0`?  Can you set `I` so that `V` > 20 within 10 s?
+
 </div>
 
 +++
@@ -293,16 +303,15 @@ Now, let's put it all together to make a complete I&F model (with a thershold an
 ```
 
 ```{code-cell} ipython3
-import numpy as np      #Import useful packages.
+from pylab import *
 %matplotlib inline
-import matplotlib.pyplot as plt
 
 I=1                     #Set the parameter I.
 C=1                     #Set the parameter C.
 Vth = 1;                #Define the voltage threshold.
 Vreset = 0;             #Define the reset voltage.
 dt=0.01                 #Set the timestep.
-V = np.zeros([1000,1])  #Initialize V.
+V = zeros([1000,1])  #Initialize V.
 V[0]=0.2;               #Set the initial condition.
 
 for k in range(1,999):            #March forward in time,
@@ -310,26 +319,32 @@ for k in range(1,999):            #March forward in time,
     if V[k+1] > Vth:              #... and check if the voltage exceeds the threshold.
         V[k+1] = Vreset
         
-t = np.arange(0,len(V))*dt        #Define the time axis.
+t = arange(0,len(V))*dt        #Define the time axis.
 
-plt.figure()            #Plot the results.
-plt.plot(t,V)
-plt.xlabel('Time [s]')
-plt.ylabel('Voltage [mV]');
+figure()            #Plot the results.
+plot(t,V)
+xlabel('Time [s]')
+ylabel('Voltage [mV]');
 ```
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Adjust the parameter `I`.  What happens to `V` if `I=10`?  If `I=100`?
+
 </div>
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** Adjust the parameter `C`.  What happens to `V` if `C=0.1`?  If `C=10`?
+
 </div>
 
 +++
 
-<div class="alert alert-block alert-info">
+<div class="question">
+
 **Q:** What is "spiking" in this I&F model?
+
 </div>

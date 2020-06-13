@@ -1,3 +1,20 @@
+<<<<<<< HEAD:_book/_build/html/06.html
+=======
+---
+interact_link: content/06/filtering-scalp-eeg.ipynb
+kernel_name: python3
+kernel_path: content/06
+has_widgets: false
+title: |-
+  Filtering Field Data
+pagenum: 6
+prev_page:
+  url: /05/the-cross-covariance-and-coherence.html
+next_page:
+  url: /07/cross-frequency-coupling.html
+suffix: .ipynb
+search: filter data frequency response signal eeg domain hz impulse naive rectangular filtered div filtering class phase fig fir evoked s peak filters spectrum trial hanning e id not large lets frequencies function question using apply near analysis original transform our n inspection noise fourier lowpass zero q src imgs png top convolution features compute index through impact amplitude span b visual however initial indices href notebook resulting representation application small plot note here code above therefore single consider both same element design examine approach input also brief shift erp g variable observe back section effects instead important its where results
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 
 
 <!DOCTYPE html>
@@ -329,6 +346,7 @@
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
 </ul>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="section" id="on-ramp-filtering-field-data-in-python">
 <h2>On-ramp: filtering field data in Python<a class="headerlink" href="#on-ramp-filtering-field-data-in-python" title="Permalink to this headline">¶</a></h2>
 <p>We begin this module with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to filter field data in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
@@ -341,6 +359,36 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+=======
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="On-ramp:-filtering-field-data-in-Python">On-ramp: filtering field data in Python<a class="anchor-link" href="#On-ramp:-filtering-field-data-in-Python"> </a></h2><p>We begin this notebook with an "<em>on-ramp</em>" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to filter field data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens ...</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">firwin</span><span class="p">,</span> <span class="n">lfilter</span><span class="p">,</span> <span class="n">filtfilt</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/EEG-1.mat&#39;</span><span class="p">)</span>    <span class="c1"># Load the data,</span>
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span>              <span class="c1"># ... and define the EEG,</span>
@@ -354,11 +402,11 @@
 <span class="n">Wn</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">/</span> <span class="n">fNQ</span>                  <span class="c1"># ... and specify the cutoff frequency,</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">firwin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Wn</span><span class="p">)</span>              <span class="c1"># ... build lowpass FIR filter,</span>
                                <span class="c1"># ... and zero-phase filter each trial</span>
-<span class="n">eeg_lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">eeg</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span>
+<span class="n">eeg_lo</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">eeg</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span>
 
 <span class="n">mn</span> <span class="o">=</span> <span class="n">eeg_lo</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>            <span class="c1"># Compute mean of filtered EEG across trials (ERP)</span>
 <span class="n">sd</span> <span class="o">=</span> <span class="n">eeg_lo</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>             <span class="c1"># Compute std of filtered EEG data across trials.</span>
-<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>        <span class="c1"># Compute the std of the mean.</span>
+<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>        <span class="c1"># Compute the std of the mean.</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">)</span>                    <span class="c1"># Plot the ERP of the filtered data</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">);</span>  <span class="c1"># ... and the confidence intervals,</span>
@@ -375,6 +423,7 @@
 </div>
 </div>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, lowpass filters it, and then plots the ERP of the filtered data?</p>
 <p><strong>A:</strong> If you’ve never created and applied a filter before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
 </div></div>
@@ -403,6 +452,45 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+=======
+
+**Q:** Try to read the code above. Can you see how it loads data, lowpass filters it, and then plots the ERP of the filtered data?
+
+**A:** If you've never created and applied a filter before, that's an especially difficult question. Please continue on to learn this **and more**!
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>In previous case studies, we analyzed brain rhythms and discussed techniques to characterize these rhythms. Observed brain rhythms are often corrupted by noise. Sometimes this noise is obvious (e.g., electrical noise). In general, however, identifying the components of a brain signal that constitute signal versus noise is a difficult problem.</p>
+<p>In this notebook, we develop techniques to isolate, emphasize, or remove rhythmic activity in neural field data. To do so we introduce a broad area of study and research: <strong>filtering</strong>. In general, filtering is a very common procedure in the analysis of neural data. Although it is typically considered a preprocessing step, how filtering is performed may make or break subsequent analysis. This is a vast area, and we focus here on only some of the important concepts and tools.</p>
+<h3 id="Case-study-data">Case study data<a class="anchor-link" href="#Case-study-data"> </a></h3><p>Our colleague recorded the electroencephalogram (EEG) from a human subject during a task. After performing the experiment, he analyzed the data with the hope of finding an evoked response over visual cortex. However, his initial analysis suggested no evoked response. He therefore asked us to assist in his data analysis. He provided us with the EEG data recorded on the scalp surface above the left occipital lobe of one subject. He would like to understand the rhythmic features that appear in these data during the recording, and in particular whether an evoked response can be detected. He provided us with ten trials of EEG data, each of duration 1 s, recorded during the subject’s response to a visual stimulus (a small flash of light).</p>
+<h3 id="Goals">Goals<a class="anchor-link" href="#Goals"> </a></h3><p>Our goal is to better understand whether an evoked response appears in the data. We first make a visual inspection of the data, using techniques we developed to <a href="../02">study evoked responses</a>. However, our main goal is to understand the fundamental procedures of filtering neural field data, and we examine filtering methods applied to these example EEG data. We start by developing an intuitive approach to filtering and then implement and apply more sophisticated methods. We explain procedures to visualize filter properties and the resulting impact on the input signal.</p>
+<h3 id="Tools">Tools<a class="anchor-link" href="#Tools"> </a></h3><p>In this notebook, we rely on the Fourier transform (and associated measures) to develop a basic understanding of filters. If you are not confident using the Fourier transform, we strongly recommend reviewing notebooks <a href="../03">3</a> and <a href="../04">4</a>. This case study reinforces concepts in those notebooks and provides another opportunity to compute and to examine spectra, and to examine the relationships between the time and frequency domain representations of a time series. Upon completing this notebook, you should be familiar with basic filtering principles and methods to visualize the impact of filters, and equipped for further study and development of filtering procedures.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">firwin</span><span class="p">,</span> <span class="n">lfilter</span><span class="p">,</span> <span class="n">filtfilt</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </pre></div>
 </div>
 </div>
@@ -438,6 +526,7 @@
 <p><strong>A.</strong> Inspection of the variable <code class="docutils literal notranslate"><span class="pre">t</span></code>, loaded into Python, reveals that the sampling interval is 0.001 s, or 1 ms, and the sampling frequency is therefore 1/(0.001 s), or 1000 Hz.</p>
 </div><p>Visual inspection of the 1 s interval of the first trial suggests at least two distinct features. First, a rapid oscillation appears to occur, with amplitude near 1 mV. Second, a large deviation in voltage occurs (near 0.2 s). Additional slower oscillations may occur, although it’s difficult to tell from visual inspection alone.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> Consider the fast rhythmic activity that dominates the EEG data plotted above. What is the frequency of this dominant rhythm? Do you observe an evoked response in this single trial? If so, where in time, and what features characterize the evoked response?</p>
 <p><strong>A.</strong> Careful counting of the number of peaks (or troughs) in the signal reveals that the fast rhythmic activity has a frequency of approximately 60 Hz. Visual inspection of the single-trial data does not suggest an evoked response (at least to the authors).</p>
 </div><div class="question">
@@ -446,6 +535,33 @@
 <div class="section" id="spectral-analysis-a-id-spectral-analysis-a">
 <h3>Spectral Analysis<a id="spectral-analysis"></a><a class="headerlink" href="#spectral-analysis-a-id-spectral-analysis-a" title="Permalink to this headline">¶</a></h3>
 <p>Initial visual inspection of the single-trial data suggests that a 60 Hz rhythm dominates each individual trial. To further characterize this observation, let’s compute the spectrum of a single trial of EEG data <sup><abbr title="We could instead write the sample spectrum because this equation uses the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment, but this distinction is not essential to the discussion here.">note</abbr></sup>. We do so here for the first trial, and apply a Hanning taper before computing the spectrum (see <a class="reference internal" href="04.html"><span class="doc">chapter 4</span></a>):
+=======
+
+**Q.** Examine other individual trials of the EEG data. Do you find features similar to those in the first trial?
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Back to top</a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Spectral-Analysis">Spectral Analysis<a id="spectral-analysis" /><a class="anchor-link" href="#Spectral-Analysis"> </a></h3><p>Initial visual inspection of the single-trial data suggests that a 60 Hz rhythm dominates each individual trial. To further characterize this observation, let’s compute the spectrum of a single trial of EEG data <sup><abbr title="We could instead write the sample spectrum because this equation uses the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment, but this distinction is not essential to the discussion here.">note</abbr></sup>. We do so here for the first trial, and apply a Hanning taper before computing the spectrum (see <a href="../04">notebook 4</a>):
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <a id="fig:2"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -461,9 +577,9 @@
 
 <span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span><span class="p">;</span>               <span class="c1"># Determine frequency resolution.</span>
 <span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>         <span class="c1"># Determine Nyquist frequency.</span>
-<span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>              <span class="c1"># Construct frequency axis</span>
+<span class="n">faxis</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>              <span class="c1"># Construct frequency axis</span>
 
-<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="o">.</span><span class="n">real</span><span class="p">))</span>   <span class="c1"># Plot decibels vs frequency,</span>
+<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="o">.</span><span class="n">real</span><span class="p">))</span>   <span class="c1"># Plot decibels vs frequency,</span>
 <span class="n">xlim</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>           <span class="c1"># ... in limited frequency range,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>  <span class="c1"># ... with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [dB]&#39;</span><span class="p">)</span>
@@ -479,24 +595,54 @@
 </div>
 <p>Notice that in the second line of code, we remove the mean from the single trial of data. This is not always necessary but often useful; we are usually most interested in the rhythmic behavior of the EEG activity, not the changes in the mean signal.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> What is the resulting frequency resolution?</p>
 <p><strong>A.</strong> The total duration of a trial is 1 s. Therefore the frequency resolution is 1/(1 s) = 1 Hz. If this answer makes no sense, we recommend reviewing the case study in <a class="reference internal" href="03.html"><span class="doc">chapter 3</span></a>.</p>
 </div><p>The resulting spectrum reveals two important features. First, the power spectral density appears increased at lower frequencies compared to higher frequencies, that is, the spectrum tends to decrease with increasing frequency. This distribution of power is common in neural field data (e.g., <a class="reference external" href="https://doi.org/10.1016/j.neuron.2010.04.020">[He, et al., 2010]</a>) and in other biological systems <a class="reference external" href="https://doi.org/10.1103/PhysRevLett.59.381">[Bak, Tang, &amp; Wiesenfeld, 1987]</a>. Second, a large peak occurs at 60 Hz. This peak is consistent with the dominant rhythm apparent through visual inspection of the data in the first trial<a href="#fig:1" class="sup">fig<span><img src="imgs/6-1.png"></span></a>.</p>
+=======
+
+**Q.** What is the resulting frequency resolution?
+
+**A.** The total duration of a trial is 1 s. Therefore the frequency resolution is 1/(1 s) = 1 Hz. If this answer makes no sense, we recommend reviewing the case study in [notebook 3](../03).
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The resulting spectrum reveals two important features. First, the power spectral density appears increased at lower frequencies compared to higher frequencies, that is, the spectrum tends to decrease with increasing frequency. This distribution of power is common in neural field data (e.g., <a href="https://doi.org/10.1016/j.neuron.2010.04.020">[He, et al., 2010]</a>) and in other biological systems <a href="https://doi.org/10.1103/PhysRevLett.59.381">[Bak, Tang, &amp; Wiesenfeld, 1987]</a>. Second, a large peak occurs at 60 Hz. This peak is consistent with the dominant rhythm apparent through visual inspection of the data in the first trial<a href="#fig:1" class="sup">fig<span><img src="imgs/6-1.png"></span></a>.</p>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <p>A 60 Hz peak is common in EEG data recorded in North America, where the alternating current in an electrical socket has frequency 60 Hz. We might also perhaps observe a second small peak between approximately 15 and 25 Hz. However, it’s not immediately apparent whether this peak represents a rhythm or a random fluctuation in the (noisy) spectrum. In any case, these initial spectral results are somewhat reassuring. The data exhibit characteristics we expect in typical scalp EEG data. Namely, the spectrum tends to decrease with frequency, and a large, sharp 60 Hz peak occurs, consistent with electrical noise.</p>
 <div class="question">
 <p><strong>Q.</strong> Examine the spectrum of other individual trials. Do you find features similar to those in trial 1?</p>
 </div><p><a class="reference external" href="#top">Back to Top</a></p>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="section" id="evoked-response-and-the-average-spectrum-a-id-evoked-response-a">
 <h3>Evoked Response and the Average Spectrum<a id="evoked-response"></a><a class="headerlink" href="#evoked-response-and-the-average-spectrum-a-id-evoked-response-a" title="Permalink to this headline">¶</a></h3>
 <p>Initial inspection of the features observable in the individual trials of EEG data has not been encouraging; the data appear to be dominated by 60 Hz line noise, with an occasional large-amplitude deviation. Through this initial inspection, it’s not clear whether an evoked response occurs in these data. We may therefore conclude that if an evoked response does occur in the data, the effect is weak and not apparent in a single trial. To further search for a weak evoked effect, let’s average the EEG responses across trials. In doing so, we hope that events unrelated to the stimulus will be reduced while responses evoked by the stimulus will be enhanced (see <a class="reference internal" href="02.html"><span class="doc">chapter 2</span></a>). More specifically, let’s compute the mean and standard deviation of the mean EEG response at each time across trials:
+=======
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Back to Top</a></p>
+<h3 id="Evoked-Response-and-the-Average-Spectrum">Evoked Response and the Average Spectrum<a id="evoked-response" /><a class="anchor-link" href="#Evoked-Response-and-the-Average-Spectrum"> </a></h3><p>Initial inspection of the features observable in the individual trials of EEG data has not been encouraging; the data appear to be dominated by 60 Hz line noise, with an occasional large-amplitude deviation. Through this initial inspection, it’s not clear whether an evoked response occurs in these data. We may therefore conclude that if an evoked response does occur in the data, the effect is weak and not apparent in a single trial. To further search for a weak evoked effect, let’s average the EEG responses across trials. In doing so, we hope that events unrelated to the stimulus will be reduced while responses evoked by the stimulus will be enhanced (see <a href="../02">notebook 2</a>). More specifically, let’s compute the mean and standard deviation of the mean EEG response at each time across trials:
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <a id="fig:3"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">eeg</span><span class="p">)</span>                   <span class="c1"># Define variable to record no. of trials</span>
 <span class="n">mn</span> <span class="o">=</span> <span class="n">eeg</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>               <span class="c1"># Compute mean EEG across trials (ERP)</span>
 <span class="n">sd</span> <span class="o">=</span> <span class="n">eeg</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                <span class="c1"># Compute std of EEG data across trials.</span>
-<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>        <span class="c1"># Compute the std of the mean.</span>
+<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>        <span class="c1"># Compute the std of the mean.</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">)</span>                    <span class="c1"># Plot the ERP,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">);</span>  <span class="c1"># ... and the confidence intervals,</span>
@@ -532,8 +678,8 @@
     <span class="k">return</span> <span class="n">Sxx</span><span class="o">.</span><span class="n">real</span>
 
 <span class="n">Sxx</span> <span class="o">=</span> <span class="p">[</span><span class="n">spectrum</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">eeg</span><span class="p">]</span> <span class="c1"># Compute the spectrum for each trial.</span>
-<span class="n">Sxxmn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                      <span class="c1"># Convert the result into an array and compute the mean.</span>
-<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxxmn</span><span class="p">))</span>              <span class="c1"># Plot the result in decibels vs frequency,</span>
+<span class="n">Sxxmn</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                      <span class="c1"># Convert the result into an array and compute the mean.</span>
+<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxxmn</span><span class="p">))</span>              <span class="c1"># Plot the result in decibels vs frequency,</span>
 <span class="n">xlim</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                    <span class="c1"># ... in limited frequency range,</span>
 <span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">40</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>                                      <span class="c1"># ... and limited power range,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                           <span class="c1"># ... with axes labeled.</span>
@@ -550,6 +696,7 @@
 </div>
 <p>Compared to the <a href="fig:2" class="fig">single-trial spectrum<span><img src="imgs/6-2.png"></span></a>, the variability is greatly reduced in the <a href="fig:3b" class="fig">trial-averaged spectrum<span><img src="imgs/6-3b.png"></span></a>. By reducing the variability in this way, the rhythmic peak between 15 Hz and 25 Hz becomes more apparent. We also observe both the 60 Hz electrical noise peak and the trend of decreasing power spectral density with increasing frequency, as in the single-trial spectrum.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> Given the initial analysis, what conclusions do you make regarding the EEG data?</p>
 <p><strong>A.</strong> The analysis of the single-trial and trial-averaged results suggests that 60 Hz electrical noise dominates the EEG signal. We observe this electrical noise directly in the voltage traces and as a prominent sharp peak in the spectrum. We have some suggestive observations that an interesting evoked response may occur in the data but no conclusive (i.e., significant) evidence. Perhaps if we can reduce the 60 Hz electrical noise, we can uncover a weak evoked response that is currently hidden by the 60 Hz signal. To reduce the 60 Hz signal, we next try to filter these data.</p>
 </div><p><a class="reference external" href="#top">Back to Top</a></p>
@@ -560,6 +707,26 @@
 <div class="section" id="a-naive-rectangular-filter">
 <h4>A Naive Rectangular Filter.<a class="headerlink" href="#a-naive-rectangular-filter" title="Permalink to this headline">¶</a></h4>
 <p>Initial analysis of the data suggests that the dominant rhythmic activity is 60 Hz electrical noise. This activity is reassuring (we expect it) but also a nuisance; because the line noise is so dominant, other interesting features of lower amplitude may be masked. To search further for a weak evoked response in the data, we must reduce the dominant 60 Hz rhythm.</p>
+=======
+
+**Q.** Given the initial analysis, what conclusions do you make regarding the EEG data?
+
+**A.** The analysis of the single-trial and trial-averaged results suggests that 60 Hz electrical noise dominates the EEG signal. We observe this electrical noise directly in the voltage traces and as a prominent sharp peak in the spectrum. We have some suggestive observations that an interesting evoked response may occur in the data but no conclusive (i.e., significant) evidence. Perhaps if we can reduce the 60 Hz electrical noise, we can uncover a weak evoked response that is currently hidden by the 60 Hz signal. To reduce the 60 Hz signal, we next try to filter these data.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Back to Top</a></p>
+<h3 id="Naive-Filtering">Naive Filtering<a id="naive-filters" /><a class="anchor-link" href="#Naive-Filtering"> </a></h3><p>In this section, we introduce some fundamental concepts related to filtering. An easy approach to filtering is simply to use packaged Python functions to implement standard filtering methods. However, this approach can be dangerous. If we treat the filter as a black box, then we may not understand what a filter actually does and when it might fail to perform as we hope. To gain intuition for filtering, we therefore begin with a naive approach. This approach uses understanding of the Fourier transform and spectrum, and allows us to investigate how a simple filter performs. We then attempt to improve this naive approach, again using notions familiar from the study of spectra in previous notebooks (see notebooks <a href="../03">3</a> and <a href="../04">4</a>). Through this approach we do not implement the most sophisticated or useful filters; in fact, we do not recommend using this approach in practice. But we develop a deeper understanding of what a filter actually does. Later, we use packaged functions to implement standard filtering approaches. Ideally, these built-in functions will seem more interpretable with the knowledge gained through the initial naive filtering investigations.</p>
+<h4 id="A-Naive-Rectangular-Filter.">A Naive Rectangular Filter.<a class="anchor-link" href="#A-Naive-Rectangular-Filter."> </a></h4><p>Initial analysis of the data suggests that the dominant rhythmic activity is 60 Hz electrical noise. This activity is reassuring (we expect it) but also a nuisance; because the line noise is so dominant, other interesting features of lower amplitude may be masked. To search further for a weak evoked response in the data, we must reduce the dominant 60 Hz rhythm.</p>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <p>We build our own filter to achieve this goal. The idea is simple: eliminate the 60 Hz rhythm from the EEG data. Recall that the Fourier transform converts a time domain representation of a signal to a frequency domain representation. Schematically, in symbols,</p>
 <p><a id="eq:1"></a>
 <span class="math notranslate nohighlight">\($ x_n \xrightarrow{\text{FT}} X_j \tag{1}\)</span>$</p>
@@ -586,6 +753,7 @@
 </div>
 </div>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> What are the dimensions of <code class="docutils literal notranslate"><span class="pre">xf</span></code>?</p>
 <p><strong>A.</strong> Note that <code class="docutils literal notranslate"><span class="pre">xf</span></code> is a vector with the same dimensions as the original EEG data from trial 1 (labeled <code class="docutils literal notranslate"><span class="pre">x</span></code>). Remember that computing the Fourier transform of a signal does not alter its dimensions. However, also note that <code class="docutils literal notranslate"><span class="pre">xf</span></code> is a complex vector, consisting of both real and imaginary parts.</p>
 </div></div>
@@ -595,6 +763,38 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># Define the sampling interval.</span>
+=======
+
+**Q.** What are the dimensions of `xf`?
+
+**A.** Note that `xf` is a vector with the same dimensions as the original EEG data from trial 1 (labeled `x`). Remember that computing the Fourier transform of a signal does not alter its dimensions. However, also note that `xf` is a complex vector, consisting of both real and imaginary parts.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Step-2.">Step 2.<a class="anchor-link" href="#Step-2."> </a></h5><p>We first define the frequency axis that corresponds to <code>xf</code>. We do so in the standard way implemented in previous notebooks:</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>        <span class="c1"># Define the sampling interval.</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># Define the number of points in a single trial.</span>
 <span class="n">faxis</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Construct the frequency axis</span>
 </pre></div>
@@ -640,11 +840,23 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>faxis[indices]
 </pre></div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <p>we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consistent with our expectations.</p>
 </div><p>With the indices surrounding the line noise frequency located, we’re ready to set the frequency domain components of the EEG signal at 60 Hz to zero. Let’s first define the filter in the frequency domain. This filter will have a value of 1 at all frequencies except near ±60 Hz, where we set the filter to 0. We then apply this filter to the frequency domain representation of the EEG data. By doing so, we set the (complex) values of <code class="docutils literal notranslate"><span class="pre">xf</span></code> (i.e., the frequency domain representation of the EEG data) to zero at the indices surrounding the line noise frequency. At all other indices, we leave <code class="docutils literal notranslate"><span class="pre">xf</span></code> unaltered (i.e., we multiply by 1).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rectangular_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># Define filter in frequency domain</span>
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rectangular_filter</span> <span class="o">=</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># Define filter in frequency domain</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">rectangular_filter</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>        <span class="c1"># ... set the filter at line-noise frequencies to zero</span>
 <span class="n">xf_filtered</span> <span class="o">=</span> <span class="n">xf</span> <span class="o">*</span> <span class="n">rectangular_filter</span>  <span class="c1"># ... apply filter to data</span>
 </pre></div>
@@ -653,9 +865,26 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 <p>Before continuing, let’s visualize the filter and anticipate the impact on the frequency domain representation of the EEG data. We plot the variable <code class="docutils literal notranslate"><span class="pre">rectangular_filter</span></code>, the real part of <code class="docutils literal notranslate"><span class="pre">xf</span></code>, and their element-by-element product versus frequency.
 <a id="fig:4"></a></p>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">isorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>                       <span class="c1"># Sort the frequency axis</span>
+=======
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">isorted</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>                       <span class="c1"># Sort the frequency axis</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">isorted</span><span class="p">],</span> <span class="n">rectangular_filter</span><span class="p">[</span><span class="n">isorted</span><span class="p">])</span> <span class="c1"># Plot rectangular filter vs frequency</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">)</span>                               <span class="c1"># ... with axes labeled</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Naive square filter&#39;</span><span class="p">)</span>
@@ -689,9 +918,44 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 </div>
 <div class="python-note">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p>Recall that <code class="docutils literal notranslate"><span class="pre">faxis</span></code> starts with the positive frequencies and then jumps to the negative frequencies. To display clearly the plots requires an additional step:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>isorted = np.argsort(faxis)
 </pre></div>
+=======
+
+Recall that `faxis` starts with the positive frequencies and then jumps to the negative frequencies. To display clearly the plots requires an additional step:
+
+    isorted = argsort(faxis)
+
+where `isorted` are the indices that sort the frequency axis in ascending order. In the code above we use these indices to plot `rectangular_filter`, `xf` and `xf_filtered` according to the sorted values of `faxis`.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We find that the filter maintains a value of 1 at all frequencies except for small intervals near &plusmn;60 Hz, where the filter has a value of 0. Considering the frequency domain representation of the EEG data, we observe that the real part of <code>xf</code> exhibits large peaks at &plusmn;60 Hz; these peaks correspond to the dominant 60 Hz rhythm apparent in the time domain EEG data. To apply the filter, we multiply the filter by the frequency domain representation of the data at each frequency. The result is shown in orange above. The peaks at &plusmn;60 Hz are eliminated because the value of the filter is set to 0 near these frequencies. All other frequency components in the EEG data are preserved, unaltered by the filter. The frequency domain representation of the EEG data also consists of an imaginary component, which we did not plot. However, the filter is applied to both the real and imaginary parts of <code>xf</code> through the element-by-element multiplication that defines <code>xf_filtered</code>.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="Step-3.">Step 3.<a class="anchor-link" href="#Step-3."> </a></h5><p>Having eliminated the line noise in the frequency domain, we’re now ready to perform the third step of the naive rectangular filter. We apply the inverse Fourier transform, and transform the manipulated frequency domain signal back to the time domain:</p>
+
+</div>
+</div>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </div>
 <p>where <code class="docutils literal notranslate"><span class="pre">isorted</span></code> are the indices that sort the frequency axis in ascending order. In the code above we use these indices to plot <code class="docutils literal notranslate"><span class="pre">rectangular_filter</span></code>, <code class="docutils literal notranslate"><span class="pre">xf</span></code> and <code class="docutils literal notranslate"><span class="pre">xf_filtered</span></code> according to the sorted values of <code class="docutils literal notranslate"><span class="pre">faxis</span></code>.</p>
 </div><p>We find that the filter maintains a value of 1 at all frequencies except for small intervals near ±60 Hz, where the filter has a value of 0. Considering the frequency domain representation of the EEG data, we observe that the real part of <code class="docutils literal notranslate"><span class="pre">xf</span></code> exhibits large peaks at ±60 Hz; these peaks correspond to the dominant 60 Hz rhythm apparent in the time domain EEG data. To apply the filter, we multiply the filter by the frequency domain representation of the data at each frequency. The result is shown in orange above. The peaks at ±60 Hz are eliminated because the value of the filter is set to 0 near these frequencies. All other frequency components in the EEG data are preserved, unaltered by the filter. The frequency domain representation of the EEG data also consists of an imaginary component, which we did not plot. However, the filter is applied to both the real and imaginary parts of <code class="docutils literal notranslate"><span class="pre">xf</span></code> through the element-by-element multiplication that defines <code class="docutils literal notranslate"><span class="pre">xf_filtered</span></code>.</p>
@@ -755,6 +1019,70 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <img alt="_images/06_54_0.png" src="_images/06_54_0.png" />
 </div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>An initial visual inspection suggests that the filter has the desired effect; the 60 Hz line noise is dramatically reduced. The same is true in the frequency domain. 
+<a id="fig:5b"></a></p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Compute and plot the spectrum of the unfiltered signal.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span><span class="p">,</span> <span class="n">df</span><span class="p">),</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;xf&#39;</span><span class="p">)</span>
+<span class="c1"># Compute and plot the spectrum of the filtered signal.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span><span class="p">,</span> <span class="n">df</span><span class="p">),</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">xnew</span><span class="o">.</span><span class="n">real</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;xf_filtered&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (dB)&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-5b.png&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/06/filtering-scalp-eeg_54_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <p>The spectrum of the original signal matches the spectrum of the filtered signal at all frequencies except near 60 Hz, where the power spectral density of the filtered signal is dramatically reduced.</p>
 <p>These initial observations suggest that the naive filter is performing quite well and achieving its intended purpose. Yet something is amiss. Consider an expanded view of the filtered signal near the large, brief increase in voltage at t ≈ 0.2 s.
 <a id="fig:5c"></a></p>
@@ -784,13 +1112,30 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <h4>Impulse response.<a class="headerlink" href="#impulse-response" title="Permalink to this headline">¶</a></h4>
 <p>So far we’ve characterized the naive rectangular filter by its impact in the frequency domain. To further characterize this filter, we examine its behavior in the time domain by computing the <em>impulse response</em>. As the name suggests, the impulse response indicates the filter’s response to a simple input signal consisting of a single brief impulse. The impulse, although simple in the time domain, possesses spectral content across a wide frequency range; it takes many sinusoids to represent a sharp object like an impulse. In this way, the impulse probes how the filter behaves to input with rich spectral content. We implement the impulse response as follows:
 <a id="fig:6a"></a></p>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">impulse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">rectangular_filter</span><span class="p">)</span>  <span class="c1"># Define the input signal,</span>
+=======
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">impulse</span> <span class="o">=</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">rectangular_filter</span><span class="p">)</span>  <span class="c1"># Define the input signal,</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">impulse</span><span class="p">[</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                          <span class="c1"># ... with an impulse at the midpoint.</span>
 <span class="n">impulsef</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">impulse</span><span class="p">)</span> <span class="o">*</span> <span class="n">rectangular_filter</span> <span class="c1"># Apply naive filter,</span>
 <span class="n">impulse_response</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">impulsef</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>       <span class="c1"># ... and iFT back to time domain</span>
-<span class="n">lag_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># Define lag axis,</span>
+<span class="n">lag_axis</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>   <span class="c1"># Define lag axis,</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">()</span>                         <span class="c1"># ... and plot the results.</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lag_axis</span><span class="p">,</span> <span class="n">impulse_response</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;impulse response&quot;</span><span class="p">)</span>
@@ -843,12 +1188,44 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <p>The impulse response provides important insights into the behavior of the naive rectangular filter: an impulse occurring in the original signal impacts all time points in the resulting filtered signal through small-amplitude 60 Hz fluctuations.</p>
 <p>We are concerned about this impulse response for the naive rectangular filter. We find that an impulse, initially localized to a single index in time, becomes broadly distributed in time upon filtering. To further illustrate the impact of the naive rectangular filter, let’s consider a more direct method to apply a filter and compute the impulse response. Up to this point, we applied the filter by first transforming the input signal to the frequency domain, then performing an element-by-element multiplication of the input signal and filter, and finally transforming the result back to the time domain. We can avoid these transformations by remembering the following important fact.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Multiplication in the frequency domain is equivalent to convolution in the time domain.</strong></p>
 </div><p>Therefore, as an alternative method for computing the impulse response, we convolve the impulse with the time domain representation of the filter. By doing so, we no longer need to transform to and from the frequency domain.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i_rectangular_filter</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">rectangular_filter</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>  <span class="c1"># Transform the filter to the time domain,</span>
 <span class="n">impulse_response_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>                 <span class="c1"># ... and define the impulse response,</span>
+=======
+
+**Multiplication in the frequency domain is equivalent to convolution in the time domain.**
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Therefore, as an alternative method for computing the impulse response, we convolve the impulse with the time domain representation of the filter. By doing so, we no longer need to transform to and from the frequency domain.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">i_rectangular_filter</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">rectangular_filter</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>  <span class="c1"># Transform the filter to the time domain,</span>
+<span class="n">impulse_response_t</span> <span class="o">=</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>                 <span class="c1"># ... and define the impulse response,</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>                                   <span class="c1"># ... at each time point</span>
     <span class="n">inds</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ii</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span> <span class="o">%</span> <span class="n">N</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>           <span class="c1"># ... by computing the convolution</span>
     <span class="n">impulse_response_t</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">i_rectangular_filter</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span> <span class="o">*</span> <span class="n">impulse</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -890,6 +1267,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 <p>We have now examined two equivalent methods of filter application: through multiplication in the frequency domain or through convolution in the time domain. Both approaches provide insight into the impact of the naive rectangular filter. The frequency domain representation is easier to interpret. We designed this filter in the frequency domain to eliminate signal components near 60 Hz, which we implemented through an abrupt decrease in the frequency domain representation of the filter. It’s relatively easy to envision that this filter eliminates signal features near ±60 Hz and preserves features at other frequencies<a href="#fig:4" class="fig"><sup>fig</sup><img src="imgs/6-4.png"></a>.</p>
 <p>The time domain representation of the naive rectangular filter is more complicated. While the impact of the filter in the frequency domain is limited, the impact in the time domain is broad. The impulse response decays at times away from the impulse; however, these contributions do remain. This example illustrates the necessary trade-off between the time and frequency domains. Namely, the sharp transition bands, or roll-off in the frequency domain (i.e., the nearly vertical rectangular-shaped transitions) correspond to a broad impulse response function that extends over many lags in the time domain. There’s no escaping this fact: the sharper we make the filter’s transitions in the frequency domain, the broader its effects in time. Again, we make this trade-off to implement the sharp roll-off of the naive rectangular filter; the transition band is narrow (a precipitous drop) in frequency and therefore requires many values in time.</p>
+<<<<<<< HEAD:_book/_build/html/06.html
 <p>Through the interpretation of filtering as convolution in time, we gain additional insight into the naive rectangular filter’s impact. When we looked closely, we identified suspicious behavior in the; we found that after filtering, the large-amplitude discharge was surrounded by small-amplitude oscillations with frequency near 60 Hz. Under the interpretation of filtering as convolution, we expect that a sudden large change in the input signal (i.e., the brief discharge in the EEG) will clearly impact the resulting filtered signal across an extended interval of time. Indeed, because the brief EEG discharge is so large, the small amplitude oscillations surrounding the central peak of the impulse function are apparent in the filtered EEG signal. For these brief large-amplitude peaks in the EEG data, the temporal impact of the filter is obvious in the filtered signal. However, this temporal impact occurs throughout the filtered signal; using the naive rectangular filter, each time point in the original signal impacts every time point in the <a class="reference external" href="#fig:5c">filtered signal</a><span class="fig"><sup>fig</sup><img src="imgs/6-5c.png"></span>.</p>
 <p>We conclude this section by noting that these results are analogous to our discussion of the rectangular window function in <a class="reference internal" href="04.html"><span class="doc">chapter 4</span></a>. In that chapter, we applied a rectangular taper in the time domain and showed that this produced broad effects in the frequency domain. Here, we instead apply an (inverted) rectangular taper in the frequency domain and find broad effects in the time domain. The fundamental concept is that the Fourier transform of a sharp transition in one domain (in this case, the abrupt edge of a rectangular taper) produces broad effects in the other domain.</p>
 <p><a class="reference external" href="#top">Back to Top</a></p>
@@ -901,6 +1279,37 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/EEG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load,</span>
+=======
+<p>Through the interpretation of filtering as convolution in time, we gain additional insight into the naive rectangular filter’s impact. When we looked closely, we identified suspicious behavior in the; we found that after filtering, the large-amplitude discharge was surrounded by small-amplitude oscillations with frequency near 60 Hz. Under the interpretation of filtering as convolution, we expect that a sudden large change in the input signal (i.e., the brief discharge in the EEG) will clearly impact the resulting filtered signal across an extended interval of time. Indeed, because the brief EEG discharge is so large, the small amplitude oscillations surrounding the central peak of the impulse function are apparent in the filtered EEG signal. For these brief large-amplitude peaks in the EEG data, the temporal impact of the filter is obvious in the filtered signal. However, this temporal impact occurs throughout the filtered signal; using the naive rectangular filter, each time point in the original signal impacts every time point in the <a href="#fig:5c">filtered signal</a><span class="fig"><sup>fig</sup><img src="imgs/6-5c.png"></span>.</p>
+<p>We conclude this section by noting that these results are analogous to our discussion of the rectangular window function in <a href="../04">notebook 4</a>. In that notebook, we applied a rectangular taper in the time domain and showed that this produced broad effects in the frequency domain. Here, we instead apply an (inverted) rectangular taper in the frequency domain and find broad effects in the time domain. The fundamental concept is that the Fourier transform of a sharp transition in one domain (in this case, the abrupt edge of a rectangular taper) produces broad effects in the other domain.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Back to Top</a></p>
+<h4 id="A-naive-Hanning-filter.">A naive Hanning filter.<a class="anchor-link" href="#A-naive-Hanning-filter."> </a></h4><p>In the previous section, we developed and applied a naive rectangular filter. We used the word “rectangular” to indicate the rectangular shape of the <a href="#fig:4">filter</a><span class="sup">fig<img src="imgs/6-4.png"></span> in the frequency domain. Although well-behaved in the frequency domain, the naive rectangular filter produces undesired effects in the time domain; namely, the filter’s sharp transitions in the frequency domain produce wide-ranging effects in the time domain. These long-range temporal effects are an unwanted feature of the filter. To reduce these effects, we propose an alternative filter that softens the sharp transitions in the frequency domain and makes these transitions more gradual. The idea is simple: replace the rectangular function in the original naive filter with a different, smoother function. In what follows we implement many of same procedures employed in the previous section and interpret how these changes affect the filtered EEG data.</p>
+<p>Let’s begin our filter design in the frequency domain. Our goal is to eliminate the 60 Hz component (i.e., the electrical noise) from the EEG signal without introducing long-lasting temporal effects. To do so, instead of the naive rectangular function employed in our first filter, we’ll use a smooth Hanning function (first introduced in our computations of the spectrum in <a href="../04">notebook 4</a>). First, we need to load the data and identify the indices corresponding to &plusmn;60 Hz, and then apply a Hanning window centered at each of these indices. Some of the following commands are redundant with commands we used previously, but they are repeated here for completeness.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;EEG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load,</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span>            <span class="c1"># ... the EEG data,</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>             <span class="c1"># ... and the time axis.</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">eeg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                   <span class="c1"># Analyze the first trial.</span>
@@ -914,10 +1323,10 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
                              <span class="c1"># ... and find indices within win of 60 Hz.</span>
 <span class="n">inds</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">60</span> <span class="o">-</span> <span class="n">win</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="mi">60</span> <span class="o">+</span> <span class="n">win</span> <span class="o">*</span> <span class="n">df</span><span class="p">))</span>
 
-<span class="n">hann_filter</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># Define filter in frequency domain.</span>
-<span class="n">hann_filter</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">hanning</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">win</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">hanning</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">win</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="n">hann_filter</span> <span class="o">=</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="c1"># Define filter in frequency domain.</span>
+<span class="n">hann_filter</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="mi">1</span> <span class="o">-</span> <span class="n">hanning</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">win</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">hanning</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">win</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
 
-<span class="n">isorted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>                  <span class="c1"># Sort the frequency axis.</span>
+<span class="n">isorted</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>                  <span class="c1"># Sort the frequency axis.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">isorted</span><span class="p">],</span> <span class="n">hann_filter</span><span class="p">[</span><span class="n">isorted</span><span class="p">])</span>   <span class="c1"># Plot the filter.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">)</span>
@@ -945,7 +1354,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <span class="sd">    time domain) using convolution.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">impulse</span><span class="p">)</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">impulse</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">impulse</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="n">inds</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ii</span> <span class="o">+</span> <span class="n">n</span><span class="p">)</span> <span class="o">%</span> <span class="n">N</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
         <span class="n">response</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">impulse</span><span class="p">[</span><span class="n">inds</span><span class="p">]</span> <span class="o">*</span> <span class="n">filt</span><span class="p">)</span>
@@ -954,14 +1363,26 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 </div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">impulse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># Define the input signal,</span>
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">impulse</span> <span class="o">=</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>              <span class="c1"># Define the input signal,</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">impulse</span><span class="p">[</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>                     <span class="c1"># ... with impulse at the midpoint</span>
 <span class="n">i_hann_filter</span> <span class="o">=</span> <span class="n">ifft</span><span class="p">(</span><span class="n">hann_filter</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>  <span class="c1"># Transform filter to time domain,</span>
                                         <span class="c1"># ... and compute the impulse response by convolution.</span>
 <span class="n">impulse_response_t</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">i_hann_filter</span><span class="p">,</span> <span class="n">impulse</span><span class="p">)</span>
-<span class="n">lag_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># Define the lag axis for plotting</span>
+<span class="n">lag_axis</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span>    <span class="c1"># Define the lag axis for plotting</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">lag_axis</span><span class="p">,</span> <span class="n">impulse_response_t</span><span class="p">)</span>      <span class="c1"># Display the result</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Impulse response&#39;</span><span class="p">)</span>
@@ -1015,6 +1436,89 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-9b&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
+<<<<<<< HEAD:_book/_build/html/06.html
+=======
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/06/filtering-scalp-eeg_86_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the first three lines of code above, the EEG data are first transformed to the frequency domain using the Fourier transform. Then the Hanning filter is applied through element-by-element multiplication. Finally, the filtered signal is transformed back to the time domain using the inverse Fourier transform.</p>
+<p>We can additionally compare the filters by looking at the spectra near 60 Hz:</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">xnew</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rectangle filter&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">xnew_h</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;hanning filter&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span> <span class="mi">80</span><span class="p">])</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power (dB)&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Power spectra&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-9a&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/06/filtering-scalp-eeg_88_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </div>
 </div>
 <div class="cell_output docutils container">
@@ -1051,9 +1555,20 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <a id="advanced-filters"></a></p>
 </div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="section" id="more-sophisticated-filtering">
 <h3>More Sophisticated Filtering<a class="headerlink" href="#more-sophisticated-filtering" title="Permalink to this headline">¶</a></h3>
 <p>In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous modules when studying the spectrum (chapters <a class="reference internal" href="03.html"><span class="doc">3</span></a> and <a class="reference internal" href="04.html"><span class="doc">4</span></a>). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.</p>
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="#top">Back to Top</a>
+<a id="advanced-filters"></a></p>
+<h3 id="More-Sophisticated-Filtering">More Sophisticated Filtering<a class="anchor-link" href="#More-Sophisticated-Filtering"> </a></h3><p>In the previous section, we designed two filters. To do so, we started in the frequency domain and applied concepts developed in previous notebooks when studying the spectrum (notebooks <a href="../03">3</a> and <a href="../04">4</a>). We undertook this initial approach for one purpose: to build intuition. Developing such intuition is critical; without it, filtering would be hard to understand. However, in practice, we do not recommend the use of the naive rectangular filter or the Hanning filter. This point is so important, we further emphasize it.</p>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <div class="warning">
 <p>Do <em>not</em> use the naive rectangular filter or the Hanning filter on your data.</p>
 </div>
@@ -1069,7 +1584,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>                                        <span class="c1"># Define the filter order.</span>
 <span class="n">Wn</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">/</span> <span class="n">fNQ</span>                                  <span class="c1"># Define the cutoff frequency,</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">firwin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Wn</span><span class="p">)</span>                              <span class="c1"># ... build the lowpass filter,</span>
-<span class="n">bz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;constant&#39;</span><span class="p">)</span>         <span class="c1"># ... amend the filter with leading zeros,</span>
+<span class="n">bz</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="n">N</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;constant&#39;</span><span class="p">)</span>         <span class="c1"># ... amend the filter with leading zeros,</span>
 <span class="n">impulse_response</span> <span class="o">=</span> <span class="n">convolution</span><span class="p">(</span><span class="n">impulse</span><span class="p">,</span> <span class="n">bz</span><span class="p">)</span>  <span class="c1"># ... and apply it to the impulse.</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">lag_axis</span><span class="p">,</span> <span class="n">impulse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;impulse&#39;</span><span class="p">)</span>
@@ -1088,12 +1603,44 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <p>Visual inspection reveals the relation between the original impulse and the filtered impulse following application of the FIR filter. We notice an important difference between the impulse response of the FIR filter and the impulse responses of the naive rectangular and Hanning filters. For the FIR filter, the peak impulse response <em>follows</em> the impulse. The reason for this delay is that the FIR filter is <em>causal</em>; to compute the convolution at any time requires only past and current values of the input signal. The naive rectangular and Hanning filters required both past and future values of the input signal. Those filters were noncausal.</p>
 <p>To further explore this idea, let’s examine in more detail the computation of the FIR filter. Notice that to design the filter we call the <code class="docutils literal notranslate"><span class="pre">firwin()</span></code> with two inputs. The first input specifies the filter order, which corresponds to the number of nonzero terms in the filter. We specify a filter order of <code class="docutils literal notranslate"><span class="pre">n=100</span></code>. We next specify the upper frequency for the lowpass filter, which we set to 30 Hz. Notice that the frequency is specified as a fraction of the Nyquist frequency. In this case, we implement a lowpass filter; this filter will pass frequencies below 30 Hz and stop frequencies above 30 Hz. We choose a lowpass filter in this case for physiological reasons; scalp EEG data are often corrupted by muscle artifacts at frequencies above 20–30 Hz. Therefore, in an attempt to better isolate true brain signals and extract an evoked response, we apply a lowpass filter to the EEG data.</p>
 <div class="python-note">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong><em>Note</em></strong>: If we had wanted to make a highpass filter, we could have indicated this with additional arguments to <code class="docutils literal notranslate"><span class="pre">firwin()</span></code>; use <code class="docutils literal notranslate"><span class="pre">firwin?</span></code> to read the documentation.</p>
 </div><p>To examine this filter, let’s break down what it does and visualize it in the time and frequency domains. In the time domain, we have already computed the impulse response using the convolution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">impulse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;impulse&#39;</span><span class="p">)</span>                          <span class="c1"># Plot the original impulse,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">impulse_response</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;impulse response&quot;</span><span class="p">)</span>  <span class="c1"># ... and the impulse response.</span>
+=======
+
+**_Note_**: If we had wanted to make a highpass filter, we could have indicated this with additional arguments to `firwin()`; use `firwin?` to read the documentation.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To examine this filter, let’s break down what it does and visualize it in the time and frequency domains. In the time domain, we have already computed the impulse response using the convolution:</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">impulse</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;impulse&#39;</span><span class="p">)</span>                          <span class="c1"># Plot the original impulse,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">impulse_response</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;impulse response&quot;</span><span class="p">)</span>  <span class="c1"># ... and the impulse response.</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">ylim</span><span class="p">([</span><span class="o">-.</span><span class="mi">02</span><span class="p">,</span> <span class="o">.</span><span class="mi">08</span><span class="p">])</span>                                                             <span class="c1"># ... with axes labeled</span>
 <span class="n">legend</span><span class="p">()</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-10a&#39;</span><span class="p">)</span>
@@ -1107,9 +1654,28 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 <p>Now, let’s examine this computation closely to understand why there is a lag. To compute the FIR filter, we first constructed the augmented filter vector. To align the filter peak with the impulse requires that we (circularly) shift the augmented filter vector. In this example, the peak in the augmented filter vector (<code class="docutils literal notranslate"><span class="pre">bz</span></code>) occurs at index <span class="math notranslate nohighlight">\(N - n/2\)</span>, or equivalently, at time <span class="math notranslate nohighlight">\((N - n/2) \cdot dt\)</span> = 0.55 s, where <span class="math notranslate nohighlight">\(N\)</span> is the length of the EEG data, and <span class="math notranslate nohighlight">\(n\)</span> is the filter order. We must therefore (circularly) shift the augmented filter vector by <span class="math notranslate nohighlight">\(N/2 + n/2\)</span>, or equivalently, <span class="math notranslate nohighlight">\((N/2 + n/2) \cdot dt\)</span> = 0.55 s, to align it with the peak of the impulse (which occurs at index <span class="math notranslate nohighlight">\(N/2\)</span>, or equivalently, at time <span class="math notranslate nohighlight">\(N/2 \cdot dt\)</span> = 0.5 s). The largest value in the resulting convolution therefore occurs at an index <span class="math notranslate nohighlight">\(n/2\)</span> (or equivalently, 0.05 s) past the impulse in the original signal. The delay between the impulse and impulse response in the plot above corresponds to <span class="math notranslate nohighlight">\(n/2\)</span> indices, or 0.05 s.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> What are the implications of the delay induced by the FIR filter? How might this delay impact subsequent analysis?</p>
 <p><strong>A.</strong> We consider this question in more detail later in this module.</p>
 </div><p>We may also examine the filter in the frequency domain. To do so, we compute and plot the <em>magnitude response</em>:
+=======
+
+**Q.** What are the implications of the delay induced by the FIR filter? How might this delay impact subsequent analysis?
+
+**A.** We consider this question in more detail later in this notebook.
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We may also examine the filter in the frequency domain. To do so, we compute and plot the <em>magnitude response</em>:
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <a id="fig:10b"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1117,7 +1683,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <span class="n">Mb</span> <span class="o">=</span> <span class="n">bf</span> <span class="o">*</span> <span class="n">bf</span><span class="o">.</span><span class="n">conj</span><span class="p">();</span>            <span class="c1"># ...and compute the magnitude response.</span>
 <span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>               <span class="c1"># Define the frequency resolution,</span>
 <span class="n">faxis</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">);</span>         <span class="c1"># ...create frequency axis,</span>
-<span class="n">sort_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>  <span class="c1"># ...with axes sorted,</span>
+<span class="n">sort_order</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>  <span class="c1"># ...with axes sorted,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">sort_order</span><span class="p">],</span> <span class="n">Mb</span><span class="o">.</span><span class="n">real</span><span class="p">[</span><span class="n">sort_order</span><span class="p">])</span>   <span class="c1"># ...plot magnitude response.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
@@ -1125,6 +1691,41 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/6-10b&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
+<<<<<<< HEAD:_book/_build/html/06.html
+=======
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="jb_output_wrapper }}">
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="../images/06/filtering-scalp-eeg_100_0.png"
+>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We take the Fourier transform of the filter, with zero padding (see <a href="../04">notebook 4</a>) to match the size of the EEG data, and compute the product of the Fourier transform of the filter and its complex conjugate. We then define the frequency axis, and plot the sorted frequency axis to avoid any unwanted lines.</p>
+
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </div>
 </div>
 <div class="cell_output docutils container">
@@ -1156,10 +1757,28 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 <p>Inspection of the resulting filtered signal reveals important features of the new time series. Perhaps the most prominent change is the large reduction in the 60 Hz electrical noise. Without the contamination of this noise, we now observe a transient oscillatory event near 0.5 s. As expected, the spectrum is now dominated by low-frequency activity, namely, rhythms below 30 Hz:
 <a id="fig:11b"></a></p>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>                 <span class="c1"># Spectrum of data.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">xnew_fir_conv</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x filtered&#39;</span><span class="p">)</span> <span class="c1"># Spectrum of filtered data.</span>
+=======
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>                 <span class="c1"># Spectrum of data.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[:</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">],</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">spectrum</span><span class="p">(</span><span class="n">xnew_fir_conv</span><span class="p">,</span> <span class="n">t</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x filtered&#39;</span><span class="p">)</span> <span class="c1"># Spectrum of filtered data.</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Freq (Hz)&#39;</span><span class="p">)</span>
@@ -1236,10 +1855,20 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <p><a class="reference external" href="#top">Back to Top</a></p>
 </div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="section" id="what-s-phase-got-to-do-with-it-a-id-phase-a">
 <h3>What’s Phase Got to Do with It?<a id="phase"></a><a class="headerlink" href="#what-s-phase-got-to-do-with-it-a-id-phase-a" title="Permalink to this headline">¶</a></h3>
 <p>We saw in the previous section that the FIR filter (implemented using the <code class="docutils literal notranslate"><span class="pre">lfilter()</span></code> function) introduced a time shift in the resulting signal; this shift appeared in both the <a href="#fig:10a" class="fig">impulse response<span><img src="imgs/6-10a.png"></span></a> and in application to the <a href="#fig:11a" class="fig">EEG signal<span><img src="imgs/6-11a.png"></span></a>. In many applications, we’re interested in the precise timing of neural events. For example, if we’d like to understand the EEG response following a stimulus presentation, we must carefully preserve the timing of EEG features. We discuss in <a class="reference internal" href="07.html"><span class="doc">chapter 7</span></a> a specific context in which such timing of features is important to preserve (e.g., cross-frequency coupling). In these contexts and others, shifts in the EEG signal must be either well understood and accounted for, or avoided.</p>
 <p>To assess how a filter impacts a signal, we develop another visualization technique. Recall that the Fourier transform of a signal consists of both a real and an imaginary component, or equivalently, a magnitude and phase in the complex plane (see, for example, the discussion of phase in <a class="reference internal" href="05.html"><span class="doc">chapter 5</span></a>). We have already discussed how to visualize the <a href="#fig:10b" class="fig">magnitude response<span><img src="imgs/6-10b.png"></span></a> of a filter. We now consider a second visualization in the frequency domain: the phase response. The phase response is similar to the magnitude response in that both are frequency domain visualizations of the filter. The primary difference is that the phase response illustrates the impact of the filter on phase at each frequency.</p>
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We saw in the previous section that the FIR filter (implemented using the <code>lfilter()</code> function) introduced a time shift in the resulting signal; this shift appeared in both the <a href="#fig:10a" class="fig">impulse response<span><img src="imgs/6-10a.png"></span></a> and in application to the <a href="#fig:11a" class="fig">EEG signal<span><img src="imgs/6-11a.png"></span></a>. In many applications, we’re interested in the precise timing of neural events. For example, if we’d like to understand the EEG response following a stimulus presentation, we must carefully preserve the timing of EEG features. We discuss in <a href="../07">notebook 7</a> a specific context in which such timing of features is important to preserve (e.g., cross-frequency coupling). In these contexts and others, shifts in the EEG signal must be either well understood and accounted for, or avoided.</p>
+<p>To assess how a filter impacts a signal, we develop another visualization technique. Recall that the Fourier transform of a signal consists of both a real and an imaginary component, or equivalently, a magnitude and phase in the complex plane (see, for example, the discussion of phase in <a href="../05">notebook 5</a>). We have already discussed how to visualize the <a href="#fig:10b" class="fig">magnitude response<span><img src="imgs/6-10b.png"></span></a> of a filter. We now consider a second visualization in the frequency domain: the phase response. The phase response is similar to the magnitude response in that both are frequency domain visualizations of the filter. The primary difference is that the phase response illustrates the impact of the filter on phase at each frequency.</p>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <p>Let’s compute the phase response for the lowpass FIR filter. We first construct this filter using the same procedure as above, and then compute and display the phase response. Repeating some commands from previous sections for completeness,</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1253,7 +1882,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>                        <span class="c1"># Define the Nyquist frequency,</span>
 <span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">dt</span><span class="p">)</span>                       <span class="c1"># ... and the frequency resolution,</span>
 <span class="n">faxis</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">);</span>                 <span class="c1"># ... create frequency axis,</span>
-<span class="n">sort_order</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>          <span class="c1"># ... with axes sorted.</span>
+<span class="n">sort_order</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">(</span><span class="n">faxis</span><span class="p">)</span>          <span class="c1"># ... with axes sorted.</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>                                 <span class="c1"># Define the filter order,</span>
 <span class="n">Wn</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">/</span> <span class="n">fNQ</span>                           <span class="c1"># ... specify the cutoff frequency,</span>
@@ -1275,6 +1904,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 </div>
 <p>We first load the data and define the frequency axis. We then construct the lowpass FIR filter and plot the phase response versus frequency (with axes sorted to avoid spurious features in the plot). Note that we use the function <code class="docutils literal notranslate"><span class="pre">angle()</span></code> to determine the phase of the vector <code class="docutils literal notranslate"><span class="pre">bf</span></code>. We focus on the passband (from -30 Hz to 30 Hz) because signals outside of this band are greatly reduced by the filter and not relevant in the filtered signal.</p>
 <div class="question">
+<<<<<<< HEAD:_book/_build/html/06.html
 <p><strong>Q.</strong> Examine the phase response. How does the phase vary with frequency within the passband (i.e., for frequencies between ±30 Hz)?</p>
 <p><strong>A.</strong> Visual inspection reveals that the phase response varies with frequency. This variation is linear except for discrete jumps occurring at ±<span class="math notranslate nohighlight">\(\pi\)</span>. To make this linear variation clear, we can unwrap the phase:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>plot(faxis[sort_order], np.unwrap(angle(bf[sort_order])))
@@ -1284,6 +1914,30 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">sort_order</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">unwrap</span><span class="p">(</span><span class="n">angle</span><span class="p">(</span><span class="n">bf</span><span class="p">[</span><span class="n">sort_order</span><span class="p">])))</span>  <span class="c1"># Plot the unwrapped phase response</span>
+=======
+
+<p><strong>Q.</strong> Examine the phase response. How does the phase vary with frequency within the passband (i.e., for frequencies between &plusmn;30 Hz)?</p>
+<p><strong>A.</strong> Visual inspection reveals that the phase response varies with frequency. This variation is linear except for discrete jumps occurring at &plusmn;$\pi$. To make this linear variation clear, we can unwrap the phase:</p>
+
+<pre><code>plot(faxis[sort_order], unwrap(angle(bf[sort_order])))
+
+</code></pre>
+<p>Notice the application of the <code>unwrap</code> function to the angle computed in this line of code. With the phase unwrapped, the smooth and linear variation in the phase response versus frequency becomes clear. The wrapped phase response allows us to identify frequencies at which the filter phase advances the signal (e.g., when the phase response is positive, such as at 15 Hz), when the filter phase delays the signal (e.g., when the phase response is negative, such as at 25 Hz), or when the filter leaves the phase unchanged (e.g., when the phase is zero, such as at 20 Hz).</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">[</span><span class="n">sort_order</span><span class="p">],</span> <span class="n">unwrap</span><span class="p">(</span><span class="n">angle</span><span class="p">(</span><span class="n">bf</span><span class="p">[</span><span class="n">sort_order</span><span class="p">])))</span>  <span class="c1"># Plot the unwrapped phase response</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">])</span>                         <span class="c1"># Examine a specific frequency range,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>                <span class="c1"># ... with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Phase (rad)&#39;</span><span class="p">)</span>
@@ -1298,12 +1952,30 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 </div>
 <p>Analysis of the phase response for the FIR filter shows that, consistent with our observations of the impulse response and filtered EEG data, the FIR filter alters the phase of the original signal. To eliminate this shift introduced by the filter, we apply the same filter twice to the data. First, we apply the FIR filter to the original input signal, just as we did to create the lowpass filtered EEG. This filtering operation introduces a shift (of size n/2 indices, or 0.05 s for our data) in the resulting EEG (e.g., <a href="#fig:10a" class="fig">see above<span><img src="imgs/6-10a.png"></span></a>). Second, we reverse the filtered signal and then apply this same FIR filter to the reversed sequence. The outcome of this second filtering operation is our desired signal: the filtered data without the phase shift.
 <a id="fig:13"></a></p>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>             <span class="c1"># Apply the filter to the EEG data,</span>
 <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>                  <span class="c1"># ... reverse the sequence,</span>
+=======
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>             <span class="c1"># Apply the filter to the EEG data,</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">flip</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>                  <span class="c1"># ... reverse the sequence,</span>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 <span class="n">x2</span> <span class="o">=</span> <span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>            <span class="c1"># ... reapply the filter,</span>
-<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">x2</span><span class="p">);</span>                 <span class="c1"># ... and reverse the sequence.</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">flip</span><span class="p">(</span><span class="n">x2</span><span class="p">);</span>                 <span class="c1"># ... and reverse the sequence.</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">()</span>              <span class="c1"># Plot the results</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -1318,6 +1990,25 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
+=======
+
+</div>
+</div>
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In these lines of code, we apply the FIR filter using <code>lfilter()</code>.The first line of code applies the filter once, and the resulting filtered signal is phase shifted relative to the original EEG. We then reverse the filtered signal. To do so, we redefine the variable <code>x1</code> using <code>flip()</code> to reverse the sequence. We then filter the reversed sequence, and reverse the result. The resulting double-filtered (and double-reversed) signal no longer exhibits phase distortion relative to the EEG; prominent features in the original EEG signal and the zero-phase filtered signal, such as the large-amplitude discharge, appear better aligned.</p>
+<p>In general, in neuroscience applications, it’s often useful to remove phase distortion through zero-phase filtering. The <a href="https://docs.scipy.org/doc/scipy/reference/signal.html">SciPy Signal module</a> provides a simple function to perform zero-phase filtering,</p>
+
+<pre><code>xnew_filtfilt = filtfilt(b, 1, x)  # Perform zero-phase filtering
+
+</code></pre>
+<p>The <code>filtfilt()</code> function applies the lowpass FIR filter defined by the parameters <code>b</code> to the data in the forward and reverse directions, and (ignoring transients at the beginning and end of the signal) matches our explicit approach to zero-phase filtering.</p>
+
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/06_123_0.png" src="_images/06_123_0.png" />
@@ -1362,7 +2053,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>                        <span class="c1"># Define the filter order</span>
 <span class="n">Wn</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">/</span> <span class="n">fNQ</span>                  <span class="c1"># ... and specify the cutoff frequency,</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">firwin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Wn</span><span class="p">)</span>              <span class="c1"># ... build lowpass filter.</span>
-<span class="n">eeg_lo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">eeg</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span>  <span class="c1"># Zero-phase filter each trial</span>
+<span class="n">eeg_lo</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">eeg</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">)])</span>  <span class="c1"># Zero-phase filter each trial</span>
 </pre></div>
 </div>
 </div>
@@ -1375,7 +2066,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mn</span> <span class="o">=</span> <span class="n">eeg_lo</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>      <span class="c1"># Compute mean of filtered EEG across trials (ERP)</span>
 <span class="n">sd</span> <span class="o">=</span> <span class="n">eeg_lo</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>       <span class="c1"># Compute std of filtered EEG data across trials.</span>
-<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>  <span class="c1"># Compute the std of the mean.</span>
+<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">K</span><span class="p">);</span>  <span class="c1"># Compute the std of the mean.</span>
 
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">)</span>                    <span class="c1"># Plot the ERP of the filtered data</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">);</span>  <span class="c1"># ... and the confidence intervals,</span>
@@ -1409,8 +2100,8 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>                             <span class="c1"># Define the number of time points per trial.</span>
 <span class="n">faxis</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)[:</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>        <span class="c1"># Define the positive frequency axis,</span>
 <span class="n">Sxx</span> <span class="o">=</span> <span class="p">[</span><span class="n">spectrum</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">eeg_lo</span><span class="p">]</span>  <span class="c1"># Compute the spectrum for each trial.</span>
-<span class="n">Sxxmn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Convert the result into an array and compute the mean.</span>
-<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxxmn</span><span class="p">))</span>  <span class="c1"># Plot the result in decibels vs frequency,</span>
+<span class="n">Sxxmn</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Convert the result into an array and compute the mean.</span>
+<span class="n">semilogx</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxxmn</span><span class="p">))</span>  <span class="c1"># Plot the result in decibels vs frequency,</span>
 <span class="n">xlim</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                        <span class="c1"># ... in limited frequency range,</span>
 <span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>                         <span class="c1"># ... and a limited power range,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>               <span class="c1"># ... with axes labeled.</span>
@@ -1432,6 +2123,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 </div><p><a class="reference external" href="#top">Back to Top</a></p>
 </div>
 </div>
+<<<<<<< HEAD:_book/_build/html/06.html
 <div class="section" id="summary-a-id-summary-a">
 <h2>Summary<a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
 <p>We began this chapter with visual analysis of the single-trial data and computation of an ERP and trial-averaged spectrum. The spectrum revealed a large peak at 60 Hz, consistent with visual inspection of the single-trial data. The ERP showed some suggestive evidence for an evoked response; however, we did not find a significant effect. We made an initial conjecture that an interesting evoked response might occur in the data but was hidden by the large-amplitude 60 Hz noise.</p>
@@ -1440,6 +2132,22 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
 <p>We concluded by reanalyzing the EEG data. To do so, we first lowpass filtered the data and then computed the evoked response and trial-averaged spectrum. After filtering, we found a significant evoked response in the data. Consistent with our initial conjecture, the evoked response was hidden by the high-amplitude 60 Hz noise present in the original signal. Upon filtering to remove this noise, the evoked response became clear.</p>
 <p>The design and application of filters is an enormous and rich field of study. The goal of this chapter is not a thorough discussion of filtering. Instead, we introduced only a handful of filtering concepts that motivate a basic understanding of filtering. These concepts extend directly from ideas developed to compute the spectrum in chapters <a class="reference internal" href="03.html"><span class="doc">3</span></a> and <a class="reference internal" href="04.html"><span class="doc">4</span></a>. Through tools such as the Fourier transform and convolution, we are able to visualize and apply filters in the frequency and time domains. These same tools apply and provide context for alternative approaches to filtering. For further details in the design and application of filters see [<a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a class="reference external" href="https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161">Priestley, 1981</a>]. We apply filters in <a class="reference internal" href="07.html"><span class="doc">chapter 7</span></a> to assess cross-frequency coupling in neural field data.</p>
 <p><a class="reference external" href="#top">Back to Top</a></p>
+=======
+
+<div class="jb_cell">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We began this notebook with visual analysis of the single-trial data and computation of an ERP and trial-averaged spectrum. The spectrum revealed a large peak at 60 Hz, consistent with visual inspection of the single-trial data. The ERP showed some suggestive evidence for an evoked response; however, we did not find a significant effect. We made an initial conjecture that an interesting evoked response might occur in the data but was hidden by the large-amplitude 60 Hz noise.</p>
+<p>To isolate the evoked response, we then focused on reducing the 60 Hz activity in the signal. We introduced the notion of filtering. We put forward two naive approaches, the naive rectangular filter, and the naive Hanning filter and developed these approaches in great detail. We defined the notion of an impulse response and examined how filtering may be equivalently applied in the frequency domain (through multiplication) or in the time domain (through convolution). Through these example filters, we observed the trade-offs that occur in the time and frequency domains. In particular, we observed that the sharp edge in the frequency domain of the naive rectangular filter created long-lasting effects in the time domain, acting to distort the original signal.</p>
+<p>We then discussed the application of a finite impulse response (FIR) filter to the data. We showed how this filter may be easily defined and applied in Python using packaged functions. We discussed procedures to visualize a filter’s behavior, including the magnitude response and the phase response. Finally, we discussed the importance of zero-phase filtering.</p>
+<p>We concluded by reanalyzing the EEG data. To do so, we first lowpass filtered the data and then computed the evoked response and trial-averaged spectrum. After filtering, we found a significant evoked response in the data. Consistent with our initial conjecture, the evoked response was hidden by the high-amplitude 60 Hz noise present in the original signal. Upon filtering to remove this noise, the evoked response became clear.</p>
+<p>The design and application of filters is an enormous and rich field of study. The goal of this notebook is not a thorough discussion of filtering. Instead, we introduced only a handful of filtering concepts that motivate a basic understanding of filtering. These concepts extend directly from ideas developed to compute the spectrum in notebooks <a href="../03">3</a> and <a href="../04">4</a>. Through tools such as the Fourier transform and convolution, we are able to visualize and apply filters in the frequency and time domains. These same tools apply and provide context for alternative approaches to filtering. For further details in the design and application of filters see [<a href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/permalink/f/1du03mk/ALMA_BOSU121668583370001161">Priestley, 1981</a>]. We apply filters in <a href="../07">notebook 7</a> to assess cross-frequency coupling in neural field data.</p>
+<p><a href="#top">Back to Top</a></p>
+
+</div>
+</div>
+>>>>>>> upstream/master:_build/06/filtering-scalp-eeg.html
 </div>
 </div>
 
