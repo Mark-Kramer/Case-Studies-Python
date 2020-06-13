@@ -740,3 +740,33 @@ title('My plot')
 xlabel('Time [s]')
 ylabel('Voltage [$\mu$ V]') # Wrap latex characters in $..$
 show()
+
+
+```{toctree}
+:hidden:
+:titlesonly:
+
+
+02.ipynb
+03.ipynb
+04.ipynb
+05.ipynb
+06.ipynb
+07.ipynb
+08.ipynb
+09.ipynb
+10.ipynb
+11.ipynb
+```
+
+
+```{toctree}
+:hidden:
+:titlesonly:
+:caption: Appendices
+
+A01.ipynb
+A02.ipynb
+A03.ipynb
+A04.ipynb
+```

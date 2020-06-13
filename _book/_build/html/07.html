@@ -83,55 +83,52 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="intro.html">1. Case-Studies-Python</a>
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="01.html">2. Python for the practicing neuroscientist</a>
+    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="04.html">5. The Power Spectrum (Part 2)</a>
+    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="05.html">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
-  </li>
-  <li class="">
-    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
+    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="active">
-    <a href="">8. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="">7. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">11. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">13. Backpropagation</a>
+    <a href="A01.html">12. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">14. The Hodgkin-Huxley model</a>
+    <a href="A02.html">13. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">15. The integrate and fire neuron</a>
+    <a href="A03.html">14. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">16. Training a Perceptron</a>
+    <a href="A04.html">15. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -334,8 +331,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/LFP-1.mat&#39;</span><span class="p">)</span>          <span class="c1"># Load the LFP data, </span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                     <span class="c1"># ... extract t, the time variable,</span>
@@ -353,22 +349,22 @@
 <span class="n">b</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">firwin</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">Wn</span><span class="p">,</span> <span class="n">nyq</span><span class="o">=</span><span class="n">fNQ</span><span class="p">,</span> <span class="n">pass_zero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">);</span>
 <span class="n">Vhi</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LFP</span><span class="p">);</span>    <span class="c1"># ... and apply it to the data.</span>
 
-<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vlo</span><span class="p">))</span>  <span class="c1"># Compute phase of low-freq signal</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vlo</span><span class="p">))</span>  <span class="c1"># Compute phase of low-freq signal</span>
 <span class="n">amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vhi</span><span class="p">))</span>       <span class="c1"># Compute amplitude of high-freq signal</span>
 
-<span class="n">p_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span> <span class="c1"># To compute CFC, define phase bins,</span>
-<span class="n">a_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ... variable to hold the amplitude,</span>
-<span class="n">p_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ... and variable to hold the phase.</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>      <span class="c1"># For each phase bin,</span>
+<span class="n">p_bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span><span class="n">pi</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span> <span class="c1"># To compute CFC, define phase bins,</span>
+<span class="n">a_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ... variable to hold the amplitude,</span>
+<span class="n">p_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># ... and variable to hold the phase.</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>      <span class="c1"># For each phase bin,</span>
     <span class="n">pL</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>					    <span class="c1">#... get lower phase limit,</span>
     <span class="n">pR</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>				    <span class="c1">#... get upper phase limit.</span>
     <span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="n">phi</span><span class="o">&gt;=</span><span class="n">pL</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">phi</span><span class="o">&lt;</span><span class="n">pR</span><span class="p">)</span>	    <span class="c1">#Find phases falling in this bin,</span>
-    <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">amp</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
-    <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p_mean</span><span class="p">,</span> <span class="n">a_mean</span><span class="p">)</span>                <span class="c1">#Plot the phase versus amplitude,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;High-frequency amplitude&#39;</span><span class="p">)</span>  <span class="c1">#... with axes labeled.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Low-frequency phase&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;CFC&#39;</span><span class="p">);</span>
+    <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">amp</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
+    <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">p_mean</span><span class="p">,</span> <span class="n">a_mean</span><span class="p">)</span>                <span class="c1">#Plot the phase versus amplitude,</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;High-frequency amplitude&#39;</span><span class="p">)</span>  <span class="c1">#... with axes labeled.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Low-frequency phase&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;CFC&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -444,15 +440,15 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the modules and set plot defaults</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/LFP-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the LFP data, </span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>             <span class="c1"># ... extract t, the time variable,</span>
 <span class="n">LFP</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;LFP&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and LFP, the voltage variable,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>             <span class="c1"># ... and plot the trace,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>       <span class="c1"># ... with axes labeled.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>             <span class="c1"># ... and plot the trace,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>       <span class="c1"># ... with axes labeled.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -463,12 +459,12 @@
 <p>Next, let’s take a closer look at an example 1 s interval of the data<a id="fig:7.1"></a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>            <span class="c1"># Plot the LFP data,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>            <span class="c1"># ... restrict the x-axis to a 1 s interval,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>           <span class="c1"># ... and tighten the y-axis.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>      <span class="c1"># Label the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>            <span class="c1"># Plot the LFP data,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>            <span class="c1"># ... restrict the x-axis to a 1 s interval,</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>           <span class="c1"># ... and tighten the y-axis.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>      <span class="c1"># Label the axes</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -485,25 +481,24 @@
 <p>Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>                   <span class="c1"># Import the NumPy module</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                     <span class="c1"># Define the sampling interval,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                     <span class="c1"># Define the sampling interval,</span>
 <span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                            <span class="c1"># ... the duration of the data,</span>
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">LFP</span><span class="p">)</span>                         <span class="c1"># ... and the no. of data points</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">LFP</span>              <span class="c1"># Multiply data by a Hanning taper</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>       <span class="c1"># Compute Fourier transform</span>
-<span class="n">Sxx</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">xf</span><span class="p">))</span>   <span class="c1"># Compute the spectrum</span>
-<span class="n">Sxx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span>                   <span class="c1"># Ignore complex components</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">hanning</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="n">LFP</span>              <span class="c1"># Multiply data by a Hanning taper</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>       <span class="c1"># Compute Fourier transform</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">xf</span><span class="p">))</span>   <span class="c1"># Compute the spectrum</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span>                   <span class="c1"># Ignore complex components</span>
 
 <span class="n">df</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">T</span>                           <span class="c1"># Define frequency resolution,</span>
 <span class="n">fNQ</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>                     <span class="c1"># ... and Nyquist frequency. </span>
 
-<span class="n">faxis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span> <span class="o">+</span> <span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>   <span class="c1"># Construct freq. axis</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span>  <span class="c1"># Plot spectrum vs freq.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>                   <span class="c1"># Set freq. range, </span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>                   <span class="c1"># ... and decibel range</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>         <span class="c1"># Label the axes</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [mV$^2$/Hz]&#39;</span><span class="p">);</span>
+<span class="n">faxis</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">fNQ</span> <span class="o">+</span> <span class="n">df</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>   <span class="c1"># Construct freq. axis</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">faxis</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">))</span>  <span class="c1"># Plot spectrum vs freq.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>                   <span class="c1"># Set freq. range, </span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>                   <span class="c1"># ... and decibel range</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>         <span class="c1"># Label the axes</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [mV$^2$/Hz]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -595,14 +590,14 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p>To understand the impact of this filtering operation on the LFP, let’s plot the results. More specifically, let’s plot the original signal, and the signal filtered in the low- and high-frequency bands, for an example 2 s interval of time:<a id="fig:7.3"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>         <span class="c1"># Create a figure with a specific size.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>                    <span class="c1"># Plot the original data vs time.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Vlo</span><span class="p">)</span>                    <span class="c1"># Plot the low-frequency filtered data vs time.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Vhi</span><span class="p">)</span>                    <span class="c1"># Plot the high-frequency filtered data vs time.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">24</span><span class="p">,</span> <span class="mi">26</span><span class="p">]);</span>                 <span class="c1"># Choose a 2 s interval to examine</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;LFP&#39;</span><span class="p">,</span> <span class="s1">&#39;Vlo&#39;</span><span class="p">,</span> <span class="s1">&#39;Vhi&#39;</span><span class="p">]);</span>  <span class="c1"># Add a legend.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>         <span class="c1"># Create a figure with a specific size.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">LFP</span><span class="p">)</span>                    <span class="c1"># Plot the original data vs time.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Vlo</span><span class="p">)</span>                    <span class="c1"># Plot the low-frequency filtered data vs time.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">Vhi</span><span class="p">)</span>                    <span class="c1"># Plot the high-frequency filtered data vs time.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">24</span><span class="p">,</span> <span class="mi">26</span><span class="p">]);</span>                 <span class="c1"># Choose a 2 s interval to examine</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]);</span>
+<span class="n">legend</span><span class="p">([</span><span class="s1">&#39;LFP&#39;</span><span class="p">,</span> <span class="s1">&#39;Vlo&#39;</span><span class="p">,</span> <span class="s1">&#39;Vhi&#39;</span><span class="p">]);</span>  <span class="c1"># Add a legend.</span>
 </pre></div>
 </div>
 </div>
@@ -787,7 +782,7 @@ ix \mbox{ if } f &lt; 0.
 <p>Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vlo</span><span class="p">))</span>  <span class="c1"># Compute phase of low-freq signal</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vlo</span><span class="p">))</span>  <span class="c1"># Compute phase of low-freq signal</span>
 <span class="n">amp</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">hilbert</span><span class="p">(</span><span class="n">Vhi</span><span class="p">))</span>       <span class="c1"># Compute amplitude of high-freq signal</span>
 </pre></div>
 </div>
@@ -837,18 +832,18 @@ ix \mbox{ if } f &lt; 0.
 <p>We now use this two-column vector to assess whether the phase and amplitude envelope are related. Let’s begin by plotting the average amplitude versus phase. We divide the phase interval into bins of size 0.1 beginning at <span class="math notranslate nohighlight">\(-\pi\)</span> and ending at <span class="math notranslate nohighlight">\(\pi.\)</span> the choice of bin size is somewhat arbitrary; this choice will work fine, but you might consider the impact of other choices.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
-<span class="n">a_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">p_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">a_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">p_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">pL</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>					    <span class="c1">#... lower phase limit,</span>
     <span class="n">pR</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>				    <span class="c1">#... upper phase limit.</span>
     <span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="n">phi</span><span class="o">&gt;=</span><span class="n">pL</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">phi</span><span class="o">&lt;</span><span class="n">pR</span><span class="p">)</span>	    <span class="c1">#Find phases falling in bin,</span>
-    <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">amp</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
-    <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p_mean</span><span class="p">,</span> <span class="n">a_mean</span><span class="p">)</span>                <span class="c1">#Plot the phase versus amplitude,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;High-frequency amplitude&#39;</span><span class="p">)</span>  <span class="c1">#... with axes labeled.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Low-frequency phase&#39;</span><span class="p">);</span>
+    <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">amp</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
+    <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">p_mean</span><span class="p">,</span> <span class="n">a_mean</span><span class="p">)</span>                <span class="c1">#Plot the phase versus amplitude,</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;High-frequency amplitude&#39;</span><span class="p">)</span>  <span class="c1">#... with axes labeled.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Low-frequency phase&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -881,30 +876,30 @@ ix \mbox{ if } f &lt; 0.
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_surrogates</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>                       <span class="c1">#Define no. of surrogates.</span>
-<span class="n">hS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_surrogates</span><span class="p">)</span>                <span class="c1">#Vector to hold h results.</span>
+<span class="n">hS</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n_surrogates</span><span class="p">)</span>                <span class="c1">#Vector to hold h results.</span>
 <span class="k">for</span> <span class="n">ns</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_surrogates</span><span class="p">):</span>             <span class="c1">#For each surrogate,</span>
-    <span class="n">ampS</span> <span class="o">=</span> <span class="n">amp</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">)]</span>   <span class="c1">#Resample amplitude,</span>
-    <span class="n">p_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="c1">#Define the phase bins</span>
-    <span class="n">a_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1">#Vector for average amps.</span>
-    <span class="n">p_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1">#Vector for phase bins.</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">ampS</span> <span class="o">=</span> <span class="n">amp</span><span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">)]</span>   <span class="c1">#Resample amplitude,</span>
+    <span class="n">p_bins</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span> <span class="c1">#Define the phase bins</span>
+    <span class="n">a_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1">#Vector for average amps.</span>
+    <span class="n">p_mean</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>   <span class="c1">#Vector for phase bins.</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">p_bins</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
         <span class="n">pL</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>					    <span class="c1">#... lower phase limit,</span>
         <span class="n">pR</span> <span class="o">=</span> <span class="n">p_bins</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>				    <span class="c1">#... upper phase limit.</span>
         <span class="n">indices</span><span class="o">=</span><span class="p">(</span><span class="n">phi</span><span class="o">&gt;=</span><span class="n">pL</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">phi</span><span class="o">&lt;</span><span class="n">pR</span><span class="p">)</span>	    <span class="c1">#Find phases falling in bin,</span>
-        <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">ampS</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
-        <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
+        <span class="n">a_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">ampS</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>	<span class="c1">#... compute mean amplitude,</span>
+        <span class="n">p_mean</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span><span class="p">([</span><span class="n">pL</span><span class="p">,</span> <span class="n">pR</span><span class="p">])</span>		<span class="c1">#... save center phase.</span>
     <span class="n">hS</span><span class="p">[</span><span class="n">ns</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">a_mean</span><span class="p">)</span><span class="o">-</span><span class="nb">min</span><span class="p">(</span><span class="n">a_mean</span><span class="p">)</span>        <span class="c1"># Store surrogate h.</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>In this code, we first define the number of surrogates (variable <code class="docutils literal notranslate"><span class="pre">n_surrogates</span></code>) and a vector to store the statistic <span class="math notranslate nohighlight">\(h\)</span> computed for each surrogate phase-amplitude vector (variable <code class="docutils literal notranslate"><span class="pre">hS</span></code>). Then, for each surrogate, we use the Python function <code class="docutils literal notranslate"><span class="pre">random.randint</span></code> to randomly permute the amplitude vector without replacement. We then use this permuted amplitude vector (variable <code class="docutils literal notranslate"><span class="pre">ampS</span></code>) and the original phase vector (variable <code class="docutils literal notranslate"><span class="pre">phi</span></code>) to compute <span class="math notranslate nohighlight">\(h\)</span>; this last step utilizes the Python code developed earlier to compute <code class="docutils literal notranslate"><span class="pre">h</span></code> for the original (unpermuted) data.</p>
+<p>In this code, we first define the number of surrogates (variable <code class="docutils literal notranslate"><span class="pre">n_surrogates</span></code>) and a vector to store the statistic <span class="math notranslate nohighlight">\(h\)</span> computed for each surrogate phase-amplitude vector (variable <code class="docutils literal notranslate"><span class="pre">hS</span></code>). Then, for each surrogate, we use the Python function <code class="docutils literal notranslate"><span class="pre">randint</span></code> to randomly permute the amplitude vector without replacement. We then use this permuted amplitude vector (variable <code class="docutils literal notranslate"><span class="pre">ampS</span></code>) and the original phase vector (variable <code class="docutils literal notranslate"><span class="pre">phi</span></code>) to compute <span class="math notranslate nohighlight">\(h\)</span>; this last step utilizes the Python code developed earlier to compute <code class="docutils literal notranslate"><span class="pre">h</span></code> for the original (unpermuted) data.</p>
 <p>Let’s now view the results of this resampling procedure by creating a histogram of the variable <code class="docutils literal notranslate"><span class="pre">hS</span></code>, and compare this distribution to the value of <code class="docutils literal notranslate"><span class="pre">h</span></code> we computed earlier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">hS</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;surrogates&#39;</span><span class="p">)</span>               <span class="c1"># Plot the histogram of hS, and save the bin counts.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Plot the observed h,</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>                                                 <span class="c1"># ... include a legend.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counts</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">hist</span><span class="p">(</span><span class="n">hS</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;surrogates&#39;</span><span class="p">)</span>               <span class="c1"># Plot the histogram of hS, and save the bin counts.</span>
+<span class="n">vlines</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Plot the observed h,</span>
+<span class="n">legend</span><span class="p">();</span>                                                 <span class="c1"># ... include a legend.</span>
 </pre></div>
 </div>
 </div>

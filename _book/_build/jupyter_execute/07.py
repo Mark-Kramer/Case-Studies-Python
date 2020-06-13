@@ -30,8 +30,7 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 
 from scipy.io import loadmat
 from scipy import signal
-import numpy as np
-import matplotlib.pyplot as plt
+from pylab import *
 
 data = loadmat('matfiles/LFP-1.mat')          # Load the LFP data, 
 t = data['t'][0]                     # ... extract t, the time variable,
@@ -49,22 +48,22 @@ n = 100;                             # ... and filter order,
 b = signal.firwin(n, Wn, nyq=fNQ, pass_zero=False, window='hamming');
 Vhi = signal.filtfilt(b, 1, LFP);    # ... and apply it to the data.
 
-phi = np.angle(signal.hilbert(Vlo))  # Compute phase of low-freq signal
+phi = angle(signal.hilbert(Vlo))  # Compute phase of low-freq signal
 amp = abs(signal.hilbert(Vhi))       # Compute amplitude of high-freq signal
 
-p_bins = np.arange(-np.pi,np.pi,0.1) # To compute CFC, define phase bins,
-a_mean = np.zeros(np.size(p_bins)-1) # ... variable to hold the amplitude,
-p_mean = np.zeros(np.size(p_bins)-1) # ... and variable to hold the phase.
-for k in range(np.size(p_bins)-1):      # For each phase bin,
+p_bins = arange(-pi,pi,0.1) # To compute CFC, define phase bins,
+a_mean = zeros(size(p_bins)-1) # ... variable to hold the amplitude,
+p_mean = zeros(size(p_bins)-1) # ... and variable to hold the phase.
+for k in range(size(p_bins)-1):      # For each phase bin,
     pL = p_bins[k]					    #... get lower phase limit,
     pR = p_bins[k+1]				    #... get upper phase limit.
     indices=(phi>=pL) & (phi<pR)	    #Find phases falling in this bin,
-    a_mean[k] = np.mean(amp[indices])	#... compute mean amplitude,
-    p_mean[k] = np.mean([pL, pR])		#... save center phase.
-plt.plot(p_mean, a_mean)                #Plot the phase versus amplitude,
-plt.ylabel('High-frequency amplitude')  #... with axes labeled.
-plt.xlabel('Low-frequency phase')
-plt.title('CFC');
+    a_mean[k] = mean(amp[indices])	#... compute mean amplitude,
+    p_mean[k] = mean([pL, pR])		#... save center phase.
+plot(p_mean, a_mean)                #Plot the phase versus amplitude,
+ylabel('High-frequency amplitude')  #... with axes labeled.
+xlabel('Low-frequency phase')
+title('CFC');
 
 <div class="question">
 
@@ -103,24 +102,24 @@ Let's begin with visual inspection of the LFP data.
 
 # Load the modules and set plot defaults
 from scipy.io import loadmat
-import matplotlib.pyplot as plt
+from pylab import *
 %matplotlib inline
 
 data = loadmat('matfiles/LFP-1.mat')  # Load the LFP data, 
 t = data['t'][0]             # ... extract t, the time variable,
 LFP = data['LFP'][0]         # ... and LFP, the voltage variable,
-plt.plot(t, LFP)             # ... and plot the trace,
-plt.xlabel('Time [s]')       # ... with axes labeled.
-plt.ylabel('Voltage [mV]');
+plot(t, LFP)             # ... and plot the trace,
+xlabel('Time [s]')       # ... with axes labeled.
+ylabel('Voltage [mV]');
 
 Next, let's take a closer look at an example 1 s interval of the data<a id="fig:7.1"></a>:
 
-plt.plot(t, LFP)            # Plot the LFP data,
-plt.xlim([4, 5])            # ... restrict the x-axis to a 1 s interval,
-plt.ylim([-2, 2])           # ... and tighten the y-axis.
-plt.xlabel('Time [s]')      # Label the axes
-plt.ylabel('Voltage [mV]')
-plt.show()
+plot(t, LFP)            # Plot the LFP data,
+xlim([4, 5])            # ... restrict the x-axis to a 1 s interval,
+ylim([-2, 2])           # ... and tighten the y-axis.
+xlabel('Time [s]')      # Label the axes
+ylabel('Voltage [mV]')
+show()
 
 Visual inspection immediately suggests a dominant low-frequency rhythm interspersed with smaller-amplitude blasts of high-frequency activity.
 
@@ -133,25 +132,24 @@ Visual inspection immediately suggests a dominant low-frequency rhythm intersper
 ### Spectral Analysis<a id="spectral-analysis"></a>
 Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a>
 
-import numpy as np                   # Import the NumPy module
 dt = t[1] - t[0]                     # Define the sampling interval,
 T = t[-1]                            # ... the duration of the data,
 N = len(LFP)                         # ... and the no. of data points
 
-x = np.hanning(N) * LFP              # Multiply data by a Hanning taper
-xf = np.fft.rfft(x - x.mean())       # Compute Fourier transform
-Sxx = 2*dt**2/T * (xf*np.conj(xf))   # Compute the spectrum
-Sxx = np.real(Sxx)                   # Ignore complex components
+x = hanning(N) * LFP              # Multiply data by a Hanning taper
+xf = rfft(x - x.mean())       # Compute Fourier transform
+Sxx = 2*dt**2/T * (xf*conj(xf))   # Compute the spectrum
+Sxx = real(Sxx)                   # Ignore complex components
 
 df = 1 / T                           # Define frequency resolution,
 fNQ = 1 / dt / 2                     # ... and Nyquist frequency. 
 
-faxis = np.arange(0, fNQ + df, df)   # Construct freq. axis
-plt.plot(faxis, 10 * np.log10(Sxx))  # Plot spectrum vs freq.
-plt.xlim([0, 200])                   # Set freq. range, 
-plt.ylim([-80, 0])                   # ... and decibel range
-plt.xlabel('Frequency [Hz]')         # Label the axes
-plt.ylabel('Power [mV$^2$/Hz]');
+faxis = arange(0, fNQ + df, df)   # Construct freq. axis
+plot(faxis, 10 * log10(Sxx))  # Plot spectrum vs freq.
+xlim([0, 200])                   # Set freq. range, 
+ylim([-80, 0])                   # ... and decibel range
+xlabel('Frequency [Hz]')         # Label the axes
+ylabel('Power [mV$^2$/Hz]');
 
 The resulting spectrum reveals two intervals of increased power spectral density. The lowest-frequency peak at 6 Hz is also the largest and corresponds to the slow rhythm we observe dominating the signal through visual inspection. Remember a plot of that signal:
 <a href="#fig:7.1" class="fig"><span><img src="imgs/7-1.png"></span></a>
@@ -200,14 +198,14 @@ For each frequency band, we specify a frequency interval of interest by defining
 
 To understand the impact of this filtering operation on the LFP, let’s plot the results. More specifically, let's plot the original signal, and the signal filtered in the low- and high-frequency bands, for an example 2 s interval of time:<a id="fig:7.3"></a>
 
-plt.figure(figsize=(14, 4))         # Create a figure with a specific size.
-plt.plot(t, LFP)                    # Plot the original data vs time.
-plt.plot(t, Vlo)                    # Plot the low-frequency filtered data vs time.
-plt.plot(t, Vhi)                    # Plot the high-frequency filtered data vs time.
-plt.xlabel('Time [s]')
-plt.xlim([24, 26]);                 # Choose a 2 s interval to examine
-plt.ylim([-2, 2]);
-plt.legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
+figure(figsize=(14, 4))         # Create a figure with a specific size.
+plot(t, LFP)                    # Plot the original data vs time.
+plot(t, Vlo)                    # Plot the low-frequency filtered data vs time.
+plot(t, Vhi)                    # Plot the high-frequency filtered data vs time.
+xlabel('Time [s]')
+xlim([24, 26]);                 # Choose a 2 s interval to examine
+ylim([-2, 2]);
+legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
 
 As expected, the low-frequency band (orange) captures the large-amplitude rhythm dominating the LFP signal, while the higher-frequency band (green) isolates the brief bursts of faster activity.
 
@@ -343,7 +341,7 @@ Because $x_0$ is real, this quantity evolves in time along the real axis (red in
 
 Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:
 
-phi = np.angle(signal.hilbert(Vlo))  # Compute phase of low-freq signal
+phi = angle(signal.hilbert(Vlo))  # Compute phase of low-freq signal
 amp = abs(signal.hilbert(Vhi))       # Compute amplitude of high-freq signal
 
 These operations require just two lines of code. But beware the following.
@@ -381,18 +379,18 @@ where $\phi(i)$ is the phase of the low-frequency band activity at time index $i
 
 We now use this two-column vector to assess whether the phase and amplitude envelope are related. Let's begin by plotting the average amplitude versus phase. We divide the phase interval into bins of size 0.1 beginning at $-\pi$ and ending at $\pi.$ the choice of bin size is somewhat arbitrary; this choice will work fine, but you might consider the impact of other choices.
 
-p_bins = np.arange(-np.pi, np.pi, 0.1)
-a_mean = np.zeros(np.size(p_bins)-1)
-p_mean = np.zeros(np.size(p_bins)-1)
-for k in range(np.size(p_bins)-1):
+p_bins = arange(-pi, pi, 0.1)
+a_mean = zeros(size(p_bins)-1)
+p_mean = zeros(size(p_bins)-1)
+for k in range(size(p_bins)-1):
     pL = p_bins[k]					    #... lower phase limit,
     pR = p_bins[k+1]				    #... upper phase limit.
     indices=(phi>=pL) & (phi<pR)	    #Find phases falling in bin,
-    a_mean[k] = np.mean(amp[indices])	#... compute mean amplitude,
-    p_mean[k] = np.mean([pL, pR])		#... save center phase.
-plt.plot(p_mean, a_mean)                #Plot the phase versus amplitude,
-plt.ylabel('High-frequency amplitude')  #... with axes labeled.
-plt.xlabel('Low-frequency phase');
+    a_mean[k] = mean(amp[indices])	#... compute mean amplitude,
+    p_mean[k] = mean([pL, pR])		#... save center phase.
+plot(p_mean, a_mean)                #Plot the phase versus amplitude,
+ylabel('High-frequency amplitude')  #... with axes labeled.
+xlabel('Low-frequency phase');
 
 <div class="question">
     
@@ -419,27 +417,27 @@ We find a value of $h = 0.126$. This value, on its own, is difficult to interpre
 For each surrogate phase-amplitude vector, we compute the statistic $h$. To generate a distribution of $h$ values, let’s repeat 1,000 times this process of creating surrogate data through resampling and computing $h$.
 
 n_surrogates = 1000;                       #Define no. of surrogates.
-hS = np.zeros(n_surrogates)                #Vector to hold h results.
+hS = zeros(n_surrogates)                #Vector to hold h results.
 for ns in range(n_surrogates):             #For each surrogate,
-    ampS = amp[np.random.randint(0,N,N)]   #Resample amplitude,
-    p_bins = np.arange(-np.pi, np.pi, 0.1) #Define the phase bins
-    a_mean = np.zeros(np.size(p_bins)-1)   #Vector for average amps.
-    p_mean = np.zeros(np.size(p_bins)-1)   #Vector for phase bins.
-    for k in range(np.size(p_bins)-1):
+    ampS = amp[randint(0,N,N)]   #Resample amplitude,
+    p_bins = arange(-pi, pi, 0.1) #Define the phase bins
+    a_mean = zeros(size(p_bins)-1)   #Vector for average amps.
+    p_mean = zeros(size(p_bins)-1)   #Vector for phase bins.
+    for k in range(size(p_bins)-1):
         pL = p_bins[k]					    #... lower phase limit,
         pR = p_bins[k+1]				    #... upper phase limit.
         indices=(phi>=pL) & (phi<pR)	    #Find phases falling in bin,
-        a_mean[k] = np.mean(ampS[indices])	#... compute mean amplitude,
-        p_mean[k] = np.mean([pL, pR])		#... save center phase.
+        a_mean[k] = mean(ampS[indices])	#... compute mean amplitude,
+        p_mean[k] = mean([pL, pR])		#... save center phase.
     hS[ns] = max(a_mean)-min(a_mean)        # Store surrogate h.
 
-In this code, we first define the number of surrogates (variable `n_surrogates`) and a vector to store the statistic $h$ computed for each surrogate phase-amplitude vector (variable `hS`). Then, for each surrogate, we use the Python function `random.randint` to randomly permute the amplitude vector without replacement. We then use this permuted amplitude vector (variable `ampS`) and the original phase vector (variable `phi`) to compute $h$; this last step utilizes the Python code developed earlier to compute `h` for the original (unpermuted) data.
+In this code, we first define the number of surrogates (variable `n_surrogates`) and a vector to store the statistic $h$ computed for each surrogate phase-amplitude vector (variable `hS`). Then, for each surrogate, we use the Python function `randint` to randomly permute the amplitude vector without replacement. We then use this permuted amplitude vector (variable `ampS`) and the original phase vector (variable `phi`) to compute $h$; this last step utilizes the Python code developed earlier to compute `h` for the original (unpermuted) data.
 
 Let's now view the results of this resampling procedure by creating a histogram of the variable `hS`, and compare this distribution to the value of `h` we computed earlier.
 
-counts, _, _ = plt.hist(hS, label='surrogates')               # Plot the histogram of hS, and save the bin counts.
-plt.vlines(h, 0, max(counts), colors='red', label='h', lw=2)  # Plot the observed h,
-plt.legend();                                                 # ... include a legend.
+counts, _, _ = hist(hS, label='surrogates')               # Plot the histogram of hS, and save the bin counts.
+vlines(h, 0, max(counts), colors='red', label='h', lw=2)  # Plot the observed h,
+legend();                                                 # ... include a legend.
 
 The value of $h$ computed from the original data (`h`) lies far outside the distribution of surrogate $h$ values (`hS`). To compute a $p$-value, we determine the proportion of surrogate $h$ values greater than the observed $h$ value:
 

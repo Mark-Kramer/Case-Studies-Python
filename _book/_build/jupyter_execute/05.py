@@ -38,16 +38,7 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 
 # Import our favorite functions and modules
 from scipy.io import loadmat                    # To load .mat files
-import matplotlib.pyplot as plt                 # Load plotting functions
 from pylab import *                             # Import plotting functions
-from numpy import *                             # Import numerical functions
-from IPython.core.pylabtools import figsize     # Allow us to change figure sizes
-from IPython.core.display import HTML           # Package for manipulating appearance of notebooks
-from IPython.lib.display import YouTubeVideo    # Package for displaying YouTube videos
-
-# Import tools for the chapter
-from numpy.fft import fft, rfft, rfftfreq
-figsize(12, 3)  # Default to wide figs
 
 data = loadmat('matfiles/ECoG-1.mat')  # Load the data,
 E1 = data['E1']  # ... from the first electrode,
@@ -59,8 +50,8 @@ N = E1.shape[1]  # Determine the number of sample points per trial
 scale = 2 * dt**2 / T  # Scaling constant
 
 # Compute the Fourier transforms
-xf = np.array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
-yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
+xf = array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
+yf = array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
 
 # Compute the spectra
 Sxx = scale * (xf * xf.conj()).mean(0)  # Spectrum of E1 trials
@@ -68,7 +59,7 @@ Syy = scale * (yf * yf.conj()).mean(0)  # ... and E2 trials
 Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
 
 # Compute the coherence.
-cohr = abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))
+cohr = abs(Sxy) / (sqrt(Sxx) * sqrt(Syy))
 
 f = rfftfreq(N, dt)  # Define a frequency axis.
 plot(f, cohr.real)  # Plot coherence vs frequency,
@@ -245,14 +236,14 @@ Note: We could instead write the trial-averaged sample autocovariance because th
 dt = t[1] - t[0]  # Define the sampling interval.
 K = E1.shape[0]  # Define the number of trials.
 N = E1.shape[1]  # Define number of points in each trial.
-ac = np.zeros([2 * N - 1])  # Declare empty vector for autocov.
+ac = zeros([2 * N - 1])  # Declare empty vector for autocov.
 
 for trial in E1:  # For each trial,
     x = trial - trial.mean()  # ... subtract the mean,
-    ac0 = 1 / N * np.correlate(x, x, 'full')  # ... compute autocovar,
+    ac0 = 1 / N * correlate(x, x, 'full')  # ... compute autocovar,
     ac += ac0 / K;  # ... and add to total, scaled by 1/K.
 
-lags = np.arange(-N + 1, N)  # Create a lag axis,
+lags = arange(-N + 1, N)  # Create a lag axis,
 plot(lags * dt, ac)  # ... and plot the result.
 xlim([-0.2, 0.2])
 xlabel('Lag [s]')
@@ -294,10 +285,10 @@ Here we show a cartoon representation of the cross-covariance between two time s
 
 The cross-covariance is large at lag $L$ if the two shifted time series $x$ and $y$ match. If we’re interested in determining the coupling between $x$ and $y$, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1"></a>
 
-x = E1[0,:] - np.mean(E1[0,:])  # Define one time series,
-y = E2[0,:] - np.mean(E2[0,:])  # ... and another.
-xc=1/N*np.correlate(x,y,2)  # ... and compute their cross covariance.
-lags = np.arange(-N+1,N)  # Create a lag axis,
+x = E1[0,:] - mean(E1[0,:])  # Define one time series,
+y = E2[0,:] - mean(E2[0,:])  # ... and another.
+xc=1/N*correlate(x,y,2)  # ... and compute their cross covariance.
+lags = arange(-N+1,N)  # Create a lag axis,
 plot(lags*dt,xc)  # ... and plot the cross covariance vs lags in time.
 
 # Prettify
@@ -339,11 +330,11 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 For reference, let's also plot the **single-trial** cross-covariance for 4 trials,  
 <a id="fig:avg_xc"></a>
 
-XC = np.zeros([K, 2 * N - 1])  # Declare empty vector for cross cov.
+XC = zeros([K, 2 * N - 1])  # Declare empty vector for cross cov.
 for k in range(K):  # For each trial,
     x = E1[k] - E1[k].mean()  # ...get data from one electrode,
     y = E2[k] - E2[k].mean()  # ...and the other electrode,
-    XC[k] = 1 / N * np.correlate(x, y, 'full')  # ...compute cross covariance.
+    XC[k] = 1 / N * correlate(x, y, 'full')  # ...compute cross covariance.
 
 f, (a1, a2) = subplots(2, 1, figsize=(12, 6), sharex=True, sharey=True)    
 a1.plot(lags * dt, XC.mean(0))					# Plot cross covariance vs lags in time.
@@ -371,9 +362,9 @@ or
     
 The difference is largely stylistic, but the resulting datatype may be different. With the first method, we typically initialize an array with zeros and then replace the zeros with the value that we have computed. The result is whatever datatype we initialized. The second method will result in a list. A list can be converted to a different type or simply treated differently. In the code above, we can actually compute `XC` in a single line with the following:
 
-    XC = [1 / N * np.correlate(x - x.mean(), y - y.mean(), 'full') for x, y in zip(E1, E2)]
+    XC = [1 / N * correlate(x - x.mean(), y - y.mean(), 'full') for x, y in zip(E1, E2)]
     
-At this point `XC` is a list object. We can change it to a numpy array with `XC = np.array(XC)`. Admittedly, there is something satisfying about accomplishing a lot in a single line. However, it is importsnt to write code that is *readable*, or easy to understand for someone who is looking at it for the first time. There may be times when a single line is more appropriate, but it is not true in every circumstance.
+At this point `XC` is a list object. We can change it to a numpy array with `XC = array(XC)`. Admittedly, there is something satisfying about accomplishing a lot in a single line. However, it is importsnt to write code that is *readable*, or easy to understand for someone who is looking at it for the first time. There may be times when a single line is more appropriate, but it is not true in every circumstance.
 
 </div>
 
@@ -465,8 +456,8 @@ N = E1.shape[1]  # Determine the number of sample points per trial
 scale = 2 * dt**2 / T  # Compute the scaling constant
 
 # Compute the Fourier transform for each trial
-xf = np.array([rfft(x - x.mean()) for x in E1])  # ... in E1
-yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and in E2
+xf = array([rfft(x - x.mean()) for x in E1])  # ... in E1
+yf = array([rfft(y - y.mean()) for y in E2])  # ... and in E2
 
 # Compute the spectra
 Sxx = scale * (xf * xf.conj())  # Spectrum of E1 trials
@@ -476,9 +467,9 @@ Sxy = scale * (xf * yf.conj())  # ... and the cross spectrum
 f = rfftfreq(N, dt)  # Define the frequency axis
 
 # Plot the average spectrum over trials in decibels vs frequency
-plot(f, 10 * np.log10(Sxx.mean(0).real), lw=3, label='Trial-averaged spectrum')  
+plot(f, 10 * log10(Sxx.mean(0).real), lw=3, label='Trial-averaged spectrum')  
 # ... and the spectrum from the first trial for reference
-plot(f, 10 * np.log10(Sxx[0].real), 'k', label='Single-trial spectrum')  
+plot(f, 10 * log10(Sxx[0].real), 'k', label='Single-trial spectrum')  
 
 # Prettify
 xlim([0, 100])  # ... in select frequency range,
@@ -707,8 +698,8 @@ With that introduction, we are now equipped to compute the coherence. We expect 
 There are a variety of alternatives to compute the coherence. To start, let’s compute the coherence by hand. The reason for doing so is that we can implement the preceding mathematical expressions and in that way gain more understanding of their features. Here’s the Python code<a id="fig:cohr"></a>:
 
 # Compute the Fourier transforms
-xf = np.array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
-yf = np.array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
+xf = array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
+yf = array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
 
 # Compute the spectra
 Sxx = scale * (xf * xf.conj()).mean(0)  # Spectrum of E1 trials
@@ -716,7 +707,7 @@ Syy = scale * (yf * yf.conj()).mean(0)  # ... and E2 trials
 Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
 
 # Compute the coherence.
-cohr = abs(Sxy) / (np.sqrt(Sxx) * np.sqrt(Syy))
+cohr = abs(Sxy) / (sqrt(Sxx) * sqrt(Syy))
 
 f = rfftfreq(N, dt)  # Define a frequency axis.
 plot(f, cohr.real)  # Plot coherence vs frequency,
@@ -746,24 +737,24 @@ show()
 
 The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:
 
-j8 = np.where(f==8)[0][0]  # Determine index j for frequency 8 Hz.
-j24 = np.where(f==24)[0][0]  # Determine index j for frequency 24 Hz.
+j8 = where(f==8)[0][0]  # Determine index j for frequency 8 Hz.
+j24 = where(f==24)[0][0]  # Determine index j for frequency 24 Hz.
 
-phi8 = np.zeros(K)  # Variables to hold phase differences.
-phi24 = np.zeros(K)
+phi8 = zeros(K)  # Variables to hold phase differences.
+phi24 = zeros(K)
 
 for k in range(K):  # For each trial, compute the cross spectrum. 
-    x = E1[k] - np.mean(E1[k])  # Get the data from each electrode,
-    y = E2[k] - np.mean(E2[k,:])
-    xf = rfft(x - np.mean(x))  # ... compute the Fourier transform,
-    yf = rfft(y - np.mean(y))
-    Sxy = 2 * dt**2 / T * (xf * np.conj(yf))  # ... and the cross-spectrum,
-    phi8[k] = np.angle(Sxy[j8])  # ... and the phases.
-    phi24[k] = np.angle(Sxy[j24])
+    x = E1[k] - mean(E1[k])  # Get the data from each electrode,
+    y = E2[k] - mean(E2[k,:])
+    xf = rfft(x - mean(x))  # ... compute the Fourier transform,
+    yf = rfft(y - mean(y))
+    Sxy = 2 * dt**2 / T * (xf * conj(yf))  # ... and the cross-spectrum,
+    phi8[k] = angle(Sxy[j8])  # ... and the phases.
+    phi24[k] = angle(Sxy[j24])
 
 _, (a1, a2) = subplots(1, 2, sharey=True, sharex=True)  # Plot the distributions of phases.
-a1.hist(phi8, bins=20, range=[-np.pi, np.pi])
-a2.hist(phi24, bins=20, range=[-np.pi, np.pi])
+a1.hist(phi8, bins=20, range=[-pi, pi])
+a2.hist(phi24, bins=20, range=[-pi, pi])
 
 # Prettify
 ylim([0, 40])
@@ -774,7 +765,7 @@ a1.set_title('Angles at 8 Hz')
 a2.set_title('Angles at 24 Hz')
 a2.set_xlabel('Phase');
 
-Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (`K`) and the frequency axis (`f`). Then, within the frequency axis variable (`f`), we use the function `np.where` to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (`Sxy`). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function `np.angle`. We store these results in two vectors, `phi8` and `phi24`.
+Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (`K`) and the frequency axis (`f`). Then, within the frequency axis variable (`f`), we use the function `where` to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (`Sxy`). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function `angle`. We store these results in two vectors, `phi8` and `phi24`.
 
 To summarize the results, we plot a histogram of the phase differences. We divide the phase axis into 20 bins of equal size from 0 to 2$\pi$ radians, or equivalently, 0 to 360 degrees. At 8 Hz, we observe that phase differences appear in all angular intervals; notice that the number of phase differences located in each angular interval remains small, typically less than 10. At 24 Hz, the angular differences concentrate near 0 degrees; all of the angles lie between  approximately 60 and 60 degrees. This visualization is consistent with the strong coherence at 24 Hz, indicative of a consistent phase difference across trials between the two electrodes.
 

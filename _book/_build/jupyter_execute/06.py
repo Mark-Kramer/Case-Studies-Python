@@ -29,12 +29,9 @@ _**Synopsis**_
 ## On-ramp: filtering field data in Python
 We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to filter field data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
-import numpy as np
-from numpy.fft import fft, ifft, rfft, fftfreq
+from pylab import *
 from scipy.signal import firwin, lfilter, filtfilt
 from scipy.io import loadmat
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
 %matplotlib inline
 
 data = loadmat('matfiles/EEG-1.mat')    # Load the data,
@@ -49,11 +46,11 @@ n = 100                        # Define the filter order
 Wn = 30 / fNQ                  # ... and specify the cutoff frequency,
 b = firwin(n, Wn)              # ... build lowpass FIR filter,
                                # ... and zero-phase filter each trial
-eeg_lo = np.array([filtfilt(b, 1, eeg[k]) for k in range(K)])
+eeg_lo = array([filtfilt(b, 1, eeg[k]) for k in range(K)])
 
 mn = eeg_lo.mean(0)            # Compute mean of filtered EEG across trials (ERP)
 sd = eeg_lo.std(0)             # Compute std of filtered EEG data across trials.
-sdmn = sd / np.sqrt(K);        # Compute the std of the mean.
+sdmn = sd / sqrt(K);        # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP of the filtered data
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -85,13 +82,9 @@ Our goal is to better understand whether an evoked response appears in the data.
 ### Tools
 In this notebook, we rely on the Fourier transform (and associated measures) to develop a basic understanding of filters. If you are not confident using the Fourier transform, we strongly recommend reviewing notebooks [3](03) and [4](04). This case study reinforces concepts in those notebooks and provides another opportunity to compute and to examine spectra, and to examine the relationships between the time and frequency domain representations of a time series. Upon completing this notebook, you should be familiar with basic filtering principles and methods to visualize the impact of filters, and equipped for further study and development of filtering procedures.
 
-import numpy as np
-from numpy import hanning, angle
-from numpy.fft import fft, ifft, rfft, fftfreq
 from scipy.signal import firwin, lfilter, filtfilt
 from scipy.io import loadmat
-import matplotlib.pyplot as plt
-from matplotlib.pyplot import *
+from pylab import *
 %matplotlib inline
 
 ## Data analysis<a id="data-analysis"></a>
@@ -156,9 +149,9 @@ Sxx = 2 * dt ** 2 / T * (xf * xf.conj());  #... and compute spectrum.
 
 df = 1 / T;               # Determine frequency resolution.
 fNQ = 1 / dt / 2;         # Determine Nyquist frequency.
-faxis = np.arange(0, fNQ, df)              # Construct frequency axis
+faxis = arange(0, fNQ, df)              # Construct frequency axis
 
-semilogx(faxis, 10 * np.log10(Sxx.real))   # Plot decibels vs frequency,
+semilogx(faxis, 10 * log10(Sxx.real))   # Plot decibels vs frequency,
 xlim([df, 100])           # ... in limited frequency range,
 xlabel('Frequency [Hz]')  # ... with axes labeled.
 ylabel('Power [dB]')
@@ -195,7 +188,7 @@ Initial inspection of the features observable in the individual trials of EEG da
 K = len(eeg)                   # Define variable to record no. of trials
 mn = eeg.mean(0)               # Compute mean EEG across trials (ERP)
 sd = eeg.std(0)                # Compute std of EEG data across trials.
-sdmn = sd / np.sqrt(K);        # Compute the std of the mean.
+sdmn = sd / sqrt(K);        # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP,
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -225,8 +218,8 @@ def spectrum(x, t, hann=True):
     return Sxx.real
 
 Sxx = [spectrum(trial, t, False) for trial in eeg] # Compute the spectrum for each trial.
-Sxxmn = np.array(Sxx).mean(0)                      # Convert the result into an array and compute the mean.
-semilogx(faxis, 10 * np.log10(Sxxmn))              # Plot the result in decibels vs frequency,
+Sxxmn = array(Sxx).mean(0)                      # Convert the result into an array and compute the mean.
+semilogx(faxis, 10 * log10(Sxxmn))              # Plot the result in decibels vs frequency,
 xlim([df, 100])                                    # ... in limited frequency range,
 ylim([-40,0])                                      # ... and limited power range,
 xlabel('Frequency [Hz]')                           # ... with axes labeled.
@@ -337,14 +330,14 @@ we find two intervals of values: (-61, -60, -59) Hz, and (59, 60, 61) Hz, consis
 
 With the indices surrounding the line noise frequency located, we’re ready to set the frequency domain components of the EEG signal at 60 Hz to zero. Let’s first define the filter in the frequency domain. This filter will have a value of 1 at all frequencies except near &plusmn;60 Hz, where we set the filter to 0. We then apply this filter to the frequency domain representation of the EEG data. By doing so, we set the (complex) values of `xf` (i.e., the frequency domain representation of the EEG data) to zero at the indices surrounding the line noise frequency. At all other indices, we leave `xf` unaltered (i.e., we multiply by 1).
 
-rectangular_filter = np.ones_like(x)   # Define filter in frequency domain
+rectangular_filter = ones_like(x)   # Define filter in frequency domain
 rectangular_filter[indices] = 0        # ... set the filter at line-noise frequencies to zero
 xf_filtered = xf * rectangular_filter  # ... apply filter to data
 
 Before continuing, let’s visualize the filter and anticipate the impact on the frequency domain representation of the EEG data. We plot the variable `rectangular_filter`, the real part of `xf`, and their element-by-element product versus frequency.
 <a id="fig:4"></a>
 
-isorted = np.argsort(faxis)                       # Sort the frequency axis
+isorted = argsort(faxis)                       # Sort the frequency axis
 plot(faxis[isorted], rectangular_filter[isorted]) # Plot rectangular filter vs frequency
 xlabel('Freq (Hz)')                               # ... with axes labeled
 ylabel('Naive square filter')
@@ -367,7 +360,7 @@ show()
 
 Recall that `faxis` starts with the positive frequencies and then jumps to the negative frequencies. To display clearly the plots requires an additional step:
 
-    isorted = np.argsort(faxis)
+    isorted = argsort(faxis)
     
 where `isorted` are the indices that sort the frequency axis in ascending order. In the code above we use these indices to plot `rectangular_filter`, `xf` and `xf_filtered` according to the sorted values of `faxis`.
 
@@ -411,9 +404,9 @@ An initial visual inspection suggests that the filter has the desired effect; th
 <a id="fig:5b"></a>
 
 # Compute and plot the spectrum of the unfiltered signal.
-plot(np.arange(0, fNQ, df), 10 * np.log10(spectrum(x, t)), label='xf')
+plot(arange(0, fNQ, df), 10 * log10(spectrum(x, t)), label='xf')
 # Compute and plot the spectrum of the filtered signal.
-plot(np.arange(0, fNQ, df), 10 * np.log10(spectrum(xnew.real, t)), label='xf_filtered')
+plot(arange(0, fNQ, df), 10 * log10(spectrum(xnew.real, t)), label='xf_filtered')
 xlim([0, 100])
 xlabel('Freq (Hz)')
 ylabel('Power (dB)')
@@ -446,11 +439,11 @@ We might interpret the small-amplitude, approximately 60 Hz transient rhythms su
 So far we’ve characterized the naive rectangular filter by its impact in the frequency domain. To further characterize this filter, we examine its behavior in the time domain by computing the *impulse response*. As the name suggests, the impulse response indicates the filter’s response to a simple input signal consisting of a single brief impulse. The impulse, although simple in the time domain, possesses spectral content across a wide frequency range; it takes many sinusoids to represent a sharp object like an impulse. In this way, the impulse probes how the filter behaves to input with rich spectral content. We implement the impulse response as follows:
 <a id="fig:6a"></a>
 
-impulse = np.zeros_like(rectangular_filter)  # Define the input signal,
+impulse = zeros_like(rectangular_filter)  # Define the input signal,
 impulse[N // 2] = 1                          # ... with an impulse at the midpoint.
 impulsef = fft(impulse) * rectangular_filter # Apply naive filter,
 impulse_response = ifft(impulsef).real       # ... and iFT back to time domain
-lag_axis = np.arange(-N // 2, N // 2) * dt   # Define lag axis,
+lag_axis = arange(-N // 2, N // 2) * dt   # Define lag axis,
 
 fig, ax = subplots()                         # ... and plot the results.
 ax.plot(lag_axis, impulse_response, label="impulse response")
@@ -487,7 +480,7 @@ We are concerned about this impulse response for the naive rectangular filter. W
 Therefore, as an alternative method for computing the impulse response, we convolve the impulse with the time domain representation of the filter. By doing so, we no longer need to transform to and from the frequency domain.
 
 i_rectangular_filter = ifft(rectangular_filter).real  # Transform the filter to the time domain,
-impulse_response_t = np.zeros_like(t)                 # ... and define the impulse response,
+impulse_response_t = zeros_like(t)                 # ... and define the impulse response,
 for ii in range(N):                                   # ... at each time point
     inds = [(ii - n) % N for n in range(N)]           # ... by computing the convolution
     impulse_response_t[ii] = (i_rectangular_filter[inds] * impulse).sum()
@@ -540,10 +533,10 @@ win = 15                     # Set the size of the Hann window,
                              # ... and find indices within win of 60 Hz.
 inds = (abs(faxis) >= (60 - win * df)) & (abs(faxis) <= (60 + win * df))
 
-hann_filter = np.ones_like(t) # Define filter in frequency domain.
-hann_filter[inds] = np.hstack([1 - hanning(2 * win + 1), 1 - hanning(2 * win + 1)])
+hann_filter = ones_like(t) # Define filter in frequency domain.
+hann_filter[inds] = hstack([1 - hanning(2 * win + 1), 1 - hanning(2 * win + 1)])
 
-isorted = np.argsort(faxis)                  # Sort the frequency axis.
+isorted = argsort(faxis)                  # Sort the frequency axis.
 plot(faxis[isorted], hann_filter[isorted])   # Plot the filter.
 xlim([-80, 80])
 xlabel('Freq (Hz)')
@@ -570,18 +563,18 @@ def convolution(impulse, filt):
     time domain) using convolution.
     '''
     N = len(impulse)
-    response = np.zeros_like(impulse)
+    response = zeros_like(impulse)
     for ii in range(N):
         inds = [(ii + n) % N for n in range(N)]
         response[ii] = sum(impulse[inds] * filt)
     return response
 
-impulse = np.zeros_like(x)              # Define the input signal,
+impulse = zeros_like(x)              # Define the input signal,
 impulse[N // 2] = 1                     # ... with impulse at the midpoint
 i_hann_filter = ifft(hann_filter).real  # Transform filter to time domain,
                                         # ... and compute the impulse response by convolution.
 impulse_response_t = convolution(i_hann_filter, impulse)
-lag_axis = np.arange(-N/2, N/2) * dt    # Define the lag axis for plotting
+lag_axis = arange(-N/2, N/2) * dt    # Define the lag axis for plotting
 plot(lag_axis, impulse_response_t)      # Display the result
 xlabel('Time (s)')
 ylabel('Impulse response')
@@ -635,9 +628,9 @@ In the first three lines of code above, the EEG data are first transformed to th
 
 We can additionally compare the filters by looking at the spectra near 60 Hz:
 
-plot(faxis[:N//2], 10 * np.log10(spectrum(x, t)), label='x')
-plot(faxis[:N//2], 10 * np.log10(spectrum(xnew, t)), label='rectangle filter')
-plot(faxis[:N//2], 10 * np.log10(spectrum(xnew_h, t)), label='hanning filter')
+plot(faxis[:N//2], 10 * log10(spectrum(x, t)), label='x')
+plot(faxis[:N//2], 10 * log10(spectrum(xnew, t)), label='rectangle filter')
+plot(faxis[:N//2], 10 * log10(spectrum(xnew_h, t)), label='hanning filter')
 xlim([40, 80])
 xlabel('Freq (Hz)')
 ylabel('Power (dB)')
@@ -684,7 +677,7 @@ We focus specifically on the application of a lowpass FIR filter to the EEG data
 n = 100                                        # Define the filter order.
 Wn = 30 / fNQ                                  # Define the cutoff frequency,
 b = firwin(n, Wn)                              # ... build the lowpass filter,
-bz = np.pad(b, [N - n, 0], 'constant')         # ... amend the filter with leading zeros,
+bz = pad(b, [N - n, 0], 'constant')         # ... amend the filter with leading zeros,
 impulse_response = convolution(impulse, bz)  # ... and apply it to the impulse.
 
 plot(lag_axis, impulse, label='impulse')
@@ -707,8 +700,8 @@ To further explore this idea, let’s examine in more detail the computation of 
 
 To examine this filter, let’s break down what it does and visualize it in the time and frequency domains. In the time domain, we have already computed the impulse response using the convolution:
 
-plot(np.arange(0, N) * dt, impulse, label='impulse')                          # Plot the original impulse,
-plot(np.arange(0, N) * dt, impulse_response, lw=3, label="impulse response")  # ... and the impulse response.
+plot(arange(0, N) * dt, impulse, label='impulse')                          # Plot the original impulse,
+plot(arange(0, N) * dt, impulse_response, lw=3, label="impulse response")  # ... and the impulse response.
 ylim([-.02, .08])                                                             # ... with axes labeled
 legend()
 savefig('imgs/6-10a')
@@ -731,7 +724,7 @@ bf = fft(b, N);                 # Transform filter to frequency domain and compu
 Mb = bf * bf.conj();            # ...and compute the magnitude response.
 df = 1 / (N * dt)               # Define the frequency resolution,
 faxis = fftfreq(N, dt);         # ...create frequency axis,
-sort_order = np.argsort(faxis)  # ...with axes sorted,
+sort_order = argsort(faxis)  # ...with axes sorted,
 plot(faxis[sort_order], Mb.real[sort_order])   # ...plot magnitude response.
 xlim([-50, 50])
 xlabel('Frequency (Hz)')
@@ -764,8 +757,8 @@ savefig('imgs/6-11a')
 Inspection of the resulting filtered signal reveals important features of the new time series. Perhaps the most prominent change is the large reduction in the 60 Hz electrical noise. Without the contamination of this noise, we now observe a transient oscillatory event near 0.5 s. As expected, the spectrum is now dominated by low-frequency activity, namely, rhythms below 30 Hz: 
 <a id="fig:11b"></a>
 
-plot(faxis[:N // 2], 10 * np.log10(spectrum(x, t)), label='x')                 # Spectrum of data.
-plot(faxis[:N // 2], 10 * np.log10(spectrum(xnew_fir_conv, t)), label='x filtered') # Spectrum of filtered data.
+plot(faxis[:N // 2], 10 * log10(spectrum(x, t)), label='x')                 # Spectrum of data.
+plot(faxis[:N // 2], 10 * log10(spectrum(xnew_fir_conv, t)), label='x filtered') # Spectrum of filtered data.
 xlim([0, 100])
 ylim([-80, 0])
 xlabel('Freq (Hz)')
@@ -851,7 +844,7 @@ dt = t[1] - t[0]                        # Define the sampling interval.
 fNQ = 1 / dt / 2                        # Define the Nyquist frequency,
 df = 1 / (N * dt)                       # ... and the frequency resolution,
 faxis = fftfreq(N, dt);                 # ... create frequency axis,
-sort_order = np.argsort(faxis)          # ... with axes sorted.
+sort_order = argsort(faxis)          # ... with axes sorted.
 
 n = 100                                 # Define the filter order,
 Wn = 30 / fNQ                           # ... specify the cutoff frequency,
@@ -873,11 +866,11 @@ We first load the data and define the frequency axis. We then construct the lowp
 
 **A.** Visual inspection reveals that the phase response varies with frequency. This variation is linear except for discrete jumps occurring at &plusmn;$\pi$. To make this linear variation clear, we can unwrap the phase:
 
-    plot(faxis[sort_order], np.unwrap(angle(bf[sort_order])))
+    plot(faxis[sort_order], unwrap(angle(bf[sort_order])))
     
 Notice the application of the `unwrap` function to the angle computed in this line of code. With the phase unwrapped, the smooth and linear variation in the phase response versus frequency becomes clear. The wrapped phase response allows us to identify frequencies at which the filter phase advances the signal (e.g., when the phase response is positive, such as at 15 Hz), when the filter phase delays the signal (e.g., when the phase response is negative, such as at 25 Hz), or when the filter leaves the phase unchanged (e.g., when the phase is zero, such as at 20 Hz).
 
-plot(faxis[sort_order], np.unwrap(angle(bf[sort_order])))  # Plot the unwrapped phase response
+plot(faxis[sort_order], unwrap(angle(bf[sort_order])))  # Plot the unwrapped phase response
 xlim([-30, 30])                         # Examine a specific frequency range,
 xlabel('Frequency (Hz)')                # ... with axes labeled.
 ylabel('Phase (rad)')
@@ -888,9 +881,9 @@ Analysis of the phase response for the FIR filter shows that, consistent with ou
 <a id="fig:13"></a>
 
 x1 = lfilter(b, 1, x)             # Apply the filter to the EEG data,
-x1 = np.flip(x1)                  # ... reverse the sequence,
+x1 = flip(x1)                  # ... reverse the sequence,
 x2 = lfilter(b, 1, x1)            # ... reapply the filter,
-x2 = np.flip(x2);                 # ... and reverse the sequence.
+x2 = flip(x2);                 # ... and reverse the sequence.
 
 fig, ax = subplots()              # Plot the results
 ax.plot(t, x, label='x')
@@ -904,7 +897,7 @@ legend()
 savefig('imgs/6-13')
 show()
 
-In these lines of code, we apply the FIR filter using `lfilter()`.The first line of code applies the filter once, and the resulting filtered signal is phase shifted relative to the original EEG. We then reverse the filtered signal. To do so, we redefine the variable `x1` using `np.flip()` to reverse the sequence. We then filter the reversed sequence, and reverse the result. The resulting double-filtered (and double-reversed) signal no longer exhibits phase distortion relative to the EEG; prominent features in the original EEG signal and the zero-phase filtered signal, such as the large-amplitude discharge, appear better aligned.
+In these lines of code, we apply the FIR filter using `lfilter()`.The first line of code applies the filter once, and the resulting filtered signal is phase shifted relative to the original EEG. We then reverse the filtered signal. To do so, we redefine the variable `x1` using `flip()` to reverse the sequence. We then filter the reversed sequence, and reverse the result. The resulting double-filtered (and double-reversed) signal no longer exhibits phase distortion relative to the EEG; prominent features in the original EEG signal and the zero-phase filtered signal, such as the large-amplitude discharge, appear better aligned.
 
 In general, in neuroscience applications, it’s often useful to remove phase distortion through zero-phase filtering. The [SciPy Signal module](https://docs.scipy.org/doc/scipy/reference/signal.html) provides a simple function to perform zero-phase filtering,
 
@@ -938,7 +931,7 @@ K = len(eeg)                   # Determine no. of trials.
 n = 100                        # Define the filter order
 Wn = 30 / fNQ                  # ... and specify the cutoff frequency,
 b = firwin(n, Wn)              # ... build lowpass filter.
-eeg_lo = np.array([filtfilt(b, 1, eeg[k]) for k in range(K)])  # Zero-phase filter each trial
+eeg_lo = array([filtfilt(b, 1, eeg[k]) for k in range(K)])  # Zero-phase filter each trial
 
 Here we use the function `firwin()` to design the filter and the function `filtfilt()` to apply the filter with zero-phase distortion. The design and application of the filter to each trial requires only a few lines of code (including the for-loop). However, we now perform this analysis with a thorough understanding of how the filter behaves; we examined its
 <a href="#fig:10a" class="fig">impulse response<span><img src="imgs/6-10a.png"></span></a>,
@@ -947,7 +940,7 @@ Here we use the function `firwin()` to design the filter and the function `filtf
 
 mn = eeg_lo.mean(0)      # Compute mean of filtered EEG across trials (ERP)
 sd = eeg_lo.std(0)       # Compute std of filtered EEG data across trials.
-sdmn = sd / np.sqrt(K);  # Compute the std of the mean.
+sdmn = sd / sqrt(K);  # Compute the std of the mean.
 
 plot(t, mn)                    # Plot the ERP of the filtered data
 plot(t, mn + 2 * sdmn, 'r:');  # ... and the confidence intervals,
@@ -973,8 +966,8 @@ def spectrum(x, t, hann=True):
 N = len(t)                             # Define the number of time points per trial.
 faxis = fftfreq(N, dt)[:N // 2]        # Define the positive frequency axis,
 Sxx = [spectrum(trial, t, False) for trial in eeg_lo]  # Compute the spectrum for each trial.
-Sxxmn = np.array(Sxx).mean(0)          # Convert the result into an array and compute the mean.
-semilogx(faxis, 10 * np.log10(Sxxmn))  # Plot the result in decibels vs frequency,
+Sxxmn = array(Sxx).mean(0)          # Convert the result into an array and compute the mean.
+semilogx(faxis, 10 * log10(Sxxmn))  # Plot the result in decibels vs frequency,
 xlim([df, 100])                        # ... in limited frequency range,
 ylim([-60, 0])                         # ... and a limited power range,
 xlabel('Frequency [Hz]')               # ... with axes labeled.
