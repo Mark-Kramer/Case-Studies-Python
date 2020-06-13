@@ -83,55 +83,52 @@
   
   <ul class="nav sidenav_l1">
   <li class="">
-    <a href="intro.html">1. Case-Studies-Python</a>
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="01.html">2. Python for the practicing neuroscientist</a>
+    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="02.html">3. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">4. Analysis of rhythmic activity for the practicing neuroscientist</a>
-  </li>
-  <li class="">
-    <a href="04.html">5. The Power Spectrum (Part 2)</a>
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="active">
-    <a href="">6. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="06.html">7. Application of Filtering to Scalp EEG Data</a>
+    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="07.html">8. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="08.html">9. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">10. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">11. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">12. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">11. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">13. Backpropagation</a>
+    <a href="A01.html">12. Backpropagation</a>
   </li>
   <li class="">
-    <a href="A02.html">14. The Hodgkin-Huxley model</a>
+    <a href="A02.html">13. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">15. The integrate and fire neuron</a>
+    <a href="A03.html">14. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A04.html">16. Training a Perceptron</a>
+    <a href="A04.html">15. Training a Perceptron</a>
   </li>
 </ul>
 </nav>
@@ -310,21 +307,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import our favorite functions and modules</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
 <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
-<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
-<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
-<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import tools for the chapter</span>
-<span class="kn">from</span> <span class="nn">numpy.fft</span> <span class="kn">import</span> <span class="n">fft</span><span class="p">,</span> <span class="n">rfft</span><span class="p">,</span> <span class="n">rfftfreq</span>
-<span class="n">figsize</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Default to wide figs</span>
 </pre></div>
 </div>
 </div>
@@ -341,8 +324,8 @@
 <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>  <span class="c1"># Scaling constant</span>
 
 <span class="c1"># Compute the Fourier transforms</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
-<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
 
 <span class="c1"># Compute the spectra</span>
 <span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Spectrum of E1 trials</span>
@@ -350,7 +333,7 @@
 <span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ... and the cross spectrum</span>
 
 <span class="c1"># Compute the coherence.</span>
-<span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
+<span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define a frequency axis.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>  <span class="c1"># Plot coherence vs frequency,</span>
@@ -362,9 +345,6 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/05_6_0.png" src="_images/05_6_0.png" />
 </div>
 </div>
 <div class="question">
@@ -462,7 +442,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_18_0.png" src="_images/05_18_0.png" />
+<img alt="_images/05_17_0.png" src="_images/05_17_0.png" />
 </div>
 </div>
 <p>Visual inspection of the data in this trial immediately suggests a dominant rhythmic activity occurs in each recording.</p>
@@ -485,7 +465,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_21_0.png" src="_images/05_21_0.png" />
+<img alt="_images/05_20_0.png" src="_images/05_20_0.png" />
 </div>
 </div>
 <p>The resulting image for the first electrode is shown in the figure above. Voltage (in color) is plotted as a function of time along the horizontal axis and trial number along the vertical axis. This allows us to visualize the voltage activity of the first electrode for all trials at once.</p>
@@ -506,7 +486,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_25_0.png" src="_images/05_25_0.png" />
+<img alt="_images/05_24_0.png" src="_images/05_24_0.png" />
 </div>
 </div>
 <p>We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.</p>
@@ -531,14 +511,14 @@ $\)</span></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the sampling interval.</span>
 <span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the number of trials.</span>
 <span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Define number of points in each trial.</span>
-<span class="n">ac</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for autocov.</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for autocov.</span>
 
 <span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">:</span>  <span class="c1"># For each trial,</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span> <span class="o">-</span> <span class="n">trial</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ... subtract the mean,</span>
-    <span class="n">ac0</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ... compute autocovar,</span>
+    <span class="n">ac0</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ... compute autocovar,</span>
     <span class="n">ac</span> <span class="o">+=</span> <span class="n">ac0</span> <span class="o">/</span> <span class="n">K</span><span class="p">;</span>  <span class="c1"># ... and add to total, scaled by 1/K.</span>
 
-<span class="n">lags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
+<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac</span><span class="p">)</span>  <span class="c1"># ... and plot the result.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>
@@ -549,7 +529,7 @@ $\)</span></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_31_0.png" src="_images/05_31_0.png" />
+<img alt="_images/05_30_0.png" src="_images/05_30_0.png" />
 </div>
 </div>
 <div class="question">
@@ -571,10 +551,10 @@ $$
 <p>The cross-covariance is large at lag <span class="math notranslate nohighlight">\(L\)</span> if the two shifted time series <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> match. If we’re interested in determining the coupling between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>, finding these matches could be particularly useful. To illustrate an application of the cross-covariance, let’s compute it between the two electrodes during the first trial of the ECoG data: <a id="fig:xc_1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># Define one time series,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># ... and another.</span>
-<span class="n">xc</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># ... and compute their cross covariance.</span>
-<span class="n">lags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># Define one time series,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># ... and another.</span>
+<span class="n">xc</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># ... and compute their cross covariance.</span>
+<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">lags</span><span class="o">*</span><span class="n">dt</span><span class="p">,</span><span class="n">xc</span><span class="p">)</span>  <span class="c1"># ... and plot the cross covariance vs lags in time.</span>
 
 <span class="c1"># Prettify</span>
@@ -587,7 +567,7 @@ $$
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_35_0.png" src="_images/05_35_0.png" />
+<img alt="_images/05_34_0.png" src="_images/05_34_0.png" />
 </div>
 </div>
 <p>Notice that we subtract the mean from each electrode in defining <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> before computing the cross-covariance using the Python function <code class="docutils literal notranslate"><span class="pre">correlate</span></code> from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. In this case, we supply the <code class="docutils literal notranslate"><span class="pre">correlate</span></code> function with three inputs, beginning with the two time series, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, and setting the <code class="docutils literal notranslate"><span class="pre">mode</span></code> to 2, which tells the function to compute the correlation over the entire extent both vectors.</p>
@@ -601,7 +581,7 @@ $$
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_39_0.png" src="_images/05_39_0.png" />
+<img alt="_images/05_38_0.png" src="_images/05_38_0.png" />
 </div>
 </div>
 <p>The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large: i.e. the sum in <a class="reference external" href="#eq:xc">the cross-covariance equation</a><span class="thumb"><sup>eq</sup><img src='imgs/eq5-2.png'></span> at this lag involves many positive terms, so <span class="math notranslate nohighlight">\(r_{xy}\big[L\big]\)</span> is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.</p>
@@ -618,11 +598,11 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 <a id="fig:avg_xc"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XC</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for cross cov.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XC</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for cross cov.</span>
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>  <span class="c1"># For each trial,</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...get data from one electrode,</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...and the other electrode,</span>
-    <span class="n">XC</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ...compute cross covariance.</span>
+    <span class="n">XC</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ...compute cross covariance.</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
 <span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">XC</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>					<span class="c1"># Plot cross covariance vs lags in time.</span>
@@ -640,7 +620,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_43_0.png" src="_images/05_43_0.png" />
+<img alt="_images/05_42_0.png" src="_images/05_42_0.png" />
 </div>
 </div>
 <div class="python-note">
@@ -654,10 +634,10 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </pre></div>
 </div>
 <p>The difference is largely stylistic, but the resulting datatype may be different. With the first method, we typically initialize an array with zeros and then replace the zeros with the value that we have computed. The result is whatever datatype we initialized. The second method will result in a list. A list can be converted to a different type or simply treated differently. In the code above, we can actually compute <code class="docutils literal notranslate"><span class="pre">XC</span></code> in a single line with the following:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>XC = [1 / N * np.correlate(x - x.mean(), y - y.mean(), &#39;full&#39;) for x, y in zip(E1, E2)]
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>XC = [1 / N * correlate(x - x.mean(), y - y.mean(), &#39;full&#39;) for x, y in zip(E1, E2)]
 </pre></div>
 </div>
-<p>At this point <code class="docutils literal notranslate"><span class="pre">XC</span></code> is a list object. We can change it to a numpy array with <code class="docutils literal notranslate"><span class="pre">XC</span> <span class="pre">=</span> <span class="pre">np.array(XC)</span></code>. Admittedly, there is something satisfying about accomplishing a lot in a single line. However, it is importsnt to write code that is <em>readable</em>, or easy to understand for someone who is looking at it for the first time. There may be times when a single line is more appropriate, but it is not true in every circumstance.</p>
+<p>At this point <code class="docutils literal notranslate"><span class="pre">XC</span></code> is a list object. We can change it to a numpy array with <code class="docutils literal notranslate"><span class="pre">XC</span> <span class="pre">=</span> <span class="pre">array(XC)</span></code>. Admittedly, there is something satisfying about accomplishing a lot in a single line. However, it is importsnt to write code that is <em>readable</em>, or easy to understand for someone who is looking at it for the first time. There may be times when a single line is more appropriate, but it is not true in every circumstance.</p>
 </div><p>The implementation of the trial-averaged cross-covariance is similar to the implementation of the single-trial cross-covariance. The main difference is the inclusion of the <code class="docutils literal notranslate"><span class="pre">for</span></code> statement, which we use to compute and store the cross-covariance of each trial. We then average these results across trials using the <code class="docutils literal notranslate"><span class="pre">mean</span></code> command from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. The trial-averaged cross-covariance (and example single-trial cross-covariances) are plotted in the figure above.</p>
 <div class="question">
 <p><strong>Q.</strong> Compare the trial-averaged cross-covariance to the example single-trial cross-covariances. What differences and similarities do you notice between the two cross-covariances?</p>
@@ -723,8 +703,8 @@ $\)</span></p>
 <span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>  <span class="c1"># Compute the scaling constant</span>
 
 <span class="c1"># Compute the Fourier transform for each trial</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... in E1</span>
-<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and in E2</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... in E1</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and in E2</span>
 
 <span class="c1"># Compute the spectra</span>
 <span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>  <span class="c1"># Spectrum of E1 trials</span>
@@ -734,9 +714,9 @@ $\)</span></p>
 <span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define the frequency axis</span>
 
 <span class="c1"># Plot the average spectrum over trials in decibels vs frequency</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Trial-averaged spectrum&#39;</span><span class="p">)</span>  
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Trial-averaged spectrum&#39;</span><span class="p">)</span>  
 <span class="c1"># ... and the spectrum from the first trial for reference</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Single-trial spectrum&#39;</span><span class="p">)</span>  
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Single-trial spectrum&#39;</span><span class="p">)</span>  
 
 <span class="c1"># Prettify</span>
 <span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>  <span class="c1"># ... in select frequency range,</span>
@@ -751,7 +731,7 @@ $\)</span></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_49_0.png" src="_images/05_49_0.png" />
+<img alt="_images/05_48_0.png" src="_images/05_48_0.png" />
 </div>
 </div>
 <div class="question">
@@ -897,8 +877,8 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the Fourier transforms</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
-<span class="n">yf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
 
 <span class="c1"># Compute the spectra</span>
 <span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Spectrum of E1 trials</span>
@@ -906,7 +886,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ... and the cross spectrum</span>
 
 <span class="c1"># Compute the coherence.</span>
-<span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
+<span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define a frequency axis.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>  <span class="c1"># Plot coherence vs frequency,</span>
@@ -920,7 +900,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_74_0.png" src="_images/05_74_0.png" />
+<img alt="_images/05_73_0.png" src="_images/05_73_0.png" />
 </div>
 </div>
 <div class="question">
@@ -934,24 +914,24 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <p>The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j8</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 8 Hz.</span>
-<span class="n">j24</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">24</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 24 Hz.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j8</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 8 Hz.</span>
+<span class="n">j24</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">24</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 24 Hz.</span>
 
-<span class="n">phi8</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>  <span class="c1"># Variables to hold phase differences.</span>
-<span class="n">phi24</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+<span class="n">phi8</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>  <span class="c1"># Variables to hold phase differences.</span>
+<span class="n">phi24</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>  <span class="c1"># For each trial, compute the cross spectrum. </span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c1"># Get the data from each electrode,</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">,:])</span>
-    <span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># ... compute the Fourier transform,</span>
-    <span class="n">yf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-    <span class="n">Sxy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">yf</span><span class="p">))</span>  <span class="c1"># ... and the cross-spectrum,</span>
-    <span class="n">phi8</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j8</span><span class="p">])</span>  <span class="c1"># ... and the phases.</span>
-    <span class="n">phi24</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j24</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c1"># Get the data from each electrode,</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">,:])</span>
+    <span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># ... compute the Fourier transform,</span>
+    <span class="n">yf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">Sxy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">conj</span><span class="p">(</span><span class="n">yf</span><span class="p">))</span>  <span class="c1"># ... and the cross-spectrum,</span>
+    <span class="n">phi8</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j8</span><span class="p">])</span>  <span class="c1"># ... and the phases.</span>
+    <span class="n">phi24</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j24</span><span class="p">])</span>
 
 <span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Plot the distributions of phases.</span>
-<span class="n">a1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi8</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
-<span class="n">a2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi24</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi8</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">])</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi24</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">])</span>
 
 <span class="c1"># Prettify</span>
 <span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
@@ -965,10 +945,10 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/05_79_0.png" src="_images/05_79_0.png" />
+<img alt="_images/05_78_0.png" src="_images/05_78_0.png" />
 </div>
 </div>
-<p>Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (<code class="docutils literal notranslate"><span class="pre">K</span></code>) and the frequency axis (<code class="docutils literal notranslate"><span class="pre">f</span></code>). Then, within the frequency axis variable (<code class="docutils literal notranslate"><span class="pre">f</span></code>), we use the function <code class="docutils literal notranslate"><span class="pre">np.where</span></code> to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (<code class="docutils literal notranslate"><span class="pre">Sxy</span></code>). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function <code class="docutils literal notranslate"><span class="pre">np.angle</span></code>. We store these results in two vectors, <code class="docutils literal notranslate"><span class="pre">phi8</span></code> and <code class="docutils literal notranslate"><span class="pre">phi24</span></code>.</p>
+<p>Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (<code class="docutils literal notranslate"><span class="pre">K</span></code>) and the frequency axis (<code class="docutils literal notranslate"><span class="pre">f</span></code>). Then, within the frequency axis variable (<code class="docutils literal notranslate"><span class="pre">f</span></code>), we use the function <code class="docutils literal notranslate"><span class="pre">where</span></code> to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (<code class="docutils literal notranslate"><span class="pre">Sxy</span></code>). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function <code class="docutils literal notranslate"><span class="pre">angle</span></code>. We store these results in two vectors, <code class="docutils literal notranslate"><span class="pre">phi8</span></code> and <code class="docutils literal notranslate"><span class="pre">phi24</span></code>.</p>
 <p>To summarize the results, we plot a histogram of the phase differences. We divide the phase axis into 20 bins of equal size from 0 to 2$\pi$ radians, or equivalently, 0 to 360 degrees. At 8 Hz, we observe that phase differences appear in all angular intervals; notice that the number of phase differences located in each angular interval remains small, typically less than 10. At 24 Hz, the angular differences concentrate near 0 degrees; all of the angles lie between  approximately 60 and 60 degrees. This visualization is consistent with the strong coherence at 24 Hz, indicative of a consistent phase difference across trials between the two electrodes.</p>
 <div class="question">
 <p><strong>Q.</strong> Compute and display the distribution of phase differences at other frequencies. What do you find? Are these results consistent with the <a class="reference external" href="#fig:cohr">coherence</a><span class="fig"><sup>fig</sup><img src="imgs/cohr.png"></span>?</p>
