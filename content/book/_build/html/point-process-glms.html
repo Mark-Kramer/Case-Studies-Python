@@ -1,0 +1,1343 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Modeling Place Fields with Point Process Generalized Linear Models &#8212; Case Studies in Neural Data Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/custom.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/point-process-glms.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task" href="spiking-rhythms.html" />
+    <link rel="prev" title="Basic Visualizations and Descriptive Statistics of Spike Train Data" href="basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<!-- Put requirejs at the end so it's always after bootstrap -->
+<!-- TODO: remove this once https://github.com/pandas-dev/pydata-sphinx-theme/pull/149 is merged -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/point-process-glms.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Modeling Place Fields with Point Process Generalized Linear Models" />
+<meta property="og:description" content="Modeling Place Fields with Point Process Generalized Linear Models  <div id="top" class="question">   Synopsis  Data: Spike train data recorded in vivo from a p" />
+
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Case Studies in Neural Data Analysis</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="intro.html">Case-Studies-Python</a>
+  </li>
+  <li class="">
+    <a href="introduction-to-python.html">Python for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="the-event-related-potential.html">The Event-Related Potential for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="the-power-spectrum-part-1.html">Analysis of rhythmic activity for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="ecog-rhythms.html">The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="the-cross-covariance-and-coherence.html">Analysis of coupled rhythms for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="filtering-scalp-eeg.html">Application of Filtering to Scalp EEG Data</a>
+  </li>
+  <li class="">
+    <a href="cross-frequency-coupling.html">Cross-frequency coupling for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="basic-visualizations-and-descriptive-statistics-of-spike-train-data.html">Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+  </li>
+  <li class="active">
+    <a href="">Modeling Place Fields with Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="spiking-rhythms.html">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+  </li>
+  <li class="">
+    <a href="spike-field-coherence.html">Analysis of spike-field cohernece for the practicing neuroscientist <a id="top"></a></a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Appendices</p>
+</li>
+  <li class="">
+    <a href="backprop.html">Backpropagation</a>
+  </li>
+  <li class="">
+    <a href="HH.html">The Hodgkin-Huxley model</a>
+  </li>
+  <li class="">
+    <a href="LIF.html">The integrate and fire neuron</a>
+  </li>
+  <li class="">
+    <a href="perceptron.html">Training a Perceptron</a>
+  </li>
+</ul>
+</nav>
+<p class="navbar_footer"></p>
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/point-process-glms.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Edit this page -->
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/point-process-glms.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                
+                
+                
+            </div>
+        </div>
+        
+
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#on-ramp-filtering-field-data-in-python-a-id-onramp-a" class="nav-link">On-ramp: filtering field data in Python <a id="onramp"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#introduction-a-id-introduction-a" class="nav-link">Introduction <a id="introduction"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#case-study-data" class="nav-link">Case study data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#goals" class="nav-link">Goals</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#tools" class="nav-link">Tools</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#data-analysis" class="nav-link">Data Analysis</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual Inspection <a id="visual-inspection"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a" class="nav-link">Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#refining-the-model-a-id-refining-a" class="nav-link">Refining the model <a id="refining"></a></a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#comparing-and-evaluating-models-a-id-comparing-models-a" class="nav-link">Comparing and Evaluating Models<a id="comparing-models"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#method-1-comparing-aic-values" class="nav-link">Method 1: Comparing AIC Values.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#method-2-chi-square-test-for-nested-models" class="nav-link">Method 2: Chi-Square Test for Nested Models.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#method-3-confidence-intervals-for-individual-model-parameters" class="nav-link">Method 3: Confidence Intervals for Individual Model Parameters.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#method-4-ks-test-for-model-goodness-of-fit" class="nav-link">Method 4: KS Test for Model Goodness-of-Fit.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#time-rescaling-theorem" class="nav-link">Time-Rescaling Theorem:</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#method-5-residual-analysis" class="nav-link">Method 5: Residual Analysis.</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#refining-the-model-continued-a-id-refining-continued-a" class="nav-link">Refining the Model (Continued) <a id="refining-continued"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#comparing-and-evaluating-models-continued-a-id-comparing-continued-a" class="nav-link">Comparing and Evaluating Models (Continued) <a id="comparing-continued"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" class="nav-link">Drawing Conclusions from the Model <a id="drawing-conclusions"></a></a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#summary-a-id-summary-a" class="nav-link">Summary <a id="summary"></a></a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 col-xxl-7 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <p><a id="top"></a></p>
+<div class="section" id="modeling-place-fields-with-point-process-generalized-linear-models">
+<h1>Modeling Place Fields with Point Process Generalized Linear Models<a class="headerlink" href="#modeling-place-fields-with-point-process-generalized-linear-models" title="Permalink to this headline">¶</a></h1>
+<div id="top" class="question">
+<p><em><strong>Synopsis</strong></em></p>
+<p><strong>Data:</strong> Spike train data recorded <em>in vivo</em> from a place cell in rat hippocampus.</p>
+<p><strong>Goal:</strong> Develop a model that relates the spiking of the neuron to the rat’s movement trajectory.</p>
+<p><strong>Tools:</strong> Point process theory, generalized linear models, Kolmogorov-Smirnov plots, likelihood ratio tests.</p>
+</div><ul class="simple">
+<li><p><a class="reference external" href="#onramp">On-ramp: point process generalized linear models in Python</a></p></li>
+<li><p><a class="reference external" href="#introduction">Introduction</a></p></li>
+<li><p><a class="reference external" href="#data-analysis">Data analysis</a></p>
+<ol class="simple">
+<li><p><a class="reference external" href="#visual-inspection">Visual Inspection</a></p></li>
+<li><p><a class="reference external" href="#fitting-a-poisson-glm">Fitting a Point Process Model (Poisson GLM)</a></p></li>
+<li><p><a class="reference external" href="#refining">Refining the Model</a></p></li>
+<li><p><a class="reference external" href="#comparing-models">Comparing and Evaluating Models</a></p></li>
+<li><p><a class="reference external" href="#refining-continued">Refining the Model (Continued)</a></p></li>
+<li><p><a class="reference external" href="#comparing-continued">Comparing and Evaluating Models (Continued)</a></p></li>
+<li><p><a class="reference external" href="#drawing-conclusions">Drawing Conclusions from the Model</a></p></li>
+</ol>
+</li>
+<li><p><a class="reference external" href="#summary">Summary</a></p></li>
+</ul>
+<div class="section" id="on-ramp-filtering-field-data-in-python-a-id-onramp-a">
+<h2>On-ramp: filtering field data in Python <a id="onramp"></a><a class="headerlink" href="#on-ramp-filtering-field-data-in-python-a-id-onramp-a" title="Permalink to this headline">¶</a></h2>
+<p>We begin this module with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import modules ...</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                     <span class="c1"># To load .mat files</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>                     <span class="c1"># To fit GLMs</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="kn">import</span> <span class="n">Poisson</span>  <span class="c1"># ... Poisson GLMs</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>               <span class="c1"># Table object for working with data</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                              <span class="c1"># Numerical and plotting functions</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>                             <span class="c1"># Load the data,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>                                        <span class="c1"># Extract the t variable,</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">]</span>                                        <span class="c1"># Extract the X variable,</span>
+<span class="n">spiketimes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spiketimes&#39;</span><span class="p">]</span>                            <span class="c1"># ... and the spike times.</span>
+<span class="n">spiketrain</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
+                         <span class="n">bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> 
+                         <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
+<span class="n">spikeindex</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">spiketrain</span><span class="o">!=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>                       <span class="c1"># Get the spike indices.</span>
+
+<span class="n">bin_edges</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                            <span class="c1"># Define spatial bins.</span>
+<span class="n">spikehist</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># Histogram positions @ spikes.</span>
+<span class="n">occupancy</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.001</span>               <span class="c1"># Convert occupancy to seconds.</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span>                                     <span class="c1"># Create a dataframe of predictors</span>
+  <span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">X</span><span class="p">),</span>
+  <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">,</span>
+  <span class="s1">&#39;X2&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span>
+  <span class="p">})</span>
+
+<span class="c1"># GLM model with Poisson family and identity link function</span>
+<span class="n">model3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span>  <span class="c1"># Create the model</span>
+<span class="n">model3_results</span> <span class="o">=</span> <span class="n">model3</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>                              <span class="c1"># Fit model to our data</span>
+<span class="n">b3</span> <span class="o">=</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">params</span>                                 <span class="c1"># Get the predicted coefficient vector</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span> <span class="o">/</span> <span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>                  <span class="c1"># Plot results as bars.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span>                                                 <span class="c1"># Plot model.</span>
+     <span class="n">exp</span><span class="p">(</span><span class="n">b3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+     <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                                    <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_4_0.png" src="_images/point-process-glms_4_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, estimates the parameters of a model, and then plots the model over the observations?</p>
+<p><strong>A:</strong> There is a lot happening here. Please continue on to learn this <strong>and more</strong>!</p>
+</div></div>
+<div class="section" id="introduction-a-id-introduction-a">
+<h2>Introduction <a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+<p>In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.</p>
+<p>This stimulus-response paradigm relates to the important concept of <em>neural coding</em>: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this notebook.</p>
+<div class="section" id="case-study-data">
+<h3>Case study data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
+<p>A collaborator has contacted us to discuss a new experiment he has performed. As part of this experiment, he has implanted a small bundle of electrodes in a rat’s hippocampus and trained the rat to perform a simple spatial task: to run back and forth along a linear maze. During this task, our collaborator believes he has recorded the spiking activity from a place cell, a cell whose activity is position-specific. He has asked us to help characterize these spike train data and support (or refute) the notion that the observed cell is a <a href="https://en.wikipedia.org/wiki/Place_cell" target="blank">place cell</a>. He has agreed to provide us with the observed spike train data and the position of the rat as a function of time, recorded during a few minutes of the experiment.</p>
+</div>
+<div class="section" id="goals">
+<h3>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h3>
+<p>Our goal is to characterize the properties of the observed cell as the rat runs back and forth in the linear maze. Spiking activity in these cells is known to relate to other variables, such as the speed and head direction of the rat. Here, we focus on modeling the relation between the rat’s movement trajectory and the observed spiking activity. In doing so, we select a model through an iterative process of model fitting, evaluation, and refinement.</p>
+</div>
+<div class="section" id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
+<p>In this notebook, we develop a series of generalized linear models. We implement procedures to fit, refine, and compare this series of models. We demonstrate the process of implementing and fitting a Poisson regression model in Python, procedures to evaluate model goodness-of-fit and compare models, and methods to construct confidence intervals for model parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the usual suspects ...</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>                    <span class="c1"># To load .mat files</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>                 <span class="c1"># Load plotting functions</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import plotting functions</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="o">*</span>                             <span class="c1"># Import numerical functions</span>
+<span class="kn">from</span> <span class="nn">IPython.core.pylabtools</span> <span class="kn">import</span> <span class="n">figsize</span>     <span class="c1"># Allow us to change figure sizes</span>
+<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">HTML</span>           <span class="c1"># Package for manipulating appearance of notebooks</span>
+<span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>    <span class="c1"># Package for displaying YouTube videos</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... and some additional modules.</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families</span> <span class="kn">import</span> <span class="n">Poisson</span>
+<span class="kn">from</span> <span class="nn">statsmodels.genmod.families.links</span> <span class="kn">import</span> <span class="n">identity</span><span class="p">,</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">chi2</span>
+<span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">DataFrame</span> <span class="k">as</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="data-analysis"></a></p>
+</div>
+</div>
+<div class="section" id="data-analysis">
+<h2>Data Analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="visual-inspection-a-id-visual-inspection-a">
+<h2>Visual Inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
+<p>First we load the file <code class="docutils literal notranslate"><span class="pre">spikes-1.mat</span></code>. The variable <code class="docutils literal notranslate"><span class="pre">X</span></code> indicates the rat’s position (in centimeters) at each moment in time (variable <code class="docutils literal notranslate"><span class="pre">t</span></code>, in seconds). The variable <code class="docutils literal notranslate"><span class="pre">spiketimes</span></code> indicates the times (in seconds) at which spikes occur in the data.</p>
+<p>We begin with visual inspection of the data. Let’s first plot the rat’s movement trajectory as a function of time:
+<a id="fig:position"></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;spikes-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the data,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>              <span class="c1"># Extract the t variable,</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">][:,</span><span class="mi">0</span><span class="p">]</span>              <span class="c1"># Extract the X variable,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>                      <span class="c1"># ... and plot it.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_12_0.png" src="_images/point-process-glms_12_0.png" />
+</div>
+</div>
+<p>The plot shows that the rat runs back and forth consistently, making about 15 passes during the approximately 3 minute recording. We also observe that the rat moves fairly quickly during each back and forth pass but spends a large amount of time at both ends of the track (near position 0 cm or 100 cm) before turning around and continuing.</p>
+<p>Next, we would like to plot the spiking activity in relation to the rat’s movement trajectory. However, we cannot simply plot the vector <code class="docutils literal notranslate"><span class="pre">X</span></code> against the vector <code class="docutils literal notranslate"><span class="pre">spiketimes</span></code>; these vectors have different lengths. The length of <code class="docutils literal notranslate"><span class="pre">X</span></code> is the same as the length of <code class="docutils literal notranslate"><span class="pre">t</span></code>, the total number of 1 ms time bins in the recording (177,761 time bins). The length of spiketimes is the total number of spikes to occur during the duration of the recording: 220 spikes. Therefore, the first step to visualizing the place-specific spiking activity is to use <code class="docutils literal notranslate"><span class="pre">spiketimes</span></code> to create a new vector, with the same size as X, that indicates whether a spike was fired at each time bin. Let’s call this vector <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code> and have it contain 1 for each time bin where a spike occurs and 0 for each time bin that lacks a spike.</p>
+<div class="question">
+<p><strong>Q:</strong> How would you construct the vector <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code>? Can you think of multiple ways to construct the same vector?</p>
+<p><strong>A:</strong> We could use a for-loop to step through each time bin and decide whether a spike occurred. A more efficient approach is to realize that this computation can be performed as a <a href="https://numpy.org/doc/stable/reference/generated/numpy.histogram.html" target="blank">histogram</a>, and use the numpy function histogram. There are many other ways to compute this same vector.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spiketimes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;spiketimes&#39;</span><span class="p">]</span>
+<span class="n">n_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="c1"># Histogram spikes into bins centered at times t:</span>
+<span class="n">spiketrain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">spiketimes</span><span class="p">,</span> 
+                         <span class="n">bins</span> <span class="o">=</span> <span class="n">n_bins</span><span class="p">,</span> 
+                         <span class="nb">range</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can plot the position and spike train together.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>               <span class="c1"># Plot the position,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">spiketrain</span><span class="p">)</span> <span class="c1"># Plot the spikes,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>   <span class="c1"># ... and label the axes.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_17_0.png" src="_images/point-process-glms_17_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q</strong>: Is there a better way to visualize the spiking activity and position?</p>
+<p><strong>A</strong>: Keeping the variable <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code>, let’s compute a new variable, <code class="docutils literal notranslate"><span class="pre">spikeindex</span></code>, using the numpy command <code class="docutils literal notranslate"><span class="pre">where()</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>spikeindex=np.where(spiketrain!=0)[0]  #Determine index of each spike.
+</pre></div>
+</div>
+<p>The vector <code class="docutils literal notranslate"><span class="pre">spikeindex</span></code> represents the vector indices at which spikes occur. We can use this to index any of the variables whose size matches the number of time bins in the recording. So, another visualization we can now employ is to plot the times and positions of the spikes overlaid on the full movement trajectory. In Python:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>plot(t, X)                             #Plot the position.
+plot(t[spikeindex],X[spikeindex],&#39;r.&#39;) #Plot spikes @ positions.
+plt.xlabel(&#39;Time [sec]&#39;)               #Label the axes.
+plt.ylabel(&#39;Position [cm]&#39;)
+</pre></div>
+</div>
+<p>Note that by using the <code class="docutils literal notranslate"><span class="pre">'r.'</span></code> term in the plot function, we indicate the times and positions of the spikes as red dots.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spikeindex</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">spiketrain</span><span class="o">!=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>     <span class="c1"># Get the spike indices.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>                               <span class="c1"># Plot the position,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>  <span class="c1"># ... and the spikes.  </span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [sec]&#39;</span><span class="p">)</span>                     <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_19_0.png" src="_images/point-process-glms_19_0.png" />
+</div>
+</div>
+<p>From the above figure, it is clear that the preponderance of the spiking is occurring whenever the rat is running up the track, in the direction where <code class="docutils literal notranslate"><span class="pre">X</span></code> is increasing, at values of <code class="docutils literal notranslate"><span class="pre">X</span></code> ranging from about 50 cm to about 80 cm. We do not see the same spiking activity in this region when the rat is running back down the track, in the direction where <code class="docutils literal notranslate"><span class="pre">X</span></code> is decreasing. A few spikes occur at other locations, but these appear sparse compared to the place-specific firing in this region.</p>
+<p>Another way to visualize this place field structure is to construct an <strong>occupancy normalized histogram</strong> of the spiking activity. To do so, we define a set of position bins spanning the full 100 cm track, count the number of spikes that occur in each location bin, and divide by the occupancy, the total amount of time spent at each location bin. Dividing by the occupancy is important. Otherwise differences in the way the stimulus is presented can bias the characterization of the stimulus response relation. For example, if the rat spent much more time in the 50–80 cm region, we might expect more firing in that region even if the firing does not depend on place at all. Based on our previous visualization, we know that this is not the case for these data, but it is important to keep in mind how the statistics of a stimulus signal might influence the statistics of an output signal.</p>
+<p>Let’s compute the occupancy normalized histogram in Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bin_edges</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                              <span class="c1"># Define spatial bins.</span>
+<span class="n">spikehist</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">spikeindex</span><span class="p">],</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>           <span class="c1"># Histogram positions @ spikes.</span>
+<span class="n">occupancy</span> <span class="o">=</span> <span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bin_edges</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mf">0.001</span>                 <span class="c1"># Convert occupancy to seconds.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Plot results as bars.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                                      <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_21_0.png" src="_images/point-process-glms_21_0.png" />
+</div>
+</div>
+<p>In the third line of this code, we multiply the occupancy by 0.001 to put the occupancy in units of seconds and the occupancy normalized histogram in units of spikes per second. From the occupancy normalized histogram in the figure, we see that the firing rate is highest around the 60–70 cm position and falls off rapidly as the rat moves away from that location. This corroborates the results from our previous visualizations. However, there is one feature of the spiking activity that we observed previously for which we are not accounting in this visualization. Here we are relating spiking purely to position without regard for the direction of the rat’s movement.</p>
+<div class="question">
+<p><strong>Q</strong>: How might we construct a visualization that accounts for spiking as a function of both position and direction?</p>
+<p><strong>A</strong>: One option is to construct separate occupancy normalized histograms for movement in each direction. To do so, we would need to determine for each time step whether it represents a movement period where the position is increasing or decreasing. How would you do this? (We do so later when constructing place field models.)</p>
+</div>
+<p><a class="reference external" href="#top">Back to top</a></p>
+</div>
+<div class="section" id="fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a">
+<h2>Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm"></a><a class="headerlink" href="#fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a" title="Permalink to this headline">¶</a></h2>
+<p>Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.</p>
+<div class="question">
+<p><strong>Q:</strong> Do the notions of point process model, Poisson model, and rate parameter seem familiar?</p>
+<p><strong>A:</strong> If not, consider reviewing the case study in <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a>.</p>
+</div><p>One approach we used to model the spiking data in <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> was a Poisson model, in which we used a rate parameter, <span class="math notranslate nohighlight">\(\lambda\)</span>, to define the expected rate of spiking in any time interval. We then computed the value of <span class="math notranslate nohighlight">\(\lambda\)</span> that maximized the likelihood of observing the recorded spiking activity. For the data of interest here, we extend this concept by defining a rate that varies in time as a function of some set of covariates. These covariates are any variables whose influence on the spiking activity we wish to explore. Our visualizations suggest that useful covariates for our model include the rat’s position and its direction of motion.</p>
+<p>Let’s define some terms. Let <span class="math notranslate nohighlight">\(x(t)\)</span> represent the rat’s position at time <span class="math notranslate nohighlight">\(t\)</span>, and let <span class="math notranslate nohighlight">\(d(t)\)</span> represent the direction of motion; we set <span class="math notranslate nohighlight">\(d(t) = 0\)</span> when <span class="math notranslate nohighlight">\(x(t)\)</span> is decreasing or the rat is stopped, and <span class="math notranslate nohighlight">\(d(t) = 1\)</span> when <span class="math notranslate nohighlight">\(x(t)\)</span> is increasing. Since these position and direction signals change as a function of time, so does the firing rate. We write <span class="math notranslate nohighlight">\(\lambda(t) = g(x(t), d(t))\)</span>, where <span class="math notranslate nohighlight">\(\lambda(t)\)</span> is called the <strong>Poisson rate function</strong>, and <span class="math notranslate nohighlight">\(g(·, ·)\)</span> is a function that we need to define the model.</p>
+<p>What function should we use for <span class="math notranslate nohighlight">\(g(·, ·)\)</span>? We want something that captures the relation between the covariates and the spiking, and is easy to interpret. The process of finding a model or set of models that are most consistent with the data is called model identification or model selection. Typically, this is an iterative process where we propose a class of models, find the particular model in that class that best fits the data, assess the quality of that model, and decide whether to refine the model further or to draw conclusions from the model fit. In practice, it is a good idea to begin with descriptive statistics and visualizations of the relation between the covariates and spiking data to select a class of point process models. For the spike train data of interest here, our visualizations suggest a model where the dependence of spiking on position has a mound shape (as in the occupancy normalized histogram) and which incorporates direction. We start with an overly simple model for pedagogical purposes.</p>
+<p>The following is a very basic model inspired by simple linear regression:</p>
+<p id="model:1" title="Model 1">
+$$ 
+\lambda(t) = \beta_0 + \beta_1x(t). 
+\tag{Model 1}
+$$
+</p>
+<p>The idea of linear regression is to express a response variable at time <span class="math notranslate nohighlight">\(t\)</span> in terms of predictor variables, or covariates. Here, <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> are unknown parameters used to characterize a linear dependence between the response variable <span class="math notranslate nohighlight">\(\lambda(t)\)</span> and covariate <span class="math notranslate nohighlight">\(x(t)\)</span>. <span class="math notranslate nohighlight">\(\beta_0\)</span> represents the expected firing rate at <span class="math notranslate nohighlight">\(x(t) = 0\)</span>, and <span class="math notranslate nohighlight">\(\beta_1\)</span> represents the change in firing rate for each unit of increase in position. This initial model does not include any dependence on the rat’s movement direction (i.e., there’s no <span class="math notranslate nohighlight">\(d(t)\)</span> term).</p>
+<p>The form of the model looks like a standard linear regression, which is comforting because methods exist in Python to solve these types of problems. However, the observed data are spike events; in discrete time, the data are spike counts. A standard linear regression assumes that the distribution of the data, given the covariates, is normal. Spike counts can take on only non-negative integer values, so their distribution cannot be normal. When the number of spike counts in each time bin is very large, it is possible that the distribution of the data can be approximated by a normal distribution, and in this case, simple regression methods might work. But for the spiking data of interest here, we have very few spikes (0 or 1) in each 1 ms time bin, so a simple regression fit would not be correct.</p>
+<p>Instead, we must fit a <strong>Poisson regression model</strong> to the data. If we let <span class="math notranslate nohighlight">\(N(t)\)</span> be the number of spikes that are observed in the interval <span class="math notranslate nohighlight">\((t, t +  \Delta t)\)</span>, then under the Poisson regression model, <span class="math notranslate nohighlight">\(N(t)\)</span> has a Poisson distribution with a mean parameter equal to the response variable <span class="math notranslate nohighlight">\(\lambda(t)\)</span> integrated over the interval <span class="math notranslate nohighlight">\((t, t +\Delta t)\)</span>.</p>
+<p>How do we fit the Poisson regression model? It turns out that Poisson regression models of a certain form can be fitted efficiently using the theory of generalized linear models. In Python, we can fit this model using the <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code> package. Before applying this function directly to the data, let’s get an overview of the function’s inputs and outputs. In Python, we consider the GLM model from the package <code class="docutils literal notranslate"><span class="pre">statsmodel</span></code>. We will construct a model using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">GLM(Y,</span> <span class="pre">X_1,</span> <span class="pre">family(link())).</span></code></p>
+<p>The first input, <code class="docutils literal notranslate"><span class="pre">Y</span></code>, is a vector of the spike counts at each time step. In this case, <code class="docutils literal notranslate"><span class="pre">Y</span></code> is the vector <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code> that we computed earlier. The second input, <code class="docutils literal notranslate"><span class="pre">X_1</span></code>, is a matrix of the covariates on which spiking depends. The size of this matrix is <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">p</span></code>, where <code class="docutils literal notranslate"><span class="pre">p</span></code> is the number of covariates in the model, and <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number observations. Since our model is given by <span class="math notranslate nohighlight">\(\lambda(t) = \beta_0 + \beta_1x(t)\)</span>, we will prepend a column of ones to the data matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>, so that we can fit the intercept <span class="math notranslate nohighlight">\(\beta_0\)</span> to our data. Thus, <code class="docutils literal notranslate"><span class="pre">X_1</span></code> is an <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">×</span> <span class="pre">2</span></code> matrix, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the number of data points (177,761) representing the position of the rat along the track. The third input indicates the distribution of the spike count data in <code class="docutils literal notranslate"><span class="pre">Y</span></code>. For a Poisson regression model of spike count data, we use the Poisson family. In fact, for most neural spike count models fitted using GLM, even those that are not Poisson processes, we use the Poisson distribution. The family input is characterized by a <strong>link function</strong> between the spiking rate and the covariates. Specifically, if we want to fit a model of the form <span class="math notranslate nohighlight">\(h(\lambda(t)) = \beta_0 + \beta_1x(t)\)</span>, then we would say that the function <span class="math notranslate nohighlight">\(h(·)\)</span> is the link function. For Model 1, this is simply the identity function. In what follows, we show a better way to select this link function.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">params</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">fit</span></code> function is a vector of numbers representing the maximum likelihood estimates of the model parameters, which for this example we have labeled <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>. We use the “hat” notation above a parameter to represent its estimate. The maximum likelihood estimate of <span class="math notranslate nohighlight">\(\beta_0\)</span> is written <span class="math notranslate nohighlight">\(\hat{\beta_0}\)</span>, and the maximum likelihood estimate of <span class="math notranslate nohighlight">\(\beta_1\)</span> is written <span class="math notranslate nohighlight">\(\hat{\beta_1}\)</span>.
+Let’s now use this function to fit the parameters of Model 1 to the observed location and spiking data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a dataframe of predictors that includes X and a constant term</span>
+<span class="n">predictors</span> <span class="o">=</span> <span class="n">df</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Intercept&#39;</span><span class="p">:</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span> <span class="n">X</span><span class="p">})</span>
+
+<span class="c1"># GLM model with Poisson family and identity link function</span>
+<span class="n">model1</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">identity</span><span class="p">()))</span>
+<span class="n">model1_results</span> <span class="o">=</span> <span class="n">model1</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">model1_results</span><span class="o">.</span><span class="n">params</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b1:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="stderr docutils container">
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:278: DomainWarning: The identity link function does not respect the domain of the Poisson family.
+  DomainWarning)
+</pre>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b1:
+Intercept   -0.000097
+X            0.000027
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> What do you notice about the values of the model fit (<code class="docutils literal notranslate"><span class="pre">b1</span></code>)? Do the results make sense?</p>
+<p><strong>A:</strong> Initially, you may notice that Python outputs at the command line a warning that this model — particularly the identity link function — may be inappropriate. Let’s ignore this warning and attempt to interpret the resulting parameter estimates. The first of these values is the maximum likelihood estimate for <span class="math notranslate nohighlight">\(\beta_0\)</span>. If we believed this model was accurate, we could interpret this parameter as indicating that the expected firing rate at position <span class="math notranslate nohighlight">\(x = 0\)</span> is <span class="math notranslate nohighlight">\(\lambda = −9.7 \times 10^{-5}\)</span> spikes per millisecond, or about −0.097 spikes per second, and that as the rat moves in the positive direction, the firing rate increases by <span class="math notranslate nohighlight">\(\beta_1 = 0.0271\)</span> spikes per second for every centimeter the rat moves. This result should immediately raise some red flags. The fact that the firing rate is negative indicates that the model becomes uninterpretable for observed values of x. This suggests one major problem with Model 1 — the firing rate is negative — and motivates changes to the model link function.
+To further visualize the quality of this model, we can compare the dependence it defines between position and spike rate to the occupancy normalized histogram we computed earlier. In this case, we use the positions defined by the histogram bins, and compute the modeled spike rate at these positions.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bins</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>    <span class="c1"># Plot results as bars.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,(</span><span class="n">b1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">b1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">bins</span><span class="p">)</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Model spike rate&quot;</span><span class="p">)</span>             <span class="c1"># Plot model.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                    <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;b1 = [</span><span class="si">{0[0]:.4}</span><span class="s2">, </span><span class="si">{0[1]:.4}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b1</span><span class="p">))</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_29_0.png" src="_images/point-process-glms_29_0.png" />
+</div>
+</div>
+<div class="question">
+<p>We see that the model spike rate captures some features of the observed spiking, for example, the fact that the spike rate increases as the rat moves from position x = 0 toward position x = 60. But the model misses much of the structure, for example, the fact that the spike rate does not change linearly with position and begins to decrease as the rat’s position increases beyond x = 70. This suggests a second issue with this model: the form of the relation between position and firing rate is wrong.</p>
+</div>
+<p><a class="reference external" href="#top">Back to top</a></p>
+<div class="section" id="refining-the-model-a-id-refining-a">
+<h3>Refining the model <a id="refining"></a><a class="headerlink" href="#refining-the-model-a-id-refining-a" title="Permalink to this headline">¶</a></h3>
+<p>We conclude that our initial proposal, Model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:
+<a id="model:2"></a></p>
+<p title="Model 2a"> $$\log \lambda(t) = \beta_0 + \beta_1 x(t), 
+\tag{Model 2}
+$$</p>
+or equivalently,
+<p title="Model 2b">
+$$
+\lambda = e^{\beta_0+\beta_1x(t)}.
+\tag{Model 2}
+$$</p>
+<p>This link function is called the canonical link for Poisson data. It has a number of appealing
+properties. As desired, it ensures that the rate function is positive.</p>
+<div class="question">
+<p><strong>Q:</strong> Consider the expression for <span class="math notranslate nohighlight">\(\lambda(t)\)</span> above. Why must <span class="math notranslate nohighlight">\(\lambda(t)\)</span> always be positive?</p>
+</div><p>The choice of a log link also ensures that the likelihood of the data is concave with respect to the model parameters. This means that the likelihood only has one local maximum value, which is the maximum likelihood (ML) estimate. It can also be shown that in many cases, the parameter estimators will be asymptotically normal, which will allow us to construct confidence intervals and make significance statements about them <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden &amp; Brown, 2014]</a>.</p>
+<p>To fit Model 2 in Python, we use the same model as before but replace the the link function with log:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">(</span><span class="n">log</span><span class="p">()))</span> <span class="c1"># GLM model with Poisson family and log link function</span>
+<span class="n">model2_results</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">params</span>    <span class="c1"># Get the predicted coefficient vector</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In fact, if we omit the name of the link function in the <code class="docutils literal notranslate"><span class="pre">sm.GLM</span></code> routine, it will automatically use the canonical link for the selected distribution. Since the log link is canonical for Poisson data, we can simply run the commands:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model2</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span>  <span class="c1"># GLM model with Poisson family, omitting link function</span>
+<span class="n">model2_results</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>  <span class="c1"># Fit model to our data</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">params</span>     <span class="c1"># Get the predicted coefficient vector</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept   -7.438887
+X            0.012943
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Execute the fit function with the log link in Python. What do you find?</p>
+<p><strong>A:</strong> This time, we find that Python does not issue a warning that the link function may be inappropriate. Inspection of the estimated parameter values reveals <code class="docutils literal notranslate"><span class="pre">b2</span> <span class="pre">=</span> <span class="pre">[-7.43888719</span>&#160; <span class="pre">0.01294342]</span></code>. These values are markedly different from the parameter values <code class="docutils literal notranslate"><span class="pre">b1</span></code> found using Model 1. The reason for this difference is that the form of the model has a major impact on the interpretation of the parameter values. In what follows, we discuss the interpretation of these parameter values in detail.</p>
+</div><p>Let’s examine the model fit more closely. When x = 0, the firing rate under Model 2 is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 \times 0)\\
+&amp;= \exp(\beta_0)\\
+&amp;= 0.0006\text{ spikes/ms}\\
+&amp;= 0.6 \text{ spikes/s,}\end{align}\end{split}\]</div>
+<p>where we have used the value <span class="math notranslate nohighlight">\(\beta_0 =\)</span> <code class="docutils literal notranslate"><span class="pre">b2[0]</span></code>. If the rat moves from position x = 0 to x = 1, the firing rate becomes</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}\lambda(t) &amp;= \exp(\beta_0 + \beta_1 × 1) \\
+&amp;= \exp(\beta_0 + \beta_1)\\
+&amp;= \exp(\beta_0)\exp(\beta_1)\\
+&amp;= 1.013 \exp(\beta_0),\end{align}\end{split}\]</div>
+<p>where we have used the value <span class="math notranslate nohighlight">\(\beta_1\)</span> = <code class="docutils literal notranslate"><span class="pre">b2[1]</span></code>. That is, a 1 cm increase in position increases the firing rate 1.3%. Because of the link function, position now has a multiplicative rather than an additive effect on the firing rate. Instead of adding to the firing rate, each increase of position leads to a multiplicative modulation of the firing rate at about a 1% increase per cm. Let’s see how this model looks by comparing it to the occupancy normalized histogram of the data. In Python,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span><span class="o">/</span><span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>    <span class="c1"># Plot results as bars.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="n">b2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+     <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model spike rate&#39;</span><span class="p">)</span>             <span class="c1"># Plot model.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                    <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_39_0.png" src="_images/point-process-glms_39_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Consider Model 2 and the data (the figure above). How do the two compare?</p>
+<p><strong>A:</strong> Visual inspection suggests that we’ve solved one problem: the spike rate is no longer negative anywhere. However, the model fit still does not agree with the structure seen in the occupancy normalized histogram. We have improved the link function, but using only the position itself as a covariate leads to a rate that is an exponential function of the rat’s position.</p>
+</div><p>There are many variables we might think to add to this model, but what variables could we add to better capture the dependence between firing rate and position, in particular? One thought might be to include nonlinear terms, such as the square of the position value. This gives us a third candidate model:</p>
+<p title="Model 3">
+$$
+\lambda(t) = \exp(\beta_0+\beta_1x(t)+\beta_2x(t)^2).
+\tag{Model 3}
+$$</p>
+<p>Compared to Model 2, we’ve now included an additional <span class="math notranslate nohighlight">\(x(t)^2\)</span> term and unknown coefficient <span class="math notranslate nohighlight">\(\beta_2\)</span>.</p>
+<div class="question">
+<p><strong>Q:</strong> We said previously that we would use generalized linear models. Does the use of the nonlinear term <span class="math notranslate nohighlight">\(x(t)^2\)</span> violate this?</p>
+<p><strong>A:</strong> It might be better to think of linear in “generalized linear models” as requiring some function of the mean of the response variable to be a linear function of the coefficients (i.e., the <span class="math notranslate nohighlight">\(\beta\)</span>’s). The covariates can be linear or nonlinear functions of observed quantities (e.g., the position squared, the sine of the angle of head direction, etc.)</p>
+</div><p>To fit Model 3 in Python, we add another column to the matrix of covariates, the second argument of the GLM model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit Model 3 to the spike train data (omitting last input).</span>
+<span class="n">predictors</span><span class="p">[</span><span class="s1">&#39;X2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span>       <span class="c1"># Add column for X^2</span>
+
+<span class="c1"># GLM model with Poisson family and identity link function</span>
+<span class="n">model3</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span>
+<span class="n">model3_results</span> <span class="o">=</span> <span class="n">model3</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span> <span class="c1"># Fit model to our data</span>
+<span class="n">b3</span> <span class="o">=</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">params</span>    <span class="c1"># Get the predicted coefficient vector</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b3:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">b3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>b3:
+ Intercept   -26.279057
+X             0.690114
+X2           -0.005463
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Compare the predictors in the GLM for Model 3 versus Model 2. How are the two predictors similar? How are they different?</p>
+</div><div class="question">
+<p><strong>Q:</strong> Execute the fit function with the log link in Python. What do you find?</p>
+<p><strong>A:</strong> As was the case with Model 2, we find that Python produces no warnings that the link function may be inappropriate. In this case, there are three estimated parameter values in <code class="docutils literal notranslate"><span class="pre">b3</span></code>.</p>
+</div><p>Let’s now interpret the parameter estimates for Model 3. The estimate of the first parameter is <span class="math notranslate nohighlight">\(\beta_0 = −26.3\)</span>. This means that when the rat is at position <span class="math notranslate nohighlight">\(x = 0\)</span>, the firing rate is <span class="math notranslate nohighlight">\(\lambda(t) = \exp(\beta_0) = \exp(−26.3) ≈ 0\)</span>. There is almost no chance of observing a spike when the rat is at this location. What happens as the rat moves in the positive direction? This is determined by both <span class="math notranslate nohighlight">\(\beta_1 = 0.6901\)</span> and <span class="math notranslate nohighlight">\(\beta_2 = −0.0055\)</span>. For every unit increase in position, the firing rate is multiplied by <span class="math notranslate nohighlight">\(\exp(\beta_1) = 1.99\)</span>, but at the same time, for every unit increase in the square of position, the firing rate is multiplied by <span class="math notranslate nohighlight">\(\exp(\beta_2) = 0.99\)</span>.</p>
+<p>Expressed this way, the values of parameters <span class="math notranslate nohighlight">\(\exp(\beta_1)\)</span> and <span class="math notranslate nohighlight">\(\exp(\beta_2)\)</span> seem difficult to interpret. Once we visualize this model, we realize that there is another way to express the model so that the parameters are easier to interpret:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bar</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">spikehist</span> <span class="o">/</span> <span class="n">occupancy</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>    <span class="c1"># Plot results as bars.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">exp</span><span class="p">(</span><span class="n">b3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">bins</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>  <span class="c1"># Plot model.</span>
+     <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">)</span>   
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>                      <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupancy norm. hist. [spikes/s]&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_48_0.png" src="_images/point-process-glms_48_0.png" />
+</div>
+</div>
+<p>We see from the figure above that Model 3 aligns much more closely with the occupancy normalized histogram. The firing rate is small at the beginning of the track, increases to a maximum firing rate near 10 Hz about 60 cm along the track, and then decreases as the position increases further. The firing rate model as a function of position looks like the bell-shaped or mound-shaped density that we often associate with the Gaussian (or normal) distribution. The fact that the firing rate is the exponential of a quadratic function of position means that we can rewrite the model in a form that more closely resembles the Gaussian function:</p>
+<div class="math notranslate nohighlight">
+\[ \lambda(t) = \alpha \exp\left(-\frac{(x - \mu)^2}{ 2\sigma^2}\right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu = −\beta_1/(2\beta_2)\)</span> is the point along the track where the firing rate is maximal (the center of the place field), <span class="math notranslate nohighlight">\(\sigma^2 = −1/(2\beta_2)\)</span> determines the range over which the firing rate is elevated (the size of the place field), and <span class="math notranslate nohighlight">\(\alpha = \exp(\beta_0−\beta_1^2/(4\beta_2))\)</span> is the maximum firing rate at the place field center.</p>
+<p>In this example, we can use the estimated GLM coefficients to estimate these new model parameters related to the center, size, and maximum firing rate of the place field. The fit method has given us the maximum likelihood estimates for <span class="math notranslate nohighlight">\(\beta_0\)</span>, <span class="math notranslate nohighlight">\(\beta_1\)</span>, and <span class="math notranslate nohighlight">\(\beta_2\)</span>. An important result from statistical theory is that the maximum likelihood estimate of any function of model parameters is just that same function of the maximum likelihood estimates of the parameters. This is often called invariance or equivariance <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden &amp; Brown, 2014]</a>. So <span class="math notranslate nohighlight">\(\hat{\mu} = −\hat{\beta_1}/(2\hat{\beta_2})\)</span> is the maximum likelihood estimate of the place field center, <span class="math notranslate nohighlight">\(\hat{\sigma} = \sqrt{-1/(2\hat{\beta_2})}\)</span> is the maximum likelihood estimate of the place field size, and so on.</p>
+<p>Let’s now use these expressions to compute the maximum likelihood estimates in Python:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Compute maximum likelihood estimates of</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="o">-</span><span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>                  <span class="c1"># place field center</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>             <span class="c1"># place field size</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">b3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">/</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>  <span class="c1"># max firing rate</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">sigma: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">alpha: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">alpha</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu: 63.16295780404631
+sigma: 9.566890841873338
+alpha: 0.011285495199169375
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> What are the units of each of these parameter estimates?</p>
+<p><strong>A:</strong> The units for <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code> are centimeters, the same as the units of X. The units for <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, the maximum spike rate, are spikes per time step of the vector <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code>. Since each time step is 1 ms, the units are spikes/ms. So a value of <span class="math notranslate nohighlight">\(\hat{\alpha} = 0.011\)</span> spikes/ms is equivalent to a maximum firing rate of <span class="math notranslate nohighlight">\(\hat{\alpha} = 11\)</span> spikes/s.</p>
+</div><p>We see that the estimated place field center is about 63.2 cm down the track. The estimated place field size, <span class="math notranslate nohighlight">\(\hat{\sigma} = 9.6\)</span>, suggests that the firing rate decreases about 40% when the rat is about 9.6 cm from the place field center, and decreases about 85% when the rat is about 19 cm from the place field center. The neuron spikes at a rate near <span class="math notranslate nohighlight">\(\hat{\alpha}= 11\)</span> spikes/s when the rat is 63 cm along the track, but less than 2 spikes/s when the rat is more than 19 cm away from that position.</p>
+<p><a class="reference external" href="#top">Back to top</a></p>
+</div>
+</div>
+<div class="section" id="comparing-and-evaluating-models-a-id-comparing-models-a">
+<h2>Comparing and Evaluating Models<a id="comparing-models"></a><a class="headerlink" href="#comparing-and-evaluating-models-a-id-comparing-models-a" title="Permalink to this headline">¶</a></h2>
+<p>We have fit a number of models for the receptive field of this neuron and compared these models through visual inspection. Ideally, we’d like to go beyond qualitative comparisons and consider quantitative tools to help us evaluate and compare different models. For statistical models, we often use the term <em>goodness-of-fit</em> to describe how well a model captures structure in the observed data, and how well the model predicts future data. There is not a single procedure for measuring goodness-of-fit; instead there are many tools that, taken together, can provide a broad perspective on the strengths and weaknesses of a set of models. We explore some approaches for comparing the relative goodness-of-fit between two models and then methods to assess the overall goodness-of-fit of a single model.</p>
+<div class="section" id="method-1-comparing-aic-values">
+<h3>Method 1: Comparing AIC Values.<a class="headerlink" href="#method-1-comparing-aic-values" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say we want to compare the quality of the fit to the data of Models 2 and 3. What measure could we use to compare these models? A natural thought is to use the likelihood. We have already used the likelihood to select the parameter values for each of these models; we selected the parameters that maximized the likelihood of the data. We can think of selecting the model parameters as selecting among a set of models with the same model form but different parameter values. In that case, the likelihood was the measure we used to make the selection.</p>
+<p>However, there is a major issue with using the likelihood alone to compare goodness-of-fit between different classes of models. It turns out that as we add parameters to the model and make the model more complex, we tend to increase the likelihood of the data, whether or not those additional terms accurately describe the processes that generate the data. If we were to select models that maximize the likelihood of the data without regard for model size, we would tend to get very large models that fit the observed data well but do not predict or describe future data well. This is known as the <em>overfitting problem</em>. In order to avoid overfitting, we are compelled to balance the ability to fit complicated datasets with the desire to use simple models with small numbers of parameters. This trade-off is sometimes referred to as the goal of <em>parsimony</em> in modeling. We want to be sparing with the number of parameters we allow a model to have. We call a model that describes the data well with the fewest possible parameters a <em>parsimonious model</em>.</p>
+<p>One common approach for preventing overfitting is <em>cross-validation</em>. There are multiple types of cross-validation, but they all share a common idea: split the data into multiple portions, fit the model on one portion of the data (called the training set), and determine how well the resulting model fit describes a separate portion of the data (called the test set). This ensures that the selected model is one that can generalize to additional datasets that were not used to fit the model. One challenge with cross-validation is that it can be computationally expensive. For example, one of the most robust cross-validation approaches, called complete leave-one-out cross-validation, involves sequentially leaving out each data point, fitting a model to the remaining data, and assessing how well the fitted model predicts the excluded data point. This involves fitting <span class="math notranslate nohighlight">\(n\)</span> models, where <span class="math notranslate nohighlight">\(n\)</span> is the number of data points observed.</p>
+<p>Here, instead of fitting a large number of models, we take another approach, which gives results equivalent to cross-validation when the dataset is large. Namely, we use penalized likelihood measures to compare model types. These measures make explicit the trade-off between fitting the data well (by increasing the likelihood) and using a small number of parameters (by penalizing large models). Let’s consider one such measure, <strong>Akaike’s information criterion</strong> (AIC). It is defined as,</p>
+<div class="math notranslate nohighlight">
+\[\text{AIC} = −2 \log L(\theta_{ML}) + 2p,\]</div>
+<p>where <span class="math notranslate nohighlight">\(L(\theta_{ML})\)</span> is the likelihood of the data for the selected maximum likelihood parameter estimate $
+\theta_{ML}$, and <span class="math notranslate nohighlight">\(p\)</span> is the number of parameters in the model. We think of the <span class="math notranslate nohighlight">\(2p\)</span> in the expression as a penalty for models with large numbers of parameters.</p>
+<p>When comparing models, we compute the AIC for each model separately, and then compute the difference in AICs between models. For models that accurately describe the structure of the data, <span class="math notranslate nohighlight">\(L(\theta_{ML})\)</span>  will be high, and therefore <span class="math notranslate nohighlight">\(−2\log L(\theta_{ML})\)</span>  will be small. Parsimonious models will have small numbers of parameters, and therefore <span class="math notranslate nohighlight">\(2p\)</span> will be small. Therefore, we are looking for models with AIC values as small as possible.</p>
+<p>How do we compute the likelihood or log likelihood of the data for the models in Python? One way is to use the fact that we are modeling the spike train as a Poisson random variable at each time point with rate parameters determined by the model. To see the AIC for a GLM in Python, we can simply use the <code class="docutils literal notranslate"><span class="pre">aic</span></code> attribute of the model results: <code class="docutils literal notranslate"><span class="pre">model2_results.aic</span></code>.
+However, the calculation is not difficult. For Model 2, we can compute the AIC as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LL2</span> <span class="o">=</span> <span class="n">model2</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">b2</span><span class="p">)</span>
+<span class="n">AIC2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">LL2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AIC2: &#39;</span><span class="p">,</span> <span class="n">AIC2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;model2_results.aic: &#39;</span><span class="p">,</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">aic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>AIC2:  3344.790862938608
+model2_results.aic:  3344.790862938608
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first line of this code computes the log likelihood for Model 2. Recall that the likelihood is the joint distribution of all the data for a specific model. In this case, the number of spikes in each bin is modeled as a Poisson random variable with rate <span class="math notranslate nohighlight">\(\lambda(t)\)</span>. Therefore, the log likelihood (<code class="docutils literal notranslate"><span class="pre">LL2</span></code>) is the logarithm of the product of Poisson probability values for the observed spiking under the proposed model (or equivalently, the sum of the log of these Poisson probability values). The second line computes the AIC for this model. Notice that we use a value of p = 2, as there are two parameters in this model (<span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span>). Lastly, we show that indeed this is the same thing that results from accessing the <code class="docutils literal notranslate"><span class="pre">aic</span></code> attribute of the model results.</p>
+<p>Similarly, we can compute the AIC for Model 3:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">LL3</span> <span class="o">=</span> <span class="n">model3</span><span class="o">.</span><span class="n">loglike</span><span class="p">(</span><span class="n">b3</span><span class="p">)</span>
+<span class="n">AIC3</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">LL3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;AIC3: &#39;</span><span class="p">,</span> <span class="n">AIC3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>AIC3:  2708.7763622920475
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Consider the definition of <code class="docutils literal notranslate"><span class="pre">AIC3</span></code>. Can you explain in words the different terms? What does the term <code class="docutils literal notranslate"><span class="pre">2*3</span></code> represent? How many parameters are there in Model 3?</p>
+</div><p>Finally, we can compute the difference between the AIC values for these two models:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dAIC</span> <span class="o">=</span> <span class="n">AIC2</span> <span class="o">-</span> <span class="n">AIC3</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dAIC: &#39;</span><span class="p">,</span> <span class="n">dAIC</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465605
+</pre></div>
+</div>
+</div>
+</div>
+<p>We find a value of <code class="docutils literal notranslate"><span class="pre">dAIC</span> <span class="pre">=</span> <span class="pre">636.0145</span></code>. This difference indicates that the AIC of Model 3 is smaller than that of Model 2, suggesting that Model 3 is superior. How should we interpret the value of the difference? The answer depends on the probability model we are using, and generally we are just interested in which model has the lowest AIC without worrying about the magnitude of the difference. However, one rough way of thinking about this value is in terms of the penalty. The fact that Model 3 has an AIC of about 636 less than the AIC of model 2 suggests that Model 3 would still be preferable to Model 2 even if Model 3 had 636/2 = 318 more parameters than it actually does.</p>
+<p>It turns out that there is a simpler way to compute the difference in AICs between two GLMs. Whenever Python (and most other computational software packages) computes the maximum likelihood solution for a GLM, it also computes the model deviance. The model deviance is a measure of lack of fit between the model and data, which is defined by
+<span class="math notranslate nohighlight">\($\text{Deviance }= −2\log L(\theta_{ML}) + C, $\)</span></p>
+<p>where C is a constant <abbr title="The constant C is equal to −2 times the log likelihood of a saturated model that has as many parameters as points in the data. Such a model is guaranteed to overfit the data, namely, it will fit the observed data as well as possible but not generalize well to new data."><sup>note</sup></abbr>. Therefore the difference in AICs between two models can be computed as</p>
+<div class="math notranslate nohighlight">
+\[\Delta \text{AIC}=\text{AIC}_1−\text{AIC}_2 = \text{Dev}_1+2p_1 − \text{Dev}_2+2p_2,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\text{AIC}_1\)</span>, <span class="math notranslate nohighlight">\(\text{Dev}_1\)</span>, and <span class="math notranslate nohighlight">\(p_1\)</span> are the AIC, deviance, and number of parameters for the first model, and <span class="math notranslate nohighlight">\(\text{AIC}_2\)</span>, <span class="math notranslate nohighlight">\(\text{Dev}_2\)</span>, and <span class="math notranslate nohighlight">\(p_2\)</span> are the AIC, deviance, and number of parameters for the second model. The constant <span class="math notranslate nohighlight">\(C\)</span> cancels out when computing the difference in AIC values.</p>
+<p>In Python, we can compute the values for the deviance and the AIC difference as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev2</span> <span class="o">=</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">deviance</span> <span class="c1"># Deviance from model 2</span>
+<span class="n">dev3</span> <span class="o">=</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">deviance</span> <span class="c1"># Deviance from model 3</span>
+<span class="n">dAIC</span> <span class="o">=</span> <span class="p">(</span><span class="n">dev2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">dev3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;dAIC: &#39;</span><span class="p">,</span> <span class="n">dAIC</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Another method: &#39;</span><span class="p">,</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">aic</span> <span class="o">-</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">aic</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465605
+Another method:  636.0145006465605
+</pre></div>
+</div>
+</div>
+</div>
+<p>The resulting difference in AICs (variable dAIC) matches the value we computed earlier.</p>
+</div>
+<div class="section" id="method-2-chi-square-test-for-nested-models">
+<h3>Method 2: Chi-Square Test for Nested Models.<a class="headerlink" href="#method-2-chi-square-test-for-nested-models" title="Permalink to this headline">¶</a></h3>
+<p>The AIC provides a method for identifying parsimonious models and comparing between models but does not, on its own, indicate whether a particular model provides a statistically significant improvement in its description of a dataset. For example, we might add a predictor to a model that has no real connection to the observed data and yet decreases the AIC by chance. In order to assess whether a model provides a significant improvement over another, we can use hypothesis tests based on the model likelihoods.</p>
+<p>In particular, there is a general class of hypothesis tests called <em>maximum likelihood ratio tests</em> (MLRTs) that often provide the most statistically powerful comparison between models. In general, it can be challenging to compute the test statistic and its sampling distribution for MLRTs. However, it becomes easy to perform this test in cases where we are comparing two nested GLMs, that is, when one of the models can be made equivalent to the other by setting some parameters to specific values. For example, it is possible to make Model 3 equivalent to Model 2 by setting <span class="math notranslate nohighlight">\(\beta_2 = 0\)</span>. We say that Model 2 is nested in Model 3. However, there is no way to set any parameters to make Model 2 equivalent to Model 1 or vice versa, so these models are not nested. It can be shown that when we compare two nested Poisson GLMs for spike train data, the MLRT will asymptotically be a simple chi-square (<span class="math notranslate nohighlight">\(\chi^2\)</span>) test. The proof for this result can be found in many textbooks on GLMs, such as <a href="https://doi.org/10.1201/9780203753736" target="blank">[McCullagh &amp; Nelder, 1989]</a>.</p>
+<p>Let’s specify the components of this hypothesis test. Assume that the nested model has <span class="math notranslate nohighlight">\(n_1\)</span> parameters <span class="math notranslate nohighlight">\(\{\beta_1, \cdots, \beta_{n_1} \}\)</span>, and that the larger model has <span class="math notranslate nohighlight">\(n_2\)</span> parameters, <span class="math notranslate nohighlight">\(\{\tilde{\beta_1}, \cdots, \tilde{\beta_{n_2}} \}\)</span>. The null hypothesis for this test is <span class="math notranslate nohighlight">\(H_0 : \tilde{\beta}_{n_1 + 1} = \cdots = \tilde{\beta}_{n_2}= 0\)</span>, that all the additional parameters not contained in the nested model are equal to zero. The alternative hypothesis is that at least one of these additional parameters are different from zero. The test statistic for this MLRT is equivalent to the difference in the deviances between the nested model (here, <span class="math notranslate nohighlight">\(\text{Dev}_1\)</span>) and the larger model (here, <span class="math notranslate nohighlight">\(\text{Dev}_2\)</span>),</p>
+<div class="math notranslate nohighlight">
+\[\Lambda = \text{Dev}_1 - \text{Dev}_2 \, .\]</div>
+<p>Under the null hypothesis, this statistic should asymptotically have a chi-square distribution with <span class="math notranslate nohighlight">\(n_2 − n_1\)</span> degrees of freedom. We can compute the p-value for a test comparing two nested GLMs for spiking data using the <code class="docutils literal notranslate"><span class="pre">chi2</span></code> object in the <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code> module from Python.</p>
+<p>Let’s compute the p-value for a MLRT comparing Models 2 and 3:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">dev2</span> <span class="o">-</span> <span class="n">dev3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># Compare Models 2 and 3, nested GLMs.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p:&#39;</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>p: 0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case, the difference in parameters between Model 2 and Model 3 is 1; Model 3 has one additional parameter. We therefore set the degrees of freedom of the chi-square distribution to 1, the second input to the function <code class="docutils literal notranslate"><span class="pre">chi2.cdf()</span></code>. We find the computed p-value is zero, to the precision that Python is able to compute the chi-square distribution. In practice, this means that the p-value for this test is not exactly zero but is smaller than approximately <span class="math notranslate nohighlight">\(2^{−16}\)</span> (see <a href="https://stackoverflow.com/questions/19141432/python-numpy-machine-epsilon" target="blank">here </a> for a discussion of <a href="https://en.wikipedia.org/wiki/Machine_epsilon" target="blank">machine epsilon</a> in Python). We have a great deal of evidence that the additional, quadratic parameter in Model 3, <span class="math notranslate nohighlight">\(\beta_2\)</span>, is nonzero.</p>
+</div>
+<div class="section" id="method-3-confidence-intervals-for-individual-model-parameters">
+<h3>Method 3: Confidence Intervals for Individual Model Parameters.<a class="headerlink" href="#method-3-confidence-intervals-for-individual-model-parameters" title="Permalink to this headline">¶</a></h3>
+<p>If we want to test directly for whether a single parameter contributes significantly to the model, we can examine its interval estimate. The GLM fitting procedure not only computes the maximum likelihood estimator for each model parameter but also computes the <em>Fisher information</em>, a quantity related to the curvature of the likelihood, which can be used to compute confidence intervals about any individual parameters or any combination of parameters. We do not discuss the Fisher information in detail here (for more, see <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden &amp; Brown, 2014]</a>), but the basic idea is intuitive. If the likelihood is very flat at its maximum, then changing the parameter values slightly will not decrease the likelihood substantially. Therefore, there is a potentially large range of parameter values that could make the data likely. If the likelihood is very peaked at its maximum, then a slight change in the parameter values would cause a large change in the likelihood, and therefore a much narrower range of parameter values would be consistent with the data.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">GLMResults</span></code> <a href="https://www.statsmodels.org/stable/glm.html#results-class" target="blank">class</a> contains a variety of useful attributes. Two components that are useful for examining the significance of individual model parameters are <code class="docutils literal notranslate"><span class="pre">bse</span></code> and <code class="docutils literal notranslate"><span class="pre">pvalues</span></code>. The first, <code class="docutils literal notranslate"><span class="pre">bse</span></code>, provides the standard error of each parameter estimate. Since maximum likelihood estimators have approximately normal distributions with enough data, an approximate 95% confidence interval for any parameter <span class="math notranslate nohighlight">\(\beta_i\)</span> would be <span class="math notranslate nohighlight">\(\beta_i \pm 2\hat{\sigma}_{\beta_i}\)</span> , where <span class="math notranslate nohighlight">\(\beta_i\)</span> is the parameter estimate and <span class="math notranslate nohighlight">\(\hat{\sigma}_{\beta_i}\)</span> is the estimated standard error.</p>
+<p>Let’s now use the <code class="docutils literal notranslate"><span class="pre">bse</span></code> attribute to compute confidence intervals for the parameters of Model 2:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI2</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">b2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">b2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">model2_results</span><span class="o">.</span><span class="n">bse</span><span class="p">])</span> <span class="c1"># Compute 95% CI for parameters of Model 2.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CI2:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">CI2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>CI2:
+ [[-7.73444907  0.00892032]
+ [-7.14332531  0.01696651]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The left column of the variable <code class="docutils literal notranslate"><span class="pre">CI2</span></code> is the confidence interval for <span class="math notranslate nohighlight">\(\beta_0\)</span>, and the right column is the confidence interval for <span class="math notranslate nohighlight">\(\beta_1\)</span>. How should we interpret these confidence intervals? Just as before, they will be more interpretable if we exponentiate first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">eCI2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CI2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eCI2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[[4.37493342e-04 1.00896023e+00]
+ [7.90120328e-04 1.01711126e+00]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The confidence interval for <span class="math notranslate nohighlight">\(\beta_0\)</span> describes the uncertainty in the firing rate at position x = 0. At that position, we are 95% certain that the rate is between 0.0004 and 0.0008 (the left column of <code class="docutils literal notranslate"><span class="pre">eCI2</span></code>) spikes per millisecond, or between 0.4 and 0.8 spikes per second. The confidence interval for <span class="math notranslate nohighlight">\(\beta_1\)</span> describes the uncertainty in the effect of a unit change in position on the firing rate. Every time we increase <span class="math notranslate nohighlight">\(x\)</span> by 1, the rate gets modulated by a value between 1.009 and 1.0171 (the second column of <code class="docutils literal notranslate"><span class="pre">eCI2</span></code>). In other words, each centimeter increase in position increases the firing rate between about 0.9% and 1.7%.</p>
+<p>Another use for the confidence intervals is to express the statistical significance of individual parameters within the model. If the true value of a parameter is zero, then the covariate corresponding to that parameter does not contribute to the prediction of the data in the GLM. If we compute a confidence interval for a parameter and it does not contain zero, we have sufficient evidence (at the confidence level used to construct the interval) that the true parameter value differs from zero, and that the covariate for that parameter has a significant contribution within the GLM. We can use this once again to determine whether the addition of the quadratic term in Model 3 provides a significant improvement over Model 2. To do so, let’s use the computed output variables <code class="docutils literal notranslate"><span class="pre">b3</span></code> and <code class="docutils literal notranslate"><span class="pre">bse</span></code> for Model 3 to determine the confidence intervals for each parameter in Model 3.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI3</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">b3</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> 
+            <span class="n">b3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">bse</span><span class="p">])</span> <span class="c1"># Compute 95% CI for parameters of Model 3.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">CI3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[[-2.99542831e+01  5.77810706e-01 -6.30948487e-03]
+ [-2.26038307e+01  8.02417242e-01 -4.61644384e-03]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The resulting variable <code class="docutils literal notranslate"><span class="pre">CI3</span></code> consists of three columns. The rightmost column is the confidence interval for <span class="math notranslate nohighlight">\(\beta_2\)</span>. We see that this interval (<code class="docutils literal notranslate"><span class="pre">CI3[:,2]=[-0.0063</span> <span class="pre">-0.0046]</span></code>) does not contain zero, so the quadratic term is significant at the 95% confidence level.</p>
+<p>How significant is this term? To answer this, we can conduct a hypothesis test for whether <span class="math notranslate nohighlight">\(\beta_2\)</span> is different from zero. This test, based on the maximum likelihood estimate of a model parameter and its standard error, is called a <em>Wald test</em>. The significance level of this test is given by the <code class="docutils literal notranslate"><span class="pre">pvalues</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">GLMResult</span></code> class. For Model 3, the significance level for parameter <span class="math notranslate nohighlight">\(\beta_2\)</span> is</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p_beta2</span> <span class="o">=</span> <span class="n">model3_results</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p_beta2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>4.117080430292835e-38
+</pre></div>
+</div>
+</div>
+</div>
+<p>We find <code class="docutils literal notranslate"><span class="pre">p_beta2</span> <span class="pre">=</span> <span class="pre">4.12e-38</span></code>, which is very close to zero. This result is consistent with our previous finding, via the MLRT, that the improvement of Model 3 over Model 2 suggested that the quadratic model component was significant at a level of <span class="math notranslate nohighlight">\(p &lt; 2^{−16}\)</span>.</p>
+</div>
+<div class="section" id="method-4-ks-test-for-model-goodness-of-fit">
+<h3>Method 4: KS Test for Model Goodness-of-Fit.<a class="headerlink" href="#method-4-ks-test-for-model-goodness-of-fit" title="Permalink to this headline">¶</a></h3>
+<p>The goodness-of-fit methods we have developed so far are useful for comparing models and for determining whether individual variables contribute significantly to a model. However, these methods do not tell us whether the model captures the structure of the spiking data well overall. There are a number of methods to evaluate the overall goodness-of-fit between a model and data, but here we focus on an approach specific to point process (spike) data. The method is based on an important result known as the <em>time-rescaling theorem</em>.</p>
+<p>In many statistical analyses, we assume that the data are identically distributed, that is, that all the data come from the same probability model and have the same mean. A common goodness-of-fit method is then to compare the empirical distribution of the data to that single probability model. However, for most spike trains, the data are not identically distributed. For example, the rate of spiking may change as a function of time or with other covariates, so the expected interspike interval changes for each data point. The time-rescaling theorem provides a transformation of the data that is identically distributed if the rate model is correct.</p>
+<p>We first state the time-rescaling theorem for Poisson processes<abbr title="This result is extended to general point process data in module 10."><sup>note</sup></abbr>.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="time-rescaling-theorem">
+<h3>Time-Rescaling Theorem:<a class="headerlink" href="#time-rescaling-theorem" title="Permalink to this headline">¶</a></h3>
+<p>Consider a collection of spike times <span class="math notranslate nohighlight">\((S_1 , S_2 , \cdots, S_n)\)</span> from a Poisson process with rate function <span class="math notranslate nohighlight">\(\lambda(t)\)</span>. Then let</p>
+<div class="math notranslate nohighlight">
+\[Z_1 = \int_0^{S_1} \lambda(t)dt \quad \text{ and } \quad Z_i = \int_{S_{i-1}}^{S_i} \lambda(t) dt,\]</div>
+<p>for <span class="math notranslate nohighlight">\(i = 2, \cdots, n\)</span>. By the time-rescaling theorem, the rescaled variables, <span class="math notranslate nohighlight">\(Z_1 , Z_2 ,\cdots , Z_n,\)</span> are independent and identically distributed random variables from the exponential distribution with parameter 1.</p>
+<hr>
+<p>We do not prove the time-rescaling theorem here but note that it comes from the change-of-variables formula from basic probability theory; see <a href="https://doi.org/10.1007/978-1-4614-9602-1" target="blank">[Kass, Eden &amp; Brown, 2014]</a>
+for a detailed proof.</p>
+<p>How do we use the time-rescaling theorem to analyze spike train data? If we have a collection of spike times, <span class="math notranslate nohighlight">\(S_1 , S_2 , \cdots , S_n\)</span>, and any Poisson rate model, say, from a fit GLM, then we can compute the rescaled waiting times, <span class="math notranslate nohighlight">\(Z_1,Z_2,\cdots ,Z_n\)</span>. We then perform any standard goodness-of-fit method to compare <span class="math notranslate nohighlight">\(Z_1,Z_2,\cdots ,Z_n\)</span> to the exponential probability model. If the Poisson rate model describes the data well, then the exponential model should describe the rescaled times well.</p>
+<p>The actual goodness-of-fit technique we use for the rescaled data is the <em>Kolmogorov-Smirnov (KS) plot</em>. Recall from <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" target="blank">notebook 8</a> that the KS plot compares the empirical cumulative distribution function (CDF) of the data to a model CDF. In that module, we compared the empirical CDF for observed interspike intervals against various model CDFs. In this case, we compare the empirical CDF of the rescaled waiting times to an exponential CDF.</p>
+<p>Let’s now apply the time-rescaling theorem to evaluate Model 3. First we must compute the rescaled waiting times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lambda3</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">b3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">b3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>      <span class="c1"># Evaluate Model 3.</span>
+
+<span class="n">Z</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">lambda3</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">])</span>                               <span class="c1"># Compute the rescaled waiting time</span>
+     <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">spikeindex</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span> <span class="n">spikeindex</span><span class="p">)]</span>  <span class="c1"># ... for each ISI</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Do you understand how the variable <code class="docutils literal notranslate"><span class="pre">Z</span></code> approximates the integral of the model?</p>
+</div><p>Next, we compute the empirical CDF of these rescaled waiting times using the function <code class="docutils literal notranslate"><span class="pre">ECDF</span></code> from the <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> package:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ecdf</span> <span class="o">=</span> <span class="n">ECDF</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">mCDF</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ecdf</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">mCDF</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">1.36</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mf">1.36</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                 <span class="c1">#Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;KS plot of Model 3&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_76_0.png" src="_images/point-process-glms_76_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Does the definition of the model CDF (variable <code class="docutils literal notranslate"><span class="pre">mCDF</span></code>) make sense? Remember that by the time-rescaling theorem, we expect that the rescaled variables <span class="math notranslate nohighlight">\($(Z_1,Z_2,\cdots,Z_n)\)</span>$ are from the exponential distribution with parameter 1.</p>
+</div><div class="question">
+<p><strong>Q:</strong> Consider the KS plot above. By the time-rescaling theorem, is Model 3 an adequate model of the data?</p>
+<p><strong>A:</strong> If the spiking data came from a Poisson process with a rate given by model 3, then we would expect the KS plot to remain within the 95% confidence bounds, or any departures from these bounds to be small. We find that the KS plot takes on values far outside of the 95% confidence bounds. Therefore, we conclude that our model is not completely capturing the structure of the spiking data.</p>
+</div></div>
+<div class="section" id="method-5-residual-analysis">
+<h3>Method 5: Residual Analysis.<a class="headerlink" href="#method-5-residual-analysis" title="Permalink to this headline">¶</a></h3>
+<p>Residuals represent the difference between the data and the model prediction at the level of individual data points. While quantities such as the deviance or KS plot are useful for getting an overall picture of how well the model fits the data as a whole, residual analysis is essential for understanding which components of a dataset are well or ill fit by the model. It is therefore one of the best tools for determining what is missing in a model.</p>
+<p>There are many types of residuals that can be computed for point process data (including raw residuals, Pearson residuals, and deviance residuals <a href="https://doi.org/10.1201/9780203753736" target="blank">[McCullagh &amp; Nelder, 1989]</a>). We do not go into detail about the advantages of each type of residual. Instead, let’s focus on one type of residual that is particularly useful for spiking data: the cumulative raw residual process. In continuous time, we would compute this residual process, <span class="math notranslate nohighlight">\(R(t)\)</span>, as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+R(t) &amp;= \text{ total observed no. of spikes at time } t - \text{ total expected no. of spikes at time } t \\
+     &amp;= N(t) - \int_0^t\lambda(u)du,
+     \end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(N(t)\)</span> is the counting process that gives the total number of spikes fired up to time <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(\lambda(t)\)</span> is the Poisson rate model at time <span class="math notranslate nohighlight">\(t\)</span>. The residual process <span class="math notranslate nohighlight">\(R(t)\)</span> compares what’s observed (i.e., the spikes recorded in the data) to what the model produces. Since we are working in discrete time, at any time point <span class="math notranslate nohighlight">\(t_k\)</span> we compute this as
+<span class="math notranslate nohighlight">\($ R(t_k) = \sum_{i=1}^k \Delta N_i  - \lambda(t_i)\Delta t,\)</span>$
+where <span class="math notranslate nohighlight">\(\Delta N_i\)</span> is the number of spikes that are observed in the discrete-time interval <span class="math notranslate nohighlight">\(t_i\)</span>.</p>
+<p>In Python, we compute <span class="math notranslate nohighlight">\(R(t_k)\)</span> by taking the cumulative sum of the raw residuals, which are returned as an attribute of the <code class="docutils literal notranslate"><span class="pre">GLMResults</span></code> class. Then, to compute the cumulative sum of these residuals, we use the function <code class="docutils literal notranslate"><span class="pre">cumsum()</span></code> as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">model3_results</span><span class="o">.</span><span class="n">resid_response</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To inspect how the cumulative residual process evolves in time, let’s plot it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Residuals&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_82_0.png" src="_images/point-process-glms_82_0.png" />
+</div>
+</div>
+<p>If Model 3 were correct, then the residuals should be zero mean and uncorrelated with any covariates. We see in the figure above that the cumulative residual process ends at zero, suggesting that the residuals sum to zero over all time steps. However, we also identify a pattern in the residual process, which suggests that there is still some structure in the data that is not captured by Model 3. More specifically, visual inspection suggests a relation between the residuals and a model covariate: the position (see figure generated by the code below. We observe that the cumulative residual process seems to increase whenever the rat in moving in the positive direction and to decrease whenever the rat is moving in the negative direction. This analysis suggests exactly what has been missing from our models: direction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Comparison of Cumulative residuals over time and rat position over time.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">R</span><span class="p">)</span>
+<span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Residuals&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_84_0.png" src="_images/point-process-glms_84_0.png" />
+<img alt="_images/point-process-glms_84_1.png" src="_images/point-process-glms_84_1.png" />
+</div>
+</div>
+<p><a class="reference external" href="#top">Back to top</a></p>
+</div>
+</div>
+<div class="section" id="refining-the-model-continued-a-id-refining-continued-a">
+<h2>Refining the Model (Continued) <a id="refining-continued"></a><a class="headerlink" href="#refining-the-model-continued-a-id-refining-continued-a" title="Permalink to this headline">¶</a></h2>
+<p>Our goodness-of-fit analysis suggested that Model 3 provided a significant improvement over Model 2. However, analysis of the cumulative residual process revealed that Model 3 misses an essential feature of the data: Model 3 does not account for the dependence of spiking on direction. So, let’s refine the model by including a new covariate that captures the direction of the rat’s movement.</p>
+<p>We must first define a simple indicator function for the direction of movement. If the value of <span class="math notranslate nohighlight">\(X(t)\)</span> increased since the last time step, we set this variable to 1; otherwise we set it to 0. For the very first time step, we don’t know from which direction the rat came, so we set it to 0 arbitrarily.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">increasing</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Array for if X(t) increased since last step</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># Create a direction array the same size as X</span>
+<span class="n">direction</span><span class="p">[</span><span class="n">increasing</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Set direction to 1 when X is increasing</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Does the variable <code class="docutils literal notranslate"><span class="pre">direction</span></code> indicate the direction of movement with a 0 or 1, as we desire? Hint: Consider the function <code class="docutils literal notranslate"><span class="pre">diff()</span></code> and how this function is used to find times when <span class="math notranslate nohighlight">\(X(t)\)</span> increases.</p>
+</div><p>With the indicator function for the direction of movement now defined, we must incorporate this new signal into the model. The simplest solution is to add the <code class="docutils literal notranslate"><span class="pre">direction</span></code> variable directly as a new predictor. This would lead to a new model,</p>
+<div class="math notranslate nohighlight">
+\[ \lambda(t) = \exp( \beta_0+ \beta_1 x(t)+ \beta_2 x(t)^2+ \beta_3 \text{direction}.
+\tag{Model 4}
+\]</div>
+<p>We then fit this model and interpret the parameter estimates. With our previous experience in this module, fitting the model in Python is now relatively straightforward:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#Fit Model 4, and return estimates and useful statistics.</span>
+<span class="n">predictors</span><span class="p">[</span><span class="s1">&#39;direction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">direction</span> <span class="c1">#Add column for direction</span>
+<span class="c1"># GLM model with Poisson family and default (log) link function</span>
+<span class="n">model4</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">GLM</span><span class="p">(</span><span class="n">spiketrain</span><span class="p">,</span> <span class="n">predictors</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="n">Poisson</span><span class="p">())</span> 
+<span class="n">model4_results</span> <span class="o">=</span> <span class="n">model4</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>       <span class="c1"># Fit model to our data</span>
+<span class="n">b4</span> <span class="o">=</span> <span class="n">model4_results</span><span class="o">.</span><span class="n">params</span>          <span class="c1"># Get the predicted coefficient vector</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept   -28.870275
+X             0.688905
+X2           -0.005452
+direction     3.275282
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Do you see how, in this code, the three covariates (position, position squared, and direction) are included as inputs to the GLM model?</p>
+</div><p>We are particularly interested in the final parameter estimate. When the direction indicator variable is equal to zero—when the rat is moving in the negative direction or standing still—this component does not affect the rate. When the direction indicator is 1, this component of the model modulates the rate by <span class="math notranslate nohighlight">\(e^{\beta_3}\)</span>. For our estimated parameter we find <code class="docutils literal notranslate"><span class="pre">b4[3]</span> <span class="pre">=</span> <span class="pre">3.2753</span></code> and therefore that <span class="math notranslate nohighlight">\(e^{\beta_3}= 26.4521\)</span>.</p>
+<div class="question">
+<p><strong>Q:</strong> What is the impact of direction on the firing rate?</p>
+<p><strong>A:</strong> Under this model, when the rat is moving in the positive direction, the firing rate is more than 26 times higher than the firing rate when the animal is stopped or moving in the negative direction. Since we only observe the rat long enough for the place cell to fire a few hundred spikes, we expect the majority of these spikes to occur when the animal is moving in the positive direction.</p>
+</div><p>We could perform the same change of parameters for this model as for the alternative form of Model 3. We previously expressed Model 3 using a mean, width, and maximum firing rate for the place field. If we performed this change of parameters for Model 4, we would still have just a single mean, width, and maximum rate parameter, and one additional parameter related to the modulation of direction, whose estimated value would not change.</p>
+<p><a class="reference external" href="#top">Back to top</a></p>
+<div class="section" id="comparing-and-evaluating-models-continued-a-id-comparing-continued-a">
+<h3>Comparing and Evaluating Models (Continued) <a id="comparing-continued"></a><a class="headerlink" href="#comparing-and-evaluating-models-continued-a-id-comparing-continued-a" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have a new model that attempts to capture the dependence of spiking on movement direction, let’s compare the resulting model fit to the previous model fits and evaluate the overall goodness-of-fit of this new model. First, we compare the AIC values between Models 3 and 4:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dev4</span> <span class="o">=</span> <span class="n">model4_results</span><span class="o">.</span><span class="n">deviance</span>         <span class="c1"># Deviance from Model 4</span>
+<span class="n">dAIC</span> <span class="o">=</span> <span class="p">(</span><span class="n">dev3</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">dev4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)</span> <span class="c1"># Difference in AIC between Models 3 &amp; 4.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">dAIC</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>233.8694473933126
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Why do we use the terms 2*3 for Model 3 and 2*4 for Model 4?</p>
+</div><p>We find <code class="docutils literal notranslate"><span class="pre">dAIC</span> <span class="pre">=</span> <span class="pre">233.8806</span></code>, a difference that is positive and large, suggesting a significant improvement in the fit of Model 4 compared to Model 3. To evaluate the significance, we can once again perform an MLRT. Model 3 is clearly nested in Model 4, since under the null hypothesis that  <span class="math notranslate nohighlight">\(\beta_3 = 0\)</span>, we obtain Model 3. Because there is only one parameter to fix, the MLRT statistic would have a chi-square distribution with 1 degree of freedom if the null hypothesis were true. So we compute the p-value for this test as</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">dev3</span> <span class="o">-</span> <span class="n">dev4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Compare Models 3 and 4, nested GLMs.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>and find <span class="math notranslate nohighlight">\(p = 0\)</span>. Again, we see that the addition of a parameter leads to a highly significant improvement in the fit to the data.</p>
+<p>Next, let’s compute the confidence interval and significance for the <span class="math notranslate nohighlight">\(\beta_3\)</span> parameter:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Model 4, compute 95% CI for last parameter,</span>
+<span class="n">CI_beta3</span> <span class="o">=</span> <span class="p">[</span><span class="n">b4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">model4_results</span><span class="o">.</span><span class="n">bse</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">b4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">model4_results</span><span class="o">.</span><span class="n">bse</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+<span class="n">p_beta3</span> <span class="o">=</span> <span class="n">model4_results</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># and significance level.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CI_beta3: &#39;</span><span class="p">,</span> <span class="n">CI_beta3</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p_beta3: &#39;</span><span class="p">,</span> <span class="n">p_beta3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>CI_beta3:  [2.554956054417064, 3.9956073965371774]
+p_beta3:  9.555627447246116e-20
+</pre></div>
+</div>
+</div>
+</div>
+<p>We find that the confidence interval (<code class="docutils literal notranslate"><span class="pre">CI_beta3</span> <span class="pre">=</span> <span class="pre">[2.5550,</span> <span class="pre">3.9957]</span></code>) does not contain the value zero, and is highly significantly different (<code class="docutils literal notranslate"><span class="pre">p_beta3</span> <span class="pre">=</span> <span class="pre">9.5422e-20</span></code>) from zero. These goodness-of-fit analyses corroborate each other in suggesting that including the direction term provides a significant improvement in capturing the observed spiking structure.</p>
+<p>Next, we investigate the overall goodness-of-fit of this model using the time-rescaling theorem and by constructing a KS plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lambda4</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">b4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">X</span> <span class="o">+</span> <span class="n">b4</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">b4</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">direction</span><span class="p">)</span>
+
+<span class="n">Z</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">lambda4</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">])</span>  <span class="c1"># Compute the rescaled waiting time</span>
+     <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">spikeindex</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span> <span class="n">spikeindex</span><span class="p">)]</span>  <span class="c1"># ... for each spike interval</span>
+
+<span class="n">ecdf</span> <span class="o">=</span> <span class="n">ECDF</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>                                   <span class="c1"># Define empirical cdf</span>
+<span class="n">mCDF</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ecdf</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>                          <span class="c1"># ... and model cdf</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">mCDF</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>                               <span class="c1"># create KS plot </span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">1.36</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1"># Upper confidence bound</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.36</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">),</span><span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">ms</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1"># Lower confidence bound</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model CDF&#39;</span><span class="p">)</span>                              <span class="c1"># Label the axes.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Empirical CDF&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model 4 KS plot&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_102_0.png" src="_images/point-process-glms_102_0.png" />
+</div>
+</div>
+<p>The KS plot for Model 4 looks much better than the one we constructed for Model 3. We notice that the KS plot for Model 4 stays within the 95% bounds everywhere, unlike the KS plot for Model 3. This does not mean that the model is correct, but there is not significant evidence of lack-of-fit from the KS plot.</p>
+<p>Finally let’s compute and examine the cumulative residual process:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">R</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">model4_results</span><span class="o">.</span><span class="n">resid_response</span><span class="p">)</span>  <span class="c1"># Cumulative sum of Model 4 residuals.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">R</span><span class="p">)</span>                                  <span class="c1"># Plot it.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative residuals&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_104_0.png" src="_images/point-process-glms_104_0.png" />
+<img alt="_images/point-process-glms_104_1.png" src="_images/point-process-glms_104_1.png" />
+</div>
+</div>
+<p>The figure above plots the cumulative residual process for Model 4 and the movement trajectory. We find that the residual process is now centered at zero. There may still be some structure as a function of time, but it is no longer as closely associated with the movement trajectory as for Model 3.</p>
+<p><a class="reference external" href="#top">Back to top</a></p>
+</div>
+<div class="section" id="drawing-conclusions-from-the-model-a-id-drawing-conclusions-a">
+<h3>Drawing Conclusions from the Model <a id="drawing-conclusions"></a><a class="headerlink" href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" title="Permalink to this headline">¶</a></h3>
+<p>It is likely that we could refine this model further, perhaps by adding additional covariates or including different dependence structure on the covariates we are currently using. The process of model refinement is not about identifying a single correct model. Instead, it is about building a model that sufficiently captures features of the data in which we are interested. For this analysis, let’s decide that based on our multiple goodness-of-fit tools, Model 4 is good enough. We now use this model to better understand the structure of the place cell that generated these data.</p>
+<p>The process of model refinement and comparison has helped us identify important features of this neuron’s receptive field. It was clear from the initial visualizations that this neuron’s firing activity is position sensitive; it is more likely to fire when the animal is at certain positions than others. Our modeling analysis further showed that this position dependence could be well described by an exponentiated quadratic function of position, that is, a Gaussian-shaped function.</p>
+<p>Let’s now estimate parameters for the center, width, and maximum firing rate of this place field. To do so, we make use of the expressions derived for the alternative form of Model 3. Computing these values for the estimates of Model 4 (variable <code class="docutils literal notranslate"><span class="pre">b4</span></code>),</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#For Model 4, compute maximum likelihood estimates of</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="o">-</span><span class="n">b4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b4</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>                 <span class="c1"># place field center</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">b4</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>            <span class="c1"># place field size</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">b4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">b4</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">b4</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>  <span class="c1"># max firing rate</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mu: &#39;</span><span class="p">,</span> <span class="n">mu</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sigma: &#39;</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;alpha: &#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu:  63.18440082980648
+sigma:  9.57690511379086
+alpha:  0.0008199709288913803
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Interpret the values you computed. What do you find?</p>
+<p><strong>A:</strong> The place field is centered approximately 63 cm down the track (<code class="docutils literal notranslate"><span class="pre">mu</span> <span class="pre">=</span> <span class="pre">63.18</span></code>), and most of the firing activity occurs in a region between about <span class="math notranslate nohighlight">\(63\pm 19\)</span> cm (<code class="docutils literal notranslate"><span class="pre">sigma</span> <span class="pre">=</span> <span class="pre">9.58</span></code>, so <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">sigma</span> <span class="pre">=</span> <span class="pre">19.16</span></code>). At first, the maximum firing rate value of about <code class="docutils literal notranslate"><span class="pre">alpha</span> <span class="pre">=</span> <span class="pre">8.2e-4</span></code> spikes/ms, or 0.8 spikes/s seems too small, until we realize that this is the maximum firing rate only when <code class="docutils literal notranslate"><span class="pre">dir=0</span></code>. When <code class="docutils literal notranslate"><span class="pre">dir=1</span></code>, this is multiplied by <span class="math notranslate nohighlight">\(e^{\beta_3}=\)</span> <code class="docutils literal notranslate"><span class="pre">exp(b4[3])=26.451</span></code>. The maximum firing rate when the rat moves in the positive direction is about 26 spikes/s.</p>
+</div><p>Let’s also visualize the firing rate as a function of both position and direction. We use the <code class="docutils literal notranslate"><span class="pre">predict</span></code> function to do this. This function uses both the parameter estimates and the <code class="docutils literal notranslate"><span class="pre">stats</span></code> structure that is output by <code class="docutils literal notranslate"><span class="pre">fit</span></code>, and computes the estimated Poisson rate function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xs</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Create an array with [constant, position, position squared, direction] terms</span>
+<span class="n">dir_0</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">xs</span><span class="p">,</span> <span class="n">xs</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">zeros_like</span><span class="p">(</span><span class="n">xs</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># ... for when the direction is 0</span>
+<span class="n">dir_1</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">xs</span><span class="p">,</span> <span class="n">xs</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">ones_like</span><span class="p">(</span><span class="n">xs</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># ... and for when direction is 1</span>
+<span class="n">lambda4_0</span> <span class="o">=</span> <span class="n">model4_results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dir_0</span><span class="p">)</span>  <span class="c1"># Predict the firing rate when the direction is 0</span>
+<span class="n">lambda4_1</span> <span class="o">=</span> <span class="n">model4_results</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dir_1</span><span class="p">)</span>  <span class="c1"># ... and when the direction is one</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">lambda4_0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;dir=0&quot;</span><span class="p">)</span>  <span class="c1"># Plot results</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">lambda4_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;dir=1&quot;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Position [cm]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Firing Rate [spikes/ms]&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Model 4 predicted firing rates&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">()</span>
+<span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/point-process-glms_110_0.png" src="_images/point-process-glms_110_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Consider the inputs to the function <code class="docutils literal notranslate"><span class="pre">predict()</span></code> in this code. How are the covariates of position, position squared, and direction defined? What distinguishes Model 4 evaluated for increasing position versus decreasing position?</p>
+</div><div class="question">
+<p><strong>Q:</strong> Consider the estimated Poisson rate function versus the covariate of position for Model 4 plotted in the above figure. How does the firing rate vary with position and direction?</p>
+<p><strong>A:</strong> Inspection of the figure reveals that the firing rate depends on both position and direction. The rate is largest near position 63 cm and when the position is increasing. When the position is decreasing, the increase in rate near position 63 cm is much smaller. These Model 4 results, evaluated using parameters fitted to the observed data are consistent with our initial visualizations of the data.</p>
+</div><p>We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="https://mark-kramer.github.io/Case-Studies-Python/10/spiking-rhythms.html" target="blank">module 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.</p>
+<p><a class="reference external" href="#top">Back to top</a></p>
+</div>
+</div>
+<div class="section" id="summary-a-id-summary-a">
+<h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
+<p>In this case study, we used an iterative process to identify a statistical model for a hipocampal place cell. We started by visualizing the data, and then proposed point process models, compared and evaluated those models, refined the models, and finally drew inferences from a model that sufficiently captured the structure in the data that we were trying to explain. Each step of this procedure should inform the next. The goal of the visualization analysis is to identify covariates and receptive field structure to include in the first proposed models. The goodness-of-fit analysis should provide insight into features of the statistical model that are lacking and suggest new models. In this case study, we settled on a good model after just two iterations of model refinement. In practice, it may take many more iterations — or even iterations between model identification and new experiments — to identify good models.</p>
+<p>It is worth noting that more than half of this case study is devoted to model interpretation and goodness-of-fit methods. This is common for advanced statistical analyses; fitting models to data is often the easy part. The challenge often comes in being able to interpret and evaluate the results of the fitting procedure. Since there is not a single correct way to evaluate a model, we instead use a range of tools to evaluate multiple aspects of model quality. Here we focused on a few that are generally useful for point process data and for Poisson modeling in particular. In the next module, we look at additional goodness-of-fit methods, in particular, ones to get at history dependence and rhythmicity in spiking data.</p>
+</div>
+</div>
+
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" title="previous page">Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a class='right-next' id="next-link" href="spiking-rhythms.html" title="next page">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2020.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+    </p>
+  </div>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>

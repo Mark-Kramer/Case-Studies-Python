@@ -1,0 +1,16 @@
+../01/introduction-to-python.ipynb
+../02/the-event-related-potential.ipynb
+../03/the-power-spectrum-part-1.ipynb
+../04/ecog-rhythms.ipynb
+../05/the-cross-covariance-and-coherence.ipynb
+../06/appendix.ipynb
+../06/filtering-scalp-eeg.ipynb
+../07/cross-frequency-coupling.ipynb
+../08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.ipynb
+../09/point-process-glms.ipynb
+../10/spiking-rhythms.ipynb
+../11/spike-field-coherence.ipynb
+../A01/backprop.ipynb
+../A02/HH.ipynb
+../A03/LIF.ipynb
+../A04/perceptron.ipynb

@@ -1,0 +1,20 @@
+- file: introduction-to-python
+  expand_sections: true
+  sections:
+  - file: 01
+  - file: 02
+  - file: 03
+  - file: 04
+  - file: 05
+  - file: 06
+  - file: 07
+  - file: 08
+  - file: 09
+  - file: 10
+  - file: 11
+
+- header: Appendices
+- file: backprop
+- file: HH
+- file: LIF
+- file: perceptron
