@@ -80,9 +80,9 @@ YouTubeVideo('Q-VQaY6iDMM')
 
 ### Background
 
-In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, [produced from small aggregates of neurons](https://www.ncbi.nlm.nih.gov/pubmed/22595786). In these data, we examine the association between rhythms of different frequencies.
+In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22595786" target="_blank">produced from small aggregates of neurons</a>. In these data, we examine the association between rhythms of different frequencies.
 
-In general, lower-frequency rhythms have been observed to engage larger brain areas and modulate spatially localized fast oscillations (see, [for example](https://www.ncbi.nlm.nih.gov/pubmed/18388295)). Of the different types of cross-frequency coupling [(CFC) observced between brain rhythms](https://www.ncbi.nlm.nih.gov/pubmed/26549886), perhaps the most is **phase-amplitude coupling** (PAC), in which the phase of a low frequency rhythm modulates the amplitude (or power) of a high frequency rhythm. Cross-frequency coupling been observed in many brain regions, has been shown to change in time with task demands, and has been proposed to serve a [functional role](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3359652/) in working memory, neuronal computation, communication, and learning. Although the cellular and dynamic mechanisms of specific rhythms associated with CFC are relatively well understood, the mechanisms governing interactions between different frequency rhythms - and the appropriate techniques for measuring CFC - remain active research areas. Although we consider only a single electrode recording here, we note that these techniques can be extended to association measures between electrodes as well.
+In general, lower-frequency rhythms have been observed to engage larger brain areas and modulate spatially localized fast oscillations (see, <a href="https://www.ncbi.nlm.nih.gov/pubmed/18388295" target="_blank">for example</a>). Of the different types of cross-frequency coupling <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" target="_blank">(CFC) observced between brain rhythms</a>, perhaps the most is **phase-amplitude coupling** (PAC), in which the phase of a low frequency rhythm modulates the amplitude (or power) of a high frequency rhythm. Cross-frequency coupling been observed in many brain regions, has been shown to change in time with task demands, and has been proposed to serve a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3359652/" target="_blank">functional role</a> in working memory, neuronal computation, communication, and learning. Although the cellular and dynamic mechanisms of specific rhythms associated with CFC are relatively well understood, the mechanisms governing interactions between different frequency rhythms - and the appropriate techniques for measuring CFC - remain active research areas. Although we consider only a single electrode recording here, we note that these techniques can be extended to association measures between electrodes as well.
 
 ### Case Study Data
 We are approached by a collaborator recording the local field potential (LFP) from rat hippocampus. She has implanted a small bundle of electrodes, which remain (chronically) implanted as the rat explores a large circular arena. She is interested in assessing the association between different frequency rhythms of the LFP, and more specifically whether an association between different frequency rhythms exists as the rat explores the arena. To address this question, she has provided us with 100 s of LFP data recorded during the experiment (i.e., while the rat spontaneously explored the arena).
@@ -160,7 +160,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 
 YouTubeVideo('JjOcJy4dVzE')
 
-To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of [ongoing research](https://www.ncbi.nlm.nih.gov/pubmed/26549886).
+To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" target="_blank">ongoing research</a>.
 
 ### CFC analysis steps
 
@@ -194,7 +194,7 @@ n = 100;                            # ... and filter order,
 b = signal.firwin(n, Wn, nyq=fNQ, pass_zero=False, window='hamming');
 Vhi = signal.filtfilt(b, 1, LFP);   # ... and apply it to the data.
 
-For each frequency band, we specify a frequency interval of interest by defining the low- and high-cutoff frequencies in the variable `Wn`. In this way, we specify the passband of the filter. We then set the filter order (`n`) and design the filter using the Python function `signal.firwin` from the [SciPy package](https://scipy.org/). Finally, we apply the filter using the Python function `signal.filtfilt`, which performs zero-phase filtering by applying the filter in both the forward and reverse directions.  We note that, in this case, the filtering procedure is nearly the same in both frequency bands; the only change is the specification of the frequency interval of interest.
+For each frequency band, we specify a frequency interval of interest by defining the low- and high-cutoff frequencies in the variable `Wn`. In this way, we specify the passband of the filter. We then set the filter order (`n`) and design the filter using the Python function `signal.firwin` from the <a href="https://scipy.org/" target="_blank">SciPy package</a>. Finally, we apply the filter using the Python function `signal.filtfilt`, which performs zero-phase filtering by applying the filter in both the forward and reverse directions.  We note that, in this case, the filtering procedure is nearly the same in both frequency bands; the only change is the specification of the frequency interval of interest.
 
 To understand the impact of this filtering operation on the LFP, let’s plot the results. More specifically, let's plot the original signal, and the signal filtered in the low- and high-frequency bands, for an example 2 s interval of time:<a id="fig:7.3"></a>
 
@@ -218,7 +218,7 @@ The next step in the CFC procedure is to extract the *phase* of the low-frequenc
 
 YouTubeVideo('Ir8Gf550S3o')
 
-The first step in computing the analytic signal is to compute the [Hilbert transform](https://en.wikipedia.org/wiki/Hilbert_transform). We begin with some notation. Define $x$ as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we've created). Then the Hilbert transform of $x$, let’s call it $y$, is
+The first step in computing the analytic signal is to compute the <a href="https://en.wikipedia.org/wiki/Hilbert_transform" target="_blank">Hilbert transform</a>. We begin with some notation. Define $x$ as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we've created). Then the Hilbert transform of $x$, let’s call it $y$, is
 
 $$
   y = H(x).
@@ -265,7 +265,7 @@ $$
    x_0 = 2 \cos(2 \pi f_0 t) = 2 \cos(\omega_0 t),
 $$
 
-where to simplify notation we have defined $\omega_0 = 2 \pi f_0$. We know from [Euler’s formula](https://en.wikipedia.org/wiki/Euler%27s_formula) that
+where to simplify notation we have defined $\omega_0 = 2 \pi f_0$. We know from <a href="https://en.wikipedia.org/wiki/Euler%27s_formula" target="_blank">Euler’s formula</a> that
 <a id="eq:7.3"></a>
 
 $$
@@ -516,7 +516,7 @@ $$
 
 Let's represent the inverse Fourier transform of $x(f)$ as $x(t)$.
 
-Now, let's make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see [Analysis of Rhythmic Activity in an Electrocorticogram](../04)). The convolution of two signals $x$ and $y$ is 
+Now, let's make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see <a href="../04" target="_blank">Analysis of Rhythmic Activity in an Electrocorticogram</a>). The convolution of two signals $x$ and $y$ is 
 
 $$
    x * y = \int_{-\infty}^{\infty}x(\tau)y(t-\tau)d\tau.

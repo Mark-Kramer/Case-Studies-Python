@@ -2,7 +2,7 @@
 
 In this notebook, we will construct simple perceptron models. We'll start by implementing a perceptron model, and seeing how it behaves. We'll then outline the steps to train a perceptron to classify a point as above or below a line.
 
-This discussion follows the excellent example and discussion at [The Nature of Code](https://natureofcode.com/book/chapter-10-neural-networks/). Please see that reference for additional details, and a more sophisticated coding strategy (using Classes in Python).
+This discussion follows the excellent example and discussion at <a href="https://natureofcode.com/book/chapter-10-neural-networks/" target="_blank">The Nature of Code</a>. Please see that reference for additional details, and a more sophisticated coding strategy (using Classes in Python).
 
 ##  Preliminaries
 Text preceded by a `#` indicates a 'comment'.  I will use comments to explain what we're doing and to ask you questions.  Also, comments are useful in your own code to note what you've done (so it makes sense when you return to the code in the future).  It's a good habit to *always* comment your code.  I'll try to set a good example, but won't always . . . 

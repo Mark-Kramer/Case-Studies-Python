@@ -85,7 +85,7 @@ show()
 ### Background <a class="anchor" id="background"></a>
 
 
-In most of the other modules, we focused on field data recorded from a single electrode at the scalp (EEG) or cortical (ECoG) surface. However, typical brain voltage recordings consist of multiple electrodes. For example, the standard EEG recording consists of [21 electrodes](https://tinyurl.com/yczt58e5) spaced across the scalp surface, and sometimes many more. The number of electrodes utilized in invasive ECoG recordings also range from a handful of contacts to over 100 implanted electrodes. In this module, we continue our study of field data recorded from the cortical surface but now consider ECoG data recorded simultaneously from two electrodes during a task.
+In most of the other modules, we focused on field data recorded from a single electrode at the scalp (EEG) or cortical (ECoG) surface. However, typical brain voltage recordings consist of multiple electrodes. For example, the standard EEG recording consists of <a href="https://tinyurl.com/yczt58e5" target="_blank">21 electrodes</a> spaced across the scalp surface, and sometimes many more. The number of electrodes utilized in invasive ECoG recordings also range from a handful of contacts to over 100 implanted electrodes. In this module, we continue our study of field data recorded from the cortical surface but now consider ECoG data recorded simultaneously from two electrodes during a task.
 
 
 
@@ -93,7 +93,7 @@ In most of the other modules, we focused on field data recorded from a single el
 
 
 ### Case Study Data <a class="anchor" id="case-study-data"><a/>
-We conside a patient with epilepsy admitted to the hospital for [resective surgery](https://www.ncbi.nlm.nih.gov/pubmed/25602999). As part of her routine clinical workup before resective surgery, numerous electrodes were implanted [directly on the cortical surface](https://en.wikipedia.org/wiki/Electrocorticography). The purpose of this invasive recording procedure was to monitor and localize her seizures for eventual surgical treatment. During this recording procedure, in which electrocorticogram (ECoG) electrodes were implanted and recordings performed for one week, the patient volunteered to participate in an auditory task study administered by a collaborating researcher. The task required the patient to listen to individual phonemes through headphones and respond with a button click whenever she heard the [phoneme](http://www.jneurosci.org/content/30/49/16643) “ba” (the other phonemes were different, e.g., “pa,” ”ma”). The tone presentation was repeated 100 times, and her ECoG recorded (sampling rate 500 Hz) from two cortical electrodes over the auditory brain area for 1 s.
+We conside a patient with epilepsy admitted to the hospital for <a href="https://www.ncbi.nlm.nih.gov/pubmed/25602999" target="_blank">resective surgery</a>. As part of her routine clinical workup before resective surgery, numerous electrodes were implanted <a href="https://en.wikipedia.org/wiki/Electrocorticography" target="_blank">directly on the cortical surface</a>. The purpose of this invasive recording procedure was to monitor and localize her seizures for eventual surgical treatment. During this recording procedure, in which electrocorticogram (ECoG) electrodes were implanted and recordings performed for one week, the patient volunteered to participate in an auditory task study administered by a collaborating researcher. The task required the patient to listen to individual phonemes through headphones and respond with a button click whenever she heard the <a href="http://www.jneurosci.org/content/30/49/16643" target="_blank">phoneme</a> “ba” (the other phonemes were different, e.g., “pa,” ”ma”). The tone presentation was repeated 100 times, and her ECoG recorded (sampling rate 500 Hz) from two cortical electrodes over the auditory brain area for 1 s.
 
 
 [Return to top](#introduction)
@@ -216,7 +216,7 @@ Although visual inspection is a useful initial tool for analyzing data, assessin
 
 ### Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
 
-In [notebook 3](03), we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, 
+In <a href="03" target="_blank">notebook 3</a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, 
 
 
 <span id="eq:ac" title="trial-averaged autocovariance"></span> 
@@ -275,9 +275,9 @@ r_{xy}\big[L\big] = \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L} - \bar{x}) (y_{n} - \b
 $$
 </span>
 
-where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in [notebook 3](03),<span class="thumb"><sup>eq</sup><img src="03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
+where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in <a href="03" target="_blank">notebook 3</a>,<span class="thumb"><sup>eq</sup><img src="03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
 
-The intuition for understanding the cross-covariance is similar to that for the autocovariance (see [notebook 3](03)). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
+The intuition for understanding the cross-covariance is similar to that for the autocovariance (see <a href="03" target="_blank">notebook 3</a>). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
 
 <img src="imgs/cartoon_xc.png" style="width: 90%; max-width: 600px">
 
@@ -387,7 +387,7 @@ Why are the prominent cross-covariance features in the single-trial analysis los
 
 ### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
 
-One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in [notebook 3](03) the Fourier transfom of a signal $x$; let's repeat that definition here,
+One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in <a href="03" target="_blank">notebook 3</a> the Fourier transfom of a signal $x$; let's repeat that definition here,
 
 $$
 X_j = \sum_{n=1}^N x_n \exp(-2 \pi i \, f_j \, t_n) \, .
@@ -405,7 +405,7 @@ In general, $X_j$ can be a complex quantity (i.e., the Fourier transform of $x_n
 
 <img src="imgs/ex_complex_plane.png" style="max-width: 300px;">
 
-Points in the complex plane can be specified in two coordinate systems: Cartesian coordinates (gray) or polar coordinates (orange). The [complex plane](https://en.wikipedia.org/wiki/Complex_plane) contains the real part (horizontal axis) and imaginary part (vertical axis) of every point.
+Points in the complex plane can be specified in two coordinate systems: Cartesian coordinates (gray) or polar coordinates (orange). The <a href="https://en.wikipedia.org/wiki/Complex_plane" target="_blank">complex plane</a> contains the real part (horizontal axis) and imaginary part (vertical axis) of every point.
 
 As you may remember from a geometry or calculus class, we can represent a point in the plane using another coordinate system: polar coordinates. In polar coordinates, we imagine connecting each point to the origin. The resulting line has a length, called the radius or amplitude, and forms an angle with the real axis, called the phase. Like the real and complex parts, the amplitude and phase uniquely specify each point (almost ...) in the complex plane. These two coordinate systems are shown for an example point in the complex plane in the figure above.
 
@@ -485,7 +485,7 @@ show()
     
 **Q:** Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?
 
-**A:** If not, we recommend reviewing the case study in [notebook 3](03).
+**A:** If not, we recommend reviewing the case study in <a href="03" target="_blank">notebook 3</a>.
     
 </div>
 
@@ -656,7 +656,7 @@ The coherence is a measure of the phase consistency between two signals at frequ
     
 </div>
 
-We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see [notebook 3](03) for details.
+We note that because computing the coherence requires the Fourier transform, the notions of frequency resolution and Nyquist frequency are identical to those for the spectrum. In other words, the frequency resolution of the coherence is $1/T$, and the Nyquist frequency is half of the sampling frequency; see <a href="03" target="_blank">notebook 3</a> for details.
 
 <div class="question">
     
@@ -670,7 +670,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 
 ## Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a>
 
-Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a [supplement](03#supplements) at the end of notebook 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.
+Although we defined the [cross-spectrum](#eq:9)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and used it to define the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span>, the cross-spectrum may appear somewhat unmotivated. Fortunately, there is additional insight to be gained. We show in a <a href="03#supplements" target="_blank">supplement</a> at the end of notebook 3 that the spectrum is the Fourier transform of the autocovariance. Conceptually, the spectrum and autocovariance provide a frequency domain and time domain measure of a signal’s rhythms, respectively. In the same way, the cross-spectrum and cross-covariance are partners.
 
 <div class="math-note">
     
@@ -811,7 +811,7 @@ But what if we only collect one trial of data? We can still attempt to compute t
     
 </div>
 
-A second approach to compute the coherence from a single trial of data is to use the [multitaper method](https://en.wikipedia.org/wiki/Multitaper). In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
+A second approach to compute the coherence from a single trial of data is to use the <a href="https://en.wikipedia.org/wiki/Multitaper" target="_blank">multitaper method</a>. In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
 
 ## Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence"></a>
 
@@ -895,8 +895,8 @@ This example illustrates a point of caution in the interpretation of cross-covar
 
 As is true for the Fourier transform and spectrum, there exists a vast literature on computing and interpreting the coherence. Some references for further reading include:
 
-- [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762)
+- <a href="https://doi.org/10.1017/CBO9780511622762" target="_blank">Percival & Walden, 1998</a>
 
-- [Priestly, 1982](https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6)
+- <a href="https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6" target="_blank">Priestly, 1982</a>
 
-- [Numerical recipes](http://numerical.recipes/)
+- <a href="http://numerical.recipes/" target="_blank">Numerical recipes</a>

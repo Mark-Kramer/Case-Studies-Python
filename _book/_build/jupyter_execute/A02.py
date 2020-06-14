@@ -11,9 +11,9 @@ VimeoVideo('140084450')
 
 Here are some additional usual videos and references:
 
-- [Lecture by Prof. Gerstner, *Detailed Neuron Model (a)*](http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=4)
+- <a href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=4" target="_blank">Lecture by Prof. Gerstner, *Detailed Neuron Model (a)*</a>
 
-- [Lecture by Prof. Gerstner, *Detailed Neuron Model (b)*](http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=5)
+- <a href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=5" target="_blank">Lecture by Prof. Gerstner, *Detailed Neuron Model (b)*</a>
 
 ##  Preliminaries 
 

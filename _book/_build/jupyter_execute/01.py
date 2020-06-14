@@ -1,16 +1,16 @@
 # Python for the practicing neuroscientist
 
-To be frank:  this notebook is rather boring.  Throughout all of the case studies, we will use the software package [Python](https://www.python.org/). The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
+To be frank:  this notebook is rather boring.  Throughout all of the case studies, we will use the software package <a href="https://www.python.org/" target="_blank">Python</a>. The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
 
-Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)).
+Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" target="_blank">Python Data Science Handbook</a>).
 
 ## Starting Python
 
-There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using [Binder](https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master), and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!
+There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master" target="_blank">Binder</a>, and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!
 
 <div class="python-note">
     
-Throughout this notebook, we assume that you are running [Python 3](https://www.python.org/download/releases/3.0/). Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator `/` actually computes the *floor* of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, `4/3` equals `1`. While, in Python 3, `4/3` equals `1.333`.
+Throughout this notebook, we assume that you are running <a href="https://www.python.org/download/releases/3.0/" target="_blank">Python 3</a>. Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator `/` actually computes the *floor* of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, `4/3` equals `1`. While, in Python 3, `4/3` equals `1.333`.
 
 We encourage you to use Python 3 for the sake of compatibility with this notebook, as well as for compatibility with future releases of Python.
 
@@ -117,7 +117,7 @@ math.atan?
 
 You should see a description of the function pop up at the bottom of the window.
 
-**NOTE:**  Python Help is *extremely* useful.  You can always look there when you have questions about a function, or search the internet for help, i.e., [google it](http://www.google.com).
+**NOTE:**  Python Help is *extremely* useful.  You can always look there when you have questions about a function, or search the internet for help, i.e., <a href="http://www.google.com" target="_blank">google it</a>.
 
 ##  Example 4.  We can use Python to define lists of numbers.
 
@@ -414,7 +414,7 @@ print( "y = " + str(y) )
 </div>
 
 ### matplotlib
-To visualize `y` versus `x` let's plot it. To do so, let's first import some basic plotting routines from `matplotlib`, which provides a nice [2D plotting library](https://matplotlib.org/). We'll also tell Python to show  `matplotlib` graphics inline, in this notebook.
+To visualize `y` versus `x` let's plot it. To do so, let's first import some basic plotting routines from `matplotlib`, which provides a nice <a href="https://matplotlib.org/" target="_blank">2D plotting library</a>. We'll also tell Python to show  `matplotlib` graphics inline, in this notebook.
 
 Let's start by plotting a simple example for `x` and `y`,
 
@@ -490,7 +490,7 @@ plot(x,z)                     # plot z vs x.
 plot(x,y,'r')                 # plot y vs x in red
 show()
 
-Notice that we’ve included a third input to the function `plot`. Here the third input tells Python to draw the curve in a particular color: `'r'` for red. There are many options we can use to plot; to see more, check out the documentation for [plot](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html).
+Notice that we’ve included a third input to the function `plot`. Here the third input tells Python to draw the curve in a particular color: `'r'` for red. There are many options we can use to plot; to see more, check out the documentation for <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html" target="_blank">plot</a>.
 
 We can also label the axes, give the figure a title, and provide a legend,
 
