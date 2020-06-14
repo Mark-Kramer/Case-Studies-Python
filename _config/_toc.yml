@@ -11,7 +11,7 @@
 - file: 11.ipynb
 
 - header: Appendices
-- file: A01.ipynb
-- file: A02.ipynb
-- file: A03.ipynb
-- file: A04.ipynb
+- file: IF.ipynb
+- file: HH.ipynb
+- file: Perceptron.ipynb
+- file: Backprop.ipynb

@@ -1,0 +1,697 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>The Hodgkin-Huxley model &#8212; Case Studies in Neural Data Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/custom.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/HH.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Training a Perceptron" href="Perceptron.html" />
+    <link rel="prev" title="The integrate and fire neuron" href="IF.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/HH.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="The Hodgkin-Huxley model" />
+<meta property="og:description" content="The Hodgkin-Huxley model  In this notebook we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the most important compu" />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Case Studies in Neural Data Analysis</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="02.html">2. The Event-Related Potential</a>
+  </li>
+  <li class="">
+    <a href="03.html">3. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="05.html">5. Analysis of coupled rhythms</a>
+  </li>
+  <li class="">
+    <a href="06.html">6. Filtering Field Data</a>
+  </li>
+  <li class="">
+    <a href="07.html">7. Cross-frequency coupling</a>
+  </li>
+  <li class="">
+    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="09.html">9. Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="11.html">11. Spike-field coherence</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Appendices</p>
+</li>
+  <li class="">
+    <a href="IF.html">12. The integrate and fire neuron</a>
+  </li>
+  <li class="active">
+    <a href="">13. The Hodgkin-Huxley model</a>
+  </li>
+  <li class="">
+    <a href="Perceptron.html">14. Training a Perceptron</a>
+  </li>
+  <li class="">
+    <a href="Backprop.html">15. Backpropagation</a>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/HH.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+            <div class="dropdown-buttons sourcebuttons">
+                <a class="repository-button" href="https://github.com/eschlaf2/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/eschlaf2/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2FHH.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                <a class="binder-button" href="https://mybinder.org/v2/gh/eschlaf2/Case-Studies-Python/master?urlpath=tree/_book/HH.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                
+                
+                <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#background-information-about-the-hh-model" class="nav-link">Background information about the HH model</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#preliminaries" class="nav-link">Preliminaries</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#part-1-the-hodgkin-huxley-hh-equation-code" class="nav-link">Part 1:   The Hodgkin-Huxley (HH) equation code.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#part-2-at-low-input-current-i0-examine-the-hh-dynamics" class="nav-link">Part 2:  At low input current (I0), examine the HH dynamics.</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#observation-for-part-2" class="nav-link">Observation for Part 2</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#part-3-at-high-input-current-i0-examine-the-hh-dynamics-of-a-spike" class="nav-link">Part 3:  At high input current (I0), examine the HH dynamics of a spike.</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#observation-for-part-3" class="nav-link">Observation for Part 3</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#aside" class="nav-link">ASIDE:</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#part-4-at-high-input-current-i0-describe-the-dynamics-of-the-conductances" class="nav-link">Part 4:  At high input current (I0), describe the dynamics of the conductances.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#part-5-at-high-input-current-i0-describe-the-dynamics-of-the-currents" class="nav-link">Part 5:  At high input current (I0), describe the dynamics of the currents.</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="the-hodgkin-huxley-model">
+<h1>The Hodgkin-Huxley model<a class="headerlink" href="#the-hodgkin-huxley-model" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we will use Python to simulate the Hodgkin-Huxley (HH) neuron model.  This model is arguably the <em>most</em> important computational model in neuroscience.  We’ll focus here on simulating this model and understanding its pieces.</p>
+<div class="section" id="background-information-about-the-hh-model">
+<h2>Background information about the HH model<a class="headerlink" href="#background-information-about-the-hh-model" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a video that describes some of the biophysical details of the HH model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">VimeoVideo</span>
+<span class="n">VimeoVideo</span><span class="p">(</span><span class="s1">&#39;140084450&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://player.vimeo.com/video/140084450"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+<p>Here are some additional usual videos and references:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=4">Lecture by Prof. Gerstner, <em>Detailed Neuron Model (a)</em></a></p></li>
+<li><p><a class="reference external" href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=5">Lecture by Prof. Gerstner, <em>Detailed Neuron Model (b)</em></a></p></li>
+</ul>
+</div>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>Before beginning, let’s load in the Python packages we’ll need:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Using matplotlib backend: MacOSX
+</pre></div>
+</div>
+</div>
+</div>
+<p>In addition, let’s import the functions we’ll need to simulate the HH model, which are available on this repository:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">HH_functions</span> <span class="kn">import</span> <span class="n">HH</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-1-the-hodgkin-huxley-hh-equation-code">
+<h2>Part 1:   The Hodgkin-Huxley (HH) equation code.<a class="headerlink" href="#part-1-the-hodgkin-huxley-hh-equation-code" title="Permalink to this headline">¶</a></h2>
+<p>To start, let’s examine the code for the HH model. We can do so in (at least) two ways.</p>
+<ul class="simple">
+<li><p>Go to the Case Studies repository, and examine the Python file
+<code class="docutils literal notranslate"><span class="pre">HH_functions.py</span></code></p></li>
+<li><p>Examine the code inline with <code class="docutils literal notranslate"><span class="pre">inspect</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="n">inspect</span><span class="o">.</span><span class="n">getsourcelines</span><span class="p">(</span><span class="n">HH</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>([&#39;def HH(I0,T0):\n&#39;,
+  &#39;    dt = 0.01;\n&#39;,
+  &#39;    T  = math.ceil(T0/dt)  # [ms]\n&#39;,
+  &#39;    gNa0 = 120   # [mS/cm^2]\n&#39;,
+  &#39;    ENa  = 115;  # [mV]\n&#39;,
+  &#39;    gK0  = 36;   # [mS/cm^2]\n&#39;,
+  &#39;    EK   = -12;  # [mV]\n&#39;,
+  &#39;    gL0  = 0.3;  # [mS/cm^2]\n&#39;,
+  &#39;    EL   = 10.6; # [mV]\n&#39;,
+  &#39;\n&#39;,
+  &#39;    t = np.arange(0,T)*dt\n&#39;,
+  &#39;    V = np.zeros([T,1])\n&#39;,
+  &#39;    m = np.zeros([T,1])\n&#39;,
+  &#39;    h = np.zeros([T,1])\n&#39;,
+  &#39;    n = np.zeros([T,1])\n&#39;,
+  &#39;\n&#39;,
+  &#39;    V[0]=-70.0\n&#39;,
+  &#39;    m[0]=0.05\n&#39;,
+  &#39;    h[0]=0.54\n&#39;,
+  &#39;    n[0]=0.34\n&#39;,
+  &#39;\n&#39;,
+  &#39;    for i in range(0,T-1):\n&#39;,
+  &#39;        V[i+1] = V[i] + dt*(gNa0*m[i]**3*h[i]*(ENa-(V[i]+65)) + gK0*n[i]**4*(EK-(V[i]+65)) + gL0*(EL-(V[i]+65)) + I0);\n&#39;,
+  &#39;        m[i+1] = m[i] + dt*(alphaM(V[i])*(1-m[i]) - betaM(V[i])*m[i]);\n&#39;,
+  &#39;        h[i+1] = h[i] + dt*(alphaH(V[i])*(1-h[i]) - betaH(V[i])*h[i]);\n&#39;,
+  &#39;        n[i+1] = n[i] + dt*(alphaN(V[i])*(1-n[i]) - betaN(V[i])*n[i]);\n&#39;,
+  &#39;    return V,m,h,n,t\n&#39;],
+ 22)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Examine this code.  Can you make sense of it?  Can you identify the
+gating variables?  The rate functions?  The equations that define the dynamics?
+We’ll answer these questions in this in notebook, but try so on your own first.</p>
+</div><p>Whenever examining code, it’s useful to consider the <em>inputs</em> to the code, and the <em>outputs</em> produced by the code.  There are two inputs to <code class="docutils literal notranslate"><span class="pre">HH0</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">I0</span></code> = the current we inject to the neuron.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T0</span></code> = the total time of the simulation in [ms].</p></li>
+</ul>
+<p>And there are five outputs:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">V</span></code> = the voltage of neuron.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code> = activation variable for Na-current.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">h</span></code> = inactivation variable for Na-current.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code> = activation variable for K-current.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code> = the time axis of the simulation (useful for plotting).</p></li>
+</ul>
+</div>
+<div class="section" id="part-2-at-low-input-current-i0-examine-the-hh-dynamics">
+<h2>Part 2:  At low input current (<code class="docutils literal notranslate"><span class="pre">I0</span></code>), examine the HH dynamics.<a class="headerlink" href="#part-2-at-low-input-current-i0-examine-the-hh-dynamics" title="Permalink to this headline">¶</a></h2>
+<p>To understand how the HH model works, we’ll start by focusing on the
+case when <code class="docutils literal notranslate"><span class="pre">I0</span></code> is small. Let’s fix the input current to zero,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I0</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>and let’s simulate the model for 100 ms,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T0</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ve now defined both inputs to the <code class="docutils literal notranslate"><span class="pre">HH</span></code> function, and can execute it, as follows,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">]</span><span class="o">=</span><span class="n">HH</span><span class="p">(</span><span class="n">I0</span><span class="p">,</span><span class="n">T0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that the function returns five outputs, which we assign to the variables <code class="docutils literal notranslate"><span class="pre">V</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, and <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+<div class="question">
+<p><strong>Q:</strong>  What are the dynamics of the voltage (variable <code class="docutils literal notranslate"><span class="pre">V</span></code>) resulting
+from this simulation?<br>
+HINT:  Plot <code class="docutils literal notranslate"><span class="pre">V</span></code> vs <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</div><div class="question">
+<p><strong>Q:</strong>   What are the dynamics of the gating variables (<code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>)
+resulting from this simulation?<br>
+HINT:  Plot them!</p>
+</div><div class="question">
+<p><strong>Q:</strong>  What are the final values (after the 100 ms of simulation) of
+<code class="docutils literal notranslate"><span class="pre">V</span></code>, <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code>?</p>
+</div><div class="section" id="observation-for-part-2">
+<h3>Observation for Part 2<a class="headerlink" href="#observation-for-part-2" title="Permalink to this headline">¶</a></h3>
+<p>At this value of input current (<code class="docutils literal notranslate"><span class="pre">I0=0</span></code>), the model dynamics
+approach a “fixed point”, whose location we can identify as a point in four dimensional space.</p>
+</div>
+</div>
+<div class="section" id="part-3-at-high-input-current-i0-examine-the-hh-dynamics-of-a-spike">
+<h2>Part 3:  At high input current (<code class="docutils literal notranslate"><span class="pre">I0</span></code>), examine the HH dynamics of a spike.<a class="headerlink" href="#part-3-at-high-input-current-i0-examine-the-hh-dynamics-of-a-spike" title="Permalink to this headline">¶</a></h2>
+<p>Let’s now increase the input current to the HH model and get this model
+to generate repeated spiking activity.  To do so, let’s set,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">I0</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now simulate this model,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">V</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="n">HH</span><span class="p">(</span><span class="n">I0</span><span class="p">,</span><span class="n">T0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  What happens to the dynamics?<br></p>
+<p>HINT:  Plot V vs t.</p>
+</div><div class="section" id="observation-for-part-3">
+<h3>Observation for Part 3<a class="headerlink" href="#observation-for-part-3" title="Permalink to this headline">¶</a></h3>
+<p>You should have found that, at this value of input current, the model
+<strong>generates repeated spikes</strong>.</p>
+<p>Let’s now explore how the combined gates
+and dynamics evolve.  To do so, let’s start by focusing our plot on a
+single spike.  As a first step, we’ll make a new figure with a seperate subfigure to plot
+the voltage,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x121f9d2d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">subplot</span></code> command divides the figure into two rows, and one column, and tells Python we’ll start in the first row. See Python Help for more details:</p>
+<p><code class="docutils literal notranslate"><span class="pre">subplot??</span></code></p>
+<p>Now, let’s plot the voltage, and choose the time axis to focus on a single spike,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Okay, we’ve now plotted the voltage dynamics for a single spike (and
+colored the curve black).  Let’s now plot the three gating variables.
+To do so, we’ll move to the next subplot,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>(the next row in the figure).  Within this subplot, let’s start by displaying the gating variable <code class="docutils literal notranslate"><span class="pre">m</span></code> over the same x-limits,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that, in the call to <code class="docutils literal notranslate"><span class="pre">plot</span></code> we included the input <code class="docutils literal notranslate"><span class="pre">label</span></code>. This will be useful when we create a legend … <br><br>Within this subplot, we can also simultaneously show the gating
+variables <code class="docutils literal notranslate"><span class="pre">h</span></code> and <code class="docutils literal notranslate"><span class="pre">n</span></code>,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Label the x-axis,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s add a legend to help us keep track of the different curves,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Using the figure you created above, describe how the gates swing open and closed during a spike.</p>
+</div></div>
+<div class="section" id="aside">
+<h3>ASIDE:<a class="headerlink" href="#aside" title="Permalink to this headline">¶</a></h3>
+<p>Here’s a nice plotting trick, to link the x-axes of our two subfigures.  Linking the axes is useful so that, when we zoom or move one subfigure, the other subfigure will match the x-axis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">);</span>                 <span class="c1"># Define axis for 1st subplot,</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">);</span>     <span class="c1"># ... and link axis of 2nd subplot to the 1st.</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>                   <span class="c1"># Plot the voltage in the first subplot,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">]);</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>        <span class="c1"># ... and the gating variables in the other subplot.</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;h&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">);</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">);</span>
+<span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, in the figure, you may use the pan/zoom tool to adjust the linked subplots.</p>
+</div>
+</div>
+<div class="section" id="part-4-at-high-input-current-i0-describe-the-dynamics-of-the-conductances">
+<h2>Part 4:  At high input current (<code class="docutils literal notranslate"><span class="pre">I0</span></code>), describe the dynamics of the conductances.<a class="headerlink" href="#part-4-at-high-input-current-i0-describe-the-dynamics-of-the-conductances" title="Permalink to this headline">¶</a></h2>
+<p>In Part 3, we explored how the three gates <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">h</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code> evolve
+during a spike.  By combining these terms, we can visualize how the
+<em>conductances</em> evolve during a spike.  To do so, let’s stick with the
+simulation results we generated in Part 3, and focus our plot on a
+single spike,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>                <span class="c1"># Make a subplot,</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>               <span class="c1">#... and plot the voltage,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V [mV]&#39;</span><span class="p">);</span>               <span class="c1">#... with y-axis labeled.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, to plot the conductances, let’s define three new variables,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gNa0</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">gNa</span>  <span class="o">=</span> <span class="n">gNa0</span><span class="o">*</span><span class="n">m</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">h</span>              <span class="c1"># Sodium conductance</span>
+<span class="n">gK0</span>  <span class="o">=</span> <span class="mi">36</span>
+<span class="n">gK</span>   <span class="o">=</span> <span class="n">gK0</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">4</span>                 <span class="c1"># Potassium conductance</span>
+<span class="n">gL0</span>  <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">gL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">(</span><span class="n">gK</span><span class="p">))</span>      <span class="c1"># Leak conductance</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Where do these terms come from?</p>
+</div><p>Then, let’s plot these conductances,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ax2</span> <span class="o">=</span> <span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>  <span class="c1">#Make a second subplot,</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gNa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gNa&#39;</span><span class="p">)</span><span class="c1">#... and plot the sodium conductance,</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gK&#39;</span><span class="p">)</span> <span class="c1">#... and plot the potassium conductance,</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">gL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gL&#39;</span><span class="p">)</span> <span class="c1">#... and plot the leak conductance.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                  <span class="c1">#... focused on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>             <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mS/cm^2&#39;</span><span class="p">)</span>               <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                       <span class="c1">#... make a legend.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> How do the conductances evolve during a spike?</p>
+</div></div>
+<div class="section" id="part-5-at-high-input-current-i0-describe-the-dynamics-of-the-currents">
+<h2>Part 5:  At high input current (<code class="docutils literal notranslate"><span class="pre">I0</span></code>), describe the dynamics of the <em>currents</em>.<a class="headerlink" href="#part-5-at-high-input-current-i0-describe-the-dynamics-of-the-currents" title="Permalink to this headline">¶</a></h2>
+<p>In Part 4, we explored how the three conductances (<code class="docutils literal notranslate"><span class="pre">gNa</span></code>, <code class="docutils literal notranslate"><span class="pre">gK</span></code>, <code class="docutils literal notranslate"><span class="pre">gL</span></code>) evolve
+during a spike.  Let’s now visualize how the <em>ionic currents</em> evolve
+during a spike.  To do so, let’s stick with the same settings used in
+Part 4 and examine the same simulation result.  Again, we’ll focus our plot
+on a single spike.</p>
+<p>Now, to plot the <em>current</em>, let’s define the new variables,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gNa0</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">ENa</span>  <span class="o">=</span> <span class="mi">115</span>
+<span class="n">INa</span>  <span class="o">=</span> <span class="n">gNa0</span><span class="o">*</span><span class="n">m</span><span class="o">**</span><span class="mi">3</span><span class="o">*</span><span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">ENa</span><span class="o">-</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mi">65</span><span class="p">))</span>    <span class="c1"># Sodium current.</span>
+<span class="n">gK0</span>  <span class="o">=</span> <span class="mi">36</span>
+<span class="n">EK</span>   <span class="o">=-</span><span class="mi">12</span>
+<span class="n">IK</span>   <span class="o">=</span> <span class="n">gK0</span><span class="o">*</span><span class="n">n</span><span class="o">**</span><span class="mi">4</span><span class="o">*</span><span class="p">(</span><span class="n">EK</span><span class="o">-</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mi">65</span><span class="p">))</span>        <span class="c1"># Potassium current.</span>
+<span class="n">gL0</span>  <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">EL</span>   <span class="o">=</span> <span class="mf">10.6</span><span class="p">;</span>
+<span class="n">IL</span>   <span class="o">=</span> <span class="n">gL0</span><span class="o">*</span><span class="p">(</span><span class="n">EL</span><span class="o">-</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mi">65</span><span class="p">))</span>             <span class="c1"># Leak current.</span>
+
+<span class="n">ax3</span><span class="o">=</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>   <span class="c1"># Make a third subplot,</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">INa</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;INa&#39;</span><span class="p">)</span>   <span class="c1">#... and plot the sodium current,</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IK</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IK&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the potassium current,</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">IL</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;IL&#39;</span><span class="p">)</span>    <span class="c1">#... and plot the leak current.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">42</span><span class="p">,</span> <span class="mi">56</span><span class="p">])</span>                 <span class="c1">#... focus on a single spike,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [ms]&#39;</span><span class="p">)</span>            <span class="c1">#... label the x-axis.</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;mA/cm^2&#39;</span><span class="p">)</span>              <span class="c1">#... and label the y-axis.</span>
+<span class="n">legend</span><span class="p">();</span>                      <span class="c1">#... make a legend.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> How do the conductances evolve during a spike?</p>
+</div><div class="question">
+<p><strong>Q:</strong> You may notice a small, transient decrease in the sodium current <code class="docutils literal notranslate"><span class="pre">INa</span></code> near 47 ms. What causes this?</p>
+</div></div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "eschlaf2/Case-Studies-Python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "."
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="IF.html" title="previous page">The integrate and fire neuron</a>
+    <a class='right-next' id="next-link" href="Perceptron.html" title="next page">Training a Perceptron</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Kramer and Uri Eden<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>

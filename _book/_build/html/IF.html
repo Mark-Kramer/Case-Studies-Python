@@ -1,0 +1,598 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>The integrate and fire neuron &#8212; Case Studies in Neural Data Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/custom.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/IF.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The Hodgkin-Huxley model" href="HH.html" />
+    <link rel="prev" title="Spike-field coherence" href="11.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/IF.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="The integrate and fire neuron" />
+<meta property="og:description" content="The integrate and fire neuron  In this notebook we will use Python to simulate the integrate and fire (I&F) neuron model.  We’ll investigate, in particular, how" />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Case Studies in Neural Data Analysis</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="02.html">2. The Event-Related Potential</a>
+  </li>
+  <li class="">
+    <a href="03.html">3. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="05.html">5. Analysis of coupled rhythms</a>
+  </li>
+  <li class="">
+    <a href="06.html">6. Filtering Field Data</a>
+  </li>
+  <li class="">
+    <a href="07.html">7. Cross-frequency coupling</a>
+  </li>
+  <li class="">
+    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="09.html">9. Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="11.html">11. Spike-field coherence</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Appendices</p>
+</li>
+  <li class="active">
+    <a href="">12. The integrate and fire neuron</a>
+  </li>
+  <li class="">
+    <a href="HH.html">13. The Hodgkin-Huxley model</a>
+  </li>
+  <li class="">
+    <a href="Perceptron.html">14. Training a Perceptron</a>
+  </li>
+  <li class="">
+    <a href="Backprop.html">15. Backpropagation</a>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/IF.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+            <div class="dropdown-buttons sourcebuttons">
+                <a class="repository-button" href="https://github.com/eschlaf2/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/eschlaf2/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2FIF.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                <a class="binder-button" href="https://mybinder.org/v2/gh/eschlaf2/Case-Studies-Python/master?urlpath=tree/_book/IF.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                
+                
+                <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="the-integrate-and-fire-neuron">
+<h1>The integrate and fire neuron<a class="headerlink" href="#the-integrate-and-fire-neuron" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we will use Python to simulate the integrate and fire (I&amp;F) neuron model.  We’ll investigate, in particular, how the spiking activity varies as we adjust the input current <span class="math notranslate nohighlight">\(I\)</span>.</p>
+</div>
+<div class="section" id="background-information-about-the-i-f-model">
+<h1>Background information about the I&amp;F model<a class="headerlink" href="#background-information-about-the-i-f-model" title="Permalink to this headline">¶</a></h1>
+<p>Here’s a video that describes a slightly more complicated model, the <em>leaky</em> integrate and fire model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">VimeoVideo</span>
+<span class="n">VimeoVideo</span><span class="p">(</span><span class="s1">&#39;140084447&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://player.vimeo.com/video/140084447"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
+</div>
+<p>Here’s some additional intereting videos and references:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=1">Lecture by Prof. Gerstner</a></p></li>
+</ul>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>Before beginning, let’s load in the Python packages we’ll need:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-1-numerical-solutions-introduction">
+<h2>Part 1:  Numerical solutions - Introduction<a class="headerlink" href="#part-1-numerical-solutions-introduction" title="Permalink to this headline">¶</a></h2>
+<p>How do we compute a numerical solution to the integrate and fire model?
+The basic idea is to rearrange the differential equation to get <span class="math notranslate nohighlight">\(V(t+1)\)</span> on
+the left hand side, and <span class="math notranslate nohighlight">\(V(t)\)</span> on the right hand side.  Then, if we know
+what’s happening at time <span class="math notranslate nohighlight">\(t\)</span>, we can solve for what’s happening at time <span class="math notranslate nohighlight">\(t+1\)</span>.</p>
+<p>For example, consider the differential equation:</p>
+<div class="math notranslate nohighlight">
+\[
+  \dfrac{dV}{dt} = \dfrac{I}{C}
+\]</div>
+<p>In words, we can think of:</p>
+<p><span class="math notranslate nohighlight">\(dV\)</span> as the “change in voltage V”,</p>
+<p><span class="math notranslate nohighlight">\(dt\)</span> as the “change in time t”.</p>
+<p>Let’s consider the case that we record the voltage <span class="math notranslate nohighlight">\(V\)</span> in discrete time steps. So
+we observe:</p>
+<p><span class="math notranslate nohighlight">\(V[0], V[1], V[2], \ldots\)</span></p>
+<p>at times:</p>
+<p><span class="math notranslate nohighlight">\(dt, \, 2*dt, \, 3*dt, \ldots\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(dt\)</span> is the time between our samples of <span class="math notranslate nohighlight">\(V\)</span>.</p>
+<p>We can now write the “change in voltage V” as:</p>
+<div class="math notranslate nohighlight">
+\[
+  dV = V(t+1) - V(t)
+\]</div>
+<p>Notice that the change in voltage is the difference in V between two
+sequential time samples.  Now, let’s rewrite <span class="math notranslate nohighlight">\(\dfrac{dV}{dt}\)</span> as,</p>
+<div class="math notranslate nohighlight">
+\[
+  \dfrac{dV}{dt} = \dfrac{ V(t+1) - V(t) }{ dt } 
+\]</div>
+<p>where we’ve replaced <span class="math notranslate nohighlight">\(dV\)</span>.  Now, let’s substitute this expression into the equation at the top of this file:</p>
+<div class="math notranslate nohighlight">
+\[
+  \dfrac{ V(t+1) - V(t) }{ dt } = \dfrac{I}{C}.  
+\]</div>
+<p>Solving this equation for <span class="math notranslate nohighlight">\(V(t+1)\)</span> you’ll find  that:</p>
+<div class="math notranslate nohighlight">
+\[
+  V(t+1) = V(t) + dt*(I/C)
+\]</div>
+<p>Notice that, in this expression, we use our current value of the voltage V(t) and the model (I/C) to determine the next value of the voltage V(t+1).</p>
+<p>Now, let’s program this equation in Python.  First, let’s set the values
+for the parameters <span class="math notranslate nohighlight">\(I\)</span> and <span class="math notranslate nohighlight">\(C\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">C</span><span class="o">=</span><span class="mf">1.0</span>
+<span class="n">I</span><span class="o">=</span><span class="mf">1.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also need to set the value for <span class="math notranslate nohighlight">\(dt\)</span>.  This defines the time step for our
+model.  We must choose it small enough so that we don’t miss anything
+interesting.  We’ll choose:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s assume the units of time are seconds.  So, we step forward in time by <span class="math notranslate nohighlight">\(0.01\)</span> s.</p>
+<p>The right hand side of our equation is nearly defined, but we’re still missing one thing, <span class="math notranslate nohighlight">\(V(t)\)</span>.</p>
+<div class="question">
+<p><strong>Q:</strong>  What value do we assign to <span class="math notranslate nohighlight">\(V(t)\)</span>?</p>
+<p><strong>A:</strong>  We don’t know — that’s why we’re running the simulation in the first place!</p>
+</div><p>So here’s an easier question:  what <em>initial</em> value do we assign to <span class="math notranslate nohighlight">\(V(t)\)</span>?</p>
+<p>To start, we’ll create an array of zeros to hold our results for <span class="math notranslate nohighlight">\(V\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">V</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(1000, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<p>This array <code class="docutils literal notranslate"><span class="pre">V</span></code> consists of 1000 rows and 1 column. We can think of each row entry as corresponding to a discrete step in time. Our goal is to fill-in the values of <code class="docutils literal notranslate"><span class="pre">V</span></code> (i.e., step forward in time), in a way consistent with our model.</p>
+<p>Let’s choose an initial value for <code class="docutils literal notranslate"><span class="pre">V</span></code> of 0.2, which in our simple model we’ll assume represents the rest state.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Given the initial state <code class="docutils literal notranslate"><span class="pre">V[0]=0.2</span></code>, calculate <code class="docutils literal notranslate"><span class="pre">V[1]</span></code>.  Then calcualte <code class="docutils literal notranslate"><span class="pre">V[2]</span></code>.</p>
+</div><p>After the two calculations above, we’ve moved forward two time steps into
+the future, from <span class="math notranslate nohighlight">\(t=0\)</span> s to <span class="math notranslate nohighlight">\(t=0.01\)</span> s, and then from <span class="math notranslate nohighlight">\(t=0.01\)</span> s to <span class="math notranslate nohighlight">\(t=0.02\)</span> s.  But what
+if we want to know <span class="math notranslate nohighlight">\(V\)</span> at <span class="math notranslate nohighlight">\(t=10\)</span> s?  Then, this iteration-by-hand procedure becomes
+much too boring and error-prone.  So, what do we do?  Let’s make the
+computer do it …</p>
+</div>
+<div class="section" id="part-2-numerical-solutions-implementation">
+<h2>Part 2:  Numerical solutions - implementation<a class="headerlink" href="#part-2-numerical-solutions-implementation" title="Permalink to this headline">¶</a></h2>
+<p>Let’s computerize this iteration-by-hand procedure to find <code class="docutils literal notranslate"><span class="pre">V[999]</span></code>. To do so, we’ll use a <a class="reference external" href="https://wiki.python.org/moin/ForLoop">for-loop</a>.  Here’s what it looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>
+    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Does this loop make sense?  Describe what’s happening here.</p>
+</div><div class="question">
+<p><strong>Q:</strong>  Why does the <code class="docutils literal notranslate"><span class="pre">range</span></code> command end at <code class="docutils literal notranslate"><span class="pre">999</span></code>?</p>
+</div><p>Execute this for-loop and examine the results in vector <code class="docutils literal notranslate"><span class="pre">V</span></code>.  To do so, let’s plot <code class="docutils literal notranslate"><span class="pre">V</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">V</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/IF_24_0.png" src="_images/IF_24_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  What happens to the voltage after 1000 steps?</p>
+</div><p>This plot is informative, but not great.  Really, we’d like to plot the
+voltage as a function of <em>time</em>, not steps or indices.  To do so, we
+need to define a time axis:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  What’s happening in the command above?  Does it make sense?  (If not, trying printing or plotting <code class="docutils literal notranslate"><span class="pre">t</span></code>.)</p>
+</div><p>Now, with <em>time</em> defined, let’s redo the plot of the voltage with the axes labeled appropriately.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">);</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/IF_30_0.png" src="_images/IF_30_0.png" />
+</div>
+</div>
+<p>Finally, let’s put it all together …</p>
+</div>
+<div class="section" id="part-3-i-f-code-version-1">
+<h2>Part 3: I&amp;F CODE (version 1)<a class="headerlink" href="#part-3-i-f-code-version-1" title="Permalink to this headline">¶</a></h2>
+<p>In Parts 1 and 2, we constructed parts of the I&amp;F model in bits-and-pieces.
+Let’s now collect all of this code, compute a numerical solution to
+the I&amp;F model, and plot the results (with appropriate axes).</p>
+<p>First, let’s clear all the variables:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">reset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Once deleted, variables cannot be recovered. Proceed (y/[n])? y
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="n">I</span><span class="o">=</span><span class="mi">1</span>                              <span class="c1">#Set the parameter I.</span>
+<span class="n">C</span><span class="o">=</span><span class="mi">1</span>                              <span class="c1">#Set the parameter C.</span>
+<span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                          <span class="c1">#Set the timestep.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>              <span class="c1">#Initialize V.</span>
+<span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>                        <span class="c1">#Set the initial value of V.</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>           <span class="c1">#March forward in time,</span>
+    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span>     <span class="c1">#... updating V along the way.</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>          <span class="c1">#Define the time axis.</span>
+
+<span class="n">figure</span><span class="p">()</span>                         <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/IF_35_0.png" src="_images/IF_35_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Adjust the parameter <code class="docutils literal notranslate"><span class="pre">I</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">I=0</span></code>?  Can you set <code class="docutils literal notranslate"><span class="pre">I</span></code> so that <code class="docutils literal notranslate"><span class="pre">V</span></code> &gt; 20 within 10 s?</p>
+</div></div>
+<div class="section" id="part-4-voltage-threshold">
+<h2>Part 4:  Voltage threshold<a class="headerlink" href="#part-4-voltage-threshold" title="Permalink to this headline">¶</a></h2>
+<p>Notice, our model is missing something important:  <strong>the reset</strong>.
+Without
+the reset, the voltage increases forever (if <span class="math notranslate nohighlight">\(I&gt;0\)</span>). Now, let’s update
+our model to include the reset.  To do so, we’ll need to add two things
+to our code.</p>
+<ul class="simple">
+<li><p>First, we’ll define the voltage threshold <code class="docutils literal notranslate"><span class="pre">Vth</span></code>, and
+reset voltage <code class="docutils literal notranslate"><span class="pre">Vreset</span></code>.</p></li>
+<li><p>Second, we’ll check to see if <code class="docutils literal notranslate"><span class="pre">V</span></code> exceeds
+<code class="docutils literal notranslate"><span class="pre">Vth</span></code> using an <a class="reference external" href="https://docs.python.org/3/tutorial/controlflow.html">if-statement</a>;  if it does, then we’ll set <code class="docutils literal notranslate"><span class="pre">V</span></code> equal to
+<code class="docutils literal notranslate"><span class="pre">Vreset</span></code>.</p></li>
+</ul>
+<p>Here’s what we’ll add to the code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Vth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>        <span class="c1">#Define the voltage threshold.</span>
+<span class="n">Vreset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="c1">#Define the reset voltage.</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>            <span class="c1">#March forward in time,</span>
+    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span>      <span class="c1">#Update the voltage,</span>
+    <span class="k">if</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Vth</span><span class="p">:</span>              <span class="c1">#... and check if the voltage exceeds the threshold.</span>
+        <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vreset</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="part-5-i-f-code-version-2">
+<h2>Part 5: I&amp;F CODE (version 2)<a class="headerlink" href="#part-5-i-f-code-version-2" title="Permalink to this headline">¶</a></h2>
+<p>Now, let’s put it all together to make a complete I&amp;F model (with a thershold and reset), simulate it, and plot the result.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">reset</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Once deleted, variables cannot be recovered. Proceed (y/[n])? y
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="n">I</span><span class="o">=</span><span class="mi">1</span>                          <span class="c1">#Set the parameter I.</span>
+<span class="n">C</span><span class="o">=</span><span class="mi">1</span>                          <span class="c1">#Set the parameter C.</span>
+<span class="n">Vth</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>                     <span class="c1">#Define the voltage threshold.</span>
+<span class="n">Vreset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                  <span class="c1">#Define the reset voltage.</span>
+<span class="n">dt</span><span class="o">=</span><span class="mf">0.01</span>                      <span class="c1">#Set the timestep.</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>          <span class="c1">#Initialize V.</span>
+<span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2</span><span class="p">;</span>                    <span class="c1">#Set the initial condition.</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">999</span><span class="p">):</span>       <span class="c1">#March forward in time,</span>
+    <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">dt</span><span class="o">*</span><span class="p">(</span><span class="n">I</span><span class="o">/</span><span class="n">C</span><span class="p">)</span> <span class="c1">#Update the voltage,</span>
+    <span class="k">if</span> <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">Vth</span><span class="p">:</span>         <span class="c1">#... and check if the voltage exceeds the threshold.</span>
+        <span class="n">V</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">Vreset</span>
+        
+<span class="n">t</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">V</span><span class="p">))</span><span class="o">*</span><span class="n">dt</span>      <span class="c1">#Define the time axis.</span>
+
+<span class="n">figure</span><span class="p">()</span>                     <span class="c1">#Plot the results.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">V</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
+<span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/IF_41_0.png" src="_images/IF_41_0.png" />
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> Adjust the parameter <code class="docutils literal notranslate"><span class="pre">I</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">I=10</span></code>?  If <code class="docutils literal notranslate"><span class="pre">I=100</span></code>?</p>
+</div><div class="question">
+<p><strong>Q:</strong> Adjust the parameter <code class="docutils literal notranslate"><span class="pre">C</span></code>.  What happens to <code class="docutils literal notranslate"><span class="pre">V</span></code> if <code class="docutils literal notranslate"><span class="pre">C=0.1</span></code>?  If <code class="docutils literal notranslate"><span class="pre">C=10</span></code>?</p>
+</div><div class="question">
+<p><strong>Q:</strong> What is “spiking” in this I&amp;F model?</p>
+</div></div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "eschlaf2/Case-Studies-Python",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "."
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="11.html" title="previous page">Spike-field coherence</a>
+    <a class='right-next' id="next-link" href="HH.html" title="next page">The Hodgkin-Huxley model</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Kramer and Uri Eden<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>
