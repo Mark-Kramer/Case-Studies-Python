@@ -763,18 +763,10 @@ show()
 ```{toctree}
 :hidden:
 :titlesonly:
-:caption: Mechanistic Models (beta version)
+:caption: Extra notebooks
 
 IF.ipynb
 HH.ipynb
-```
-
-
-```{toctree}
-:hidden:
-:titlesonly:
-:caption: Machine Learning (beta version)
-
 Perceptron.ipynb
 Backprop.ipynb
 ```
