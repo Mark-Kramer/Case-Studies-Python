@@ -1,4 +1,4 @@
-# Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task
+# Analysis of Rhythmic Spike Train Data
 
 <div class="question">
     

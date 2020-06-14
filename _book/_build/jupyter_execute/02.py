@@ -1,5 +1,5 @@
 <a id="introduction"></a>
-# The Event-Related Potential *for the practicing neuroscientist*
+# The Event-Related Potential
 
 <div class="question">
     

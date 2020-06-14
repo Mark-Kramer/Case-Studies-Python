@@ -1,4 +1,4 @@
-# Cross-frequency coupling *for the practicing neuroscientist*
+# Cross-frequency coupling
 
 <div class="question">
     

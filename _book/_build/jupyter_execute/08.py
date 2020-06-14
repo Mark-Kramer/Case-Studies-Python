@@ -1,6 +1,6 @@
 <a id="top"></a> 
 
-# Basic Visualizations and Descriptive Statistics of Spike Train Data
+# Basic Analysis of Spike Train Data
 
 <div class="question">
     

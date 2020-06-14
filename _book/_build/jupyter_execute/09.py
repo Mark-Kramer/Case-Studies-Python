@@ -1,5 +1,5 @@
 <a id="top"></a> 
-# Modeling Place Fields with Point Process Generalized Linear Models
+# Point Process Generalized Linear Models
 
 <div id="top" class="question">
     

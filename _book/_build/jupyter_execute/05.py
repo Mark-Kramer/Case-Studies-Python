@@ -1,5 +1,5 @@
 <a id="introduction"></a><a id="top"></a>
-# Analysis of coupled rhythms *for the practicing neuroscientist*
+# Analysis of coupled rhythms
 
 <div class="question">
     

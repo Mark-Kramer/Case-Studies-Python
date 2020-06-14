@@ -1,4 +1,4 @@
-# Analysis of spike-field coherence *for the practicing neuroscientist* 
+# Spike-field coherence
 
 <div class="question">
     

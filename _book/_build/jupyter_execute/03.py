@@ -1,5 +1,5 @@
 <a id="top"></a> 
-# Analysis of rhythmic activity *for the practicing neuroscientist*
+# The Power Spectrum (Part 2)
 
 <div class="question">
     
