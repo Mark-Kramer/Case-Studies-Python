@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>The Event-Related Potential &#8212; Case Studies in Neural Data Analysis</title>
+    <title>The Event-Related Potential for the practicing neuroscientist &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -37,7 +37,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Power Spectrum (Part 2)" href="03.html" />
+    <link rel="next" title="Analysis of rhythmic activity for the practicing neuroscientist" href="03.html" />
     <link rel="prev" title="Python for the practicing neuroscientist" href="01.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/02.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="The Event-Related Potential" />
-<meta property="og:description" content="The Event-Related Potential  <div class="question">   Synopsis  Data: 1 s of scalp EEG data sampled at 500 Hz during 1,000 trials in two conditions.  Goal: Char" />
+<meta property="og:title"       content="The Event-Related Potential <em>for the practicing neuroscientist</em>" />
+<meta property="og:description" content="The Event-Related Potential for the practicing neuroscientist  <div class="question">   Synopsis  Data: 1 s of scalp EEG data sampled at 500 Hz during 1,000 tri" />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -86,34 +86,34 @@
     <a href="01.html">1. Python for the practicing neuroscientist</a>
   </li>
   <li class="active">
-    <a href="">2. The Event-Related Potential</a>
+    <a href="">2. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. The Power Spectrum (Part 2)</a>
+    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
     <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms</a>
+    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="06.html">6. Filtering Field Data</a>
+    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling</a>
+    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">9. Point Process Generalized Linear Models</a>
+    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-field coherence</a>
+    <a href="11.html">11. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
@@ -266,8 +266,8 @@
               <div>
                 
   <p><a id="introduction"></a></p>
-<div class="section" id="the-event-related-potential">
-<h1>The Event-Related Potential<a class="headerlink" href="#the-event-related-potential" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-event-related-potential-for-the-practicing-neuroscientist">
+<h1>The Event-Related Potential <em>for the practicing neuroscientist</em><a class="headerlink" href="#the-event-related-potential-for-the-practicing-neuroscientist" title="Permalink to this headline">¶</a></h1>
 <div class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> 1 s of scalp EEG data sampled at 500 Hz during 1,000 trials in two conditions.</p>
@@ -353,7 +353,7 @@
 ></iframe>
 </div></div>
 </div>
-<p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a class="reference external" href="https://en.wikipedia.org/wiki/Hans_Berger">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a class="reference external" href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234">an active area of research</a>.</p>
+<p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a href="https://en.wikipedia.org/wiki/Hans_Berger" target="_blank">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234" target="_blank">an active area of research</a>.</p>
 <p>Compared to other modalities for measuring brain activity, the EEG possesses both advantages and disadvantages.  Perhaps the most important advantages are:</p>
 <ol class="simple">
 <li><p>The EEG is non-invasive, and</p></li>
@@ -423,7 +423,7 @@
 </div>
 </div>
 </div>
-<p>You may notice that we specified index zero when we imported the variable <code class="docutils literal notranslate"><span class="pre">t</span></code>. This is because <code class="docutils literal notranslate"><span class="pre">t</span></code> is a vector (one-dimensional) rather than an array (multi-dimensional). The default behavior of <code class="docutils literal notranslate"><span class="pre">loadmat()</span></code> is to extract variables as ndarray types (to see this, execute <code class="docutils literal notranslate"><span class="pre">type(EEGa)</span></code>). Specifically, if we don’t tell Python to import the <a class="reference external" href="https://en.wikipedia.org/wiki/Zero-based_numbering">zeroth</a> (row) element of <code class="docutils literal notranslate"><span class="pre">data['t']</span></code> then <code class="docutils literal notranslate"><span class="pre">t</span></code> will have shape (1, 500), rather than (500,). There may be cases where this arrangement is preferred, but best practice is to convert the variable to a one-diminsional vector.</p>
+<p>You may notice that we specified index zero when we imported the variable <code class="docutils literal notranslate"><span class="pre">t</span></code>. This is because <code class="docutils literal notranslate"><span class="pre">t</span></code> is a vector (one-dimensional) rather than an array (multi-dimensional). The default behavior of <code class="docutils literal notranslate"><span class="pre">loadmat()</span></code> is to extract variables as ndarray types (to see this, execute <code class="docutils literal notranslate"><span class="pre">type(EEGa)</span></code>). Specifically, if we don’t tell Python to import the <a href="https://en.wikipedia.org/wiki/Zero-based_numbering" target="_blank">zeroth</a> (row) element of <code class="docutils literal notranslate"><span class="pre">data['t']</span></code> then <code class="docutils literal notranslate"><span class="pre">t</span></code> will have shape (1, 500), rather than (500,). There may be cases where this arrangement is preferred, but best practice is to convert the variable to a one-diminsional vector.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -847,7 +847,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <img alt="_images/02_70_0.png" src="_images/02_70_0.png" />
 </div>
 </div>
-<p>In the first line, we compute the mean of <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> using the method <code class="docutils literal notranslate"><span class="pre">mean()</span></code> (see the documentation for this function <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html">here</a>). The default behavior is to compute the mean of all elements of the array. By calling <code class="docutils literal notranslate"><span class="pre">EEG.mean(0)</span></code>, we compute the mean along the zeroth dimension. The result is the ERP for condition A.</p>
+<p>In the first line, we compute the mean of <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> using the method <code class="docutils literal notranslate"><span class="pre">mean()</span></code> (see the documentation for this function <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html" target="_blank">here</a>). The default behavior is to compute the mean of all elements of the array. By calling <code class="docutils literal notranslate"><span class="pre">EEG.mean(0)</span></code>, we compute the mean along the zeroth dimension. The result is the ERP for condition A.</p>
 <div class="question">
 <p><strong>Q.</strong> Consider the ERP for condition A plotted above. Update this figure to include a vertical line at the location of the stimulus, and the ERP for condition B. How, if at all, do the ERPs for Conditions A and B differ?</p>
 </div><p>The ERP of condition A shows the mean voltage across trials at each moment in time. Visual inspection suggests that before stimulus presentation (i.e., times 0 s to 0.25 s) the EEG fluctuates around zero. Then, after stimulus presentation, the ERP increases and decreases substantially above and below zero. Which, if any, of these deviations following stimulation are significant? To address this, we make use of the trial structure of the EEG data to compute confidence bounds for the ERP. We do so in two ways.</p>
@@ -873,7 +873,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 ></iframe>
 </div></div>
 </div>
-<p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a class="reference external" href="https://en.wikipedia.org/wiki/Central_limit_theorem"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
+<p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="_blank">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
 <div class="question">
 <p><strong>Q.</strong> To use the CLT, we make two assumptions about the EEG data. Are these assumptions reasonable?</p>
 <p><strong>A.</strong> We assume that the EEG data are independent across trials. This assumption may fail if, for example, the activity in one trial influences the activity in the next trial. We also assume that the EEG data are “well-behaved” (i.e., have finite mean and variance). That is a reasonable assumption for physical data we observe from the brain; we expect the EEG data to always remain finite and not diverge to plus or minus infinity.</p>
@@ -1330,7 +1330,7 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p>In isolation, the numerical value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> is not very useful or interesting. Is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Null_hypothesis"><em>null hypothesis</em></a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
+<p>In isolation, the numerical value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> is not very useful or interesting. Is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a href="https://en.wikipedia.org/wiki/Null_hypothesis" target="_blank"><em>null hypothesis</em></a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
 <p>It may seem odd to create pseudodata by selecting trials across both conditions; intuitively, we may expect the data to differ in these two conditions and feel uncomfortable making a pseudodata set that includes trials from both conditions. But under the null hypothesis, we assume no difference between the EEG responses in conditions A and B, and we are therefore free to create pseudodata drawing from trials in both conditions. We do so with the goal of creating a distribution of values for <code class="docutils literal notranslate"><span class="pre">stat</span></code> under the null hypothesis that conditions A and B exhibit no difference. We then compare the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> with this distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values. If there is a difference between the two conditions, we expect to find the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be very different from the distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values generated from the pseudodata under the null hypothesis.</p>
 <p>To create the distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the <a class="reference external" href="#fig:1">confidence intervals for the ERP</a><span class="sup">fig<img src="imgs/2-1.png"></span>. We proceed as follows:</p>
 <ol class="simple">
@@ -1427,7 +1427,7 @@ Then, as before, we define the function <code class="docutils literal notranslat
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="01.html" title="previous page">Python for the practicing neuroscientist</a>
-    <a class='right-next' id="next-link" href="03.html" title="next page">The Power Spectrum (Part 2)</a>
+    <a class='right-next' id="next-link" href="03.html" title="next page">Analysis of rhythmic activity <em>for the practicing neuroscientist</em></a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

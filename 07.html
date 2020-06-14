@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Cross-frequency coupling &#8212; Case Studies in Neural Data Analysis</title>
+    <title>Cross-frequency coupling for the practicing neuroscientist &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -37,8 +37,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Basic Analysis of Spike Train Data" href="08.html" />
-    <link rel="prev" title="Filtering Field Data" href="06.html" />
+    <link rel="next" title="Basic Visualizations and Descriptive Statistics of Spike Train Data" href="08.html" />
+    <link rel="prev" title="Application of Filtering to Scalp EEG Data" href="06.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/07.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Cross-frequency coupling" />
-<meta property="og:description" content="Cross-frequency coupling  <div class="question">   Synopsis  Data: 100 s of local field potential data sampled at 1000 Hz.  Goal: Characterize the coupling betw" />
+<meta property="og:title"       content="Cross-frequency coupling <em>for the practicing neuroscientist</em>" />
+<meta property="og:description" content="Cross-frequency coupling for the practicing neuroscientist  <div class="question">   Synopsis  Data: 100 s of local field potential data sampled at 1000 Hz.  Go" />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -86,34 +86,34 @@
     <a href="01.html">1. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential</a>
+    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="03.html">3. The Power Spectrum (Part 2)</a>
+    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
   </li>
   <li class="">
     <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms</a>
+    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="06.html">6. Filtering Field Data</a>
+    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
   </li>
   <li class="active">
-    <a href="">7. Cross-frequency coupling</a>
+    <a href="">7. Cross-frequency coupling for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
   </li>
   <li class="">
-    <a href="09.html">9. Point Process Generalized Linear Models</a>
+    <a href="09.html">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-field coherence</a>
+    <a href="11.html">11. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
@@ -291,8 +291,8 @@
         
               <div>
                 
-  <div class="section" id="cross-frequency-coupling">
-<h1>Cross-frequency coupling<a class="headerlink" href="#cross-frequency-coupling" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cross-frequency-coupling-for-the-practicing-neuroscientist">
+<h1>Cross-frequency coupling <em>for the practicing neuroscientist</em><a class="headerlink" href="#cross-frequency-coupling-for-the-practicing-neuroscientist" title="Permalink to this headline">¶</a></h1>
 <div class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> 100 s of local field potential data sampled at 1000 Hz.</p>
@@ -398,8 +398,8 @@
 </div>
 <div class="section" id="background">
 <h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
-<p>In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/22595786">produced from small aggregates of neurons</a>. In these data, we examine the association between rhythms of different frequencies.</p>
-<p>In general, lower-frequency rhythms have been observed to engage larger brain areas and modulate spatially localized fast oscillations (see, <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/18388295">for example</a>). Of the different types of cross-frequency coupling <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/26549886">(CFC) observced between brain rhythms</a>, perhaps the most is <strong>phase-amplitude coupling</strong> (PAC), in which the phase of a low frequency rhythm modulates the amplitude (or power) of a high frequency rhythm. Cross-frequency coupling been observed in many brain regions, has been shown to change in time with task demands, and has been proposed to serve a <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3359652/">functional role</a> in working memory, neuronal computation, communication, and learning. Although the cellular and dynamic mechanisms of specific rhythms associated with CFC are relatively well understood, the mechanisms governing interactions between different frequency rhythms - and the appropriate techniques for measuring CFC - remain active research areas. Although we consider only a single electrode recording here, we note that these techniques can be extended to association measures between electrodes as well.</p>
+<p>In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22595786" target="_blank">produced from small aggregates of neurons</a>. In these data, we examine the association between rhythms of different frequencies.</p>
+<p>In general, lower-frequency rhythms have been observed to engage larger brain areas and modulate spatially localized fast oscillations (see, <a href="https://www.ncbi.nlm.nih.gov/pubmed/18388295" target="_blank">for example</a>). Of the different types of cross-frequency coupling <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" target="_blank">(CFC) observced between brain rhythms</a>, perhaps the most is <strong>phase-amplitude coupling</strong> (PAC), in which the phase of a low frequency rhythm modulates the amplitude (or power) of a high frequency rhythm. Cross-frequency coupling been observed in many brain regions, has been shown to change in time with task demands, and has been proposed to serve a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3359652/" target="_blank">functional role</a> in working memory, neuronal computation, communication, and learning. Although the cellular and dynamic mechanisms of specific rhythms associated with CFC are relatively well understood, the mechanisms governing interactions between different frequency rhythms - and the appropriate techniques for measuring CFC - remain active research areas. Although we consider only a single electrode recording here, we note that these techniques can be extended to association measures between electrodes as well.</p>
 </div>
 <div class="section" id="case-study-data">
 <h3>Case Study Data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
@@ -530,7 +530,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 ></iframe>
 </div></div>
 </div>
-<p>To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pubmed/26549886">ongoing research</a>.</p>
+<p>To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" target="_blank">ongoing research</a>.</p>
 </div>
 <div class="section" id="cfc-analysis-steps">
 <h3>CFC analysis steps<a class="headerlink" href="#cfc-analysis-steps" title="Permalink to this headline">¶</a></h3>
@@ -586,7 +586,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div>
 </div>
 </div>
-<p>For each frequency band, we specify a frequency interval of interest by defining the low- and high-cutoff frequencies in the variable <code class="docutils literal notranslate"><span class="pre">Wn</span></code>. In this way, we specify the passband of the filter. We then set the filter order (<code class="docutils literal notranslate"><span class="pre">n</span></code>) and design the filter using the Python function <code class="docutils literal notranslate"><span class="pre">signal.firwin</span></code> from the <a class="reference external" href="https://scipy.org/">SciPy package</a>. Finally, we apply the filter using the Python function <code class="docutils literal notranslate"><span class="pre">signal.filtfilt</span></code>, which performs zero-phase filtering by applying the filter in both the forward and reverse directions.  We note that, in this case, the filtering procedure is nearly the same in both frequency bands; the only change is the specification of the frequency interval of interest.</p>
+<p>For each frequency band, we specify a frequency interval of interest by defining the low- and high-cutoff frequencies in the variable <code class="docutils literal notranslate"><span class="pre">Wn</span></code>. In this way, we specify the passband of the filter. We then set the filter order (<code class="docutils literal notranslate"><span class="pre">n</span></code>) and design the filter using the Python function <code class="docutils literal notranslate"><span class="pre">signal.firwin</span></code> from the <a href="https://scipy.org/" target="_blank">SciPy package</a>. Finally, we apply the filter using the Python function <code class="docutils literal notranslate"><span class="pre">signal.filtfilt</span></code>, which performs zero-phase filtering by applying the filter in both the forward and reverse directions.  We note that, in this case, the filtering procedure is nearly the same in both frequency bands; the only change is the specification of the frequency interval of interest.</p>
 <p>To understand the impact of this filtering operation on the LFP, let’s plot the results. More specifically, let’s plot the original signal, and the signal filtered in the low- and high-frequency bands, for an example 2 s interval of time:<a id="fig:7.3"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -650,7 +650,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 ></iframe>
 </div></div>
 </div>
-<p>The first step in computing the analytic signal is to compute the <a class="reference external" href="https://en.wikipedia.org/wiki/Hilbert_transform">Hilbert transform</a>. We begin with some notation. Define <span class="math notranslate nohighlight">\(x\)</span> as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we’ve created). Then the Hilbert transform of <span class="math notranslate nohighlight">\(x\)</span>, let’s call it <span class="math notranslate nohighlight">\(y\)</span>, is</p>
+<p>The first step in computing the analytic signal is to compute the <a href="https://en.wikipedia.org/wiki/Hilbert_transform" target="_blank">Hilbert transform</a>. We begin with some notation. Define <span class="math notranslate nohighlight">\(x\)</span> as a narrowband signal (i.e., a signal with most of its energy concentrated in a narrow frequency range<sup> <abbr title="The impact of this narrowband assumption on CFC estimates remains an open research topic. One might consider, for example, the meaning and implications of estimating phase from a broadband signal, and the impact on subsequent CFC results.">note</abbr></sup>, e.g., the low- or high-frequency band filtered signals we’ve created). Then the Hilbert transform of <span class="math notranslate nohighlight">\(x\)</span>, let’s call it <span class="math notranslate nohighlight">\(y\)</span>, is</p>
 <div class="math notranslate nohighlight">
 \[
   y = H(x).
@@ -705,7 +705,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 \[
    x_0 = 2 \cos(2 \pi f_0 t) = 2 \cos(\omega_0 t),
 \]</div>
-<p>where to simplify notation we have defined <span class="math notranslate nohighlight">\(\omega_0 = 2 \pi f_0\)</span>. We know from <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_formula">Euler’s formula</a> that
+<p>where to simplify notation we have defined <span class="math notranslate nohighlight">\(\omega_0 = 2 \pi f_0\)</span>. We know from <a href="https://en.wikipedia.org/wiki/Euler%27s_formula" target="_blank">Euler’s formula</a> that
 <a id="eq:7.3"></a></p>
 <div class="math notranslate nohighlight">
 \[
@@ -1017,7 +1017,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
   \mbox{Inverse Fourier transform}\{-i\mbox{sgn}(f)\} = \frac{1}{\pi t}.
 \]</div>
 <p>Let’s represent the inverse Fourier transform of <span class="math notranslate nohighlight">\(x(f)\)</span> as <span class="math notranslate nohighlight">\(x(t)\)</span>.</p>
-<p>Now, let’s make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see <a class="reference internal" href="04.html"><span class="doc">Analysis of Rhythmic Activity in an Electrocorticogram</span></a>). The convolution of two signals <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is</p>
+<p>Now, let’s make use of an important fact. Multiplication of two quantities in the frequency domain corresponds to convolution of these two quantities in the time domain (see <a href="../04" target="_blank">Analysis of Rhythmic Activity in an Electrocorticogram</a>). The convolution of two signals <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is</p>
 <div class="math notranslate nohighlight">
 \[
    x * y = \int_{-\infty}^{\infty}x(\tau)y(t-\tau)d\tau.
@@ -1058,8 +1058,8 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="06.html" title="previous page">Filtering Field Data</a>
-    <a class='right-next' id="next-link" href="08.html" title="next page">Basic Analysis of Spike Train Data</a>
+    <a class='left-prev' id="prev-link" href="06.html" title="previous page">Application of Filtering to Scalp EEG Data</a>
+    <a class='right-next' id="next-link" href="08.html" title="next page">Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
