@@ -765,8 +765,8 @@ show()
 :titlesonly:
 :caption: Appendices
 
-A01.ipynb
-A02.ipynb
-A03.ipynb
-A04.ipynb
+IF.ipynb
+HH.ipynb
+Perceptron.ipynb
+Backprop.ipynb
 ```
