@@ -1,5 +1,5 @@
 <a id="top"></a> 
-# The Power Spectrum (Part 2)
+# The Power Spectrum (Part 1)
 
 <div class="question">
     
