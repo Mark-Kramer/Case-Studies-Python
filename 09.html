@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Modeling Place Fields with Point Process Generalized Linear Models &#8212; Case Studies in Neural Data Analysis</title>
+    <title>Point Process Generalized Linear Models &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -37,8 +37,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task" href="10.html" />
-    <link rel="prev" title="Basic Visualizations and Descriptive Statistics of Spike Train Data" href="08.html" />
+    <link rel="next" title="Analysis of Rhythmic Spike Train Data" href="10.html" />
+    <link rel="prev" title="Basic Analysis of Spike Train Data" href="08.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/09.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Modeling Place Fields with Point Process Generalized Linear Models" />
-<meta property="og:description" content="Modeling Place Fields with Point Process Generalized Linear Models  <div id="top" class="question">   Synopsis  Data: Spike train data recorded in vivo from a p" />
+<meta property="og:title"       content="Point Process Generalized Linear Models" />
+<meta property="og:description" content="Point Process Generalized Linear Models  <div id="top" class="question">   Synopsis  Data: Spike train data recorded in vivo from a place cell in rat hippocampu" />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -86,49 +86,49 @@
     <a href="01.html">1. Python for the practicing neuroscientist</a>
   </li>
   <li class="">
-    <a href="02.html">2. The Event-Related Potential for the practicing neuroscientist</a>
+    <a href="02.html">2. The Event-Related Potential</a>
   </li>
   <li class="">
-    <a href="03.html">3. Analysis of rhythmic activity for the practicing neuroscientist</a>
+    <a href="03.html">3. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
     <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="">
-    <a href="05.html">5. Analysis of coupled rhythms for the practicing neuroscientist</a>
+    <a href="05.html">5. Analysis of coupled rhythms</a>
   </li>
   <li class="">
-    <a href="06.html">6. Application of Filtering to Scalp EEG Data</a>
+    <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling for the practicing neuroscientist</a>
+    <a href="07.html">7. Cross-frequency coupling</a>
   </li>
   <li class="">
-    <a href="08.html">8. Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
+    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
   </li>
   <li class="active">
-    <a href="">9. Modeling Place Fields with Point Process Generalized Linear Models</a>
+    <a href="">9. Point Process Generalized Linear Models</a>
   </li>
   <li class="">
-    <a href="10.html">10. Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Analysis of spike-field coherence for the practicing neuroscientist <a id="top"></a></a>
+    <a href="11.html">11. Spike-field coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Appendices</p>
 </li>
   <li class="">
-    <a href="A01.html">12. Backpropagation</a>
+    <a href="IF.html">12. The integrate and fire neuron</a>
   </li>
   <li class="">
-    <a href="A02.html">13. The Hodgkin-Huxley model</a>
+    <a href="HH.html">13. The Hodgkin-Huxley model</a>
   </li>
   <li class="">
-    <a href="A03.html">14. The integrate and fire neuron</a>
+    <a href="Perceptron.html">14. Training a Perceptron</a>
   </li>
   <li class="">
-    <a href="A04.html">15. Training a Perceptron</a>
+    <a href="Backprop.html">15. Backpropagation</a>
   </li>
 </ul>
 </nav>
@@ -308,8 +308,8 @@
               <div>
                 
   <p><a id="top"></a></p>
-<div class="section" id="modeling-place-fields-with-point-process-generalized-linear-models">
-<h1>Modeling Place Fields with Point Process Generalized Linear Models<a class="headerlink" href="#modeling-place-fields-with-point-process-generalized-linear-models" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="point-process-generalized-linear-models">
+<h1>Point Process Generalized Linear Models<a class="headerlink" href="#point-process-generalized-linear-models" title="Permalink to this headline">¶</a></h1>
 <div id="top" class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> Spike train data recorded <em>in vivo</em> from a place cell in rat hippocampus.</p>
@@ -1371,8 +1371,8 @@ alpha:  0.0008199709288922659
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="08.html" title="previous page">Basic Visualizations and Descriptive Statistics of Spike Train Data</a>
-    <a class='right-next' id="next-link" href="10.html" title="next page">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>
+    <a class='left-prev' id="prev-link" href="08.html" title="previous page">Basic Analysis of Spike Train Data</a>
+    <a class='right-next' id="next-link" href="10.html" title="next page">Analysis of Rhythmic Spike Train Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
