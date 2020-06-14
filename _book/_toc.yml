@@ -10,10 +10,8 @@
 - file: 10.ipynb
 - file: 11.ipynb
 
-- header: Mechanistic Models (beta version)
+- header: Extra notebooks
 - file: IF.ipynb
 - file: HH.ipynb
-
-- header: Machine Learning (beta version)
 - file: Perceptron.ipynb
 - file: Backprop.ipynb
