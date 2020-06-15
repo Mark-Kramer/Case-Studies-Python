@@ -16,7 +16,7 @@ We encourage you to use Python 3 for the sake of compatibility with this noteboo
 
 </div>
 
-### On-ramp: analysis of neural data in Python
+## On-ramp: analysis of neural data in Python
 We begin this notebook with an "*on-ramp*" to analysis in Python. The purpose of this on-ramp is to introduce you immediately to some aspects of Python. You may not understand all aspects of the Python language here, but that's not the point. Instead, the purpose of this on-ramp is to  illustrate what *can* be done. Our advice is to simply run the code below and see what happens...
 
 import scipy.io as sio               # Import packages to read data, do analysis, and plot it.
@@ -47,7 +47,7 @@ title('Initial interval of LFP data');
 
 </div>
 
-### Example 1: Python is a calculator
+## Example 1: Python is a calculator
 
 Execute the following commands in Python:
 
@@ -119,7 +119,7 @@ You should see a description of the function pop up at the bottom of the window.
 
 **NOTE:**  Python Help is *extremely* useful.  You can always look there when you have questions about a function, or search the internet for help, i.e., [google it](http://www.google.com).
 
-###  Example 4.  We can use Python to define lists of numbers.
+##  Example 4.  We can use Python to define lists of numbers.
 
 In Python, there are several different data structures that are designed to store more than one element. Here we will focus on the `array` data structure, but if you are curious to know how and when to use other structures, there is a good explanation <a href='http://www.physics.nyu.edu/pine/pymanual/html/chap3/chap3_arrays.html'>here</a>. Let's define an array:
 
@@ -219,7 +219,7 @@ The `%reset` command is an example of a *magic*. Magics are commands that start 
 
 </div>
 
-###  Example 11.  We can define matrices in Python.
+##  Example 11.  We can define matrices in Python.
 A matrix is an array with more than one dimensio.  Consider the following:
 
 from pylab import *  # Have to reimport as we cleared the workspace above!
@@ -390,7 +390,7 @@ the opposite of what it does!
 
 </div>
 
-###  Example 14:  Plotting data in Python.
+##  Example 14:  Plotting data in Python.
 It's not easy to look at lists of numbers and gain an intuitive
 feeling for their behavior, especially when the lists are long.  In
 these cases, it's better to visualize the lists of numbers by
@@ -517,7 +517,7 @@ title('y vs x')
 legend()
 show()
 
-###  Example 16:  We can make random numbers in Python.
+##  Example 16:  We can make random numbers in Python.
 To generate a single Gaussian random number in Python, use the function in the NumPy `random` module.
 
 print("a Gaussian random number (mean=0, variance=1): " + str( randn() ))
@@ -546,7 +546,7 @@ See Python Help (`hist?`) to learn about the function `hist()`.
 
 </div>
 
-###  Example 17:  Repeating commands over and over and over . . . 
+##  Example 17:  Repeating commands over and over and over . . . 
   Sometimes we'll want to repeat the same command over and over again.
   For example, what if we want to plot `sin(x + k*pi/4)` where `k` varies from 1 to 5 in
   steps of 1;  how do we do it?  Consider the following:
@@ -604,7 +604,7 @@ The small section of code above replaces all the cutting-and-pasting.
 
 </div>
 
-###  Example 18:  Defining a new function.
+##  Example 18:  Defining a new function.
 We've spent some time in this notebook writing and executing code. Sometimes we'll need to write our own Python functions.  Let's do that now.
 
 Our function will do something very simple: it will take as input a
@@ -673,7 +673,7 @@ my_square_function?
 
 </div>
 
-### Example 19: Animating figures 
+## Example 19: Animating figures 
 Finally, let's make an animation in Python. To do this we need two additional functions from external modules: `HTML()` and `FuncAnimation()`. `FuncAnimation` is what creates the animated figure, while `HTML` tells the notebook that to interpret the argument as HTML and show the results.
 
 from IPython.display import HTML
@@ -695,7 +695,7 @@ def animate(frame):               # Define the function to perform the animation
 fig = FuncAnimation(gcf(), animate, frames=range(100))
 HTML(fig.to_jshtml())
 
-### Example 19: Load MATLAB data into Python
+## Example 19: Load MATLAB data into Python
 For our last example let's load a MATLAB file in the `.mat` format into Python. Before doing so, let's clear all of the variables and functions we have defined. This command is not necessary, but we perform it here so that any new variables we subsequently load are obvious.
 
 %reset
