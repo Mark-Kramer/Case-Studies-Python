@@ -728,11 +728,12 @@ S_{xx, \, j}	&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \,
 \end{split}\]</div>
 <p><span id="eq:9" title="Simplified expression for the cross spectrum"></span></p>
 <p>This expression provides a new, and perhaps more direct, interpretation of the spectrum as proportional to the squared amplitude of the point <span class="math notranslate nohighlight">\(X_j\)</span> in the complex plane. We can extend this simplified expression in one additional way to make explicit the trial structure of the ECoG data analyzed here. Because we possess multiple trials, and we assume that each trial represents an instantiation of the same underlying process, we average the spectra across trials to compute the <em>trial-averaged spectrum</em>,</p>
-<p><span title="Trial-averaged spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 &lt;S_{xx, \, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k}^2 \, ,
 \tag{Trial-averaged spectrum}
-$\)</span></p>
+\]</div>
+<p><span title="Trial-averaged spectrum"></span></p>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> indicates the trial number, <span class="math notranslate nohighlight">\(K\)</span> the total number of trials, and <span class="math notranslate nohighlight">\(A_{j,k}\)</span> the amplitude of the signal at frequency index <span class="math notranslate nohighlight">\(j\)</span> and trial index <span class="math notranslate nohighlight">\(k\)</span>.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index <span class="math notranslate nohighlight">\(j\)</span> across the <span class="math notranslate nohighlight">\(K\)</span> trials.  We use the angular brackets (<span class="math notranslate nohighlight">\(&lt; \, &gt;\)</span>) to denote that the spectrum (<span class="math notranslate nohighlight">\(S_{xx, \, j}\)</span>) has been averaged across trials. We can compute the trial-averaged spectrum in Python,</p>
 <p><a id="fig:trial_avg_spectrum"></a></p>
 <div class="cell docutils container">
