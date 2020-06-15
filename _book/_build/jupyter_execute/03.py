@@ -53,25 +53,25 @@ Note that the NumPy functions imported in cell number 2 were already imported as
 We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to compute a spectrum in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 data = loadmat('matfiles/EEG-1.mat')  # Load the EEG data
-EEG = data['EEG'].reshape(-1)  # Extract the EEG variable
-t = data['t'][0]  # ... and the t variable
+EEG = data['EEG'].reshape(-1)         # Extract the EEG variable
+t = data['t'][0]                      # ... and the t variable
 
-x = EEG  # Relabel the data variable
-dt = t[1] - t[0]  # Define the sampling interval
-N = x.shape[0]  # Define the total number of data points
-T = N * dt  # Define the total duration of the data
+x = EEG                               # Relabel the data variable
+dt = t[1] - t[0]                      # Define the sampling interval
+N = x.shape[0]                        # Define the total number of data points
+T = N * dt                            # Define the total duration of the data
 
-xf = fft(x - x.mean())  # Compute Fourier transform of x
+xf = fft(x - x.mean())                # Compute Fourier transform of x
 Sxx = 2 * dt ** 2 / T * (xf * xf.conj())  # Compute spectrum
-Sxx = Sxx[:int(len(x) / 2)]  # Ignore negative frequencies
+Sxx = Sxx[:int(len(x) / 2)]           # Ignore negative frequencies
 
-df = 1 / T.max()  # Determine frequency resolution
-fNQ = 1 / dt / 2  # Determine Nyquist frequency
-faxis = arange(0,fNQ,df)  # Construct frequency axis
+df = 1 / T.max()                      # Determine frequency resolution
+fNQ = 1 / dt / 2                      # Determine Nyquist frequency
+faxis = arange(0,fNQ,df)              # Construct frequency axis
 
-plot(faxis, Sxx.real)  # Plot spectrum vs frequency
-xlim([0, 100])  # Select frequency range
-xlabel('Frequency [Hz]')  # Label the axes
+plot(faxis, Sxx.real)                 # Plot spectrum vs frequency
+xlim([0, 100])                        # Select frequency range
+xlabel('Frequency [Hz]')              # Label the axes
 ylabel('Power [$\mu V^2$/Hz]')
 show()
 
@@ -93,9 +93,7 @@ In this notebook, we consider data recorded in the scalp [electroencephalogram](
 
 YouTubeVideo('oRCUx11iEck')
 
-A patient enters the Massachusetts General Hospital (MGH) emergency room unconscious. As part of his clinical workup, electrodes are placed on the scalp surface and the EEG recorded. We assume that the skilled technicians at MGH record the EEG data with no artifacts (i.e., correctly placed electrodes in good electrical contact with the scalp). Twenty-one electrodes simultaneously record the EEG data for 10 minutes sampled at 1000 Hz (i.e., 1000 samples per second). To start, we receive from our clinical collaborator a 2 s snippet of EEG data recorded from a single electrode:
-![EEG data recorded from a single electrode](imgs/3-1.png)
-If we find anything interesting in this 2 s snippet, our clinical collaborator has promised to provide additional EEG data from this patient and others.
+A patient enters the Massachusetts General Hospital (MGH) emergency room unconscious. As part of his clinical workup, electrodes are placed on the scalp surface and the EEG recorded. We assume that the skilled technicians at MGH record the EEG data with no artifacts (i.e., correctly placed electrodes in good electrical contact with the scalp). Twenty-one electrodes simultaneously record the EEG data for 10 minutes sampled at 1000 Hz (i.e., 1000 samples per second). To start, we receive from our clinical collaborator a 2 s snippet of EEG data recorded from a single electrode. If we find anything interesting in this 2 s snippet, our clinical collaborator has promised to provide additional EEG data from this patient and others.
 
 ### Goals
 
@@ -118,18 +116,18 @@ We will go through the following steps to analyze the data:
 5. [Decibel scaling](#decibel-scaling)
 6. [The spectrogram](#the-spectrogram)
 
-### Step 1: Visual inspection<a id="visual-inspection"></a>
+## Step 1: Visual inspection<a id="visual-inspection"></a>
 
 Often, the best place to begin our data analysis is visual inspection of the time series. To do so, let's plot the data:<a id="fig:3.1"></a>
 
-data = loadmat('matfiles/03_EEG-1.mat')  # Load the EEG data
-EEG = data['EEG'][:, 0]  # Extract the EEG variable
-t = data['t'][0]  # ... and the t variable
+data = loadmat('matfiles/03_EEG-1.mat') # Load the EEG data
+EEG = data['EEG'][:, 0]                 # Extract the EEG variable
+t = data['t'][0]                        # ... and the t variable
 
-plot(t, EEG)  # Plot the data versus time
-xlabel('Time [s]')  # Label the time axis
-ylabel('Voltage [$\mu V$]')  # ... and the voltage axis
-autoscale(tight=True)  # Minimize white space
+plot(t, EEG)                            # Plot the data versus time
+xlabel('Time [s]')                      # Label the time axis
+ylabel('Voltage [$\mu V$]')             # ... and the voltage axis
+autoscale(tight=True)                   # Minimize white space
 savefig('imgs/3-1')
 show()
 
@@ -205,7 +203,7 @@ We will need to keep the sampling interval $\Delta$ and the total recording dura
 
 [Return to top](#top)
 
-### Step 2: Mean, variance, and standard deviation<a id="mean"></a>
+## Step 2: Mean, variance, and standard deviation<a id="mean"></a>
 
 As a first step in our analysis of the EEG data, let’s define two of the simplest measures we can use to characterize data $x$: the mean and variance <sup><abbr title="We could instead write the sample mean, because we use the observed data to estimate the theoretical mean that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this notebook and others, we omit the term “sample” when referring to sample means, variances, covariances, and so forth, unless this distinction becomes essential to our discussion.">*note*</abbr></sup>. To estimate the mean $\bar x$, or average value, of $x$ we compute,
 
@@ -251,7 +249,7 @@ The mean and variance (and standard deviation) provide single numbers that summa
 
 [Return to top](#top)
 
-### Step 3: The autocovariance<a id="autocovariance"></a>
+## Step 3: The autocovariance<a id="autocovariance"></a>
 
 Our visual inspection strongly suggests a prominent feature in the data&mdash;rhythmic activity. Rhythmic activity represents a type of dependent structure in the data. For example, if we know the data tends to oscillate near 60 Hz, then given the value of the EEG data now, we can accurately predict the value of the EEG data 1/60 s in the future (i.e., one cycle of the 60 Hz activity); it should
 be similar. One technique to assess the dependent structure in the data is the autocovariance. To start, let’s write down the formula for the autocovariance, $r_{xx}[L]$, evaluated at lag $L$,
@@ -295,10 +293,10 @@ The autocovariance will be largest at the lag $L$ for which the values of x "mat
 
 To compute the autocovariance of the EEG data, we execute the following commands<a id="fig:3-4a"></a>
 
-lags = arange(-len(x) + 1, len(x)) # Compute the lags for the full autocovariance vector
+lags = arange(-len(x) + 1, len(x))    # Compute the lags for the full autocovariance vector
                                       # ... and the autocov for L +/- 100 indices
 ac = 1 / N * correlate(x - x.mean(), x - x.mean(), mode='full')
-inds = abs(lags) <= 100            # Find the lags that are within 100 time steps
+inds = abs(lags) <= 100               # Find the lags that are within 100 time steps
 plot(lags[inds] * dt, ac[inds])       # ... and plot them
 xlabel('Lag [s]')                     # ... with axes labelled
 ylabel('Autocovariance')
@@ -330,7 +328,7 @@ plot(t[inds], x[inds], label="original");   # Plot the original
 L=0;                                # Choose the lag,
                                     # ... and plot the shifted traces.
 plot(t[inds], x[[i + L for i in inds]] + 1, label="L={}".format(L))
-legend()                        # Add a legend and informative title
+legend()                            # Add a legend and informative title
 title("Original time series data, and shifted by amount L");
 
 At zero lag ($L = 0$), the two time series are identical. Therefore, the product
@@ -355,7 +353,7 @@ plot(t[inds], x[inds], label="original");       # Plot the original
 L=int(2*1/60/dt);                               # Choose the lag,
                                                 # ... and plot the shifted traces.
 plot(t[inds], x[[i + L for i in inds]] + 1, label="L={}".format(L))
-legend()                                    # Add a legend and informative title
+legend()                                        # Add a legend and informative title
 title("Original time series data, and shifted by amount L");
 
 Therefore, at this lag $L$, we again expect the summed product
@@ -376,7 +374,7 @@ plot(t[inds], x[inds], label="original");       # Plot the original
 L=int(1/2*1/60/dt);                             # Choose the lag,
                                                 # ... and plot the shifted traces.
 plot(t[inds], x[[i + L for i in inds]] + 1, label="L={}".format(L))
-legend()                                    # Add a legend and informative title
+legend()                                        # Add a legend and informative title
 title("Original time series data, and shifted by amount L");
 
 We observe a different type of relationship; at this lag, let’s call it $L^∗$, positive values in the unshifted EEG correspond to negative values in the shifted EEG. Therefore, most terms in the product
@@ -403,7 +401,7 @@ The autocovariance is a useful tool for assessing the dependent structure in the
 
 [Return to top](#top)
 
-### Step 4: Power spectral density, or spectrum<a id="power-spectral-density"></a>
+## Step 4: Power spectral density, or spectrum<a id="power-spectral-density"></a>
 
 YouTubeVideo('OAHpkZy6ZX8')
 
@@ -437,17 +435,17 @@ $$
 
 which is the product of the Fourier transfrom of $x$ with its complex conjugate (indicated by the superscript $*$), scaled by the sampling interval and the total duration of the recording. The term $2\Delta^2/T$ is simply a numerical scaling. The units of the spectrum are, in this case, ($\mu$V)$^2/$Hz. Computing the spectrum in Python requires only a few lines of code:<a id="fig:3.6"></a>
 
-xf = fft(x - x.mean())               # Compute Fourier transform of x
-Sxx = 2 * dt ** 2 / T * (xf * conj(xf))  # Compute spectrum
-Sxx = Sxx[:int(len(x) / 2)]                 # Ignore negative frequencies
+xf = fft(x - x.mean())                  # Compute Fourier transform of x
+Sxx = 2 * dt ** 2 / T * (xf * conj(xf)) # Compute spectrum
+Sxx = Sxx[:int(len(x) / 2)]             # Ignore negative frequencies
 
-df = 1 / T.max()                            # Determine frequency resolution
-fNQ = 1 / dt / 2                            # Determine Nyquist frequency
-faxis = arange(0,fNQ,df)                 # Construct frequency axis
+df = 1 / T.max()                        # Determine frequency resolution
+fNQ = 1 / dt / 2                        # Determine Nyquist frequency
+faxis = arange(0,fNQ,df)                # Construct frequency axis
 
-plot(faxis, real(Sxx))               # Plot spectrum vs frequency
+plot(faxis, real(Sxx))                  # Plot spectrum vs frequency
 xlim([0, 100])                          # Select frequency range
-xlabel('Frequency [Hz]')                    # Label the axes
+xlabel('Frequency [Hz]')                # Label the axes
 ylabel('Power [$\mu V^2$/Hz]')
 show()
 
@@ -459,7 +457,7 @@ We’ve managed to compute and plot the spectrum, and our analysis results match
 
 In a [supplement to this chapter](#supplements), we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.
 
-### Discrete Fourier Transform in Python <a id="dft"></a>
+## Discrete Fourier Transform in Python <a id="dft"></a>
 
 YouTubeVideo('noCOC69jvh8')
 
@@ -467,7 +465,6 @@ Computing the spectrum of a signal $x$ in Python can be achieved in two simple s
 
 x = EEG
 xf = rfft(x - x.mean()).real
-             
 
 We subtract the mean from `x` before computing the Fourier transform. This is not necessary but often useful. For these neural data, we’re not interested in the very slow (0 Hz) activity; instead, we’re interested in rhythmic activity. By subtracting the mean, we eliminate this low-frequency activity from the subsequent analysis.
 
@@ -518,7 +515,7 @@ show()
 
 In the next two sections, we focus on interpreting and adjusting the quantities $df$ and $f_{NQ}$. Doing so is critical to developing a further intuition for the spectrum.
 
-#### The Nyquist frequency, $f_{NQ}$ <a id="nyquist-frequency"></a>
+## The Nyquist frequency, $f_{NQ}$ <a id="nyquist-frequency"></a>
 
 YouTubeVideo('sgYkOkrlQ_E')
 
@@ -558,7 +555,7 @@ To avoid aliasing, sample data at sufficiently high rates.
 
 Typically, to prevent aliasing, recorded data are first analog-filtered before the digital sampling occurs. The analog filtering guarantees that activity at frequencies exceeding a threshold value ($f_c$, say) are dramatically reduced. The sampling rate can then be chosen to exceed this threshold value by at least a factor of 2 (i.e., $f_0 > 2f_c$). We note that in this case the EEG data were first analog-filtered at 200 Hz before digital sampling occurred at 1000 Hz. So, for our EEG data, aliasing is not a concern.
 
-###  The frequency resolution, $df$<a id="frequency-resolution"></a>
+##  The frequency resolution, $df$<a id="frequency-resolution"></a>
 
 YouTubeVideo('bZsj_gcGoSo')
 
@@ -602,7 +599,7 @@ This observation provides some intuition for the relation between the amount of 
 
 [Return to top](#top)
 
-### Step 5: Decibel scaling<a id="decibel-scaling"></a>
+## Step 5: Decibel scaling<a id="decibel-scaling"></a>
 
 YouTubeVideo('SuDJha5LNL0')
 
@@ -611,10 +608,10 @@ Let's now return to the [spectrum of the EEG data](#fig:3-6).
 We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker rhythmic activity may occur in the data, but these features remain hidden from visual inspection because of the large 60 Hz peak; informally, we might state that the 60 Hz peak saturates the vertical scale. One technique to emphasize lower-amplitude rhythms hidden by large-amplitude oscillations is to change the scale of the spectrum to **decibels**. The decibel is a logarithmic scale and easily computed as follows:
 <a id="fig:3.13a"></a>
 
-plot(faxis, 10 * log10(Sxx / max(Sxx)))   # Plot the spectrum in decibels.
+plot(faxis, 10 * log10(Sxx / max(Sxx)))  # Plot the spectrum in decibels.
 xlim([0, 100])                           # Select the frequency range.
 ylim([-60, 0])                           # Select the decibel range.
-xlabel('Frequency [Hz]')                     # Label the axes.
+xlabel('Frequency [Hz]')                 # Label the axes.
 ylabel('Power [dB]')
 savefig('imgs/3-13a')
 show()
@@ -639,10 +636,10 @@ The decibel scale reveals new structure in the spectrum. In particular, two peak
 
 To further emphasize the low-frequency structure of the spectrum, we may also convert the frequency axis to a logarithmic scale:
 
-semilogx(faxis, 10 * log10(Sxx / max(Sxx)))   # Log-log scale
-xlim([df, 100])                                  # Select frequency range
-ylim([-60, 0])                                   # ... and the decibel range.
-xlabel('Frequency [Hz]')                         # Label the axes.
+semilogx(faxis, 10 * log10(Sxx / max(Sxx)))  # Log-log scale
+xlim([df, 100])                              # Select frequency range
+ylim([-60, 0])                               # ... and the decibel range.
+xlabel('Frequency [Hz]')                     # Label the axes.
 ylabel('Power [dB]')
 show()
 
@@ -650,7 +647,7 @@ Notice the change in the first line to use the `semilogx` function. By using the
 
 [Return to top](#top)
 
-### Step 6: The spectrogram<a id="the-spectrogram"></a>
+## Step 6: The spectrogram<a id="the-spectrogram"></a>
 
 YouTubeVideo('XYy4NEr3VUs')
 
@@ -676,9 +673,9 @@ f, t, Sxx = spectrogram(
     noverlap=overlap)     # ... the number of samples to overlap,
 pcolormesh(t, f, 10 * log10(Sxx),
                cmap='jet')# Plot the result
-colorbar()            # ... with a color bar,
+colorbar()                # ... with a color bar,
 ylim([0, 70])             # ... set the frequency range,
-xlabel('Time [s]')       # ... and label the axes
+xlabel('Time [s]')        # ... and label the axes
 ylabel('Frequency [Hz]')
 savefig('imgs/3-14')
 show()
@@ -709,11 +706,13 @@ YouTubeVideo('jdceZRY_PDA')
 
 In this notebook, we analyzed 2 s of EEG data. We started with visual inspection of the [EEG time series](#fig:3.1).<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how [logarithmic scales](#fig:3.13a)  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the [spectrogram]("#fig:3.14") provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.
 
-In this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future notebooks, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see [Percival & Walden, 1998](https://doi.org/10.1017/CBO9780511622762) and [Priestley, 1981](https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US).
+In this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future notebooks, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see <a href="https://doi.org/10.1017/CBO9780511622762" target="blank">Percival & Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" target="blank">Priestley, 1981</a>.
 
 [Return to top](#top)
 
 ---
+
+
 
 <a id="supplements"></a>
 # Supplements
@@ -739,21 +738,21 @@ $$
 To examine the difference in the biased versus the unbiased autocovariance, let's compute both for the EEG data over a broad interval of lags.
 
 # Import the data
-data = loadmat('matfiles/EEG-1.mat')           # Load the EEG data.
+data = loadmat('matfiles/EEG-1.mat')      # Load the EEG data.
 x = data['EEG'].reshape(-1)               # Extract the EEG variable,
 t = data['t'][0]                          # ... and the t variable.
 N = len(x)                                # Get the total number of data points,
 dt = t[1] - t[0]                          # ... and the sampling interval.
 
-lags = arange(-N + 1, N)               # Compute the lags
+lags = arange(-N + 1, N)                  # Compute the lags
                                           # Calculate non-normalized autocovariance
 ac = correlate(x - x.mean(), x - x.mean(), mode="full")  
 ac_b = 1 / N * ac                         # Calculate biased autocovariance
-ac_u = 1 / (N - abs(lags)) * ac        # ... and unbiased autocovariance
+ac_u = 1 / (N - abs(lags)) * ac           # ... and unbiased autocovariance
 
-fig, ax = subplots()                  # Plot the result and save the figure for later use
-ax.plot(lags * dt, ac_u)                     # Plot the unbiased autocovariance,
-ax.plot(lags * dt, ac_b)                     # ... and the biased,
+fig, ax = subplots()                      # Plot the result and save the figure for later use
+ax.plot(lags * dt, ac_u)                  # Plot the unbiased autocovariance,
+ax.plot(lags * dt, ac_b)                  # ... and the biased,
 xlabel('Lag [s]')                         # ... with axes labeled
 ylabel('Autocovariance')
 show()
@@ -923,17 +922,17 @@ YouTubeVideo('PRoA5Zn_gbQ')
 
 To make these ideas more concrete, we can consider some simple examples. In these examples, the data $x$ will be a perfect cosine with frequency 10 Hz.
 
-tt = linspace(0, 1, 1000)     # Create a time variable (in seconds)
+tt = linspace(0, 1, 1000)  # Create a time variable (in seconds)
 x = cos(2 * pi * 10 * tt)  # Generate the data, a 10 Hz cosine
-plot(tt, x, 'k')                 # Plot the result
+plot(tt, x, 'k')           # Plot the result
 xlabel('Time [s]')
 show()
 
 Choosing $f_j = 4$ Hz, we can construct a sine and cosine function each oscillating at 4 Hz.
 
 fj = 4                                 # Set frequency
-fj_sin = sin(-2 * pi * fj * tt)  # construct sine wave
-fj_cos = cos(-2 * pi * fj * tt)  # ... and cosine
+fj_sin = sin(-2 * pi * fj * tt)        # construct sine wave
+fj_cos = cos(-2 * pi * fj * tt)        # ... and cosine
 plot(tt, x, 'k', label='data')         # Plot the data
 plot(tt, fj_sin, 'r--', label='sine')  # ... and the sine
 plot(tt, fj_cos, 'r:', label='cosine') # ... and cosine
@@ -944,7 +943,7 @@ Then, to perform the calculation of the Equation (*) we multiply the data $x$ by
 
 plot(tt, x * fj_sin, tt, x * fj_cos)  # Plot the product of x with the sinusoids
 legend(['Sine', 'Cosine'])
-plot(tt, zeros_like(tt), 'k')      # Show zero
+plot(tt, zeros_like(tt), 'k')         # Show zero
 show()
 
 Notice that the products alternate between positive and negative values throughout time. 
@@ -955,7 +954,7 @@ Notice that the products alternate between positive and negative values througho
 
 **A.** We know that $X_j$ is the summation over time of the product of $x$ and the sinusoids,
     
-\begin{equation}\tag{*}\label{eq:*}
+\begin{equation}
 X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x_n \sin(-2\pi f_j t_n)\right), 
 \end{equation}
     
@@ -966,8 +965,8 @@ Above, we plotted these products over time. Because each product alternates betw
 In this case, the sinusoids at frequency $f_j = 4$ Hz do not align with the data $x$, and $X_j$ is nearly zero in both its real and imaginary parts. Now consider the case in which we choose $f_j = 10$ Hz. With this choice of $f_j$, the data $x$ and the cosine function align perfectly.
 
 fj = 10                                # Set the frequency
-fj_sin = sin(-2 * pi * fj * tt)  # Construct the sine wave
-fj_cos = cos(-2 * pi * fj * tt)  # ... and cosine wave
+fj_sin = sin(-2 * pi * fj * tt)        # Construct the sine wave
+fj_cos = cos(-2 * pi * fj * tt)        # ... and cosine wave
 
 plot(tt, x, 'k', label='data')         # Plot the data
 plot(tt, fj_sin, 'r--', label='sine')  # ... and the sine
@@ -990,7 +989,7 @@ The product of the cosine function and the data is always non-negative, and ther
 </div>
 
 <a id="autocovariance"></a>
-### Relation of the spectrum to the autocovariance.
+## Relation of the spectrum to the autocovariance.
 We’ve introduced two tools for assessing dependent structure in the EEG data: the autocovariance and the spectrum. Remarkably, these two measures are related in an important way.
 
 <div class="math-note">
@@ -1004,7 +1003,7 @@ The spectrum and autocovariance both assess dependent structure in the data but 
 Here’s an associated mathematical nugget. The spectrum is the Fourier transform of $x$ multiplied by its complex conjugate. That produces a real number (i.e., the imaginary part is 0), which is convenient for plotting and visualization. The autocovariance is necessarily symmetric with respect to lag, that is, $r_{xx}[L] = r_{xx}[-L]$. In other words, the autocovariance is an even function. The Fourier transform of an even function is real, so the Fourier transform of the autocovariance is also a real number, consistent with the values of the spectrum.
 
 <a id="multiple-linear-regression"></a>
-### Relation of the Spectrum to Multiple Linear Regression
+## Relation of the Spectrum to Multiple Linear Regression
 As a final perspective, we consider a statistical modeling approach, with the goal of characterizing the rhythms that appear in the EEG data. To develop this approach, we first introduce *linear regression*. The idea of linear regression is to express a response variable at time $n$ (call it $x_n$) in terms of predictor variables (call them $z_{1n}, z_{2n},...,z_{pn}$ for $p$ predictor variables) as <a id="eq:3.11"></a>
 
 $$
@@ -1046,13 +1045,12 @@ t = data['t'][0]
 
 Then let's use the following code to perform the multiple linear regression:
 
-predictors = df(data={                  # Create a dataframe with the predictors
+predictors = df(data={            # Create a dataframe with the predictors
     'sin': sin(2 * pi * 60 * t),  # ... including the sine function
     'cos': cos(2 * pi * 60 * t),  # ... and the cosine function
     'EEG': EEG
 })
-
-# Fit the model to the data
+                                  # Fit the model to the data
 model = smf.ols('EEG ~ sin + cos', data=predictors).fit()
 print(model.params)
 
@@ -1081,7 +1079,7 @@ To see how well our multiple linear regression model fits the data, let’s eval
 
 EEG_60Hz_modeled = model.predict()    # Get the model prediction
 plot(t, EEG, t, EEG_60Hz_modeled)     # Plot the data and the model
-xlim([0.5, 1])                    # ... examine 0.5 s of data,
+xlim([0.5, 1])                        # ... examine 0.5 s of data,
 xlabel('Time [s]')                    # ... and label the axes
 ylabel('EEG and Modeled EEG [$\mu$V]')
 legend(['EEG', 'model'])
