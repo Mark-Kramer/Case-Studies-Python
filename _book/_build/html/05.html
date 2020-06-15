@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Analysis of coupled rhythms &#8212; Case Studies in Neural Data Analysis</title>
+    <title>Analysis of Coupled Rhythms &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/05.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="Analysis of coupled rhythms" />
-<meta property="og:description" content="Analysis of coupled rhythms  <div class="question">   Synopsis  Data: 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.  Goal: Characterize" />
+<meta property="og:title"       content="Analysis of Coupled Rhythms" />
+<meta property="og:description" content="Analysis of Coupled Rhythms  <div class="question">   Synopsis  Data: 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.  Goal: Characterize" />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -95,7 +95,7 @@
     <a href="04.html">4. The Power Spectrum (Part 2)</a>
   </li>
   <li class="active">
-    <a href="">5. Analysis of coupled rhythms</a>
+    <a href="">5. Analysis of Coupled Rhythms</a>
   </li>
   <li class="">
     <a href="06.html">6. Filtering Field Data</a>
@@ -235,21 +235,59 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis <a id="data-analysis"></a></a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
+            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis <a id="data-analysis"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
             <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual inspection <a id="visual-inspection"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
+        <li class="nav-item toc-entry toc-h2">
             <a href="#autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a" class="nav-link">Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
+        <li class="nav-item toc-entry toc-h2">
             <a href="#trial-averaged-spectrum-a-id-trial-averaged-spectrum-a" class="nav-link">Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a></a>
         </li>
     
-            </ul>
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" class="nav-link">Introduction to the Coherence <a class="anchor" id="sec:coherence"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" class="nav-link">Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#simple-scenario-2-phases-are-random-across-trials" class="nav-link">Simple Scenario 2: Phases are random across trials</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#summary-of-the-coherence-a-id-summary-of-the-coherence-a" class="nav-link">Summary of the coherence <a id="Summary_of_the_coherence"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#cross-covariance-and-cross-spectrum-a-id-cc-and-cs-a" class="nav-link">Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#computing-the-coherence-a-id-computing-coherence-a" class="nav-link">Computing the Coherence <a id="computing_coherence"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#visualizing-the-phase-difference-across-trials-a-id-visualizing-the-phase-difference-a" class="nav-link">Visualizing the Phase Difference across Trials <a id="Visualizing_the_Phase_Difference"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#single-trial-coherence-a-id-single-trial-coherence-a" class="nav-link">Single-Trial Coherence <a id="single_trial_coherence"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#relation-between-statistical-modeling-and-coherence" class="nav-link">Relation between Statistical Modeling and Coherence</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#summary-a-id-summary-a" class="nav-link">Summary <a id="summary"></a></a>
         </li>
     
     </ul>
@@ -265,7 +303,7 @@
                 
   <p><a id="introduction"></a><a id="top"></a></p>
 <div class="section" id="analysis-of-coupled-rhythms">
-<h1>Analysis of coupled rhythms<a class="headerlink" href="#analysis-of-coupled-rhythms" title="Permalink to this headline">¶</a></h1>
+<h1>Analysis of Coupled Rhythms<a class="headerlink" href="#analysis-of-coupled-rhythms" title="Permalink to this headline">¶</a></h1>
 <div class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> 1 s of ECoG data sampled at 500 Hz from two electrodes for 100 trials.</p>
@@ -314,32 +352,32 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/ECoG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the data,</span>
-<span class="n">E1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;E1&#39;</span><span class="p">]</span>  <span class="c1"># ... from the first electrode,</span>
-<span class="n">E2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;E2&#39;</span><span class="p">]</span>  <span class="c1"># ... and from the second electrode.</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Load the time axis,</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># ... to get the sampling interval,</span>
-<span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># ... and the total time of the recording.</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Determine the number of sample points per trial</span>
-<span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>  <span class="c1"># Scaling constant</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/ECoG-1.mat&#39;</span><span class="p">)</span>        <span class="c1"># Load the data,</span>
+<span class="n">E1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;E1&#39;</span><span class="p">]</span>                              <span class="c1"># ... from the first electrode,</span>
+<span class="n">E2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;E2&#39;</span><span class="p">]</span>                              <span class="c1"># ... and from the second electrode.</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                             <span class="c1"># Load the time axis,</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                             <span class="c1"># ... to get the sampling interval,</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                                    <span class="c1"># ... and the total time of the recording.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                              <span class="c1"># Determine the number of sample points per trial</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>                        <span class="c1"># Scaling constant</span>
 
 <span class="c1"># Compute the Fourier transforms</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
-<span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span> <span class="c1"># ... for each trial in E1</span>
+<span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span> <span class="c1"># ... and each trial in E2</span>
 
 <span class="c1"># Compute the spectra</span>
-<span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Spectrum of E1 trials</span>
-<span class="n">Syy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">yf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ... and E2 trials</span>
-<span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ... and the cross spectrum</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>       <span class="c1"># Spectrum of E1 trials</span>
+<span class="n">Syy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">yf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>       <span class="c1"># ... and E2 trials</span>
+<span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>       <span class="c1"># ... and the cross spectrum</span>
 
 <span class="c1"># Compute the coherence.</span>
 <span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define a frequency axis.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>  <span class="c1"># Plot coherence vs frequency,</span>
-<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>  <span class="c1"># ... in a chosen frequency range,</span>
-<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># ... with y-axis scaled,</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>  <span class="c1"># ... and with axes labeled.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                          <span class="c1"># Define a frequency axis.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>                           <span class="c1"># Plot coherence vs frequency,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>                                <span class="c1"># ... in a chosen frequency range,</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                                 <span class="c1"># ... with y-axis scaled,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                     <span class="c1"># ... and with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Coherence between two electrodes&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -378,8 +416,9 @@
 </div>
 <div class="section" id="data-analysis-a-id-data-analysis-a">
 <h2>Data Analysis <a id="data-analysis"></a><a class="headerlink" href="#data-analysis-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="visual-inspection-a-id-visual-inspection-a">
-<h3>Visual inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h3>
+<h2>Visual inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
 <p>We begin our analysis by visualizing the ECoG data. To do so, let’s load the ECoG data into Python and plot the data from the first electrode (variable <code class="docutils literal notranslate"><span class="pre">E1</span></code>) and second electrode (variable <code class="docutils literal notranslate"><span class="pre">E2</span></code>) versus time (variable <code class="docutils literal notranslate"><span class="pre">t</span></code>) for the first trial.</p>
 <p>We begin by loading the data:</p>
 <div class="cell docutils container">
@@ -455,11 +494,11 @@
 </div><p>These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1">#Get the number of trials,</span>
-<span class="n">f</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Make a square axis</span>
-<span class="n">a</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">E1</span><span class="p">,</span>  <span class="c1">#... and show the image,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                            <span class="c1"># Get the number of trials.</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>            <span class="c1"># Make a square axis</span>
+<span class="n">a</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">E1</span><span class="p">,</span>                               <span class="c1">#... and show the image,</span>
            <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">K</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>  <span class="c1"># ... with meaningful axes,</span>
-           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>  <span class="c1"># ... and a nice aspect ratio</span>
+           <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>                  <span class="c1"># ... and a nice aspect ratio.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trial #&#39;</span><span class="p">);</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;All trials from E1&#39;</span><span class="p">)</span>
@@ -499,30 +538,30 @@
 <p><a class="reference external" href="#top">Return to top</a></p>
 <!-- #endregion --></div>
 <div class="section" id="autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a">
-<h3>Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a><a class="headerlink" href="#autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a" title="Permalink to this headline">¶</a></h3>
+<h2>Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a><a class="headerlink" href="#autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a" title="Permalink to this headline">¶</a></h2>
 <p>In <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as,</p>
-<p><span id="eq:ac" title="trial-averaged autocovariance"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (x_{n,k} - \bar{x}_k) \, ,
-\tag{Trial-averaged autocovariance}
-$\)</span></p>
+\]</div>
+<p><span id="eq:ac" title="trial-averaged autocovariance"></span></p>
 <p>where <span class="math notranslate nohighlight">\(x_{n,k}\)</span> indicates the data at time index <span class="math notranslate nohighlight">\(n\)</span> and trial <span class="math notranslate nohighlight">\(k,\)</span> and <span class="math notranslate nohighlight">\(\overline x_k\)</span> is the mean value of <span class="math notranslate nohighlight">\(x\)</span> for trial <span class="math notranslate nohighlight">\(k\)</span>. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials <span class="math notranslate nohighlight">\(K.\)</span>  Let’s now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a></p>
 <div class="math-note">
 <p>Note: We could instead write the trial-averaged sample autocovariance because this equation uses the observed data to estimate the theoretical covariance that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.</p>
 </div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the sampling interval.</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the number of trials.</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Define number of points in each trial.</span>
-<span class="n">ac</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for autocov.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>              <span class="c1"># Define the sampling interval.</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>               <span class="c1"># Define the number of trials.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>               <span class="c1"># Define number of points in each trial.</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>       <span class="c1"># Declare empty vector for autocov.</span>
 
-<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">:</span>  <span class="c1"># For each trial,</span>
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">:</span>              <span class="c1"># For each trial,</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span> <span class="o">-</span> <span class="n">trial</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ... subtract the mean,</span>
     <span class="n">ac0</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ... compute autocovar,</span>
-    <span class="n">ac</span> <span class="o">+=</span> <span class="n">ac0</span> <span class="o">/</span> <span class="n">K</span><span class="p">;</span>  <span class="c1"># ... and add to total, scaled by 1/K.</span>
+    <span class="n">ac</span> <span class="o">+=</span> <span class="n">ac0</span> <span class="o">/</span> <span class="n">K</span><span class="p">;</span>            <span class="c1"># ... and add to total, scaled by 1/K.</span>
 
-<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac</span><span class="p">)</span>  <span class="c1"># ... and plot the result.</span>
+<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>      <span class="c1"># Create a lag axis,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac</span><span class="p">)</span>           <span class="c1"># ... and plot the result.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocovariance&#39;</span><span class="p">);</span>
@@ -547,7 +586,7 @@ $$
 r_{xy}\big[L\big] = \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L} - \bar{x}) (y_{n} - \bar{y}) \, ,
 $$
 </span>
-<p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are two time series with time index <span class="math notranslate nohighlight">\(n\)</span>.  Notice what we’ve done; compared to the autocovarance defined in <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a>,<span class="thumb"><sup>eq</sup><img src="03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the <span class="math notranslate nohighlight">\(x\)</span>’s in the second term in parentheses with <span class="math notranslate nohighlight">\(y\)</span>’s.</p>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are two time series with time index <span class="math notranslate nohighlight">\(n\)</span>.  Notice what we’ve done; compared to the autocovarance defined in <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a>, the cross-covariance formula simply replaces the <span class="math notranslate nohighlight">\(x\)</span>’s in the second term in parentheses with <span class="math notranslate nohighlight">\(y\)</span>’s.</p>
 <p>The intuition for understanding the cross-covariance is similar to that for the autocovariance (see <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a>). To calculate the cross-covariance, we multiply <span class="math notranslate nohighlight">\(y\)</span> with <span class="math notranslate nohighlight">\(x\)</span> shifted in time by lag <span class="math notranslate nohighlight">\(L\)</span>, as illustrated here:</p>
 <img src="imgs/cartoon_xc.png" style="width: 90%; max-width: 600px">
 <p>Here we show a cartoon representation of the cross-covariance between two time series <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>. Data <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> are visualized as one-dimensional vectors, <span class="math notranslate nohighlight">\(x\)</span> in black and <span class="math notranslate nohighlight">\(y\)</span> in blue. The cross-covariance at (b) lag 0, (c) lag 1, and (d) lag 2 requires different alignments between the two vectors. To compute the cross-covariance at each lag, we multiply the overlapping elements of the two vectors, and sum the product. Non-overlapping elements are not included in the computation.</p>
@@ -556,12 +595,11 @@ $$
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># Define one time series,</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>  <span class="c1"># ... and another.</span>
-<span class="n">xc</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># ... and compute their cross covariance.</span>
-<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">lags</span><span class="o">*</span><span class="n">dt</span><span class="p">,</span><span class="n">xc</span><span class="p">)</span>  <span class="c1"># ... and plot the cross covariance vs lags in time.</span>
+<span class="n">xc</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>      <span class="c1"># ... and compute their cross covariance.</span>
+<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>        <span class="c1"># Create a lag axis,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lags</span><span class="o">*</span><span class="n">dt</span><span class="p">,</span><span class="n">xc</span><span class="p">)</span>             <span class="c1"># ... and plot the cross covariance vs lags in time.</span>
 
-<span class="c1"># Prettify</span>
-<span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>            <span class="c1"># In a nice range, with axes labelled.</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cross covariance&#39;</span><span class="p">);</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cross covariance between two electrodes during the first trial&#39;</span><span class="p">)</span>
@@ -601,18 +639,17 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 <a id="fig:avg_xc"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XC</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for cross cov.</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>  <span class="c1"># For each trial,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">XC</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>    <span class="c1"># Declare empty vector for cross cov.</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>            <span class="c1"># For each trial,</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...get data from one electrode,</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...and the other electrode,</span>
     <span class="n">XC</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ...compute cross covariance.</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
-<span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">XC</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>					<span class="c1"># Plot cross covariance vs lags in time.</span>
+<span class="n">a1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">XC</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>				   <span class="c1"># Plot cross covariance vs lags in time.</span>
 <span class="p">[</span><span class="n">a2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">XC</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)]</span>  <span class="c1"># Also, plot the single-trial cross-covariance for 4 trials</span>
 
-<span class="c1"># Prettify</span>
-<span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
+<span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>             <span class="c1"># In a nice range, with axes labelled.</span>
 <span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>
 <span class="n">a1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Trial-averaged cross covariance&#39;</span><span class="p">)</span>
@@ -627,7 +664,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 </div>
 <div class="python-note">
-<p>You may have noticed above or in previous chapters that we can write loops using a couple of different forms:</p>
+<p>You may have noticed above or in previous notebooks that we can write loops using a couple of different forms:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for k in range(K):
     ...
 </pre></div>
@@ -651,7 +688,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 <p><a class="reference external" href="#top">Return to top</a></p>
 </div>
 <div class="section" id="trial-averaged-spectrum-a-id-trial-averaged-spectrum-a">
-<h3>Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a><a class="headerlink" href="#trial-averaged-spectrum-a-id-trial-averaged-spectrum-a" title="Permalink to this headline">¶</a></h3>
+<h2>Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a><a class="headerlink" href="#trial-averaged-spectrum-a-id-trial-averaged-spectrum-a" title="Permalink to this headline">¶</a></h2>
 <p>One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a> the Fourier transfom of a signal <span class="math notranslate nohighlight">\(x\)</span>; let’s repeat that definition here,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -669,62 +706,64 @@ X_j = \sum_{n=1}^N x_n \exp(\frac{-2 \pi i}{N} j \, n) \, .
 <p>Points in the complex plane can be specified in two coordinate systems: Cartesian coordinates (gray) or polar coordinates (orange). The <a class="reference external" href="https://en.wikipedia.org/wiki/Complex_plane">complex plane</a> contains the real part (horizontal axis) and imaginary part (vertical axis) of every point.</p>
 <p>As you may remember from a geometry or calculus class, we can represent a point in the plane using another coordinate system: polar coordinates. In polar coordinates, we imagine connecting each point to the origin. The resulting line has a length, called the radius or amplitude, and forms an angle with the real axis, called the phase. Like the real and complex parts, the amplitude and phase uniquely specify each point (almost …) in the complex plane. These two coordinate systems are shown for an example point in the complex plane in the figure above.</p>
 <p>Using polar coordinates, we can then express the complex quantity <span class="math notranslate nohighlight">\(X_j\)</span> as,</p>
-<p><a id="eq:x_polar"></a>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 X_j = A_j \exp(i \phi_j) \, ,
-$\)</span></p>
+\]</div>
+<p><a id="eq:x_polar"></a></p>
 <p>where <span class="math notranslate nohighlight">\(A_j\)</span> is the amplitude and <span class="math notranslate nohighlight">\(\phi_j\)</span> is the phase at frequency index <span class="math notranslate nohighlight">\(j\)</span>.  Notice that both the amplitude and phase are functions of frequency.  Remember that, to compute the spectrum, we multiple the Fourier transform of the data by its complex conjugate, and scale the result. The spectrum of <span class="math notranslate nohighlight">\(x_n\)</span> then becomes,</p>
-<p><a id="eq:8" title="Spectrum"></a>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{align}
-S_{xx, \, j} 	&amp;= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \\
-		&amp;= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
+S_{xx, \, j} 	&amp;= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \notag \\
+		        &amp;= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
-\tag{Spectrum}
-$\)</span></p>
+\end{split}\]</div>
+<p><a id="eq:8" title="Spectrum"></a></p>
 <p>where, to compute the complex conjugate in the second term, we replace <span class="math notranslate nohighlight">\(i\)</span> with <span class="math notranslate nohighlight">\(-i\)</span>.  The last expression simplifies rather nicely,</p>
-<p><span id="eq:9" title="Simplified expression for the cross spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{align}
 S_{xx, \, j}	&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \notag \\
 		&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(0) \, , \notag \\
 		&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2 \, .
 \end{align}
-$\)</span></p>
+\end{split}\]</div>
+<p><span id="eq:9" title="Simplified expression for the cross spectrum"></span></p>
 <p>This expression provides a new, and perhaps more direct, interpretation of the spectrum as proportional to the squared amplitude of the point <span class="math notranslate nohighlight">\(X_j\)</span> in the complex plane. We can extend this simplified expression in one additional way to make explicit the trial structure of the ECoG data analyzed here. Because we possess multiple trials, and we assume that each trial represents an instantiation of the same underlying process, we average the spectra across trials to compute the <em>trial-averaged spectrum</em>,</p>
-<p><span title="Trial-averaged spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 &lt;S_{xx, \, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k}^2 \, ,
 \tag{Trial-averaged spectrum}
-$\)</span></p>
+\]</div>
+<p><span title="Trial-averaged spectrum"></span></p>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> indicates the trial number, <span class="math notranslate nohighlight">\(K\)</span> the total number of trials, and <span class="math notranslate nohighlight">\(A_{j,k}\)</span> the amplitude of the signal at frequency index <span class="math notranslate nohighlight">\(j\)</span> and trial index <span class="math notranslate nohighlight">\(k\)</span>.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index <span class="math notranslate nohighlight">\(j\)</span> across the <span class="math notranslate nohighlight">\(K\)</span> trials.  We use the angular brackets (<span class="math notranslate nohighlight">\(&lt; \, &gt;\)</span>) to denote that the spectrum (<span class="math notranslate nohighlight">\(S_{xx, \, j}\)</span>) has been averaged across trials. We can compute the trial-averaged spectrum in Python,</p>
 <p><a id="fig:trial_avg_spectrum"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Get the total time of the recording.</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Determine the number of sample points per trial</span>
-<span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>  <span class="c1"># Compute the scaling constant</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>                                     <span class="c1"># Get the total time of the recording.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>                               <span class="c1"># Determine the number of sample points per trial</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span>                         <span class="c1"># Compute the scaling constant</span>
 
 <span class="c1"># Compute the Fourier transform for each trial</span>
 <span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... in E1</span>
 <span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and in E2</span>
 
 <span class="c1"># Compute the spectra</span>
-<span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>  <span class="c1"># Spectrum of E1 trials</span>
-<span class="n">Syy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">yf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>  <span class="c1"># ... and E2 trials</span>
-<span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>  <span class="c1"># ... and the cross spectrum</span>
+<span class="n">Sxx</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>                <span class="c1"># Spectrum of E1 trials</span>
+<span class="n">Syy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">yf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>                <span class="c1"># ... and E2 trials</span>
+<span class="n">Sxy</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">yf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span>                <span class="c1"># ... and the cross spectrum</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define the frequency axis</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                           <span class="c1"># Define the frequency axis</span>
 
 <span class="c1"># Plot the average spectrum over trials in decibels vs frequency</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Trial-averaged spectrum&#39;</span><span class="p">)</span>  
 <span class="c1"># ... and the spectrum from the first trial for reference</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">log10</span><span class="p">(</span><span class="n">Sxx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Single-trial spectrum&#39;</span><span class="p">)</span>  
 
-<span class="c1"># Prettify</span>
-<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>  <span class="c1"># ... in select frequency range,</span>
-<span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># ... in select power range,</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>  <span class="c1"># ... with axes labelled.</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>                                <span class="c1"># ... in select frequency range,</span>
+<span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>                                <span class="c1"># ... in select power range,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                      <span class="c1"># ... with axes labelled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [ mV^2/Hz]&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Trial-averaged spectrum&#39;</span><span class="p">)</span>
 <span class="n">legend</span><span class="p">()</span>
@@ -745,59 +784,63 @@ $\)</span></p>
 <p><strong>Q.</strong>  Upon examining the trial-averaged spectrum from one electrode, what additional conclusions can you now make about the data beyond visual inspection of the voltage traces? Repeat this computation of the trial-averaged spectrum for the second electrode. What do you find?  <em>Hint</em>: The 8 Hz peak is obvious and consistent with our visual inspection of the data. Do you notice any other (smaller) peaks in the trial-averaged spectrum?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
-</div>
-</div>
 <div class="section" id="introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a">
-<h1>Introduction to the Coherence <a class="anchor" id="sec:coherence"></a><a class="headerlink" href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" title="Permalink to this headline">¶</a></h1>
+<h2>Introduction to the Coherence <a class="anchor" id="sec:coherence"></a><a class="headerlink" href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" title="Permalink to this headline">¶</a></h2>
 <p>Coherence is a measure of association between two time series. Briefly:</p>
 <div class="math-note">
 <p>Two signals are coherent at some frequency if there exists a constant phase relation between them at this frequency.</p>
 </div>
 <p>To compute the coherence, we use the <a class="reference external" href="#eq:9">simplified expression for the spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-9.png"></span> and an additional term, the cross-spectrum.</p>
 <p>Consider two signals <span class="math notranslate nohighlight">\(x_{n,k}\)</span> and <span class="math notranslate nohighlight">\(y_{n,k}\)</span>, with time index <span class="math notranslate nohighlight">\(n\)</span> and trial index <span class="math notranslate nohighlight">\(k\)</span>. These signals have corresponding Fourier transforms <span class="math notranslate nohighlight">\(X_{j,k}\)</span> and <span class="math notranslate nohighlight">\(Y_{j,k}\)</span>. Then the <em>trial-averaged cross-spectrum</em> between these two signals is</p>
-<p><span id="eq:10" title="Trial averaged cross-spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 &lt;S_{xy,\, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K}\sum_{k=1}^K X_{j,k} Y^*_{j,k} \, ,
-$\)</span></p>
+\]</div>
+<p><span id="eq:10" title="Trial averaged cross-spectrum"></span></p>
 <p>where compared to <a class="reference external" href="#eq:8">the spectrum</a><span class="thumb"><sup>eq</sup><img src="imgs/eq5-8.png"></span> we replace <span class="math notranslate nohighlight">\(X^*_j\)</span> with <span class="math notranslate nohighlight">\(Y^*_j\)</span> and include the average over the trial index <span class="math notranslate nohighlight">\(k\)</span>.  Let’s modify and clean up this expression by using polar coordinates.  To do so, we’ll first define,</p>
 <div class="math notranslate nohighlight">
 \[
 Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(B_{j,k}\)</span> is the amplitude and <span class="math notranslate nohighlight">\(\theta_{j,k}\)</span> is the phase at frequency index <span class="math notranslate nohighlight">\(j\)</span> and trial index <span class="math notranslate nohighlight">\(k\)</span> for the signal <span class="math notranslate nohighlight">\(y_{n,k}\)</span>. A similar expression exists for <span class="math notranslate nohighlight">\(X_{j,k}\)</span>, with amplitude <span class="math notranslate nohighlight">\(A_{j,k}\)</span> and phase <span class="math notranslate nohighlight">\(\phi_{j,k}\)</span>. Then, replacing <span class="math notranslate nohighlight">\(X_{j,k}\)</span> and <span class="math notranslate nohighlight">\(Y^*_{j,k}\)</span> in <a class="reference external" href="#eq:9">the trial-averaged cross-spectrum</a><span class="sup">eq<img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,</p>
-<p><span id="eq:cross_spectrum" title="Cross spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 &lt;S_{xy,\, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \, ,
 \tag{Cross spectrum}
-$\)</span></p>
+\]</div>
+<p><span id="eq:cross_spectrum" title="Cross spectrum"></span></p>
 <p>where we have defined the <em>phase difference</em> between the two signals as <span class="math notranslate nohighlight">\(\Phi_{j,k} = \phi_{j,k} - \theta_{j,k}\)</span>. This equation is the trial-averaged cross spectrum of the two signals <span class="math notranslate nohighlight">\(x_{n,k}\)</span> and <span class="math notranslate nohighlight">\(y_{n,k}\)</span>.  We note that the trial-averaged cross spectrum (<span class="math notranslate nohighlight">\(&lt;S_{xy,\, j}&gt;\)</span>) can be complex (i.e., may have nonzero real and imaginary parts).</p>
 <p>At last we define the <strong>coherence</strong>,</p>
-<p><span id="eq:cohr" title="Coherence"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 \kappa_{xy,\, j} = \frac{ \mid &lt;S_{xy,\, j}&gt; \mid }{ \sqrt{&lt;S_{xx, \, j}&gt;} \sqrt{&lt;S_{yy, \, j}&gt;}} \, ,
 \tag{Coherence}
-$\)</span></p>
+\]</div>
+<p><span id="eq:cohr" title="Coherence"></span></p>
 <p>where <span class="math notranslate nohighlight">\(\mid &lt;S_{xy,\, j}&gt; \mid\)</span> indicates the magnitude of the trial-averaged cross spectrum.  In words, the coherence is the magnitude of the trial-averaged cross spectrum between the two signals at frequency index <span class="math notranslate nohighlight">\(j\)</span> divided by the magnitude of the trial-averaged spectrum of each signal at frequency index <span class="math notranslate nohighlight">\(j\)</span>.</p>
 <p>To further our understanding of the mathematical expression of the coherence, let’s replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,</p>
-<p><span id="eq:cohr_ang" title="Coherence in polar coordinates"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 \kappa_{xy,\, j} = \frac { \biggr\lvert \sum\limits_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
 			       { \sqrt{\sum\limits_{k=1}^K A_{j,k}^2} \,  \sqrt{\sum\limits_{m=1}^K B_{j,m}^2} }
-$\)</span></p>
+\]</div>
+<p><span id="eq:cohr_ang" title="Coherence in polar coordinates"></span></p>
 <p>This expression is complicated.  So, to gain some intuition for the behavior of <span class="math notranslate nohighlight">\(\kappa_{xy,\, j}\)</span>, let’s make the simplifying assumption that at each frequency the amplitude is identical for both signals and all trials, that is, <span class="math notranslate nohighlight">\(A_{j,k} = B_{j,k} = C_j\)</span>.  Notice that, in using only the expression <span class="math notranslate nohighlight">\(C_j\)</span> for the amplitude, we’ve eliminated the trial index <span class="math notranslate nohighlight">\(k\)</span>, and only preserved the frequency index <span class="math notranslate nohighlight">\(j\)</span>. With this simplifying assumption, our expression for the coherence becomes,</p>
-<p><span id="eq:cohr_simp" title="Coherence (simplified)"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[\begin{split}
 \begin{align}
 \kappa_{xy,\, j} &amp;= \frac { \biggr\lvert \sum\limits_{k=1}^K C_j \, C_j \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
 			         { \sqrt{\sum\limits_{k=1}^K C_j^2}  \sqrt{\sum\limits_{m=1}^K C_j^2} } \, , \notag \\
 		    &amp;= \frac{ C_j^2 }{ C_j^2 } \frac{\biggr\lvert \sum\limits_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert}{\sqrt{\sum\limits_{k=1}^K 1}  \sqrt{\sum\limits_{m=1}^K 1} } \, , \notag \\
 		    &amp;= \frac{ 1 }{ K }\biggr\lvert \sum_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert \, .
 \end{align}
-$\)</span></p>
+\end{split}\]</div>
+<p><span id="eq:cohr_simp" title="Coherence (simplified)"></span></p>
 <p>Under the simplifying assumption that the amplitude is identical at each frequency for both signals and all trials, the coherence simplifies to the last equation in the expression above. In this special case, the expression for the coherence only involves the phase difference between the two signals averaged across trials; the amplitudes in the numerator and denominator have canceled out.</p>
 <p>Now, let’s interpret the simplified expression for the coherence. To do so, we consider two scenarios.</p>
+</div>
 <div class="section" id="simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a">
-<h2>Simple Scenario 1:  Phases align across trials <a id="Simple_Scenario_1"></a><a class="headerlink" href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" title="Permalink to this headline">¶</a></h2>
+<h2>Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a><a class="headerlink" href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" title="Permalink to this headline">¶</a></h2>
 <p>First, we assume that at a specific frequency index <span class="math notranslate nohighlight">\(j\)</span>, the two signals possess a <em>constant</em> phase difference across trials. Under this assumption, the phase difference in the first trial (<span class="math notranslate nohighlight">\(\Phi_{j,1}\)</span>) equals the phase difference in the second trial (<span class="math notranslate nohighlight">\(\Phi_{j,2}\)</span>), which equals the phase difference in the third trial (<span class="math notranslate nohighlight">\(\Phi_{j,3}\)</span>), and so on for all trials.  To denote this equivalence in the phase difference across trials, let’s replace the symbol for the phase difference <span class="math notranslate nohighlight">\(\Phi_{j,k}\)</span> with <span class="math notranslate nohighlight">\(\Phi_{j,0}\)</span>; here, we have replaced the subscript <span class="math notranslate nohighlight">\(k\)</span> with the subscript <span class="math notranslate nohighlight">\(0\)</span> to remind ourselves that the phase difference does not depend upon the choice of trial. Now consider the expression:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -826,8 +869,9 @@ $\)</span></p>
 </div>
 <p><a class="reference external" href="#top">Return to top</a></p>
 </div>
-<div class="section" id="simple-scenario-2-phases-are-random-across-trials-a-id-simple-scenario-2-a">
-<h2>Simple Scenario 2: Phases are random across trials <a id="Simple_Scenario_2"></a><a class="headerlink" href="#simple-scenario-2-phases-are-random-across-trials-a-id-simple-scenario-2-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-scenario-2-phases-are-random-across-trials">
+<h2>Simple Scenario 2: Phases are random across trials<a class="headerlink" href="#simple-scenario-2-phases-are-random-across-trials" title="Permalink to this headline">¶</a></h2>
+<p><a id="Simple_Scenario_2"></a></p>
 <p>As a second scenario, consider another specific frequency <span class="math notranslate nohighlight">\(j\)</span> in which the two signals have a random phase difference in each trial. In this case, the phase difference can assume any value between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(2\pi\)</span> for each trial. To visualize this, let’s imagine the phase differences in the complex plane; in this scenario, the vectors point in different (random) directions from trial to trial:</p>
 <p><img src="imgs/ex_complex_plane_coherence_b.png"></img></p>
 <div class="question">
@@ -840,9 +884,8 @@ $\)</span></p>
 \]</div>
 <p>which indicates weak coherence between the two signals.  The weak coherence in this case results from the random phase relationship over trials between the two signals.</p>
 </div>
-</div>
 <div class="section" id="summary-of-the-coherence-a-id-summary-of-the-coherence-a">
-<h1>Summary of the coherence <a id="Summary_of_the_coherence"></a><a class="headerlink" href="#summary-of-the-coherence-a-id-summary-of-the-coherence-a" title="Permalink to this headline">¶</a></h1>
+<h2>Summary of the coherence <a id="Summary_of_the_coherence"></a><a class="headerlink" href="#summary-of-the-coherence-a-id-summary-of-the-coherence-a" title="Permalink to this headline">¶</a></h2>
 <p>These two examples illustrate in simplified scenarios the behavior of the coherence. To summarize, the <a class="reference external" href="#eq:cohr">coherence</a><span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span> is a measure of the relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> at the same frequency.  The coherence ranges between 0 and 1,</p>
 <div class="math notranslate nohighlight">
 \[
@@ -861,6 +904,7 @@ $\)</span></p>
 Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqcohr.png"></a> for coherence and the units of the terms in the numerator and denominator. You should find that the coherence is unitless.</p>
 </div>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+</div>
 <hr class="docutils" />
 <div class="section" id="cross-covariance-and-cross-spectrum-a-id-cc-and-cs-a">
 <h2>Cross-Covariance and Cross-Spectrum <a id="cc_and_cs"></a><a class="headerlink" href="#cross-covariance-and-cross-spectrum-a-id-cc-and-cs-a" title="Permalink to this headline">¶</a></h2>
@@ -891,11 +935,11 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <span class="c1"># Compute the coherence.</span>
 <span class="n">cohr</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Sxy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">Syy</span><span class="p">))</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>  <span class="c1"># Define a frequency axis.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>  <span class="c1"># Plot coherence vs frequency,</span>
-<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>  <span class="c1"># ... in a chosen frequency range,</span>
-<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># ... with y-axis scaled,</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>  <span class="c1"># ... and with axes labeled.</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                     <span class="c1"># Define a frequency axis.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">cohr</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>                      <span class="c1"># Plot coherence vs frequency,</span>
+<span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>                           <span class="c1"># ... in a chosen frequency range,</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>                            <span class="c1"># ... with y-axis scaled,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>                <span class="c1"># ... and with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Coherence&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;Coherence between two electrodes&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -917,27 +961,26 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <p>The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j8</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 8 Hz.</span>
-<span class="n">j24</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">24</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Determine index j for frequency 24 Hz.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">j8</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">8</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>       <span class="c1"># Determine index j for frequency 8 Hz.</span>
+<span class="n">j24</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span><span class="n">f</span><span class="o">==</span><span class="mi">24</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>     <span class="c1"># Determine index j for frequency 24 Hz.</span>
 
-<span class="n">phi8</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>  <span class="c1"># Variables to hold phase differences.</span>
+<span class="n">phi8</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>              <span class="c1"># Variables to hold phase differences.</span>
 <span class="n">phi24</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>  <span class="c1"># For each trial, compute the cross spectrum. </span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>           <span class="c1"># For each trial, compute the cross spectrum. </span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c1"># Get the data from each electrode,</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">,:])</span>
-    <span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>  <span class="c1"># ... compute the Fourier transform,</span>
+    <span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>   <span class="c1"># ... compute the Fourier transform,</span>
     <span class="n">yf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
     <span class="n">Sxy</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="p">(</span><span class="n">xf</span> <span class="o">*</span> <span class="n">conj</span><span class="p">(</span><span class="n">yf</span><span class="p">))</span>  <span class="c1"># ... and the cross-spectrum,</span>
-    <span class="n">phi8</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j8</span><span class="p">])</span>  <span class="c1"># ... and the phases.</span>
+    <span class="n">phi8</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j8</span><span class="p">])</span> <span class="c1"># ... and the phases.</span>
     <span class="n">phi24</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">angle</span><span class="p">(</span><span class="n">Sxy</span><span class="p">[</span><span class="n">j24</span><span class="p">])</span>
-
-<span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Plot the distributions of phases.</span>
+                             <span class="c1"># Plot the distributions of phases.</span>
+<span class="n">_</span><span class="p">,</span> <span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">)</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">a1</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi8</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">])</span>
 <span class="n">a2</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">phi24</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span> <span class="n">pi</span><span class="p">])</span>
 
-<span class="c1"># Prettify</span>
-<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>
+<span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">])</span>                <span class="c1"># Set y-axis and label axes.</span>
 <span class="n">a1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Counts&#39;</span><span class="p">)</span>
 <span class="n">a1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Phase&#39;</span><span class="p">);</span>
 <span class="n">a1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Angles at 8 Hz&#39;</span><span class="p">)</span>
@@ -977,8 +1020,9 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <p><strong>Q:</strong> Imagine we collect 10 s of ECoG data (sampling frequency 500 Hz) from two electrodes and would like to compute the coherence. To do so, we divide the data into ten nonoverlapping 1 s intervals, and treat each interval as a trial to compute the coherence. What is the frequency resolution of the coherence? If instead we divide the data into 100 nonoverlapping frequency intervals, what is the frequency resolution? In both cases, what is the Nyquist frequency?</p>
 </div><p>A second approach to compute the coherence from a single trial of data is to use the <a class="reference external" href="https://en.wikipedia.org/wiki/Multitaper">multitaper method</a>. In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.</p>
 </div>
-<div class="section" id="relation-between-statistical-modeling-and-coherence-a-id-relation-between-statistical-modeling-and-coherence-a">
-<h2>Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence"></a><a class="headerlink" href="#relation-between-statistical-modeling-and-coherence-a-id-relation-between-statistical-modeling-and-coherence-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="relation-between-statistical-modeling-and-coherence">
+<h2>Relation between Statistical Modeling and Coherence<a class="headerlink" href="#relation-between-statistical-modeling-and-coherence" title="Permalink to this headline">¶</a></h2>
+<p><a id="Relation_between_Statistical_Modeling_and_Coherence"></a></p>
 <p>Before concluding the discussion of coherence, let’s briefly consider a complementary statistical modeling approach. In developing this statistical model, our goal is to capture the (linear) relation between two signals <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> observed simultaneously for multiple trials. We begin by proposing a statistical model that predicts one signal (<span class="math notranslate nohighlight">\(y\)</span>) as a linear function of the other (<span class="math notranslate nohighlight">\(x\)</span>):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1031,9 +1075,8 @@ Assuming that the noise term and signal <span class="math notranslate nohighligh
 <p>We conclude that the coherence (<span class="math notranslate nohighlight">\(\kappa_{xy,\, j}\)</span>) is a scaled version of the frequency domain representation of the statistical model coefficients (<span class="math notranslate nohighlight">\(\gamma_j\)</span>) for predicting <span class="math notranslate nohighlight">\(y\)</span> from <span class="math notranslate nohighlight">\(x\)</span>. We note that <span class="math notranslate nohighlight">\(\gamma_j\)</span> is a complex quantity that allows us to model both the magnitude and phase of the relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.  The phase difference computed from the model and the coherence is the same as well.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
 </div>
-</div>
 <div class="section" id="summary-a-id-summary-a">
-<h1>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h1>
+<h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
 <p>In this module, we analyzed ECoG data recorded from two electrodes during an auditory task. The task involved the repeated presentation of auditory stimuli, resulting in 100 trials of 1 s duration recorded simultaneously from the two electrodes. We began the analysis with visual inspection of individual trials and of all trials at once. Then, to assess the relations between the two recordings, we computed the cross-covariance. We discussed how the cross-covariance is an extension of the autocovariance, and found that the single-trial cross-covariance between the ECoG signals exhibited periodic structure, consistent with rhythmic coupling of period 0.125 s. However, the trial-averaged cross-covariance provided less evidence for consistent rhythmic coupling across trials. We then computed the trial-averaged spectrum and found a large peak near 8 Hz and a much smaller peak near 24 Hz.</p>
 <p>To further assess the relation between the two electrodes, we computed the coherence. The coherence is strong (approaches 1) at a chosen frequency <span class="math notranslate nohighlight">\(f_0\)</span> when there exists a constant phase relation at frequency <span class="math notranslate nohighlight">\(f_0\)</span> between two electrodes over trials. We found a strong coherence between the two ECoG electrodes only at 24 Hz. We concluded that although both ECoG signals possessed dominant rhythms at 8 Hz, these rhythms were not coherent between the two electrodes. The strong coherence appeared only at the small-amplitude 24 Hz rhythm. Finally, we implemented a technique to visualize the distribution of phase differences between the two electrodes across trials, and provided some suggestions for how to compute the coherence for a single trial of data.</p>
 <div class="python-note">
@@ -1047,6 +1090,7 @@ Assuming that the noise term and signal <span class="math notranslate nohighligh
 <li><p><a class="reference external" href="https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6">Priestly, 1982</a></p></li>
 <li><p><a class="reference external" href="http://numerical.recipes/">Numerical recipes</a></p></li>
 </ul>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
