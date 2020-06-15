@@ -515,7 +515,7 @@ show()
 
 In the next two sections, we focus on interpreting and adjusting the quantities $df$ and $f_{NQ}$. Doing so is critical to developing a further intuition for the spectrum.
 
-## The Nyquist frequency, $f_{NQ}$ <a id="nyquist-frequency"></a>
+## The Nyquist frequency <a id="nyquist-frequency"></a>
 
 YouTubeVideo('sgYkOkrlQ_E')
 
@@ -555,7 +555,7 @@ To avoid aliasing, sample data at sufficiently high rates.
 
 Typically, to prevent aliasing, recorded data are first analog-filtered before the digital sampling occurs. The analog filtering guarantees that activity at frequencies exceeding a threshold value ($f_c$, say) are dramatically reduced. The sampling rate can then be chosen to exceed this threshold value by at least a factor of 2 (i.e., $f_0 > 2f_c$). We note that in this case the EEG data were first analog-filtered at 200 Hz before digital sampling occurred at 1000 Hz. So, for our EEG data, aliasing is not a concern.
 
-##  The frequency resolution, $df$<a id="frequency-resolution"></a>
+##  The frequency resolution<a id="frequency-resolution"></a>
 
 YouTubeVideo('bZsj_gcGoSo')
 
