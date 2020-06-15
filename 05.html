@@ -286,6 +286,10 @@
             <a href="#relation-between-statistical-modeling-and-coherence" class="nav-link">Relation between Statistical Modeling and Coherence</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#summary-a-id-summary-a" class="nav-link">Summary <a id="summary"></a></a>
+        </li>
+    
     </ul>
 </nav>
 
@@ -714,7 +718,6 @@ X_j = A_j \exp(i \phi_j) \, ,
 S_{xx, \, j} 	&amp;= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \notag \\
 		        &amp;= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
-\tag{Spectrum}
 \end{split}\]</div>
 <p><a id="eq:8" title="Spectrum"></a></p>
 <p>where, to compute the complex conjugate in the second term, we replace <span class="math notranslate nohighlight">\(i\)</span> with <span class="math notranslate nohighlight">\(-i\)</span>.  The last expression simplifies rather nicely,</p>
@@ -800,11 +803,12 @@ S_{xx, \, j}	&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \,
 Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(B_{j,k}\)</span> is the amplitude and <span class="math notranslate nohighlight">\(\theta_{j,k}\)</span> is the phase at frequency index <span class="math notranslate nohighlight">\(j\)</span> and trial index <span class="math notranslate nohighlight">\(k\)</span> for the signal <span class="math notranslate nohighlight">\(y_{n,k}\)</span>. A similar expression exists for <span class="math notranslate nohighlight">\(X_{j,k}\)</span>, with amplitude <span class="math notranslate nohighlight">\(A_{j,k}\)</span> and phase <span class="math notranslate nohighlight">\(\phi_{j,k}\)</span>. Then, replacing <span class="math notranslate nohighlight">\(X_{j,k}\)</span> and <span class="math notranslate nohighlight">\(Y^*_{j,k}\)</span> in <a class="reference external" href="#eq:9">the trial-averaged cross-spectrum</a><span class="sup">eq<img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,</p>
-<p><span id="eq:cross_spectrum" title="Cross spectrum"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 &lt;S_{xy,\, j}&gt; = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \, ,
 \tag{Cross spectrum}
-$\)</span></p>
+\]</div>
+<p><span id="eq:cross_spectrum" title="Cross spectrum"></span></p>
 <p>where we have defined the <em>phase difference</em> between the two signals as <span class="math notranslate nohighlight">\(\Phi_{j,k} = \phi_{j,k} - \theta_{j,k}\)</span>. This equation is the trial-averaged cross spectrum of the two signals <span class="math notranslate nohighlight">\(x_{n,k}\)</span> and <span class="math notranslate nohighlight">\(y_{n,k}\)</span>.  We note that the trial-averaged cross spectrum (<span class="math notranslate nohighlight">\(&lt;S_{xy,\, j}&gt;\)</span>) can be complex (i.e., may have nonzero real and imaginary parts).</p>
 <p>At last we define the <strong>coherence</strong>,</p>
 <div class="math notranslate nohighlight">
@@ -1071,9 +1075,8 @@ Assuming that the noise term and signal <span class="math notranslate nohighligh
 <p>We conclude that the coherence (<span class="math notranslate nohighlight">\(\kappa_{xy,\, j}\)</span>) is a scaled version of the frequency domain representation of the statistical model coefficients (<span class="math notranslate nohighlight">\(\gamma_j\)</span>) for predicting <span class="math notranslate nohighlight">\(y\)</span> from <span class="math notranslate nohighlight">\(x\)</span>. We note that <span class="math notranslate nohighlight">\(\gamma_j\)</span> is a complex quantity that allows us to model both the magnitude and phase of the relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span>.  The phase difference computed from the model and the coherence is the same as well.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
 </div>
-</div>
 <div class="section" id="summary-a-id-summary-a">
-<h1>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h1>
+<h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
 <p>In this module, we analyzed ECoG data recorded from two electrodes during an auditory task. The task involved the repeated presentation of auditory stimuli, resulting in 100 trials of 1 s duration recorded simultaneously from the two electrodes. We began the analysis with visual inspection of individual trials and of all trials at once. Then, to assess the relations between the two recordings, we computed the cross-covariance. We discussed how the cross-covariance is an extension of the autocovariance, and found that the single-trial cross-covariance between the ECoG signals exhibited periodic structure, consistent with rhythmic coupling of period 0.125 s. However, the trial-averaged cross-covariance provided less evidence for consistent rhythmic coupling across trials. We then computed the trial-averaged spectrum and found a large peak near 8 Hz and a much smaller peak near 24 Hz.</p>
 <p>To further assess the relation between the two electrodes, we computed the coherence. The coherence is strong (approaches 1) at a chosen frequency <span class="math notranslate nohighlight">\(f_0\)</span> when there exists a constant phase relation at frequency <span class="math notranslate nohighlight">\(f_0\)</span> between two electrodes over trials. We found a strong coherence between the two ECoG electrodes only at 24 Hz. We concluded that although both ECoG signals possessed dominant rhythms at 8 Hz, these rhythms were not coherent between the two electrodes. The strong coherence appeared only at the small-amplitude 24 Hz rhythm. Finally, we implemented a technique to visualize the distribution of phase differences between the two electrodes across trials, and provided some suggestions for how to compute the coherence for a single trial of data.</p>
 <div class="python-note">
@@ -1087,6 +1090,7 @@ Assuming that the noise term and signal <span class="math notranslate nohighligh
 <li><p><a class="reference external" href="https://www.elsevier.com/books/spectral-analysis-and-time-series-two-volume-set/priestley/978-0-08-057055-6">Priestly, 1982</a></p></li>
 <li><p><a class="reference external" href="http://numerical.recipes/">Numerical recipes</a></p></li>
 </ul>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
