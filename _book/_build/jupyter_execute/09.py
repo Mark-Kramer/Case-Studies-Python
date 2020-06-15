@@ -27,7 +27,7 @@ _**Synopsis**_
     1. [Drawing Conclusions from the Model](#drawing-conclusions)
 * [Summary](#summary)
 
-## On-ramp: filtering field data in Python <a id="onramp"></a>
+## On-ramp: fitting a point process model in Python <a id="onramp"></a>
 We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that's not the point. Instead, the purpose of this on-ramp is to illustrate what *can* be done. Our advice is to simply run the code below and see what happens ...
 
 # Import modules ...
