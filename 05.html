@@ -536,27 +536,28 @@
 <div class="section" id="autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a">
 <h2>Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a><a class="headerlink" href="#autocovariance-and-cross-covariance-a-id-autocovariance-and-cross-covariance-a" title="Permalink to this headline">¶</a></h2>
 <p>In <a class="reference internal" href="03.html"><span class="doc">notebook 3</span></a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as,</p>
-<p><span id="eq:ac" title="trial-averaged autocovariance"></span>
-<span class="math notranslate nohighlight">\($
+<div class="math notranslate nohighlight">
+\[
 r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (x_{n,k} - \bar{x}_k) \, ,
-$\)</span>
-where <span class="math notranslate nohighlight">\(x_{n,k}\)</span> indicates the data at time index <span class="math notranslate nohighlight">\(n\)</span> and trial <span class="math notranslate nohighlight">\(k,\)</span> and <span class="math notranslate nohighlight">\(\overline x_k\)</span> is the mean value of <span class="math notranslate nohighlight">\(x\)</span> for trial <span class="math notranslate nohighlight">\(k\)</span>. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials <span class="math notranslate nohighlight">\(K.\)</span>  Let’s now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a></p>
+\]</div>
+<p><span id="eq:ac" title="trial-averaged autocovariance"></span></p>
+<p>where <span class="math notranslate nohighlight">\(x_{n,k}\)</span> indicates the data at time index <span class="math notranslate nohighlight">\(n\)</span> and trial <span class="math notranslate nohighlight">\(k,\)</span> and <span class="math notranslate nohighlight">\(\overline x_k\)</span> is the mean value of <span class="math notranslate nohighlight">\(x\)</span> for trial <span class="math notranslate nohighlight">\(k\)</span>. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials <span class="math notranslate nohighlight">\(K.\)</span>  Let’s now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a></p>
 <div class="math-note">
 <p>Note: We could instead write the trial-averaged sample autocovariance because this equation uses the observed data to estimate the theoretical covariance that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.</p>
 </div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the sampling interval.</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Define the number of trials.</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># Define number of points in each trial.</span>
-<span class="n">ac</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Declare empty vector for autocov.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>              <span class="c1"># Define the sampling interval.</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>               <span class="c1"># Define the number of trials.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">E1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>               <span class="c1"># Define number of points in each trial.</span>
+<span class="n">ac</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>       <span class="c1"># Declare empty vector for autocov.</span>
 
-<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">:</span>  <span class="c1"># For each trial,</span>
+<span class="k">for</span> <span class="n">trial</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">:</span>              <span class="c1"># For each trial,</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">trial</span> <span class="o">-</span> <span class="n">trial</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ... subtract the mean,</span>
     <span class="n">ac0</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ... compute autocovar,</span>
-    <span class="n">ac</span> <span class="o">+=</span> <span class="n">ac0</span> <span class="o">/</span> <span class="n">K</span><span class="p">;</span>  <span class="c1"># ... and add to total, scaled by 1/K.</span>
+    <span class="n">ac</span> <span class="o">+=</span> <span class="n">ac0</span> <span class="o">/</span> <span class="n">K</span><span class="p">;</span>            <span class="c1"># ... and add to total, scaled by 1/K.</span>
 
-<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>  <span class="c1"># Create a lag axis,</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac</span><span class="p">)</span>  <span class="c1"># ... and plot the result.</span>
+<span class="n">lags</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>      <span class="c1"># Create a lag axis,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">lags</span> <span class="o">*</span> <span class="n">dt</span><span class="p">,</span> <span class="n">ac</span><span class="p">)</span>           <span class="c1"># ... and plot the result.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Lag [s]&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Autocovariance&#39;</span><span class="p">);</span>
@@ -655,18 +656,7 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">dfd71c4f1ff7</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">XC</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="n">K</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>    <span class="c1"># Declare empty vector for cross cov.</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>            <span class="c1"># For each trial,</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">x</span> <span class="o">=</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...get data from one electrode,</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">y</span> <span class="o">=</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">E2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># ...and the other electrode,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="n">XC</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="n">correlate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;full&#39;</span><span class="p">)</span>  <span class="c1"># ...compute cross covariance.</span>
-
-<span class="ne">NameError</span>: name &#39;K&#39; is not defined
-</pre></div>
-</div>
+<img alt="_images/05_42_0.png" src="_images/05_42_0.png" />
 </div>
 </div>
 <div class="python-note">
@@ -952,18 +942,7 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mf">5e4</span><span class="n">aa5be089a</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Compute the Fourier transforms</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">xf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">E1</span><span class="p">])</span>  <span class="c1"># ... for each trial in E1</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">yf</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="n">rfft</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">E2</span><span class="p">])</span>  <span class="c1"># ... and each trial in E2</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Compute the spectra</span>
-
-<span class="ne">NameError</span>: name &#39;E1&#39; is not defined
-</pre></div>
-</div>
+<img alt="_images/05_73_0.png" src="_images/05_73_0.png" />
 </div>
 </div>
 <div class="question">
