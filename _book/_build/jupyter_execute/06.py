@@ -1,5 +1,5 @@
 <a id="top"></a> 
-# Application of Filtering to Scalp EEG Data
+# Filtering Field Data
 
 <div class="question">
     

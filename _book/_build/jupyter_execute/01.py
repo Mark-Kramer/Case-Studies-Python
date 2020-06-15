@@ -1,16 +1,30 @@
 # Python for the practicing neuroscientist
 
+<<<<<<< HEAD
 To be frank:  this notebook is rather boring.  Throughout all of the case studies, we will use the software package <a href="https://www.python.org/" rel="external">Python</a>. The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
 
 Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" rel="external">Python Data Science Handbook</a>).
+=======
+To be frank:  this notebook is rather boring.  Throughout all of the case studies, we will use the software package <a href="https://www.python.org/" target="blank">Python</a>. The best way to learn new software (and probably most things) is when motivated by a particular problem.  Would you read assembly instructions for furniture you do not plan to own?  Probably not. In other sections we will pursue specific questions driven by neuronal data, and use our desire to understand these data to motivate the development and application of computational methods.  But not in this section.  Here, we focus on basic coding techniques and principles in Python in the abstract, without motivation.  You - poor reader - must trust that these ideas and techniques will eventually be useful.  We begin by dipping our toe into the Python pool, and learning the basic strokes;  the fun and interesting parts in the "real world" of neuronal data happen later.
 
-## Starting Python
+Let us delay no further.  In the following examples, you are asked to execute code in Python.  If your Python experience is limited, you should actually *do* this, not just read the text below.  If you intend to ignore this advice - and not execute the code in Python - then instead walk to the local coffee shop, get a double espresso, and return to attempt these examples.  This notebook follows in spirit and sometimes in detail notebook 2 of <a href="https://www.elsevier.com/books/matlab-for-neuroscientists/wallisch/978-0-12-383836-0">MATLAB for Neuroscientists</a>, an excellent reference for learning to use MATLAB in neuroscience with many additional examples.  If you have never used Python before, there are many excellent resources online (e.g., the <a href="https://jakevdp.github.io/PythonDataScienceHandbook/" target="blank">Python Data Science Handbook</a>).
+>>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
 
+### Starting Python
+
+<<<<<<< HEAD
 There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/" rel="external">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master" rel="external">Binder</a>, and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!
 
 <div class="python-note">
     
 Throughout this notebook, we assume that you are running <a href="https://www.python.org/download/releases/3.0/" rel="external">Python 3</a>. Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator `/` actually computes the *floor* of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, `4/3` equals `1`. While, in Python 3, `4/3` equals `1.333`.
+=======
+There are two ways to interact with this notebook.  First, you could run it locally on your own computer using <a href="https://jupyter.org/">Jupyter</a>. This is an excellent choice, because you'll be able to read, edit and excute the Python code directly and you can save any changes you make or notes that you want to record.  The second way is to open this notebook in your browser using <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master" target="blank">Binder</a>, and execute the examples directly in your browser, without installing additional software on your computer. In any case, we encourage you to execute each line of code in this file!
+
+<div class="python-note">
+    
+Throughout this notebook, we assume that you are running <a href="https://www.python.org/download/releases/3.0/" target="blank">Python 3</a>. Most of the functions used here are the same in Python 2 and 3. One noteable exception however is division. If you are using Python 2, you will find that the division operator `/` actually computes the *floor* of the division if both operands are integers (i.e., no decimal points). For example, in Python 2, `4/3` equals `1`. While, in Python 3, `4/3` equals `1.333`.
+>>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
 
 We encourage you to use Python 3 for the sake of compatibility with this notebook, as well as for compatibility with future releases of Python.
 
@@ -61,7 +75,7 @@ Execute the following commands in Python:
 
 </div>
 
-## Example 2.  Python can compute complicated quantities.
+### Example 2.  Python can compute complicated quantities.
 
 Enter the following command in Python:
 
@@ -79,7 +93,7 @@ Enter the following command in Python:
 
 </div>
 
-##  Example 3.  Python has useful built in functions.
+###  Example 3.  Python has useful built in functions.
 
 A function is a program that operates on arguments. Standard math functions and variables (and other useful things) can be accessed from the `math` and `pylab` modules. To use the `math` and `pylab` modules, we must first import both:
 
@@ -125,7 +139,7 @@ In Python, there are several different data structures that are designed to stor
 
 a = array([[1, 2, 3, 4]])
 
-##  Example 5.  We can manipulate arrays by scalars.
+###  Example 5.  We can manipulate arrays by scalars.
 
 A scalar is a single number.  Consider,
 
@@ -142,7 +156,7 @@ print( a + 1 )
 
 </div>
 
-##  Example 6.  We can manipulate arrays with arrays. 
+###  Example 6.  We can manipulate arrays with arrays. 
 
 Let's create an array and multiply it by itself,
 
@@ -157,7 +171,7 @@ a * a
 
 </div>
 
-## Example 7. More examples of manipulating arrays with arrays.
+### Example 7. More examples of manipulating arrays with arrays.
 
 a = 2
 b = array( [[0, 4, 7, 6]] )
@@ -173,7 +187,7 @@ print( multiply( b, c ))
 
 </div>
 
-## Example 8.  We can probe the variables we've defined in Python.
+### Example 8.  We can probe the variables we've defined in Python.
 
 To see a list of the variables you've defined, type `who` or `whos` in a code block by themselves. Notice `whos` provides more information.
 
@@ -181,7 +195,7 @@ who
 
 whos
 
-## Example 9.  Determine the dimensions of an array
+### Example 9.  Determine the dimensions of an array
 
 To examine the dimensions of an array, we can ask for the `shape`,
 
@@ -197,7 +211,7 @@ We find that the shape of `a` is `(1,4)` or 1 row and 4 columns. Notice we have 
 
 The result is equivalent.
 
-## Example 10. Sometimes we need to reset the workspace
+### Example 10. Sometimes we need to reset the workspace
 
 By doing so, we get rid of all the variables. To do so, type `%reset` and enter `y`
 
@@ -242,7 +256,7 @@ print( p + 2 )
 print( 2 * p )
 print( p * p )
 
-##  Example 12.  Indexing matrices and vectors.
+###  Example 12.  Indexing matrices and vectors.
 Matrices and vectors are arrays of numbers, and sometimes we want to
 access individual elements or small subsets of these lists.  That's
 easy to do in Python.  Consider,
@@ -294,10 +308,10 @@ print the element in row 0, column 3 of `c`.
 
 </div>
 
-##  Example 13:  We can find subsets of elements in matrices and vectors.
+###  Example 13:  We can find subsets of elements in matrices and vectors.
 Often we are interested in only some of the elements of a matrix or vector. For example, we might want to look at the data from a single experimental trial which is stored in a particular row of a matrix. Alternatively, we might want to find out when the values in a time series cross a given boundary. Doing this is simple in Python.
 
-### Slicing
+#### Slicing
 *Slicing* means that we want to look at a specific portion of a vector or matrix, for example, the first row of a matrix. We will continue with the matrix `c` from the previous example. The notation '`:`' means '*all indices*'. To access all columns in the entire first row of `c`, type `c[0,:]`. To access the 2nd thru 4th columns of the first row of `c`, type `c[0,1:4]`.
 
 print( "c[0,:] = " + str( c[0,:] ) )
@@ -321,7 +335,7 @@ c[0,::2]
 
 This code tells Python to start at 0, continue to the end, and step by 2. The result should be the values in row 0, columns 0, 2, and 4 of `c`. We could write this explicitly as `c[0,0:5:2]`.
 
-  ### Selecting elements that satisfy a condition
+  #### Selecting elements that satisfy a condition
   Sometimes we're interested in locating particular values within a
   matrix or vector.  As an example, let's first define a vector.
 
@@ -413,8 +427,13 @@ print( "y = " + str(y) )
 
 </div>
 
+<<<<<<< HEAD
 ### matplotlib
 To visualize `y` versus `x` let's plot it. To do so, let's first import some basic plotting routines from `matplotlib`, which provides a nice <a href="https://matplotlib.org/" rel="external">2D plotting library</a>. We'll also tell Python to show  `matplotlib` graphics inline, in this notebook.
+=======
+#### matplotlib
+To visualize `y` versus `x` let's plot it. To do so, let's first import some basic plotting routines from `matplotlib`, which provides a nice [2D plotting library](https://matplotlib.org/). We'll also tell Python to show  `matplotlib` graphics inline, in this notebook.
+>>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
 
 Let's start by plotting a simple example for `x` and `y`,
 
@@ -472,7 +491,7 @@ show()
 
 </div>
 
-## Example 15: What if we want to compare several functions?
+### Example 15: What if we want to compare several functions?
 
 Continuing the example in the previous section, let’s define a second vector
 
@@ -505,12 +524,10 @@ show()
 To futher edit this plot, you might decide - for example - that the font size for the labels is too small. We can change the default with:
 
 rcParams.update({'font.size': 12})  
-rcParams['axes.labelsize']=14      # make the xlabel/ylabel sizes a bit bigger to match up better
+rcParams['axes.labelsize']=14  # make the xlabel/ylabel sizes a bit bigger to match up better
+rcParams['lines.linewidth']=2  # we can change the default linewidth with
 
-# we can change the default linewidth with
-rcParams['lines.linewidth']=2
-
-# let's make a new plot to check 
+                         # let's make a new plot to check 
 plot(x,y, label='y')     # sometimes it is easier to name a trace within the plot() call
 plot(x,z, label='z')     # notice without a color matplotlib will assign one
 xlabel('x')
@@ -553,40 +570,40 @@ See Python Help (`hist?`) to learn about the function `hist()`.
   For example, what if we want to plot `sin(x + k*pi/4)` where `k` varies from 1 to 5 in
   steps of 1;  how do we do it?  Consider the following:
 
-x = arange(0,10,0.1)  # Define a vector x that ranges from 0 to 9.9 with step 0.1.
-k = 1                    # Fix k=1,
-y = sin(x + k*pi/4)# ... and define y at this k.
+x = arange(0,10,0.1) # Define a vector x that ranges from 0 to 9.9 with step 0.1.
+k = 1                # Fix k=1,
+y = sin(x + k*pi/4)  # ... and define y at this k.
 
 figure()             # Make a new figure,
 plot(x,y)            # ... and plot y versus x.
 
-k = 2                    # Let's repeat this, for k=2,
-y = sin(x + k*pi/4)# ... and redefine y at this k,
+k = 2                # Let's repeat this, for k=2,
+y = sin(x + k*pi/4)  # ... and redefine y at this k,
 plot(x,y)            # ... and plot it.
 
-k = 3                    # Let's repeat this, for k=3,
-y = sin(x + k*pi/4)# ... and redefine y at this k,
+k = 3                # Let's repeat this, for k=3,
+y = sin(x + k*pi/4)  # ... and redefine y at this k,
 plot(x,y)            # ... and plot it.
 
-k = 4                    # Let's repeat this, for k=4,
-y = sin(x + k*pi/4)# ... and redefine y at this k,
+k = 4                # Let's repeat this, for k=4,
+y = sin(x + k*pi/4)  # ... and redefine y at this k,
 plot(x,y)            # ... and plot it.
 
-k = 5                    # Let's repeat this, for k=5,
-y = sin(x + k*pi/4)# ... and redefine y at this k,
+k = 5                # Let's repeat this, for k=5,
+y = sin(x + k*pi/4)  # ... and redefine y at this k,
 plot(x,y)            # ... and plot it.
 
 show()
 
 That's horrible code!  All I did was cut and paste the same thing four times.  As a general rule, if you're repeatedly cutting and pasting in code, what you're doing is inefficient and typically error prone.  There's a much more elegant way to do this, and it involves making a `for` loop.  Consider:
 
-x = arange(0,10,0.1)        #First, define the vector x.
+x = arange(0,10,0.1)     #First, define the vector x.
 
 Now let's declare a `for` loop where `k` successively takes the values 1, then 2, then 3, ..., up to 5. Note, any code we want to execute as part of the loop must be indented one level. The first line of code that is not indented, in this case `show()` below, executes after the for loop completes
 
 for k in range(1,6):               
-    y = sin(x + k*pi/4)      #Define y (note the variable 'k' in sin), also note we have indented here!
-    plot(x,y)                  #Plot y versus x
+    y = sin(x + k*pi/4)  #Define y (note the variable 'k' in sin), also note we have indented here!
+    plot(x,y)            #Plot y versus x
     
 # no indentation now, so this code follows the loop
 show() 
@@ -685,12 +702,12 @@ In English, we set up (or initialize) the figure and then make a function that d
 
 Here's an example in which we plot a sinusoid of different heights, and allow the user to adjust the heights with a slider.
 
-x = linspace(0.,2.,1001)                 # Define x from 0 to 2 with 1001 steps.
+x = linspace(0.,2.,1001)          # Define x from 0 to 2 with 1001 steps.
 lines = plot(x, 0. * sin(x*pi))   # Make the first plot, save the curve in "lines"
-axis([0, 2, -1, 1])                     # Set the x and y limits in the plot
-title("plot number = 0")                # ... and label the plot.
+axis([0, 2, -1, 1])               # Set the x and y limits in the plot
+title("plot number = 0")          # ... and label the plot.
 
-def animate(frame):                         # Define the function to perform the animation.
+def animate(frame):               # Define the function to perform the animation.
     lines[0].set_ydata(float(frame) / 100. * sin(x * pi)) # Change the y values at each x location
     title('plot number = ' + str(frame))# Update the title with the new plot number
     

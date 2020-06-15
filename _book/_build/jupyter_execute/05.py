@@ -1,5 +1,5 @@
 <a id="introduction"></a><a id="top"></a>
-# Analysis of coupled rhythms *for the practicing neuroscientist*
+# Analysis of Coupled Rhythms
 
 <div class="question">
     
@@ -40,32 +40,32 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 from scipy.io import loadmat                    # To load .mat files
 from pylab import *                             # Import plotting functions
 
-data = loadmat('matfiles/ECoG-1.mat')  # Load the data,
-E1 = data['E1']  # ... from the first electrode,
-E2 = data['E2']  # ... and from the second electrode.
-t = data['t'][0]  # Load the time axis,
-dt = t[1] - t[0]  # ... to get the sampling interval,
-T = t[-1]  # ... and the total time of the recording.
-N = E1.shape[1]  # Determine the number of sample points per trial
-scale = 2 * dt**2 / T  # Scaling constant
+data = loadmat('matfiles/ECoG-1.mat')        # Load the data,
+E1 = data['E1']                              # ... from the first electrode,
+E2 = data['E2']                              # ... and from the second electrode.
+t = data['t'][0]                             # Load the time axis,
+dt = t[1] - t[0]                             # ... to get the sampling interval,
+T = t[-1]                                    # ... and the total time of the recording.
+N = E1.shape[1]                              # Determine the number of sample points per trial
+scale = 2 * dt**2 / T                        # Scaling constant
 
 # Compute the Fourier transforms
-xf = array([rfft(x - x.mean()) for x in E1])  # ... for each trial in E1
-yf = array([rfft(y - y.mean()) for y in E2])  # ... and each trial in E2
+xf = array([rfft(x - x.mean()) for x in E1]) # ... for each trial in E1
+yf = array([rfft(y - y.mean()) for y in E2]) # ... and each trial in E2
 
 # Compute the spectra
-Sxx = scale * (xf * xf.conj()).mean(0)  # Spectrum of E1 trials
-Syy = scale * (yf * yf.conj()).mean(0)  # ... and E2 trials
-Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
+Sxx = scale * (xf * xf.conj()).mean(0)       # Spectrum of E1 trials
+Syy = scale * (yf * yf.conj()).mean(0)       # ... and E2 trials
+Sxy = scale * (xf * yf.conj()).mean(0)       # ... and the cross spectrum
 
 # Compute the coherence.
 cohr = abs(Sxy) / (sqrt(Sxx) * sqrt(Syy))
 
-f = rfftfreq(N, dt)  # Define a frequency axis.
-plot(f, cohr.real)  # Plot coherence vs frequency,
-xlim([0, 50])  # ... in a chosen frequency range,
-ylim([0, 1])  # ... with y-axis scaled,
-xlabel('Frequency [Hz]')  # ... and with axes labeled.
+f = rfftfreq(N, dt)                          # Define a frequency axis.
+plot(f, cohr.real)                           # Plot coherence vs frequency,
+xlim([0, 50])                                # ... in a chosen frequency range,
+ylim([0, 1])                                 # ... with y-axis scaled,
+xlabel('Frequency [Hz]')                     # ... and with axes labeled.
 ylabel('Coherence')
 title('Coherence between two electrodes')
 show()
@@ -108,7 +108,7 @@ Here you will develop an understanding for the cross-covariance and coherence me
 
 ## Data Analysis <a id="data-analysis"></a>
 
-### Visual inspection <a id="visual-inspection"></a>
+## Visual inspection <a id="visual-inspection"></a>
 
 We begin our analysis by visualizing the ECoG data. To do so, let's load the ECoG data into Python and plot the data from the first electrode (variable `E1`) and second electrode (variable `E2`) versus time (variable `t`) for the first trial.
 
@@ -169,11 +169,11 @@ Visual inspection of the data in this trial immediately suggests a dominant rhyt
 
 These techniques allow us to visualize the data one trial at a time. Doing so is often useful but can be time consuming, especially as the number of trials increases. Here we have 100 trials, and to visualize all of them in this way would require 100 plots. That’s not so bad, but there’s a better way. We can display the entire structure of the data across both time and trials as an image:
 
-K = E1.shape[0]  #Get the number of trials,
-f, a = subplots(figsize=(6, 6))  # Make a square axis
-a.imshow(E1,  #... and show the image,
+K = E1.shape[0]                            # Get the number of trials.
+f, a = subplots(figsize=(6, 6))            # Make a square axis
+a.imshow(E1,                               #... and show the image,
            extent=[min(t), max(t), K, 1],  # ... with meaningful axes,
-           aspect='auto')  # ... and a nice aspect ratio
+           aspect='auto')                  # ... and a nice aspect ratio.
 xlabel('Time [s]')
 ylabel('Trial #');
 title('All trials from E1')
@@ -214,18 +214,17 @@ Although visual inspection is a useful initial tool for analyzing data, assessin
 [Return to top](#top)
 <!-- #endregion -->
 
-### Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
+## Autocovariance and Cross-covariance <a id="Autocovariance-and-Cross-covariance"></a>
 
 In <a href="03" rel="local">notebook 3</a>, we defined and applied the autocovariance to a single time series and found that this measure helped reveal dependent structure in the data. We could, of course, apply the autocovariance to each ECoG time series considered here. Let’s do so, with a small update to the autocovariance formula that utilizes the trial structure of these data. We define the trial-averaged autocovariance as, 
 
-
-<span id="eq:ac" title="trial-averaged autocovariance"></span> 
 $$
 r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L,k} - \bar{x}_k) (x_{n,k} - \bar{x}_k) \, ,
-\tag{Trial-averaged autocovariance}
 $$
+<span id="eq:ac" title="trial-averaged autocovariance"></span> 
 
-where $x_{n,k}$ indicates the data at time index $n$ and trial $k,$ and $\overline x_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term $ \frac{1}{K} \sum_{k=1}^K, $ which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K.$  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
+where $x_{n,k}$ indicates the data at time index $n$ and trial $k,$ and $\overline x_k$ is the mean value of $x$ for trial $k$. Notice that we include a new term
+$\frac{1}{K}\sum_{k=1}^K$, which instructs us to sum over all trials the autocovariance computed for each trial, and then divide by the total number of trials $K$.  Let's now compute and display the trial-averaged autocovariance for the first electrode in Python.<a id="fig:taac"></a>
 
 <div class="math-note">
     
@@ -233,18 +232,18 @@ Note: We could instead write the trial-averaged sample autocovariance because th
     
 </div>
 
-dt = t[1] - t[0]  # Define the sampling interval.
-K = E1.shape[0]  # Define the number of trials.
-N = E1.shape[1]  # Define number of points in each trial.
-ac = zeros([2 * N - 1])  # Declare empty vector for autocov.
+dt = t[1] - t[0]              # Define the sampling interval.
+K = E1.shape[0]               # Define the number of trials.
+N = E1.shape[1]               # Define number of points in each trial.
+ac = zeros([2 * N - 1])       # Declare empty vector for autocov.
 
-for trial in E1:  # For each trial,
+for trial in E1:              # For each trial,
     x = trial - trial.mean()  # ... subtract the mean,
     ac0 = 1 / N * correlate(x, x, 'full')  # ... compute autocovar,
-    ac += ac0 / K;  # ... and add to total, scaled by 1/K.
+    ac += ac0 / K;            # ... and add to total, scaled by 1/K.
 
-lags = arange(-N + 1, N)  # Create a lag axis,
-plot(lags * dt, ac)  # ... and plot the result.
+lags = arange(-N + 1, N)      # Create a lag axis,
+plot(lags * dt, ac)           # ... and plot the result.
 xlim([-0.2, 0.2])
 xlabel('Lag [s]')
 ylabel('Autocovariance');
@@ -275,7 +274,11 @@ r_{xy}\big[L\big] = \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L} - \bar{x}) (y_{n} - \b
 $$
 </span>
 
+<<<<<<< HEAD
 where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in <a href="03" rel="local">notebook 3</a>,<span class="thumb"><sup>eq</sup><img src="03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
+=======
+where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in [notebook 3](03), the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
+>>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
 
 The intuition for understanding the cross-covariance is similar to that for the autocovariance (see <a href="03" rel="local">notebook 3</a>). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
 
@@ -287,12 +290,11 @@ The cross-covariance is large at lag $L$ if the two shifted time series $x$ and 
 
 x = E1[0,:] - mean(E1[0,:])  # Define one time series,
 y = E2[0,:] - mean(E2[0,:])  # ... and another.
-xc=1/N*correlate(x,y,2)  # ... and compute their cross covariance.
-lags = arange(-N+1,N)  # Create a lag axis,
-plot(lags*dt,xc)  # ... and plot the cross covariance vs lags in time.
+xc=1/N*correlate(x,y,2)      # ... and compute their cross covariance.
+lags = arange(-N+1,N)        # Create a lag axis,
+plot(lags*dt,xc)             # ... and plot the cross covariance vs lags in time.
 
-# Prettify
-xlim([-0.2, 0.2])
+xlim([-0.2, 0.2])            # In a nice range, with axes labelled.
 xlabel('Lag [s]')
 ylabel('Cross covariance');
 title('Cross covariance between two electrodes during the first trial')
@@ -330,18 +332,17 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 For reference, let's also plot the **single-trial** cross-covariance for 4 trials,  
 <a id="fig:avg_xc"></a>
 
-XC = zeros([K, 2 * N - 1])  # Declare empty vector for cross cov.
-for k in range(K):  # For each trial,
+XC = zeros([K, 2 * N - 1])    # Declare empty vector for cross cov.
+for k in range(K):            # For each trial,
     x = E1[k] - E1[k].mean()  # ...get data from one electrode,
     y = E2[k] - E2[k].mean()  # ...and the other electrode,
     XC[k] = 1 / N * correlate(x, y, 'full')  # ...compute cross covariance.
 
 f, (a1, a2) = subplots(2, 1, figsize=(12, 6), sharex=True, sharey=True)    
-a1.plot(lags * dt, XC.mean(0))					# Plot cross covariance vs lags in time.
+a1.plot(lags * dt, XC.mean(0))                 # Plot cross covariance vs lags in time.
 [a2.plot(lags * dt, XC[k]) for k in range(4)]  # Also, plot the single-trial cross-covariance for 4 trials
 
-# Prettify
-xlim([-0.2, 0.2])
+xlim([-0.2, 0.2])             # In a nice range, with axes labelled.
 ylim([-0.6, 0.6])
 xlabel('Lag [s]')
 a1.set_title('Trial-averaged cross covariance')
@@ -351,7 +352,7 @@ show()
 
 <div class="python-note">
 
-You may have noticed above or in previous chapters that we can write loops using a couple of different forms: 
+You may have noticed above or in previous notebooks that we can write loops using a couple of different forms: 
 
     for k in range(K):
         ...
@@ -385,7 +386,7 @@ Why are the prominent cross-covariance features in the single-trial analysis los
 
 [Return to top](#top)
 
-### Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
+## Trial-Averaged Spectrum <a id="Trial-Averaged-Spectrum"></a>
 
 One goal of this module is to characterize the relations (if any) between the data recorded at the two ECoG electrodes. To do so, let’s review a vital tool in this characterization, the Fourier transform. We defined in <a href="03" rel="local">notebook 3</a> the Fourier transfom of a signal $x$; let's repeat that definition here,
 
@@ -411,26 +412,24 @@ As you may remember from a geometry or calculus class, we can represent a point 
 
 Using polar coordinates, we can then express the complex quantity $X_j$ as,
 
-<a id="eq:x_polar"></a>
 $$
 X_j = A_j \exp(i \phi_j) \, ,
 $$
+<a id="eq:x_polar"></a>
 
 
 where $A_j$ is the amplitude and $\phi_j$ is the phase at frequency index $j$.  Notice that both the amplitude and phase are functions of frequency.  Remember that, to compute the spectrum, we multiple the Fourier transform of the data by its complex conjugate, and scale the result. The spectrum of $x_n$ then becomes, 
 
-<a id="eq:8" title="Spectrum"></a>
 $$
 \begin{align}
-S_{xx, \, j} 	&= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \\
-		&= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
+S_{xx, \, j} 	&= \frac{2 \mathrm{dt}^2}{T} X_j X^\ast_j \, , \notag \\
+		        &= \frac{2 \mathrm{dt}^2}{T} \big(A_j \exp(i \phi_j) \big)  \big(A_j \exp(-i \phi_j) \big) \, ,
 \end{align}
-\tag{Spectrum}
 $$
+<a id="eq:8" title="Spectrum"></a>
 
 where, to compute the complex conjugate in the second term, we replace $i$ with $-i$.  The last expression simplifies rather nicely,
 
-<span id="eq:9" title="Simplified expression for the cross spectrum"></span>
 $$
 \begin{align}
 S_{xx, \, j}	&= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \notag \\
@@ -438,43 +437,43 @@ S_{xx, \, j}	&= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \, , \
 		&= \frac{2 \mathrm{dt}^2}{T} A_j^2 \, .
 \end{align}
 $$
+<span id="eq:9" title="Simplified expression for the cross spectrum"></span>
 
 This expression provides a new, and perhaps more direct, interpretation of the spectrum as proportional to the squared amplitude of the point $X_j$ in the complex plane. We can extend this simplified expression in one additional way to make explicit the trial structure of the ECoG data analyzed here. Because we possess multiple trials, and we assume that each trial represents an instantiation of the same underlying process, we average the spectra across trials to compute the *trial-averaged spectrum*,
 
-<span title="Trial-averaged spectrum"></span>
 $$
 <S_{xx, \, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k}^2 \, ,
 \tag{Trial-averaged spectrum}
 $$
+<span title="Trial-averaged spectrum"></span>
 
 where $k$ indicates the trial number, $K$ the total number of trials, and $A_{j,k}$ the amplitude of the signal at frequency index $j$ and trial index $k$.  Notice how we implement the trial averaging: we simply average the squared amplitude at frequency index $j$ across the $K$ trials.  We use the angular brackets ($< \, >$) to denote that the spectrum ($S_{xx, \, j}$) has been averaged across trials. We can compute the trial-averaged spectrum in Python,
 
 <a id="fig:trial_avg_spectrum"></a>
 
-T = t[-1]  # Get the total time of the recording.
-N = E1.shape[1]  # Determine the number of sample points per trial
-scale = 2 * dt**2 / T  # Compute the scaling constant
+T = t[-1]                                     # Get the total time of the recording.
+N = E1.shape[1]                               # Determine the number of sample points per trial
+scale = 2 * dt**2 / T                         # Compute the scaling constant
 
 # Compute the Fourier transform for each trial
 xf = array([rfft(x - x.mean()) for x in E1])  # ... in E1
 yf = array([rfft(y - y.mean()) for y in E2])  # ... and in E2
 
 # Compute the spectra
-Sxx = scale * (xf * xf.conj())  # Spectrum of E1 trials
-Syy = scale * (yf * yf.conj())  # ... and E2 trials
-Sxy = scale * (xf * yf.conj())  # ... and the cross spectrum
+Sxx = scale * (xf * xf.conj())                # Spectrum of E1 trials
+Syy = scale * (yf * yf.conj())                # ... and E2 trials
+Sxy = scale * (xf * yf.conj())                # ... and the cross spectrum
 
-f = rfftfreq(N, dt)  # Define the frequency axis
+f = rfftfreq(N, dt)                           # Define the frequency axis
 
 # Plot the average spectrum over trials in decibels vs frequency
 plot(f, 10 * log10(Sxx.mean(0).real), lw=3, label='Trial-averaged spectrum')  
 # ... and the spectrum from the first trial for reference
 plot(f, 10 * log10(Sxx[0].real), 'k', label='Single-trial spectrum')  
 
-# Prettify
-xlim([0, 100])  # ... in select frequency range,
-ylim([-50, 0])  # ... in select power range,
-xlabel('Frequency [Hz]')  # ... with axes labelled.
+xlim([0, 100])                                # ... in select frequency range,
+ylim([-50, 0])                                # ... in select power range,
+xlabel('Frequency [Hz]')                      # ... with axes labelled.
 ylabel('Power [ mV^2/Hz]')
 title('Trial-averaged spectrum')
 legend()
@@ -499,7 +498,7 @@ The resulting trial-averaged spectrum is shown in the figure above. Compared to 
 
 [Return to top](#introduction)
 
-# Introduction to the Coherence <a class="anchor" id="sec:coherence"></a>
+## Introduction to the Coherence <a class="anchor" id="sec:coherence"></a>
 
 Coherence is a measure of association between two time series. Briefly:
 
@@ -513,10 +512,10 @@ To compute the coherence, we use the [simplified expression for the spectrum](#e
 
 Consider two signals $x_{n,k}$ and $y_{n,k}$, with time index $n$ and trial index $k$. These signals have corresponding Fourier transforms $X_{j,k}$ and $Y_{j,k}$. Then the *trial-averaged cross-spectrum* between these two signals is
 
-<span id="eq:10" title="Trial averaged cross-spectrum"></span>
 $$
 <S_{xy,\, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K}\sum_{k=1}^K X_{j,k} Y^*_{j,k} \, ,
 $$
+<span id="eq:10" title="Trial averaged cross-spectrum"></span>
 
 where compared to [the spectrum](#eq:8)<span class="thumb"><sup>eq</sup><img src="imgs/eq5-8.png"></span> we replace $X^*_j$ with $Y^*_j$ and include the average over the trial index $k$.  Let's modify and clean up this expression by using polar coordinates.  To do so, we'll first define,
 
@@ -526,35 +525,34 @@ $$
 
 where $B_{j,k}$ is the amplitude and $\theta_{j,k}$ is the phase at frequency index $j$ and trial index $k$ for the signal $y_{n,k}$. A similar expression exists for $X_{j,k}$, with amplitude $A_{j,k}$ and phase $\phi_{j,k}$. Then, replacing $X_{j,k}$ and $Y^*_{j,k}$ in [the trial-averaged cross-spectrum](#eq:9)<span class="sup">eq<img src="imgs/eq5-9.png"></span> with their polar coordinate expressions, we find,
 
-<span id="eq:cross_spectrum" title="Cross spectrum"></span>
 $$
 <S_{xy,\, j}> = \frac{2 \mathrm{dt}^2}{T} \frac{1}{K} \sum_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \, ,
 \tag{Cross spectrum}
 $$
+<span id="eq:cross_spectrum" title="Cross spectrum"></span>
 
 where we have defined the *phase difference* between the two signals as $\Phi_{j,k} = \phi_{j,k} - \theta_{j,k}$. This equation is the trial-averaged cross spectrum of the two signals $x_{n,k}$ and $y_{n,k}$.  We note that the trial-averaged cross spectrum ($<S_{xy,\, j}>$) can be complex (i.e., may have nonzero real and imaginary parts).
 
 At last we define the **coherence**,
 
-<span id="eq:cohr" title="Coherence"></span>
 $$
 \kappa_{xy,\, j} = \frac{ \mid <S_{xy,\, j}> \mid }{ \sqrt{<S_{xx, \, j}>} \sqrt{<S_{yy, \, j}>}} \, ,
 \tag{Coherence}
 $$
+<span id="eq:cohr" title="Coherence"></span>
 
 where $\mid <S_{xy,\, j}> \mid$ indicates the magnitude of the trial-averaged cross spectrum.  In words, the coherence is the magnitude of the trial-averaged cross spectrum between the two signals at frequency index $j$ divided by the magnitude of the trial-averaged spectrum of each signal at frequency index $j$.
 
 To further our understanding of the mathematical expression of the coherence, let's replace the trial-averaged spectra in the numerator and denominator with their corresponding expressions in polar coordinates,
 
-<span id="eq:cohr_ang" title="Coherence in polar coordinates"></span>
 $$
 \kappa_{xy,\, j} = \frac { \biggr\lvert \sum\limits_{k=1}^K A_{j,k} B_{j,k} \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
 			       { \sqrt{\sum\limits_{k=1}^K A_{j,k}^2} \,  \sqrt{\sum\limits_{m=1}^K B_{j,m}^2} }
 $$
+<span id="eq:cohr_ang" title="Coherence in polar coordinates"></span>
 
 This expression is complicated.  So, to gain some intuition for the behavior of $\kappa_{xy,\, j}$, let's make the simplifying assumption that at each frequency the amplitude is identical for both signals and all trials, that is, $A_{j,k} = B_{j,k} = C_j$.  Notice that, in using only the expression $C_j$ for the amplitude, we've eliminated the trial index $k$, and only preserved the frequency index $j$. With this simplifying assumption, our expression for the coherence becomes,
 
-<span id="eq:cohr_simp" title="Coherence (simplified)"></span>
 $$
 \begin{align}
 \kappa_{xy,\, j} &= \frac { \biggr\lvert \sum\limits_{k=1}^K C_j \, C_j \exp \big( i \Phi_{j,k} \big) \biggr\rvert }
@@ -563,12 +561,13 @@ $$
 		    &= \frac{ 1 }{ K }\biggr\lvert \sum_{k=1}^K \exp \big( i \Phi_{j,k} \big) \biggr\rvert \, .
 \end{align}
 $$
+<span id="eq:cohr_simp" title="Coherence (simplified)"></span>
 
 Under the simplifying assumption that the amplitude is identical at each frequency for both signals and all trials, the coherence simplifies to the last equation in the expression above. In this special case, the expression for the coherence only involves the phase difference between the two signals averaged across trials; the amplitudes in the numerator and denominator have canceled out.
 
 Now, let’s interpret the simplified expression for the coherence. To do so, we consider two scenarios.
 
-## Simple Scenario 1:  Phases align across trials <a id="Simple_Scenario_1"></a>
+## Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a>
 
 First, we assume that at a specific frequency index $j$, the two signals possess a *constant* phase difference across trials. Under this assumption, the phase difference in the first trial ($\Phi_{j,1}$) equals the phase difference in the second trial ($\Phi_{j,2}$), which equals the phase difference in the third trial ($\Phi_{j,3}$), and so on for all trials.  To denote this equivalence in the phase difference across trials, let's replace the symbol for the phase difference $\Phi_{j,k}$ with $\Phi_{j,0}$; here, we have replaced the subscript $k$ with the subscript $0$ to remind ourselves that the phase difference does not depend upon the choice of trial. Now consider the expression:
 
@@ -615,7 +614,8 @@ which indicates strong coherence between the two signals.  The strong coherence 
 
 [Return to top](#top)
 
-## Simple Scenario 2: Phases are random across trials <a id="Simple_Scenario_2"></a> 
+## Simple Scenario 2: Phases are random across trials
+<a id="Simple_Scenario_2"></a> 
 
 As a second scenario, consider another specific frequency $j$ in which the two signals have a random phase difference in each trial. In this case, the phase difference can assume any value between $0$ and $2\pi$ for each trial. To visualize this, let’s imagine the phase differences in the complex plane; in this scenario, the vectors point in different (random) directions from trial to trial:
 
@@ -638,7 +638,7 @@ $$
 
 which indicates weak coherence between the two signals.  The weak coherence in this case results from the random phase relationship over trials between the two signals.
 
-# Summary of the coherence <a id="Summary_of_the_coherence"></a>
+## Summary of the coherence <a id="Summary_of_the_coherence"></a>
 
 These two examples illustrate in simplified scenarios the behavior of the coherence. To summarize, the [coherence](#eq:cohr)<span class="thumb"><sup>eq</sup><img src="imgs/eqcohr.png"></span> is a measure of the relationship between $x$ and $y$ at the same frequency.  The coherence ranges between 0 and 1,
 
@@ -709,11 +709,11 @@ Sxy = scale * (xf * yf.conj()).mean(0)  # ... and the cross spectrum
 # Compute the coherence.
 cohr = abs(Sxy) / (sqrt(Sxx) * sqrt(Syy))
 
-f = rfftfreq(N, dt)  # Define a frequency axis.
-plot(f, cohr.real)  # Plot coherence vs frequency,
-xlim([0, 50])  # ... in a chosen frequency range,
-ylim([0, 1])  # ... with y-axis scaled,
-xlabel('Frequency [Hz]')  # ... and with axes labeled.
+f = rfftfreq(N, dt)                     # Define a frequency axis.
+plot(f, cohr.real)                      # Plot coherence vs frequency,
+xlim([0, 50])                           # ... in a chosen frequency range,
+ylim([0, 1])                            # ... with y-axis scaled,
+xlabel('Frequency [Hz]')                # ... and with axes labeled.
 ylabel('Coherence')
 title('Coherence between two electrodes')
 show()
@@ -737,27 +737,26 @@ show()
 
 The coherence results suggest for the two ECoG recordings a constant phase relation across trials at 24 Hz and a random phase relation across trials at 8 Hz. To further explore these relations, let’s visualize the distribution of phase differences at the two frequencies, as implemented in the following Python code:
 
-j8 = where(f==8)[0][0]  # Determine index j for frequency 8 Hz.
-j24 = where(f==24)[0][0]  # Determine index j for frequency 24 Hz.
+j8 = where(f==8)[0][0]       # Determine index j for frequency 8 Hz.
+j24 = where(f==24)[0][0]     # Determine index j for frequency 24 Hz.
 
-phi8 = zeros(K)  # Variables to hold phase differences.
+phi8 = zeros(K)              # Variables to hold phase differences.
 phi24 = zeros(K)
 
-for k in range(K):  # For each trial, compute the cross spectrum. 
+for k in range(K):           # For each trial, compute the cross spectrum. 
     x = E1[k] - mean(E1[k])  # Get the data from each electrode,
     y = E2[k] - mean(E2[k,:])
-    xf = rfft(x - mean(x))  # ... compute the Fourier transform,
+    xf = rfft(x - mean(x))   # ... compute the Fourier transform,
     yf = rfft(y - mean(y))
     Sxy = 2 * dt**2 / T * (xf * conj(yf))  # ... and the cross-spectrum,
-    phi8[k] = angle(Sxy[j8])  # ... and the phases.
+    phi8[k] = angle(Sxy[j8]) # ... and the phases.
     phi24[k] = angle(Sxy[j24])
-
-_, (a1, a2) = subplots(1, 2, sharey=True, sharex=True)  # Plot the distributions of phases.
+                             # Plot the distributions of phases.
+_, (a1, a2) = subplots(1, 2, sharey=True, sharex=True)
 a1.hist(phi8, bins=20, range=[-pi, pi])
 a2.hist(phi24, bins=20, range=[-pi, pi])
 
-# Prettify
-ylim([0, 40])
+ylim([0, 40])                # Set y-axis and label axes.
 a1.set_ylabel('Counts')
 a1.set_xlabel('Phase');
 a1.set_title('Angles at 8 Hz')
@@ -813,7 +812,8 @@ But what if we only collect one trial of data? We can still attempt to compute t
 
 A second approach to compute the coherence from a single trial of data is to use the <a href="https://en.wikipedia.org/wiki/Multitaper" rel="external">multitaper method</a>. In this case, each taper acts like a trial. Therefore, to acquire more trials for an accurate estimate of the coherence, we include more tapers. But, by increasing the number of tapers, we worsen the frequency resolution. Because the ECoG data of interest here consist of multiple trials, we do not focus on measures of single-trial coherence.
 
-## Relation between Statistical Modeling and Coherence <a id="Relation_between_Statistical_Modeling_and_Coherence"></a>
+## Relation between Statistical Modeling and Coherence
+<a id="Relation_between_Statistical_Modeling_and_Coherence"></a>
 
 Before concluding the discussion of coherence, let’s briefly consider a complementary statistical modeling approach. In developing this statistical model, our goal is to capture the (linear) relation between two signals $x$ and $y$ observed simultaneously for multiple trials. We begin by proposing a statistical model that predicts one signal ($y$) as a linear function of the other ($x$):
 
@@ -874,7 +874,7 @@ We conclude that the coherence ($\kappa_{xy,\, j}$) is a scaled version of the f
 
 [Return to top](#top)
 
-# Summary <a id="summary"></a>
+## Summary <a id="summary"></a>
 
 In this module, we analyzed ECoG data recorded from two electrodes during an auditory task. The task involved the repeated presentation of auditory stimuli, resulting in 100 trials of 1 s duration recorded simultaneously from the two electrodes. We began the analysis with visual inspection of individual trials and of all trials at once. Then, to assess the relations between the two recordings, we computed the cross-covariance. We discussed how the cross-covariance is an extension of the autocovariance, and found that the single-trial cross-covariance between the ECoG signals exhibited periodic structure, consistent with rhythmic coupling of period 0.125 s. However, the trial-averaged cross-covariance provided less evidence for consistent rhythmic coupling across trials. We then computed the trial-averaged spectrum and found a large peak near 8 Hz and a much smaller peak near 24 Hz.
 
