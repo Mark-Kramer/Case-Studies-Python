@@ -221,33 +221,49 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis <a id="data-analysis"></a></a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h3">
+            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis <a id="data-analysis"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
             <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual Inspection <a id="visual-inspection"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
+        <li class="nav-item toc-entry toc-h2">
             <a href="#plotting-the-erp-a-id-plotting-the-erp-a" class="nav-link">Plotting the ERP <a id="plotting-the-erp"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
+        <li class="nav-item toc-entry toc-h2">
             <a href="#confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a" class="nav-link">Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h3">
+        <li class="nav-item toc-entry toc-h2">
             <a href="#comparing-erps-a-class-anchor-id-comparing-erps-a" class="nav-link">Comparing ERPs <a class="anchor" id="comparing-erps"></a></a>
         </li>
     
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" class="nav-link">Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a></a><ul class="nav section-nav flex-column">
+                
         <li class="nav-item toc-entry toc-h3">
-            <a href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" class="nav-link">Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a></a>
+            <a href="#step-1" class="nav-link">Step 1</a>
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" class="nav-link">A Bootstrap Test to Compare ERPs <a id="bootstrap"></a></a>
+            <a href="#step-2" class="nav-link">Step 2</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-3" class="nav-link">Step 3</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-4" class="nav-link">Step 4</a>
         </li>
     
             </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" class="nav-link">A Bootstrap Test to Compare ERPs <a id="bootstrap"></a></a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -305,23 +321,23 @@
 <p>We begin this notebook with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to compute an event-related potential with error bars in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/02_EEG-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the data,</span>
-<span class="n">EEGa</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">]</span>  <span class="c1"># ... and get the EEG from one condition,</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>   <span class="c1"># ... and a time axis,</span>
-<span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGa</span><span class="p">)</span>  <span class="c1"># ... and compute the number of trials.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/02_EEG-1.mat&#39;</span><span class="p">)</span>         <span class="c1"># Load the data,</span>
+<span class="n">EEGa</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">]</span>                             <span class="c1"># ... and get the EEG from one condition,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>                                <span class="c1"># ... and a time axis,</span>
+<span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGa</span><span class="p">)</span>                             <span class="c1"># ... and compute the number of trials.</span>
 
-<span class="n">mn</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the mean signal across trials (the ERP)</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Compute the std of the signal across trials</span>
-<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># Compute the std of the mean</span>
+<span class="n">mn</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                               <span class="c1"># Compute the mean signal across trials (the ERP).</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                                <span class="c1"># Compute the std of the signal across trials.</span>
+<span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>                       <span class="c1"># Compute the std of the mean.</span>
 
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># Resize the figure</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Plot the ERP of condition A</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and include the upper CI</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and the lower CI</span>
-<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>  <span class="c1"># Label the axes</span>
+<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>                          <span class="c1"># Resize the figure.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>                          <span class="c1"># Plot the ERP of condition A,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># ... and include the upper CI,</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># ... and the lower CI.</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>                              <span class="c1"># Label the axes,</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu$ V]&#39;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s1">&#39;ERP of condition A&#39;</span><span class="p">)</span>  <span class="c1"># ... provide a useful title</span>
-<span class="n">show</span><span class="p">()</span>  <span class="c1"># ... and show the plot</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;ERP of condition A&#39;</span><span class="p">)</span>                     <span class="c1"># ... provide a useful title,</span>
+<span class="n">show</span><span class="p">()</span>                                          <span class="c1"># ... and show the plot.</span>
 </pre></div>
 </div>
 </div>
@@ -353,7 +369,7 @@
 ></iframe>
 </div></div>
 </div>
-<p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a class="reference external" href="https://en.wikipedia.org/wiki/Hans_Berger">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a class="reference external" href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234">an active area of research</a>.</p>
+<p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a href="https://en.wikipedia.org/wiki/Hans_Berger" target="blank">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234">an active area of research</a>.</p>
 <p>Compared to other modalities for measuring brain activity, the EEG possesses both advantages and disadvantages.  Perhaps the most important advantages are:</p>
 <ol class="simple">
 <li><p>The EEG is non-invasive, and</p></li>
@@ -457,12 +473,12 @@
 EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
 EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
 data       dict                          n=6
-fft        function                      &lt;function fft at 0x109fd2050&gt;
+fft        function                      &lt;function fft at 0x10991e320&gt;
 linalg     module                        &lt;module &#39;numpy.linalg.lin&lt;...&gt;/numpy/linalg/linalg.py&#39;&gt;
 mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 ntrials    int                           1000
-power      builtin_function_or_method    &lt;built-in method power of&lt;...&gt;te object at 0x109f9c9e0&gt;
-random     builtin_function_or_method    &lt;built-in method random o&lt;...&gt;te object at 0x109f9c9e0&gt;
+power      builtin_function_or_method    &lt;built-in method power of&lt;...&gt;te object at 0x1098ee8d0&gt;
+random     builtin_function_or_method    &lt;built-in method random o&lt;...&gt;te object at 0x1098ee8d0&gt;
 sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
 t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
@@ -503,8 +519,9 @@ t          ndarray                       500: 500 elems, type `float64`, 4000 by
 </div><div class="python-note">
 <p>A <em>tuple</em> is another data structure in Python that is similar to an array or a list because it usually contains more than one element. Python treats each of these structures slightly differently, however. One of the most challenging things about starting with Python is learning to understand the different data structures. Here, we will mainly work with arrays, which are good for holding multidimensional data. If you are curious and want to know more about data structures, there is a very concise description <a href="http://thomas-cokelaer.info/tutorials/python/data_structures.html">here</a> to get you started.</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+</div>
 <div class="section" id="visual-inspection-a-id-visual-inspection-a">
-<h3>Visual Inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h3>
+<h2>Visual Inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;uSjd41G-yNY&#39;</span><span class="p">)</span>
@@ -791,7 +808,7 @@ t          ndarray                       500: 500 elems, type `float64`, 4000 by
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time[s]&#39;</span><span class="p">)</span>                              <span class="c1"># Label the axes</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trial #&#39;</span><span class="p">)</span>
 <span class="n">colorbar</span><span class="p">()</span>                                     <span class="c1"># Show voltage to color mapping</span>
-<span class="n">vlines</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>       <span class="c1"># Indicate stimulus onset with line</span>
+<span class="n">vlines</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>               <span class="c1"># Indicate stimulus onset with line</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/2-4&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -810,7 +827,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
 <div class="section" id="plotting-the-erp-a-id-plotting-the-erp-a">
-<h3>Plotting the ERP <a id="plotting-the-erp"></a><a class="headerlink" href="#plotting-the-erp-a-id-plotting-the-erp-a" title="Permalink to this headline">¶</a></h3>
+<h2>Plotting the ERP <a id="plotting-the-erp"></a><a class="headerlink" href="#plotting-the-erp-a-id-plotting-the-erp-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;kPr2GLSKLJg&#39;</span><span class="p">)</span>
@@ -834,7 +851,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <a id="fig:5"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>  <span class="c1"># Plot the ERP of condition A</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>        <span class="c1"># Plot the ERP of condition A</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># Label the axes</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$\mu V$]&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;ERP of condition A&#39;</span><span class="p">)</span>  <span class="c1"># ... provide a title</span>
@@ -854,7 +871,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
 <div class="section" id="confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a">
-<h3>Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a" title="Permalink to this headline">¶</a></h3>
+<h2>Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;pXCJbyrw8Ug&#39;</span><span class="p">)</span>
@@ -873,7 +890,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 ></iframe>
 </div></div>
 </div>
-<p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a class="reference external" href="https://en.wikipedia.org/wiki/Central_limit_theorem"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
+<p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="blank"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a href="https://en.wikipedia.org/wiki/Normal_distribution" target="blank">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
 <div class="question">
 <p><strong>Q.</strong> To use the CLT, we make two assumptions about the EEG data. Are these assumptions reasonable?</p>
 <p><strong>A.</strong> We assume that the EEG data are independent across trials. This assumption may fail if, for example, the activity in one trial influences the activity in the next trial. We also assume that the EEG data are “well-behaved” (i.e., have finite mean and variance). That is a reasonable assumption for physical data we observe from the brain; we expect the EEG data to always remain finite and not diverge to plus or minus infinity.</p>
@@ -908,7 +925,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <p>Now, having found the mean (<code class="docutils literal notranslate"><span class="pre">mn</span></code>) and the standard deviation of the mean (<code class="docutils literal notranslate"><span class="pre">sdmn</span></code>), we can compute a 95% confidence interval for the ERP. We again exploit the observation, based on the central limit theorem, that the ERP is normally distributed at each instant of time. With these calculations, the following code plots the ERP and the 95% confidence interval:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>     <span class="c1"># Save the axes for use in later cells and resize the figure</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>    <span class="c1"># Save the axes for use in later cells and resize the figure</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>              <span class="c1"># Plot the ERP of condition A</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and include the upper CI</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and the lower CI</span>
@@ -945,7 +962,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
     <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># x-axis is time</span>
     <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [$/mu V$]&#39;</span><span class="p">)</span>  <span class="c1"># y-axis is voltage</span>
     <span class="n">title</span><span class="p">(</span><span class="n">title_string</span><span class="p">)</span>          <span class="c1"># use the input here</span>
-    <span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    <span class="c1"># no white-space in plot</span>
+    <span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>        <span class="c1"># no white-space in plot</span>
 </pre></div>
 </div>
 </div>
@@ -979,22 +996,21 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
 <div class="section" id="comparing-erps-a-class-anchor-id-comparing-erps-a">
-<h3>Comparing ERPs <a class="anchor" id="comparing-erps"></a><a class="headerlink" href="#comparing-erps-a-class-anchor-id-comparing-erps-a" title="Permalink to this headline">¶</a></h3>
+<h2>Comparing ERPs <a class="anchor" id="comparing-erps"></a><a class="headerlink" href="#comparing-erps-a-class-anchor-id-comparing-erps-a" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate <em>differences</em> between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="kn">import</span> <span class="n">ERP</span>  <span class="c1"># A function written by the author to compute the ERP</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">my_module</span> <span class="kn">import</span> <span class="n">ERP</span>             <span class="c1"># A function written by the author to compute the ERP</span>
 
 <span class="n">erpA</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="n">ca_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGa&#39;</span><span class="p">])</span>  <span class="c1"># Compute the ERP of condition A</span>
 <span class="n">erpB</span><span class="p">,</span> <span class="n">cb_l</span><span class="p">,</span> <span class="n">cb_h</span> <span class="o">=</span> <span class="n">ERP</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEGb&#39;</span><span class="p">])</span>  <span class="c1"># ... and condition B</span>
 
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ca_h</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>  <span class="c1"># Plot confidence bounds in back</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ca_l</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ca_h</span><span class="p">,</span> <span class="s1">&#39;r:&#39;</span><span class="p">)</span>    <span class="c1"># Plot confidence bounds in back</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">cb_l</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">cb_h</span><span class="p">,</span> <span class="s1">&#39;b:&#39;</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">erpA</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;condition A&#39;</span><span class="p">)</span>  <span class="c1"># ... and ERPs in front</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">erpB</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;condition B&#39;</span><span class="p">)</span>
 
-<span class="c1"># Prettify</span>
-<span class="n">labelPlot</span><span class="p">(</span><span class="s1">&#39;ERP of conditions A and B&#39;</span><span class="p">)</span>
+<span class="n">labelPlot</span><span class="p">(</span><span class="s1">&#39;ERP of conditions A and B&#39;</span><span class="p">)</span><span class="c1"># Label axes</span>
 <span class="n">legend</span><span class="p">()</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/2-8a&#39;</span><span class="p">)</span>
 <span class="n">show</span><span class="p">()</span>
@@ -1019,19 +1035,19 @@ $\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ERP of condition A</span>
-<span class="n">sdmnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># ... and standard dev of mean</span>
+<span class="n">sdmnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>    <span class="c1"># ... and standard dev of mean</span>
 
 <span class="n">mnB</span> <span class="o">=</span> <span class="n">EEGb</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ERP of condition B</span>
-<span class="n">sdmnB</span> <span class="o">=</span> <span class="n">EEGb</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># ... and standard dev of mean</span>
+<span class="n">sdmnB</span> <span class="o">=</span> <span class="n">EEGb</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>    <span class="c1"># ... and standard dev of mean</span>
 
-<span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>  <span class="c1"># the differenced ERP</span>
+<span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>     <span class="c1"># Differenced ERP</span>
 <span class="n">sdmnD</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">sdmnA</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">sdmnB</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># ... and its standard dev</span>
 
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnD</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># plot the differenced ERP</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnD</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>         <span class="c1"># plot the differenced ERP</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnD</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmnD</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... the upper CI</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnD</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmnD</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... and the lower CI</span>
-<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># ... and a horizontal line at 0</span>
-<span class="n">labelPlot</span><span class="p">(</span><span class="s1">&#39;Differenced ERP&#39;</span><span class="p">)</span>  <span class="c1"># label the plot</span>
+<span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>       <span class="c1"># ... and a horizontal line at 0</span>
+<span class="n">labelPlot</span><span class="p">(</span><span class="s1">&#39;Differenced ERP&#39;</span><span class="p">)</span>    <span class="c1"># label the plot</span>
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1046,7 +1062,7 @@ $\)</span></p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
 <div class="section" id="confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a">
-<h3>Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" title="Permalink to this headline">¶</a></h3>
+<h2>Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;vVXH4XsPFEs&#39;</span><span class="p">)</span>
@@ -1094,7 +1110,9 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p><strong>Step 1.</strong> In step 1 we must sample with replacement from the EEG data. To visualize this procedure, imagine placing 1,000 marbles in an opaque bag. Each marble is assigned a unique integer value from 1 to 1,000. Now, reach your hand into the bag, grab a marble, record its number, and replace the marble in the bag. We assume that each marble is equally likely to be selected at each draw (i.e., there are no special features that allow some marbles to be drawn more often). Repeat this procedure 1,000 times to create a list of 1,000 integers. Notice that after recording the drawn marble’s number, we replace it in the bag. So, we could potentially draw the same marble 1,000 times, although that’s extremely unlikely. Performing this sampling with replacement procedure by hand would, of course, be extremely time consuming (e.g., who will paint integers on each marble?). Fortunately, Python provides a function to perform sampling with replacement:</p>
+<div class="section" id="step-1">
+<h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
+<p>In step 1 we must sample with replacement from the EEG data. To visualize this procedure, imagine placing 1,000 marbles in an opaque bag. Each marble is assigned a unique integer value from 1 to 1,000. Now, reach your hand into the bag, grab a marble, record its number, and replace the marble in the bag. We assume that each marble is equally likely to be selected at each draw (i.e., there are no special features that allow some marbles to be drawn more often). Repeat this procedure 1,000 times to create a list of 1,000 integers. Notice that after recording the drawn marble’s number, we replace it in the bag. So, we could potentially draw the same marble 1,000 times, although that’s extremely unlikely. Performing this sampling with replacement procedure by hand would, of course, be extremely time consuming (e.g., who will paint integers on each marble?). Fortunately, Python provides a function to perform sampling with replacement:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Draw 1000 integers with replacement from [0, 1000)</span>
@@ -1140,7 +1158,10 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p><strong>Step 2.</strong> This step is easy: we create a resampled ERP from the resampled EEG data. Computing the resampled ERP requires only one line of code in Python:</p>
+</div>
+<div class="section" id="step-2">
+<h3>Step 2<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h3>
+<p>This step is easy: we create a resampled ERP from the resampled EEG data. Computing the resampled ERP requires only one line of code in Python:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERP0</span> <span class="o">=</span> <span class="n">EEG0</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Create the resampled ERP</span>
@@ -1170,20 +1191,23 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p><strong>Step 3.</strong> In the first two steps of the resampling procedure we created a single resampled ERP. In step 3 we are instructed to repeat this procedure 3,000 times and create a distribution of ERPs. How can we do so? One potential solution is to cut and paste the code we developed over and over again, for example:</p>
+</div>
+<div class="section" id="step-3">
+<h3>Step 3<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h3>
+<p>In the first two steps of the resampling procedure we created a single resampled ERP. In step 3 we are instructed to repeat this procedure 3,000 times and create a distribution of ERPs. How can we do so? One potential solution is to cut and paste the code we developed over and over again, for example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span>  <span class="c1"># Draw integers,</span>
-<span class="n">EEG1</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  <span class="c1"># ... create resampled EEG,</span>
-<span class="n">ERP1</span> <span class="o">=</span> <span class="n">EEG1</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1"># ... create resampled ERP.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span> <span class="c1"># Draw integers,</span>
+<span class="n">EEG1</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>                     <span class="c1"># ... create resampled EEG,</span>
+<span class="n">ERP1</span> <span class="o">=</span> <span class="n">EEG1</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>                <span class="c1"># ... create resampled ERP.</span>
 
-<span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span>  <span class="c1"># Draw integers,</span>
-<span class="n">EEG2</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  <span class="c1"># ... create resampled EEG,</span>
-<span class="n">ERP2</span> <span class="o">=</span> <span class="n">EEG2</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1"># ... create resampled ERP.</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span> <span class="c1"># Draw integers,</span>
+<span class="n">EEG2</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>                     <span class="c1"># ... create resampled EEG,</span>
+<span class="n">ERP2</span> <span class="o">=</span> <span class="n">EEG2</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>                <span class="c1"># ... create resampled ERP.</span>
 
-<span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span>  <span class="c1"># Draw integers,</span>
-<span class="n">EEG3</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  <span class="c1"># ... create resampled EEG,</span>
-<span class="n">ERP3</span> <span class="o">=</span> <span class="n">EEG3</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1"># ... create resampled ERP.</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">);</span> <span class="c1"># Draw integers,</span>
+<span class="n">EEG3</span> <span class="o">=</span> <span class="n">EEGa</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>                     <span class="c1"># ... create resampled EEG,</span>
+<span class="n">ERP3</span> <span class="o">=</span> <span class="n">EEG3</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>                <span class="c1"># ... create resampled ERP.</span>
 </pre></div>
 </div>
 </div>
@@ -1197,15 +1221,15 @@ $\)</span></p>
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrapERP</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># Steps 1-2</span>
     <span class="sd">&quot;&quot;&quot; Calculate bootstrap ERP from data (array type)&quot;&quot;&quot;</span>
-    <span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">)</span>  <span class="c1"># Get the number of trials</span>
-    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># Unless the size is specified,</span>
-        <span class="n">size</span> <span class="o">=</span> <span class="n">ntrials</span>  <span class="c1"># ... choose ntrials</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>  <span class="c1"># ... draw random trials,</span>
-    <span class="n">EEG0</span> <span class="o">=</span> <span class="n">EEGdata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># ... create resampled EEG,</span>
-    <span class="k">return</span> <span class="n">EEG0</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># ... return resampled ERP.</span>
-
-<span class="n">ERP0</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEGa</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)]</span>  <span class="c1"># Step 3: Repeat 3000 times </span>
-<span class="n">ERP0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">ERP0</span><span class="p">)</span>  <span class="c1"># ... and convert the result to an array</span>
+    <span class="n">ntrials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">EEGdata</span><span class="p">)</span>             <span class="c1"># Get the number of trials</span>
+    <span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>                   <span class="c1"># Unless the size is specified,</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">ntrials</span>                 <span class="c1"># ... choose ntrials</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">ntrials</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>    <span class="c1"># ... draw random trials,</span>
+    <span class="n">EEG0</span> <span class="o">=</span> <span class="n">EEGdata</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>                  <span class="c1"># ... create resampled EEG,</span>
+    <span class="k">return</span> <span class="n">EEG0</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                <span class="c1"># ... return resampled ERP.</span>
+                                       <span class="c1"># Step 3: Repeat 3000 times </span>
+<span class="n">ERP0</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEGa</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)]</span>
+<span class="n">ERP0</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">ERP0</span><span class="p">)</span>                     <span class="c1"># ... and convert the result to an array</span>
 </pre></div>
 </div>
 </div>
@@ -1245,19 +1269,22 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p><strong>Step 4.</strong> In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index <span class="math notranslate nohighlight">\(0.025 \times 3000 = 75\)</span> and <span class="math notranslate nohighlight">\(0.975 \times 3000 = 2925\)</span>. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a></p>
+</div>
+<div class="section" id="step-4">
+<h3>Step 4<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h3>
+<p>In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index <span class="math notranslate nohighlight">\(0.025 \times 3000 = 75\)</span> and <span class="math notranslate nohighlight">\(0.975 \times 3000 = 2925\)</span>. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERP0</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Sort each column of the resampled ERP</span>
-<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ERP0</span><span class="p">)</span>  <span class="c1"># Define the number of samples</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ERP0</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>         <span class="c1"># Sort each column of the resampled ERP</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ERP0</span><span class="p">)</span>             <span class="c1"># Define the number of samples</span>
 <span class="n">ciL</span> <span class="o">=</span> <span class="n">ERP0</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.025</span><span class="o">*</span><span class="n">N</span><span class="p">)]</span>  <span class="c1"># Determine the lower CI</span>
 <span class="n">ciU</span> <span class="o">=</span> <span class="n">ERP0</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="mf">0.975</span><span class="o">*</span><span class="n">N</span><span class="p">)]</span>  <span class="c1"># ... and the upper CI</span>
-<span class="n">mnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Determine the ERP for condition A</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># ... and plot it</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ciL</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... and plot the lower CI</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ciU</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>  <span class="c1"># ... and the upper CI</span>
-<span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>  <span class="c1"># plot a horizontal line at 0</span>
-                      <span class="c1"># ... and label the axes</span>
+<span class="n">mnA</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>        <span class="c1"># Determine the ERP for condition A</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mnA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>   <span class="c1"># ... and plot it</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ciL</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>        <span class="c1"># ... and plot the lower CI</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ciU</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">)</span>        <span class="c1"># ... and the upper CI</span>
+<span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>      <span class="c1"># plot a horizontal line at 0</span>
+                          <span class="c1"># ... and label the axes</span>
 <span class="n">labelPlot</span><span class="p">(</span><span class="s1">&#39;ERP of condition A with bootstrap confidence intervals&#39;</span><span class="p">)</span>  <span class="c1"># We define this function above!</span>
 </pre></div>
 </div>
@@ -1273,8 +1300,9 @@ $\)</span></p>
 <p><strong>Q.</strong> Compute the confidence intervals using the bootstrapping procedure for the ERP of condition B. What do you find?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
 </div>
+</div>
 <div class="section" id="a-bootstrap-test-to-compare-erps-a-id-bootstrap-a">
-<h3>A Bootstrap Test to Compare ERPs <a id="bootstrap"></a><a class="headerlink" href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" title="Permalink to this headline">¶</a></h3>
+<h2>A Bootstrap Test to Compare ERPs <a id="bootstrap"></a><a class="headerlink" href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;K6pgCxFdELc&#39;</span><span class="p">)</span>
@@ -1298,7 +1326,7 @@ $\)</span></p>
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mbA</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">EEGa</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Determine ERP for condition A</span>
 <span class="n">mnB</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">EEGb</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># Determine ERP for condition B</span>
-<span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>                <span class="c1"># Compute the differenced ERP</span>
+<span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>             <span class="c1"># Compute the differenced ERP</span>
 <span class="n">stat</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">mnD</span><span class="p">))</span>        <span class="c1"># Compute the statistic</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;stat = </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stat</span><span class="p">))</span>
 </pre></div>
@@ -1330,7 +1358,7 @@ $\)</span></p>
 ></iframe>
 </div></div>
 </div>
-<p>In isolation, the numerical value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> is not very useful or interesting. Is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Null_hypothesis"><em>null hypothesis</em></a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
+<p>In isolation, the numerical value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> is not very useful or interesting. Is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a href="https://en.wikipedia.org/wiki/Null_hypothesis">null hypothesis</a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
 <p>It may seem odd to create pseudodata by selecting trials across both conditions; intuitively, we may expect the data to differ in these two conditions and feel uncomfortable making a pseudodata set that includes trials from both conditions. But under the null hypothesis, we assume no difference between the EEG responses in conditions A and B, and we are therefore free to create pseudodata drawing from trials in both conditions. We do so with the goal of creating a distribution of values for <code class="docutils literal notranslate"><span class="pre">stat</span></code> under the null hypothesis that conditions A and B exhibit no difference. We then compare the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> with this distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values. If there is a difference between the two conditions, we expect to find the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be very different from the distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values generated from the pseudodata under the null hypothesis.</p>
 <p>To create the distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values under the null hypothesis of no difference between the two conditions, we perform a bootstrap test. The idea is similar to the bootstrapping procedure used to construct the <a class="reference external" href="#fig:1">confidence intervals for the ERP</a><span class="sup">fig<img src="imgs/2-1.png"></span>. We proceed as follows:</p>
 <ol class="simple">
@@ -1344,16 +1372,16 @@ $\)</span></p>
 <p>The code to implement this procedure is similar to the bootstrapping procedure that we have already implemented to compute the confidence intervals for the ERP:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EEG</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">((</span><span class="n">EEGa</span><span class="p">,</span> <span class="n">EEGb</span><span class="p">))</span>  <span class="c1"># Step 1. Merge EEG data from all trials</span>
-<span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>  <span class="c1"># For reproducibility</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">EEG</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">((</span><span class="n">EEGa</span><span class="p">,</span> <span class="n">EEGb</span><span class="p">))</span>                <span class="c1"># Step 1. Merge EEG data from all trials</span>
+<span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>                                 <span class="c1"># For reproducibility</span>
 
-<span class="k">def</span> <span class="nf">bootstrapStat</span><span class="p">(</span><span class="n">EEG</span><span class="p">):</span>  <span class="c1"># Steps 2-4.</span>
-    <span class="n">mnA</span> <span class="o">=</span> <span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEG</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># Create resampled ERPa. The function &#39;bootstrapERP&#39; is defined above!</span>
-    <span class="n">mnB</span> <span class="o">=</span> <span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEG</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">)</span>  <span class="c1"># Create resampled ERPb</span>
-    <span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>  <span class="c1"># Compute differenced ERP</span>
-    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">mnD</span><span class="p">))</span>  <span class="c1"># Return the statistic</span>
-
-<span class="n">statD</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrapStat</span><span class="p">(</span><span class="n">EEG</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)]</span>  <span class="c1"># Resample 3,000 times</span>
+<span class="k">def</span> <span class="nf">bootstrapStat</span><span class="p">(</span><span class="n">EEG</span><span class="p">):</span>                   <span class="c1"># Steps 2-4.</span>
+    <span class="n">mnA</span> <span class="o">=</span> <span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEG</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">)</span> <span class="c1"># Create resampled ERPa. The function &#39;bootstrapERP&#39; is defined above!</span>
+    <span class="n">mnB</span> <span class="o">=</span> <span class="n">bootstrapERP</span><span class="p">(</span><span class="n">EEG</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">ntrials</span><span class="p">)</span> <span class="c1"># Create resampled ERPb</span>
+    <span class="n">mnD</span> <span class="o">=</span> <span class="n">mnA</span> <span class="o">-</span> <span class="n">mnB</span>                       <span class="c1"># Compute differenced ERP</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">mnD</span><span class="p">))</span>                  <span class="c1"># Return the statistic</span>
+                                          <span class="c1"># Resample 3,000 times</span>
+<span class="n">statD</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrapStat</span><span class="p">(</span><span class="n">EEG</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3000</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
@@ -1378,7 +1406,7 @@ Then, as before, we define the function <code class="docutils literal notranslat
 ></iframe>
 </div></div>
 </div>
-<img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png" height="20" width="600"><p>The figure above shows the distribution of values for the test statistic under the null hypothesis of no difference between the two conditions. The orange line indicates observed statistic from the EEG data.</p>
+<img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png"><p>The figure above shows the distribution of values for the test statistic under the null hypothesis of no difference between the two conditions. The orange line indicates observed statistic from the EEG data.</p>
 <div class="python-note">
 <p>The <code class="docutils literal notranslate"><span class="pre">seed()</span></code> function controls the random numbers that are generated. This ensures that when you recreate the plot above, yours will look identical. Nonetheless, if you remove (or comment out) this statement, your plot should still look very similar as the distribution should change only slightly.</p>
 </div><div class="question">
@@ -1388,7 +1416,6 @@ Then, as before, we define the function <code class="docutils literal notranslat
 <p><strong>A.</strong> Yes. Under the null hypothesis, the distribution fo the statistic ranges from approximately 0.15 to 0.33. The observed statistic <code class="docutils literal notranslate"><span class="pre">stat</span> <span class="pre">=</span> <span class="pre">0.2884</span></code> exceeds most values in this distribution. Computing <code class="docutils literal notranslate"><span class="pre">sum(statD</span> <span class="pre">&gt;</span> <span class="pre">stat)</span></code> we find in this example that only 18 of the 3,000 values in the distribution exceed the observed statistic. This corresponds to a proportion of 18/3000 = 0.006. We therefore reject the null hypothesis of no difference between the ERPs of conditions A and B. This result may be surprising, given how similar the two ERPs appear and the large variability in their differences (<a class="reference external" href="#plt:differencedERP">see figure</a>).</p>
 </div><p>This result illustrates the power of the bootstrapping procedure. We proposed a complicated statistic (the maximum absolute value of the difference between the two resampled ERPs). For this statistic, we do not possess an obvious formula to decide whether the resulting statistic is significant (we cannot rely on the CLT, for example). To determine significance, we employ a bootstrapping procedure (also known as a permutation test), which we can perform even for the relatively complicated statistic. In this way, we may devise complicated measures of data and construct error bars or compute statistical significance, provided our computational resources are sufficient.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
-</div>
 </div>
 <div class="section" id="summary-a-id-summary-a">
 <h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
