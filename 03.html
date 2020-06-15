@@ -255,11 +255,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#the-nyquist-frequency-f-nq-a-id-nyquist-frequency-a" class="nav-link">The Nyquist frequency, f_{NQ} <a id="nyquist-frequency"></a></a>
+            <a href="#the-nyquist-frequency-a-id-nyquist-frequency-a" class="nav-link">The Nyquist frequency <a id="nyquist-frequency"></a></a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#the-frequency-resolution-df-a-id-frequency-resolution-a" class="nav-link">The frequency resolution, df<a id="frequency-resolution"></a></a>
+            <a href="#the-frequency-resolution-a-id-frequency-resolution-a" class="nav-link">The frequency resolution<a id="frequency-resolution"></a></a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -995,8 +995,8 @@ $\)</span></p>
 </div>
 <p>In the next two sections, we focus on interpreting and adjusting the quantities <span class="math notranslate nohighlight">\(df\)</span> and <span class="math notranslate nohighlight">\(f_{NQ}\)</span>. Doing so is critical to developing a further intuition for the spectrum.</p>
 </div>
-<div class="section" id="the-nyquist-frequency-f-nq-a-id-nyquist-frequency-a">
-<h2>The Nyquist frequency, <span class="math notranslate nohighlight">\(f_{NQ}\)</span> <a id="nyquist-frequency"></a><a class="headerlink" href="#the-nyquist-frequency-f-nq-a-id-nyquist-frequency-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-nyquist-frequency-a-id-nyquist-frequency-a">
+<h2>The Nyquist frequency <a id="nyquist-frequency"></a><a class="headerlink" href="#the-nyquist-frequency-a-id-nyquist-frequency-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;sgYkOkrlQ_E&#39;</span><span class="p">)</span>
@@ -1033,8 +1033,8 @@ $\)</span></p>
 <p>To avoid aliasing, sample data at sufficiently high rates.</p>
 </div><p>Typically, to prevent aliasing, recorded data are first analog-filtered before the digital sampling occurs. The analog filtering guarantees that activity at frequencies exceeding a threshold value (<span class="math notranslate nohighlight">\(f_c\)</span>, say) are dramatically reduced. The sampling rate can then be chosen to exceed this threshold value by at least a factor of 2 (i.e., <span class="math notranslate nohighlight">\(f_0 &gt; 2f_c\)</span>). We note that in this case the EEG data were first analog-filtered at 200 Hz before digital sampling occurred at 1000 Hz. So, for our EEG data, aliasing is not a concern.</p>
 </div>
-<div class="section" id="the-frequency-resolution-df-a-id-frequency-resolution-a">
-<h2>The frequency resolution, <span class="math notranslate nohighlight">\(df\)</span><a id="frequency-resolution"></a><a class="headerlink" href="#the-frequency-resolution-df-a-id-frequency-resolution-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-frequency-resolution-a-id-frequency-resolution-a">
+<h2>The frequency resolution<a id="frequency-resolution"></a><a class="headerlink" href="#the-frequency-resolution-a-id-frequency-resolution-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;bZsj_gcGoSo&#39;</span><span class="p">)</span>
@@ -1576,7 +1576,7 @@ purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.796903e-17
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.818926e-17
 sin          9.989204e-01
 cos         -3.238373e-03
 dtype: float64
@@ -1643,7 +1643,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.9978524145209708
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.9978524145209726
 </pre></div>
 </div>
 </div>
