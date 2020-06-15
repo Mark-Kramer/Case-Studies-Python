@@ -1,31 +1,21 @@
 // Put your custom javascript here
 
-
+// Include jquery in the head element
 var script = document.createElement('script');
-
-script.src = "https://rawgit.com/showdownjs/showdown/develop/dist/showdown.min.js";
+script.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js";
 script.type = "text/javascript";
-
 document.head.appendChild(script);
 
-function md2html() {
-	var converter = new showdown.Converter();
-	var classes = ["question", "python-note", "warning", "math-note"];
+$( document ).ready(function() {
+	var ext = "." + document.URL.split('.').pop().split(/\#|\?/)[0];
+	var local = $('a[rel="local"]');
 
-	c = 0;
-	while (classes[c]) {
-		ii = 0;
-		X = document.getElementsByClassName(classes[c]);
-		while (X[ii]) {
-			X[ii].innerHTML = converter.makeHtml(X[ii].innerHTML);
-			ii++;
-		}
-		c++;
-	}
-}
-
-document.addEventListener('turbolinks:load', () => {
-  md2html()
-})
-
-initFunction(md2html)
+    // Update targets in links with rel=["external", "local"]
+	$('a[rel="external"]').attr('target', '_blank');
+	local.attr('target', '_blank');
+	// Add link extension
+	$.each(local, function( idx, a ) { 
+		if ( a.href.search('#') >= 0 ) { a.href = a.href.split('#').join(ext); }
+		else { a.href += ext };
+	});
+});

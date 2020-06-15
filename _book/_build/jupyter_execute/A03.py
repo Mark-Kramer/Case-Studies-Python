@@ -11,7 +11,7 @@ VimeoVideo('140084447')
 
 Here's some additional intereting videos and references:
 
-- <a href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=1" target="_blank">Lecture by Prof. Gerstner</a>
+- <a href="http://klewel.com/conferences/epfl-neural-networks/index.php?talkID=1" rel="external">Lecture by Prof. Gerstner</a>
 
 ##  Preliminaries
 Before beginning, let's load in the Python packages we'll need:
@@ -128,7 +128,7 @@ V[0]=0.2
 
 ## Part 2:  Numerical solutions - implementation
 
-Let's computerize this iteration-by-hand procedure to find `V[999]`. To do so, we'll use a <a href="https://wiki.python.org/moin/ForLoop" target="_blank">for-loop</a>.  Here's what it looks like:
+Let's computerize this iteration-by-hand procedure to find `V[999]`. To do so, we'll use a <a href="https://wiki.python.org/moin/ForLoop" rel="external">for-loop</a>.  Here's what it looks like:
 
 for k in range(1,999):
     V[k+1] = V[k] + dt*(I/C)
@@ -223,7 +223,7 @@ ylabel('Voltage [mV]');
   - First, we'll define the voltage threshold `Vth`, and
   reset voltage `Vreset`.
   - Second, we'll check to see if `V` exceeds
-  `Vth` using an <a href="https://docs.python.org/3/tutorial/controlflow.html" target="_blank">if-statement</a>;  if it does, then we'll set `V` equal to
+  `Vth` using an <a href="https://docs.python.org/3/tutorial/controlflow.html" rel="external">if-statement</a>;  if it does, then we'll set `V` equal to
   `Vreset`.
   
 Here's what we'll add to the code:

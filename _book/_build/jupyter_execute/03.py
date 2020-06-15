@@ -87,7 +87,7 @@ show()
 
 YouTubeVideo('PmGme7YuAiw')
 
-In this notebook, we consider data recorded in the scalp <a href="https://en.wikipedia.org/wiki/Electroencephalography" target="_blank">electroencephalogram</a> or EEG. The EEG provides a measure of brain voltage activity with high temporal resolution (typically on the order of milliseconds) but poor spatial resolution (on the order of 10 cm<sup>2</sup> of cortex). Here we will consider EEG activity recorded from a single scalp electrode. We will analyze these data to determine what (if any) rhythmic activity is present. In doing so, we will learn about an important technique to characterize rhythms in data - the Fourier transform and power spectral density or "spectrum" - and the many subtleties associated with this technique. We begin with a brief description of the data.
+In this notebook, we consider data recorded in the scalp <a href="https://en.wikipedia.org/wiki/Electroencephalography" rel="external">electroencephalogram</a> or EEG. The EEG provides a measure of brain voltage activity with high temporal resolution (typically on the order of milliseconds) but poor spatial resolution (on the order of 10 cm<sup>2</sup> of cortex). Here we will consider EEG activity recorded from a single scalp electrode. We will analyze these data to determine what (if any) rhythmic activity is present. In doing so, we will learn about an important technique to characterize rhythms in data - the Fourier transform and power spectral density or "spectrum" - and the many subtleties associated with this technique. We begin with a brief description of the data.
 
 ### Case study data
 
@@ -135,7 +135,7 @@ show()
 
 <div class="python-note">
     
-**Array shapes:** The `reshape()` function lets us change the shape of an array. `reshape(-1)` tells Python to reshape the array into a vector with as many elements as are in the array. Mathematically, a vector is a one-dimensional array. In Python, the difference is that a vector is indexed by a single number, while an array is indexed by multiple numbers. After reshaping, we can look at the number at index 0 of `EEG` using `EEG[0]`. If we don't reshape first, we need to use `EEG[0, 0]` to get the same result, so reshaping the array isn't required, but it is more convenient. There is a nice explanation of array shapes <a href="https://stackoverflow.com/questions/22053050/difference-between-numpy-array-shape-r-1-and-r#answer-22074424" target="_blank">here</a>. 
+**Array shapes:** The `reshape()` function lets us change the shape of an array. `reshape(-1)` tells Python to reshape the array into a vector with as many elements as are in the array. Mathematically, a vector is a one-dimensional array. In Python, the difference is that a vector is indexed by a single number, while an array is indexed by multiple numbers. After reshaping, we can look at the number at index 0 of `EEG` using `EEG[0]`. If we don't reshape first, we need to use `EEG[0, 0]` to get the same result, so reshaping the array isn't required, but it is more convenient. There is a nice explanation of array shapes <a href="https://stackoverflow.com/questions/22053050/difference-between-numpy-array-shape-r-1-and-r#answer-22074424" rel="external">here</a>. 
     
 </div>
 
@@ -157,7 +157,7 @@ You might notice, through visual inspection, a dominant rhythmic activity. We ca
 
 YouTubeVideo('mZ1uHN4lcPY')
 
-Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “<a href="https://en.wikipedia.org/wiki/Gamma_wave" target="_blank">gamma band</a>”) are thought important for cognitive processing in the brain [<a href="https://doi.org/10.1016/j.tics.2012.12.003" target="_blank">Nikolić, Fries, & Singer, 2013</a>]. But, there’s a reason for the label gamma band: the rhythmic activity observed *in vivo* is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.
+Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “<a href="https://en.wikipedia.org/wiki/Gamma_wave" rel="external">gamma band</a>”) are thought important for cognitive processing in the brain [<a href="https://doi.org/10.1016/j.tics.2012.12.003" rel="external">Nikolić, Fries, & Singer, 2013</a>]. But, there’s a reason for the label gamma band: the rhythmic activity observed *in vivo* is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.
 
 <div class="warning">
     
@@ -407,7 +407,7 @@ The autocovariance is a useful tool for assessing the dependent structure in the
 
 YouTubeVideo('OAHpkZy6ZX8')
 
-There are many techniques to assess rhythmic activity in the EEG data. Here, we compute the *power spectral density*, or simply the *spectrum*, of $x$ using a well-established technique, the <a href="https://en.wikipedia.org/wiki/Fourier_transform" target="_blank">*Fourier transform*</a>. There are many subtleties associated with computing and interpreting the spectrum. We explore some of them here; in doing so, we build our intuition for spectral analysis and our ability to deal with future, unforeseen circumstances in other data we encounter in research.
+There are many techniques to assess rhythmic activity in the EEG data. Here, we compute the *power spectral density*, or simply the *spectrum*, of $x$ using a well-established technique, the <a href="https://en.wikipedia.org/wiki/Fourier_transform" rel="external">*Fourier transform*</a>. There are many subtleties associated with computing and interpreting the spectrum. We explore some of them here; in doing so, we build our intuition for spectral analysis and our ability to deal with future, unforeseen circumstances in other data we encounter in research.
 
 <div class="math-note">
     
@@ -589,7 +589,7 @@ So, record 5 s of data to obtain a frequency resolution of 0.2 Hz.
 
 **Q.** We estimated the spectrum in the preceding code. As we record more and more data, does the estimate of the spectrum improve?
 
-**A.** Intuitively, you might answer yes. As we collect more and more data, we usually expect our estimate of a quantity (e.g., the mean or the standard deviation) to improve. However, that is not the case for the spectrum. As we collect more and more data, we acquire more and more points along the frequency axis (i.e., $df$ becomes smaller). However, our estimate of the power at each frequency does not improve (<a href="https://doi.org/10.1017/CBO9780511622762" target="_blank">Percival & Walden, 1993</a>).
+**A.** Intuitively, you might answer yes. As we collect more and more data, we usually expect our estimate of a quantity (e.g., the mean or the standard deviation) to improve. However, that is not the case for the spectrum. As we collect more and more data, we acquire more and more points along the frequency axis (i.e., $df$ becomes smaller). However, our estimate of the power at each frequency does not improve (<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival & Walden, 1993</a>).
 
 </div>
 
@@ -709,7 +709,7 @@ YouTubeVideo('jdceZRY_PDA')
 
 In this notebook, we analyzed 2 s of EEG data. We started with visual inspection of the [EEG time series](#fig:3.1).<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how [logarithmic scales](#fig:3.13a)  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the [spectrogram](#fig:3.14) provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.
 
-in this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. in future notebooks, we will discuss the issues of windowing and zero padding. for those interested in exploring further, see <a href="https://doi.org/10.1017/cbo9780511622762" target="_blank">Percival & Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=alma_bosu121668583370001161&context=l&vid=bu&search_scope=default_scope&tab=default_tab&lang=en_us" target="_blank">priestley, 1981</a>.
+in this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. in future notebooks, we will discuss the issues of windowing and zero padding. for those interested in exploring further, see <a href="https://doi.org/10.1017/cbo9780511622762" rel="external">Percival & Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=alma_bosu121668583370001161&context=l&vid=bu&search_scope=default_scope&tab=default_tab&lang=en_us" rel="external">priestley, 1981</a>.
 
 [Return to top](#top)
 
@@ -809,7 +809,7 @@ Increased variability at large lags occurs because, as $L$ approaches $N$, we ha
     
 </div>
 
-With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons [<a href="https://doi.org/10.1017/CBO9780511622762" target="_blank">Percival & Walden, 1998</a>]. First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:
+With those observations, should we use the biased or unbiased estimator of the autocovariance? Statisticians typically prefer the biased estimator for a variety of reasons [<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival & Walden, 1998</a>]. First, for many stationary processes, the mean squared error of the biased estimator is smaller than that of the unbiased estimator. The mean squared error depends on both the variance and bias of the estimator:
 
 $$
   \mbox{mean squared error} = \mbox{variance + (bias)}^2.
@@ -901,7 +901,7 @@ $$
   \exp(-2\pi i f_j t_n),
 $$
 
-consists of an exponential ($\exp$) operating on the product of five individual terms, each of which is a number. The first two numbers are simple: $-2 \pi$. The third number is $i \equiv \sqrt{-1}$, a quantity representing an *imaginary unit*. The utility of the imaginary unit is that we can rewrite the exponential as the sum of a sine and cosine function. Remember from caclulus the remarkable <a href="https://en.wikipedia.org/wiki/Euler%27s_formula" target="_blank">Euler's formula</a>:
+consists of an exponential ($\exp$) operating on the product of five individual terms, each of which is a number. The first two numbers are simple: $-2 \pi$. The third number is $i \equiv \sqrt{-1}$, a quantity representing an *imaginary unit*. The utility of the imaginary unit is that we can rewrite the exponential as the sum of a sine and cosine function. Remember from caclulus the remarkable <a href="https://en.wikipedia.org/wiki/Euler%27s_formula" rel="external">Euler's formula</a>:
 
 $$
   \exp(-2\pi i f_j t_n) = \cos(-2\pi f_j t_n) + i \sin(-2\pi f_j t_n).
@@ -1056,7 +1056,7 @@ predictors = df(data={                  # Create a dataframe with the predictors
 model = smf.ols('EEG ~ sin + cos', data=predictors).fit()
 print(model.params)
 
-In the first line, we create a *dataframe* object with the dependent variables (`EEG`) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the `ols` function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" target="_blank">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.
+In the first line, we create a *dataframe* object with the dependent variables (`EEG`) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the `ols` function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" rel="external">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the $\beta$'s.
 
 <div class="question">
     
