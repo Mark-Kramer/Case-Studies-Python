@@ -575,11 +575,11 @@ One important note: Although we are approximating the number of spikes in each b
 
 Let’s build a model to compare the firing rate between the planning and movement periods; subsequent models will also include the effects of history dependence. In this model, the design matrix consists of one column that is zero whenever $t < 0$, corresponding to the planning period, and that is 1 whenever $t \geq 0$, corresponding to the movement period. The resulting model has the form<a id="model:1"></a>
 
-<a id="eq:3"></a>
 $$
   \lambda(t) = e^{\beta_0 + \beta_1 I_\text{move}(t)},
   \tag{Model 1}
 $$
+<a id="eq:3"></a>
 
 where $I_\text{move}(t)$ is the movement period indicator function. We must also remember to reshape the spike train matrix into a single response vector.
 <a id="repeatvtile"></a>
@@ -822,21 +822,19 @@ M3.summary()                         # Summary of fit
 This model would have a total of 73 parameters—one intercept parameter, one movement parameter, one direction parameter, and 70 parameters representing the columns of the history matrix. Mathematically,
 
 $$
-  \tag{Model 3}
   \lambda\big(t | H(t)\big) = 
   \exp\big(
       \beta_0 + 
       \beta_1 I_\text{move}(t) +
       \beta_2 I_\text{dir}(t) +
       \sum_{j=1}^{70} \beta_{2+j}\Delta N_{t-j}
-  \big).
+  \big).   \tag{Model 3}
 $$
 
 However, Model 3 implies that the influences of the trial period ($I_{dir}(t)$) and of the past history ($\Delta N_{t-j}$) are multiplicatively separable; that is, that the only difference between the planning and movement period is a change in the average firing rate and the spike rhythms are the same in both periods. The autocovariance and spectral analyses suggest that the influence of past spiking differs between these trial periods. Therefore, we should instead construct a model that has an interaction between the `Imove` and `lag` variables. We do this by including columns that represent the product of these two variables. Mathematically, we propose a model of the form
 <a id="eq:model4"></a>
     
 $$
-  \tag{Model 4}
   \begin{eqnarray}
   \lambda\big(t | H(t)\big) &=& 
   \exp\bigg(
@@ -848,7 +846,7 @@ $$
       \big(\mathbb{1} - I_\text{move}(t)\big)\beta_{1 + 2j} + 
           I_\text{move}(t)\beta_{2 + 2j}
       \big]
-  \bigg)
+  \bigg) \tag{Model 4}
   \end{eqnarray}
 $$
 
@@ -890,6 +888,7 @@ exp(M4.params[:3])
 
 Since Model 4 has 140 additional parameters related to history dependence, inspecting these printed values directly would be too overwhelming. Instead, let’s plot their exponentiated values as a function of lag for each period: <a id="fig:M4params"></a>
 
+figure(figsize=(8,5))
 plot(range(1, ordK + 1), 
      exp(M4.params[3::2]), 
      label='Planning')     # Plot the planning parameters.
@@ -1083,6 +1082,7 @@ Recall that the AIC is related to the deviance of the fitted model (modulo a fix
 
 </div>
 
+figure(figsize=(8,5))
 plot(range(1, maxord + 1), aic)  # Plot the AIC,
 xlabel('Model Order')            # ... with axes labeled.
 ylabel('AIC')
@@ -1104,7 +1104,6 @@ Let’s examine one more approach for constructing a parsimonious model that sti
 Motivated by this observation, let’s replace the separate terms for each single millisecond lag. We do so with a small set of basis functions on the spiking history that can flexibly capture smooth history dependence structure. Mathematically, we fit a model of the form <a id="eq:model5"></a>
 
 $$
-  \tag{Model 5}
   \begin{eqnarray}
   \lambda(t | H_t) &=& 
   \exp\big(
@@ -1119,7 +1118,7 @@ $$
           \beta_{1+2j} + 
           I_\text{move}(t)\beta_{2 + 2j}
       \big]g_j(H_t)
-  \big),
+  \big),   \tag{Model 5}
   \end{eqnarray}
 $$
 
@@ -1153,6 +1152,7 @@ M5.summary()
 
 Now let’s plot for this model the modulation in the spiking intensity due to a previous spike at any lag by multiplying the corresponding set of parameters by `C`.<a id="fig:model5"></a>
 
+figure(figsize=(8,5))
 plot(range(1, ordK + 1),  # Plot the planning modulation,
      exp(matmul(C, array(M5.params[3::2]))), 
      label='Planning')
@@ -1226,6 +1226,7 @@ The best guess for the baseline firing intensity - for the planning period durin
 
 In the [estimated modulation due to past spiking in Model 5](#fig:model5)<span class="sup">fig<img src="imgs/fig-model5.png"></span> for both the planning and movement periods, we observe a refractory period followed by a period of bursting (i.e., increased spiking intensity) around 6 ms in both the planning and movement periods. During the planning period, we also observe a notable pattern of decreased firing intensity at 20–30 ms after a previous spike, followed by increased firing intensity at 50–60 ms after a previous spike. This pattern seems absent during the movement period. Are the individual parameters related to this history dependence significant? To address this, let’s plot the $p$-values:
 
+figure(figsize=(8,5))
 plot(range(8), -log(M5.pvalues[3::2]), 'o', label="Planning") # -Log p-values in planning.
 plot(range(8), -log(M5.pvalues[4::2]), 'o', label="Movement") # -Log p-values in movement.
 axhline(3, c='k')

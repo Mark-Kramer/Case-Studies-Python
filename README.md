@@ -71,26 +71,19 @@ for f in $(ls startup); do echo $(startup/$f) >> ~/.ipython/profile_default/star
 
 ---
 
-## Contents[](#contents) 
+## Contributions
+We very much appreciate your contributions to this material. Contribitions may include:
+- Error corrections
+- Suggestions
+- New material to include
 
-1. [Introduction to Python](content/01.ipynb)
-2. [The Event-Related Potential](content/02.ipynb)
-3. [The Power Spectrum (Part 1)](content/03.ipynb)
-4. [The Power Spectrum (Part 2)](content/04.ipynb)
-5. [The Cross Covariance and Coherence](content/05.ipynb)
-6. [Filtering Field Data](content/06.ipynb)
-7. [Cross Frequency Coupling](content/07.ipynb)
-8. [Basic Visualizations and Descriptive Statistics of Spike Train Data](content/08.ipynb)
-9. [Modeling place Fields with Point Process Generalized Linear Models](content/09.ipynb)
-10. [Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task](content/10.ipynb)
-11. [Analysis of Spike-Field Coherence](content/11.ipynb)
+There are two ways to suggest a contribution:
 
-# Appendices
+- **Simple**: Visit the `content` folder in [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/). Locate the file to edit, and follow [these instructions](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
 
-1. [Appendix: Backpropagation](content/A01.ipynb)
-1. [Appendix: Hodgkin Huxley Model](content/A02.ipynb)
-1. [Appendix: Integrate and Fire Model](content/A03.ipynb)
-1. [Appendix: Training a Perceptron](content/A04.ipynb)
+- **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/)
 
 
+```python
 
+```

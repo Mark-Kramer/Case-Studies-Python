@@ -695,7 +695,7 @@ def animate(frame):               # Define the function to perform the animation
 fig = FuncAnimation(gcf(), animate, frames=range(100))
 HTML(fig.to_jshtml())
 
-## Example 19: Load MATLAB data into Python
+## Example 20: Load MATLAB data into Python
 For our last example let's load a MATLAB file in the `.mat` format into Python. Before doing so, let's clear all of the variables and functions we have defined. This command is not necessary, but we perform it here so that any new variables we subsequently load are obvious.
 
 %reset

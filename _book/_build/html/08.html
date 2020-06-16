@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Point Process Generalized Linear Models" href="09.html" />
-    <link rel="prev" title="Cross-frequency coupling" href="07.html" />
+    <link rel="prev" title="Cross-Frequency Coupling" href="07.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-frequency coupling</a>
+    <a href="07.html">7. Cross-Frequency Coupling</a>
   </li>
   <li class="active">
     <a href="">8. Basic Analysis of Spike Train Data</a>
@@ -113,7 +113,7 @@
     <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-field coherence</a>
+    <a href="11.html">11. Spike-Field Coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Extra notebooks</p>
@@ -357,9 +357,9 @@
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
   app.launch_new_instance()
-/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
   app.launch_new_instance()
 </pre>
 </div>
@@ -1070,7 +1070,7 @@ We see that the autocorrelation function has just a few isolated lags that are o
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
   &quot;&quot;&quot;
 </pre>
 </div>
@@ -1101,9 +1101,8 @@ We see that the autocorrelation function has just a few isolated lags that are o
   \begin{eqnarray}
   f(x_1, x_2, ..., x_n) &amp;=&amp; f(x_1) f(x_2) ... f(x_n) \\ 
   &amp;=&amp; \lambda \exp(-\lambda x_1) \lambda \exp(-\lambda x_2) ... \lambda \exp(-\lambda x_n) \\
-  &amp;=&amp; \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
+  &amp;=&amp; \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i). \\   \tag{8}
   \end{eqnarray}
-  \tag{8}
 \end{split}\]</div>
 <p>We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution <span class="math notranslate nohighlight">\(f(x_1,x_2,...,x_n)\)</span> into a product of probability distributions of each event (i.e., <span class="math notranslate nohighlight">\(f(x_1)\)</span>, the probability of the first ISI equaling <span class="math notranslate nohighlight">\(x_1\)</span>; multiplied by <span class="math notranslate nohighlight">\(f(x_2)\)</span>, the probability of the second ISI equaling <span class="math notranslate nohighlight">\(x_2\)</span>; multiplied by <span class="math notranslate nohighlight">\(f(x_3)\)</span>, the probability of the third ISI equaling <span class="math notranslate nohighlight">\(x_3\)</span>; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
 <p>When considered as a function of the unknown parameters, the joint distribution of the data (<a href="#eq:8" class="thumb">8<span><img src="imgs/eq8.png"></span></a>) is also called the <em>likelihood</em>. In this case, we write
@@ -1163,14 +1162,15 @@ We see that the autocorrelation function has just a few isolated lags that are o
 <p><strong>A.</strong> Repeating the analysis for the high-light condition, the maximum likelihood estimate for a Poisson rate parameter is <span class="math notranslate nohighlight">\(\hat \lambda = n(\sum{i=1}^nx_i)^{-1} = 1 / \bar x = 32.3\)</span> spikes/s. The difference in the Poisson rate parameter of 32.3 - 25.0 = 7.3 spikes/s reflects the difference in the overall firing rate of the neuron between the low-and high-light conditions.</p>
 </div><div class=question>
 <p><strong>Q.</strong> Is the difference in the Poisson rate parameter between the low-and high-light conditions statistically significant?</p>
-</div><p>To address this last question, let’s use a bootstrap analysis (see <a href="02#bootstrap" rel="local">[an introduction to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.</p>
+</div><p>To address this last question, let’s use a bootstrap analysis (see an introduction to the bootstrap in
+<a href="02" rel="local">this notebook</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the observed difference in lambdas.</span>
 <span class="n">MLDiff</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsHigh</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">ISIsLow</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="c1"># Then, perform the bootstrap analysis.</span>
-<span class="n">ISIs</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">ISIsHigh</span><span class="p">])</span>  <span class="c1"># Merge all ISIs.</span>
+<span class="n">ISIs</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">ISIsLow</span><span class="p">,</span> <span class="n">ISIsHigh</span><span class="p">])</span>     <span class="c1"># Merge all ISIs.</span>
 <span class="n">Nall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIs</span><span class="p">)</span>                       <span class="c1"># Save length of all ISIs.</span>
 <span class="n">Nlo</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsLow</span><span class="p">)</span>                     <span class="c1"># Save length for the low-light condition.</span>
 <span class="n">Nhi</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ISIsHigh</span><span class="p">)</span>                    <span class="c1"># Save length high-light condition.</span>
@@ -1348,9 +1348,9 @@ lambda =  0.04931816769253932
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
   
-/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
   
 </pre>
 </div>
@@ -1612,7 +1612,7 @@ we conclude that for a Poisson process,</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="07.html" title="previous page">Cross-frequency coupling</a>
+    <a class='left-prev' id="prev-link" href="07.html" title="previous page">Cross-Frequency Coupling</a>
     <a class='right-next' id="next-link" href="09.html" title="next page">Point Process Generalized Linear Models</a>
 
     </div>

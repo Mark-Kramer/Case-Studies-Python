@@ -1,4 +1,4 @@
-# Spike-field coherence
+# Spike-Field Coherence
 
 <div class="question">
     
@@ -179,7 +179,7 @@ In this Python code, we must be careful to include only appropriate time interva
     
 **Q.** What is the purpose of the if-statement:
 
-    `if win < spike_t < N-win-1:`
+    if win < spike_t < N-win-1:
 
 in the code?
     
@@ -228,7 +228,7 @@ For each trial $k = \{1, \ldots, K\}$,
 - Sort the spike data in trial $k$ according to the phase of the LFP.
 
 
-For more information about the Hilbert transform and instantaneous phase, check out this notebook discussing <a href="05" rel="local">cross-frequency coupling</a>. We apply the same procedures here, but to a different end. Let's now define a function to compute the FTA in Python, <a id="fig:FTA"></a>
+For more information about the Hilbert transform and instantaneous phase, check out this notebook discussing <a href="07" rel="local">cross-frequency coupling</a>. We apply the same procedures here, but to a different end. Let's now define a function to compute the FTA in Python, <a id="fig:FTA"></a>
 
 def FTA_function(y,n,t,Wn):                  #INPUTS: y=field, n=spikes, t=time, Wn=passband [low,high]
     dt = t[1]-t[0]                           #Define the sampling interval.
@@ -267,17 +267,17 @@ We may apply the FTA analysis to different frequency intervals of the LFP. Choos
 
 One final note about the FTA. The purpose of this measure is visualization, not statistical testing. Hopefully, this visual inspection will provide some insight into the data and guide continuing studies in promising directions. In what follows, we consider approaches to test for significant effects when we build a generalized linear model (GLM) to assess spike-field relations.
 
-## Spike-field coherence <a id="sec:spike-field-coherence"></a>
+## Spike-Field Coherence <a id="sec:spike-field-coherence"></a>
 
 To characterize the relation between the LFP and spikes, we have so far visualized the data and computed relatively simple and intuitive aids to visualization. Now we examine a more sophisticated and powerful method: the **spike-field coherence**. It's common to investigate the coherence  applied to field activity; we may refer to this type of coherence as field-field coherence to distinguish it from spike-field coherence of interest here. In practice, this distinction is usually unnecessary, as in most cases the context is clear. However, in this notebook, we are careful to distinguish field-field coherence from spike-field coherence.
 
-The field-field coherence is a frequency domain measure of linear association between two continuous time series. Note that, in practice, we observe a sampled version of a presumably continuous signal. This sampling impacts aspects of our data analysis, for example spectral estimators (see <a href="03" rel="local">The Power Spectrum (Part 1)</a>). We showed in <a href="05" rel="local">The Cross Covariance and Coherence</a> that two fields are coherent across trials at frequency $f_0$ if the fields possess a constant phase relation across trials at that frequency. The same relation holds for the spike-field coherence. However, differences arise because of the point process nature of the spike train data. These differences have profound implications with dangerous consequences. In this notebook, we explore some of these issues. For a deeper mathematical discussion and potential solutions, see <a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a> and <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>.
+The field-field coherence is a frequency domain measure of linear association between two continuous time series. Note that, in practice, we observe a sampled version of a presumably continuous signal. This sampling impacts aspects of our data analysis, for example spectral estimators (see <a href="03" rel="local">notebook 03</a>). We showed in <a href="05" rel="local">notebook 05</a> that two fields are coherent across trials at frequency $f_0$ if the fields possess a constant phase relation across trials at that frequency. The same relation holds for the spike-field coherence. However, differences arise because of the point process nature of the spike train data. These differences have profound implications with dangerous consequences. In this notebook, we explore some of these issues. For a deeper mathematical discussion and potential solutions, see <a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a> and <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>.
 
 ### Mathematical description of spike-field coherence
 
 Let’s begin with a mathematical description of the spike-field coherence. To do so, we need to introduce some notation, which is identical to that used in earlier notebooks, but we include it here for completeness. A more detailed description may be found in <a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a>.
 
-We considered spectral estimators for a field in <a href="03" rel="local">The Power Spectrum (Part 1)</a> and for a point process in <a href="10" rel="local">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>. We restate the Fourier transform for a time series $x$,
+We considered spectral estimators for a field in <a href="03" rel="local">notebook 3</a> and for a point process in <a href="10" rel="local">notebook 10</a>. We restate the Fourier transform for a time series $x$,
 
 $$
   X_j = \sum_{n=1}^N x_n \exp(-2 \pi i \, f_j \, t_n)
@@ -293,7 +293,7 @@ Here, the time series can be either a field (i.e., the LFP) or a point process (
 
 <div class="math-note">
     
-For the spike train data, we first subtract the mean or expected number of spikes in each time interval and then apply the Fourier transform. In other words, the signal is the *centered increments* (see <a href="10" rel="local">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>).
+For the spike train data, we first subtract the mean or expected number of spikes in each time interval and then apply the Fourier transform. In other words, the signal is the *centered increments* (see <a href="10" rel="local">notebook 10</a>).
     
 </div>
 
@@ -321,7 +321,7 @@ We could instead write the *sample* coherence, because this equation uses the ob
 
 ### Computing the Spike-Field-Coherence in Python.
 
-As discussed in other notebooks (<a href="03" rel="local">The Power Spectrum (Part 1)</a> and <a href="10" rel="local">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>), many issues are involved in spectral analysis, for example, the notions of tapering. These important issues apply for the computation of spike-field coherence as well. In practice, multitaper methods are often used to compute the spike-field coherence. In what follows, we simply a simple tapering approach to the field data.
+As discussed in other notebooks (<a href="03" rel="local">notebook 3</a> and <a href="10" rel="local">notebook 10</a>), many issues are involved in spectral analysis, for example, the notions of tapering. These important issues apply for the computation of spike-field coherence as well. In practice, multitaper methods are often used to compute the spike-field coherence. In what follows, we simply a simple tapering approach to the field data.
 
 Let’s now compute the spike-field coherence for the data of interest here. It’s relatively straightforward to do so in Python:
 
@@ -343,6 +343,7 @@ Inside of the `for` statement, we first compute the Fourier transform of the fie
 
 Let's now display the results, <a id="fig:spike-field-coherence"></a>
 
+figure(figsize=(12,4))
 subplot(1,3,1)         # Plot the spike spectrum.
 plot(f,SNN)
 xlim([0, 100])
@@ -392,7 +393,7 @@ These observations of the spike spectrum and field spectrum reveal that both sig
 
 <div class="question">
     
-**Q:** Consider the field spectrum on a decibel scale (see <a href="03" rel="local">The Power Spectrum (Part 1)</a>). What rhythms do you observe?
+**Q:** Consider the field spectrum on a decibel scale (see <a href="03" rel="local">notebook 03</a>). What rhythms do you observe?
     
 </div>
 
@@ -402,7 +403,7 @@ These observations of the spike spectrum and field spectrum reveal that both sig
     
 </div>
 
-The spike-field coherence result again reveals an important feature of coherence analysis. Two signals with high power at the same frequency are not necessarily coherent at this frequency; two signals may possess rhythmic activity at the same frequency, but these rhythms may not coordinate across trials. Conversely, two signals with low power at the same frequency may have strong coherence at that frequency; although the rhythm is weak, the two signals may still coordinate activity across trials at this frequency. These notions apply both to spike-field coherence and field-field coherence (the latter illustrated in <a href="05" rel="local">The Cross Covariance and Coherence</a>).
+The spike-field coherence result again reveals an important feature of coherence analysis. Two signals with high power at the same frequency are not necessarily coherent at this frequency; two signals may possess rhythmic activity at the same frequency, but these rhythms may not coordinate across trials. Conversely, two signals with low power at the same frequency may have strong coherence at that frequency; although the rhythm is weak, the two signals may still coordinate activity across trials at this frequency. These notions apply both to spike-field coherence and field-field coherence (the latter illustrated in <a href="05" rel="local">notebook 05</a>).
 
 The spike-field coherence is a powerful tool in our data analysis arsenal. There’s much more to say about this approach, and interested readers are directed to <a href="https://doi.org/10.1162/089976601300014312" rel="external">Jarvis and Mitra, 2001</a>, <a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a> and <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>.
 
@@ -504,7 +505,7 @@ Spike-field coherence responds to overall neural spiking activity, making compar
 
 ## Point Process Models of the Spike-Field Coherence<a id="sec:point-process-model"></a>
 
-A variety of techniques exist to address the impact of firing rate on the spike-field coherence. We have already outlined the thinning procedure, a transformation-based technique in which the firing rates of two neurons are made equal by randomly removing spikes. Here, we focus on an additional technique that utilizes the generalized linear modeling (GLM) framework. We choose this technique (described in detail in <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>) because it allows us to utilize the GLM framework (see <a href="09" rel="local">Modeling place Fields with Point Process Generalized Linear Models</a> and <a href="10" rel="local">Analysis of Rhythmic Spiking in the Subthalamic Nucleus During a Movement Task</a>). The fundamental idea of this procedure is to model the conditional intensity of the point process as a function of the LFP phase. More specifically, we consider the model<a id="eq:glm"></a>:
+A variety of techniques exist to address the impact of firing rate on the spike-field coherence. We have already outlined the thinning procedure, a transformation-based technique in which the firing rates of two neurons are made equal by randomly removing spikes. Here, we focus on an additional technique that utilizes the generalized linear modeling (GLM) framework. We choose this technique (described in detail in <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>) because it allows us to utilize the GLM framework (see <a href="09" rel="local">notebook 09</a> and <a href="10" rel="local">notebook 10</a>). The fundamental idea of this procedure is to model the conditional intensity of the point process as a function of the LFP phase. More specifically, we consider the model<a id="eq:glm"></a>:
 
 $$
   \lambda_t = e^{\beta_0 + \beta_1 \cos(\phi(t)) + \beta_2 \sin(\phi(t))} \, ,
@@ -598,7 +599,7 @@ print(pval1, pval2)
 
 We find that $\beta_1$ is highly significant (`pval1=1.48e-52`) and $\beta_2$ is not significant (`pval2=0.719`), and we conclude that the firing rate is highly dependent on the cosine of the LFP phase.
 
-In <a href="09" rel="local">Modeling place Fields with Point Process Generalized Linear Models</a>, we showed that for nested models (where one model can be made equivalent to the other by setting some parameters to specific values), under the null hypothesis that the data arise from the smaller model, the difference in the deviance between the two models should have a chi-square distribution where the number of degrees of freedom is equal to the number of extra parameters in the larger model. In this case, let’s compare the model<a href="#eq:glm" class="sup">eq<img src="imgs/eq-glm.png"></a> we originally designed to a model that lacks dependence on the LFP phase (i.e., a reduced model in which  $\beta_1$ and $\beta_2$ are set to zero). First, we must construct and estimate this reduced model. In Python,
+In <a href="09" rel="local">notebook 09</a>, we showed that for nested models (where one model can be made equivalent to the other by setting some parameters to specific values), under the null hypothesis that the data arise from the smaller model, the difference in the deviance between the two models should have a chi-square distribution where the number of degrees of freedom is equal to the number of extra parameters in the larger model. In this case, let’s compare the model<a href="#eq:glm" class="sup">eq<img src="imgs/eq-glm.png"></a> we originally designed to a model that lacks dependence on the LFP phase (i.e., a reduced model in which  $\beta_1$ and $\beta_2$ are set to zero). First, we must construct and estimate this reduced model. In Python,
 
 X0 = ones(shape(Y))                               #Define constant predictor.
 null_model = sm.GLM(Y,X0,family=sm.families.Poisson())  #Define reduced model.

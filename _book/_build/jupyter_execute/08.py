@@ -994,9 +994,8 @@ $$
   \begin{eqnarray}
   f(x_1, x_2, ..., x_n) &=& f(x_1) f(x_2) ... f(x_n) \\ 
   &=& \lambda \exp(-\lambda x_1) \lambda \exp(-\lambda x_2) ... \lambda \exp(-\lambda x_n) \\
-  &=& \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
+  &=& \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i). \\   \tag{8}
   \end{eqnarray}
-  \tag{8}
 $$
 
 We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$; multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$; multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.
@@ -1071,13 +1070,14 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 
 </div>
 
-To address this last question, let’s use a bootstrap analysis (see <a href="02#bootstrap" rel="local">[an introduction to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
+To address this last question, let’s use a bootstrap analysis (see an introduction to the bootstrap in
+<a href="02" rel="local">this notebook</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
 
 # Compute the observed difference in lambdas.
 MLDiff = 1 / ISIsHigh.mean() - 1 / ISIsLow.mean()
 
 # Then, perform the bootstrap analysis.
-ISIs = hstack([ISIsLow, ISIsHigh])  # Merge all ISIs.
+ISIs = hstack([ISIsLow, ISIsHigh])     # Merge all ISIs.
 Nall = len(ISIs)                       # Save length of all ISIs.
 Nlo = len(ISIsLow)                     # Save length for the low-light condition.
 Nhi = len(ISIsHigh)                    # Save length high-light condition.
