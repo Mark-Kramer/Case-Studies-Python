@@ -175,8 +175,8 @@
         <div class="dropdown-buttons-trigger">
             <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
             <div class="dropdown-buttons sourcebuttons">
-                <a class="repository-button" href="https://github.com/eschlaf2/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button" href="https://github.com/eschlaf2/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2F04.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                <a class="repository-button" href="https://github.com/Mark-Kramer/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/Mark-Kramer/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2F04.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
                 
             </div>
         </div>
@@ -191,7 +191,7 @@
             <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
             <div class="dropdown-buttons">
                 
-                <a class="binder-button" href="https://mybinder.org/v2/gh/eschlaf2/Case-Studies-Python/master?urlpath=tree/_book/04.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                <a class="binder-button" href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master?urlpath=tree/_book/04.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
                 
                 
                 <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
@@ -361,9 +361,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_6_0.png" src="_images/04_6_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, applies a taper, computes the spectrum, and then plots the results?</p>
@@ -403,21 +400,13 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_10_0.png" src="_images/04_10_0.png" />
-</div>
 </div>
 <p>You might notice a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in the 1 s interval. To do so, let’s approximate the total number of large-amplitude cycles that we observe in the data. Through visual inspection, we find that the first large-amplitude cycle occurs between <span class="math notranslate nohighlight">\(\approx\)</span> 0 s and <span class="math notranslate nohighlight">\(\approx\)</span> 0.175 s, the next between <span class="math notranslate nohighlight">\(\approx\)</span> 0.175 s and <span class="math notranslate nohighlight">\(\approx\)</span> 0.3 s, and so on. Counting this way, we approximate 6 full cycles per second, or a dominant 6 Hz rhythm.</p>
 <p><a id="rect-tapers"></a></p>
 </div>
 <div class="section" id="spectral-analysis-the-rectangular-taper-and-zero-padding">
-<<<<<<< HEAD
-<h3>Spectral Analysis: The Rectangular Taper and Zero Padding<a class="headerlink" href="#spectral-analysis-the-rectangular-taper-and-zero-padding" title="Permalink to this headline">¶</a></h3>
-<p>Visual inspection, although essential to data analysis, is usually not enough. Visual inspection often guides intuition and reveals major features of the data, but it may also lead us astray; initial looks can be deceiving. To further explore the rhythmic activity of the ECoG data, we compute the spectrum.<sup><abbr title="We could instead write the sample spectrum because we use the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.">note</abbr></sup> We do so using the same approach implemented in <a href="03" rel="local">The Power Spectrum (part 1)</a>. The code is nearly the same:
-=======
 <h2>Spectral Analysis: The Rectangular Taper and Zero Padding<a class="headerlink" href="#spectral-analysis-the-rectangular-taper-and-zero-padding" title="Permalink to this headline">¶</a></h2>
-<p>Visual inspection, although essential to data analysis, is usually not enough. Visual inspection often guides intuition and reveals major features of the data, but it may also lead us astray; initial looks can be deceiving. To further explore the rhythmic activity of the ECoG data, we compute the spectrum.<sup><abbr title="We could instead write the sample spectrum because we use the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.">note</abbr></sup> We do so using the same approach implemented in <a class="reference internal" href="03.html"><span class="doc">The Power Spectrum (part 1)</span></a>. The code is nearly the same:
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
+<p>Visual inspection, although essential to data analysis, is usually not enough. Visual inspection often guides intuition and reveals major features of the data, but it may also lead us astray; initial looks can be deceiving. To further explore the rhythmic activity of the ECoG data, we compute the spectrum.<sup><abbr title="We could instead write the sample spectrum because we use the observed data to estimate the theoretical spectrum that we would see if we kept repeating this experiment. However, this distinction is not essential to the discussion here.">note</abbr></sup> We do so using the same approach implemented in <a href="03" rel="local">The Power Spectrum (part 1)</a>. The code is nearly the same:
 <a id="fig:4-2a"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -440,9 +429,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_13_0.png" src="_images/04_13_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> For the ECoG data considered here, what is the frequency resolution <span class="math notranslate nohighlight">\(df\)</span>, and what is the Nyquist frequency (<span class="math notranslate nohighlight">\(f_{NQ}\)</span>)? Compare your answers to the variables <code class="docutils literal notranslate"><span class="pre">df</span></code> and <code class="docutils literal notranslate"><span class="pre">fNQ</span></code> defined in the code.</p>
@@ -460,9 +446,6 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_17_0.png" src="_images/04_17_0.png" />
 </div>
 </div>
 <div class="question">
@@ -506,9 +489,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_24_0.png" src="_images/04_24_0.png" />
-</div>
 </div>
 <p>In theory, the rectangular taper is infinite, and is preceded and followed by infinite intervals of zeros (i.e., there’s an infinite period in which we do not observe the ECoG data). To represent the infinite extent of the rectangular taper, we add 10 s of zeros to the beginning and end of a 1 s interval of ones. Of course, 10 s of zeros is a poor representation of an infinite interval of time, but it’s sufficient for our purposes here. We note that the rectangular taper consists of two sharp edges, when the observation interval opens and closes (i.e., transitions from 0 to 1, and then back from 1 to 0).</p>
 <div class="cell docutils container">
@@ -530,9 +510,6 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_26_0.png" src="_images/04_26_0.png" />
 </div>
 </div>
 <div class="question">
@@ -564,13 +541,8 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 <p>This description and the illustrations above provide some intuition for the relation between the multiplication of two signals in the time domain (here, a sinusoid and the rectangular taper) and their Fourier transform. For mathematical details and corresponding Python code, see the <a class="reference external" href="#appendix">appendix</a> at the end of this notebook.</p>
 </div>
 <div class="section" id="zero-padding">
-<<<<<<< HEAD
-<h4>Zero padding.<a class="headerlink" href="#zero-padding" title="Permalink to this headline">¶</a></h4>
-<p>An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length <span class="math notranslate nohighlight">\((T)\)</span> improves the frequency resolution; recall the equation <span class="math notranslate nohighlight">\(df = 1/T\)</span> from <a href="03" rel="local">The Power Spectrum (part 1)</a>. We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing <span class="math notranslate nohighlight">\(T\,\)</span>). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.</p>
-=======
 <h3>Zero padding.<a class="headerlink" href="#zero-padding" title="Permalink to this headline">¶</a></h3>
-<p>An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length <span class="math notranslate nohighlight">\((T)\)</span> improves the frequency resolution; recall the equation <span class="math notranslate nohighlight">\(df = 1/T\)</span> from <a class="reference internal" href="03.html"><span class="doc">The Power Spectrum (part 1)</span></a>. We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing <span class="math notranslate nohighlight">\(T\,\)</span>). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.</p>
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
+<p>An interesting issue to consider is how appending zeros impacts the spectrum of the rectangular taper. We know that increasing the signal length <span class="math notranslate nohighlight">\((T)\)</span> improves the frequency resolution; recall the equation <span class="math notranslate nohighlight">\(df = 1/T\)</span> from <a href="03" rel="local">The Power Spectrum (part 1)</a>. We therefore expect that adding more points to the signal (even noninformative points, such as zeros) will increase the number of points along the frequency axis. However, appending zeros to a time series is not equivalent to observing more data (and thereby increasing <span class="math notranslate nohighlight">\(T\,\)</span>). By appending zeros, we of course do not gain any additional information about the signal. Therefore appending zeros to a signal cannot improve the frequency resolution. Instead, the impact of appending zeros is to increase the number of points along the frequency axis in the spectrum. This can be useful in visualizing the spectrum; for example, by appending more and more zeros to the rectangular taper, we produce a less jagged spectrum.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Decide how many seconds of padding to use.</span>
@@ -621,9 +593,6 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_34_0.png" src="_images/04_34_0.png" />
-</div>
 </div>
 <p>This procedure of appending zeros to a time series is called <strong>zero padding</strong>. It can be useful for visualizing a spectrum. But we must be careful to remember the following important fact.</p>
 <div class="alert alert-block alert-success">
@@ -640,9 +609,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show_spectrum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">y_lim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_38_0.png" src="_images/04_38_0.png" />
 </div>
 </div>
 <p>In the first three lines of this code, we define the sampling frequency (<code class="docutils literal notranslate"><span class="pre">Fs</span></code>), and the 10 Hz sine function with zero padding. Next, we use the function that we created previously to compute and plot the spectrum. Notice that we plot the spectrum on a decibel scale, and focus on the frequency interval 0–20 Hz.</p>
@@ -676,9 +642,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_48_0.png" src="_images/04_48_0.png" />
-</div>
 </div>
 <p>In the code above we first define the sampling frequency and then create the two sinusoids (<code class="docutils literal notranslate"><span class="pre">d1</span></code> and <code class="docutils literal notranslate"><span class="pre">d2</span></code>), sum these sinusoids to create a composite signal (<code class="docutils literal notranslate"><span class="pre">d</span></code>), and zero-pad this composite signal with 10 s of zeros. Finally, we compute and plot the spectrum as before.</p>
 <div class="question">
@@ -703,9 +666,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_53_0.png" src="_images/04_53_0.png" />
-</div>
 </div>
 <p>Notice that the Hanning taper gradually increases from zero, reaches a maximum of 1 at the center of the interval, then gradually decreases to zero. We can compare the spectra of the two tapers using the following code:</p>
 <div class="cell docutils container">
@@ -717,10 +677,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show_spectrum</span><span class="p">(</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">ones</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="n">a</span><span class="p">)),</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>     <span class="c1"># Compute spectrum of rectangular taper.</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_55_0.png" src="_images/04_55_0.png" />
-<img alt="_images/04_55_1.png" src="_images/04_55_1.png" />
 </div>
 </div>
 <p>These spectra reveal two main differences between these tapers:</p>
@@ -744,9 +700,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_57_0.png" src="_images/04_57_0.png" />
 </div>
 </div>
 <p>The NumPy function <code class="docutils literal notranslate"><span class="pre">hanning()</span></code> returns the Hanning taper, which we multiply element by element with the ECoG data in variable <code class="docutils literal notranslate"><span class="pre">x</span></code>. Notice that the slow increase in the Hanning taper reduces the amplitude of the ECoG activity near the taper edges and emphasizes the ECoG activity in the center of the interval.</p>
@@ -773,9 +726,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_60_0.png" src="_images/04_60_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> The spectra for the Hanning tapered ECoG data and the rectangular tapered ECoG data are plotted above. What conclusions do you now draw regarding the rhythms present in the ECoG data? Consider, in particular, the activity near 10—15 Hz.</p>
@@ -783,14 +733,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div><p><a id='multitaper'></a></p>
 </div>
 <div class="section" id="beyond-the-hanning-taperthe-multitaper-method">
-<<<<<<< HEAD
-<h3>Beyond the Hanning Taper—The Multitaper Method<a class="headerlink" href="#beyond-the-hanning-taperthe-multitaper-method" title="Permalink to this headline">¶</a></h3>
-<p>The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the <a href="https://en.wikipedia.org/wiki/Multitaper" rel="external">multitaper method</a>. The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is <span class="math notranslate nohighlight">\(1/K\)</span> times the variance of the estimated spectrum from a single taper, where <span class="math notranslate nohighlight">\(K\)</span> is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" rel="external">Priestley, 1981</a>].</p>
-=======
 <h2>Beyond the Hanning Taper—The Multitaper Method<a class="headerlink" href="#beyond-the-hanning-taperthe-multitaper-method" title="Permalink to this headline">¶</a></h2>
-<p>The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the <a class="reference external" href="https://en.wikipedia.org/wiki/Multitaper">multitaper method</a>. The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is <span class="math notranslate nohighlight">\(1/K\)</span> times the variance of the estimated spectrum from a single taper, where <span class="math notranslate nohighlight">\(K\)</span> is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [<a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>, <a class="reference external" href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&amp;context=L&amp;vid=BU&amp;search_scope=default_scope&amp;tab=default_tab&amp;lang=en_US">Priestley, 1981</a>].</p>
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
-<p>In the preceding examples, we estimated the spectrum from an observed time series. Often from these estimates we have difficulty identifying features that are significant (or not). For example, consider the small peak at 40–50 Hz in the plot of the ECoG spectrum.<a href="#fig:4-11d" class="sup">fig<img src="imgs/4-11d.png"></a> Is that peak significant or a random fluctuation we expect in an estimate from real-world ECoG data? To address this question, we might consider collecting more data and using these additional data to improve our estimate of power. However, collecting more data does not automatically improve the spectral estimate. Instead, collecting more data (i.e., increasing the duration of data recorded, <span class="math notranslate nohighlight">\(T\)</span>) produces more spectral estimates at additional frequencies, yet the spectrum at each frequency remains just as variable. We would like a way to improve the spectral estimate—a way to reduce the variability of the estimate—so that we could more confidently identify interesting features. The multitaper method offers a procedure to do so. However, this comes at a cost. If we desire reduced variance in the spectral estimate, we must accept worse frequency resolution. Let’s explore these issues in more detail.</p>
+<p>The Hanning taper provides a nice alternative to the rectangular taper. If we’re willing to allow slightly broader spectral peaks in the frequency domain, and lose some data near the taper edges in the time domain, then the Hanning taper helps reduce the impact of side lobes. We now consider a brief introduction to a more advanced approach to tapering, the <a href="https://en.wikipedia.org/wiki/Multitaper" rel="external">multitaper method</a>. The idea of the multitaper method is to apply multiple tapers to the data, each with a different shape. The spectrum is then computed for each taper, and the results averaged over the tapers. Each taper, which is given by portions of the discrete prolate spheroidal sequences, provides an independent estimate of the (theoretical) spectrum. Therefore, the variance of the average estimate over the tapers is <span class="math notranslate nohighlight">\(1/K\)</span> times the variance of the estimated spectrum from a single taper, where <span class="math notranslate nohighlight">\(K\)</span> is the number of tapers used. The multitaper method has a number of additional advantages, such as minimizing the bias due to other spectral peaks outside of the frequency band being considered. We do not discuss these properties in detail, but more information can be found in [<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a>, <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" rel="external">Priestley, 1981</a>].
+In the preceding examples, we estimated the spectrum from an observed time series. Often from these estimates we have difficulty identifying features that are significant (or not). For example, consider the small peak at 40–50 Hz in the plot of the ECoG spectrum.<a href="#fig:4-11d" class="sup">fig<img src="imgs/4-11d.png"></a> Is that peak significant or a random fluctuation we expect in an estimate from real-world ECoG data? To address this question, we might consider collecting more data and using these additional data to improve our estimate of power. However, collecting more data does not automatically improve the spectral estimate. Instead, collecting more data (i.e., increasing the duration of data recorded, <span class="math notranslate nohighlight">\(T\)</span>) produces more spectral estimates at additional frequencies, yet the spectrum at each frequency remains just as variable. We would like a way to improve the spectral estimate—a way to reduce the variability of the estimate—so that we could more confidently identify interesting features. The multitaper method offers a procedure to do so. However, this comes at a cost. If we desire reduced variance in the spectral estimate, we must accept worse frequency resolution. Let’s explore these issues in more detail.</p>
 <p>To get a sense for the multitaper method, let’s examine some of the tapers. We will use the <a href="http://nipy.org/nitime/" rel="external">Nitime</a> module for this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -805,9 +750,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_63_0.png" src="_images/04_63_0.png" />
 </div>
 </div>
 <p>The first taper looks familiar—it’s similar to the Hanning taper. Notice that the first taper starts at zero, increases throughout the interval, and then decreases back to zero. As we add more tapers, each contains more “wiggles.” In particular, as the number of tapers increases, the edges of the data become better represented. Unlike the Hanning taper, which slowly approaches zero at the taper edges, some of these tapers increase near the window edges (see taper 5). This can be useful, especially if we are interested in the spectral features near the beginning and end of the data. Just as with the Hanning taper, we multiply the time series data by each taper, which emphasizes different intervals of the data. We show examples of this multiplication for the ECoG data in the plot on the right. The first taper emphasizes the middle of the ECoG data, and the fifth taper emphasizes the beginning and end of the ECoG data.</p>
@@ -854,9 +796,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_71_0.png" src="_images/04_71_0.png" />
-</div>
 </div>
 <p>The function <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> takes three inputs: the data (here <code class="docutils literal notranslate"><span class="pre">x-x.mean()</span></code>), the sampling frequency (here <code class="docutils literal notranslate"><span class="pre">1/dt</span></code>), and the normalized half-bandwidth (here <code class="docutils literal notranslate"><span class="pre">NW</span></code>). The normalized half-bandwidth is equivalent to the half-bandwidth <em>W</em> if the total time is normalized to one second. By default, <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> sets the number of tapers to <span class="math notranslate nohighlight">\(2 N W - 1\)</span>. The function <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> returns the frequency points (<code class="docutils literal notranslate"><span class="pre">faxis</span></code>) and multitaper estimate of the spectrum (<code class="docutils literal notranslate"><span class="pre">Sxx</span></code>). The plot above shows the spectrum of the ECoG data computed in three ways: using the rectangular taper, the Hanning taper, and the multitaper method.</p>
 <div class="question">
@@ -866,13 +805,8 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </div><p><a id='ci'></a></p>
 </div>
 <div class="section" id="confidence-intervals-of-the-spectrum">
-<<<<<<< HEAD
-<h3>Confidence Intervals of the Spectrum<a class="headerlink" href="#confidence-intervals-of-the-spectrum" title="Permalink to this headline">¶</a></h3>
-<p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">pmtm()</span></code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with <span class="math notranslate nohighlight">\(K\)</span> tapers can be computed using a chi-square distribution with <span class="math notranslate nohighlight">\(2K\)</span> degrees of freedom [<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a>],</p>
-=======
 <h2>Confidence Intervals of the Spectrum<a class="headerlink" href="#confidence-intervals-of-the-spectrum" title="Permalink to this headline">¶</a></h2>
-<p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">pmtm()</span></code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with <span class="math notranslate nohighlight">\(K\)</span> tapers can be computed using a chi-square distribution with <span class="math notranslate nohighlight">\(2K\)</span> degrees of freedom [<a class="reference external" href="https://doi.org/10.1017/CBO9780511622762">Percival &amp; Walden, 1998</a>],</p>
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
+<p>Another useful feature of the <code class="docutils literal notranslate"><span class="pre">pmtm()</span></code> function is the ability to compute confidence intervals for the spectrum. The confidence interval for a multitaper spectral estimator with <span class="math notranslate nohighlight">\(K\)</span> tapers can be computed using a chi-square distribution with <span class="math notranslate nohighlight">\(2K\)</span> degrees of freedom [<a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a>],</p>
 <div class="math notranslate nohighlight">
 \[
   \frac{2K}{\chi^2_{\alpha}(2K)}\hat S(f) &lt; S(f) &lt; \frac{2K}{\chi^2_{1-\alpha}(2K)}\hat S(f) 
@@ -914,9 +848,6 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/04_77_0.png" src="_images/04_77_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1016,9 +947,6 @@ and <a href="http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/04_88_0.png" src="_images/04_88_0.png" />
-</div>
 </div>
 <p>In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(x\)</span>, and then the Fourier transform. In the fourth and fifth lines, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing their Fourier transforms. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> the same. Evaluating the statement, we find the difference between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to be on the order of <span class="math notranslate nohighlight">\(10^{-15}\)</span>, which is very close to zero.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
@@ -1029,7 +957,7 @@ and <a href="http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880
     {
         requestKernel: true,
         binderOptions: {
-            repo: "eschlaf2/Case-Studies-Python",
+            repo: "Mark-Kramer/Case-Studies-Python",
             ref: "master",
         },
         codeMirrorConfig: {

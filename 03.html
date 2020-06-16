@@ -175,8 +175,8 @@
         <div class="dropdown-buttons-trigger">
             <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
             <div class="dropdown-buttons sourcebuttons">
-                <a class="repository-button" href="https://github.com/eschlaf2/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
-                <a class="issues-button" href="https://github.com/eschlaf2/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2F03.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                <a class="repository-button" href="https://github.com/Mark-Kramer/Case-Studies-Python"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/Mark-Kramer/Case-Studies-Python/issues/new?title=Issue%20on%20page%20%2F03.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
                 
             </div>
         </div>
@@ -191,7 +191,7 @@
             <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
             <div class="dropdown-buttons">
                 
-                <a class="binder-button" href="https://mybinder.org/v2/gh/eschlaf2/Case-Studies-Python/master?urlpath=tree/_book/03.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                <a class="binder-button" href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/master?urlpath=tree/_book/03.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
                 
                 
                 <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
@@ -373,9 +373,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_7_0.png" src="_images/03_7_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the spectrum, and then plots the results?</p>
@@ -389,16 +386,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/PmGme7YuAiw"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>In this notebook, we consider data recorded in the scalp <a href="https://en.wikipedia.org/wiki/Electroencephalography" rel="external">electroencephalogram</a> or EEG. The EEG provides a measure of brain voltage activity with high temporal resolution (typically on the order of milliseconds) but poor spatial resolution (on the order of 10 cm<sup>2</sup> of cortex). Here we will consider EEG activity recorded from a single scalp electrode. We will analyze these data to determine what (if any) rhythmic activity is present. In doing so, we will learn about an important technique to characterize rhythms in data - the Fourier transform and power spectral density or “spectrum” - and the many subtleties associated with this technique. We begin with a brief description of the data.</p>
 <div class="section" id="case-study-data">
@@ -409,16 +396,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/oRCUx11iEck"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>A patient enters the Massachusetts General Hospital (MGH) emergency room unconscious. As part of his clinical workup, electrodes are placed on the scalp surface and the EEG recorded. We assume that the skilled technicians at MGH record the EEG data with no artifacts (i.e., correctly placed electrodes in good electrical contact with the scalp). Twenty-one electrodes simultaneously record the EEG data for 10 minutes sampled at 1000 Hz (i.e., 1000 samples per second). To start, we receive from our clinical collaborator a 2 s snippet of EEG data recorded from a single electrode. If we find anything interesting in this 2 s snippet, our clinical collaborator has promised to provide additional EEG data from this patient and others.</p>
 </div>
@@ -430,16 +407,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/L0xf0dCn7T0"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>The goal of this notebook is to analyze the 2 s of EEG data by characterizing the observed rhythms. By the end of this notebook, you should be familiar with the principles of the Fourier transform, how to compute the spectrum in Python, and the time-windowed spectrum.</p>
 </div>
@@ -478,9 +445,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_21_0.png" src="_images/03_21_0.png" />
-</div>
 </div>
 <div class="python-note">
 <p><strong>Array shapes:</strong> The <code class="docutils literal notranslate"><span class="pre">reshape()</span></code> function lets us change the shape of an array. <code class="docutils literal notranslate"><span class="pre">reshape(-1)</span></code> tells Python to reshape the array into a vector with as many elements as are in the array. Mathematically, a vector is a one-dimensional array. In Python, the difference is that a vector is indexed by a single number, while an array is indexed by multiple numbers. After reshaping, we can look at the number at index 0 of <code class="docutils literal notranslate"><span class="pre">EEG</span></code> using <code class="docutils literal notranslate"><span class="pre">EEG[0]</span></code>. If we don’t reshape first, we need to use <code class="docutils literal notranslate"><span class="pre">EEG[0,</span> <span class="pre">0]</span></code> to get the same result, so reshaping the array isn’t required, but it is more convenient. There is a nice explanation of array shapes <a href="https://stackoverflow.com/questions/22053050/difference-between-numpy-array-shape-r-1-and-r#answer-22074424" rel="external">here</a>.</p>
@@ -492,16 +456,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/GepHsNVXTN4"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>You might notice, through visual inspection, a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in a 1 s interval. To do so, we might count the total number of maxima and divide by 2 (because we observe 2 seconds of data). However, counting so many maxima over an extended time interval is quite an error-prone procedure. Instead, let us count the number of maxima in the first 0.2 s, and then multiply by five; that will approximate the total number of peaks in a 1 s interval. We count about 12 peaks in the first 0.2 s, which corresponds to approximately 60 peaks in 1 s. That’s (approximately) 60 cycles per second or 60 Hertz (Hz).</p>
 <div class="question">
@@ -512,16 +466,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/mZ1uHN4lcPY"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>Visual inspection suggests a dominant rhythmic activity at a frequency of 60 Hz. With excitement we recall that high frequency oscillations in the 40-80 Hz band (the “<a href="https://en.wikipedia.org/wiki/Gamma_wave" rel="external">gamma band</a>”) are thought important for cognitive processing in the brain [<a href="https://doi.org/10.1016/j.tics.2012.12.003" rel="external">Nikolić, Fries, &amp; Singer, 2013</a>]. But, there’s a reason for the label gamma band: the rhythmic activity observed <em>in vivo</em> is typically diffuse, spread over a range of rhythms at neighboring frequencies. The rhythmic activity observed here is concentrated and remarkably regular for EEG data.</p>
 <div class="warning">
@@ -535,16 +479,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/UVnpQVUqpWI"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -555,9 +489,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_29_0.png" src="_images/03_29_0.png" />
-</div>
 </div>
 <p>Although the true brain signal may evolve as a continuous voltage trace in time, we do not observe this true signal. Instead, we observe a discrete sampling of this signal in time. The spacing between these samples is determined by the recording device collecting the EEG data. In this case, our collaborator has told us that the data are sampled at 1000 Hz, which corresponds to a sample of data every 1 ms. So, we observe not the (presumably) continuous true voltage signal, but instead discrete samples of this signal in time.</p>
 <div class="cell docutils container">
@@ -566,16 +497,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/W9BTYZM8yzs"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>To understand the impact of this discrete sampling, we first require some definitions. Let’s define <span class="math notranslate nohighlight">\(\Delta\)</span> as the time between samples, in this case, <span class="math notranslate nohighlight">\(\Delta = 1\)</span> ms. We also define <span class="math notranslate nohighlight">\(N\)</span> as the total number of points observed, and <span class="math notranslate nohighlight">\(T\)</span> as the total time of the recording. These three terms are related:</p>
 <p><span class="math notranslate nohighlight">\(T = N \Delta\)</span>.</p>
@@ -621,13 +542,6 @@ $$
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;mn = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mn</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;vr = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">vr</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sd = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sd</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mn = 2.731148640577885e-17
-vr = 0.5047172407856452
-sd = 0.7104345436320261
 </pre></div>
 </div>
 </div>
@@ -677,9 +591,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_46_0.png" src="_images/03_46_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> Examine the plot of the autocovariance of the EEG data. What do you observe?</p>
@@ -701,9 +612,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_50_0.png" src="_images/03_50_0.png" />
-</div>
 </div>
 <p>At zero lag (<span class="math notranslate nohighlight">\(L = 0\)</span>), the two time series are identical. Therefore, the product</p>
 <div class="math notranslate nohighlight">
@@ -722,11 +630,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([0.50471724])
-</pre></div>
-</div>
-</div>
 </div>
 <p>Let’s now consider shifting the EEG data by <strong>an integer multiple</strong> of the 60 Hz cycle. Let’s use a particular integer multiple of 2:</p>
 <div class="cell docutils container">
@@ -740,9 +643,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_54_0.png" src="_images/03_54_0.png" />
-</div>
 </div>
 <p>Therefore, at this lag <span class="math notranslate nohighlight">\(L\)</span>, we again expect the summed product</p>
 <div class="math notranslate nohighlight">
@@ -753,11 +653,6 @@ $\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">where</span><span class="p">(</span><span class="n">lags</span> <span class="o">==</span> <span class="n">L</span><span class="p">)]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([0.48702814])
 </pre></div>
 </div>
 </div>
@@ -775,9 +670,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_59_0.png" src="_images/03_59_0.png" />
-</div>
 </div>
 <p>We observe a different type of relationship; at this lag, let’s call it <span class="math notranslate nohighlight">\(L^∗\)</span>, positive values in the unshifted EEG correspond to negative values in the shifted EEG. Therefore, most terms in the product</p>
 <div class="math notranslate nohighlight">
@@ -788,11 +680,6 @@ $\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">where</span><span class="p">(</span><span class="n">lags</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([-0.49007471])
 </pre></div>
 </div>
 </div>
@@ -810,9 +697,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_63_0.png" src="_images/03_63_0.png" />
-</div>
 </div>
 <p>The autocovariance is a useful tool for assessing the dependent structure in the EEG data. Visual inspection of the EEG reveals a specific type of dependent structure - a strong rhythmic component - in the data. This dependent structure is further characterized in the autocovariance, in which the dominant 60 Hz activity manifests as periodic peaks and troughs in the autocovariance. In the next section, we consider a second tool - the spectrum - for assessing dependent structure in time series data. As we’ll see, the autocovariance and spectrum are intimately related in a remarkable way.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
@@ -825,16 +709,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/OAHpkZy6ZX8"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>There are many techniques to assess rhythmic activity in the EEG data. Here, we compute the <em>power spectral density</em>, or simply the <em>spectrum</em>, of <span class="math notranslate nohighlight">\(x\)</span> using a well-established technique, the <a href="https://en.wikipedia.org/wiki/Fourier_transform" rel="external"><em>Fourier transform</em></a>. There are many subtleties associated with computing and interpreting the spectrum. We explore some of them here; in doing so, we build our intuition for spectral analysis and our ability to deal with future, unforeseen circumstances in other data we encounter in research.</p>
 <div class="math-note">
@@ -846,16 +720,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/iPUpMS79xgo"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p><a id="spectrum"></a>
 <strong>Computing the spectrum.</strong> We start by presenting all the formulas and code necessary to compute the spectrum of the data. Then throughout the rest of this notebook, we circle back and consider each step of the computation in detail.</p>
@@ -888,9 +752,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_70_0.png" src="_images/03_70_0.png" />
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -898,16 +759,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/kmHCCzAbMVI"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>That’s not so bad; the code to compute and display the spectrum fits in 13 lines (with spacing for aesthetics). Notice the large peak at 60 Hz. This peak is consistent with our visual inspection of the EEG data, in which we approximated a dominant rhythm at 60 Hz by counting the number of peaks that appeared in the voltage traces. So, our computation of the spectrum at least matches our initial expectation deduced from visual inspection of the data.</p>
 <p>We’ve managed to compute and plot the spectrum, and our analysis results match our expectations. We could choose to stop here. But a danger persists: we’ve blindly entered Python code and achieved an expected result. What are the frequency resolution and Nyquist frequency mentioned in the comments of the code? Maybe this procedure is fraught with pitfalls, and we simply got lucky in this case? Does the spectrum provide additional information that was not immediately uncovered? How will we react and adapt when the spectrum results do not match our intuition? To answer these questions requires developing more intuition for the Fourier transform and spectrum.</p>
@@ -921,16 +772,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/noCOC69jvh8"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>Computing the spectrum of a signal <span class="math notranslate nohighlight">\(x\)</span> in Python can be achieved in two simple steps. The first step is to compute the Fourier transform of <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="cell docutils container">
@@ -951,9 +792,6 @@ $\)</span></p>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [$\mu V^2$/Hz]&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_78_0.png" src="_images/03_78_0.png" />
 </div>
 </div>
 <p>Upon examining the horizontal axis in this plot, we find it corresponds to the indices of <code class="docutils literal notranslate"><span class="pre">x</span></code>, beginning at index 0 and ending at index <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">1000</span></code>. To convert the x-axis from indices to frequencies, we need to define two new quantities:</p>
@@ -989,9 +827,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_82_0.png" src="_images/03_82_0.png" />
-</div>
 </div>
 <p>In the next two sections, we focus on interpreting and adjusting the quantities <span class="math notranslate nohighlight">\(df\)</span> and <span class="math notranslate nohighlight">\(f_{NQ}\)</span>. Doing so is critical to developing a further intuition for the spectrum.</p>
 </div>
@@ -1003,16 +838,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/sgYkOkrlQ_E"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>The formula for the Nyquist frequency is <a id="eq:3.13"></a></p>
 <div class="math notranslate nohighlight">
@@ -1041,16 +866,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/bZsj_gcGoSo"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>The frequency resolution is defined as</p>
 <div class="math notranslate nohighlight">
@@ -1083,16 +898,6 @@ This observation provides some intuition for the relation between the amount of 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/SuDJha5LNL0"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>Let’s now return to the <a class="reference external" href="#fig:3-6">spectrum of the EEG data</a>.
 <span class="sup">fig<img src="imgs/3-6.png"></span>
@@ -1109,9 +914,6 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_100_0.png" src="_images/03_100_0.png" />
 </div>
 </div>
 <p>To change to the decibel scale, we first divide the spectrum by the maximum value observed and then take the logarithm base 10 of this ratio and multiply the result by 10. The 60 Hz rhythm is still dominant and exhibits the most power.</p>
@@ -1133,9 +935,6 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_104_0.png" src="_images/03_104_0.png" />
-</div>
 </div>
 <p>Notice the change in the first line to use the <code class="docutils literal notranslate"><span class="pre">semilogx</span></code> function. By using the logarithmic scale to stretch the low-frequency part of the horizontal axis, the two low-frequency peaks become more apparent. The changes compared to the original spectrum are purely cosmetic. However, these cosmetic changes have proved extremely useful. The two lower-frequency peaks were originally hidden from us, both in visual inspection of the raw data and in the original plot of the spectrum. In those cases, the large-amplitude 60 Hz activity masked the smaller-amplitude (three orders of magnitude smaller) rhythms.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
@@ -1148,16 +947,6 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/XYy4NEr3VUs"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>The spectrum <a class="reference external" href="#fig:3.13a">plotted using the decibel scale</a><span class="sup">fig<img src="imgs/3-13a.png"></span> suggests that three rhythms appear in the EEG signal: 60 Hz, approximately 11 Hz, and approximately 6 Hz. Given only these results, we may reasonably conclude that these three rhythms appear simultaneously throughout the entire 2 s of the EEG recording. That is an assumption we make in computing the spectrum of the entire 2 s interval. To further test this assumption in the EEG data, we compute a final quantity: the <em>spectrogram</em>. The idea of the spectrogram is to break up the time series into smaller intervals of data and then compute the spectrum in each interval. These intervals can be quite small and can even overlap. The result is the spectrum as a function of frequency and time.</p>
 <div class="question">
@@ -1186,9 +975,6 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_111_0.png" src="_images/03_111_0.png" />
-</div>
 </div>
 <p>We supplied four arguments to the <code class="docutils literal notranslate"><span class="pre">spectrogram</span></code> function. Briefly, these arguments specify the data, the sampling frequency, the interval size (specified in indices and here set to 1 s), and the overlap between intervals (here set to 95%). More information about these options can be found in the documentation (<code class="docutils literal notranslate"><span class="pre">signal.spectrogram?</span></code>). Notice that we used <code class="docutils literal notranslate"><span class="pre">int</span></code> to enforce integer values for three of these inputs.</p>
 <div class="python-note">
@@ -1207,24 +993,9 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/jdceZRY_PDA"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
-<<<<<<< HEAD
 <p>In this notebook, we analyzed 2 s of EEG data. We started with visual inspection of the <a class="reference external" href="#fig:3.1">EEG time series</a>.<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how <a class="reference external" href="#fig:3.13a">logarithmic scales</a>  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the <a class="reference external" href="#fig:3.14">spectrogram</a> provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.</p>
-<p>in this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. in future notebooks, we will discuss the issues of windowing and zero padding. for those interested in exploring further, see <a href="https://doi.org/10.1017/cbo9780511622762" rel="external">Percival &amp; Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=alma_bosu121668583370001161&context=l&vid=bu&search_scope=default_scope&tab=default_tab&lang=en_us" rel="external">priestley, 1981</a>.</p>
-=======
-<p>In this notebook, we analyzed 2 s of EEG data. We started with visual inspection of the <a class="reference external" href="#fig:3.1">EEG time series</a>.<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how <a class="reference external" href="#fig:3.13a">logarithmic scales</a>  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the <a class="reference external" href="%22#fig:3.14%22">spectrogram</a> provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.</p>
-<p>In this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future notebooks, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see <a href="https://doi.org/10.1017/CBO9780511622762" target="blank">Percival &amp; Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" target="blank">Priestley, 1981</a>.</p>
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
+<p>In this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future notebooks, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see <a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" rel="external">Priestley, 1981</a>.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
 <hr class="docutils" />
 <p><a id="supplements"></a></p>
@@ -1274,9 +1045,6 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_125_0.png" src="_images/03_125_0.png" />
-</div>
 </div>
 <p>We see the similarities and differences between these two estimates. At small lags (near 0 s), the biased and unbiased estimates of the autocovariance are similar. In this case, <span class="math notranslate nohighlight">\(L\)</span> is small, so the factor 1/(N − L) in the unbiased estimate is similar to the factor of 1/N in the biased estimate. At large lags (away from 0 s), the biased and unbiased estimates of the autocovariance are quite different. Notice that, as L approaches ±2 s, the biased estimate (orange curve) approaches zero.</p>
 <p>Compare this observation to the <em>unbiased</em> estimate of the autocovariance. In this example, we see that the unbiased estimate of the autocovariance remains large even as L approaches ± 2 (blue curve).</p>
@@ -1310,9 +1078,6 @@ Now consider the extension to <span class="math notranslate nohighlight">\(L=N-2
 <span class="n">fig</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_129_0.png" src="_images/03_129_0.png" />
 </div>
 </div>
 <div class="math-note">
@@ -1380,16 +1145,6 @@ r_{xx}^*[N-1] &amp;=&amp; \frac{1}{N - (N - 1)}\sum_{n=1}^{N - (N-1)}(x_{n+N-1} 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/TOszYv0pdKU"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>The Fourier transform represents the data <span class="math notranslate nohighlight">\(x\)</span> as a linear combination of sinusoids with different frequencies. To see this, consider again:</p>
 <div class="math notranslate nohighlight">
@@ -1429,16 +1184,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-<iframe
-    width="400"
-    height="300"
-    src="https://www.youtube.com/embed/PRoA5Zn_gbQ"
-    frameborder="0"
-    allowfullscreen
-></iframe>
-</div></div>
 </div>
 <p>To make these ideas more concrete, we can consider some simple examples. In these examples, the data <span class="math notranslate nohighlight">\(x\)</span> will be a perfect cosine with frequency 10 Hz.</p>
 <div class="cell docutils container">
@@ -1450,9 +1195,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_142_0.png" src="_images/03_142_0.png" />
 </div>
 </div>
 <p>Choosing <span class="math notranslate nohighlight">\(f_j = 4\)</span> Hz, we can construct a sine and cosine function each oscillating at 4 Hz.</p>
@@ -1469,9 +1211,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_144_0.png" src="_images/03_144_0.png" />
-</div>
 </div>
 <p>Then, to perform the calculation of the Equation (*) we multiply the data <span class="math notranslate nohighlight">\(x\)</span> by the sinusoids at each point in time.</p>
 <div class="cell docutils container">
@@ -1482,9 +1221,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_146_0.png" src="_images/03_146_0.png" />
 </div>
 </div>
 <p>Notice that the products alternate between positive and negative values throughout time.</p>
@@ -1509,9 +1245,6 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/03_149_0.png" src="_images/03_149_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1580,14 +1313,6 @@ purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum 
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.818926e-17
-sin          9.989204e-01
-cos         -3.238373e-03
-dtype: float64
-</pre></div>
-</div>
-</div>
 </div>
 <p>In the first line, we create a <em>dataframe</em> object with the dependent variables (<code class="docutils literal notranslate"><span class="pre">EEG</span></code>) and independent variables (or predictors) of the model - in this case the 60 Hz sine function, and the 60 Hz cosine function. Next, we fit the model to the data using the <code class="docutils literal notranslate"><span class="pre">ols</span></code> function. OLS stands for <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" rel="external">ordinary least squares</a> because Python determines the coefficients by minimizing the squared distance between the true and predicted data points. The last line shows us the values that Python has found for the <span class="math notranslate nohighlight">\(\beta\)</span>’s.</p>
 <div class="question">
@@ -1613,9 +1338,6 @@ cos         -3.24e-03</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_161_0.png" src="_images/03_161_0.png" />
-</div>
 </div>
 <p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
 <div class="question">
@@ -1633,9 +1355,6 @@ cos         -3.24e-03</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/03_164_0.png" src="_images/03_164_0.png" />
-</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> Consider the cleaned EEG data. What activity do you now notice? Compare the EEG data in the plot you created above to the <a class="reference external" href="#fig:3-1">original EEG data</a>, which includes the 60 Hz noise.<span class="sup">fig<img src="imgs/3-1.png"></span> What’s different?</p>
@@ -1644,11 +1363,6 @@ cos         -3.24e-03</p>
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sxx_model_60Hz</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;sin&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;cos&#39;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span>
 <span class="n">Sxx_model_60Hz</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.9978524145209726
 </pre></div>
 </div>
 </div>
@@ -1666,7 +1380,7 @@ cos         -3.24e-03</p>
     {
         requestKernel: true,
         binderOptions: {
-            repo: "eschlaf2/Case-Studies-Python",
+            repo: "Mark-Kramer/Case-Studies-Python",
             ref: "master",
         },
         codeMirrorConfig: {
