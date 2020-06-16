@@ -274,11 +274,7 @@ r_{xy}\big[L\big] = \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+L} - \bar{x}) (y_{n} - \b
 $$
 </span>
 
-<<<<<<< HEAD
 where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in <a href="03" rel="local">notebook 3</a>,<span class="thumb"><sup>eq</sup><img src="03/imgs/eq3-3.png"></span> the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
-=======
-where $x$ and $y$ are two time series with time index $n$.  Notice what we've done; compared to the autocovarance defined in [notebook 3](03), the cross-covariance formula simply replaces the $x$'s in the second term in parentheses with $y$'s.
->>>>>>> 07cb242c038961d57cb52ea30dd08d2e736ab0e2
 
 The intuition for understanding the cross-covariance is similar to that for the autocovariance (see <a href="03" rel="local">notebook 3</a>). To calculate the cross-covariance, we multiply $y$ with $x$ shifted in time by lag $L$, as illustrated here:
 
