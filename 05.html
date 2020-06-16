@@ -113,7 +113,7 @@
     <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-field coherence</a>
+    <a href="11.html">11. Spike-Field Coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Extra notebooks</p>
@@ -251,15 +251,17 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" class="nav-link">Introduction to the Coherence <a class="anchor" id="sec:coherence"></a></a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
+            <a href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" class="nav-link">Introduction to the Coherence <a class="anchor" id="sec:coherence"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
             <a href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" class="nav-link">Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a></a>
         </li>
     
-        <li class="nav-item toc-entry toc-h2">
+        <li class="nav-item toc-entry toc-h3">
             <a href="#simple-scenario-2-phases-are-random-across-trials" class="nav-link">Simple Scenario 2: Phases are random across trials</a>
+        </li>
+    
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -384,6 +386,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_5_0.png" src="_images/05_5_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the coherence, and then plots the results?</p>
@@ -432,6 +437,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;__header__&#39;, &#39;__version__&#39;, &#39;__globals__&#39;, &#39;E1&#39;, &#39;t&#39;, &#39;E2&#39;])
+</pre></div>
+</div>
+</div>
 </div>
 <p>The keys that start and end with two underscores ( <code class="docutils literal notranslate"><span class="pre">__</span></code> ) are private and contain information about the MATLAB file. The variables that we are interested in here are <code class="docutils literal notranslate"><span class="pre">E1</span></code>, <code class="docutils literal notranslate"><span class="pre">E2</span></code>, and <code class="docutils literal notranslate"><span class="pre">t</span></code>. These correspond to the ECoG data recorded at the two electrodes (<code class="docutils literal notranslate"><span class="pre">E1</span></code> and <code class="docutils literal notranslate"><span class="pre">E2</span></code>) as well as a time axis (<code class="docutils literal notranslate"><span class="pre">t</span></code>). Let’s extract these variables from the <code class="docutils literal notranslate"><span class="pre">data</span></code> dictionary.</p>
 <div class="cell docutils container">
@@ -453,6 +463,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>(100, 500)
+</pre></div>
+</div>
+</div>
 </div>
 <p>We observe that the data consist of 100 trials, each consisting of 500 data points.</p>
 <div class="question">
@@ -469,6 +484,9 @@
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;traces&#39;</span><span class="p">:</span> <span class="n">f</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;traces&#39;</span><span class="p">:</span> <span class="n">a</span><span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_17_0.png" src="_images/05_17_0.png" />
 </div>
 </div>
 <p>Visual inspection of the data in this trial immediately suggests a dominant rhythmic activity occurs in each recording.</p>
@@ -490,6 +508,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_20_0.png" src="_images/05_20_0.png" />
+</div>
 </div>
 <p>The resulting image for the first electrode is shown in the figure above. Voltage (in color) is plotted as a function of time along the horizontal axis and trial number along the vertical axis. This allows us to visualize the voltage activity of the first electrode for all trials at once.</p>
 <p>We notice that each trial exhibits rhythmic structure, which manifests in this image as repeating undulations of blue (low voltage), then red (high voltage) over time. We also observe variability in the alignment of these rhythms from trial to trial; from one trial to the next, the undulations appear not to align.</p>
@@ -507,6 +528,9 @@
 <span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;imgs/traces&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_24_0.png" src="_images/05_24_0.png" />
 </div>
 </div>
 <p>We notice in the first two trials that the ECoG activity from the two electrodes appears nearly out of phase (i.e., when the blue curve is near a peak, the red curve is near a trough). However, for the next two trials, activity from the two electrodes nearly overlaps. From this initial visual inspection of four trials, it’s difficult to conclude whether the ECoG activity at the two electrodes is interrelated; both electrodes display rhythmic activity across all trials, but the relation between these rhythms appears to change across trials: sometimes the activities overlap, and sometimes not.</p>
@@ -549,6 +573,9 @@ r_{xx}\big[L\big] = \frac{1}{K} \sum_{k=1}^K \frac{1}{N} \sum_{n=1}^{N-L} (x_{n+
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_30_0.png" src="_images/05_30_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> Consider the results for the trial-averaged autocovariance plotted above. What do these results suggest about the rhythmic structure in these data?</p>
@@ -583,6 +610,9 @@ $$
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_34_0.png" src="_images/05_34_0.png" />
+</div>
 </div>
 <p>Notice that we subtract the mean from each electrode in defining <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> before computing the cross-covariance using the Python function <code class="docutils literal notranslate"><span class="pre">correlate</span></code> from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package. In this case, we supply the <code class="docutils literal notranslate"><span class="pre">correlate</span></code> function with three inputs, beginning with the two time series, <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, and setting the <code class="docutils literal notranslate"><span class="pre">mode</span></code> to 2, which tells the function to compute the correlation over the entire extent both vectors.</p>
 <div class="question">
@@ -593,6 +623,9 @@ $$
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">[</span><span class="s1">&#39;traces&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_38_0.png" src="_images/05_38_0.png" />
 </div>
 </div>
 <p>The largest peak in the cross-covariance occurs near a lag of 0.04 s. Now, imagine shifting the blue time series (corresponding to electrode 1) in this figure by 0.04 s to the left. Doing so, we find that the red and blue traces approximately match; at this lag, when one time series is positive, so is the other, and when one time series is negative, so is the other. Because of this strong match, the cross-covariance is large: i.e. the sum in <a class="reference external" href="#eq:xc">the cross-covariance equation</a><span class="thumb"><sup>eq</sup><img src='imgs/eq5-2.png'></span> at this lag involves many positive terms, so <span class="math notranslate nohighlight">\(r_{xy}\big[L\big]\)</span> is a positive number. The largest trough in the cross-covariance occurs near a lag of approximately 0.02 s. To understand this feature, imagine shifting the blue time series in the figure above by 0.02 s to the right. After this shift, the red and blue time series match, but in a different way; when one voltage trace is positive, the other is negative, and vice versa.</p>
@@ -628,6 +661,9 @@ Notice that, compared to the trial-averaged autocovariance, we have replaced the
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_42_0.png" src="_images/05_42_0.png" />
 </div>
 </div>
 <div class="python-note">
@@ -739,6 +775,9 @@ S_{xx, \, j}	&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \,
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_48_0.png" src="_images/05_48_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Are the terms frequency resolution, Nyquist frequency, and decibel familiar to you? Can you define each in words and equations?</p>
@@ -802,9 +841,8 @@ Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 <p><span id="eq:cohr_simp" title="Coherence (simplified)"></span></p>
 <p>Under the simplifying assumption that the amplitude is identical at each frequency for both signals and all trials, the coherence simplifies to the last equation in the expression above. In this special case, the expression for the coherence only involves the phase difference between the two signals averaged across trials; the amplitudes in the numerator and denominator have canceled out.</p>
 <p>Now, let’s interpret the simplified expression for the coherence. To do so, we consider two scenarios.</p>
-</div>
 <div class="section" id="simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a">
-<h2>Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a><a class="headerlink" href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" title="Permalink to this headline">¶</a></h2>
+<h3>Simple Scenario 1:  Phases align across trials<a id="Simple_Scenario_1"></a><a class="headerlink" href="#simple-scenario-1-phases-align-across-trials-a-id-simple-scenario-1-a" title="Permalink to this headline">¶</a></h3>
 <p>First, we assume that at a specific frequency index <span class="math notranslate nohighlight">\(j\)</span>, the two signals possess a <em>constant</em> phase difference across trials. Under this assumption, the phase difference in the first trial (<span class="math notranslate nohighlight">\(\Phi_{j,1}\)</span>) equals the phase difference in the second trial (<span class="math notranslate nohighlight">\(\Phi_{j,2}\)</span>), which equals the phase difference in the third trial (<span class="math notranslate nohighlight">\(\Phi_{j,3}\)</span>), and so on for all trials.  To denote this equivalence in the phase difference across trials, let’s replace the symbol for the phase difference <span class="math notranslate nohighlight">\(\Phi_{j,k}\)</span> with <span class="math notranslate nohighlight">\(\Phi_{j,0}\)</span>; here, we have replaced the subscript <span class="math notranslate nohighlight">\(k\)</span> with the subscript <span class="math notranslate nohighlight">\(0\)</span> to remind ourselves that the phase difference does not depend upon the choice of trial. Now consider the expression:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -834,7 +872,7 @@ Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 <p><a class="reference external" href="#top">Return to top</a></p>
 </div>
 <div class="section" id="simple-scenario-2-phases-are-random-across-trials">
-<h2>Simple Scenario 2: Phases are random across trials<a class="headerlink" href="#simple-scenario-2-phases-are-random-across-trials" title="Permalink to this headline">¶</a></h2>
+<h3>Simple Scenario 2: Phases are random across trials<a class="headerlink" href="#simple-scenario-2-phases-are-random-across-trials" title="Permalink to this headline">¶</a></h3>
 <p><a id="Simple_Scenario_2"></a></p>
 <p>As a second scenario, consider another specific frequency <span class="math notranslate nohighlight">\(j\)</span> in which the two signals have a random phase difference in each trial. In this case, the phase difference can assume any value between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(2\pi\)</span> for each trial. To visualize this, let’s imagine the phase differences in the complex plane; in this scenario, the vectors point in different (random) directions from trial to trial:</p>
 <p><img src="imgs/ex_complex_plane_coherence_b.png"></img></p>
@@ -847,6 +885,7 @@ Y_{j,k} = B_{j,k} \exp(i \, \theta_{j,k}) \, ,
 \kappa_{xy,\, j} \approx 0 \, , \notag
 \]</div>
 <p>which indicates weak coherence between the two signals.  The weak coherence in this case results from the random phase relationship over trials between the two signals.</p>
+</div>
 </div>
 <div class="section" id="summary-of-the-coherence-a-id-summary-of-the-coherence-a">
 <h2>Summary of the coherence <a id="Summary_of_the_coherence"></a><a class="headerlink" href="#summary-of-the-coherence-a-id-summary-of-the-coherence-a" title="Permalink to this headline">¶</a></h2>
@@ -910,6 +949,9 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/05_73_0.png" src="_images/05_73_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> That’s quite a bit of code. Look through it line by line, and confirm that each step makes sense. Can you identify the calculation of the cross-spectrum? of the trial averaging?</p>
@@ -950,6 +992,9 @@ Hint: Consider <a href="#eq:cohr" class="thumb">this equation<img src="imgs/eqco
 <span class="n">a2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Phase&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/05_78_0.png" src="_images/05_78_0.png" />
 </div>
 </div>
 <p>Again, we’re encountering quite a bit of Python code. Fortunately, large chunks of this code are familiar. We reuse useful quantities, like the number of trials (<code class="docutils literal notranslate"><span class="pre">K</span></code>) and the frequency axis (<code class="docutils literal notranslate"><span class="pre">f</span></code>). Then, within the frequency axis variable (<code class="docutils literal notranslate"><span class="pre">f</span></code>), we use the function <code class="docutils literal notranslate"><span class="pre">where</span></code> to identify the indices corresponding to a frequency of 8 Hz and a frequency of 24 Hz. For each trial, we then compute the cross-spectrum (<code class="docutils literal notranslate"><span class="pre">Sxy</span></code>). The cross-spectrum is a complex quantity at each frequency, and we identify the angle in the complex plane corresponding to the frequencies 8 Hz and 24 Hz using the Python function <code class="docutils literal notranslate"><span class="pre">angle</span></code>. We store these results in two vectors, <code class="docutils literal notranslate"><span class="pre">phi8</span></code> and <code class="docutils literal notranslate"><span class="pre">phi24</span></code>.</p>

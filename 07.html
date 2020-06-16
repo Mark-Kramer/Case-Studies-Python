@@ -113,7 +113,7 @@
     <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-field coherence</a>
+    <a href="11.html">11. Spike-Field Coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Extra notebooks</p>
@@ -243,32 +243,34 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#phase-amplitude-coupling" class="nav-link">Phase-Amplitude Coupling</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
+            <a href="#phase-amplitude-coupling" class="nav-link">Phase-Amplitude Coupling</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
             <a href="#cfc-analysis-steps" class="nav-link">CFC Analysis Steps</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h2">
+        <li class="nav-item toc-entry toc-h3">
             <a href="#step-1-filter-the-data-into-high-and-low-frequency-bands" class="nav-link">Step 1. Filter the Data into High- and Low-Frequency Bands.</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h2">
+        <li class="nav-item toc-entry toc-h3">
             <a href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" class="nav-link">Step 2. Extract the Amplitude and Phase from Filtered Signals.</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#what-does-the-hilbert-transform-do" class="nav-link">What Does the Hilbert Transform Do?</a>
+            </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
+            <a href="#what-does-the-hilbert-transform-do" class="nav-link">What Does the Hilbert Transform Do?</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
             <a href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" class="nav-link">Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#step-3-determine-if-the-phase-and-amplitude-are-related" class="nav-link">Step 3. Determine if the Phase and Amplitude are Related.</a><ul class="nav section-nav flex-column">
-                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-3-determine-if-the-phase-and-amplitude-are-related" class="nav-link">Step 3. Determine if the Phase and Amplitude are Related.</a>
+        </li>
+    
         <li class="nav-item toc-entry toc-h3">
             <a href="#the-phase-amplitude-plot" class="nav-link">The phase-amplitude plot</a>
         </li>
@@ -533,9 +535,8 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div></div>
 </div>
 <p>To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" rel="external">ongoing research</a>.</p>
-</div>
 <div class="section" id="cfc-analysis-steps">
-<h2>CFC Analysis Steps<a class="headerlink" href="#cfc-analysis-steps" title="Permalink to this headline">¶</a></h2>
+<h3>CFC Analysis Steps<a class="headerlink" href="#cfc-analysis-steps" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Filter the data into high- and low-frequency bands.</p></li>
 <li><p>Extract the amplitude and phase from the filtered signals.</p></li>
@@ -544,7 +545,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p><a id="step1"></a></p>
 </div>
 <div class="section" id="step-1-filter-the-data-into-high-and-low-frequency-bands">
-<h2>Step 1. Filter the Data into High- and Low-Frequency Bands.<a class="headerlink" href="#step-1-filter-the-data-into-high-and-low-frequency-bands" title="Permalink to this headline">¶</a></h2>
+<h3>Step 1. Filter the Data into High- and Low-Frequency Bands.<a class="headerlink" href="#step-1-filter-the-data-into-high-and-low-frequency-bands" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;WL_nFRBHqLU&#39;</span><span class="p">)</span>
@@ -616,7 +617,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p><a id="step2"></a></p>
 </div>
 <div class="section" id="step-2-extract-the-amplitude-and-phase-from-filtered-signals">
-<h2>Step 2. Extract the Amplitude and Phase from Filtered Signals.<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" title="Permalink to this headline">¶</a></h2>
+<h3>Step 2. Extract the Amplitude and Phase from Filtered Signals.<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;QiRuBvbCQt4&#39;</span><span class="p">)</span>
@@ -681,6 +682,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p>The effect of the Hilbert transform is to remove negative frequencies from <span class="math notranslate nohighlight">\(z\)</span>. As it stands,
 this is not obvious. To get a sense for why this is so, let’s consider a simple example.</p>
 <p><a id="hilbert"></a></p>
+</div>
 </div>
 <div class="section" id="what-does-the-hilbert-transform-do">
 <h2>What Does the Hilbert Transform Do?<a class="headerlink" href="#what-does-the-hilbert-transform-do" title="Permalink to this headline">¶</a></h2>
@@ -798,9 +800,8 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <div class="question">
 <p><strong>Q.</strong> The phase of a complex quantity is the angle with respect to the real axis in the complex plain. What is the angle of <span class="math notranslate nohighlight">\(x_0\)</span> in the figure above?</p>
 </div><p><a id="step2ctd"></a></p>
-</div>
 <div class="section" id="step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued">
-<h2>Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" title="Permalink to this headline">¶</a></h2>
+<h3>Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" title="Permalink to this headline">¶</a></h3>
 <p>Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -819,7 +820,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><a id="step3"></a></p>
 </div>
 <div class="section" id="step-3-determine-if-the-phase-and-amplitude-are-related">
-<h2>Step 3. Determine if the Phase and Amplitude are Related.<a class="headerlink" href="#step-3-determine-if-the-phase-and-amplitude-are-related" title="Permalink to this headline">¶</a></h2>
+<h3>Step 3. Determine if the Phase and Amplitude are Related.<a class="headerlink" href="#step-3-determine-if-the-phase-and-amplitude-are-related" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;fiL9UNbLPA8&#39;</span><span class="p">)</span>
@@ -839,6 +840,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 </div>
 <p>As with the previous steps, we have at our disposal a variety of procedures to assess the relation between the phase (of the low-frequency signal) and amplitude (of the high-frequency signal). We do so here in one way, by computing the phase-amplitude plot.</p>
 <p><a id="m1"></a></p>
+</div>
 <div class="section" id="the-phase-amplitude-plot">
 <h3>The phase-amplitude plot<a class="headerlink" href="#the-phase-amplitude-plot" title="Permalink to this headline">¶</a></h3>
 <p>To start, define the two-column phase-amplitude vector,</p>
