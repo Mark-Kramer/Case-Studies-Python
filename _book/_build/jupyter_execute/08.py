@@ -1070,13 +1070,14 @@ We could also have computed the maximum likelihood estimator theoretically, by d
 
 </div>
 
-To address this last question, let’s use a bootstrap analysis (see <a href="02#bootstrap" rel="local">[an introduction to the bootstrap in this notebook]</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
+To address this last question, let’s use a bootstrap analysis (see an introduction to the bootstrap in
+<a href="02" rel="local">this notebook</a>). We combine all the ISIs from both conditions into one pool, sample many new datasets with replacement from that pool, and compare the actual difference in rate parameters to the distribution of differences across the samples.
 
 # Compute the observed difference in lambdas.
 MLDiff = 1 / ISIsHigh.mean() - 1 / ISIsLow.mean()
 
 # Then, perform the bootstrap analysis.
-ISIs = hstack([ISIsLow, ISIsHigh])  # Merge all ISIs.
+ISIs = hstack([ISIsLow, ISIsHigh])     # Merge all ISIs.
 Nall = len(ISIs)                       # Save length of all ISIs.
 Nlo = len(ISIsLow)                     # Save length for the low-light condition.
 Nhi = len(ISIsHigh)                    # Save length high-light condition.

@@ -161,7 +161,7 @@ YouTubeVideo('JjOcJy4dVzE')
 
 To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" rel="external">ongoing research</a>.
 
-## CFC Analysis Steps
+### CFC Analysis Steps
 
 * Filter the data into high- and low-frequency bands.
 
@@ -170,7 +170,7 @@ To assess whether different frequency rhythms interact in the LFP recording, we 
 * Determine if the phase and amplitude are related.
 
 <a id="step1"></a>
-## Step 1. Filter the Data into High- and Low-Frequency Bands.
+### Step 1. Filter the Data into High- and Low-Frequency Bands.
 
 YouTubeVideo('WL_nFRBHqLU')
 
@@ -209,7 +209,7 @@ legend(['LFP', 'Vlo', 'Vhi']);  # Add a legend.
 As expected, the low-frequency band (orange) captures the large-amplitude rhythm dominating the LFP signal, while the higher-frequency band (green) isolates the brief bursts of faster activity.
 
 <a id="step2"></a>
-## Step 2. Extract the Amplitude and Phase from Filtered Signals.
+### Step 2. Extract the Amplitude and Phase from Filtered Signals.
 
 YouTubeVideo('QiRuBvbCQt4')
 
@@ -356,7 +356,7 @@ Because $x_0$ is real, this quantity evolves in time along the real axis (red in
 </div>
 
 <a id="step2ctd"></a>
-## Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).
+### Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).
 
 Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:
 
@@ -376,7 +376,7 @@ To extract the phase, we apply the function `angle` to the analytic signal of th
 To summarize, in this step we apply the Hilbert transform to create the analytic signal and get the phase or amplitude of the bandpass-filtered data.
 
 <a id="step3"></a>
-## Step 3. Determine if the Phase and Amplitude are Related.
+### Step 3. Determine if the Phase and Amplitude are Related.
 
 YouTubeVideo('fiL9UNbLPA8')
 
