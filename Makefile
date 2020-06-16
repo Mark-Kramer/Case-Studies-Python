@@ -11,7 +11,7 @@ help:
 	@echo "  site        push site in _book to gh-pages branch"
 
 sync_md:
-	./scripts/sync_md.sh
+	./scripts/sync_md.sh	
 
 index:
 	jb page _book/intro.md && echo "<meta http-equiv=\"Refresh\" content=\"0; url=intro.html\" />" > _book/_build/html/index.html
