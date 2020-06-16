@@ -994,9 +994,8 @@ $$
   \begin{eqnarray}
   f(x_1, x_2, ..., x_n) &=& f(x_1) f(x_2) ... f(x_n) \\ 
   &=& \lambda \exp(-\lambda x_1) \lambda \exp(-\lambda x_2) ... \lambda \exp(-\lambda x_n) \\
-  &=& \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i).
+  &=& \lambda ^n \exp(-\lambda \sum_{i=1}^n x_i). \\   \tag{8}
   \end{eqnarray}
-  \tag{8}
 $$
 
 We call this expression the joint probability distribution of the observed data. In the first equality, we separate the joint probability distribution $f(x_1,x_2,...,x_n)$ into a product of probability distributions of each event (i.e., $f(x_1)$, the probability of the first ISI equaling $x_1$; multiplied by $f(x_2)$, the probability of the second ISI equaling $x_2$; multiplied by $f(x_3)$, the probability of the third ISI equaling $x_3$; and so on). This partitioning of the joint probability is valid here because we assume the ISIs are independent. In the second equality, we replace each probability distribution with the exponential distribution we expect for the ISIs of a Poisson process. In the last equality, we rewrite the expression as a single exponential. Notice that this last expression is a function of the unknown rate parameter, $\lambda$.
