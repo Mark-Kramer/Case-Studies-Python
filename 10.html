@@ -37,7 +37,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Spike-Field Coherence" href="11.html" />
+    <link rel="next" title="Spike-field coherence" href="11.html" />
     <link rel="prev" title="Point Process Generalized Linear Models" href="09.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. Cross-frequency coupling</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -113,7 +113,7 @@
     <a href="">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-Field Coherence</a>
+    <a href="11.html">11. Spike-field coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Extra notebooks</p>
@@ -904,12 +904,11 @@ SPlan *= Fs ** 2 / 2
 </div><div class="section" id="model-1">
 <h3>Model 1<a class="headerlink" href="#model-1" title="Permalink to this headline">¶</a></h3>
 <p>Let’s build a model to compare the firing rate between the planning and movement periods; subsequent models will also include the effects of history dependence. In this model, the design matrix consists of one column that is zero whenever <span class="math notranslate nohighlight">\(t &lt; 0\)</span>, corresponding to the planning period, and that is 1 whenever <span class="math notranslate nohighlight">\(t \geq 0\)</span>, corresponding to the movement period. The resulting model has the form<a id="model:1"></a></p>
-<div class="math notranslate nohighlight">
-\[
+<p><a id="eq:3"></a>
+<span class="math notranslate nohighlight">\($
   \lambda(t) = e^{\beta_0 + \beta_1 I_\text{move}(t)},
   \tag{Model 1}
-\]</div>
-<p><a id="eq:3"></a></p>
+$\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(I_\text{move}(t)\)</span> is the movement period indicator function. We must also remember to reshape the spike train matrix into a single response vector.
 <a id="repeatvtile"></a></p>
 <div class="cell docutils container">
@@ -944,10 +943,10 @@ SPlan *= Fs ** 2 / 2
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18990.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28588.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>17:42:44</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
+  <th>Time:</th>                <td>17:58:43</td>     <th>  Pearson chi2:      </th> <td>9.53e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>6</td>        <th>                     </th>     <td> </td>   
@@ -1110,10 +1109,10 @@ dtype: float64
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18843.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Deviance:          </th> <td>  28293.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  28293.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>17:42:45</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
+  <th>Time:</th>                <td>17:58:46</td>     <th>  Pearson chi2:      </th> <td>9.52e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1465,10 +1464,10 @@ print(id(breakfast))
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -17967.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Deviance:          </th> <td>  26792.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26792.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>17:42:48</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
+  <th>Time:</th>                <td>17:58:52</td>     <th>  Pearson chi2:      </th> <td>9.16e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -1708,18 +1707,20 @@ print(id(breakfast))
 <p>This model would have a total of 73 parameters—one intercept parameter, one movement parameter, one direction parameter, and 70 parameters representing the columns of the history matrix. Mathematically,</p>
 <div class="math notranslate nohighlight">
 \[
+  \tag{Model 3}
   \lambda\big(t | H(t)\big) = 
   \exp\big(
       \beta_0 + 
       \beta_1 I_\text{move}(t) +
       \beta_2 I_\text{dir}(t) +
       \sum_{j=1}^{70} \beta_{2+j}\Delta N_{t-j}
-  \big).   \tag{Model 3}
+  \big).
 \]</div>
 <p>However, Model 3 implies that the influences of the trial period (<span class="math notranslate nohighlight">\(I_{dir}(t)\)</span>) and of the past history (<span class="math notranslate nohighlight">\(\Delta N_{t-j}\)</span>) are multiplicatively separable; that is, that the only difference between the planning and movement period is a change in the average firing rate and the spike rhythms are the same in both periods. The autocovariance and spectral analyses suggest that the influence of past spiking differs between these trial periods. Therefore, we should instead construct a model that has an interaction between the <code class="docutils literal notranslate"><span class="pre">Imove</span></code> and <code class="docutils literal notranslate"><span class="pre">lag</span></code> variables. We do this by including columns that represent the product of these two variables. Mathematically, we propose a model of the form
 <a id="eq:model4"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
+  \tag{Model 4}
   \begin{eqnarray}
   \lambda\big(t | H(t)\big) &amp;=&amp; 
   \exp\bigg(
@@ -1731,7 +1732,7 @@ print(id(breakfast))
       \big(\mathbb{1} - I_\text{move}(t)\big)\beta_{1 + 2j} + 
           I_\text{move}(t)\beta_{2 + 2j}
       \big]
-  \bigg) \tag{Model 4}
+  \bigg)
   \end{eqnarray}
 \end{split}\]</div>
 <p>Model 4 has 143 parameters—one intercept parameter, one parameter for each of the movement and direction indicator variables, 70 parameters describing the history dependence in the planning period, and 70 more parameters describing the history dependence in the movement period. Whenever we construct a point process model that includes history dependence, we call it a conditional intensity model rather than a rate model. To fit this model in Python, we will take advantage of the dataframe structure using the <code class="docutils literal notranslate"><span class="pre">filter()</span></code> method:</p>
@@ -1769,10 +1770,10 @@ print(id(breakfast))
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -17889.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Deviance:          </th> <td>  26637.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26637.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>17:42:51</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
+  <th>Time:</th>                <td>17:59:10</td>     <th>  Pearson chi2:      </th> <td>9.14e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -2250,8 +2251,7 @@ dtype: float64
 <p>Since Model 4 has 140 additional parameters related to history dependence, inspecting these printed values directly would be too overwhelming. Instead, let’s plot their exponentiated values as a function of lag for each period: <a id="fig:M4params"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordK</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordK</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> 
      <span class="n">exp</span><span class="p">(</span><span class="n">M4</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span> 
      <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Planning&#39;</span><span class="p">)</span>     <span class="c1"># Plot the planning parameters.</span>
 
@@ -2440,8 +2440,7 @@ Finally, let’s construct a KS plot to see how well Model 4 fits the data. When
 </div>
 </div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxord</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">aic</span><span class="p">)</span>  <span class="c1"># Plot the AIC,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">maxord</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">aic</span><span class="p">)</span>  <span class="c1"># Plot the AIC,</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model Order&#39;</span><span class="p">)</span>            <span class="c1"># ... with axes labeled.</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;AIC&#39;</span><span class="p">)</span>
 <span class="n">title</span><span class="p">(</span><span class="s1">&#39;AIC plot of models with increasing number of</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span>
@@ -2464,6 +2463,7 @@ Finally, let’s construct a KS plot to see how well Model 4 fits the data. When
 <p>Motivated by this observation, let’s replace the separate terms for each single millisecond lag. We do so with a small set of basis functions on the spiking history that can flexibly capture smooth history dependence structure. Mathematically, we fit a model of the form <a id="eq:model5"></a></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
+  \tag{Model 5}
   \begin{eqnarray}
   \lambda(t | H_t) &amp;=&amp; 
   \exp\big(
@@ -2478,7 +2478,7 @@ Finally, let’s construct a KS plot to see how well Model 4 fits the data. When
           \beta_{1+2j} + 
           I_\text{move}(t)\beta_{2 + 2j}
       \big]g_j(H_t)
-  \big),   \tag{Model 5}
+  \big),
   \end{eqnarray}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(H_t\)</span> is the full past firing history, and <span class="math notranslate nohighlight">\(g_j(H_t)\)</span> is a small collection of basis functions that together provide a smooth influence of the history on the current spiking intensity.</p>
@@ -2536,10 +2536,10 @@ smoothing spline basis. Here we use a set of Gaussian kernel functions with mean
   <th>Method:</th>                <td>IRLS</td>       <th>  Log-Likelihood:    </th> <td> -18014.</td>
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 16 Jun 2020</td> <th>  Deviance:          </th> <td>  26885.</td>
+  <th>Date:</th>            <td>Sat, 13 Jun 2020</td> <th>  Deviance:          </th> <td>  26885.</td>
 </tr>
 <tr>
-  <th>Time:</th>                <td>17:44:06</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
+  <th>Time:</th>                <td>18:02:06</td>     <th>  Pearson chi2:      </th> <td>9.11e+04</td>
 </tr>
 <tr>
   <th>No. Iterations:</th>          <td>7</td>        <th>                     </th>     <td> </td>   
@@ -2614,8 +2614,7 @@ smoothing spline basis. Here we use a set of Gaussian kernel functions with mean
 <p>Now let’s plot for this model the modulation in the spiking intensity due to a previous spike at any lag by multiplying the corresponding set of parameters by <code class="docutils literal notranslate"><span class="pre">C</span></code>.<a id="fig:model5"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordK</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Plot the planning modulation,</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordK</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Plot the planning modulation,</span>
      <span class="n">exp</span><span class="p">(</span><span class="n">matmul</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">array</span><span class="p">(</span><span class="n">M5</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="mi">2</span><span class="p">]))),</span> 
      <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Planning&#39;</span><span class="p">)</span>
 <span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordK</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># ... and the movement modulation,</span>
@@ -2709,8 +2708,7 @@ dtype: float64
 <p>In the <a class="reference external" href="#fig:model5">estimated modulation due to past spiking in Model 5</a><span class="sup">fig<img src="imgs/fig-model5.png"></span> for both the planning and movement periods, we observe a refractory period followed by a period of bursting (i.e., increased spiking intensity) around 6 ms in both the planning and movement periods. During the planning period, we also observe a notable pattern of decreased firing intensity at 20–30 ms after a previous spike, followed by increased firing intensity at 50–60 ms after a previous spike. This pattern seems absent during the movement period. Are the individual parameters related to this history dependence significant? To address this, let’s plot the <span class="math notranslate nohighlight">\(p\)</span>-values:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">M5</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Planning&quot;</span><span class="p">)</span> <span class="c1"># -Log p-values in planning.</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">M5</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">3</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Planning&quot;</span><span class="p">)</span> <span class="c1"># -Log p-values in planning.</span>
 <span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">M5</span><span class="o">.</span><span class="n">pvalues</span><span class="p">[</span><span class="mi">4</span><span class="p">::</span><span class="mi">2</span><span class="p">]),</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Movement&quot;</span><span class="p">)</span> <span class="c1"># -Log p-values in movement.</span>
 <span class="n">axhline</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;-Log(p)&#39;</span><span class="p">)</span>
@@ -2788,7 +2786,7 @@ and its reduction, and compute its significance based on the chi-square distribu
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="09.html" title="previous page">Point Process Generalized Linear Models</a>
-    <a class='right-next' id="next-link" href="11.html" title="next page">Spike-Field Coherence</a>
+    <a class='right-next' id="next-link" href="11.html" title="next page">Spike-field coherence</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. Cross-frequency coupling</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -113,7 +113,7 @@
     <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
   </li>
   <li class="">
-    <a href="11.html">11. Spike-Field Coherence</a>
+    <a href="11.html">11. Spike-field coherence</a>
   </li>
 <li class="navbar-special">
 <p class="margin-caption">Extra notebooks</p>
@@ -578,7 +578,7 @@ Let’s now use this function to fit the parameters of Model 1 to the observed l
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:278: DomainWarning: The identity link function does not respect the domain of the Poisson family.
+<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/statsmodels/genmod/generalized_linear_model.py:278: DomainWarning: The identity link function does not respect the domain of the Poisson family.
   DomainWarning)
 </pre>
 </div>
@@ -783,9 +783,9 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu: 63.16295780404631
-sigma: 9.566890841873338
-alpha: 0.011285495199169375
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu: 63.16295780404678
+sigma: 9.566890841873429
+alpha: 0.01128549519917976
 </pre></div>
 </div>
 </div>
@@ -810,7 +810,8 @@ alpha: 0.011285495199169375
 \[
   \text{AIC} = −2 \log L(\theta_{ML}) + 2p,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(L(\theta_{ML})\)</span> is the likelihood of the data for the selected maximum likelihood parameter estimate   <span class="math notranslate nohighlight">\(\theta_{ML}\)</span>, and <span class="math notranslate nohighlight">\(p\)</span> is the number of parameters in the model. We think of the <span class="math notranslate nohighlight">\(2p\)</span> in the expression as a penalty for models with large numbers of parameters.</p>
+<p>where <span class="math notranslate nohighlight">\(L(\theta_{ML})\)</span> is the likelihood of the data for the selected maximum likelihood parameter estimate $
+\theta_{ML}$, and <span class="math notranslate nohighlight">\(p\)</span> is the number of parameters in the model. We think of the <span class="math notranslate nohighlight">\(2p\)</span> in the expression as a penalty for models with large numbers of parameters.</p>
 <p>When comparing models, we compute the AIC for each model separately, and then compute the difference in AICs between models. For models that accurately describe the structure of the data, <span class="math notranslate nohighlight">\(L(\theta_{ML})\)</span>  will be high, and therefore <span class="math notranslate nohighlight">\(−2\log L(\theta_{ML})\)</span>  will be small. Parsimonious models will have small numbers of parameters, and therefore <span class="math notranslate nohighlight">\(2p\)</span> will be small. Therefore, we are looking for models with AIC values as small as possible.</p>
 <p>How do we compute the likelihood or log likelihood of the data for the models in Python? One way is to use the fact that we are modeling the spike train as a Poisson random variable at each time point with rate parameters determined by the model. To see the AIC for a GLM in Python, we can simply use the <code class="docutils literal notranslate"><span class="pre">aic</span></code> attribute of the model results: <code class="docutils literal notranslate"><span class="pre">model2_results.aic</span></code>.
 However, the calculation is not difficult. For Model 2, we can compute the AIC as follows:</p>
@@ -841,7 +842,7 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>AIC3:  2708.7763622920475
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>AIC3:  2708.776362292047
 </pre></div>
 </div>
 </div>
@@ -857,7 +858,7 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465605
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465609
 </pre></div>
 </div>
 </div>
@@ -886,8 +887,8 @@ model2_results.aic:  3344.790862938608
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465605
-Another method:  636.0145006465605
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>dAIC:  636.0145006465609
+Another method:  636.0145006465609
 </pre></div>
 </div>
 </div>
@@ -982,7 +983,7 @@ Another method:  636.0145006465605
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>4.117080430292835e-38
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>4.117080430226506e-38
 </pre></div>
 </div>
 </div>
@@ -1182,7 +1183,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>233.8694473933126
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>233.86944739331216
 </pre></div>
 </div>
 </div>
@@ -1216,8 +1217,8 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>CI_beta3:  [2.554956054417064, 3.9956073965371774]
-p_beta3:  9.555627447246116e-20
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>CI_beta3:  [2.5549560544169054, 3.995607396537344]
+p_beta3:  9.555627447425901e-20
 </pre></div>
 </div>
 </div>
@@ -1292,9 +1293,9 @@ p_beta3:  9.555627447246116e-20
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu:  63.18440082980648
-sigma:  9.57690511379086
-alpha:  0.0008199709288913803
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu:  63.18440082980659
+sigma:  9.57690511379084
+alpha:  0.0008199709288922659
 </pre></div>
 </div>
 </div>
