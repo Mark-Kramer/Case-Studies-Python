@@ -71,3 +71,19 @@ for f in $(ls startup); do echo $(startup/$f) >> ~/.ipython/profile_default/star
 
 ---
 
+## Contributions
+We very much appreciate your contributions to this material. Contribitions may include:
+- Error corrections
+- Suggestions
+- New material to include
+
+There are two ways to suggest a contribution:
+
+- **Simple**: Visit the `content` folder in [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/). Locate the file to edit, and follow [these instructions](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+
+- **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/)
+
+
+```python
+
+```
