@@ -341,6 +341,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_6_0.png" src="_images/02_6_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the event-related potential and error, and then plots the results?</p>
@@ -354,6 +357,16 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/Cy_BF7smAkk"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a href="https://en.wikipedia.org/wiki/Hans_Berger" rel="external">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234" rel="external">an active area of research</a>.</p>
 <p>Compared to other modalities for measuring brain activity, the EEG possesses both advantages and disadvantages.  Perhaps the most important advantages are:</p>
@@ -373,6 +386,16 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/q2-DjvPRaNA"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>An undergraduate student volunteers to participate in a psychology study at his university. In this study, EEG electrodes (sampling rate 500 Hz, i.e., 500 samples per second) are placed on the student’s scalp, and he is seated in a comfortable chair in a dark, electrically isolated room.  The student is instructed to place headphones over his ears and listen to a series of repeated sounds.  The sounds consist of two tones - either a high pitch tone or a low pitch tone.  A single tone is presented once every few seconds, and the student responds with a button press to the low pitch tone.  The tone presentation is repeated to collect the EEG response to numerous presentations of the two tones, as illustrated here:</p>
 <img src="imgs/2-1.png">
@@ -398,6 +421,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;__header__&#39;, &#39;__version__&#39;, &#39;__globals__&#39;, &#39;EEGa&#39;, &#39;EEGb&#39;, &#39;t&#39;])
+</pre></div>
+</div>
+</div>
 </div>
 <p>The keys that start and end with two underscores ( <code class="docutils literal notranslate"><span class="pre">__</span></code> ) are private and contain information about the MATLAB file; we will not need those keys here. The variables that we are interested in here are <code class="docutils literal notranslate"><span class="pre">EEGa</span></code>, <code class="docutils literal notranslate"><span class="pre">EEGb</span></code>, and <code class="docutils literal notranslate"><span class="pre">t</span></code>. These correspond to the EEG data recorded in the two conditions (i.e., <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> to condition A and <code class="docutils literal notranslate"><span class="pre">EEGb</span></code> to condition B) as well as a time axis (<code class="docutils literal notranslate"><span class="pre">t</span></code>). Let’s extract these variables from the <code class="docutils literal notranslate"><span class="pre">data</span></code> dictionary.</p>
 <div class="cell docutils container">
@@ -419,6 +447,14 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>(1, 500)
+(500,)
+1
+500
+</pre></div>
+</div>
+</div>
 </div>
 <div class="python-note">
 <p>In general, a single underscore at the beginning of a variable, function or method indicates that this object should be treated as <em>private</em>. Double underscores often indicate that Python will interpret this object with some special instructions. In both cases, for what we are doing, we can usually ignore an object that starts with an underscore.</p>
@@ -426,6 +462,24 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">whos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Variable   Type                          Data/Info
+--------------------------------------------------
+EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
+data       dict                          n=6
+fft        function                      &lt;function fft at 0x1076ef050&gt;
+linalg     module                        &lt;module &#39;numpy.linalg.lin&lt;...&gt;/numpy/linalg/linalg.py&#39;&gt;
+mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+ntrials    int                           1000
+power      builtin_function_or_method    &lt;built-in method power of&lt;...&gt;te object at 0x1076b99e0&gt;
+random     builtin_function_or_method    &lt;built-in method random o&lt;...&gt;te object at 0x1076b99e0&gt;
+sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
+sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
+t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
 </pre></div>
 </div>
 </div>
@@ -472,11 +526,150 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/uSjd41G-yNY"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>Both <code class="docutils literal notranslate"><span class="pre">EEGb</span></code> and <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> are complicated variables that contain many elements. To understand these data, we might attempt to read the values contained in each element. For example, we can print out the EEG data for the first trial of condition A</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">EEGa</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>  <span class="c1"># EEGa[0, :] is equivalent to EEGa[0]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[-1.85909632e-01  4.49876010e-01  1.06070801e+00 -4.71265246e-01
+  1.68669327e+00  9.38221338e-01  2.21207038e-01  4.05491276e-01
+  8.78879665e-01  5.23697825e-01 -2.35240678e+00 -9.24345879e-01
+  7.66671797e-01 -4.64254999e-01  6.25953180e-02  1.51917029e+00
+ -7.76400815e-01  8.14988739e-01 -1.58137285e-01 -6.17402518e-01
+  2.07506393e-01  3.59430871e-01 -1.21455008e+00 -6.16715452e-01
+ -4.81362032e-02  3.17982689e-01 -2.77459585e-01  4.14839815e-02
+ -1.52257779e+00  1.31993666e+00  1.46836023e+00  1.84666100e+00
+  5.23163980e-02  2.05515379e-01  2.27994679e-01 -1.34063464e+00
+  5.61451651e-01  1.20391968e+00  1.06398658e+00  4.38748238e-01
+  1.64443736e+00 -1.54713823e+00  6.41177787e-01 -1.13319311e+00
+  1.06869889e+00  3.88678297e-01 -1.86251056e+00 -1.14074604e+00
+ -4.59323117e-01  7.46220184e-01  4.40752835e-01 -7.05129357e-01
+ -1.85879610e-01 -4.52021194e-02 -7.74389189e-01  1.55051475e+00
+  1.12600755e+00 -1.14703552e+00 -5.42577409e-02  8.27809465e-01
+  8.56502531e-01 -1.14366915e+00 -8.19876772e-01  1.43053099e+00
+  3.58257978e-01 -3.63287337e-01  2.95693239e-01  1.66255457e+00
+ -1.81447543e+00 -5.63326663e-01  2.93117130e-01 -1.68396270e+00
+ -1.62231509e-01 -1.00251701e+00 -9.48001461e-01  3.16019127e-02
+  2.21147695e-01  3.99303915e-01  1.00913940e-01  1.21148596e+00
+  7.96770791e-01  1.66308465e+00 -6.46124699e-01 -1.02735954e-01
+  3.99807249e-01  2.03571783e-01  1.26714525e+00 -4.04535735e-01
+ -8.58928288e-02  3.81672240e-01 -8.10521508e-01  5.62971518e-01
+ -1.50312432e-01  2.16392074e+00 -7.56258314e-01  1.78649753e+00
+ -5.76044830e-01  2.70405891e-02 -1.77661427e-01 -8.66317207e-01
+ -2.71389551e-01 -3.89374337e-01  1.32780017e+00  6.56102489e-01
+ -6.17931971e-01  4.38460156e-01  4.96160421e-01 -2.43224802e-01
+ -7.59665353e-01  2.12561928e-01 -5.29236003e-01 -7.79237099e-01
+ -3.99720441e-01 -5.73857423e-01  1.68557371e-02 -3.33452422e-01
+  5.49266775e-02 -8.05679798e-01  3.48038611e-01  1.10559489e+00
+  1.58877419e-01  4.26861264e-01 -3.58946165e-01  1.49418999e+00
+  9.00513782e-01 -8.29008444e-01  2.26386025e+00 -5.42571448e-01
+  1.51343144e+00 -6.21544949e-01 -7.22549599e-01  3.21016398e-01
+  1.28741129e-01  1.27751490e+00 -7.49605666e-01  1.52310976e+00
+ -6.86917819e-03 -2.54194745e-01  1.00352371e+00 -5.12364395e-01
+  1.66279331e-01 -1.69990836e+00 -1.85635884e+00  3.02517825e-01
+  5.55141950e-02  4.32485593e-01 -2.74367743e+00 -2.81457510e-01
+  8.14989513e-01  2.61966455e-01  1.04412960e+00  9.65418636e-01
+  3.41587255e-01 -1.88010279e-01 -8.39449139e-01  6.33492347e-01
+ -1.24757135e+00  1.31337736e+00 -6.22469263e-01  1.09149506e+00
+ -1.09034016e+00  3.76813749e-01 -3.18257114e-01  2.61894031e+00
+ -2.76705198e-01  4.42140552e-01 -1.43555653e+00  7.85517143e-01
+ -9.88738053e-01  6.72988002e-01  8.68360705e-01  3.13242062e-01
+ -1.54828005e-01  1.17732668e+00  4.02575413e-01 -2.25480529e-01
+  2.72944171e-01 -7.02691389e-01 -2.31377386e+00 -2.22783195e-01
+ -1.35413650e+00 -1.15072542e+00 -2.88073430e-01  1.81260388e-01
+ -2.23623245e-01 -1.94225711e-01 -5.57725111e-01  8.91721155e-01
+  1.16596501e-01  2.63088800e-01 -7.05166127e-01  4.08335180e-01
+ -7.90285417e-01  9.51082199e-01  2.10206983e+00 -1.47579554e-01
+ -4.84839924e-01  1.60258306e+00  8.81078598e-02  3.61369070e-01
+  2.27598177e-02  3.17643233e-01  7.36130484e-02  1.37376140e+00
+  7.61866764e-01 -3.98162196e-01 -1.31208258e+00 -7.31528581e-01
+ -1.07254213e+00  1.22320138e+00 -2.58565701e+00 -1.14526894e+00
+ -4.33488841e-01 -4.39707520e-01 -1.03812489e+00 -2.62273457e-01
+  6.38441158e-01  8.12705883e-01 -8.18589118e-01 -1.08256005e+00
+ -3.80301239e-01 -6.89096543e-01  2.39683506e-01  8.50289735e-01
+ -7.26308358e-01 -4.91580776e-01  1.03219979e+00  1.12525973e-01
+ -5.71141273e-01  6.18952595e-02  1.09705291e+00  7.85887270e-01
+ -1.85564767e-01  1.14603225e+00 -2.06964423e+00 -4.38792883e-01
+  1.74227196e+00  1.94092238e-01 -1.47258884e+00 -6.41420839e-01
+  6.72742297e-02 -1.58340914e-02  1.37746846e+00 -2.56196901e-01
+ -5.67582665e-01  5.37033982e-01 -5.44631235e-01  3.23707432e-01
+  1.61864414e+00  6.64638714e-02 -1.06040359e+00  5.45961175e-02
+  3.93434967e-02 -1.05920809e+00 -2.98790912e-01  2.22548242e+00
+  2.24405511e-01 -5.42362119e-01  5.22628043e-01  1.10073489e+00
+ -4.75832910e-01 -1.48245524e+00 -5.19264968e-01  8.66583703e-01
+  3.71195522e-01 -2.10862001e+00  1.41854997e+00 -4.00056944e-01
+ -1.04638985e+00 -2.23544462e-03 -5.98113911e-01 -7.59605516e-01
+ -9.26386972e-01 -2.18387895e-01 -1.09959119e+00  3.36465936e-01
+ -7.19877563e-01  9.42514084e-01 -4.25416496e-01  3.79620259e-01
+ -1.70723125e+00  1.06572378e-02 -2.35473140e-01  4.54021576e-01
+ -1.02334158e+00 -1.38240225e-01  3.48629888e-01 -2.68704032e-01
+  5.91463529e-01 -1.78286801e-01  1.02320933e+00 -7.07756343e-01
+ -1.16006916e+00  1.91717624e+00 -1.23381123e-01 -2.68528533e-01
+ -1.14265441e+00  1.36823726e+00  1.77076815e-01  1.20573044e+00
+  1.41205843e+00 -2.15337976e+00  6.00658920e-01  1.15495770e-01
+ -1.31467338e+00 -5.09848812e-01 -4.70210648e-01 -1.95764263e+00
+  1.46093909e+00  1.31264582e+00  2.08027524e+00 -2.83817742e-02
+ -3.34822927e-02  5.97081623e-02 -2.41728231e+00 -2.06588056e+00
+ -1.74279194e-01  2.06744443e-01 -1.09047610e+00 -1.19118680e-01
+  4.01697824e-01  3.02122302e-01  3.34421161e-01 -1.10831100e+00
+ -9.20222909e-01  2.32218615e-01 -2.55154972e-01 -3.14863316e-01
+ -1.59970267e+00  4.36780490e-01  5.65896649e-01 -9.78787106e-01
+  1.22855597e+00  7.58542962e-01  5.58518929e-01 -6.29520116e-02
+  1.18742536e+00  1.18562777e+00  1.42177066e+00 -1.06696561e+00
+ -1.78054659e+00 -8.24179662e-01  1.72242837e+00 -1.13652998e+00
+ -2.74037314e-01 -1.61735137e+00  1.76740867e+00 -1.36302046e+00
+ -1.24542747e+00 -1.10195479e+00  4.97427770e-01  3.40747285e-01
+  1.29469407e+00 -1.68192736e-01 -1.58189637e+00  3.32752964e-01
+  2.06914282e-01 -8.33433942e-01 -1.20097677e+00  4.09469512e-01
+ -5.56735550e-01 -2.86558705e-02 -8.96614175e-01 -2.22091771e+00
+ -1.34815359e+00  6.51385061e-01  1.36132110e+00  5.12259438e-01
+  1.15080616e+00 -9.45816812e-01  3.48666490e-01  1.29115601e+00
+  1.13964510e+00  1.13056053e+00 -7.28460179e-02  1.58127482e+00
+  8.66434530e-01 -1.77527248e-01 -4.01926432e-01  1.61406298e+00
+  1.93971032e+00  1.75279276e+00 -2.56648516e+00 -9.33356759e-01
+ -2.54317956e-01 -1.13741045e-01  4.05204253e-01 -1.43414289e+00
+ -1.37124663e+00  8.71688411e-01  9.86925920e-01  1.58442262e-01
+  1.10944234e+00 -2.60888891e-01 -4.94844677e-01  2.10364682e-01
+ -6.90648659e-01  9.44229553e-01 -1.67842868e+00  9.94333574e-01
+ -5.42498176e-02 -6.10670786e-01  3.40630320e-01 -1.32665190e+00
+ -6.35411807e-01  1.82564630e-01  1.03543428e+00  9.70748027e-02
+ -5.46855555e-01 -3.30881410e+00 -4.63280602e-01  2.24579407e-01
+ -2.24752515e+00  9.98283459e-01 -1.06182712e+00 -3.46684931e-02
+  1.41764225e+00 -1.24954136e+00 -6.18775586e-01 -5.11007703e-01
+ -9.14202212e-01 -3.01515892e-01 -1.59706594e+00  2.40487958e-01
+  1.59654644e-03  5.03777332e-01  1.84766666e-01  3.90711577e-01
+  2.27690541e+00 -1.67938680e+00  1.52788636e+00 -1.68420319e+00
+ -5.06769300e-01  1.19757238e+00 -2.78010488e-01  6.86491400e-02
+ -5.39049209e-01 -1.29632687e-01  3.14379167e-01  6.84138095e-01
+  9.36048610e-01 -1.45547151e+00 -2.69117642e-01  4.91635711e-01
+ -9.69470971e-01  1.83872986e+00  8.19492008e-01 -4.22742826e-01
+ -1.02695268e-01  3.65153939e-01 -4.40593064e-01 -6.06052965e-01
+  4.75034049e-01 -1.21577077e+00 -9.68793697e-01 -6.46342514e-01
+  1.08533369e+00 -2.19535994e-01 -1.19895690e-01  1.98995688e-01
+  6.82348483e-01 -1.10943112e-01  1.19046834e-01  6.71215306e-01
+ -9.96084629e-01  1.34367623e+00  1.62036945e+00 -5.62949996e-01
+ -8.61888584e-01  1.49041285e+00 -7.57353843e-01  4.98675751e-01
+ -2.50954448e-01 -1.79724228e+00 -1.35719865e+00  1.05713585e+00
+ -1.05491807e-01  4.63733007e-01 -2.16122922e-01 -7.99948330e-01
+ -6.55124881e-01 -2.24820127e+00  2.37631176e-01 -9.71408307e-01
+ -7.66843512e-01 -2.70585493e-01 -1.11657661e+00  1.25282149e+00
+ -1.60574278e+00 -2.23134272e+00  9.09836712e-01  8.87246449e-01
+ -1.72687413e+00  5.94455670e-01 -6.35422508e-01  9.86293109e-01
+ -9.91015631e-01 -7.97709874e-01 -1.27420635e+00  8.67409389e-01]
 </pre></div>
 </div>
 </div>
@@ -495,6 +688,16 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/9qx29zDxcAc"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>Printing out the data to the screen is <strong>not useful</strong> in this case. How else can we deepen our understanding of these data? Let’s make a plot:
 <a id="fig:2"></a></p>
@@ -505,6 +708,9 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/02_45_0.png" src="_images/02_45_0.png" />
 </div>
 </div>
 <p>Visualizing the data in this way, we immediately notice many features. First, let’s consider the axes. The horizontal axis extends from 0 to (nearly) 500. This corresponds to the 500 columns in the variable <code class="docutils literal notranslate"><span class="pre">EEGa</span></code>. While this visualization is useful, it would be more informative to plot the EEG data as a function of time rather than indices. Fortunately, we possess a variable <code class="docutils literal notranslate"><span class="pre">t</span></code> in the workspace that corresponds to the time axis. Determining the size of the variable <code class="docutils literal notranslate"><span class="pre">t</span></code>, we find it is a vector with 1 row and 500 columns. Each column corresponds to a point in time.</p>
@@ -538,6 +744,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_53_0.png" src="_images/02_53_0.png" />
+</div>
 </div>
 <p>This plot provides a nice summary of the data in the first trial of condition A. Visual inspection of the plot suggests that these data exhibit complicated activity. We know from our collaborator that the stimulus occurs at time 0.25 s in each trial. Note how we indicated this time as a vertical line in the plot above. This command includes additional options that make the line black (<code class="docutils literal notranslate"><span class="pre">'k'</span></code>) and a bit wider (<code class="docutils literal notranslate"><span class="pre">lw=2</span></code>).</p>
 <div class="question">
@@ -557,6 +766,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_57_0.png" src="_images/02_57_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> Compare the voltage traces from the first trial of conditions A and B as plotted above. What similarities and differences do you observe?</p>
@@ -568,6 +780,16 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/nandZ5aaRaQ"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>These techniques allow us to visualize the data one trial at a time. That is useful but can be time consuming, especially for a large number of trials. For the EEG data of interest here, each condition contains 1,000 trials, and to visualize each trial separately could require 2,000 plots. We can certainly create 2,000 plots, but the subsequent visual inspection would be time consuming and difficult. Fortunately, a more efficient visualization approach exists: we can display the entire structure of the data across both time and trials as an image:
 <a id="fig:4"></a></p>
@@ -587,6 +809,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_62_0.png" src="_images/02_62_0.png" />
+</div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">imshow</span></code> command allows us to visualize the entire matrix <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> as a function of trial number and time. Each row corresponds to a single trial of duration 1 s, and the color indicates the voltage, with darker (lighter) colors indicating higher (lower) voltages. This plot also indicates the time of stimulus presentation with a vertical black line as a cue to assist visual inspection.</p>
 <div class="python-note">
@@ -604,6 +829,16 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/kPr2GLSKLJg"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>Visual inspection of the EEG data has so far come up empty. The EEG traces appear noisy or perhaps rhythmic, but from visual inspection of the individual trials it’s difficult to make a decisive conclusion of underlying structure<span class="sup">fig<img src="imgs/2-2b.png"></span>. To further investigate the activity in these data, we compute the <strong>event-related potential</strong> (ERP).</p>
 <p>To compute the ERP, we first assume that each trial evokes an instantiation of the same underlying brain process. So, in this case, we assume that the same brain response is evoked 1,000 times (once for each trial) for each condition. However, the evoked response due to the stimulus is small and hidden in the EEG signal by other ongoing activity unrelated to the stimulus (e.g., daydreaming, thoughts of dinner, thoughts of homework). Therefore, to tease out the weak evoked effect, <strong>we average the EEG responses across trials</strong>. Ideally, EEG activity unrelated to the stimulus will cancel out in the average, while EEG activity evoked by the stimulus will sum constructively. The procedure to perform and display this averaging can be done in Python as follows:
@@ -618,6 +853,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <span class="n">show</span><span class="p">()</span>                       <span class="c1"># ... and show the plot</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/02_70_0.png" src="_images/02_70_0.png" />
 </div>
 </div>
 <p>In the first line, we compute the mean of <code class="docutils literal notranslate"><span class="pre">EEGa</span></code> using the method <code class="docutils literal notranslate"><span class="pre">mean()</span></code> (see the documentation for this function <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.mean.html" rel="external">here</a>). The default behavior is to compute the mean of all elements of the array. By calling <code class="docutils literal notranslate"><span class="pre">EEG.mean(0)</span></code>, we compute the mean along the zeroth dimension. The result is the ERP for condition A.</p>
@@ -634,6 +872,16 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/pXCJbyrw8Ug"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" rel="external"><em>central limit theorem</em></a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a href="https://en.wikipedia.org/wiki/Normal_distribution" rel="external">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.</p>
 <div class="question">
@@ -682,6 +930,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_90_0.png" src="_images/02_90_0.png" />
+</div>
 </div>
 <p>The ERP computed with confidence intervals allows us to ask specific questions about the data. For example, does the ERP ever differ significantly from zero? To answer this, we look for intervals of the ERP for which the confidence intervals do not include zero. To aid visual inspection, we add to the ERP plot a horizontal line at 0: <a id="plt:erpA-m1"></a></p>
 <div class="python-note">
@@ -727,6 +978,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_97_0.png" src="_images/02_97_0.png" />
+</div>
 </div>
 <p>In the figure above, the thick line indicates the ERP for Condition A (i.e., the mean of the EEG across trials) while the thin dotted lines indicate the 95% confidence intervals.</p>
 <p>We find three time intervals at which the confidence intervals of the ERP do not include zero: near 0.27 s, near 0.37 s, and near 0.47 s. These results suggest that for an interval of time following the stimulus presentation in condition A, the observed ERP is not a random fluctuation about zero but instead contains consistent structure across trials.</p>
@@ -755,6 +1009,9 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/02_104_0.png" src="_images/02_104_0.png" />
 </div>
 </div>
 <div class="question">
@@ -788,6 +1045,9 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_107_0.png" src="_images/02_107_0.png" />
+</div>
 </div>
 <p>In the code above we first compute the ERP and standard deviation of the mean for each condition. We then compute the differenced ERP (<code class="docutils literal notranslate"><span class="pre">mnD</span></code>) and the standard deviation of the mean of this difference (<code class="docutils literal notranslate"><span class="pre">sdmnD</span></code>)<span href="#eq:1" class="sup">eq<img src="imgs/eq1.png"></span>. We note that <code class="docutils literal notranslate"><span class="pre">sdmnA</span></code><span class="math notranslate nohighlight">\(= \sqrt{\sigma_A^2/K}\)</span> and therefore <code class="docutils literal notranslate"><span class="pre">sdmnA**2</span></code> <span class="math notranslate nohighlight">\(= \sigma_A^2/K\)</span>, with similar expressions for condition B. We then plotted the resulting differenced ERP with 95% confidence intervals. The hope is that from this figure we can more easily identify significant differences between the two conditions.</p>
 <div class="question">
@@ -802,6 +1062,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/vVXH4XsPFEs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>So far we have computed confidence intervals for the ERPs by relying on the central limit theorem and approximating the average voltage values at each point in time as normally distributed. That’s a completely reasonable approach. And because the normal distribution is so well-behaved, it’s easy to compute the 95% confidence intervals. An alternative approach to generate confidence intervals is through a <strong>bootstrap</strong> procedure. Bootstrapping is a resampling method that allows us to estimate the sampling distribution of many different statistics. In this notebook, we implement a <em>nonparametric bootstrap</em> (see note). To do so, we generate new <em>pseudodata</em> from the observed EEG data. We begin by using a bootstrapping procedure to create confidence intervals for the ERPs observed in each condition.</p>
 <div class="math-note">
@@ -820,6 +1090,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/mqDEJyW_z4c"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <div class="section" id="step-1">
 <h3>Step 1<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h3>
@@ -857,6 +1137,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/bUzuNojLUik"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 </div>
 <div class="section" id="step-2">
@@ -879,6 +1169,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/feQk_vKloXk"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 </div>
 <div class="section" id="step-3">
@@ -946,6 +1246,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/NLc93QESVZs"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 </div>
 <div class="section" id="step-4">
@@ -967,6 +1277,9 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/02_143_0.png" src="_images/02_143_0.png" />
+</div>
 </div>
 <p>We can use these results to identify, for example, intervals in which the ERP differs significantly from zero by finding periods in which the confidence intervals do not include zero. The advantage of the bootstrapping procedure over other approaches is that this procedure requires few assumptions about the distribution of the statistic of interest, and that we use the observed data to probe the distribution of the statistic. The disadvantage of the bootstrapping procedure is that it is computationally intensive. Here we considered 3,000 resamplings, but we could easily consider more.</p>
 <div class="question">
@@ -984,6 +1297,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/K6pgCxFdELc"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>The bootstrapping procedure provides a powerful technique to construct confidence intervals for the ERPs using only the observed EEG measurements. We can apply a similar technique to search for significant differences between the ERPs in conditions A and B. To do so, we first choose a <em>statistic</em>, a measure of some attribute of the difference between the two ERPs. There are many choices, some informative and some not. Let’s choose as our statistic the maximum absolute value of the difference in the ERPs across time. Computing this statistic is straightforward in Python:</p>
 <div class="cell docutils container">
@@ -996,6 +1319,11 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>stat = 0.2884
+</pre></div>
+</div>
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> Given the value we determined for <code class="docutils literal notranslate"><span class="pre">stat</span></code>, are the ERPs for the two conditions different?</p>
@@ -1005,6 +1333,16 @@ $\)</span></p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/390ywma7S3U"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <p>In isolation, the numerical value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> is not very useful or interesting. Is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> consistent with noisy scalp EEG data lacking an evoked response? Or is the value for <code class="docutils literal notranslate"><span class="pre">stat</span></code> large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a href="https://en.wikipedia.org/wiki/Null_hypothesis" rel="external"><em>null hypothesis</em></a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.</p>
 <p>It may seem odd to create pseudodata by selecting trials across both conditions; intuitively, we may expect the data to differ in these two conditions and feel uncomfortable making a pseudodata set that includes trials from both conditions. But under the null hypothesis, we assume no difference between the EEG responses in conditions A and B, and we are therefore free to create pseudodata drawing from trials in both conditions. We do so with the goal of creating a distribution of values for <code class="docutils literal notranslate"><span class="pre">stat</span></code> under the null hypothesis that conditions A and B exhibit no difference. We then compare the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> with this distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values. If there is a difference between the two conditions, we expect to find the observed value of <code class="docutils literal notranslate"><span class="pre">stat</span></code> to be very different from the distribution of <code class="docutils literal notranslate"><span class="pre">stat</span></code> values generated from the pseudodata under the null hypothesis.</p>
@@ -1042,6 +1380,16 @@ Then, as before, we define the function <code class="docutils literal notranslat
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<iframe
+    width="400"
+    height="300"
+    src="https://www.youtube.com/embed/iefCPGHd5vY"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div></div>
 </div>
 <img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png"><p>The figure above shows the distribution of values for the test statistic under the null hypothesis of no difference between the two conditions. The orange line indicates observed statistic from the EEG data.</p>
 <div class="python-note">
