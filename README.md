@@ -31,6 +31,8 @@ The intended audience is the *practicing neuroscientist* - e.g., the students, r
 
 This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.
 
+### This work supported by [NIH NIGMS Award R25GM114827](https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0).
+
 ---
 
 ## Getting Started[](#started)
