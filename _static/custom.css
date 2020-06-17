@@ -51,7 +51,7 @@
     /*margin-bottom: 0;*/
     margin-top: 1em;
 }
-.cell_output img, .output_area img, .output_area iframe, .output_html iframe {
+body img, .output iframe, .cell_output img, .output_area img, .output_area iframe, .output_html iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
