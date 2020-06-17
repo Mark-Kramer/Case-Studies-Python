@@ -1,3 +1,4 @@
+<!-- #region -->
 # Case-Studies-Python
 
 ## Quick start to learning Python for neural data analysis:
@@ -9,12 +10,16 @@
 
 - See [below](#started)
 
+
 ----
 This repository is a companion to the textbook [Case Studies in Neural Data Analysis](https://mitpress.mit.edu/books/case-studies-neural-data-analysis), by Mark Kramer and Uri Eden. That textbook used MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.
 
 The intended audience is the *practicing neuroscientist* - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we've tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you're interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).
 
 This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.
+
+### This work supported by [NIH NIGMS Award R25GM114827](https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0).
+
 
 ---
 
@@ -83,6 +88,7 @@ There are two ways to suggest a contribution:
 
 - **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/)
 
+<!-- #endregion -->
 
 ```python
 
