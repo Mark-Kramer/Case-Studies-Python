@@ -63,7 +63,6 @@ show()                                          # ... and show the plot.
 ## Background <a class="anchor" id="background"></a>
 
 YouTubeVideo('Cy_BF7smAkk')
-# NO CODE
 
 Voltage recordings from the scalp surface - the electroencephalogram or EEG - provide a powerful window into brain voltage activity.  Some of the earliest human EEG recording occurred in 1924, when <a href="https://en.wikipedia.org/wiki/Hans_Berger" rel="external">Dr. Hans Berger</a> made a remarkable discovery:  the EEG of a human subject at rest with eyes closed exhibits rhythmic activity, an approximately 10 Hz oscillation he labeled the alpha rhythm.  Although now studied for nearly 100 years, the definitive functional role (if any) of the alpha rhythm remains unknown.  Since then, many other EEG rhythms have been detected and labelled (typically with Greek letters) and the analysis of EEG rhythms remains <a href="https://global.oup.com/academic/product/rhythms-of-the-brain-9780199828234" rel="external">an active area of research</a>.  
 
@@ -81,7 +80,6 @@ In this notebook, we consider EEG data recorded from a single scalp electrode.  
 ## Case Study: an EEG ERP task <a class="anchor" id="case-study-data"><a/>
 
 YouTubeVideo('q2-DjvPRaNA')
-# NO CODE
 
 An undergraduate student volunteers to participate in a psychology study at his university. In this study, EEG electrodes (sampling rate 500 Hz, i.e., 500 samples per second) are placed on the student's scalp, and he is seated in a comfortable chair in a dark, electrically isolated room.  The student is instructed to place headphones over his ears and listen to a series of repeated sounds.  The sounds consist of two tones - either a high pitch tone or a low pitch tone.  A single tone is presented once every few seconds, and the student responds with a button press to the low pitch tone.  The tone presentation is repeated to collect the EEG response to numerous presentations of the two tones, as illustrated here:
 
@@ -162,7 +160,6 @@ A *tuple* is another data structure in Python that is similar to an array or a l
 ## Visual Inspection <a id="visual-inspection"></a>
 
 YouTubeVideo('uSjd41G-yNY')
-# NO CODE
 
 Both `EEGb` and `EEGa` are complicated variables that contain many elements. To understand these data, we might attempt to read the values contained in each element. For example, we can print out the EEG data for the first trial of condition A
 
@@ -182,7 +179,6 @@ We might conclude that these numbers exhibit variability (i.e., the values are b
 </div>
 
 YouTubeVideo('9qx29zDxcAc')
-# NO CODE
 
 Printing out the data to the screen is **not useful** in this case. How else can we deepen our understanding of these data? Let’s make a plot:
 <a id="fig:2"></a>
@@ -258,7 +254,6 @@ show()
 </div>
 
 YouTubeVideo('nandZ5aaRaQ')
-# NO CODE
 
 These techniques allow us to visualize the data one trial at a time. That is useful but can be time consuming, especially for a large number of trials. For the EEG data of interest here, each condition contains 1,000 trials, and to visualize each trial separately could require 2,000 plots. We can certainly create 2,000 plots, but the subsequent visual inspection would be time consuming and difficult. Fortunately, a more efficient visualization approach exists: we can display the entire structure of the data across both time and trials as an image:
 <a id="fig:4"></a>
@@ -293,7 +288,6 @@ Upon close inspection of the figure above, what response, if any, do you observe
 ## Plotting the ERP <a id="plotting-the-erp"></a>
 
 YouTubeVideo('kPr2GLSKLJg')
-# NO CODE
 
 Visual inspection of the EEG data has so far come up empty. The EEG traces appear noisy or perhaps rhythmic, but from visual inspection of the individual trials it’s difficult to make a decisive conclusion of underlying structure<span class="sup">fig<img src="imgs/2-2b.png"></span>. To further investigate the activity in these data, we compute the **event-related potential** (ERP).
 
@@ -322,7 +316,6 @@ The ERP of condition A shows the mean voltage across trials at each moment in ti
 ## Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a>
 
 YouTubeVideo('pXCJbyrw8Ug')
-# NO CODE
 
 To compute the ERP we average the EEG data across many trials. Because of this, we may make use of a powerful theorem in statistics—the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" rel="external">*central limit theorem*</a> (CLT)—to include approximate confidence bounds in the ERP figure. Briefly, this theorem states that the mean of a sufficiently large number of independent random variables, each with finite mean and variance, will be approximately <a href="https://en.wikipedia.org/wiki/Normal_distribution" rel="external">normally distributed</a>. Remember that the ERP at each moment in time is the sum of EEG activity across trials (then scaled by a constant, the number of trials). Let’s assume that the trials are independent (i.e., one trial does not depend on any other trial). Let’s also assume that the EEG data at each moment in time have finite mean and variance. With those assumptions, we have satisfied the CLT and may therefore conclude that the ERP at each moment in time is approximately normally distributed.
 
@@ -498,7 +491,6 @@ In the code above we first compute the ERP and standard deviation of the mean fo
 ## Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a>
 
 YouTubeVideo('vVXH4XsPFEs')
-# NO CODE
 
 So far we have computed confidence intervals for the ERPs by relying on the central limit theorem and approximating the average voltage values at each point in time as normally distributed. That’s a completely reasonable approach. And because the normal distribution is so well-behaved, it’s easy to compute the 95% confidence intervals. An alternative approach to generate confidence intervals is through a **bootstrap** procedure. Bootstrapping is a resampling method that allows us to estimate the sampling distribution of many different statistics. In this notebook, we implement a *nonparametric bootstrap* (see note). To do so, we generate new *pseudodata* from the observed EEG data. We begin by using a bootstrapping procedure to create confidence intervals for the ERPs observed in each condition.
 
@@ -517,7 +509,6 @@ We implement the bootstrapping procedure to compute pointwise confidence interva
 Let’s now implement each step in Python.
 
 YouTubeVideo('mqDEJyW_z4c')
-# NO CODE
 
 ### Step 1
 In step 1 we must sample with replacement from the EEG data. To visualize this procedure, imagine placing 1,000 marbles in an opaque bag. Each marble is assigned a unique integer value from 1 to 1,000. Now, reach your hand into the bag, grab a marble, record its number, and replace the marble in the bag. We assume that each marble is equally likely to be selected at each draw (i.e., there are no special features that allow some marbles to be drawn more often). Repeat this procedure 1,000 times to create a list of 1,000 integers. Notice that after recording the drawn marble’s number, we replace it in the bag. So, we could potentially draw the same marble 1,000 times, although that’s extremely unlikely. Performing this sampling with replacement procedure by hand would, of course, be extremely time consuming (e.g., who will paint integers on each marble?). Fortunately, Python provides a function to perform sampling with replacement:
@@ -550,7 +541,6 @@ In this code we use the variable `i` as the index to the rows of `EEGa`.
 That completes step 1 of the resampling procedure.
 
 YouTubeVideo('bUzuNojLUik')
-# NO CODE
 
 ### Step 2
 
@@ -569,7 +559,6 @@ ERP0 = EEG0.mean(0)  # Create the resampled ERP
 </div>
 
 YouTubeVideo('feQk_vKloXk')
-# NO CODE
 
 ### Step 3
 In the first two steps of the resampling procedure we created a single resampled ERP. In step 3 we are instructed to repeat this procedure 3,000 times and create a distribution of ERPs. How can we do so? One potential solution is to cut and paste the code we developed over and over again, for example:
@@ -635,7 +624,6 @@ Note that it is good practice, but not required, to define a function that conta
 </div>
 
 YouTubeVideo('NLc93QESVZs')
-# NO CODE
 
 ### Step 4
 In this step of the bootstrapping procedure, we determine for each time point the values greater than 2.5% and less than 97.5% of all values. There are many ways to perform this operation in Python, perhaps the easiest being to sort from smallest to largest the 3,000 resampled ERP values at each time point. With the resampled values sorted in this way, we then find the resampled ERP value at index $0.025 \times 3000 = 75$ and $0.975 \times 3000 = 2925$. These indices correspond to the resampled ERP values greater than 2.5% of all values and greater than 97.5% of all values, respectively, and therefore define the lower and upper confidence intervals at each moment in time. We can compute both confidence intervals in Python, and (at last!) plot the ERP for condition A with confidence intervals computed using the bootstrapping procedure: <a id="fig:1"></a>
@@ -669,7 +657,6 @@ We can use these results to identify, for example, intervals in which the ERP di
 ## A Bootstrap Test to Compare ERPs <a id="bootstrap"></a>
 
 YouTubeVideo('K6pgCxFdELc')
-# NO CODE
 
 The bootstrapping procedure provides a powerful technique to construct confidence intervals for the ERPs using only the observed EEG measurements. We can apply a similar technique to search for significant differences between the ERPs in conditions A and B. To do so, we first choose a *statistic*, a measure of some attribute of the difference between the two ERPs. There are many choices, some informative and some not. Let’s choose as our statistic the maximum absolute value of the difference in the ERPs across time. Computing this statistic is straightforward in Python:
 
@@ -685,7 +672,6 @@ print('stat = {:.4f}'.format(stat))
 </div>
 
 YouTubeVideo('390ywma7S3U')
-# NO CODE
 
 In isolation, the numerical value for `stat` is not very useful or interesting. Is the value for `stat` consistent with noisy scalp EEG data lacking an evoked response? Or is the value for `stat` large and unexpected to occur unless the ERPs in the two conditions are different? To make the statistic useful, we need `stat` to be interpretable, which we pursue here through a bootstrapping procedure. We assume that no difference exists between the two conditions; in the language of statistics, this is called the <a href="https://en.wikipedia.org/wiki/Null_hypothesis" rel="external">*null hypothesis*</a>. If the null hypothesis holds, then we can pool all the EEG signals together from both conditions (for a total of 2,000 trials) and draw from this combined distribution to create resampled ERPs representative of either condition.
 
@@ -717,7 +703,6 @@ In this code, we first combine `EEGa` and `EEGb` in a new variable `EEG`.
 Then, as before, we define the function `bootstrapStat` which performs the operations that we wish to repeat. Both of the first two lines of the function call `bootstrapERP`, the function that we defined earlier to compute a resampled ERP. Note that in this case, we call `bootstrapERP` with `size=ntrials`. When we combined the original datasets in `EEG`, we generated a dataset with twice the number of trials, but we still wish to perform the bootstrap procedure to create a resampled ERP using the original number of trials (1,000). The last two lines of the function compute the resampled difference and return the statistic. Finally, we repeat the procedure 3,000 times using a for-loop.
 
 YouTubeVideo('iefCPGHd5vY')
-# NO CODE
 
 <img alt="Bootstrap distribution of statistic values" title="" src="imgs/bootstrapERPdiff.png">
 
