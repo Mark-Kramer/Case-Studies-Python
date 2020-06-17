@@ -1,18 +1,3 @@
----
-jupytext:
-  cell_metadata_filter: -all
-  formats: ipynb,md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-    format_version: '0.8'
-    jupytext_version: 1.4.2
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
----
-
 # Case-Studies-Python
 
 ## Quick start to learning Python for neural data analysis:
@@ -98,6 +83,7 @@ There are two ways to suggest a contribution:
 
 - **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/)
 
-```{code-cell} ipython3
+
+```python
 
 ```
