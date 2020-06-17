@@ -11,20 +11,20 @@ help:
 	@echo "  site        push site in _book to gh-pages branch"
 
 sync_md:
-	./scripts/sync_md.sh	
+	./_config/scripts/sync_md.sh	
 
 index:
-	jb page _book/intro.md && echo "<meta http-equiv=\"Refresh\" content=\"0; url=intro.html\" />" > _book/_build/html/index.html
+	jb page intro.md && echo "<meta http-equiv=\"Refresh\" content=\"0; url=intro.html\" />" > _build/html/index.html
 
 book:
-	./scripts/make_book.sh
+	./_config/scripts/make_book.sh
 
 runall:
-	jupyter nbconvert --to notebook --execute --inplace -y --ExecutePreprocessor.timeout=-1 content/*.ipynb	
+	jupyter nbconvert --to notebook --execute --inplace -y --ExecutePreprocessor.timeout=-1 *.ipynb	
 
 clean:
-	rm -r _book/*
+	rm -r _build
 
 site: 
-	ghp-import -n -p -f _book/_build/html
+	ghp-import -n -p -f _build/html
 
