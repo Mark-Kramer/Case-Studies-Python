@@ -361,6 +361,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_6_0.png" src="_images/04_6_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, applies a taper, computes the spectrum, and then plots the results?</p>
@@ -400,6 +403,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_10_0.png" src="_images/04_10_0.png" />
+</div>
 </div>
 <p>You might notice a dominant rhythmic activity. We can approximate the frequency of this rhythm by counting the number of oscillations that occur in the 1 s interval. To do so, let’s approximate the total number of large-amplitude cycles that we observe in the data. Through visual inspection, we find that the first large-amplitude cycle occurs between <span class="math notranslate nohighlight">\(\approx\)</span> 0 s and <span class="math notranslate nohighlight">\(\approx\)</span> 0.175 s, the next between <span class="math notranslate nohighlight">\(\approx\)</span> 0.175 s and <span class="math notranslate nohighlight">\(\approx\)</span> 0.3 s, and so on. Counting this way, we approximate 6 full cycles per second, or a dominant 6 Hz rhythm.</p>
 <p><a id="rect-tapers"></a></p>
@@ -429,6 +435,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_13_0.png" src="_images/04_13_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> For the ECoG data considered here, what is the frequency resolution <span class="math notranslate nohighlight">\(df\)</span>, and what is the Nyquist frequency (<span class="math notranslate nohighlight">\(f_{NQ}\)</span>)? Compare your answers to the variables <code class="docutils literal notranslate"><span class="pre">df</span></code> and <code class="docutils literal notranslate"><span class="pre">fNQ</span></code> defined in the code.</p>
@@ -446,6 +455,9 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_17_0.png" src="_images/04_17_0.png" />
 </div>
 </div>
 <div class="question">
@@ -489,6 +501,9 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_24_0.png" src="_images/04_24_0.png" />
+</div>
 </div>
 <p>In theory, the rectangular taper is infinite, and is preceded and followed by infinite intervals of zeros (i.e., there’s an infinite period in which we do not observe the ECoG data). To represent the infinite extent of the rectangular taper, we add 10 s of zeros to the beginning and end of a 1 s interval of ones. Of course, 10 s of zeros is a poor representation of an infinite interval of time, but it’s sufficient for our purposes here. We note that the rectangular taper consists of two sharp edges, when the observation interval opens and closes (i.e., transitions from 0 to 1, and then back from 1 to 0).</p>
 <div class="cell docutils container">
@@ -510,6 +525,9 @@
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_26_0.png" src="_images/04_26_0.png" />
 </div>
 </div>
 <div class="question">
@@ -593,6 +611,9 @@ The top plot shows the case in which the rectangular taper’s Fourier transform
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_34_0.png" src="_images/04_34_0.png" />
+</div>
 </div>
 <p>This procedure of appending zeros to a time series is called <strong>zero padding</strong>. It can be useful for visualizing a spectrum. But we must be careful to remember the following important fact.</p>
 <div class="alert alert-block alert-success">
@@ -609,6 +630,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show_spectrum</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">y_lim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">10</span><span class="p">]);</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_38_0.png" src="_images/04_38_0.png" />
 </div>
 </div>
 <p>In the first three lines of this code, we define the sampling frequency (<code class="docutils literal notranslate"><span class="pre">Fs</span></code>), and the 10 Hz sine function with zero padding. Next, we use the function that we created previously to compute and plot the spectrum. Notice that we plot the spectrum on a decibel scale, and focus on the frequency interval 0–20 Hz.</p>
@@ -642,6 +666,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_48_0.png" src="_images/04_48_0.png" />
+</div>
 </div>
 <p>In the code above we first define the sampling frequency and then create the two sinusoids (<code class="docutils literal notranslate"><span class="pre">d1</span></code> and <code class="docutils literal notranslate"><span class="pre">d2</span></code>), sum these sinusoids to create a composite signal (<code class="docutils literal notranslate"><span class="pre">d</span></code>), and zero-pad this composite signal with 10 s of zeros. Finally, we compute and plot the spectrum as before.</p>
 <div class="question">
@@ -666,6 +693,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_53_0.png" src="_images/04_53_0.png" />
+</div>
 </div>
 <p>Notice that the Hanning taper gradually increases from zero, reaches a maximum of 1 at the center of the interval, then gradually decreases to zero. We can compare the spectra of the two tapers using the following code:</p>
 <div class="cell docutils container">
@@ -677,6 +707,10 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show_spectrum</span><span class="p">(</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">ones</span><span class="p">(</span><span class="n">Fs</span><span class="p">),</span> <span class="n">a</span><span class="p">)),</span> <span class="n">Fs</span><span class="p">,</span> <span class="n">x_lim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>     <span class="c1"># Compute spectrum of rectangular taper.</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_55_0.png" src="_images/04_55_0.png" />
+<img alt="_images/04_55_1.png" src="_images/04_55_1.png" />
 </div>
 </div>
 <p>These spectra reveal two main differences between these tapers:</p>
@@ -700,6 +734,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_57_0.png" src="_images/04_57_0.png" />
 </div>
 </div>
 <p>The NumPy function <code class="docutils literal notranslate"><span class="pre">hanning()</span></code> returns the Hanning taper, which we multiply element by element with the ECoG data in variable <code class="docutils literal notranslate"><span class="pre">x</span></code>. Notice that the slow increase in the Hanning taper reduces the amplitude of the ECoG activity near the taper edges and emphasizes the ECoG activity in the center of the interval.</p>
@@ -726,6 +763,9 @@ The frequency resolution of the spectrum is fixed by the amount of data recorded
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="_images/04_60_0.png" src="_images/04_60_0.png" />
+</div>
 </div>
 <div class="question">
 <p><strong>Q.</strong> The spectra for the Hanning tapered ECoG data and the rectangular tapered ECoG data are plotted above. What conclusions do you now draw regarding the rhythms present in the ECoG data? Consider, in particular, the activity near 10—15 Hz.</p>
@@ -750,6 +790,9 @@ In the preceding examples, we estimated the spectrum from an observed time serie
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_63_0.png" src="_images/04_63_0.png" />
 </div>
 </div>
 <p>The first taper looks familiar—it’s similar to the Hanning taper. Notice that the first taper starts at zero, increases throughout the interval, and then decreases back to zero. As we add more tapers, each contains more “wiggles.” In particular, as the number of tapers increases, the edges of the data become better represented. Unlike the Hanning taper, which slowly approaches zero at the taper edges, some of these tapers increase near the window edges (see taper 5). This can be useful, especially if we are interested in the spectral features near the beginning and end of the data. Just as with the Hanning taper, we multiply the time series data by each taper, which emphasizes different intervals of the data. We show examples of this multiplication for the ECoG data in the plot on the right. The first taper emphasizes the middle of the ECoG data, and the fifth taper emphasizes the beginning and end of the ECoG data.</p>
@@ -795,6 +838,9 @@ In the preceding examples, we estimated the spectrum from an observed time serie
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_71_0.png" src="_images/04_71_0.png" />
 </div>
 </div>
 <p>The function <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> takes three inputs: the data (here <code class="docutils literal notranslate"><span class="pre">x-x.mean()</span></code>), the sampling frequency (here <code class="docutils literal notranslate"><span class="pre">1/dt</span></code>), and the normalized half-bandwidth (here <code class="docutils literal notranslate"><span class="pre">NW</span></code>). The normalized half-bandwidth is equivalent to the half-bandwidth <em>W</em> if the total time is normalized to one second. By default, <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> sets the number of tapers to <span class="math notranslate nohighlight">\(2 N W - 1\)</span>. The function <code class="docutils literal notranslate"><span class="pre">multi_taper_psd()</span></code> returns the frequency points (<code class="docutils literal notranslate"><span class="pre">faxis</span></code>) and multitaper estimate of the spectrum (<code class="docutils literal notranslate"><span class="pre">Sxx</span></code>). The plot above shows the spectrum of the ECoG data computed in three ways: using the rectangular taper, the Hanning taper, and the multitaper method.</p>
@@ -848,6 +894,9 @@ In the preceding examples, we estimated the spectrum from an observed time serie
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_77_0.png" src="_images/04_77_0.png" />
 </div>
 </div>
 <div class="question">
@@ -946,6 +995,9 @@ and <a href="http://www.cambridge.org/us/catalogue/catalogue.asp?isbn=9780521880
 <span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/04_88_0.png" src="_images/04_88_0.png" />
 </div>
 </div>
 <p>In the first two lines, we define two simple signals; each consists of only four elements, which is enough to illustrate the relation. In the third line, we first compute the convolution of <span class="math notranslate nohighlight">\(w\)</span> and <span class="math notranslate nohighlight">\(x\)</span>, and then the Fourier transform. In the fourth and fifth lines, we compute the Fourier transform of each variable, and then their element-by-element product. Notice that we zero-pad both variables before computing their Fourier transforms. We do so to avoid computing circular correlations between the variables (i.e., wrapping around one variable when comparing it to another). Also, we make the lengths of variables <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> the same. Evaluating the statement, we find the difference between <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> to be on the order of <span class="math notranslate nohighlight">\(10^{-15}\)</span>, which is very close to zero.</p>
