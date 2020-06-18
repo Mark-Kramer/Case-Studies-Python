@@ -18,7 +18,10 @@ The intended audience is the *practicing neuroscientist* - e.g., the students, r
 
 This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.
 
-**We thank [NIH NIGMS Award R25GM114827](https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0) and [NSF DMS #1451384](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384) for supporting development of this repository.**
+**Thank you to:**
+
+- [NIH NIGMS R25GM114827](https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0) and [NSF DMS #1451384](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384) for support.
+- [MIT Press](https://mitpress.mit.edu/books/case-studies-neural-data-analysis) for publishing the original version of this material.
 
 ---
 
@@ -83,9 +86,9 @@ We very much appreciate your contributions to this material. Contribitions may i
 
 There are two ways to suggest a contribution:
 
-- **Simple**: Visit the `content` folder in [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/). Locate the file to edit, and follow [these instructions](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
+- **Simple**: Visit [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/), locate the file to edit, and follow [these instructions](https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository).
 
-- **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/)
+- **Advanced**: Fork [Case Studies Python](https://github.com/Mark-Kramer/Case-Studies-Python/) and [submit a pull request](https://jarv.is/notes/how-to-pull-request-fork-github/).
 
 <!-- #endregion -->
 
