@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. On-ramp: computing cross-frequency coupling in Python</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -310,8 +310,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>       <span class="c1"># Import function to read data.</span>
 <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>                <span class="c1"># Import numerical and plotting functions</span>
 <span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>  <span class="c1"># Enable YouTube videos</span>
-<span class="c1"># ... make the plots &quot;inline&quot;.</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>                 
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Change the default figure size</span>
 </pre></div>
 </div>
 </div>
@@ -330,7 +329,6 @@
 <span class="n">sd</span> <span class="o">=</span> <span class="n">EEGa</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>                                <span class="c1"># Compute the std of the signal across trials.</span>
 <span class="n">sdmn</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">ntrials</span><span class="p">)</span>                       <span class="c1"># Compute the std of the mean.</span>
 
-<span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>                          <span class="c1"># Resize the figure.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>                          <span class="c1"># Plot the ERP of condition A,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># ... and include the upper CI,</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">mn</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sdmn</span><span class="p">,</span> <span class="s1">&#39;k:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>              <span class="c1"># ... and the lower CI.</span>
@@ -471,12 +469,12 @@
 EEGa       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
 EEGb       ndarray                       1000x500: 500000 elems, type `float64`, 4000000 bytes (3.814697265625 Mb)
 data       dict                          n=6
-fft        function                      &lt;function fft at 0x1076ef050&gt;
+fft        function                      &lt;function fft at 0x11078b320&gt;
 linalg     module                        &lt;module &#39;numpy.linalg.lin&lt;...&gt;/numpy/linalg/linalg.py&#39;&gt;
 mn         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 ntrials    int                           1000
-power      builtin_function_or_method    &lt;built-in method power of&lt;...&gt;te object at 0x1076b99e0&gt;
-random     builtin_function_or_method    &lt;built-in method random o&lt;...&gt;te object at 0x1076b99e0&gt;
+power      builtin_function_or_method    &lt;built-in method power of&lt;...&gt;te object at 0x11075c8d0&gt;
+random     builtin_function_or_method    &lt;built-in method random o&lt;...&gt;te object at 0x11075c8d0&gt;
 sd         ndarray                       500: 500 elems, type `float64`, 4000 bytes
 sdmn       ndarray                       500: 500 elems, type `float64`, 4000 bytes
 t          ndarray                       500: 500 elems, type `float64`, 4000 bytes
@@ -939,10 +937,7 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <p>A good rule of thumb when you are programming is that you should not be rewriting (or copy-pasting) code over and over again. Instead, you should write a function that you can call whenever you need the action that you keep repeating. At this point, we have resized the plots and labeled the axes the same way several times so we should fix the default plot size and write a function that automates the labeling so that next time we make a plot, we don’t need to rewrite the same code again.</p>
 </div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Change the default figure size</span>
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-
-<span class="c1"># Create a function to label plots</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a function to label plots</span>
 <span class="k">def</span> <span class="nf">labelPlot</span><span class="p">(</span><span class="n">title_string</span><span class="o">=</span><span class="s2">&quot;Title&quot;</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A function that labels the x-axis as &#39;Time [s]&#39; and</span>

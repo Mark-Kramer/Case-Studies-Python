@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Point Process Generalized Linear Models" href="09.html" />
-    <link rel="prev" title="Cross-Frequency Coupling" href="07.html" />
+    <link rel="prev" title="On-ramp: computing cross-frequency coupling in Python" href="07.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. On-ramp: computing cross-frequency coupling in Python</a>
   </li>
   <li class="active">
     <a href="">8. Basic Analysis of Spike Train Data</a>
@@ -317,6 +317,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>              
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Change the default figure size</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/08_spikes-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the spike train data</span>
 <span class="n">SpikesLow</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;SpikesLow&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># ... and get the spike times for low-light condition.</span>
@@ -357,10 +358,8 @@
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: divide by zero encountered in true_divide
-  app.launch_new_instance()
-/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:16: RuntimeWarning: invalid value encountered in multiply
-  app.launch_new_instance()
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:17: RuntimeWarning: divide by zero encountered in true_divide
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:17: RuntimeWarning: invalid value encountered in multiply
 </pre>
 </div>
 <img alt="_images/08_4_1.png" src="_images/08_4_1.png" />
@@ -398,9 +397,10 @@
 <span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Change the default figure size</span>
 
 <span class="c1"># ... and notebook specific modules</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>   <span class="c1"># Import the gamma object from the SciPy stats toolbox</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>      <span class="c1"># Import the gamma object from the SciPy stats toolbox</span>
 </pre></div>
 </div>
 </div>
@@ -1070,7 +1070,7 @@ We see that the autocorrelation function has just a few isolated lags that are o
 </div>
 <div class="cell_output docutils container">
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:5: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &quot;use_line_collection&quot; keyword argument to True.
   &quot;&quot;&quot;
 </pre>
 </div>
@@ -1348,9 +1348,9 @@ lambda =  0.04931816769253932
 </pre></div>
 </div>
 <div class="stderr docutils container">
-<pre class="stderr literal-block">/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
+<pre class="stderr literal-block">/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: divide by zero encountered in true_divide
   
-/opt/miniconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
+/anaconda3/envs/csn/lib/python3.7/site-packages/ipykernel_launcher.py:8: RuntimeWarning: invalid value encountered in multiply
   
 </pre>
 </div>
@@ -1612,7 +1612,7 @@ we conclude that for a Poisson process,</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="07.html" title="previous page">Cross-Frequency Coupling</a>
+    <a class='left-prev' id="prev-link" href="07.html" title="previous page">On-ramp: computing cross-frequency coupling in Python</a>
     <a class='right-next' id="next-link" href="09.html" title="next page">Point Process Generalized Linear Models</a>
 
     </div>

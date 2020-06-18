@@ -21,6 +21,7 @@ Before beginning, let's load in the Python packages we'll need:
 
 from pylab import *
 %matplotlib
+rcParams['figure.figsize']=(12,3)                # Change the default figure size
 
 In addition, let's import the functions we'll need to simulate the HH model, which are available on this repository:
 

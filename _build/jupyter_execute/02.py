@@ -28,8 +28,7 @@ Before we start any computations, let's import some modules and functions that w
 from scipy.io import loadmat       # Import function to read data.
 from pylab import *                # Import numerical and plotting functions
 from IPython.lib.display import YouTubeVideo  # Enable YouTube videos
-# ... make the plots "inline".
-%matplotlib inline                 
+rcParams['figure.figsize']=(12,3)  # Change the default figure size
 
 ## On-ramp: computing the event-related potential in Python
 
@@ -44,7 +43,6 @@ mn = EEGa.mean(0)                               # Compute the mean signal across
 sd = EEGa.std(0)                                # Compute the std of the signal across trials.
 sdmn = sd / sqrt(ntrials)                       # Compute the std of the mean.
 
-figure(figsize=(12,3))                          # Resize the figure.
 plot(t, mn, 'k', lw=3)                          # Plot the ERP of condition A,
 plot(t, mn + 2 * sdmn, 'k:', lw=1)              # ... and include the upper CI,
 plot(t, mn - 2 * sdmn, 'k:', lw=1)              # ... and the lower CI.
@@ -369,9 +367,6 @@ The ERP computed with confidence intervals allows us to ask specific questions a
     
 A good rule of thumb when you are programming is that you should not be rewriting (or copy-pasting) code over and over again. Instead, you should write a function that you can call whenever you need the action that you keep repeating. At this point, we have resized the plots and labeled the axes the same way several times so we should fix the default plot size and write a function that automates the labeling so that next time we make a plot, we don't need to rewrite the same code again.
 </div>
-
-# Change the default figure size
-rcParams['figure.figsize'] = (12, 3)
 
 # Create a function to label plots
 def labelPlot(title_string="Title"):

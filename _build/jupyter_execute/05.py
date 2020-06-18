@@ -39,6 +39,7 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 # Import our favorite functions and modules
 from scipy.io import loadmat                    # To load .mat files
 from pylab import *                             # Import plotting functions
+rcParams['figure.figsize']=(12,3)               # Change the default figure size
 
 data = loadmat('matfiles/ECoG-1.mat')        # Load the data,
 E1 = data['E1']                              # ... from the first electrode,

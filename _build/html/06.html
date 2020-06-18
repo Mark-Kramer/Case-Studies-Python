@@ -37,7 +37,7 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Cross-Frequency Coupling" href="07.html" />
+    <link rel="next" title="On-ramp: computing cross-frequency coupling in Python" href="07.html" />
     <link rel="prev" title="Analysis of Coupled Rhythms" href="05.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -101,7 +101,7 @@
     <a href="">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. On-ramp: computing cross-frequency coupling in Python</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -337,6 +337,7 @@
 <span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">firwin</span><span class="p">,</span> <span class="n">lfilter</span><span class="p">,</span> <span class="n">filtfilt</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>       <span class="c1"># Change the default figure size</span>
 
 <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/EEG-1.mat&#39;</span><span class="p">)</span>    <span class="c1"># Load the data,</span>
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span>              <span class="c1"># ... and define the EEG,</span>
@@ -395,6 +396,7 @@
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Change the default figure size</span>
 </pre></div>
 </div>
 </div>
@@ -411,7 +413,6 @@
 <span class="n">eeg</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;EEG&#39;</span><span class="p">]</span>            <span class="c1"># Extract the EEG variable</span>
 <span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>             <span class="c1"># ... and the t variable</span>
 
-<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># Default to wide figures</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">eeg</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>              <span class="c1"># Plot the data from the first trial versus time</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>           <span class="c1"># Label the time axis</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage [mV]&#39;</span><span class="p">)</span>       <span class="c1"># ... and the voltage axis</span>
@@ -767,7 +768,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x300 with 0 Axes&gt;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x216 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -816,7 +817,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x300 with 0 Axes&gt;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x216 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -832,7 +833,7 @@ negative frequencies. The construction is simimlar to traversing a circle whos a
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/06_63_0.png" src="_images/06_63_0.png" />
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1200x300 with 0 Axes&gt;
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 864x216 with 0 Axes&gt;
 </pre></div>
 </div>
 </div>
@@ -1468,7 +1469,7 @@ xnew_lfilt = lfilter(b, 1, x)  # ... and apply it to the signal x
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="05.html" title="previous page">Analysis of Coupled Rhythms</a>
-    <a class='right-next' id="next-link" href="07.html" title="next page">Cross-Frequency Coupling</a>
+    <a class='right-next' id="next-link" href="07.html" title="next page">On-ramp: computing cross-frequency coupling in Python</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

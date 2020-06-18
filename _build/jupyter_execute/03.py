@@ -41,6 +41,7 @@ from IPython.lib.display import YouTubeVideo    # Package for displaying YouTube
 from numpy import where
 from numpy.fft import fft, rfft
 from scipy.signal import spectrogram
+rcParams['figure.figsize']=(12,3)               # Change the default figure size
 
 <div class="python-note">
     

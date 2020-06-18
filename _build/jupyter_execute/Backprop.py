@@ -9,6 +9,7 @@ Before beginning, let's load in the Python packages we'll need:
 
 from pylab import *
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)                # Change the default figure size
 
 ##  Steps to backpropagation
 

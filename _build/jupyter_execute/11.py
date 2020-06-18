@@ -29,31 +29,32 @@ We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-r
 
 import scipy.io as sio
 from pylab import *
+rcParams['figure.figsize']=(12,3)                   # Change the default figure size
 
 # Load the data and plot it.
-data = sio.loadmat('matfiles/spikes-LFP-1.mat')       # Load the multiscale data,
-y = data['y']                                # ... get the LFP data,
-n = data['n']                                # ... get the spike data,
-t = data['t'].reshape(-1)                    # ... get the time axis,
-K = shape(n)[0]                           # Get the number of trials,
-N = shape(n)[1]                           # ... and the number of data points in each trial,
-dt = t[1]-t[0]                               # Get the sampling interval.
+data = sio.loadmat('matfiles/spikes-LFP-1.mat')     # Load the multiscale data,
+y = data['y']                                       # ... get the LFP data,
+n = data['n']                                       # ... get the spike data,
+t = data['t'].reshape(-1)                           # ... get the time axis,
+K = shape(n)[0]                                     # Get the number of trials,
+N = shape(n)[1]                                     # ... and the number of data points in each trial,
+dt = t[1]-t[0]                                      # Get the sampling interval.
 
-SYY = zeros(int(N/2+1))                                       # Variable to store field spectrum.
-SNN = zeros(int(N/2+1))                                       # Variable to store spike spectrum.
-SYN = zeros(int(N/2+1), dtype=complex)                        # Variable to store cross spectrum.
+SYY = zeros(int(N/2+1))                             # Variable to store field spectrum.
+SNN = zeros(int(N/2+1))                             # Variable to store spike spectrum.
+SYN = zeros(int(N/2+1), dtype=complex)              # Variable to store cross spectrum.
 
-for k in arange(K):                                           # For each trial,
+for k in arange(K):                                 # For each trial,
     yf = rfft((y[k,:]-mean(y[k,:])) *hanning(N))    # Hanning taper the field,
-    nf = rfft((n[k,:]-mean(n[k,:])))                   # ... but do not taper the spikes.
-    SYY = SYY + ( real( yf*conj(yf) ) )/K                  # Field spectrum
-    SNN = SNN + ( real( nf*conj(nf) ) )/K                  # Spike spectrum
-    SYN = SYN + (          yf*conj(nf)   )/K                  # Cross spectrum
+    nf = rfft((n[k,:]-mean(n[k,:])))                # ... but do not taper the spikes.
+    SYY = SYY + ( real( yf*conj(yf) ) )/K           # Field spectrum
+    SNN = SNN + ( real( nf*conj(nf) ) )/K           # Spike spectrum
+    SYN = SYN + (          yf*conj(nf)   )/K        # Cross spectrum
 
-cohr = real(SYN*conj(SYN)) / SYY / SNN                     # Spike-field coherence
-f = rfftfreq(N, dt)                                       # Frequency axis for plotting
+cohr = real(SYN*conj(SYN)) / SYY / SNN              # Spike-field coherence
+f = rfftfreq(N, dt)                                 # Frequency axis for plotting
 
-plot(f,cohr)                             # Plot the result.
+plot(f,cohr)                                        # Plot the result.
 xlim([0, 100])
 ylim([0, 1])
 xlabel('Frequency [Hz]')
@@ -106,6 +107,7 @@ from scipy import signal
 from scipy import stats
 import statsmodels.api as sm
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)            # Change the default figure size
 
 # Load the data and plot it.
 data = sio.loadmat('matfiles/spikes-LFP-1.mat')  # Load the multiscale data,
@@ -115,7 +117,7 @@ t = data['t'].reshape(-1)                    # ... get the time axis,
 plot(t,y[1,:])                               # ... and visualize the data, for the first trial.
 plot(t,n[1,:])
 xlabel('Time [s]')
-autoscale(tight=True)                    # ... with white space minimized.
+autoscale(tight=True)                        # ... with white space minimized.
 savefig("imgs/lfp_ex")
 
 <div class="python-note">

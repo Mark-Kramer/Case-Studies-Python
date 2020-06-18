@@ -34,6 +34,7 @@ We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-r
 from pylab import *
 import scipy.io as sio              
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)  # Change the default figure size
 
 data = sio.loadmat('matfiles/08_spikes-1.mat')       # Load the spike train data
 SpikesLow = data['SpikesLow'][0]         # ... and get the spike times for low-light condition.
@@ -107,9 +108,10 @@ from pylab import *
 import scipy.io as sio
 import warnings
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)  # Change the default figure size
 
 # ... and notebook specific modules
-from scipy.stats import gamma   # Import the gamma object from the SciPy stats toolbox
+from scipy.stats import gamma      # Import the gamma object from the SciPy stats toolbox
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 

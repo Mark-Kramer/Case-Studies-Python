@@ -18,6 +18,7 @@ Before beginning, let's load in the Python packages we'll need:
 
 from pylab import *
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)                # Change the default figure size
 
 ##  Part 1:  Numerical solutions - Introduction
 
@@ -189,6 +190,7 @@ First, let's clear all the variables:
 
 from pylab import *
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)# Change the default figure size
 
 I=1                              #Set the parameter I.
 C=1                              #Set the parameter C.
@@ -244,6 +246,7 @@ Now, let's put it all together to make a complete I&F model (with a thershold an
 
 from pylab import *
 %matplotlib inline
+rcParams['figure.figsize']=(12,3) # Change the default figure size
 
 I=1                          #Set the parameter I.
 C=1                          #Set the parameter C.

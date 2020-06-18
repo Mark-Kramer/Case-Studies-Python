@@ -30,6 +30,7 @@ We begin this notebook with an "*on-ramp*" to analysis. The purpose of this on-r
 from pylab import *
 import scipy.io as sio
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)  # Change the default figure size
 
 # Import the tools for the notebook
 import nitime.algorithms.spectral as spectrum

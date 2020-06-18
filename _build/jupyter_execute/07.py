@@ -31,6 +31,8 @@ We begin this module with an "*on-ramp*" to analysis. The purpose of this on-ram
 from scipy.io import loadmat
 from scipy import signal
 from pylab import *
+%matplotlib inline
+rcParams['figure.figsize']=(12,3)    # Change the default figure size
 
 data = loadmat('matfiles/LFP-1.mat') # Load the LFP data, 
 t = data['t'][0]                     # ... extract t, the time variable,
@@ -103,10 +105,11 @@ Let's begin with visual inspection of the LFP data.
 from scipy.io import loadmat
 from pylab import *
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)     # Change the default figure size
 
 data = loadmat('matfiles/LFP-1.mat')  # Load the LFP data, 
-t = data['t'][0]             # ... extract t, the time variable,
-LFP = data['LFP'][0]         # ... and LFP, the voltage variable,
+t = data['t'][0]         # ... extract t, the time variable,
+LFP = data['LFP'][0]     # ... and LFP, the voltage variable,
 plot(t, LFP)             # ... and plot the trace,
 xlabel('Time [s]')       # ... with axes labeled.
 ylabel('Voltage [mV]');

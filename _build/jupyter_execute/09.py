@@ -37,6 +37,7 @@ from statsmodels.genmod.families import Poisson  # ... Poisson GLMs
 from pandas import DataFrame as df               # Table object for working with data
 from pylab import *                              # Numerical and plotting functions
 %matplotlib inline
+rcParams['figure.figsize']=(12,3)                # Change the default figure size
 
 data = loadmat('matfiles/spikes-1.mat')                             # Load the data,
 t = data['t'][:, 0]                                        # Extract the t variable,
@@ -96,6 +97,7 @@ In this notebook, we develop a series of generalized linear models. We implement
 # Import the usual suspects ...
 from scipy.io import loadmat                    # To load .mat files
 from pylab import *                             # Import plotting and numerical functions
+rcParams['figure.figsize']=(12,3)               # Change the default figure size
 
 # ... and some additional modules.
 import statsmodels.api as sm

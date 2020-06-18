@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. On-ramp: computing cross-frequency coupling in Python</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -318,31 +318,32 @@
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
 <span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>                   <span class="c1"># Change the default figure size</span>
 
 <span class="c1"># Load the data and plot it.</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-LFP-1.mat&#39;</span><span class="p">)</span>       <span class="c1"># Load the multiscale data,</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>                                <span class="c1"># ... get the LFP data,</span>
-<span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span>                                <span class="c1"># ... get the spike data,</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                    <span class="c1"># ... get the time axis,</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>                           <span class="c1"># Get the number of trials,</span>
-<span class="n">N</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>                           <span class="c1"># ... and the number of data points in each trial,</span>
-<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                               <span class="c1"># Get the sampling interval.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-LFP-1.mat&#39;</span><span class="p">)</span>     <span class="c1"># Load the multiscale data,</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>                                       <span class="c1"># ... get the LFP data,</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span>                                       <span class="c1"># ... get the spike data,</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>                           <span class="c1"># ... get the time axis,</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>                                     <span class="c1"># Get the number of trials,</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">shape</span><span class="p">(</span><span class="n">n</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>                                     <span class="c1"># ... and the number of data points in each trial,</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                      <span class="c1"># Get the sampling interval.</span>
 
-<span class="n">SYY</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>                                       <span class="c1"># Variable to store field spectrum.</span>
-<span class="n">SNN</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>                                       <span class="c1"># Variable to store spike spectrum.</span>
-<span class="n">SYN</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>                        <span class="c1"># Variable to store cross spectrum.</span>
+<span class="n">SYY</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>                             <span class="c1"># Variable to store field spectrum.</span>
+<span class="n">SNN</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>                             <span class="c1"># Variable to store spike spectrum.</span>
+<span class="n">SYN</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>              <span class="c1"># Variable to store cross spectrum.</span>
 
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arange</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>                                           <span class="c1"># For each trial,</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">arange</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>                                 <span class="c1"># For each trial,</span>
     <span class="n">yf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,:]</span><span class="o">-</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">,:]))</span> <span class="o">*</span><span class="n">hanning</span><span class="p">(</span><span class="n">N</span><span class="p">))</span>    <span class="c1"># Hanning taper the field,</span>
-    <span class="n">nf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">((</span><span class="n">n</span><span class="p">[</span><span class="n">k</span><span class="p">,:]</span><span class="o">-</span><span class="n">mean</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">k</span><span class="p">,:])))</span>                   <span class="c1"># ... but do not taper the spikes.</span>
-    <span class="n">SYY</span> <span class="o">=</span> <span class="n">SYY</span> <span class="o">+</span> <span class="p">(</span> <span class="n">real</span><span class="p">(</span> <span class="n">yf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">yf</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">K</span>                  <span class="c1"># Field spectrum</span>
-    <span class="n">SNN</span> <span class="o">=</span> <span class="n">SNN</span> <span class="o">+</span> <span class="p">(</span> <span class="n">real</span><span class="p">(</span> <span class="n">nf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">nf</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">K</span>                  <span class="c1"># Spike spectrum</span>
-    <span class="n">SYN</span> <span class="o">=</span> <span class="n">SYN</span> <span class="o">+</span> <span class="p">(</span>          <span class="n">yf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">nf</span><span class="p">)</span>   <span class="p">)</span><span class="o">/</span><span class="n">K</span>                  <span class="c1"># Cross spectrum</span>
+    <span class="n">nf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">((</span><span class="n">n</span><span class="p">[</span><span class="n">k</span><span class="p">,:]</span><span class="o">-</span><span class="n">mean</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="n">k</span><span class="p">,:])))</span>                <span class="c1"># ... but do not taper the spikes.</span>
+    <span class="n">SYY</span> <span class="o">=</span> <span class="n">SYY</span> <span class="o">+</span> <span class="p">(</span> <span class="n">real</span><span class="p">(</span> <span class="n">yf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">yf</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">K</span>           <span class="c1"># Field spectrum</span>
+    <span class="n">SNN</span> <span class="o">=</span> <span class="n">SNN</span> <span class="o">+</span> <span class="p">(</span> <span class="n">real</span><span class="p">(</span> <span class="n">nf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">nf</span><span class="p">)</span> <span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="n">K</span>           <span class="c1"># Spike spectrum</span>
+    <span class="n">SYN</span> <span class="o">=</span> <span class="n">SYN</span> <span class="o">+</span> <span class="p">(</span>          <span class="n">yf</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">nf</span><span class="p">)</span>   <span class="p">)</span><span class="o">/</span><span class="n">K</span>        <span class="c1"># Cross spectrum</span>
 
-<span class="n">cohr</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="n">SYN</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">SYN</span><span class="p">))</span> <span class="o">/</span> <span class="n">SYY</span> <span class="o">/</span> <span class="n">SNN</span>                     <span class="c1"># Spike-field coherence</span>
-<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                                       <span class="c1"># Frequency axis for plotting</span>
+<span class="n">cohr</span> <span class="o">=</span> <span class="n">real</span><span class="p">(</span><span class="n">SYN</span><span class="o">*</span><span class="n">conj</span><span class="p">(</span><span class="n">SYN</span><span class="p">))</span> <span class="o">/</span> <span class="n">SYY</span> <span class="o">/</span> <span class="n">SNN</span>              <span class="c1"># Spike-field coherence</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">rfftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>                                 <span class="c1"># Frequency axis for plotting</span>
 
-<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>                             <span class="c1"># Plot the result.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">cohr</span><span class="p">)</span>                                        <span class="c1"># Plot the result.</span>
 <span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">])</span>
 <span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency [Hz]&#39;</span><span class="p">)</span>
@@ -399,6 +400,7 @@
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 <span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>            <span class="c1"># Change the default figure size</span>
 
 <span class="c1"># Load the data and plot it.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;matfiles/spikes-LFP-1.mat&#39;</span><span class="p">)</span>  <span class="c1"># Load the multiscale data,</span>
@@ -408,7 +410,7 @@
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>                               <span class="c1"># ... and visualize the data, for the first trial.</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time [s]&#39;</span><span class="p">)</span>
-<span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                    <span class="c1"># ... with white space minimized.</span>
+<span class="n">autoscale</span><span class="p">(</span><span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>                        <span class="c1"># ... with white space minimized.</span>
 <span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;imgs/lfp_ex&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -874,7 +876,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>1.4840345290585181e-52 0.7187267797864634
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>1.484034529060339e-52 0.7187267797864678
 </pre></div>
 </div>
 </div>
@@ -950,7 +952,7 @@ compute the p-value for this test in Python,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5144163749651401
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.5137399296155799
 </pre></div>
 </div>
 </div>
@@ -965,8 +967,8 @@ compute the p-value for this test in Python,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[1.260060959996763, 1.2604558073768592]
-[1.0143493114854847, 0.9945940761801921]
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[1.2747213580341565, 1.2604558073768586]
+[1.0058485411320524, 0.9945940761801922]
 </pre></div>
 </div>
 </div>
