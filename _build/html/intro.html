@@ -99,7 +99,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="">
-    <a href="07.html">7. Cross-Frequency Coupling</a>
+    <a href="07.html">7. On-ramp: computing cross-frequency coupling in Python</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -248,7 +248,11 @@
 <p>This repository is a companion to the textbook <a class="reference external" href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden. That textbook used MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.</p>
 <p>The intended audience is the <em>practicing neuroscientist</em> - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we’ve tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you’re interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).</p>
 <p>This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.</p>
-<p><strong>We thank <a class="reference external" href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&amp;icde=0">NIH NIGMS Award R25GM114827</a> and <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384">NSF DMS #1451384</a> for supporting development of this repository.</strong></p>
+<p><strong>Thank you to:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&amp;icde=0">NIH NIGMS R25GM114827</a> and <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384">NSF DMS #1451384</a> for support.</p></li>
+<li><p><a class="reference external" href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">MIT Press</a> for publishing the original version of this material.</p></li>
+</ul>
 </div>
 <hr class="docutils" />
 <div class="section" id="getting-started">
@@ -303,8 +307,8 @@ for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_defaul
 </ul>
 <p>There are two ways to suggest a contribution:</p>
 <ul class="simple">
-<li><p><strong>Simple</strong>: Visit the <code class="docutils literal notranslate"><span class="pre">content</span></code> folder in <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a>. Locate the file to edit, and follow <a class="reference external" href="https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository">these instructions</a>.</p></li>
-<li><p><strong>Advanced</strong>: Fork <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a> and <a class="reference external" href="https://jarv.is/notes/how-to-pull-request-fork-github/">submit a pull request</a></p></li>
+<li><p><strong>Simple</strong>: Visit <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a>, locate the file to edit, and follow <a class="reference external" href="https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository">these instructions</a>.</p></li>
+<li><p><strong>Advanced</strong>: Fork <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a> and <a class="reference external" href="https://jarv.is/notes/how-to-pull-request-fork-github/">submit a pull request</a>.</p></li>
 </ul>
 <!-- #endregion -->
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
