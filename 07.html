@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>On-ramp: computing cross-frequency coupling in Python &#8212; Case Studies in Neural Data Analysis</title>
+    <title>Cross-Frequency Coupling &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
@@ -47,8 +47,8 @@
 <!-- Opengraph tags -->
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/07.html" />
 <meta property="og:type"        content="article" />
-<meta property="og:title"       content="On-ramp: computing cross-frequency coupling in Python" />
-<meta property="og:description" content="On-ramp: computing cross-frequency coupling in Python  We begin this module with an “on-ramp” to analysis. The purpose of this on-ramp is to introduce you immed" />
+<meta property="og:title"       content="Cross-Frequency Coupling" />
+<meta property="og:description" content="Cross-Frequency Coupling  <div class="question">   Synopsis  Data: 100 s of local field potential data sampled at 1000 Hz.  Goal: Characterize the coupling betw" />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -101,7 +101,7 @@
     <a href="06.html">6. Filtering Field Data</a>
   </li>
   <li class="active">
-    <a href="">7. On-ramp: computing cross-frequency coupling in Python</a>
+    <a href="">7. Cross-Frequency Coupling</a>
   </li>
   <li class="">
     <a href="08.html">8. Basic Analysis of Spike Train Data</a>
@@ -201,9 +201,90 @@
         
     </div>
     <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
     <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#on-ramp-computing-cross-frequency-coupling-in-python" class="nav-link">On-ramp: computing cross-frequency coupling in Python</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#introduction-a-id-introduction-a" class="nav-link">Introduction<a id="introduction"></a></a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#background" class="nav-link">Background</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#case-study-data" class="nav-link">Case Study Data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#goal" class="nav-link">Goal</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#tools" class="nav-link">Tools</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#data-visualization-a-id-data-analysis-a" class="nav-link">Data Visualization<a id="data-analysis"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#spectral-analysis-a-id-spectral-analysis-a" class="nav-link">Spectral Analysis<a id="spectral-analysis"></a></a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#phase-amplitude-coupling" class="nav-link">Phase-Amplitude Coupling</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#cfc-analysis-steps" class="nav-link">CFC Analysis Steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-1-filter-the-data-into-high-and-low-frequency-bands" class="nav-link">Step 1. Filter the Data into High- and Low-Frequency Bands.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" class="nav-link">Step 2. Extract the Amplitude and Phase from Filtered Signals.</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#what-does-the-hilbert-transform-do" class="nav-link">What Does the Hilbert Transform Do?</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" class="nav-link">Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#step-3-determine-if-the-phase-and-amplitude-are-related" class="nav-link">Step 3. Determine if the Phase and Amplitude are Related.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#the-phase-amplitude-plot" class="nav-link">The phase-amplitude plot</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#summary" class="nav-link">Summary</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#appendix-hilbert-transform-in-the-time-domain" class="nav-link">Appendix: Hilbert Transform in the Time Domain</a>
+        </li>
     
     </ul>
 </nav>
@@ -216,7 +297,9 @@
         
               <div>
                 
-  <div class="question">
+  <div class="section" id="cross-frequency-coupling">
+<h1>Cross-Frequency Coupling<a class="headerlink" href="#cross-frequency-coupling" title="Permalink to this headline">¶</a></h1>
+<div class="question">
 <p><em><strong>Synopsis</strong></em></p>
 <p><strong>Data:</strong> 100 s of local field potential data sampled at 1000 Hz.</p>
 <p><strong>Goal:</strong> Characterize the coupling between rhythms of different frequency.</p>
@@ -248,7 +331,7 @@
 <li><p><a class="reference external" href="#appendix">Appendix</a></p></li>
 </ul>
 <div class="section" id="on-ramp-computing-cross-frequency-coupling-in-python">
-<h1>On-ramp: computing cross-frequency coupling in Python<a class="headerlink" href="#on-ramp-computing-cross-frequency-coupling-in-python" title="Permalink to this headline">¶</a></h1>
+<h2>On-ramp: computing cross-frequency coupling in Python<a class="headerlink" href="#on-ramp-computing-cross-frequency-coupling-in-python" title="Permalink to this headline">¶</a></h2>
 <p>We begin this module with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this module: how to compute cross-frequency coupling (CFC) in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -302,7 +385,7 @@
 <p><strong>A:</strong> If you’ve never computed cross-frequency coupling before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
 </div></div>
 <div class="section" id="introduction-a-id-introduction-a">
-<h1>Introduction<a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h1>
+<h2>Introduction<a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
@@ -322,20 +405,20 @@
 </div></div>
 </div>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
 <p>In this module, we focus on local field potential (LFP) recordings. The LFP is a measure of local population neural activity, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22595786" rel="external">produced from small aggregates of neurons</a>. In these data, we examine the association between rhythms of different frequencies.</p>
 <p>In general, lower-frequency rhythms have been observed to engage larger brain areas and modulate spatially localized fast oscillations (see, <a href="https://www.ncbi.nlm.nih.gov/pubmed/18388295" rel="external">for example</a>). Of the different types of cross-frequency coupling <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" rel="external">(CFC) observced between brain rhythms</a>, perhaps the most is <strong>phase-amplitude coupling</strong> (PAC), in which the phase of a low frequency rhythm modulates the amplitude (or power) of a high frequency rhythm. Cross-frequency coupling been observed in many brain regions, has been shown to change in time with task demands, and has been proposed to serve a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3359652/" rel="external">functional role</a> in working memory, neuronal computation, communication, and learning. Although the cellular and dynamic mechanisms of specific rhythms associated with CFC are relatively well understood, the mechanisms governing interactions between different frequency rhythms - and the appropriate techniques for measuring CFC - remain active research areas. Although we consider only a single electrode recording here, we note that these techniques can be extended to association measures between electrodes as well.</p>
 </div>
 <div class="section" id="case-study-data">
-<h2>Case Study Data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h2>
+<h3>Case Study Data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
 <p>We are approached by a collaborator recording the local field potential (LFP) from rat hippocampus. She has implanted a small bundle of electrodes, which remain (chronically) implanted as the rat explores a large circular arena. She is interested in assessing the association between different frequency rhythms of the LFP, and more specifically whether an association between different frequency rhythms exists as the rat explores the arena. To address this question, she has provided us with 100 s of LFP data recorded during the experiment (i.e., while the rat spontaneously explored the arena).</p>
 </div>
 <div class="section" id="goal">
-<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<h3>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
 <p>Our goal is to assess the associations between different frequency rhythms recorded in the LFP. To do so, we analyze the LFP data by computing the phase-amplitude coupling (CFC) of the time series. We construct two CFC measures that characterize how the phase of a low-frequency signal modulates the amplitude envelope of a high-frequency signal.</p>
 </div>
 <div class="section" id="tools">
-<h2>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h2>
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <p>In this chapter, we develop two CFC measures, with a particular focus on phase-amplitude coupling (PAC). We introduce the concepts of the Hilbert transform, analytic signal, instantaneous phase, and amplitude envelope.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -357,7 +440,7 @@
 </div>
 </div>
 <div class="section" id="data-visualization-a-id-data-analysis-a">
-<h1>Data Visualization<a id="data-analysis"></a><a class="headerlink" href="#data-visualization-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h1>
+<h2>Data Visualization<a id="data-analysis"></a><a class="headerlink" href="#data-visualization-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
 <p>Let’s begin with visual inspection of the LFP data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -401,7 +484,7 @@
 <p><strong>Q.</strong> Approximate features of the rhythmic activity by visual inspection of the plot above. What is the frequency of the large-amplitude rhythm? Do you observe high-frequency activity? If so, where in time, and at what approximate frequency? What is the sampling frequency of these data? If you were to compute the spectrum of the entire dataset (100 s of LFP), what would be the <abbr title="The Nyquist frequency is the highest frequency we can possibly hope to observe in the data.">Nyquist frequency</abbr> and the <abbr title="This tells us how fine our estimates of the spectrum will be.">frequency resolution</abbr>? <em>Hint:</em> Consider the times near 4.35 s and 4.5 s. Do you see the transient fast oscillations?</p>
 </div></div>
 <div class="section" id="spectral-analysis-a-id-spectral-analysis-a">
-<h1>Spectral Analysis<a id="spectral-analysis"></a><a class="headerlink" href="#spectral-analysis-a-id-spectral-analysis-a" title="Permalink to this headline">¶</a></h1>
+<h2>Spectral Analysis<a id="spectral-analysis"></a><a class="headerlink" href="#spectral-analysis-a-id-spectral-analysis-a" title="Permalink to this headline">¶</a></h2>
 <p>Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -436,7 +519,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p><a id="cfc"></a></p>
 </div>
 <div class="section" id="phase-amplitude-coupling">
-<h1>Phase-Amplitude Coupling<a class="headerlink" href="#phase-amplitude-coupling" title="Permalink to this headline">¶</a></h1>
+<h2>Phase-Amplitude Coupling<a class="headerlink" href="#phase-amplitude-coupling" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;JjOcJy4dVzE&#39;</span><span class="p">)</span>
@@ -456,7 +539,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 </div>
 <p>To assess whether different frequency rhythms interact in the LFP recording, we implement a measure to calculate the CFC. The idea of CFC analysis, in our case, is to determine whether a relation exists between the phase of a low-frequency signal and the envelope or amplitude of a high-frequency signal. In general, computing CFC involves three steps. Each step contains important questions and encompasses entire fields of study. Our goal in this section is to move quickly forward and produce a procedure we can employ, investigate, and criticize. Continued study of CFC - and the associated nuances of each step - is an active area of <a href="https://www.ncbi.nlm.nih.gov/pubmed/26549886" rel="external">ongoing research</a>.</p>
 <div class="section" id="cfc-analysis-steps">
-<h2>CFC Analysis Steps<a class="headerlink" href="#cfc-analysis-steps" title="Permalink to this headline">¶</a></h2>
+<h3>CFC Analysis Steps<a class="headerlink" href="#cfc-analysis-steps" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Filter the data into high- and low-frequency bands.</p></li>
 <li><p>Extract the amplitude and phase from the filtered signals.</p></li>
@@ -465,7 +548,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p><a id="step1"></a></p>
 </div>
 <div class="section" id="step-1-filter-the-data-into-high-and-low-frequency-bands">
-<h2>Step 1. Filter the Data into High- and Low-Frequency Bands.<a class="headerlink" href="#step-1-filter-the-data-into-high-and-low-frequency-bands" title="Permalink to this headline">¶</a></h2>
+<h3>Step 1. Filter the Data into High- and Low-Frequency Bands.<a class="headerlink" href="#step-1-filter-the-data-into-high-and-low-frequency-bands" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;WL_nFRBHqLU&#39;</span><span class="p">)</span>
@@ -537,7 +620,7 @@ At higher frequencies, we find an additional broadband peak at approximately 80�
 <p><a id="step2"></a></p>
 </div>
 <div class="section" id="step-2-extract-the-amplitude-and-phase-from-filtered-signals">
-<h2>Step 2. Extract the Amplitude and Phase from Filtered Signals.<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" title="Permalink to this headline">¶</a></h2>
+<h3>Step 2. Extract the Amplitude and Phase from Filtered Signals.<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;QiRuBvbCQt4&#39;</span><span class="p">)</span>
@@ -605,7 +688,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 </div>
 </div>
 <div class="section" id="what-does-the-hilbert-transform-do">
-<h1>What Does the Hilbert Transform Do?<a class="headerlink" href="#what-does-the-hilbert-transform-do" title="Permalink to this headline">¶</a></h1>
+<h2>What Does the Hilbert Transform Do?<a class="headerlink" href="#what-does-the-hilbert-transform-do" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="#step2ctd">Skip this section</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -721,7 +804,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><strong>Q.</strong> The phase of a complex quantity is the angle with respect to the real axis in the complex plain. What is the angle of <span class="math notranslate nohighlight">\(x_0\)</span> in the figure above?</p>
 </div><p><a id="step2ctd"></a></p>
 <div class="section" id="step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued">
-<h2>Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" title="Permalink to this headline">¶</a></h2>
+<h3>Step 2. Extract the Amplitude and Phase from Filtered Signals (Continued).<a class="headerlink" href="#step-2-extract-the-amplitude-and-phase-from-filtered-signals-continued" title="Permalink to this headline">¶</a></h3>
 <p>Having developed some understanding of the Hilbert Transform, let’s now return to the LFP data of interest here. It’s relatively easy to compute the analytic signal and extract the phase and amplitude in Python:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -740,7 +823,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><a id="step3"></a></p>
 </div>
 <div class="section" id="step-3-determine-if-the-phase-and-amplitude-are-related">
-<h2>Step 3. Determine if the Phase and Amplitude are Related.<a class="headerlink" href="#step-3-determine-if-the-phase-and-amplitude-are-related" title="Permalink to this headline">¶</a></h2>
+<h3>Step 3. Determine if the Phase and Amplitude are Related.<a class="headerlink" href="#step-3-determine-if-the-phase-and-amplitude-are-related" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;fiL9UNbLPA8&#39;</span><span class="p">)</span>
@@ -762,7 +845,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><a id="m1"></a></p>
 </div>
 <div class="section" id="the-phase-amplitude-plot">
-<h2>The phase-amplitude plot<a class="headerlink" href="#the-phase-amplitude-plot" title="Permalink to this headline">¶</a></h2>
+<h3>The phase-amplitude plot<a class="headerlink" href="#the-phase-amplitude-plot" title="Permalink to this headline">¶</a></h3>
 <p>To start, define the two-column phase-amplitude vector,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -889,7 +972,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 </div>
 </div>
 <div class="section" id="summary">
-<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h1>
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
@@ -914,7 +997,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p><a id="appendix"></a></p>
 </div>
 <div class="section" id="appendix-hilbert-transform-in-the-time-domain">
-<h1>Appendix: Hilbert Transform in the Time Domain<a class="headerlink" href="#appendix-hilbert-transform-in-the-time-domain" title="Permalink to this headline">¶</a></h1>
+<h2>Appendix: Hilbert Transform in the Time Domain<a class="headerlink" href="#appendix-hilbert-transform-in-the-time-domain" title="Permalink to this headline">¶</a></h2>
 <p>We have presented the Hilbert Transform in the frequency domain: it produces a quarter cycle phase shift. It’s reasonable to consider as well the <em>time domain</em> representation of the Hilbert Transform. To do so, let’s write the Hilbert Transform as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -951,6 +1034,7 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
   H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.
 \]</div>
 <p>This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, “<em>The Hilbert Transform is a 90-degree phase shift in the frequency domain.</em>” The latter, we propose, is much more intuitive.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
