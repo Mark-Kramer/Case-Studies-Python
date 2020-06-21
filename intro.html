@@ -46,7 +46,7 @@
 <meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/intro.html" />
 <meta property="og:type"        content="article" />
 <meta property="og:title"       content="Case-Studies-Python" />
-<meta property="og:description" content="Case-Studies-Python  Quick start to learning Python for neural data analysis:  Visit the web-formatted version of the book.  Read and interact with the Python c" />
+<meta property="og:description" content="Case-Studies-Python  Quick start to learning Python for neural data analysis:  Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" " />
 <meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
 
 <meta name="twitter:card" content="summary">
@@ -229,13 +229,12 @@
         
               <div>
                 
-  <!-- #region -->
-<div class="section" id="case-studies-python">
+  <div class="section" id="case-studies-python">
 <h1>Case-Studies-Python<a class="headerlink" href="#case-studies-python" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="quick-start-to-learning-python-for-neural-data-analysis">
 <h2>Quick start to learning Python for neural data analysis:<a class="headerlink" href="#quick-start-to-learning-python-for-neural-data-analysis" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Visit the <a class="reference external" href="https://mark-kramer.github.io/Case-Studies-Python/intro.html">web-formatted version of the book</a>.</p></li>
+<li><p>Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external">web-formatted version of the book</a>.</p></li>
 <li><p>Read and interact with the Python code in your web browser.</p></li>
 </ul>
 </div>
@@ -245,54 +244,57 @@
 <li><p>See <a class="reference external" href="#started">below</a></p></li>
 </ul>
 <hr class="docutils" />
-<p>This repository is a companion to the textbook <a class="reference external" href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden. That textbook used MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.</p>
+<p>This repository is a companion to the textbook <a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis" rel="external">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden. That textbook used MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.</p>
 <p>The intended audience is the <em>practicing neuroscientist</em> - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we’ve tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you’re interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).</p>
 <p>This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.</p>
 <p><strong>Thank you to:</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&amp;icde=0">NIH NIGMS R25GM114827</a> and <a class="reference external" href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384">NSF DMS #1451384</a> for support.</p></li>
-<li><p><a class="reference external" href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis">MIT Press</a> for publishing the original version of this material.</p></li>
+<li><p><a href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0" rel="external">NIH NIGMS R25GM114827</a> and <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384" rel="external">NSF DMS #1451384</a> for support.</p></li>
+<li><p><a href="https://mitpress.mit.edu/books/case-studies-neural-data-analysis" rel="external">MIT Press</a> for publishing the original version of this material.</p></li>
 </ul>
-</div>
 <hr class="docutils" />
+<p><a id="started"></a></p>
+</div>
 <div class="section" id="getting-started">
-<h2>Getting Started<a class="reference external" href="#started"></a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>There are multiple ways to interact with these notebooks.</p>
 <ul class="simple">
-<li><p><strong>Simple</strong>: Visit the <a class="reference external" href="https://mark-kramer.github.io/Case-Studies-Python/intro.html">web-formatted version of the notebooks</a>.</p></li>
-<li><p><strong>Intermediate</strong>  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master?filepath=content">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a class="reference external" href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder">eLife</a>.</p></li>
-<li><p><strong>Advanced</strong>: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You’ll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook, visit the <a class="reference external" href="#contents">Contents</a>. You will need to <a class="reference external" href="#install-python">install Python</a> and we recommend <a class="reference external" href="#configure-python">configure Python</a>.</p></li>
+<li><p><strong>Simple</strong>: Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external">web-formatted version of the notebooks</a>.</p></li>
+<li><p><strong>Intermediate</strong>  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external">eLife</a>.</p></li>
+<li><p><strong>Advanced</strong>: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You’ll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook. You will need to <a class="reference external" href="#install-python">install Python</a> and we recommend <a class="reference external" href="#configure-python">configure Python</a>.</p></li>
 </ul>
-</div>
 <hr class="docutils" />
+<p><a id="install-python"></a></p>
+</div>
 <div class="section" id="install-python">
 <h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
 <p>We assume you have installed Python and can get it running on your computer.  Some useful references to do so include,</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.python.org/">Python.org</a></p></li>
-<li><p><a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a></p></li>
-<li><p><a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a></p></li>
+<li><p><a href="https://www.python.org/" rel="external">Python.org</a></p></li>
+<li><p><a href="https://docs.conda.io/en/latest/miniconda.html" rel="external">Miniconda</a></p></li>
+<li><p><a href="https://www.anaconda.com/products/individual" rel="external">Anaconda</a></p></li>
 </ul>
-<p>If this is your first time working with Python, using <a class="reference external" href="https://www.anaconda.com/products/individual">Anaconda</a> is probably a good choice. It provides a simple, graphical interface to start <a class="reference external" href="https://jupyter.org/">Jupyter</a>.</p>
-</div>
+<p>If this is your first time working with Python, using <a href="https://www.anaconda.com/products/individual" rel="external">Anaconda</a> is probably a good choice. It provides a simple, graphical interface to start <a href="https://jupyter.org/" rel="external">Jupyter</a>.</p>
 <hr class="docutils" />
+<p><a id="configure-python"></a></p>
+</div>
 <div class="section" id="configure-python">
 <h2>Configure Python<a class="headerlink" href="#configure-python" title="Permalink to this headline">¶</a></h2>
-<p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code class="docutils literal notranslate"><span class="pre">csn</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">env</span> <span class="o">--</span><span class="n">file</span> <span class="n">csn</span><span class="o">.</span><span class="n">yml</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">csn</span>
+<p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code class="docutils literal notranslate"><span class="pre">case-studies</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">env</span> <span class="o">--</span><span class="n">file</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">case</span><span class="o">-</span><span class="n">studies</span>
 </pre></div>
 </div>
 <p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">~/.</span><span class="n">jupyter</span>
-<span class="n">cp</span> <span class="o">-</span><span class="n">ir</span> <span class="n">assets</span><span class="o">/</span><span class="n">custom</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">i</span> <span class="n">_static</span><span class="o">/</span><span class="n">custom</span><span class="o">.*</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span>
 <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
-<span class="n">cp</span> <span class="o">-</span><span class="n">ir</span> <span class="n">startup</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">ir</span> <span class="n">_config</span><span class="o">/</span><span class="n">startup</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in $(ls assets/custom); do echo $(assets/custom/$f) &gt;&gt; ~/.jupyter/custom/$f; done
-for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in $(ls _static/custom.*); do echo $(_static/$f) &gt;&gt; ~/.jupyter/custom/$f; done
+for f in $(ls _config/startup); do echo $(_config/startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done
 </pre></div>
 </div>
 </div>
@@ -307,13 +309,9 @@ for f in $(ls startup); do echo $(startup/$f) &gt;&gt; ~/.ipython/profile_defaul
 </ul>
 <p>There are two ways to suggest a contribution:</p>
 <ul class="simple">
-<li><p><strong>Simple</strong>: Visit <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a>, locate the file to edit, and follow <a class="reference external" href="https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository">these instructions</a>.</p></li>
-<li><p><strong>Advanced</strong>: Fork <a class="reference external" href="https://github.com/Mark-Kramer/Case-Studies-Python/">Case Studies Python</a> and <a class="reference external" href="https://jarv.is/notes/how-to-pull-request-fork-github/">submit a pull request</a>.</p></li>
+<li><p><strong>Simple</strong>: Visit <a href="https://github.com/Mark-Kramer/Case-Studies-Python/" rel="external">Case Studies Python</a>, locate the file to edit, and follow <a href="https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository" rel="external">these instructions</a>.</p></li>
+<li><p><strong>Advanced</strong>: Fork <a href="https://github.com/Mark-Kramer/Case-Studies-Python/" rel="external">Case Studies Python</a> and <a href="https://jarv.is/notes/how-to-pull-request-fork-github/" rel="external">submit a pull request</a></p></li>
 </ul>
-<!-- #endregion -->
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </div>
 </div>
 
