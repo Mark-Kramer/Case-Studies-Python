@@ -8,8 +8,11 @@ help:
 	@echo "  runall      to run all notebooks in-place, capturing outputs with the notebook"
 	@echo "  sync_md     to sync content in ipynb files from md files"
 	@echo "  index       create an index file from _config/intro.md"
-	@echo "  site        push site in _book to gh-pages branch"
+	@echo "  site        push site in _build/html to gh-pages branch"
+	@echo "  student     update the student branch with all files in _toc.yml, matfiles, imgs, *.py, README.md, and anything in a folder named student"
 
+student:
+	./_config/scripts/make_student.sh
 sync_md:
 	./_config/scripts/sync_md.sh	
 

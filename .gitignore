@@ -13,4 +13,4 @@ local/
 template.ipynb
 _site/
 Case*pdf
-content/_build
+_build
