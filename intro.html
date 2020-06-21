@@ -287,13 +287,13 @@
 </div>
 <p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span>
-<span class="n">cp</span> <span class="o">-</span><span class="n">i</span> <span class="n">_static</span><span class="o">/</span><span class="n">custom</span><span class="o">.*</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span>
+<span class="n">cp</span> <span class="o">-</span><span class="n">i</span> <span class="n">_config</span><span class="o">/</span><span class="n">_static</span><span class="o">/</span><span class="n">custom</span><span class="o">.*</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span>
 <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
 <span class="n">cp</span> <span class="o">-</span><span class="n">ir</span> <span class="n">_config</span><span class="o">/</span><span class="n">startup</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
 </pre></div>
 </div>
 <p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in $(ls _static/custom.*); do echo $(_static/$f) &gt;&gt; ~/.jupyter/custom/$f; done
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in $(ls _config/_static/custom.*); do echo $(_config/_static/$f) &gt;&gt; ~/.jupyter/custom/$f; done
 for f in $(ls _config/startup); do echo $(_config/startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done
 </pre></div>
 </div>
