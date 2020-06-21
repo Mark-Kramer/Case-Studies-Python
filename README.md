@@ -63,7 +63,7 @@ This will ensure that you have all the packages needed to run the notebooks. If 
 
 ```
 mkdir -p ~/.jupyter/custom
-cp -i _static/custom.* ~/.jupyter/custom/
+cp -i _config/_static/custom.* ~/.jupyter/custom/
 mkdir -p ~/.ipython/profile_default/
 cp -ir _config/startup ~/.ipython/profile_default/
 ```
@@ -71,7 +71,7 @@ cp -ir _config/startup ~/.ipython/profile_default/
 Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:
 
 ```
-for f in $(ls _static/custom.*); do echo $(_static/$f) >> ~/.jupyter/custom/$f; done
+for f in $(ls _config/_static/custom.*); do echo $(_config/_static/$f) >> ~/.jupyter/custom/$f; done
 for f in $(ls _config/startup); do echo $(_config/startup/$f) >> ~/.ipython/profile_default/startup/$f; done
 ```
 
