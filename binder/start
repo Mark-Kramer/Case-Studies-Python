@@ -2,6 +2,5 @@
 
 echo "CONDA_PREFIX: $CONDA_PREFIX" >> log.txt
 echo "PWD: $PWD" >> log.txt
-cat _config/_static/custom.css >> $CONDA_PREFIX/share/jupyter/lab/themes/\@jupyterlab/theme-light-extension/index.css
-
+cat _config/_static/custom.css >> $CONDA_PREFIX/lib/python3.7/site-packages/jupyterlab/themes/\@jupyterlab/theme-light-extension/index.css
 exec "$@"
