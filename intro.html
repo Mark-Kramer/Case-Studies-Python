@@ -261,7 +261,7 @@
 <ul class="simple">
 <li><p><strong>Simple</strong>: Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external">web-formatted version of the notebooks</a>.</p></li>
 <li><p><strong>Intermediate</strong>  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external">eLife</a>.</p></li>
-<li><p><strong>Advanced</strong>: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You’ll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook. You will need to <a class="reference external" href="#install-python">install Python</a> and we recommend <a class="reference external" href="#configure-python">configure Python</a>.</p></li>
+<li><p><strong>Advanced</strong>: <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external">Download</a> the notebooks and run them locally (i.e. on your own computer) in <a href="https://jupyter.org/">Jupyter</a>. You’ll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. You will need to <a class="reference external" href="#install-python">install Python</a> and we recommend that you <a class="reference external" href="#configure-python">configure</a> a Python environment as well.</p></li>
 </ul>
 <hr class="docutils" />
 <p><a id="install-python"></a></p>
@@ -280,21 +280,16 @@
 </div>
 <div class="section" id="configure-python">
 <h2>Configure Python<a class="headerlink" href="#configure-python" title="Permalink to this headline">¶</a></h2>
-<p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called <code class="docutils literal notranslate"><span class="pre">case-studies</span></code>.</p>
+<p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external"><em>student</em> branch</a> of the repository, then you should see a file called <code class="docutils literal notranslate"><span class="pre">environment.yml</span></code>. Type the following code into your terminal to create and activate an environment called <code class="docutils literal notranslate"><span class="pre">case-studies</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="n">env</span> <span class="o">--</span><span class="n">file</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">case</span><span class="o">-</span><span class="n">studies</span>
 </pre></div>
 </div>
-<p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:</p>
+<p>This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice a few cosmetic differences. The code will still work without the next step, but if you want to match the formatting in the published version, you can run the following in your terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span>
 <span class="n">cp</span> <span class="o">-</span><span class="n">i</span> <span class="n">_config</span><span class="o">/</span><span class="n">_static</span><span class="o">/</span><span class="n">custom</span><span class="o">.*</span> <span class="o">~/.</span><span class="n">jupyter</span><span class="o">/</span><span class="n">custom</span><span class="o">/</span>
 <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
 <span class="n">cp</span> <span class="o">-</span><span class="n">ir</span> <span class="n">_config</span><span class="o">/</span><span class="n">startup</span> <span class="o">~/.</span><span class="n">ipython</span><span class="o">/</span><span class="n">profile_default</span><span class="o">/</span>
-</pre></div>
-</div>
-<p>Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>for f in $(ls _config/_static/custom.*); do echo $(_config/_static/$f) &gt;&gt; ~/.jupyter/custom/$f; done
-for f in $(ls _config/startup); do echo $(_config/startup/$f) &gt;&gt; ~/.ipython/profile_default/startup/$f; done
 </pre></div>
 </div>
 </div>
