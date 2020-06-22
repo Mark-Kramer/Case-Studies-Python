@@ -11,11 +11,9 @@ done < _config/_toc.yml
 ln -s $PWD/{matfiles,imgs} tmp/
 cp *.py tmp
 cp README.md tmp
-mkdir tmp/config
-cp environment.yml tmp/config
-cp -r _config/startup tmp/config/
-cp _config/_static/custom.* tmp/config/
-cp _config/Makefile.student tmp/Makefile
+cp -r _config tmp
+mv tmp/_config/Makefile.student tmp/Makefile
+rm tmp/_config/_*yml
 
 ghp-import -p -f -l -b student tmp/
 rm -r tmp

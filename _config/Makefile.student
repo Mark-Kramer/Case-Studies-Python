@@ -10,7 +10,7 @@ env:
 	
 config:
 	mkdir -p ~/.jupyter/custom
-	cp -i config/custom.* ~/.jupyter/custom/
+	cp -i _config/_static/custom.* ~/.jupyter/custom/
 	mkdir -p ~/.ipython/profile_default/
-	cp -ir config/startup ~/.ipython/profile_default/
+	cp -ir _config/startup ~/.ipython/profile_default/
 
