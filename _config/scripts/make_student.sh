@@ -12,6 +12,8 @@ ln -s $PWD/{matfiles,imgs} tmp/
 cp *.py tmp
 cp README.md tmp
 cp -r _config tmp
+cp environment.yml tmp
+cp postBuild tmp
 mv tmp/_config/Makefile.student tmp/Makefile
 rm tmp/_config/_*yml
 
