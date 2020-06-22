@@ -1,5 +1,7 @@
 #!/bin/bash
 
-cat ../_config/_static/custom.css >> $CONDA_PREFIX/share/jupyter/lab/themes/\@jupyterlab/theme-light-extension/index.css
+echo "CONDA_PREFIX: $CONDA_PREFIX"
+echo "PWD: $PWD"
+cat _config/_static/custom.css >> $CONDA_PREFIX/share/jupyter/lab/themes/\@jupyterlab/theme-light-extension/index.css
 
 exec "$@"
