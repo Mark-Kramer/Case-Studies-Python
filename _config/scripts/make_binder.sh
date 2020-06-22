@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir tmp
-if test -d binder ; then cp -r binder tmp ; fi
+mkdir -p tmp/binder
+if test -d _binder ; then cp -r _binder/* tmp/binder/ ; fi
 while IFS=[" "] read -r a b fname ; do 
     if [ "$fname" ] && test -f "$fname" ; then 
         cp $fname tmp/ ; 
