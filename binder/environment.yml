@@ -10,4 +10,4 @@ dependencies:
 - numpy
 - statsmodels
 - nitime
-- pylab=2
+- jupyterlab=2
