@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir tmp
-if test -d student ; then cp -r student/* tmp ; fi
+if test -d binder ; then cp -r binder/* tmp ; fi
 while IFS=[" "] read -r a b fname ; do 
     if [ "$fname" ] && test -f "$fname" ; then 
         cp $fname tmp/ ; 
@@ -11,11 +11,12 @@ done < _config/_toc.yml
 ln -s $PWD/{matfiles,imgs} tmp/
 cp *.py tmp
 cp README.md tmp
-cp -r _config tmp
-mv tmp/_config/Makefile.student tmp/Makefile
-rm tmp/_config/_*yml
+mkdir tmp/_config
+cp -r _config/{_static,startup} tmp/_config
+cp environment.yml tmp
+cp postBuild tmp
 
-ghp-import -p -f -l -b student tmp/
+ghp-import -p -f -l -b binder tmp/
 rm -r tmp
 
 
