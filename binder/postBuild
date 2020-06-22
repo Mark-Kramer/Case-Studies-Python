@@ -10,4 +10,6 @@ cp _config/startup/* ~/.ipython/profile_default/startup/
 rm -r _config
 
 printenv > env.txt
+ls -l $NB_PYTHON_PREFIX/lib/python3.7/site-packages/jupyterlab/themes/\@jupyterlab/ > site-packages.txt
+ls -l $NB_PYTHON_PREFIX/share/jupyter/lab/themes/\@jupyterlab/ > share.txt
 
