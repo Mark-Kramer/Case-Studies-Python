@@ -31,7 +31,7 @@ There are multiple ways to interact with these notebooks.
 
 - **Intermediate**  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/master">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external">eLife</a>.
 
-- **Advanced**: Run the notebooks locally on your computer in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. To access and download a notebook. You will need to [install Python](#install-python) and we recommend [configure Python](#configure-python).
+- **Advanced**: <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external">Download</a> the notebooks and run them locally (i.e. on your own computer) in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. You will need to [install Python](#install-python) and we recommend that you [configure](#configure-python) a Python environment as well.
 
 ---
 <a id="install-python"></a>
@@ -52,27 +52,20 @@ If this is your first time working with Python, using <a href="https://www.anaco
 <a id="configure-python"></a>
 ## Configure Python
 
-Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external">environment</a> to run the notebooks. Type the following code into your terminal to create and activate an environment called `case-studies`. 
+Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external">*student* branch</a> of the repository, then you should see a file called `environment.yml`. Type the following code into your terminal to create and activate an environment called `case-studies`. 
 
 ```
 conda create env --file environment.yml
 conda activate case-studies
 ```
 
-This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice that when you generate plots, they look different. If you want to match the formatting in the published version, you can run the following in your terminal:
+This will ensure that you have all the packages needed to run the notebooks. If you run a notebook at this point, you may notice a few cosmetic differences. The code will still work without the next step, but if you want to match the formatting in the published version, you can run the following in your terminal:
 
 ```
 mkdir -p ~/.jupyter/custom
 cp -i _config/_static/custom.* ~/.jupyter/custom/
 mkdir -p ~/.ipython/profile_default/
 cp -ir _config/startup ~/.ipython/profile_default/
-```
-
-Note that if you already have files in these directories, you will be prompted to overwrite them. In this case, you may prefer to append the contents to the end of the existing files. You can do this with the following:
-
-```
-for f in $(ls _config/_static/custom.*); do echo $(_config/_static/$f) >> ~/.jupyter/custom/$f; done
-for f in $(ls _config/startup); do echo $(_config/startup/$f) >> ~/.ipython/profile_default/startup/$f; done
 ```
 
 ---
