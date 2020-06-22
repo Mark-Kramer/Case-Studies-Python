@@ -11,6 +11,12 @@ help:
 	@echo "  site        push site in _build/html to gh-pages branch"
 	@echo "  binder      update the student branch with all files in _toc.yml, matfiles, imgs, *.py, README.md, and anything in a folder named student"
 
+all: 
+	make clean
+	make book
+	make site
+	make binder
+
 binder:
 	./_config/scripts/make_binder.sh
 
