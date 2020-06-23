@@ -56,17 +56,18 @@ Once you have installed Anaconda or Miniconda, we recommend setting up an <a hre
 
 ```
 conda env create --file binder/environment.yml
-./binder/postBuild
+conda activate case-studies
+./binder/setup.sh
 ```
 
-This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, use the following:
+This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, activate your environment and start jupyter:
 
 ```
 conda activate case-studies  # this activates your python packages
-jupyter lab  # this opens jupyterlab in the current location
+jupyter notebook  # this opens jupyterlab in the current location
 ```
 
-If you prefer, you can also use `jupyter notebook` instead of `jupyter lab`.
+If you prefer, you can also use `jupyter lab` instead of `jupyter notebook`.
 
 ---
 
