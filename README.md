@@ -63,10 +63,10 @@ This will ensure that you have all the packages needed to run the notebooks. Fin
 
 ```
 conda activate case-studies  # this activates your python packages
-jupyter lab .  # this opens jupyterlab in the current location
+jupyter lab  # this opens jupyterlab in the current location
 ```
 
-If you prefer, you can also use `jupyter notebook .` instead of `jupyter lab .`.
+If you prefer, you can also use `jupyter notebook` instead of `jupyter lab`.
 
 ---
 
