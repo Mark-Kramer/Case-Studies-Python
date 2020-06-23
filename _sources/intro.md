@@ -56,7 +56,8 @@ Once you have installed Anaconda or Miniconda, we recommend setting up an <a hre
 
 ```
 conda env create --file binder/environment.yml
-./binder/postBuild
+conda activate case-studies
+./binder/setup.sh
 ```
 
 This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, use the following:
