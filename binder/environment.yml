@@ -1,3 +1,4 @@
+name: case-studies
 channels:
 - defaults
 - conda-forge
