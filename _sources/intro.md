@@ -55,7 +55,7 @@ If this is your first time working with Python, using <a href="https://www.anaco
 Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external" target="_blank">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external" target="_blank">repository from Github</a>, then you can use the following commands to configure your local environment to match the Binder environment:
 
 ```
-conda create env --file binder/environment.yml
+conda env create --file binder/environment.yml
 ./binder/postBuild
 ```
 
