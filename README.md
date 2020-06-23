@@ -55,18 +55,19 @@ If this is your first time working with Python, using <a href="https://www.anaco
 Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external" target="_blank">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external" target="_blank">repository from Github</a>, then you can use the following commands to configure your local environment to match the Binder environment:
 
 ```
-conda create env --file binder/environment.yml
-./binder/postBuild
+conda env create --file binder/environment.yml
+conda activate case-studies
+./binder/setup.sh
 ```
 
-This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, use the following:
+This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, activate your environment and start jupyter:
 
 ```
 conda activate case-studies  # this activates your python packages
-jupyter lab  # this opens jupyterlab in the current location
+jupyter notebook  # this opens jupyterlab in the current location
 ```
 
-If you prefer, you can also use `jupyter notebook` instead of `jupyter lab`.
+If you prefer, you can also use `jupyter lab` instead of `jupyter notebook`.
 
 ---
 
