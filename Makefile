@@ -30,7 +30,7 @@ runall:
 	jupyter nbconvert --to notebook --execute --inplace -y --ExecutePreprocessor.timeout=-1 *.ipynb	
 
 clean:
-	rm -r _build
+	if test -d _build ; then rm -r _build ; fi
 
 site: 
 	ghp-import -n -p -f _build/html
