@@ -29,7 +29,7 @@ There are multiple ways to interact with these notebooks.
 
 - **Simple**: Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external" target="_blank">web-formatted version of the notebooks</a>.
 
-- **Intermediate**:  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/binder?urlpath=lab">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external" target="_blank">eLife</a>.
+- **Intermediate**:  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/binder?urlpath=lab" rel="external" target="_blank">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external" target="_blank">eLife</a>.
 
 - **Advanced**: <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/binder.zip" rel="external" target="_blank">Download</a> the notebooks and run them locally (i.e. on your own computer) in <a href="https://jupyter.org/">Jupyter</a>. You'll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. You will need to [install Python](#install-python) and we recommend that you [configure](#configure-python) a Python environment as well.
 
