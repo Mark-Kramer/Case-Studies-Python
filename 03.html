@@ -231,43 +231,43 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data analysis<a id="data-analysis"></a></a>
+            <a href="#data-analysis" class="nav-link">Data analysis</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-1-visual-inspection-a-id-visual-inspection-a" class="nav-link">Step 1: Visual inspection<a id="visual-inspection"></a></a>
+            <a href="#step-1-visual-inspection" class="nav-link">Step 1: Visual inspection</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-2-mean-variance-and-standard-deviation-a-id-mean-a" class="nav-link">Step 2: Mean, variance, and standard deviation<a id="mean"></a></a>
+            <a href="#step-2-mean-variance-and-standard-deviation" class="nav-link">Step 2: Mean, variance, and standard deviation</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-3-the-autocovariance-a-id-autocovariance-a" class="nav-link">Step 3: The autocovariance<a id="autocovariance"></a></a>
+            <a href="#step-3-the-autocovariance" class="nav-link">Step 3: The autocovariance</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-4-power-spectral-density-or-spectrum-a-id-power-spectral-density-a" class="nav-link">Step 4: Power spectral density, or spectrum<a id="power-spectral-density"></a></a>
+            <a href="#step-4-power-spectral-density-or-spectrum" class="nav-link">Step 4: Power spectral density, or spectrum</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#discrete-fourier-transform-in-python-a-id-dft-a" class="nav-link">Discrete Fourier Transform in Python <a id="dft"></a></a>
+            <a href="#discrete-fourier-transform-in-python" class="nav-link">Discrete Fourier Transform in Python</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#the-nyquist-frequency-a-id-nyquist-frequency-a" class="nav-link">The Nyquist frequency <a id="nyquist-frequency"></a></a>
+            <a href="#the-nyquist-frequency" class="nav-link">The Nyquist frequency</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#the-frequency-resolution-a-id-frequency-resolution-a" class="nav-link">The frequency resolution<a id="frequency-resolution"></a></a>
+            <a href="#the-frequency-resolution" class="nav-link">The frequency resolution</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-5-decibel-scaling-a-id-decibel-scaling-a" class="nav-link">Step 5: Decibel scaling<a id="decibel-scaling"></a></a>
+            <a href="#step-5-decibel-scaling" class="nav-link">Step 5: Decibel scaling</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#step-6-the-spectrogram-a-id-the-spectrogram-a" class="nav-link">Step 6: The spectrogram<a id="the-spectrogram"></a></a>
+            <a href="#step-6-the-spectrogram" class="nav-link">Step 6: The spectrogram</a>
         </li>
     
     </ul>
@@ -447,10 +447,11 @@
 <div class="section" id="tools">
 <h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <p>The primary tool developed in this notebook is the Fourier transform. We will learn how to compute the Fourier transform, and the associated spectrum, in Python. We will see that the spectrum provides a powerful technique to assess rhythmic structure in time series data.</p>
+<p><a id="data-analysis"></a></p>
 </div>
 </div>
-<div class="section" id="data-analysis-a-id-data-analysis-a">
-<h2>Data analysis<a id="data-analysis"></a><a class="headerlink" href="#data-analysis-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-analysis">
+<h2>Data analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
 <p>We will go through the following steps to analyze the data:</p>
 <ol class="simple">
 <li><p><a class="reference external" href="#visual-inspection">Visual inspection</a></p></li>
@@ -460,9 +461,10 @@
 <li><p><a class="reference external" href="#decibel-scaling">Decibel scaling</a></p></li>
 <li><p><a class="reference external" href="#the-spectrogram">The spectrogram</a></p></li>
 </ol>
+<p><a id="visual-inspection"></a></p>
 </div>
-<div class="section" id="step-1-visual-inspection-a-id-visual-inspection-a">
-<h2>Step 1: Visual inspection<a id="visual-inspection"></a><a class="headerlink" href="#step-1-visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-1-visual-inspection">
+<h2>Step 1: Visual inspection<a class="headerlink" href="#step-1-visual-inspection" title="Permalink to this headline">¶</a></h2>
 <p>Often, the best place to begin our data analysis is visual inspection of the time series. To do so, let’s plot the data:<a id="fig:3.1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -597,9 +599,10 @@
 <div class="question">
 <p><strong>Q.</strong> In the second line of the code above we define the sampling interval as <code class="docutils literal notranslate"><span class="pre">dt</span> <span class="pre">=</span> <span class="pre">t[1]</span> <span class="pre">-</span> <span class="pre">t[0]</span></code>. How else could we have defined <code class="docutils literal notranslate"><span class="pre">dt</span></code>? Would <code class="docutils literal notranslate"><span class="pre">t[10]</span> <span class="pre">-</span> <span class="pre">t[9]</span></code> be appropriate?</p>
 </div><p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="mean"></a></p>
 </div>
-<div class="section" id="step-2-mean-variance-and-standard-deviation-a-id-mean-a">
-<h2>Step 2: Mean, variance, and standard deviation<a id="mean"></a><a class="headerlink" href="#step-2-mean-variance-and-standard-deviation-a-id-mean-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-2-mean-variance-and-standard-deviation">
+<h2>Step 2: Mean, variance, and standard deviation<a class="headerlink" href="#step-2-mean-variance-and-standard-deviation" title="Permalink to this headline">¶</a></h2>
 <p>As a first step in our analysis of the EEG data, let’s define two of the simplest measures we can use to characterize data <span class="math notranslate nohighlight">\(x\)</span>: the mean and variance <sup><abbr title="We could instead write the sample mean, because we use the observed data to estimate the theoretical mean that we would see if we were to keep repeating this experiment. This distinction is not essential to our goals here, but is important when talking to your statistics-minded colleagues. Throughout this notebook and others, we omit the term “sample” when referring to sample means, variances, covariances, and so forth, unless this distinction becomes essential to our discussion."><em>note</em></abbr></sup>. To estimate the mean <span class="math notranslate nohighlight">\(\bar x\)</span>, or average value, of <span class="math notranslate nohighlight">\(x\)</span> we compute,</p>
 <p title="Mean">
 $$ 
@@ -640,9 +643,10 @@ sd = 0.7104345436320261
 <p><strong>A.</strong> The computed mean is approximately 0. Visual inspection of the plot suggests that the EEG data fluctuate around a center value of 0, so the computed mean is consistent with our visual inspection of the data. The computed standard deviation is approximately 0.71. We expect that most of the signal fluctuations lie within two standard deviations (i.e., <span class="math notranslate nohighlight">\(\pm 2\sigma\)</span>) of the mean. We therefore expect to observe EEG values mostly between 0 ± 1.4 = (−1.4, 1.4), which is in fact what we observe.</p>
 </div><p>The mean and variance (and standard deviation) provide single numbers that summarize the EEG trace. In this case, these numbers are not particularly useful. Both may depend on many factors, including the electrical contact between the electrode and scalp surface, and the cognitive state of the subject. Here, we’re more interested in how the EEG activity is distributed across rhythms. We’ve already begun to assess rhythms in the EEG data through visual inspection of the time series. To further characterize these rhythms, we will employ another powerful tool - the Fourier transform. However, before introducing the Fourier transform, we’ll first consider an intimately related measure: the autocovariance.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="autocovariance"></a></p>
 </div>
-<div class="section" id="step-3-the-autocovariance-a-id-autocovariance-a">
-<h2>Step 3: The autocovariance<a id="autocovariance"></a><a class="headerlink" href="#step-3-the-autocovariance-a-id-autocovariance-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-3-the-autocovariance">
+<h2>Step 3: The autocovariance<a class="headerlink" href="#step-3-the-autocovariance" title="Permalink to this headline">¶</a></h2>
 <p>Our visual inspection strongly suggests a prominent feature in the data—rhythmic activity. Rhythmic activity represents a type of dependent structure in the data. For example, if we know the data tends to oscillate near 60 Hz, then given the value of the EEG data now, we can accurately predict the value of the EEG data 1/60 s in the future (i.e., one cycle of the 60 Hz activity); it should
 be similar. One technique to assess the dependent structure in the data is the autocovariance. To start, let’s write down the formula for the autocovariance, <span class="math notranslate nohighlight">\(r_{xx}[L]\)</span>, evaluated at lag <span class="math notranslate nohighlight">\(L\)</span>,</p>
 <p><a id="eq:3.3"></a>
@@ -692,13 +696,14 @@ $\)</span></p>
 <p>Let’s start by considering the case of <span class="math notranslate nohighlight">\(L=0\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inds</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>                   <span class="c1"># Choose a subset of the data to plot</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">inds</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>          <span class="c1"># Choose a subset of the data to plot</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">);</span>   <span class="c1"># Plot the original</span>
-<span class="n">L</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>                                <span class="c1"># Choose the lag,</span>
-                                    <span class="c1"># ... and plot the shifted traces.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
-<span class="n">legend</span><span class="p">()</span>                            <span class="c1"># Add a legend and informative title</span>
-<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L&quot;</span><span class="p">);</span>
+<span class="n">L</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>                       <span class="c1"># Choose the lag,</span>
+                           <span class="c1"># ... and plot the shifted traces.</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>  <span class="c1"># Add a legend and informative title</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L</span><span class="se">\n</span><span class="s2">Autocovariance = </span><span class="si">{:.4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ac</span><span class="p">[</span><span class="n">lags</span><span class="o">==</span><span class="n">L</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
 </pre></div>
 </div>
 </div>
@@ -719,7 +724,7 @@ $\)</span></p>
 <p>Because we sum many positive terms, we expect to find a large positive value for <span class="math notranslate nohighlight">\(r_{xx}[0]\)</span>. And indeed, that’s what we find; let’s print the value of the autocovariance at lag 0:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">where</span><span class="p">(</span><span class="n">lags</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">lags</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -735,9 +740,10 @@ $\)</span></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">);</span>       <span class="c1"># Plot the original</span>
 <span class="n">L</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">60</span><span class="o">/</span><span class="n">dt</span><span class="p">);</span>                               <span class="c1"># Choose the lag,</span>
                                                 <span class="c1"># ... and plot the shifted traces.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> 
+     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
 <span class="n">legend</span><span class="p">()</span>                                        <span class="c1"># Add a legend and informative title</span>
-<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L&quot;</span><span class="p">);</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L</span><span class="se">\n</span><span class="s2">Autocovariance = </span><span class="si">{:.4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ac</span><span class="p">[</span><span class="n">lags</span><span class="o">==</span><span class="n">L</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
 </pre></div>
 </div>
 </div>
@@ -770,9 +776,10 @@ $\)</span></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original&quot;</span><span class="p">);</span>       <span class="c1"># Plot the original</span>
 <span class="n">L</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="mi">1</span><span class="o">/</span><span class="mi">60</span><span class="o">/</span><span class="n">dt</span><span class="p">);</span>                             <span class="c1"># Choose the lag,</span>
                                                 <span class="c1"># ... and plot the shifted traces.</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">inds</span><span class="p">],</span> <span class="n">x</span><span class="p">[[</span><span class="n">i</span> <span class="o">+</span> <span class="n">L</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inds</span><span class="p">]],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> 
+     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;L=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
 <span class="n">legend</span><span class="p">()</span>                                        <span class="c1"># Add a legend and informative title</span>
-<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L&quot;</span><span class="p">);</span>
+<span class="n">title</span><span class="p">(</span><span class="s2">&quot;Original time series data, and shifted by amount L</span><span class="se">\n</span><span class="s2">Autocovariance = </span><span class="si">{:.4}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ac</span><span class="p">[</span><span class="n">lags</span><span class="o">==</span><span class="n">L</span><span class="p">][</span><span class="mi">0</span><span class="p">]));</span>
 </pre></div>
 </div>
 </div>
@@ -788,7 +795,7 @@ $\)</span></p>
 <p>are negative, and summing up these terms to compute the autocovariance we find a large <strong>negative</strong> value for <span class="math notranslate nohighlight">\(r_{xx}[L^*]\)</span>. To see that, let’s print the value of the autocovariance at lag 8:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">where</span><span class="p">(</span><span class="n">lags</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ac</span><span class="p">[</span><span class="n">lags</span> <span class="o">==</span> <span class="mi">8</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -817,9 +824,10 @@ $\)</span></p>
 </div>
 <p>The autocovariance is a useful tool for assessing the dependent structure in the EEG data. Visual inspection of the EEG reveals a specific type of dependent structure - a strong rhythmic component - in the data. This dependent structure is further characterized in the autocovariance, in which the dominant 60 Hz activity manifests as periodic peaks and troughs in the autocovariance. In the next section, we consider a second tool - the spectrum - for assessing dependent structure in time series data. As we’ll see, the autocovariance and spectrum are intimately related in a remarkable way.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="power-spectral-density"></a></p>
 </div>
-<div class="section" id="step-4-power-spectral-density-or-spectrum-a-id-power-spectral-density-a">
-<h2>Step 4: Power spectral density, or spectrum<a id="power-spectral-density"></a><a class="headerlink" href="#step-4-power-spectral-density-or-spectrum-a-id-power-spectral-density-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-4-power-spectral-density-or-spectrum">
+<h2>Step 4: Power spectral density, or spectrum<a class="headerlink" href="#step-4-power-spectral-density-or-spectrum" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;OAHpkZy6ZX8&#39;</span><span class="p">)</span>
@@ -913,9 +921,10 @@ $\)</span></p>
 <p>That’s not so bad; the code to compute and display the spectrum fits in 13 lines (with spacing for aesthetics). Notice the large peak at 60 Hz. This peak is consistent with our visual inspection of the EEG data, in which we approximated a dominant rhythm at 60 Hz by counting the number of peaks that appeared in the voltage traces. So, our computation of the spectrum at least matches our initial expectation deduced from visual inspection of the data.</p>
 <p>We’ve managed to compute and plot the spectrum, and our analysis results match our expectations. We could choose to stop here. But a danger persists: we’ve blindly entered Python code and achieved an expected result. What are the frequency resolution and Nyquist frequency mentioned in the comments of the code? Maybe this procedure is fraught with pitfalls, and we simply got lucky in this case? Does the spectrum provide additional information that was not immediately uncovered? How will we react and adapt when the spectrum results do not match our intuition? To answer these questions requires developing more intuition for the Fourier transform and spectrum.</p>
 <p>In a <a class="reference external" href="#supplements">supplement to this chapter</a>, we examine equations for the Fourier transform <a href="#eq:3.8" class="thumb"><span><img src="imgs/eq3-8.png"></span></a> and spectrum <a href="#eq:3.9" class="thumb"><span><img src="imgs/eq3-9.png"></span></a> and the Python code for computing these quantities. In doing so, we explore some subtleties of this measure and strengthen our intuition for this measure’s behavior. Building this intuition is perhaps the most important part of dealing with unforeseen circumstances arising in your own data. If this is your first time thinking about the spectrum or Fourier transform, we recommend that you take a moment to read the supplement.</p>
+<p><a id="dft"></a></p>
 </div>
-<div class="section" id="discrete-fourier-transform-in-python-a-id-dft-a">
-<h2>Discrete Fourier Transform in Python <a id="dft"></a><a class="headerlink" href="#discrete-fourier-transform-in-python-a-id-dft-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="discrete-fourier-transform-in-python">
+<h2>Discrete Fourier Transform in Python<a class="headerlink" href="#discrete-fourier-transform-in-python" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;noCOC69jvh8&#39;</span><span class="p">)</span>
@@ -995,9 +1004,10 @@ $\)</span></p>
 </div>
 </div>
 <p>In the next two sections, we focus on interpreting and adjusting the quantities <span class="math notranslate nohighlight">\(df\)</span> and <span class="math notranslate nohighlight">\(f_{NQ}\)</span>. Doing so is critical to developing a further intuition for the spectrum.</p>
+<p><a id="nyquist-frequency"></a></p>
 </div>
-<div class="section" id="the-nyquist-frequency-a-id-nyquist-frequency-a">
-<h2>The Nyquist frequency <a id="nyquist-frequency"></a><a class="headerlink" href="#the-nyquist-frequency-a-id-nyquist-frequency-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-nyquist-frequency">
+<h2>The Nyquist frequency<a class="headerlink" href="#the-nyquist-frequency" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;sgYkOkrlQ_E&#39;</span><span class="p">)</span>
@@ -1033,9 +1043,10 @@ $\)</span></p>
 <div class="math-note">
 <p>To avoid aliasing, sample data at sufficiently high rates.</p>
 </div><p>Typically, to prevent aliasing, recorded data are first analog-filtered before the digital sampling occurs. The analog filtering guarantees that activity at frequencies exceeding a threshold value (<span class="math notranslate nohighlight">\(f_c\)</span>, say) are dramatically reduced. The sampling rate can then be chosen to exceed this threshold value by at least a factor of 2 (i.e., <span class="math notranslate nohighlight">\(f_0 &gt; 2f_c\)</span>). We note that in this case the EEG data were first analog-filtered at 200 Hz before digital sampling occurred at 1000 Hz. So, for our EEG data, aliasing is not a concern.</p>
+<p><a id="frequency-resolution"></a></p>
 </div>
-<div class="section" id="the-frequency-resolution-a-id-frequency-resolution-a">
-<h2>The frequency resolution<a id="frequency-resolution"></a><a class="headerlink" href="#the-frequency-resolution-a-id-frequency-resolution-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-frequency-resolution">
+<h2>The frequency resolution<a class="headerlink" href="#the-frequency-resolution" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;bZsj_gcGoSo&#39;</span><span class="p">)</span>
@@ -1075,9 +1086,10 @@ $\)</span></p>
 <p>Above we plot a cartoon representation of the relation between data and frequency resolution. Data (left) consist of different numbers of samples (<span class="math notranslate nohighlight">\(N\)</span>). As <span class="math notranslate nohighlight">\(N\)</span> increases, the number of values on the frequency axis increases (right), the maximal frequency <span class="math notranslate nohighlight">\((f_{NQ})\)</span> remains fixed, and the frequency resolution (<span class="math notranslate nohighlight">\(df\)</span>) decreases. Only non-negative frequencies are shown.
 This observation provides some intuition for the relation between the amount of data recorded (<span class="math notranslate nohighlight">\(T\)</span> or <span class="math notranslate nohighlight">\(N\)</span>) and the frequency resolution (<span class="math notranslate nohighlight">\(df\)</span>).</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="decibel-scaling"></a></p>
 </div>
-<div class="section" id="step-5-decibel-scaling-a-id-decibel-scaling-a">
-<h2>Step 5: Decibel scaling<a id="decibel-scaling"></a><a class="headerlink" href="#step-5-decibel-scaling-a-id-decibel-scaling-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-5-decibel-scaling">
+<h2>Step 5: Decibel scaling<a class="headerlink" href="#step-5-decibel-scaling" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;SuDJha5LNL0&#39;</span><span class="p">)</span>
@@ -1140,9 +1152,10 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 </div>
 <p>Notice the change in the first line to use the <code class="docutils literal notranslate"><span class="pre">semilogx</span></code> function. By using the logarithmic scale to stretch the low-frequency part of the horizontal axis, the two low-frequency peaks become more apparent. The changes compared to the original spectrum are purely cosmetic. However, these cosmetic changes have proved extremely useful. The two lower-frequency peaks were originally hidden from us, both in visual inspection of the raw data and in the original plot of the spectrum. In those cases, the large-amplitude 60 Hz activity masked the smaller-amplitude (three orders of magnitude smaller) rhythms.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="the-spectrogram"></a></p>
 </div>
-<div class="section" id="step-6-the-spectrogram-a-id-the-spectrogram-a">
-<h2>Step 6: The spectrogram<a id="the-spectrogram"></a><a class="headerlink" href="#step-6-the-spectrogram-a-id-the-spectrogram-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-6-the-spectrogram">
+<h2>Step 6: The spectrogram<a class="headerlink" href="#step-6-the-spectrogram" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;XYy4NEr3VUs&#39;</span><span class="p">)</span>
@@ -1198,10 +1211,11 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 <p><strong>Q.</strong> Consider the spectrogram above. What aspects of the spectrogram are consistent with our previous results? What aspects are new? Consider, in particular, the low-frequency rhythms and the conclusions deduced from this figure compared to the plot of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span></p>
 <p><strong>A.</strong> The spectrogram displays the spectrum (in decibels) as a function of frequency (vertical axis) and time (horizontal axis). Values on the time axis indicate the center times of each 1 s window (e.g., 0.5 s corresponds to times [0, 1] s in the data). Intervals of high (low) values correspond to warm (cool) colors. Visual inspection immediately provides new insights into the observed EEG rhythms. First, we observe a band of high power at 60 Hz that persists for all time (yellow horizontal line in the plot of the spectrogram). This corresponds to the 60 Hz line noise present for the entire duration of the recording. Second, we observe intervals of increased power near 11 Hz and 6 Hz. Unlike the 60 Hz signal, the two low-frequency rhythms do not persist for the entire 2 s recording (as we may have incorrectly concluded from examination of the spectrum alone. Instead, one weak rhythm (near 6 Hz) appears for the first half of the recording, while another weak rhythm (near 11 Hz) appears for the second half of the recording. Visualization via the spectrogram of how the rhythmic activity changes in time allows this important conclusion.</p>
 </div><p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="summary"></a></p>
 </div>
 </div>
-<div class="section" id="summary-a-id-summary-a">
-<h1>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="summary">
+<h1>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;jdceZRY_PDA&#39;</span><span class="p">)</span>
@@ -1271,7 +1285,7 @@ $\)</span></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_125_0.png" src="_images/03_125_0.png" />
+<img alt="_images/03_124_0.png" src="_images/03_124_0.png" />
 </div>
 </div>
 <p>We see the similarities and differences between these two estimates. At small lags (near 0 s), the biased and unbiased estimates of the autocovariance are similar. In this case, <span class="math notranslate nohighlight">\(L\)</span> is small, so the factor 1/(N − L) in the unbiased estimate is similar to the factor of 1/N in the biased estimate. At large lags (away from 0 s), the biased and unbiased estimates of the autocovariance are quite different. Notice that, as L approaches ±2 s, the biased estimate (orange curve) approaches zero.</p>
@@ -1308,7 +1322,7 @@ Now consider the extension to <span class="math notranslate nohighlight">\(L=N-2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_129_0.png" src="_images/03_129_0.png" />
+<img alt="_images/03_128_0.png" src="_images/03_128_0.png" />
 </div>
 </div>
 <div class="math-note">
@@ -1448,7 +1462,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_142_0.png" src="_images/03_142_0.png" />
+<img alt="_images/03_141_0.png" src="_images/03_141_0.png" />
 </div>
 </div>
 <p>Choosing <span class="math notranslate nohighlight">\(f_j = 4\)</span> Hz, we can construct a sine and cosine function each oscillating at 4 Hz.</p>
@@ -1466,7 +1480,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_144_0.png" src="_images/03_144_0.png" />
+<img alt="_images/03_143_0.png" src="_images/03_143_0.png" />
 </div>
 </div>
 <p>Then, to perform the calculation of the Equation (*) we multiply the data <span class="math notranslate nohighlight">\(x\)</span> by the sinusoids at each point in time.</p>
@@ -1480,7 +1494,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_146_0.png" src="_images/03_146_0.png" />
+<img alt="_images/03_145_0.png" src="_images/03_145_0.png" />
 </div>
 </div>
 <p>Notice that the products alternate between positive and negative values throughout time.</p>
@@ -1507,7 +1521,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_149_0.png" src="_images/03_149_0.png" />
+<img alt="_images/03_148_0.png" src="_images/03_148_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1577,7 +1591,7 @@ purpose: to remove the 60 Hz line noise. Recall that we found that the spectrum 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.818926e-17
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Intercept    2.796903e-17
 sin          9.989204e-01
 cos         -3.238373e-03
 dtype: float64
@@ -1610,7 +1624,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_161_0.png" src="_images/03_161_0.png" />
+<img alt="_images/03_160_0.png" src="_images/03_160_0.png" />
 </div>
 </div>
 <p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
@@ -1630,7 +1644,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_164_0.png" src="_images/03_164_0.png" />
+<img alt="_images/03_163_0.png" src="_images/03_163_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1644,7 +1658,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.9978524145209726
+<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>0.9978524145209708
 </pre></div>
 </div>
 </div>

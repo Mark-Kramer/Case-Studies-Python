@@ -209,11 +209,11 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#on-ramp-analyzing-rhythmic-spiking-in-python-a-id-onramp-a" class="nav-link">On-ramp: analyzing rhythmic spiking in Python<a id="onramp"></a></a>
+            <a href="#on-ramp-analyzing-rhythmic-spiking-in-python" class="nav-link">On-ramp: analyzing rhythmic spiking in Python</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#introduction-a-id-introduction-a" class="nav-link">Introduction<a id="introduction"></a></a><ul class="nav section-nav flex-column">
+            <a href="#introduction" class="nav-link">Introduction</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#background" class="nav-link">Background</a>
@@ -228,24 +228,24 @@
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#tools-a-id-tools-a" class="nav-link">Tools<a id="tools"></a></a>
+            <a href="#tools" class="nav-link">Tools</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis<a id="data-analysis"></a></a><ul class="nav section-nav flex-column">
+            <a href="#data-analysis" class="nav-link">Data Analysis</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
-            <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual Inspection<a id="visual-inspection"></a></a>
+            <a href="#visual-inspection" class="nav-link">Visual Inspection</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#spectral-analysis-of-spiking-data-a-id-spectral-analysis-a" class="nav-link">Spectral Analysis of Spiking Data <a id="spectral-analysis"></a></a><ul class="nav section-nav flex-column">
+            <a href="#spectral-analysis-of-spiking-data" class="nav-link">Spectral Analysis of Spiking Data</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#point-process-spectral-theory" class="nav-link">Point Process Spectral Theory</a>
@@ -273,7 +273,7 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#refining-the-model-history-dependence-a-id-history-dependence-a" class="nav-link">Refining the Model: History Dependence<a id="history-dependence"></a></a><ul class="nav section-nav flex-column">
+            <a href="#refining-the-model-history-dependence" class="nav-link">Refining the Model: History Dependence</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#choice-of-model-order" class="nav-link">Choice of Model Order</a>
@@ -287,11 +287,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" class="nav-link">Drawing Conclusions from the Model<a id="drawing-conclusions"></a></a>
+            <a href="#drawing-conclusions-from-the-model" class="nav-link">Drawing Conclusions from the Model</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#summary-a-id-summary-a" class="nav-link">Summary<a id="summary"></a></a>
+            <a href="#summary" class="nav-link">Summary</a>
         </li>
     
     </ul>
@@ -329,8 +329,9 @@
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
 </ul>
-<div class="section" id="on-ramp-analyzing-rhythmic-spiking-in-python-a-id-onramp-a">
-<h2>On-ramp: analyzing rhythmic spiking in Python<a id="onramp"></a><a class="headerlink" href="#on-ramp-analyzing-rhythmic-spiking-in-python-a-id-onramp-a" title="Permalink to this headline">¶</a></h2>
+<p><a id="onramp"></a></p>
+<div class="section" id="on-ramp-analyzing-rhythmic-spiking-in-python">
+<h2>On-ramp: analyzing rhythmic spiking in Python<a class="headerlink" href="#on-ramp-analyzing-rhythmic-spiking-in-python" title="Permalink to this headline">¶</a></h2>
 <p>We begin this notebook with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to analyze rhythmic spiking in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -388,9 +389,10 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, builds a statistical model of the data with history dependence, and fits the model?</p>
 <p><strong>A:</strong> If you’ve never created a statistical model with history dependence before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
-<div class="section" id="introduction-a-id-introduction-a">
-<h2>Introduction<a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+</div><p><a id="introduction"></a></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="background">
 <h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
 <p>The subthalamic nucleus (STN) is a component of the basal ganglia that is thought to play an important role in the regulation of motor function. Neurons in the STN often have rhythmic spiking dynamics, and aberrations in the spike rhythms in STN have been associated with tremor and other motor symptoms in Parkinson’s disease. In fact, the STN is one of the primary targets for deep brain stimulation (DBS) to treat Parkinsonian disorders. While the mechanisms by which DBS works are largely unknown, many researchers have hypothesized that altering rhythmic activity in the STN is an important component. Therefore, it is important to be able to characterize spike rhythms in STN neurons and to know with statistical confidence when these rhythms have changed.</p>
@@ -404,9 +406,10 @@
 <div class="section" id="goal">
 <h3>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
 <p>It is well known that the spiking activity of some STN neurons in patients with Parkinson’s disease shows rhythmic properties in the beta frequency range, 11–30 Hz (<a href="https://doi.org/10.1001/archneurpsyc.1938.02270010106010" rel="external">[Jasper &amp; Andrews, 1938]</a>, <a href="https://doi.org/10.1016/j.neuroimage.2013.05.084" rel="external">[Brittain &amp; Brown, 2014]</a>). The neurosurgeon hypothesizes that information related to the movement task, such as the planning versus the movement period and whether the movement is to the left or right, will influence this rhythmic spiking activity. Our goal is to characterize the spiking properties, identify whether rhythmic activity is present and statistically significant, and how such activity is influenced by the task variables.</p>
+<p><a id="tools"></a></p>
 </div>
-<div class="section" id="tools-a-id-tools-a">
-<h3>Tools<a id="tools"></a><a class="headerlink" href="#tools-a-id-tools-a" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="tools">
+<h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <p>We extend some of the tools already developed for studying rhythms and modeling spike trains. Many of the <a href="08" rel="local">basic visualization tools</a>, such as raster plots, ISI histograms, and autocorrelation functions are useful without modification. We compute spectral estimators for spiking data using the same methods as before, but we have to think carefully about how to interpret the spectrum of a point process. Finally, we extend the <a href="09" rel="local">GLM methods we previously developed for spike train data</a> to allow us to model history-dependent, non-Poisson spiking processes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -434,12 +437,14 @@
 </div>
 </div>
 </div>
+<p><a id="data-analysis"></a></p>
 </div>
 </div>
-<div class="section" id="data-analysis-a-id-data-analysis-a">
-<h2>Data Analysis<a id="data-analysis"></a><a class="headerlink" href="#data-analysis-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="visual-inspection-a-id-visual-inspection-a">
-<h3>Visual Inspection<a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="data-analysis">
+<h2>Data Analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
+<p><a id="visual-inspection"></a></p>
+<div class="section" id="visual-inspection">
+<h3>Visual Inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this headline">¶</a></h3>
 <p>Let’s start by loading the data into Python:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -700,10 +705,11 @@
 <p><strong>A:</strong> The columns of both matrices specify the lags, which extend from -1 s to +1 s. We choose indices <code class="docutils literal notranslate"><span class="pre">1000:1100</span></code> to investigate positive lags beginning at 1 ms and ending at 100 ms. Notice that we compute the mean of both matrices across trials (rows) before displaying the results.</p>
 </div><p>The autocorrelation plots for both the planning and movement periods show very clear structure. In both periods we see negative correlation for lags of 1–3 ms, followed by positive correlation at lags of 1–8 ms, with a peak at a lag of 6 ms. During the planning period, we see clear structure continuing at higher lags, with an extended period of negative correlations at lags of about 15–35 ms and positive correlations at lags of about 50–70 ms. For the movement period, this structure at lags longer than about 10 ms seems reduced or even absent. These results suggest a change in the rhythmic firing properties between the planning and movement periods. The second peak in the autocorrelation plot for the planning period around 60 ms suggests a 1/60 ms $\approx$17 Hz rhythm that disappears during movement.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="spectral-analysis"></a></p>
 </div>
 </div>
-<div class="section" id="spectral-analysis-of-spiking-data-a-id-spectral-analysis-a">
-<h2>Spectral Analysis of Spiking Data <a id="spectral-analysis"></a><a class="headerlink" href="#spectral-analysis-of-spiking-data-a-id-spectral-analysis-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spectral-analysis-of-spiking-data">
+<h2>Spectral Analysis of Spiking Data<a class="headerlink" href="#spectral-analysis-of-spiking-data" title="Permalink to this headline">¶</a></h2>
 <p>So far, we have focused on statistical characterizations of spike trains in the time domain. Another approach to visualizing and describing structure in point processes focuses on estimating rhythmic (or harmonic) features of the data in the frequency domain. In <a href="03" rel="local">notebooks 3</a> and <a href="04" rel="local">4</a>, we discussed methods to decompose field data (or continuous valued functions and random processes) into harmonic components. The same type of approach can be used to decompose point processes and to determine the relative contributions to their variability attributable to each frequency. Point process spectral estimation provides a useful tool for spike train analysis but should be performed with care. On the one hand, computing spectral estimates for discrete spike train data is similar to the approaches used for continuous valued signals. On the other hand, the interpretation of point process spectra can differ from continuous process spectra, and blindly applying intuition from continuous spectral estimation to point process data can lead to incorrect interpretations.</p>
 <div class="section" id="point-process-spectral-theory">
 <h3>Point Process Spectral Theory<a class="headerlink" href="#point-process-spectral-theory" title="Permalink to this headline">¶</a></h3>
@@ -1208,10 +1214,11 @@ dtype: float64
 <div style="clear: both; display: table"></div><div class="question">
 <p><strong>Q.</strong> What other covariates could we add to improve the model?</p>
 <p><strong>A.</strong> The previous autocovariance and spectral analysis suggests that another feature of these data relates to history-dependent spiking. Perhaps we should add columns to the design matrix that depend on past values of the spiking activity.</p>
-</div></div>
+</div><p><a id="history-dependence"></a></p>
 </div>
-<div class="section" id="refining-the-model-history-dependence-a-id-history-dependence-a">
-<h2>Refining the Model: History Dependence<a id="history-dependence"></a><a class="headerlink" href="#refining-the-model-history-dependence-a-id-history-dependence-a" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="refining-the-model-history-dependence">
+<h2>Refining the Model: History Dependence<a class="headerlink" href="#refining-the-model-history-dependence" title="Permalink to this headline">¶</a></h2>
 <p>Up to this point, we have used Poisson regression models for the spiking data that did not incorporate any history-dependent terms. For those models, the number of spikes in each of the small discrete-time bins is assumed to have a Poisson distribution, and the number of spikes in any two nonoverlapping bins is assumed to be independent. A simple result from probability theory is that the sum of independent Poisson random variables also has a Poisson distribution. Therefore, for those previous models, the number of spikes over multiple time bins, which is the sum of the number of spikes in each bin, still has a Poisson distribution, and all those previous models would be considered Poisson process models.</p>
 <p>Now, we would like to add predictors to the model related to the past history of spiking. Thus, we do not expect the number of spikes in nonoverlapping bins to be independent; a spike at the current time will change the probability of seeing a spike in the near future. Even if the number of spikes in a small time bin is assumed to be Poisson, it is no longer the case that the number of spikes in any larger interval will be Poisson. Thus, we would no longer call the resulting spike train a Poisson process. We still use the notation <span class="math notranslate nohighlight">\(\lambda(t)\)</span> to represent the expected number of spikes in the <span class="math notranslate nohighlight">\(t^{th}\)</span> time bin, but this is no longer called a Poisson rate function. Instead, we call it the <strong>conditional intensity function</strong> and write <span class="math notranslate nohighlight">\(\lambda(t|H_t)\)</span>, where <span class="math notranslate nohighlight">\(H_t\)</span> represents the past history of spiking.</p>
 <p>There are many different functions of past spiking that we could use in the model. The simplest option is to use the binned spike train itself, lagged by different amounts of time. Mathematically, we are building a probability model for <span class="math notranslate nohighlight">\(\Delta N_i\)</span> as a function of <span class="math notranslate nohighlight">\(\Delta N_{i-j}\)</span> for <span class="math notranslate nohighlight">\(j = 1,\dots,k\)</span> for some model order <span class="math notranslate nohighlight">\(k\)</span>.</p>
@@ -2676,10 +2683,11 @@ smoothing spline basis. Here we use a set of Gaussian kernel functions with mean
 </div>
 <div style="clear: both; display: table"></div><p>Although Model 5 does not completely pass the KS test, it does capture many of the features that we sought to identify through the analyses. We might therefore accept this as the final model, for the time being, and try to interpret its components. We can always return to the model selection procedure and continue to refine the model if we find that it fails to capture some important features of the data.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="drawing-conclusions"></a></p>
 </div>
 </div>
-<div class="section" id="drawing-conclusions-from-the-model-a-id-drawing-conclusions-a">
-<h2>Drawing Conclusions from the Model<a id="drawing-conclusions"></a><a class="headerlink" href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="drawing-conclusions-from-the-model">
+<h2>Drawing Conclusions from the Model<a class="headerlink" href="#drawing-conclusions-from-the-model" title="Permalink to this headline">¶</a></h2>
 <p>At last, let’s examine and interpret the Model 5 parameters. Exponentiating the first three, we get:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2754,9 +2762,10 @@ and its reduction, and compute its significance based on the chi-square distribu
 </div>
 <p>Once again, we end up with a very significant result that provides confidence that the spiking dynamics really do change between periods. The rhythmic structure that we see during planning is attenuated during the movement period.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="summary"></a></p>
 </div>
-<div class="section" id="summary-a-id-summary-a">
-<h2>Summary<a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this case study, we explored a variety of approaches for identifying and quantifying rhythmic spiking dynamics. One key point is that we can think about spike rhythms in terms of how the likelihood of spiking depends on its own history. Many of the most useful visualization tools that we explored, such as the autocorrelation plot and the spectral estimates, implicitly define the covariability of the spiking process with its past. The GLM methods allowed us to model this history dependence explicitly and to explore multiple features of the data simultaneously.</p>
 <p>In the STN data, we also saw that rhythmic spiking structure can be subtle and hard to detect if we do not use the proper tools. The dynamic rhythms in these data were nearly impossible to see in raster plots or ISI histograms but became quite apparent in the autocorrelation plot, spectral density estimates, and model fits. Many people think of rhythmic spiking data as being like the beats of a metronome: perfect beats at a specific frequency. But we saw that very subtle changes in the firing probability, perhaps just a 10% increase or decrease at a particular lag, can lead to robust rhythms, as identified by visualization and modeling tools. Real spike rhythms often look more like the examples in this notebook than like the rhythms of a beating metronome.</p>
 </div>

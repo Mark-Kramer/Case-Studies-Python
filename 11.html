@@ -231,25 +231,25 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data analysis<a id="data-analysis"></a></a><ul class="nav section-nav flex-column">
+            <a href="#data-analysis" class="nav-link">Data analysis</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
-            <a href="#step-1-visual-inspection-a-id-visual-inspection-a" class="nav-link">Step 1: Visual inspection<a id="visual-inspection"></a></a>
+            <a href="#step-1-visual-inspection" class="nav-link">Step 1: Visual inspection</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#spike-triggered-average-a-id-sta-a" class="nav-link">Spike-Triggered Average<a id="STA"></a></a>
+            <a href="#spike-triggered-average" class="nav-link">Spike-Triggered Average</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#field-triggered-average-a-id-fta-a" class="nav-link">Field-Triggered Average<a id="FTA"></a></a>
+            <a href="#field-triggered-average" class="nav-link">Field-Triggered Average</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#spike-field-coherence-a-id-sec-spike-field-coherence-a" class="nav-link">Spike-Field Coherence <a id="sec:spike-field-coherence"></a></a><ul class="nav section-nav flex-column">
+            <a href="#id1" class="nav-link">Spike-Field Coherence</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#mathematical-description-of-spike-field-coherence" class="nav-link">Mathematical description of spike-field coherence</a>
@@ -264,14 +264,14 @@
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#thinning-the-spike-train-a-id-sec-thin-a" class="nav-link">Thinning the spike train <a id="sec:thin"></a></a>
+            <a href="#thinning-the-spike-train" class="nav-link">Thinning the spike train</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#point-process-models-of-the-spike-field-coherence-a-id-sec-point-process-model-a" class="nav-link">Point Process Models of the Spike-Field Coherence<a id="sec:point-process-model"></a></a>
+            <a href="#point-process-models-of-the-spike-field-coherence" class="nav-link">Point Process Models of the Spike-Field Coherence</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -376,10 +376,11 @@
 <h3>Tools<a class="headerlink" href="#tools" title="Permalink to this headline">¶</a></h3>
 <p>In this notebook, we focus primarily on computing the spike-field coherence. Development of this measure makes use of skills developed in other notebooks. In computing the spike-field coherence, we continue to utilize the Fourier transform. We also consider how generalized linear models (GLMs) can be used to construct a measure of spike-field association with an important advantage over the spike-field coherence.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="data-analysis"></a></p>
 </div>
 </div>
-<div class="section" id="data-analysis-a-id-data-analysis-a">
-<h2>Data analysis<a id="data-analysis"></a><a class="headerlink" href="#data-analysis-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-analysis">
+<h2>Data analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
 <p>We will go through the following steps to analyze the data:</p>
 <ol class="simple">
 <li><p><a class="reference external" href="#visual-inspection">Visual inspection</a></p></li>
@@ -388,8 +389,9 @@
 <li><p><a class="reference external" href="#sec:spike-field-coherence">Spike-field coherence</a></p></li>
 <li><p><a class="reference external" href="#sec:point-process-model">Point Process Models of the Spike-Field Coherence</a></a></p></li>
 </ol>
-<div class="section" id="step-1-visual-inspection-a-id-visual-inspection-a">
-<h3>Step 1: Visual inspection<a id="visual-inspection"></a><a class="headerlink" href="#step-1-visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h3>
+<p><a id="visual-inspection"></a></p>
+<div class="section" id="step-1-visual-inspection">
+<h3>Step 1: Visual inspection<a class="headerlink" href="#step-1-visual-inspection" title="Permalink to this headline">¶</a></h3>
 <p>We begin the analysis by visualizing examples of the simultaneously recorded spike train and LFP data. Let’s load these multi-scale data into Python and plot the activity of the first trial:<a id='fig:LFP_ex'></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -429,10 +431,11 @@
 <div class="question">
 <p><strong>Q.</strong>  Continue your visual inspection for other trials of the data. What do you observe?</p>
 </div><p>Visual inspection suggests that the neuron is active (i.e., it spikes) during the trial. Of course, we may visualize and analyze features of the spike train and the LFP using a variety of differnt methods (e.g., <strong>see problem 1</strong>). However, our goal here is to characterize the relation (if any) between the LFP and spikes. Let’s consider a relatively simple characterization of this relation, the spike-triggered average.</p>
+<p><a id="STA"></a></p>
 </div>
 </div>
-<div class="section" id="spike-triggered-average-a-id-sta-a">
-<h2>Spike-Triggered Average<a id="STA"></a><a class="headerlink" href="#spike-triggered-average-a-id-sta-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="spike-triggered-average">
+<h2>Spike-Triggered Average<a class="headerlink" href="#spike-triggered-average" title="Permalink to this headline">¶</a></h2>
 <p>The <em>spike-triggered average</em> (STA) is a relatively simple procedure to visualize the relation between the LFP and spiking data. To compute the STA, we implement the following procedure.</p>
 <p>For each trial <span class="math notranslate nohighlight">\(k = {1,...,K}\)</span>, do the following:</p>
 <ul class="simple">
@@ -502,9 +505,10 @@
 <p>However, let’s not abandon all hope yet. We might be concerned that the rhythmicity in the STA<a href="#plt:STA" class="sup">fig<img src="imgs/sta.png"></a> is consistent with the dominant rhythm of the LFP.<a href="#plt:LFP_ex" class="sup">fig<img src="imgs/lfp_ex.png"></a> Because the STA is an average of the LFP, we might expect the largest-amplitude features of the LFP to make the biggest impact on the STA. Perhaps this large-amplitude rhythm in the LFP is hiding more subtle features embedded in lower-amplitude activity in the LFP … Let’s continue the search.</p>
 <div class="question">
 <p><strong>Q.</strong> How would you update the preceding Python code to compute both the average LFP (i.e., the STA) and the standard deviation of the LFP across spikes for each trial?</p>
-</div></div>
-<div class="section" id="field-triggered-average-a-id-fta-a">
-<h2>Field-Triggered Average<a id="FTA"></a><a class="headerlink" href="#field-triggered-average-a-id-fta-a" title="Permalink to this headline">¶</a></h2>
+</div><p><a id="FTA"></a></p>
+</div>
+<div class="section" id="field-triggered-average">
+<h2>Field-Triggered Average<a class="headerlink" href="#field-triggered-average" title="Permalink to this headline">¶</a></h2>
 <p>Let’s now implement another visualization, the field-triggered average (FTA). The FTA is similar in principle to the STA. However, for the FTA, we use the field to organize the activity of the spikes (i.e., we use the field to trigger the spikes). Here we choose a particular feature of the field: the phase. The phase of neural signals is throught to play an <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4605134/" rel="external">important role in organizing brain activity</a>. Now we examine the role of the LFP phase in organizing the spiking activity.</p>
 <p>To compute the FTA, we implement the following prescription:</p>
 <p>For each trial <span class="math notranslate nohighlight">\(k = \{1, \ldots, K\}\)</span>,</p>
@@ -550,9 +554,10 @@
 <p><strong>Q.</strong> Investigate different frequency bands in the FTA analysis. Do you observe any interesting features?<br></p>
 <p><em>Hint</em>: Consider frequencies near 45 Hz.</p>
 </div><p>One final note about the FTA. The purpose of this measure is visualization, not statistical testing. Hopefully, this visual inspection will provide some insight into the data and guide continuing studies in promising directions. In what follows, we consider approaches to test for significant effects when we build a generalized linear model (GLM) to assess spike-field relations.</p>
+<p><a id="sec:spike-field-coherence"></a></p>
 </div>
-<div class="section" id="spike-field-coherence-a-id-sec-spike-field-coherence-a">
-<h2>Spike-Field Coherence <a id="sec:spike-field-coherence"></a><a class="headerlink" href="#spike-field-coherence-a-id-sec-spike-field-coherence-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Spike-Field Coherence<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>To characterize the relation between the LFP and spikes, we have so far visualized the data and computed relatively simple and intuitive aids to visualization. Now we examine a more sophisticated and powerful method: the <strong>spike-field coherence</strong>. It’s common to investigate the coherence  applied to field activity; we may refer to this type of coherence as field-field coherence to distinguish it from spike-field coherence of interest here. In practice, this distinction is usually unnecessary, as in most cases the context is clear. However, in this notebook, we are careful to distinguish field-field coherence from spike-field coherence.</p>
 <p>The field-field coherence is a frequency domain measure of linear association between two continuous time series. Note that, in practice, we observe a sampled version of a presumably continuous signal. This sampling impacts aspects of our data analysis, for example spectral estimators (see <a href="03" rel="local">notebook 03</a>). We showed in <a href="05" rel="local">notebook 05</a> that two fields are coherent across trials at frequency <span class="math notranslate nohighlight">\(f_0\)</span> if the fields possess a constant phase relation across trials at that frequency. The same relation holds for the spike-field coherence. However, differences arise because of the point process nature of the spike train data. These differences have profound implications with dangerous consequences. In this notebook, we explore some of these issues. For a deeper mathematical discussion and potential solutions, see <a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a> and <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>.</p>
 <div class="section" id="mathematical-description-of-spike-field-coherence">
@@ -716,9 +721,10 @@
 </div>
 </div>
 <p>We find that this multiplicative change in the amplitude of the field data does not impact the spike-field coherence. This result is consistent with our intuition from field-field coherence; the height of the field does not matter. Instead, it’s the consistency of the phase relation between two signals across trials that is critical for establishing the coherence.</p>
+<p><a id="sec:thin"></a></p>
 </div>
-<div class="section" id="thinning-the-spike-train-a-id-sec-thin-a">
-<h3>Thinning the spike train <a id="sec:thin"></a><a class="headerlink" href="#thinning-the-spike-train-a-id-sec-thin-a" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="thinning-the-spike-train">
+<h3>Thinning the spike train<a class="headerlink" href="#thinning-the-spike-train" title="Permalink to this headline">¶</a></h3>
 <p>Now, let’s consider manipulating the spiking data. Right away, we notice a difference compared to the field data. In this case, a direct multiplicative change of the spiking data does not make sense. For example, consider multiplying the spike train data (<code class="docutils literal notranslate"><span class="pre">n</span></code>) by a factor of 0.1. Recall that the spike train data consist of two values: 0 or 1. Therefore, the new data after the scaling consist of two values: {0, 0.1} and the interpretation of the variable <code class="docutils literal notranslate"><span class="pre">n</span></code> no longer makes sense. What does it mean to have 0.1 spikes in a time interval?</p>
 <p>Instead, to scale the spiking data, we change the average firing rate. We do so in a particular way: by removing spikes from the data, a process we refer to as <strong>thinning</strong>. The <a href="https://dx.doi.org/10.1016%2Fj.jneumeth.2012.10.010" rel="external">process of thinning</a> is useful when comparing the spike-field coherence computed for two neurons with different firing rates. A reasonable, intuitive worry is that the firing rate of a neuron will impact the spike-field coherence. For example, we might consider that a neuron with a higher firing rate has the advantage of more opportunities to align with the field and therefore necessarily will possess a larger spike-field coherence. By thinning, we reduce the higher firing rate and establish the two neurons on an equal footing, both with the same opportunity to align with the field. The objective of the thinning procedure is to eliminate the contribution of firing rate differences to the spike-field coherence and allow direct comparison of spike-field coherence results computed for different neurons.</p>
 <p>Let’s now thin the spiking data. Here, we implement a simple procedure by randomly selecting and removing spikes from each trial of the spiking data. We assume that in selecting spikes at random to remove, we eliminate both spikes phase-locked to the field and spikes independent of the field. In this way, neither spikes coupled to the LFP nor spikes independent of the LFP receive preferential treatment in the thinning procedure. So, any relations that exist between the spikes and the field are presumably preserved, and we might expect this thinning procedure, on its own, to not affect the spike-field coherence. Let’s define a function to implement this thinning procedure in Python:</p>
@@ -764,10 +770,11 @@
 </div><p>Therefore, we must be very careful when interpreting the spike-field coherence, especially when comparing the spike-field coherence of two neurons with different firing rates. A reduction in spike-field coherence may occur either through a reduction in association between the spikes and the field, or through a reduction in the firing rate with no change in association between the spikes and the field. This is an important and perhaps counter-intuitive result of spike-field coherence. Some procedures exist to mitigate the dependence of spike-field coherence on the firing rate, as discussed in the next section.</p>
 <div class="math-note">
 <p>Spike-field coherence responds to overall neural spiking activity, making comparisons between two pairs of spike-field time series difficult when the average spike-rate differs in the two spike-field pairs (<a href="https://doi.org/10.1162/NECO_a_00169" rel="external">Lepage et al, 2011</a>).</p>
-</div></div>
+</div><p><a id="sec:point-process-model"></a></p>
 </div>
-<div class="section" id="point-process-models-of-the-spike-field-coherence-a-id-sec-point-process-model-a">
-<h2>Point Process Models of the Spike-Field Coherence<a id="sec:point-process-model"></a><a class="headerlink" href="#point-process-models-of-the-spike-field-coherence-a-id-sec-point-process-model-a" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="point-process-models-of-the-spike-field-coherence">
+<h2>Point Process Models of the Spike-Field Coherence<a class="headerlink" href="#point-process-models-of-the-spike-field-coherence" title="Permalink to this headline">¶</a></h2>
 <p>A variety of techniques exist to address the impact of firing rate on the spike-field coherence. We have already outlined the thinning procedure, a transformation-based technique in which the firing rates of two neurons are made equal by randomly removing spikes. Here, we focus on an additional technique that utilizes the generalized linear modeling (GLM) framework. We choose this technique (described in detail in <a href="https://doi.org/10.1016/j.jneumeth.2012.10.010" rel="external">Lepage et al, 2013</a>) because it allows us to utilize the GLM framework (see <a href="09" rel="local">notebook 09</a> and <a href="10" rel="local">notebook 10</a>). The fundamental idea of this procedure is to model the conditional intensity of the point process as a function of the LFP phase. More specifically, we consider the model<a id="eq:glm"></a>:</p>
 <div class="math notranslate nohighlight">
 \[

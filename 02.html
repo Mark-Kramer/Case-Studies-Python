@@ -221,19 +221,19 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#data-analysis-a-id-data-analysis-a" class="nav-link">Data Analysis <a id="data-analysis"></a></a>
+            <a href="#data-analysis" class="nav-link">Data Analysis</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual Inspection <a id="visual-inspection"></a></a>
+            <a href="#visual-inspection" class="nav-link">Visual Inspection</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#plotting-the-erp-a-id-plotting-the-erp-a" class="nav-link">Plotting the ERP <a id="plotting-the-erp"></a></a>
+            <a href="#plotting-the-erp" class="nav-link">Plotting the ERP</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a" class="nav-link">Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a></a>
+            <a href="#confidence-intervals-for-the-erp-method-1" class="nav-link">Confidence Intervals for the ERP (Method 1)</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -241,7 +241,7 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" class="nav-link">Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a></a><ul class="nav section-nav flex-column">
+            <a href="#confidence-intervals-for-the-erp-method-2" class="nav-link">Confidence Intervals for the ERP (Method 2)</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#step-1" class="nav-link">Step 1</a>
@@ -263,11 +263,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" class="nav-link">A Bootstrap Test to Compare ERPs <a id="bootstrap"></a></a>
+            <a href="#a-bootstrap-test-to-compare-erps" class="nav-link">A Bootstrap Test to Compare ERPs</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#summary-a-id-summary-a" class="nav-link">Summary <a id="summary"></a></a>
+            <a href="#summary" class="nav-link">Summary</a>
         </li>
     
     </ul>
@@ -400,9 +400,10 @@
 <p>In this cartoon illustration of the EEG experiment, the EEG electrodes are placed on the scalp surface of a human subject (left).  The EEG activity (blue) is recorded as a function of time during presentation of high pitch tones (black) and low pitch tones (orange).</p>
 <p>Our collaborator leading this research study has agreed to provide us with EEG data recorded at a single electrode for 1000 presentations of the high pitch tone, and 1000 presentations of the low pitch tone.  In each presentation - or “trial” - she provides us with 1 s of EEG data, such that the tone occurs at 0.25 s into the trial.  She asks us to analyze these data to determine whether the EEG signal differs following the two tone presentations.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="data-analysis"></a></p>
 </div>
-<div class="section" id="data-analysis-a-id-data-analysis-a">
-<h2>Data Analysis <a id="data-analysis"></a><a class="headerlink" href="#data-analysis-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-analysis">
+<h2>Data Analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
 <p>Our first step is to load the data into Python.  To do so, we use the function <code class="docutils literal notranslate"><span class="pre">loadmat()</span></code> from the <code class="docutils literal notranslate"><span class="pre">scipy.io</span></code> module as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -515,9 +516,10 @@ t          ndarray                       500: 500 elems, type `float64`, 4000 by
 </div><div class="python-note">
 <p>A <em>tuple</em> is another data structure in Python that is similar to an array or a list because it usually contains more than one element. Python treats each of these structures slightly differently, however. One of the most challenging things about starting with Python is learning to understand the different data structures. Here, we will mainly work with arrays, which are good for holding multidimensional data. If you are curious and want to know more about data structures, there is a very concise description <a href="http://thomas-cokelaer.info/tutorials/python/data_structures.html">here</a> to get you started.</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="visual-inspection"></a></p>
 </div>
-<div class="section" id="visual-inspection-a-id-visual-inspection-a">
-<h2>Visual Inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="visual-inspection">
+<h2>Visual Inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;uSjd41G-yNY&#39;</span><span class="p">)</span>
@@ -818,9 +820,10 @@ t          ndarray                       500: 500 elems, type `float64`, 4000 by
 <p><strong>Q.</strong>
 Upon close inspection of the figure above, what response, if any, do you observe following the stimulus presentation? (Look <em>really</em> carefully.) Repeat this visualization and analysis for <code class="docutils literal notranslate"><span class="pre">EEGb</span></code>. How do the two conditions compare?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="plotting-the-erp"></a></p>
 </div>
-<div class="section" id="plotting-the-erp-a-id-plotting-the-erp-a">
-<h2>Plotting the ERP <a id="plotting-the-erp"></a><a class="headerlink" href="#plotting-the-erp-a-id-plotting-the-erp-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="plotting-the-erp">
+<h2>Plotting the ERP<a class="headerlink" href="#plotting-the-erp" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;kPr2GLSKLJg&#39;</span><span class="p">)</span>
@@ -861,9 +864,10 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <p><strong>Q.</strong> Consider the ERP for condition A plotted above. Update this figure to include a vertical line at the location of the stimulus, and the ERP for condition B. How, if at all, do the ERPs for Conditions A and B differ?</p>
 </div><p>The ERP of condition A shows the mean voltage across trials at each moment in time. Visual inspection suggests that before stimulus presentation (i.e., times 0 s to 0.25 s) the EEG fluctuates around zero. Then, after stimulus presentation, the ERP increases and decreases substantially above and below zero. Which, if any, of these deviations following stimulation are significant? To address this, we make use of the trial structure of the EEG data to compute confidence bounds for the ERP. We do so in two ways.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="cis-m1"></a></p>
 </div>
-<div class="section" id="confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a">
-<h2>Confidence Intervals for the ERP (Method 1) <a id="cis-m1"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-1-a-id-cis-m1-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="confidence-intervals-for-the-erp-method-1">
+<h2>Confidence Intervals for the ERP (Method 1)<a class="headerlink" href="#confidence-intervals-for-the-erp-method-1" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;pXCJbyrw8Ug&#39;</span><span class="p">)</span>
@@ -1048,9 +1052,10 @@ $\)</span></p>
 <div class="question">
 <p><strong>Q:</strong> Examine the plot of the differenced ERP. In what intervals of time do the EEG responses in the two conditions significantly differ?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="cis-m2"></a></p>
 </div>
-<div class="section" id="confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a">
-<h2>Confidence Intervals for the ERP (Method 2) <a id="cis-m2"></a><a class="headerlink" href="#confidence-intervals-for-the-erp-method-2-a-id-cis-m2-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="confidence-intervals-for-the-erp-method-2">
+<h2>Confidence Intervals for the ERP (Method 2)<a class="headerlink" href="#confidence-intervals-for-the-erp-method-2" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;vVXH4XsPFEs&#39;</span><span class="p">)</span>
@@ -1282,10 +1287,11 @@ $\)</span></p>
 </div><div class="question">
 <p><strong>Q.</strong> Compute the confidence intervals using the bootstrapping procedure for the ERP of condition B. What do you find?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="bootstrap"></a></p>
 </div>
 </div>
-<div class="section" id="a-bootstrap-test-to-compare-erps-a-id-bootstrap-a">
-<h2>A Bootstrap Test to Compare ERPs <a id="bootstrap"></a><a class="headerlink" href="#a-bootstrap-test-to-compare-erps-a-id-bootstrap-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-bootstrap-test-to-compare-erps">
+<h2>A Bootstrap Test to Compare ERPs<a class="headerlink" href="#a-bootstrap-test-to-compare-erps" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;K6pgCxFdELc&#39;</span><span class="p">)</span>
@@ -1396,9 +1402,10 @@ Then, as before, we define the function <code class="docutils literal notranslat
 <p><strong>A.</strong> Yes. Under the null hypothesis, the distribution fo the statistic ranges from approximately 0.15 to 0.33. The observed statistic <code class="docutils literal notranslate"><span class="pre">stat</span> <span class="pre">=</span> <span class="pre">0.2884</span></code> exceeds most values in this distribution. Computing <code class="docutils literal notranslate"><span class="pre">sum(statD</span> <span class="pre">&gt;</span> <span class="pre">stat)</span></code> we find in this example that only 18 of the 3,000 values in the distribution exceed the observed statistic. This corresponds to a proportion of 18/3000 = 0.006. We therefore reject the null hypothesis of no difference between the ERPs of conditions A and B. This result may be surprising, given how similar the two ERPs appear and the large variability in their differences (<a class="reference external" href="#plt:differencedERP">see figure</a>).</p>
 </div><p>This result illustrates the power of the bootstrapping procedure. We proposed a complicated statistic (the maximum absolute value of the difference between the two resampled ERPs). For this statistic, we do not possess an obvious formula to decide whether the resulting statistic is significant (we cannot rely on the CLT, for example). To determine significance, we employ a bootstrapping procedure (also known as a permutation test), which we can perform even for the relatively complicated statistic. In this way, we may devise complicated measures of data and construct error bars or compute statistical significance, provided our computational resources are sufficient.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a id="summary"></a></p>
 </div>
-<div class="section" id="summary-a-id-summary-a">
-<h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this notebook, we considered scalp EEG data recorded from a single electrode during an auditory task. The task consisted of two conditions, and we sought to uncover the difference in the EEG responses between the two conditions. We began with a visual inspection of the EEG recordings from individual trials and from all trials, and concluded that the data were quite noisy; any evoked response due to the stimulus was not obvious in the single-trial data.</p>
 <p>To emphasize the evoked signal, we computed the ERP, which involved averaging the EEG signal across trials. By doing so, we uncovered interesting structure in condition A, but not much in condition B. We then developed two techniques to add error bars to an ERP. One technique relied on the central limit theorem, and the other technique involved a computationally expensive bootstrapping procedure. Both techniques suggested that the ERP in condition A differed significantly from zero following the stimulus at time 0.25 s.</p>
 <p>Finally, we assessed whether the two ERPs from condition A and condition B differed. We did so through visual inspection, by comparing the differences in the ERPs, and by computing a statistic and assessing its significance through a bootstrapping procedure. Using the last procedure, we concluded that the ERP in the two conditions significantly differed.</p>

@@ -209,11 +209,11 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#on-ramp-fitting-a-point-process-model-in-python-a-id-onramp-a" class="nav-link">On-ramp: fitting a point process model in Python <a id="onramp"></a></a>
+            <a href="#on-ramp-fitting-a-point-process-model-in-python" class="nav-link">On-ramp: fitting a point process model in Python</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#introduction-a-id-introduction-a" class="nav-link">Introduction <a id="introduction"></a></a><ul class="nav section-nav flex-column">
+            <a href="#introduction" class="nav-link">Introduction</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#case-study-data" class="nav-link">Case study data</a>
@@ -235,21 +235,21 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#visual-inspection-a-id-visual-inspection-a" class="nav-link">Visual Inspection <a id="visual-inspection"></a></a>
+            <a href="#visual-inspection" class="nav-link">Visual Inspection</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a" class="nav-link">Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm"></a></a><ul class="nav section-nav flex-column">
+            <a href="#fitting-a-point-process-model-poisson-glm" class="nav-link">Fitting a Point Process Model (Poisson GLM)</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
-            <a href="#refining-the-model-a-id-refining-a" class="nav-link">Refining the model <a id="refining"></a></a>
+            <a href="#refining-the-model" class="nav-link">Refining the model</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#comparing-and-evaluating-models-a-id-comparing-models-a" class="nav-link">Comparing and Evaluating Models<a id="comparing-models"></a></a><ul class="nav section-nav flex-column">
+            <a href="#comparing-and-evaluating-models" class="nav-link">Comparing and Evaluating Models</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#method-1-comparing-aic-values" class="nav-link">Method 1: Comparing AIC Values.</a>
@@ -279,21 +279,21 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#refining-the-model-continued-a-id-refining-continued-a" class="nav-link">Refining the Model (Continued) <a id="refining-continued"></a></a><ul class="nav section-nav flex-column">
+            <a href="#refining-the-model-continued" class="nav-link">Refining the Model (Continued)</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
-            <a href="#comparing-and-evaluating-models-continued-a-id-comparing-continued-a" class="nav-link">Comparing and Evaluating Models (Continued) <a id="comparing-continued"></a></a>
+            <a href="#comparing-and-evaluating-models-continued" class="nav-link">Comparing and Evaluating Models (Continued)</a>
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" class="nav-link">Drawing Conclusions from the Model <a id="drawing-conclusions"></a></a>
+            <a href="#drawing-conclusions-from-the-model" class="nav-link">Drawing Conclusions from the Model</a>
         </li>
     
             </ul>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#summary-a-id-summary-a" class="nav-link">Summary <a id="summary"></a></a>
+            <a href="#summary" class="nav-link">Summary</a>
         </li>
     
     </ul>
@@ -331,8 +331,9 @@
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
 </ul>
-<div class="section" id="on-ramp-fitting-a-point-process-model-in-python-a-id-onramp-a">
-<h2>On-ramp: fitting a point process model in Python <a id="onramp"></a><a class="headerlink" href="#on-ramp-fitting-a-point-process-model-in-python-a-id-onramp-a" title="Permalink to this headline">¶</a></h2>
+<p><a id="onramp"></a></p>
+<div class="section" id="on-ramp-fitting-a-point-process-model-in-python">
+<h2>On-ramp: fitting a point process model in Python<a class="headerlink" href="#on-ramp-fitting-a-point-process-model-in-python" title="Permalink to this headline">¶</a></h2>
 <p>We begin this notebook with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: how to fit a point process model to spiking data in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -387,9 +388,10 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, estimates the parameters of a model, and then plots the model over the observations?</p>
 <p><strong>A:</strong> There is a lot happening here. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
-<div class="section" id="introduction-a-id-introduction-a">
-<h2>Introduction <a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+</div><p><a id="introduction"></a></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>In <a href="08" rel="local">notebook 8</a>, we used visualization methods and simple interspike interval models to describe the spiking properties of a retinal neuron that was maintained at constant light and environmental conditions. In other words, we examined a neuron that was firing on its own, without any explicit driving stimuli. In contrast, many neuroscience experiments involve stimulating or perturbing a neural system and recording changes in spiking activity of a set of neurons in response to that stimulus. The stimulation may be a simple signal applied directly to the neural system, such as a current pulse injected into a neuron. Or it may be a more complex or abstract stimulus that is sensed in the peripheral nervous system and influences neural activity elsewhere, such as the presentation of a movie composed of a natural scene to an awake animal, inducing activity patterns in primary visual cortex and downstream areas.</p>
 <p>This stimulus-response paradigm relates to the important concept of <em>neural coding</em>: that statistical features of spiking activity contain information about the stimuli, behaviors, or other biological signals that influence the activity. From a data analysis perspective, we are interested in modeling the relation between these signals and the observed spiking activity. We can do so through a statistical spike train model. Here we explore a useful class of models based on the statistical theory of point processes. We define the models in terms of a Poisson rate function, which defines the instantaneous likelihood of observing a spike at any point in time as a function of a set of covariates. In particular, we use a class of point process models that can be fitted by maximum likelihood and whose estimators have multiple optimal properties. These are called generalized linear models (GLMs). We provide some basic statistical ideas to develop intuition about these types of models, but readers can explore the rich theory underlying this approach via the references mentioned in this notebook.</p>
 <div class="section" id="case-study-data">
@@ -431,9 +433,10 @@
 </div>
 <div class="section" id="data-analysis">
 <h2>Data Analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">¶</a></h2>
+<p><a id="visual-inspection"></a></p>
 </div>
-<div class="section" id="visual-inspection-a-id-visual-inspection-a">
-<h2>Visual Inspection <a id="visual-inspection"></a><a class="headerlink" href="#visual-inspection-a-id-visual-inspection-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="visual-inspection">
+<h2>Visual Inspection<a class="headerlink" href="#visual-inspection" title="Permalink to this headline">¶</a></h2>
 <p>First we load the file <code class="docutils literal notranslate"><span class="pre">spikes-1.mat</span></code>. The variable <code class="docutils literal notranslate"><span class="pre">X</span></code> indicates the rat’s position (in centimeters) at each moment in time (variable <code class="docutils literal notranslate"><span class="pre">t</span></code>, in seconds). The variable <code class="docutils literal notranslate"><span class="pre">spiketimes</span></code> indicates the times (in seconds) at which spikes occur in the data.</p>
 <p>We begin with visual inspection of the data. Let’s first plot the rat’s movement trajectory as a function of time:
 <a id="fig:position"></a></p>
@@ -539,9 +542,10 @@ ylabel(&#39;Position [cm]&#39;)
 <p><strong>A</strong>: One option is to construct separate occupancy normalized histograms for movement in each direction. To do so, we would need to determine for each time step whether it represents a movement period where the position is increasing or decreasing. How would you do this? (We do so later when constructing place field models.)</p>
 </div>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="fitting-a-poisson-glm"></a></p>
 </div>
-<div class="section" id="fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a">
-<h2>Fitting a Point Process Model (Poisson GLM) <a id="fitting-a-poisson-glm"></a><a class="headerlink" href="#fitting-a-point-process-model-poisson-glm-a-id-fitting-a-poisson-glm-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="fitting-a-point-process-model-poisson-glm">
+<h2>Fitting a Point Process Model (Poisson GLM)<a class="headerlink" href="#fitting-a-point-process-model-poisson-glm" title="Permalink to this headline">¶</a></h2>
 <p>Any statistical model that describes data occurring at localized points in time, like spike times, is called a temporal point process model. In <a href="https://mark-kramer.github.io/Case-Studies-Python/08/basic-visualizations-and-descriptive-statistics-of-spike-train-data.html" rel="external">notebook 8</a>, we constructed a point process model that described the probability distribution of waiting times between spikes for a neuron with no explicit driving stimulus. Here, we would similarly like to construct a statistical model, but in this case the model should characterize how the distribution of the data depends on the covariates of interest: the rat’s position and movement direction.</p>
 <div class="question">
 <p><strong>Q:</strong> Do the notions of point process model, Poisson model, and rate parameter seem familiar?</p>
@@ -618,8 +622,9 @@ To further visualize the quality of this model, we can compare the dependence it
 <p>We see that the model spike rate captures some features of the observed spiking, for example, the fact that the spike rate increases as the rat moves from position x = 0 toward position x = 60. But the model misses much of the structure, for example, the fact that the spike rate does not change linearly with position and begins to decrease as the rat’s position increases beyond x = 70. This suggests a second issue with this model: the form of the relation between position and firing rate is wrong.</p>
 </div>
 <p><a class="reference external" href="#top">Back to top</a></p>
-<div class="section" id="refining-the-model-a-id-refining-a">
-<h3>Refining the model <a id="refining"></a><a class="headerlink" href="#refining-the-model-a-id-refining-a" title="Permalink to this headline">¶</a></h3>
+<p><a id="refining"></a></p>
+<div class="section" id="refining-the-model">
+<h3>Refining the model<a class="headerlink" href="#refining-the-model" title="Permalink to this headline">¶</a></h3>
 <p>We conclude that our initial proposal, Model 1, does not represent the data well. Therefore, let’s refine the model to account for the identified issues. First, let’s choose a link function that is more appropriate for point process modeling. We would like a function that ensures the rate function is non-negative and that is easy to fit. The theory of generalized linear modeling suggests one function in particular: the log link. We set the log of the firing rate to be a linear function of the covariates. If we maintain position as the sole covariate, this leads to a model of the form:
 <a id="model:2"></a></p>
 <p title="Model 2a"> 
@@ -797,10 +802,11 @@ alpha: 0.011285495199169375
 <p><strong>A:</strong> The units for <code class="docutils literal notranslate"><span class="pre">mu</span></code> and <code class="docutils literal notranslate"><span class="pre">sigma</span></code> are centimeters, the same as the units of X. The units for <code class="docutils literal notranslate"><span class="pre">alpha</span></code>, the maximum spike rate, are spikes per time step of the vector <code class="docutils literal notranslate"><span class="pre">spiketrain</span></code>. Since each time step is 1 ms, the units are spikes/ms. So a value of <span class="math notranslate nohighlight">\(\hat{\alpha} = 0.011\)</span> spikes/ms is equivalent to a maximum firing rate of <span class="math notranslate nohighlight">\(\hat{\alpha} = 11\)</span> spikes/s.</p>
 </div><p>We see that the estimated place field center is about 63.2 cm down the track. The estimated place field size, <span class="math notranslate nohighlight">\(\hat{\sigma} = 9.6\)</span>, suggests that the firing rate decreases about 40% when the rat is about 9.6 cm from the place field center, and decreases about 85% when the rat is about 19 cm from the place field center. The neuron spikes at a rate near <span class="math notranslate nohighlight">\(\hat{\alpha}= 11\)</span> spikes/s when the rat is 63 cm along the track, but less than 2 spikes/s when the rat is more than 19 cm away from that position.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="comparing-models"></a></p>
 </div>
 </div>
-<div class="section" id="comparing-and-evaluating-models-a-id-comparing-models-a">
-<h2>Comparing and Evaluating Models<a id="comparing-models"></a><a class="headerlink" href="#comparing-and-evaluating-models-a-id-comparing-models-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparing-and-evaluating-models">
+<h2>Comparing and Evaluating Models<a class="headerlink" href="#comparing-and-evaluating-models" title="Permalink to this headline">¶</a></h2>
 <p>We have fit a number of models for the receptive field of this neuron and compared these models through visual inspection. Ideally, we’d like to go beyond qualitative comparisons and consider quantitative tools to help us evaluate and compare different models. For statistical models, we often use the term <em>goodness-of-fit</em> to describe how well a model captures structure in the observed data, and how well the model predicts future data. There is not a single procedure for measuring goodness-of-fit; instead there are many tools that, taken together, can provide a broad perspective on the strengths and weaknesses of a set of models. We explore some approaches for comparing the relative goodness-of-fit between two models and then methods to assess the overall goodness-of-fit of a single model.</p>
 <div class="section" id="method-1-comparing-aic-values">
 <h3>Method 1: Comparing AIC Values.<a class="headerlink" href="#method-1-comparing-aic-values" title="Permalink to this headline">¶</a></h3>
@@ -1118,10 +1124,11 @@ R(t) &amp;= \text{ total observed no. of spikes at time } t - \text{ total expec
 </div>
 </div>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="refining-continued"></a></p>
 </div>
 </div>
-<div class="section" id="refining-the-model-continued-a-id-refining-continued-a">
-<h2>Refining the Model (Continued) <a id="refining-continued"></a><a class="headerlink" href="#refining-the-model-continued-a-id-refining-continued-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="refining-the-model-continued">
+<h2>Refining the Model (Continued)<a class="headerlink" href="#refining-the-model-continued" title="Permalink to this headline">¶</a></h2>
 <p>Our goodness-of-fit analysis suggested that Model 3 provided a significant improvement over Model 2. However, analysis of the cumulative residual process revealed that Model 3 misses an essential feature of the data: Model 3 does not account for the dependence of spiking on direction. So, let’s refine the model by including a new covariate that captures the direction of the rat’s movement.</p>
 <p>We must first define a simple indicator function for the direction of movement. If the value of <span class="math notranslate nohighlight">\(X(t)\)</span> increased since the last time step, we set this variable to 1; otherwise we set it to 0. For the very first time step, we don’t know from which direction the rat came, so we set it to 0 arbitrarily.</p>
 <div class="cell docutils container">
@@ -1172,8 +1179,9 @@ dtype: float64
 <p><strong>A:</strong> Under this model, when the rat is moving in the positive direction, the firing rate is more than 26 times higher than the firing rate when the animal is stopped or moving in the negative direction. Since we only observe the rat long enough for the place cell to fire a few hundred spikes, we expect the majority of these spikes to occur when the animal is moving in the positive direction.</p>
 </div><p>We could perform the same change of parameters for this model as for the alternative form of Model 3. We previously expressed Model 3 using a mean, width, and maximum firing rate for the place field. If we performed this change of parameters for Model 4, we would still have just a single mean, width, and maximum rate parameter, and one additional parameter related to the modulation of direction, whose estimated value would not change.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
-<div class="section" id="comparing-and-evaluating-models-continued-a-id-comparing-continued-a">
-<h3>Comparing and Evaluating Models (Continued) <a id="comparing-continued"></a><a class="headerlink" href="#comparing-and-evaluating-models-continued-a-id-comparing-continued-a" title="Permalink to this headline">¶</a></h3>
+<p><a id="comparing-continued"></a></p>
+<div class="section" id="comparing-and-evaluating-models-continued">
+<h3>Comparing and Evaluating Models (Continued)<a class="headerlink" href="#comparing-and-evaluating-models-continued" title="Permalink to this headline">¶</a></h3>
 <p>Now that we have a new model that attempts to capture the dependence of spiking on movement direction, let’s compare the resulting model fit to the previous model fits and evaluate the overall goodness-of-fit of this new model. First, we compare the AIC values between Models 3 and 4:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1274,9 +1282,10 @@ p_beta3:  9.555627447246116e-20
 </div>
 <p>The figure above plots the cumulative residual process for Model 4 and the movement trajectory. We find that the residual process is now centered at zero. There may still be some structure as a function of time, but it is no longer as closely associated with the movement trajectory as for Model 3.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="drawing-conclusions"></a></p>
 </div>
-<div class="section" id="drawing-conclusions-from-the-model-a-id-drawing-conclusions-a">
-<h3>Drawing Conclusions from the Model <a id="drawing-conclusions"></a><a class="headerlink" href="#drawing-conclusions-from-the-model-a-id-drawing-conclusions-a" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="drawing-conclusions-from-the-model">
+<h3>Drawing Conclusions from the Model<a class="headerlink" href="#drawing-conclusions-from-the-model" title="Permalink to this headline">¶</a></h3>
 <p>It is likely that we could refine this model further, perhaps by adding additional covariates or including different dependence structure on the covariates we are currently using. The process of model refinement is not about identifying a single correct model. Instead, it is about building a model that sufficiently captures features of the data in which we are interested. For this analysis, let’s decide that based on our multiple goodness-of-fit tools, Model 4 is good enough. We now use this model to better understand the structure of the place cell that generated these data.</p>
 <p>The process of model refinement and comparison has helped us identify important features of this neuron’s receptive field. It was clear from the initial visualizations that this neuron’s firing activity is position sensitive; it is more likely to fire when the animal is at certain positions than others. Our modeling analysis further showed that this position dependence could be well described by an exponentiated quadratic function of position, that is, a Gaussian-shaped function.</p>
 <p>Let’s now estimate parameters for the center, width, and maximum firing rate of this place field. To do so, we make use of the expressions derived for the alternative form of Model 3. Computing these values for the estimates of Model 4 (variable <code class="docutils literal notranslate"><span class="pre">b4</span></code>),</p>
@@ -1336,10 +1345,11 @@ alpha:  0.0008199709288913803
 <p><strong>A:</strong> Inspection of the figure reveals that the firing rate depends on both position and direction. The rate is largest near position 63 cm and when the position is increasing. When the position is decreasing, the increase in rate near position 63 cm is much smaller. These Model 4 results, evaluated using parameters fitted to the observed data are consistent with our initial visualizations of the data.</p>
 </div><p>We can also draw some conclusions about the data from elements not in the fitted model. As we discuss in <a href="https://mark-kramer.github.io/Case-Studies-Python/10/spiking-rhythms.html" rel="external">notebook 10</a>, the defining feature of Poisson models is that they have no history-dependent structure; the probability of a spike at any moment can depend on a variety of factors, but it does not depend on past spiking. The fact that we were able to achieve a good fit (based on the KS plot analysis) from a Poisson model suggests that past spiking dependence is not required to capture much of the essential statistical structure in the data. Similarly, other covariates, such as movement speed, were not required to capture the place field structure of this neuron. The neuron may still code for these variables; however we can describe the spiking structure in terms of other variables.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="summary"></a></p>
 </div>
 </div>
-<div class="section" id="summary-a-id-summary-a">
-<h2>Summary <a id="summary"></a><a class="headerlink" href="#summary-a-id-summary-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>In this case study, we used an iterative process to identify a statistical model for a hipocampal place cell. We started by visualizing the data, and then proposed point process models, compared and evaluated those models, refined the models, and finally drew inferences from a model that sufficiently captured the structure in the data that we were trying to explain. Each step of this procedure should inform the next. The goal of the visualization analysis is to identify covariates and receptive field structure to include in the first proposed models. The goodness-of-fit analysis should provide insight into features of the statistical model that are lacking and suggest new models. In this case study, we settled on a good model after just two iterations of model refinement. In practice, it may take many more iterations — or even iterations between model identification and new experiments — to identify good models.</p>
 <p>It is worth noting that more than half of this case study is devoted to model interpretation and goodness-of-fit methods. This is common for advanced statistical analyses; fitting models to data is often the easy part. The challenge often comes in being able to interpret and evaluate the results of the fitting procedure. Since there is not a single correct way to evaluate a model, we instead use a range of tools to evaluate multiple aspects of model quality. Here we focused on a few that are generally useful for point process data and for Poisson modeling in particular. In the next notebook, we look at additional goodness-of-fit methods, in particular, ones to get at history dependence and rhythmicity in spiking data.</p>
 </div>

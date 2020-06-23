@@ -300,9 +300,10 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the phase and amplitude of the signals, and assess the cross-frequency coupling?</p>
 <p><strong>A:</strong> If you’ve never computed cross-frequency coupling before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
-<div class="section" id="introduction-a-id-introduction-a">
-<h1>Introduction<a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h1>
+</div><p><a id="introduction"></a></p>
+</div>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.lib.display</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
@@ -354,10 +355,11 @@
 ></iframe>
 </div></div>
 </div>
+<p><a id="data-analysis"></a></p>
 </div>
 </div>
-<div class="section" id="data-visualization-a-id-data-analysis-a">
-<h1>Data Visualization<a id="data-analysis"></a><a class="headerlink" href="#data-visualization-a-id-data-analysis-a" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-visualization">
+<h1>Data Visualization<a class="headerlink" href="#data-visualization" title="Permalink to this headline">¶</a></h1>
 <p>Let’s begin with visual inspection of the LFP data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -399,9 +401,10 @@
 <p>Visual inspection immediately suggests a dominant low-frequency rhythm interspersed with smaller-amplitude blasts of high-frequency activity.</p>
 <div class="question">
 <p><strong>Q.</strong> Approximate features of the rhythmic activity by visual inspection of the plot above. What is the frequency of the large-amplitude rhythm? Do you observe high-frequency activity? If so, where in time, and at what approximate frequency? What is the sampling frequency of these data? If you were to compute the spectrum of the entire dataset (100 s of LFP), what would be the <abbr title="The Nyquist frequency is the highest frequency we can possibly hope to observe in the data.">Nyquist frequency</abbr> and the <abbr title="This tells us how fine our estimates of the spectrum will be.">frequency resolution</abbr>? <em>Hint:</em> Consider the times near 4.35 s and 4.5 s. Do you see the transient fast oscillations?</p>
-</div></div>
-<div class="section" id="spectral-analysis-a-id-spectral-analysis-a">
-<h1>Spectral Analysis<a id="spectral-analysis"></a><a class="headerlink" href="#spectral-analysis-a-id-spectral-analysis-a" title="Permalink to this headline">¶</a></h1>
+</div><p><a id="spectral-analysis"></a></p>
+</div>
+<div class="section" id="spectral-analysis">
+<h1>Spectral Analysis<a class="headerlink" href="#spectral-analysis" title="Permalink to this headline">¶</a></h1>
 <p>Visual inspection of the LFP data suggests that multiple rhythms appear. To further characterize this observation, we compute the spectrum of the LFP data. We analyze the entire 100 s of data and compute the spectrum with a Hanning taper.<a id="fig:7.1"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

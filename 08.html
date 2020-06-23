@@ -209,11 +209,11 @@
     <ul class="nav section-nav flex-column">
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#on-ramp-visualizing-spike-train-data-in-python-a-id-onramp-a" class="nav-link">On-ramp: visualizing spike train data in Python<a id="onramp"></a></a>
+            <a href="#on-ramp-visualizing-spike-train-data-in-python" class="nav-link">On-ramp: visualizing spike train data in Python</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#introduction-a-id-introduction-a" class="nav-link">Introduction<a id="introduction"></a></a><ul class="nav section-nav flex-column">
+            <a href="#introduction" class="nav-link">Introduction</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#case-study-data" class="nav-link">Case Study Data</a>
@@ -309,8 +309,9 @@
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
 <li><p><a class="reference external" href="#appendix">Appendix: Spike Count Mean and Variance for a Poisson Process</a></p></li>
 </ul>
-<div class="section" id="on-ramp-visualizing-spike-train-data-in-python-a-id-onramp-a">
-<h2>On-ramp: visualizing spike train data in Python<a id="onramp"></a><a class="headerlink" href="#on-ramp-visualizing-spike-train-data-in-python-a-id-onramp-a" title="Permalink to this headline">¶</a></h2>
+<p><a id="onramp"></a></p>
+<div class="section" id="on-ramp-visualizing-spike-train-data-in-python">
+<h2>On-ramp: visualizing spike train data in Python<a class="headerlink" href="#on-ramp-visualizing-spike-train-data-in-python" title="Permalink to this headline">¶</a></h2>
 <p>We begin this notebook with an “<em>on-ramp</em>” to analysis. The purpose of this on-ramp is to introduce you immediately to a core concept in this notebook: techniques to visualize spike train data in Python. You may not understand all aspects of the program here, but that’s not the point. Instead, the purpose of this on-ramp is to  illustrate what <em>can</em> be done. Our advice is to simply run the code below and see what happens …</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -368,9 +369,10 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the interspike intervals (ISIs) and fits a statistical model, and assess the model fit?</p>
 <p><strong>A:</strong> If you’ve not analyzed spike train data before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
-<div class="section" id="introduction-a-id-introduction-a">
-<h2>Introduction<a id="introduction"></a><a class="headerlink" href="#introduction-a-id-introduction-a" title="Permalink to this headline">¶</a></h2>
+</div><p><a id="introduction"></a></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Neurons in the retina typically respond to patterns of light displayed over small sections of the visual field. However, when retinal neurons are grown in culture and held under constant light and environmental conditions, they will still spontaneously fire action potentials. In a fully functioning retina, this spontaneous activity is sometimes described as background firing activity, which is modulated as a function of visual stimuli. It is useful to understand the properties of this background activity in order to determine in future experiments how these firing properties are affected by specific stimuli.</p>
 <div class="section" id="case-study-data">
 <h3>Case Study Data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
