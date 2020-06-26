@@ -57,7 +57,7 @@ If you have never used the terminal before, consider using <a href="https://docs
 Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external" target="_blank">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external" target="_blank">repository from Github</a>, then you can run the commands below in your terminal to configure your local environment to match the Binder environment. If you have never used the terminal before, consider using <a href="https://docs.anaconda.com/anaconda/navigator/" rel="external" target="_blank">Anaconda Navigator</a>, Anaconda's desktop graphical user interface (GUI). The environment file we use on Binder is located in the `binder` folder.
 
 ```
-make env  # create environtment <case-studies>
+make env  # create environment <case-studies>
 make active  # activate environment <case-studies>
 make config  # configure jupyter in environment
 ```
