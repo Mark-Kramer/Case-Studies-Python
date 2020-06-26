@@ -1,0 +1,14 @@
+name: case-studies
+channels:
+- defaults
+- conda-forge
+dependencies:
+- python=3.7
+- ipython
+- jupyter
+- matplotlib=2.2
+- scipy
+- numpy
+- statsmodels
+- nitime
+- jupyterlab=2
