@@ -1,5 +1,3 @@
-// Put your custom javascript here
-
 // Include jquery in the head element
 var script = document.createElement('script');
 script.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js";
