@@ -53,7 +53,7 @@ $(STARTUPDIR) $(CUSTOMDIR) $(LABDIR):
 # ------------------------------------------------------------
 # Create conda environment
 env: environment.yml
-	conda create env --file environment.yml
+	conda create env --file $< 
 
 # Activate conda environment
 active:
