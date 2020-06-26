@@ -1,4 +1,4 @@
-.PHONY: help book clean serve
+.PHONY: help book clean serve binder
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of:"
@@ -11,11 +11,7 @@ help:
 	@echo "  site        push site in _build/html to gh-pages branch"
 	@echo "  binder      update the student branch with all files in _toc.yml, matfiles, imgs, *.py, README.md, and anything in a folder named student"
 
-all: 
-	make clean
-	make book
-	make site
-	make binder
+all: clean book site binder
 
 binder:
 	./_config/scripts/make_binder.sh
@@ -30,7 +26,7 @@ runall:
 	jupyter nbconvert --to notebook --execute --inplace -y --ExecutePreprocessor.timeout=-1 *.ipynb	
 
 clean:
-	if test -d _build ; then rm -r _build ; fi
+	rm -rf _build
 
 site: 
 	ghp-import -n -p -f _build/html

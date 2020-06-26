@@ -1,9 +1,0 @@
-#!/bin/bash
-
-./binder/setup.sh
-
-mkdir -p ~/.ipython/profile_default/startup
-cp _config/startup/* ~/.ipython/profile_default/startup/
-rm -r _config
-
-
