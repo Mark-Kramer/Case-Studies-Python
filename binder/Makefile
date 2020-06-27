@@ -9,15 +9,12 @@ LABDIR = $$CONDA_PREFIX/share/jupyter/lab/themes/\@jupyterlab/theme-light-extens
 PKG = Case Studies in Neural Data Analysis
 
 # ------------------------------------------------------------
-.PHONY: help env active config clean cleanenv
+.PHONY: help config clean
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of:"
-	@echo "  env         Creates the environment <case-studies>"
-	@echo "  active      Activates the environment <case-studies>"
 	@echo "  config      Mimics the notebook configuration used in Case Studies in Neuroscience"
 	@echo "  clean       Removes config content from Jupyter path"
-	@echo "  cleanenv    Removes the environment <case-studies>"
 # ------------------------------------------------------------
 
 
@@ -51,14 +48,6 @@ $(STARTUPDIR) $(CUSTOMDIR) $(LABDIR):
 
 
 # ------------------------------------------------------------
-# Create conda environment
-env: environment.yml
-	conda env create --file $< 
-
-# Activate conda environment
-active:
-	conda activate case-studies
-
 # Make CUSTOM and STARTUP files visible to Jupyter
 config: $(custom) $(startup) $(lab)
 
@@ -67,10 +56,4 @@ clean:
 	rm -f $(startup)
 	-sed -i.old '/START: $(PKG)/,/END: $(PKG)/d' $(custom) $(lab)
 	@touch $(CUSTOM)
-
-# Delete the conda environment case-studies
-cleanenv:
-	conda deactivate
-	conda remove --name case-studies --all
-
 

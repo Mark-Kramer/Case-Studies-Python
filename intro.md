@@ -57,19 +57,22 @@ If you have never used the terminal before, consider using <a href="https://docs
 Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external" target="_blank">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external" target="_blank">repository from Github</a>, then you can run the commands below in your terminal to configure your local environment to match the Binder environment. If you have never used the terminal before, consider using <a href="https://docs.anaconda.com/anaconda/navigator/" rel="external" target="_blank">Anaconda Navigator</a>, Anaconda's desktop graphical user interface (GUI). The environment file we use on Binder is located in the `binder` folder.
 
 ```
-make env  # create environment <case-studies>
-make active  # activate environment <case-studies>
+# create environment <case-studies>
+conda env create --file environment.yml
+conda activate case-studies  # activate environment <case-studies>
 make config  # configure jupyter in environment
 ```
 
-This will ensure that you have all the packages needed to run the notebooks. Finally, whenever you are ready to work with the notebooks, activate your environment and start Jupyter:
+This will ensure that you have all the packages needed to run the notebooks. Note that you can use `make clean` to remove the changes made during `make config`. 
+
+Finally, whenever you are ready to work with the notebooks, activate your environment and start Jupyter:
 
 ```
-conda activate case-studies  # activate python environment (or <make active>)
-jupyter notebook  # this opens jupyter in the current location
+conda activate case-studies  # activate python environment
+jupyter notebook  # start jupyter in the current location
 ```
 
-If you prefer, you can also use `jupyter lab` instead of `jupyter notebook`.
+If you prefer, you can use `jupyter lab` instead of `jupyter notebook`.
 
 ---
 
