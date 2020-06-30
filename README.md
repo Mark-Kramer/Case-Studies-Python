@@ -4,6 +4,16 @@
 
 - Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external" target="_blank">web-formatted version of the book</a>.
 - Read and interact with the Python code in your web browser.
+<div class="cell_output">
+<iframe
+    width="506"
+    height="300"
+    src="https://drive.google.com/file/d/16MfJ6xfycdADygzwgGp87djp8vQYzRK7/preview"
+    frameborder="0"
+    allowfullscreen
+></iframe>
+</div>
+
 
 ## Slow start to learning Python for neural data analysis:
 
