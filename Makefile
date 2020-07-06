@@ -16,8 +16,11 @@ all: clean book site binder
 binder:
 	./_config/scripts/make_binder.sh
 
-sync_md:
-	./_config/scripts/sync_md.sh	
+%.ipynb: %.md
+	./_config/scripts/sync_md.sh $?
+
+sync_md: *.md
+	make *ipynb
 
 book:
 	./_config/scripts/make_book.sh
