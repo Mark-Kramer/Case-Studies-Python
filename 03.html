@@ -291,8 +291,7 @@
 <p><strong>Tools:</strong> Fourier transform, power spectral density, spectrogram.</p>
 </div><ul class="simple">
 <li><p><a class="reference external" href="#onramp">On-ramp</a></p></li>
-<li><p><a class="reference external" href="#.">Introduction</a></p></li>
-<li><p><a class="reference external" href="#case-study">Case study data</a></p></li>
+<li><p><a class="reference external" href="#intro">Introduction</a></p></li>
 <li><p><a class="reference external" href="#data-analysis">Data analysis</a></p>
 <ol class="simple">
 <li><p><a class="reference external" href="#visual-inspection">Visual inspection</a></p></li>
@@ -382,7 +381,8 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the spectrum, and then plots the results?</p>
 <p><strong>A:</strong> If you’ve never computed a spectrum before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
+</div><p><a id="intro"></a></p>
+</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -403,7 +403,6 @@
 </div></div>
 </div>
 <p>In this notebook, we consider data recorded in the scalp <a href="https://en.wikipedia.org/wiki/Electroencephalography" rel="external">electroencephalogram</a> or EEG. The EEG provides a measure of brain voltage activity with high temporal resolution (typically on the order of milliseconds) but poor spatial resolution (on the order of 10 cm<sup>2</sup> of cortex). Here we will consider EEG activity recorded from a single scalp electrode. We will analyze these data to determine what (if any) rhythmic activity is present. In doing so, we will learn about an important technique to characterize rhythms in data - the Fourier transform and power spectral density or “spectrum” - and the many subtleties associated with this technique. We begin with a brief description of the data.</p>
-<p><a id="case-study"></a></p>
 <div class="section" id="case-study-data">
 <h3>Case study data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
