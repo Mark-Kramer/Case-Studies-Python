@@ -216,11 +216,11 @@
             <a href="#introduction" class="nav-link">Introduction</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
-            <a href="#background-a-class-anchor-id-background-a" class="nav-link">Background <a class="anchor" id="background"></a></a>
+            <a href="#background" class="nav-link">Background</a>
         </li>
     
         <li class="nav-item toc-entry toc-h3">
-            <a href="#case-study-data-a-class-anchor-id-case-study-data-a" class="nav-link">Case Study Data <a class="anchor" id="case-study-data"><a/></a>
+            <a href="#case-study-data" class="nav-link">Case Study Data</a>
         </li>
     
         <li class="nav-item toc-entry toc-h3">
@@ -251,7 +251,7 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" class="nav-link">Introduction to the Coherence <a class="anchor" id="sec:coherence"></a></a><ul class="nav section-nav flex-column">
+            <a href="#introduction-to-the-coherence" class="nav-link">Introduction to the Coherence</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h3">
             <a href="#simple-scenario-1-phases-align-across-trials" class="nav-link">Simple Scenario 1:  Phases align across trials</a>
@@ -398,13 +398,15 @@
 </div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="background-a-class-anchor-id-background-a">
-<h3>Background <a class="anchor" id="background"></a><a class="headerlink" href="#background-a-class-anchor-id-background-a" title="Permalink to this headline">¶</a></h3>
+<p><a class="anchor" id="background"></a></p>
+<div class="section" id="background">
+<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
 <p>In most of the other modules, we focused on field data recorded from a single electrode at the scalp (EEG) or cortical (ECoG) surface. However, typical brain voltage recordings consist of multiple electrodes. For example, the standard EEG recording consists of <a href="https://en.wikipedia.org/wiki/10%E2%80%9320_system_(EEG)" rel="external">21 electrodes</a> spaced across the scalp surface, and sometimes many more. The number of electrodes utilized in invasive ECoG recordings also range from a handful of contacts to over 100 implanted electrodes. In this module, we continue our study of field data recorded from the cortical surface but now consider ECoG data recorded simultaneously from two electrodes during a task.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a class="anchor" id="case-study-data"><a/></p>
 </div>
-<div class="section" id="case-study-data-a-class-anchor-id-case-study-data-a">
-<h3>Case Study Data <a class="anchor" id="case-study-data"><a/><a class="headerlink" href="#case-study-data-a-class-anchor-id-case-study-data-a" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="case-study-data">
+<h3>Case Study Data<a class="headerlink" href="#case-study-data" title="Permalink to this headline">¶</a></h3>
 <p>We conside a patient with epilepsy admitted to the hospital for <a href="https://www.ncbi.nlm.nih.gov/pubmed/25602999" rel="external">resective surgery</a>. As part of her routine clinical workup before resective surgery, numerous electrodes were implanted <a href="https://en.wikipedia.org/wiki/Electrocorticography" rel="external">directly on the cortical surface</a>. The purpose of this invasive recording procedure was to monitor and localize her seizures for eventual surgical treatment. During this recording procedure, in which electrocorticogram (ECoG) electrodes were implanted and recordings performed for one week, the patient volunteered to participate in an auditory task study administered by a collaborating researcher. The task required the patient to listen to individual phonemes through headphones and respond with a button click whenever she heard the <a href="http://www.jneurosci.org/content/30/49/16643" rel="external">phoneme</a> “ba” (the other phonemes were different, e.g., “pa,” ”ma”). The tone presentation was repeated 100 times, and her ECoG recorded (sampling rate 500 Hz) from two cortical electrodes over the auditory brain area for 1 s.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
 <p><a id="goal"></a></p>
@@ -792,9 +794,10 @@ S_{xx, \, j}	&amp;= \frac{2 \mathrm{dt}^2}{T} A_j^2  \exp(i \phi_j -i \phi_j) \,
 <div class="question">
 <p><strong>Q.</strong>  Upon examining the trial-averaged spectrum from one electrode, what additional conclusions can you now make about the data beyond visual inspection of the voltage traces? Repeat this computation of the trial-averaged spectrum for the second electrode. What do you find?  <em>Hint</em>: The 8 Hz peak is obvious and consistent with our visual inspection of the data. Do you notice any other (smaller) peaks in the trial-averaged spectrum?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a class="anchor" id="sec:coherence"></a></p>
 </div>
-<div class="section" id="introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a">
-<h2>Introduction to the Coherence <a class="anchor" id="sec:coherence"></a><a class="headerlink" href="#introduction-to-the-coherence-a-class-anchor-id-sec-coherence-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction-to-the-coherence">
+<h2>Introduction to the Coherence<a class="headerlink" href="#introduction-to-the-coherence" title="Permalink to this headline">¶</a></h2>
 <p>Coherence is a measure of association between two time series. Briefly:</p>
 <div class="math-note">
 <p>Two signals are coherent at some frequency if there exists a constant phase relation between them at this frequency.</p>

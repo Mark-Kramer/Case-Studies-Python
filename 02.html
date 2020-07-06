@@ -213,11 +213,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#background-a-class-anchor-id-background-a" class="nav-link">Background <a class="anchor" id="background"></a></a>
+            <a href="#background" class="nav-link">Background</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#case-study-an-eeg-erp-task-a-class-anchor-id-case-study-data-a" class="nav-link">Case Study: an EEG ERP task <a class="anchor" id="case-study-data"><a/></a>
+            <a href="#case-study-an-eeg-erp-task" class="nav-link">Case Study: an EEG ERP task</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -237,7 +237,7 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#comparing-erps-a-class-anchor-id-comparing-erps-a" class="nav-link">Comparing ERPs <a class="anchor" id="comparing-erps"></a></a>
+            <a href="#comparing-erps" class="nav-link">Comparing ERPs</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
@@ -346,9 +346,10 @@
 <div class="question">
 <p><strong>Q:</strong> Try to read the code above. Can you see how it loads data, computes the event-related potential and error, and then plots the results?</p>
 <p><strong>A:</strong> If you’ve never computed an event-related potential before, that’s an especially difficult question. Please continue on to learn this <strong>and more</strong>!</p>
-</div></div>
-<div class="section" id="background-a-class-anchor-id-background-a">
-<h2>Background <a class="anchor" id="background"></a><a class="headerlink" href="#background-a-class-anchor-id-background-a" title="Permalink to this headline">¶</a></h2>
+</div><p><a class="anchor" id="background"></a></p>
+</div>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;Cy_BF7smAkk&#39;</span><span class="p">)</span>
@@ -375,9 +376,10 @@
 <p>However, the EEG measure also suffers from significant disadvantages, the most devastating being the poor spatial resolution;  a single scalp electrode detects the summed activity from approximately 10 cm<sup>2</sup> of cortex.</p>
 <p>In this notebook, we consider EEG data recorded from a single scalp electrode.  We will analyze these data to determine what (if any) activity is evoked following two different types of stimuli presented to a human subject.  In doing so, we will use Python, and see how this powerful tool can help us understand these time series data.  We begin with a brief description of the EEG data.</p>
 <p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a class="anchor" id="case-study-data"><a/></p>
 </div>
-<div class="section" id="case-study-an-eeg-erp-task-a-class-anchor-id-case-study-data-a">
-<h2>Case Study: an EEG ERP task <a class="anchor" id="case-study-data"><a/><a class="headerlink" href="#case-study-an-eeg-erp-task-a-class-anchor-id-case-study-data-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="case-study-an-eeg-erp-task">
+<h2>Case Study: an EEG ERP task<a class="headerlink" href="#case-study-an-eeg-erp-task" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">YouTubeVideo</span><span class="p">(</span><span class="s1">&#39;q2-DjvPRaNA&#39;</span><span class="p">)</span>
@@ -986,9 +988,10 @@ Upon close inspection of the figure above, what response, if any, do you observe
 <div class="question">
 <p><strong>Q.</strong> Construct the ERP with confidence intervals for condition B. As for condition A, you should find that before stimulus presentation the ERP fluctuates around zero. What intervals of time, if any, differ significantly from zero?</p>
 </div><p><a class="reference external" href="#introduction">Return to top</a></p>
+<p><a class="anchor" id="comparing-erps"></a></p>
 </div>
-<div class="section" id="comparing-erps-a-class-anchor-id-comparing-erps-a">
-<h2>Comparing ERPs <a class="anchor" id="comparing-erps"></a><a class="headerlink" href="#comparing-erps-a-class-anchor-id-comparing-erps-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparing-erps">
+<h2>Comparing ERPs<a class="headerlink" href="#comparing-erps" title="Permalink to this headline">¶</a></h2>
 <p>In the previous section, we implemented a procedure to compute confidence intervals for the ERPs in conditions A and B. To investigate <em>differences</em> between the ERPs in the two conditions, we can use a similar approach. To start, let’s plot the ERPs with confidence intervals for both conditions and attempt to identify periods for which the confidence intervals do not overlap (such intervals would correspond to significant differences between the responses of the two conditions).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
