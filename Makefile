@@ -19,8 +19,7 @@ binder:
 %.ipynb: %.md
 	./_config/scripts/sync_md.sh $?
 
-sync_md: *.md
-	make *ipynb
+sync_md: *.ipynb
 
 book:
 	./_config/scripts/make_book.sh

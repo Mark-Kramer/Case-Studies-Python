@@ -10,7 +10,6 @@
 *__pycache__*
 *_ignore*
 local/
-template.ipynb
 _site/
 Case*pdf
 _build

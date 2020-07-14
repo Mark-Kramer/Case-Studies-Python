@@ -12,7 +12,7 @@ author                      : Mark Kramer and Uri Eden  # The author of the book
 email                       : mak@math.bu.edu  # EDS2 (not sure if this does anything in sphinx)
 # copyright                   : "2020"  # Copyright year to be placed in the footer
 logo                        : "_config/logo/logo.png"  # A path to the book logo
-exclude_patterns            : ["README.md", "LICENSE.md", "ignore/*"]  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
+exclude_patterns            : ["README.md", "LICENSE.md", "template.*", "ignore/*"]  # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 
 #######################################################################################
 # Execution settings
