@@ -78,7 +78,7 @@ If you prefer, you can use `jupyter lab` instead of `jupyter notebook`.
 We very much appreciate your contributions to this material. Contribitions may include:
 - Error corrections
 - Suggestions
-- New material to include
+- New material to include (please start from this <a href="https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/template.ipynb" rel="external" target="_blank">template</a>).
 
 There are two ways to suggest a contribution:
 
