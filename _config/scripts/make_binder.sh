@@ -2,7 +2,8 @@
 
 mkdir -p tmp
 cp -r binder tmp/
-mv tmp/binder/{Makefile,environment.yml} tmp
+# mv tmp/binder/{Makefile,environment.yml} tmp
+mv tmp/binder/{Makefile} tmp
 while IFS=[" "] read -r a b fname ; do 
     if [ "$fname" ] && test -f "$fname" ; then 
         cp $fname tmp/ ; 
