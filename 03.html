@@ -3,18 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-
-    <!-- Google Analytics -->
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-175303320-1', 'auto');
-      ga('set', 'anonymizeIp', true);
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-<!-- End Google Analytics -->
-
+  <head>
     <meta charset="utf-8" />
     <title>The Power Spectrum (Part 1) &#8212; Case Studies in Neural Data Analysis</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
@@ -958,7 +947,7 @@ $\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">EEG</span>
-<span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">real</span>
+<span class="n">xf</span> <span class="o">=</span> <span class="n">rfft</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -967,7 +956,7 @@ $\)</span></p>
 <p>The second step is to compute the spectrum, the Fourier transform of <span class="math notranslate nohighlight">\(x\)</span> multiplied by its complex conjugate:<a id="fig:3.10"></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sxx</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Sxx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">T</span> <span class="o">*</span> <span class="n">xf</span> <span class="o">*</span> <span class="n">xf</span><span class="o">.</span><span class="n">conj</span><span class="p">())</span><span class="o">.</span><span class="n">real</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">Sxx</span><span class="p">)</span>
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Indices&#39;</span><span class="p">)</span>
 <span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power [$\mu V^2$/Hz]&#39;</span><span class="p">);</span>
@@ -1732,6 +1721,16 @@ cos         -3.24e-03</p>
     </div>
 
     <script src="_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-175303310-1', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
     
   </body>
 </html>
