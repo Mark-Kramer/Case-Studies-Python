@@ -13,3 +13,4 @@ local/
 _site/
 Case*pdf
 _build
+*.swp
