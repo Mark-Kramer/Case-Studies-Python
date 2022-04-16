@@ -1,0 +1,536 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Backpropagation &#8212; Case Studies in Neural Data Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/custom.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/Backprop.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Training a Perceptron" href="Perceptron.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/Backprop.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Backpropagation" />
+<meta property="og:description" content="Backpropagation  In this notebook, we will implement the backpropagation procedure for a two-node network. We’ll start by implementing each step of the backprop" />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Case Studies in Neural Data Analysis</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="02.html">2. The Event-Related Potential</a>
+  </li>
+  <li class="">
+    <a href="03.html">3. The Power Spectrum (Part 1)</a>
+  </li>
+  <li class="">
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="05.html">5. Analysis of Coupled Rhythms</a>
+  </li>
+  <li class="">
+    <a href="06.html">6. Filtering Field Data</a>
+  </li>
+  <li class="">
+    <a href="07.html">7. Cross-Frequency Coupling</a>
+  </li>
+  <li class="">
+    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="09.html">9. Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="11.html">11. Spike-Field Coherence</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Extra notebooks</p>
+</li>
+  <li class="">
+    <a href="IF.html">12. The integrate and fire neuron</a>
+  </li>
+  <li class="">
+    <a href="HH.html">13. The Hodgkin-Huxley model</a>
+  </li>
+  <li class="">
+    <a href="Perceptron.html">14. Training a Perceptron</a>
+  </li>
+  <li class="active">
+    <a href="">15. Backpropagation</a>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/Backprop.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.ipynb</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+            <div class="dropdown-buttons sourcebuttons">
+                <a class="repository-button" href="https://github.com/Mark-Kramer/Case-Studies-Python/"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/Mark-Kramer/Case-Studies-Python//issues/new?title=Issue%20on%20page%20%2FBackprop.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+            <div class="dropdown-buttons">
+                
+                <a class="binder-button" href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python/binder?urlpath=tree/Backprop.ipynb"><button type="button" class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip" data-placement="left"><img class="binder-button-logo" src="_static/images/logo_binder.svg" alt="Interact on binder">Binder</button></a>
+                
+                
+                <button type="button" class="btn btn-secondary topbarbtn thebelab-launch-button" onclick="initThebelab()" title="Launch Thebelab" data-toggle="tooltip" data-placement="left"><i class="fas fa-rocket"></i><span style="margin-left: .4em;">ThebeLab</span></button>
+                
+            </div>
+        </div>
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#preliminaries" class="nav-link">Preliminaries</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#steps-to-backpropagation" class="nav-link">Steps to backpropagation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#step-1-choose-random-initial-weights" class="nav-link">Step 1. Choose random initial weights.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#step-2-fix-input-at-desired-value-and-calculate-output" class="nav-link">Step 2.  Fix input at desired value, and calculate output.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#step-3-update-the-weights" class="nav-link">Step 3.  Update the weights.</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#step-4-repeat-steps-2-3-many-times" class="nav-link">Step 4.  Repeat steps 2 & 3 many times.</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="backpropagation">
+<h1>Backpropagation<a class="headerlink" href="#backpropagation" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook, we will implement the backpropagation procedure for a two-node network. We’ll start by implementing each step of the backpropagation procedure, and then combine these steps together to create a complete backpropagation algorithm.</p>
+<div class="section" id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Permalink to this headline">¶</a></h2>
+<p>Text preceded by a <code class="docutils literal notranslate"><span class="pre">#</span></code> indicates a ‘comment’.  I will use comments to explain what we’re doing and to ask you questions.  Also, comments are useful in your own code to note what you’ve done (so it makes sense when you return to the code in the future).  It’s a good habit to <em>always</em> comment your code.  I’ll try to set a good example, but won’t always …</p>
+<p>Before beginning, let’s load in the Python packages we’ll need:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>                <span class="c1"># Change the default figure size</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="steps-to-backpropagation">
+<h2>Steps to backpropagation<a class="headerlink" href="#steps-to-backpropagation" title="Permalink to this headline">¶</a></h2>
+<p>We outlined 4 steps to perform backpropagation,</p>
+<ol class="simple">
+<li><p>Choose random initial weights.</p></li>
+<li><p>Fix input at desired value, and calculate output.</p></li>
+<li><p>Update the weights.</p></li>
+<li><p>Repeat steps 2 &amp; 3 many times.</p></li>
+</ol>
+<p>Let’s now implement these steps.</p>
+</div>
+<div class="section" id="step-1-choose-random-initial-weights">
+<h2>Step 1. Choose random initial weights.<a class="headerlink" href="#step-1-choose-random-initial-weights" title="Permalink to this headline">¶</a></h2>
+<p>This step is easy. We need to choose the three initial weights in our
+2-node model.  We can choose these weights to be anything we like,
+within reason.  Let’s set:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w0</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">w1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">w2</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Why choose these weights?</p>
+</div><p>Then, in backpropagation, we’ll update these weights so that our neural
+network - when given a specific input - produces a desired output.</p>
+</div>
+<div class="section" id="step-2-fix-input-at-desired-value-and-calculate-output">
+<h2>Step 2.  Fix input at desired value, and calculate output.<a class="headerlink" href="#step-2-fix-input-at-desired-value-and-calculate-output" title="Permalink to this headline">¶</a></h2>
+<p>Our next step is to choose an input, send this input to our neural
+network, and compute the output.  This is called the <em>feedforward
+solution</em>; we’re “feeding” our neural network the input, sending this
+input “forward” through the network, and returning the output.</p>
+<p>Let’s start by choosing an input,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s0</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, we need to send this input through our network. We’ll do this in
+multiple steps.  First, let’s compute the activity of the first neuron:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x1</span> <span class="o">=</span> <span class="n">w0</span><span class="o">*</span><span class="n">s0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, to determine the output of the first neuron, we need to send this
+activity through a sigmoid function.  To do that, we first need to
+<em>define</em> the sigmoid function … Let’s do so here in Python,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This function takes one input (<code class="docutils literal notranslate"><span class="pre">x</span></code>), and returns one output equal to the numerical
+value of the sigmoid function at that value of <code class="docutils literal notranslate"><span class="pre">x</span></code>. For example, to
+compute the value of the sigmoid function at <code class="docutils literal notranslate"><span class="pre">x=0.5</span></code>, and save this output
+in a variable <code class="docutils literal notranslate"><span class="pre">s</span></code>, we execute the following command,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>0.6224593312018546
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we’re able to compute the output of our first neuron,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can ontinue our feedforward computation to determine the output of our neural network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="n">w1</span><span class="o">*</span><span class="n">s1</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">w2</span><span class="o">*</span><span class="n">s2</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>0.36375380675182073
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="step-3-update-the-weights">
+<h2>Step 3.  Update the weights.<a class="headerlink" href="#step-3-update-the-weights" title="Permalink to this headline">¶</a></h2>
+<p>To update the weights, we’ll use the expressions we derived in class
+for the updated values of <code class="docutils literal notranslate"><span class="pre">w0</span></code> and <code class="docutils literal notranslate"><span class="pre">w1</span></code>.  Let’s write those here …</p>
+<p>But first, remember that to compute the weight update, we need to define
+a learning rate,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span>  <span class="o">=</span> <span class="mf">0.1</span>    <span class="c1">#Here we&#39;ll set the learning rate to 0.1.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we also need to define a target value we would like our neural network to produce as output,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="mf">0.7</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, let’s define two weight updates,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w2</span> <span class="o">=</span> <span class="n">w2</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">out</span><span class="o">-</span><span class="n">target</span><span class="p">)</span><span class="o">*</span><span class="n">s2</span>
+<span class="n">w1</span> <span class="o">=</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">out</span><span class="o">-</span><span class="n">target</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w2</span><span class="o">*</span><span class="n">s2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s2</span><span class="p">)</span><span class="o">*</span><span class="n">s1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong>  Do these two expressions match the equations for the weight updates we derived in class?  HINT: They should!</p>
+</div><p>We need one more expression, to update the last weight, w0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">w0</span> <span class="o">=</span> <span class="s1">&#39;????????&#39;</span>  <span class="c1"># &lt;-- Fill in the proper expression</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="question">
+<p><strong>Q:</strong> What is the expression for <code class="docutils literal notranslate"><span class="pre">w0</span></code> in the equation above?</p>
+</div></div>
+<div class="section" id="step-4-repeat-steps-2-3-many-times">
+<h2>Step 4.  Repeat steps 2 &amp; 3 many times.<a class="headerlink" href="#step-4-repeat-steps-2-3-many-times" title="Permalink to this headline">¶</a></h2>
+<p>Now, we’d like to repeat Steps 2 &amp; 3 many times. In doing so, we’ll
+perform gradient descent, and move (slowly) down our cost function,
+until we reach a minimum.</p>
+<p>We could try to compute these repetitions by hand, for example by repeating
+the cells above. To do so, we’d need to take the new weights we just
+found in Step 3, compute the feedforward solution to our neural network,
+and then update the neural network’s weights (which depends on how close
+our neural network’s output is to the target value).</p>
+<p>But, we want to evaluate this procedure 1000 times. We could do this by
+hand, but it’d be a total pain, and highly error prone. Instead, let’s
+ask a computer to do the boring work of multiple repetitions. To do so,
+let’s collect the code above, and repeat it 1000 times. We’ll wrap our
+code above inside a <code class="docutils literal notranslate"><span class="pre">for-loop</span></code> to make this efficient,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s0</span> <span class="o">=</span> <span class="mi">2</span>                          <span class="c1"># Define the input,</span>
+<span class="n">target</span> <span class="o">=</span> <span class="mf">0.7</span>                    <span class="c1"># ... and the target output.</span>
+
+<span class="n">w0</span> <span class="o">=</span> <span class="mi">2</span>                          <span class="c1"># Choose initial values for the weights.</span>
+<span class="n">w1</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">w2</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>                     <span class="c1"># Set the learning constant.</span>
+
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>     <span class="c1"># Define the sigmoid anonymous function.</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>    <span class="c1"># Define a variable to hold the results of each iteration.    </span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>           <span class="c1"># For 1000 iteractions,</span>
+    
+    <span class="c1">#Step 2. Calculate feedforward solution to get output.</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">w0</span><span class="o">*</span><span class="n">s0</span>                  <span class="c1"># ... activity of first neuron,</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>            <span class="c1"># ... output of first neuron,</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">w1</span><span class="o">*</span><span class="n">s1</span>                  <span class="c1"># ... activity of second neuron,</span>
+    <span class="n">s2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>            <span class="c1"># ... output of second neuron,</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">w2</span><span class="o">*</span><span class="n">s2</span>                  <span class="c1"># Output of neural network.</span>
+    
+    <span class="c1">#Step 3. Update the weights.</span>
+    <span class="n">w2</span> <span class="o">=</span> <span class="n">w2</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">out</span><span class="o">-</span><span class="n">target</span><span class="p">)</span><span class="o">*</span><span class="n">s2</span>
+    <span class="n">w1</span> <span class="o">=</span> <span class="n">w1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">out</span><span class="o">-</span><span class="n">target</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w2</span><span class="o">*</span><span class="n">s2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s2</span><span class="p">)</span><span class="o">*</span><span class="n">s1</span><span class="p">)</span>
+    <span class="n">w0</span> <span class="o">=</span> <span class="n">w0</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="p">(</span><span class="n">out</span><span class="o">-</span><span class="n">target</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">w2</span><span class="o">*</span><span class="n">s2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s2</span><span class="p">)</span><span class="o">*</span><span class="n">w1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">s1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">s1</span><span class="p">)</span><span class="o">*</span><span class="n">s0</span><span class="p">)</span>
+    
+    <span class="c1"># Save the results of this step! --------------------------------------</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">k</span><span class="p">,:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">w2</span><span class="p">,</span><span class="n">w1</span><span class="p">,</span><span class="n">w0</span><span class="p">,</span>  <span class="n">out</span><span class="p">]</span>
+    <span class="c1"># Here we save the 3 weights, the neural network output.</span>
+
+<span class="n">clf</span><span class="p">()</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w2&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w1&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;w0&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;out&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">arange</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="mi">1000</span><span class="o">*</span><span class="p">[</span><span class="n">target</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;target&#39;</span><span class="p">)</span>  <span class="c1">#... and plot the *target*.</span>
+<span class="n">legend</span><span class="p">()</span> <span class="c1">#Iclude a legend,</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration number&#39;</span><span class="p">);</span>         <span class="c1">#... and axis label.</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/Backprop_31_0.png" src="_images/Backprop_31_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Mark-Kramer/Case-Studies-Python",
+            ref: "binder",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "."
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Perceptron.html" title="previous page">Training a Perceptron</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Kramer and Uri Eden<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-54QV706BYJ', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
