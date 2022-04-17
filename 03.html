@@ -310,6 +310,7 @@
 </ol>
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
+<li><p><a class="reference external" href="#donate">Donate</a></p></li>
 </ul>
 <hr class="docutils" />
 <ul class="simple">
@@ -1237,8 +1238,13 @@ We see that the spectrum is dominated by a single peak at 60 Hz. Other, weaker r
 <p>In this notebook, we analyzed 2 s of EEG data. We started with visual inspection of the <a class="reference external" href="#fig:3.1">EEG time series</a>.<span class="sup">fig<img src="imgs/3-1.png"></span> This is always the best place to start when analyzing new data and provides initial important intuition for the time series. Through the initial visual inspection, we concluded that rhythmic activity appeared and was dominated by a 60 Hz oscillation. Then, to characterize further the rhythmic activity, we computed two related quantities: the autocovariance and the spectrum. We found that rhythmic activity appeared in the autocovariance of the data. We then considered the spectrum. To do so, we first introduced the notion of the Fourier transform and discussed in detail how to compute the spectrum in Python. We also defined two fundamental quantities—the frequency resolution and the Nyquist frequency—and explored how to manipulate these quantities. (We recommend you commit both quantities to memory. For every spectral analysis you encounter, ask: What is the frequency resolution? What is the Nyquist frequency?). We then considered how <a class="reference external" href="#fig:3.13a">logarithmic scales</a>  can be used to emphasize features of the spectrum.<span class="sup">fig<img src="imgs/3-13a.png"></span> And, we examined how the <a class="reference external" href="#fig:3.14">spectrogram</a> provides insight into spectral features that change in time.<span class="sup">fig<img src="imgs/3-14.png"></span> We concluded that the EEG data are dominated by 60 Hz activity throughout the 2 s interval, and that weaker low-frequency activity emerges during two intervals: a 6 Hz rhythm from 0 s to 1 s, and an 11 Hz rhythm from 1 s to 2 s.</p>
 <p>In this notebook, we only touched the surface of spectral analysis; many details and issues exist for further exploration. In future notebooks, we will discuss the issues of windowing and zero padding. For those interested in exploring further, see <a href="https://doi.org/10.1017/CBO9780511622762" rel="external">Percival &amp; Walden, 1998</a> and <a href="https://buprimo.hosted.exlibrisgroup.com/primo-explore/fulldisplay?docid=ALMA_BOSU121668583370001161&context=L&vid=BU&search_scope=default_scope&tab=default_tab&lang=en_US" rel="external">Priestley, 1981</a>.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
+<p><a id="donate"></a></p>
+<div class="section" id="donate">
+<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
+<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
 <hr class="docutils" />
 <p><a id="supplements"></a></p>
+</div>
 </div>
 <div class="section" id="supplements">
 <h1>Supplements<a class="headerlink" href="#supplements" title="Permalink to this headline">¶</a></h1>
@@ -1286,7 +1292,7 @@ $\)</span></p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_124_0.png" src="_images/03_124_0.png" />
+<img alt="_images/03_125_0.png" src="_images/03_125_0.png" />
 </div>
 </div>
 <p>We see the similarities and differences between these two estimates. At small lags (near 0 s), the biased and unbiased estimates of the autocovariance are similar. In this case, <span class="math notranslate nohighlight">\(L\)</span> is small, so the factor 1/(N − L) in the unbiased estimate is similar to the factor of 1/N in the biased estimate. At large lags (away from 0 s), the biased and unbiased estimates of the autocovariance are quite different. Notice that, as L approaches ±2 s, the biased estimate (orange curve) approaches zero.</p>
@@ -1323,7 +1329,7 @@ Now consider the extension to <span class="math notranslate nohighlight">\(L=N-2
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_128_0.png" src="_images/03_128_0.png" />
+<img alt="_images/03_129_0.png" src="_images/03_129_0.png" />
 </div>
 </div>
 <div class="math-note">
@@ -1463,7 +1469,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_141_0.png" src="_images/03_141_0.png" />
+<img alt="_images/03_142_0.png" src="_images/03_142_0.png" />
 </div>
 </div>
 <p>Choosing <span class="math notranslate nohighlight">\(f_j = 4\)</span> Hz, we can construct a sine and cosine function each oscillating at 4 Hz.</p>
@@ -1481,7 +1487,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_143_0.png" src="_images/03_143_0.png" />
+<img alt="_images/03_144_0.png" src="_images/03_144_0.png" />
 </div>
 </div>
 <p>Then, to perform the calculation of the Equation (*) we multiply the data <span class="math notranslate nohighlight">\(x\)</span> by the sinusoids at each point in time.</p>
@@ -1495,7 +1501,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_145_0.png" src="_images/03_145_0.png" />
+<img alt="_images/03_146_0.png" src="_images/03_146_0.png" />
 </div>
 </div>
 <p>Notice that the products alternate between positive and negative values throughout time.</p>
@@ -1522,7 +1528,7 @@ X_j = \left(\sum_{n=1}^N x_n \cos(-2\pi f_j t_n) \right) + i\left(\sum_{n=1}^N x
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_148_0.png" src="_images/03_148_0.png" />
+<img alt="_images/03_149_0.png" src="_images/03_149_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1625,7 +1631,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_160_0.png" src="_images/03_160_0.png" />
+<img alt="_images/03_161_0.png" src="_images/03_161_0.png" />
 </div>
 </div>
 <p>The model, which contains only three predictors, appears to do quite a good job at capturing the 60 Hz activity in the EEG data.</p>
@@ -1645,7 +1651,7 @@ cos         -3.24e-03</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/03_163_0.png" src="_images/03_163_0.png" />
+<img alt="_images/03_164_0.png" src="_images/03_164_0.png" />
 </div>
 </div>
 <div class="question">
@@ -1670,11 +1676,6 @@ cos         -3.24e-03</p>
 <p><strong>A.</strong> We note that the units of the power spectral density (variable <code class="docutils literal notranslate"><span class="pre">Sxx</span></code>) are mV<span class="math notranslate nohighlight">\(^2/\)</span>Hz, while the units of the power estimated in variable <code class="docutils literal notranslate"><span class="pre">Sxx_model_60Hz</span></code> are mV<span class="math notranslate nohighlight">\(^2\)</span>. To convert the power spectral density to (integrated) spectral power, we must integrate the variable <code class="docutils literal notranslate"><span class="pre">Sxx</span></code> over a frequency range. Here, we choose a 1 Hz interval centered at 60 Hz, which corresponds to a single index of the variable <code class="docutils literal notranslate"><span class="pre">faxis</span></code>; the frequency resolution for these data is <span class="math notranslate nohighlight">\(\pm 0.5\)</span> Hz. Then the approximate integrated power over this 1 Hz interval can be computed as <code class="docutils literal notranslate"><span class="pre">Sxx[where(faxis</span> <span class="pre">==</span> <span class="pre">60)]</span></code>, which equals 0.9978, identical to the value in <code class="docutils literal notranslate"><span class="pre">Sxx_model_60Hz</span></code>, and with the same units.</p>
 </div><p>This example, in which we focused on the 60 Hz activity in the EEG, illustrates how we may use multiple linear regression to estimate the power. We could extend this procedure to include additional rhythms in the model beyond 60 Hz (e.g., sine and cosine functions at 1 Hz, 2 Hz, 3 Hz, etc.). In doing so, we would add more terms to the multiple linear regression model and have more <span class="math notranslate nohighlight">\(\beta\)</span>’s to determine from the data. Multiple linear regression provides a way to decompose the EEG data into sine and cosine functions at different frequencies—just as we proposed to do using the Fourier transform—and then compute the power at each frequency. Using either multiple linear regression or the Fourier transform, we aim to decompose the EEG into sine and cosine functions oscillating at different frequencies.</p>
 <p><a class="reference external" href="#top">Return to top</a></p>
-<p><a id="donate"></a></p>
-</div>
-<div class="section" id="donate">
-<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
-<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
 </div>
 </div>
 

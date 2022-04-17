@@ -267,15 +267,15 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
+            <a href="#donate" class="nav-link">Donate</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
             <a href="#summary" class="nav-link">Summary</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
             <a href="#appendix-spike-count-mean-and-variance-for-a-poisson-process" class="nav-link">Appendix: Spike Count Mean and Variance for a Poisson Process</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h2">
-            <a href="#donate" class="nav-link">Donate</a>
         </li>
     
     </ul>
@@ -311,6 +311,7 @@
 </ol>
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
+<li><p><a class="reference external" href="#donate">Donate</a></p></li>
 <li><p><a class="reference external" href="#appendix">Appendix: Spike Count Mean and Variance for a Poisson Process</a></p></li>
 </ul>
 <p><a id="onramp"></a></p>
@@ -1402,15 +1403,21 @@ lambda =  0.04931816769253932
 <p><strong>Q.</strong> Consider the fit of the inverse Gaussian model to the data in the high-light condition. Does the inverse Gaussian model provide a good fit to these ISIs?</p>
 </div><div class=question>
 <p><strong>Q.</strong> Compare the estimates of the two parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\lambda\)</span> of the inverse Gaussian model in the two conditions. What do these reveal about the differences between the low- and high-light conditions?</p>
-</div><p><a class="reference external" href="#top">Back to top</a>
-<a id="summary"></a></p>
 </div>
+<p><a class="reference external" href="#top">Back to top</a></p>
+<p><a id="donate"></a></p>
+</div>
+</div>
+<div class="section" id="donate">
+<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
+<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
+<p><a id="summary"></a></p>
 </div>
 <div class="section" id="summary">
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
-<p>In this notebook, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.</p>
-<p><a class="reference external" href="#top">Back to Top</a>
-<a id="appendix"></a></p>
+<p>In this notebook, we considered the spiking activity recorded in two conditions. We began with visualizations of the spiking data, and construction and visualization of the increment process (i.e., binned spike counts). We then assessed the variability in the increments through computation of the Fano factor, and showed that the low- and high-light conditions had less and more variability, respectively, than expected for a Poisson process. We also assessed the autocorrelation of the increment processes and observed the impact of refractoriness and bursting activity. In addition, we created and visualized the ISIs for each condition. Inspection of the ISI histograms suggested bursting activity in both conditions, and more small ISIs in the high-light condition. Analysis of the ISI autocorrelations revealed no compelling evidence for dependence and supported the hypothesis of a renewal process. Finally, we built two statistical models of the observed ISIs. We discussed how to fit the model parameters by computing the maximum likelihood estimate, and how to evaluate the model goodness-of-fit to the data using the KS plot. We showed that the first model—the Poisson process as a model of spiking with a corresponding exponential distribution of ISIs—did not fit the observed ISI data. A second model—the inverse Gaussian probability model—provided a much more accurate fit to the observed ISIs. The modeling suggests that at least two features of the spiking activity have changed from the low-light to the high-light condition. First, the mean ISI is smaller, and hence the average firing rate is larger, in the high-light condition. Second, the shape of the firing distribution has changed so that the cell is more likely to fire in bursts with short ISIs in the high-light condition.
+<a class="reference external" href="#top">Back to Top</a></p>
+<p><a id="appendix"></a></p>
 </div>
 <div class="section" id="appendix-spike-count-mean-and-variance-for-a-poisson-process">
 <h2>Appendix: Spike Count Mean and Variance for a Poisson Process<a class="headerlink" href="#appendix-spike-count-mean-and-variance-for-a-poisson-process" title="Permalink to this headline">¶</a></h2>
@@ -1588,11 +1595,6 @@ we conclude that for a Poisson process,</p>
 \[\mu = \sigma^2 = \lambda,\]</div>
 <p>and therefore for a Poisson process, the Fano factor <span class="math notranslate nohighlight">\(\sigma^2/\mu=1\)</span>.</p>
 <p><a class="reference external" href="#top">Back to top</a></p>
-<p><a id="donate"></a></p>
-</div>
-<div class="section" id="donate">
-<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
-<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
 </div>
 </div>
 

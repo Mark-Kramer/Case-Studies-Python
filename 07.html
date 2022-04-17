@@ -283,11 +283,11 @@
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#appendix-hilbert-transform-in-the-time-domain" class="nav-link">Appendix: Hilbert Transform in the Time Domain</a>
+            <a href="#donate" class="nav-link">Donate</a>
         </li>
     
         <li class="nav-item toc-entry toc-h2">
-            <a href="#donate" class="nav-link">Donate</a>
+            <a href="#appendix-hilbert-transform-in-the-time-domain" class="nav-link">Appendix: Hilbert Transform in the Time Domain</a>
         </li>
     
     </ul>
@@ -332,6 +332,7 @@
 </ul>
 </li>
 <li><p><a class="reference external" href="#summary">Summary</a></p></li>
+<li><p><a class="reference external" href="#donate">Donate</a></p></li>
 <li><p><a class="reference external" href="#appendix">Appendix</a></p></li>
 </ul>
 <div class="section" id="on-ramp-computing-cross-frequency-coupling-in-python">
@@ -1001,6 +1002,11 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
 <p>In this module, we considered techniques to characterize cross-frequency coupling (CFC), associations between rhythmic activity observed in two different frequency bands. To do so, we introduced the Hilbert transform, which can be used to compute the instantaneous phase and amplitude of a signal. We focused on characterizing the relation between the phase of low-frequency band activity (5-7 Hz) and the amplitude of high-frequency band activity (100-140 Hz). To do this, we computed the average amplitude at each phase and determined the extent of the variability (or wiggliness).</p>
 <p>For the LFP data of interest here, we found evidence of CFC between the two frequency bands. Importantly, these results also appear consistent with visual inspection of the unfiltered data. Careful inspection of the example voltage traces suggests that CFC does in fact occur in these data. In general, such strong CFC, visible to the naked eye in the unprocessed LFP data, is unusual. Instead, data analysis techniques are required to detect features not obvious through visual inspection alone. Developing techniques to assess CFC and understanding the biophysical mechanisms of CFC and implications for function, remain active research areas.</p>
 <p>In developing these approaches, we utilized expertise and procedures developed in other modules. In particular, we relied on the notions of frequency and power, amplitude and phase, filtering, and resampling. Such a multifaceted approach is typical in analysis of neural data, where we leverage the skills developed in analyzing other datasets.</p>
+<p><a id="donate"></a></p>
+</div>
+<div class="section" id="donate">
+<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
+<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
 <p><a id="appendix"></a></p>
 </div>
 <div class="section" id="appendix-hilbert-transform-in-the-time-domain">
@@ -1041,11 +1047,6 @@ this is not obvious. To get a sense for why this is so, let’s consider a simpl
   H(x) = x(t) * \frac{1}{\pi t} = \frac{1}{\pi}\int_{-\infty}^{\infty}\frac{x(\tau)}{t-\tau}d\tau.
 \]</div>
 <p>This time domain representation of the HIlbert Transform is equivalent to the frequency domain representation. However, the time domain representation is much less intuitive. Compare the previous equation to the statement, “<em>The Hilbert Transform is a 90-degree phase shift in the frequency domain.</em>” The latter, we propose, is much more intuitive.</p>
-<p><a id="donate"></a></p>
-</div>
-<div class="section" id="donate">
-<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
-<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
 </div>
 </div>
 
