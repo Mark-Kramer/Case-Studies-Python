@@ -328,3 +328,7 @@ xlabel('x')
 ylabel('y')
 title('Known answer (black), Perceptron final guess (blue)');
 ```
+
+<a id="donate"></a>
+## Donate
+If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.

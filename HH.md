@@ -365,3 +365,9 @@ legend();                      #... make a legend.
 **Q:** You may notice a small, transient decrease in the sodium current `INa` near 47 ms. What causes this?
 
 </div>
+
++++
+
+<a id="donate"></a>
+## Donate
+If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.

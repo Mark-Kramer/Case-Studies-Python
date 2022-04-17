@@ -1,0 +1,17 @@
+- file: 01.ipynb
+- file: 02.ipynb
+- file: 03.ipynb
+- file: 04.ipynb
+- file: 05.ipynb
+- file: 06.ipynb
+- file: 07.ipynb
+- file: 08.ipynb
+- file: 09.ipynb
+- file: 10.ipynb
+- file: 11.ipynb
+
+- header: Extra notebooks
+- file: IF.ipynb
+- file: HH.ipynb
+- file: Perceptron.ipynb
+- file: Backprop.ipynb
