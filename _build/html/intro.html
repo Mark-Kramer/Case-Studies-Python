@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Case-Studies-Python &#8212; Case Studies in Neural Data Analysis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/mystnb.js"></script>
+    <script src="_static/custom.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script async="async" src="_static/thebelab.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="canonical" href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+<!-- Opengraph tags -->
+<meta property="og:url"         content="https://mark-kramer.github.io/Case-Studies-Python/intro.html" />
+<meta property="og:type"        content="article" />
+<meta property="og:title"       content="Case-Studies-Python" />
+<meta property="og:description" content="Case-Studies-Python  This repository is a companion to the textbook <a href="https://mitpress.ublish.com/book/case-studies-neural-data-analysis" rel="external" " />
+<meta property="og:image"       content="https://mark-kramer.github.io/Case-Studies-Python/_static/logo.png" />
+
+<meta name="twitter:card" content="summary">
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Case Studies in Neural Data Analysis</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  
+  <ul class="nav sidenav_l1">
+  <li class="">
+    <a href="01.html">1. Python for the practicing neuroscientist</a>
+  </li>
+  <li class="">
+    <a href="02.html">2. The Event-Related Potential</a>
+  </li>
+  <li class="">
+    <a href="03.html">3. The Power Spectrum (Part 1)</a>
+  </li>
+  <li class="">
+    <a href="04.html">4. The Power Spectrum (Part 2)</a>
+  </li>
+  <li class="">
+    <a href="05.html">5. Analysis of Coupled Rhythms</a>
+  </li>
+  <li class="">
+    <a href="06.html">6. Filtering Field Data</a>
+  </li>
+  <li class="">
+    <a href="07.html">7. Cross-Frequency Coupling</a>
+  </li>
+  <li class="">
+    <a href="08.html">8. Basic Analysis of Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="09.html">9. Point Process Generalized Linear Models</a>
+  </li>
+  <li class="">
+    <a href="10.html">10. Analysis of Rhythmic Spike Train Data</a>
+  </li>
+  <li class="">
+    <a href="11.html">11. Spike-Field Coherence</a>
+  </li>
+<li class="navbar-special">
+<p class="margin-caption">Extra notebooks</p>
+</li>
+  <li class="">
+    <a href="IF.html">12. The integrate and fire neuron</a>
+  </li>
+  <li class="">
+    <a href="HH.html">13. The Hodgkin-Huxley model</a>
+  </li>
+  <li class="">
+    <a href="Perceptron.html">14. Training a Perceptron</a>
+  </li>
+  <li class="">
+    <a href="Backprop.html">15. Backpropagation</a>
+  </li>
+</ul>
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse" data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu" aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation" title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i class="fas fa-download"></i></button>
+
+            
+            <div class="dropdown-buttons">
+                <!-- ipynb file if we had a myst markdown file -->
+                
+                <!-- Download raw file -->
+                <a class="dropdown-buttons" href="_sources/intro.md"><button type="button" class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip" data-placement="left">.md</button></a>
+                <!-- Download PDF via print -->
+                <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF" onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+            </div>
+            
+        </div>
+
+        <!-- Source interaction buttons -->
+        
+        <div class="dropdown-buttons-trigger">
+            <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+            <div class="dropdown-buttons sourcebuttons">
+                <a class="repository-button" href="https://github.com/Mark-Kramer/Case-Studies-Python/"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Source repository"><i class="fab fa-github"></i>repository</button></a>
+                <a class="issues-button" href="https://github.com/Mark-Kramer/Case-Studies-Python//issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left" title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+        
+    </div>
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#quick-start-to-learning-python-for-neural-data-analysis" class="nav-link">Quick start to learning Python for neural data analysis:</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#slow-start-to-learning-python-for-neural-data-analysis" class="nav-link">Slow start to learning Python for neural data analysis:</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#install-python" class="nav-link">Install Python</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#configure-python" class="nav-link">Configure Python</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#contributions" class="nav-link">Contributions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#donate" class="nav-link">Donate</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="case-studies-python">
+<h1>Case-Studies-Python<a class="headerlink" href="#case-studies-python" title="Permalink to this headline">¶</a></h1>
+<p>This repository is a companion to the textbook <a href="https://mitpress.ublish.com/book/case-studies-neural-data-analysis" rel="external" target="_blank">Case Studies in Neural Data Analysis</a>, by Mark Kramer and Uri Eden. That textbook uses MATLAB to analyze examples of neuronal data. The material here is  similar, except that we use Python.</p>
+<p>The intended audience is the <em>practicing neuroscientist</em> - e.g., the students, researchers, and clinicians collecting neuronal data in the hospital or lab.  The material can get pretty math-heavy, but we’ve tried to outline the main concepts as directly as possible, with hands-on implementations of all concepts.  We focus on only two main types of data: spike trains and electric fields (such as the local field potential [LFP], or electroencephalogram [EEG]).  If you’re interested in other data (e.g., calcium imaging, or BOLD), you may still find the examples indirectly useful (for example, demonstrations of how to compute and interpret a power spectrum of a signal).</p>
+<p>This repository was created by Emily Schlafly and Mark Kramer, with important contributions from Dr. Anthea Cheung.</p>
+<p><strong>Thank you to:</strong></p>
+<ul class="simple">
+<li><p><a href="https://mitpress.mit.edu/" rel="external" target="_blank">MIT Press</a> for publishing the MATLAB version of this material.</p></li>
+<li><p><a href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0" rel="external" target="_blank">NIH NIGMS R25GM114827</a> and <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384" rel="external" target="_blank">NSF DMS #1451384</a> for support.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="quick-start-to-learning-python-for-neural-data-analysis">
+<h2>Quick start to learning Python for neural data analysis:<a class="headerlink" href="#quick-start-to-learning-python-for-neural-data-analysis" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Visit the  <a href="https://mark-kramer.github.io/Case-Studies-Python/" rel="external" target="_blank">web-formatted version of the book</a>.</p></li>
+<li><p>Watch this <a href="https://youtu.be/Oj9e2bB3BfI"  rel="external" target="_blank">2 minute video</a>.</p></li>
+<li><p>Read and interact with the Python code in your web browser.</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="slow-start-to-learning-python-for-neural-data-analysis">
+<h2>Slow start to learning Python for neural data analysis:<a class="headerlink" href="#slow-start-to-learning-python-for-neural-data-analysis" title="Permalink to this headline">¶</a></h2>
+<p>There are multiple ways to interact with these notebooks.</p>
+<ul class="simple">
+<li><p><strong>Simple</strong>: Visit the <a href="https://mark-kramer.github.io/Case-Studies-Python/intro.html" rel="external" target="_blank">web-formatted version of the notebooks</a>.</p></li>
+<li><p><strong>Intermediate</strong>:  Open a notebook in <a href="https://mybinder.org/v2/gh/Mark-Kramer/Case-Studies-Python.git/binder?urlpath=lab" rel="external" target="_blank">Binder</a> and interact with the notebooks through a JupyterHub server. Binder provides an easy interface to interact with this material; read about it in <a href="https://elifesciences.org/labs/a7d53a88/toward-publishing-reproducible-computation-with-binder" rel="external" target="_blank">eLife</a>.</p></li>
+<li><p><strong>Advanced</strong>: <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/binder.zip" rel="external" target="_blank">Download</a> the notebooks and run them locally (i.e. on your own computer) in <a href="https://jupyter.org/">Jupyter</a>. You’ll then be able to read, edit and execute the Python code directly in your browser and you can save any changes you make or notes that you want to record. You will need to <a class="reference external" href="#install-python">install Python</a> and we recommend that you <a class="reference external" href="#configure-python">configure</a> a Python environment as well.</p></li>
+</ul>
+<hr class="docutils" />
+<p><a id="install-python"></a></p>
+</div>
+<div class="section" id="install-python">
+<h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<p>We assume you have installed Python and can get it running on your computer. Some useful references to do so include,</p>
+<ul class="simple">
+<li><p><a href="https://www.python.org/" rel="external" target="_blank">Python.org</a></p></li>
+<li><p><a href="https://docs.conda.io/en/latest/miniconda.html" rel="external" target="_blank">Miniconda</a></p></li>
+<li><p><a href="https://www.anaconda.com/products/individual" rel="external" target="_blank">Anaconda</a></p></li>
+</ul>
+<p>If this is your first time working with Python, using <a href="https://www.anaconda.com/products/individual" rel="external" target="_blank">Anaconda</a> is probably a good choice. It provides a simple, graphical interface to start <a href="https://jupyter.org/" rel="external" target="_blank">Jupyter</a>.</p>
+<hr class="docutils" />
+<p><a id="configure-python"></a></p>
+</div>
+<div class="section" id="configure-python">
+<h2>Configure Python<a class="headerlink" href="#configure-python" title="Permalink to this headline">¶</a></h2>
+<p>If you have never used the terminal before, consider using <a href="https://docs.anaconda.com/anaconda/navigator/" rel="external" target="_blank">Anaconda Navigator</a>, Anaconda’s desktop graphical user interface (GUI).</p>
+<p>Once you have installed Anaconda or Miniconda, we recommend setting up an <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/concepts/environments.html" rel="external" target="_blank">environment</a> to run the notebooks. If you downloaded the <a href="https://github.com/Mark-Kramer/Case-Studies-Python/archive/student.zip" rel="external" target="_blank">repository from Github</a>, then you can run the commands below in your terminal to configure your local environment to match the Binder environment. If you have never used the terminal before, consider using <a href="https://docs.anaconda.com/anaconda/navigator/" rel="external" target="_blank">Anaconda Navigator</a>, Anaconda’s desktop graphical user interface (GUI). The environment file we use on Binder is located in the <code class="docutils literal notranslate"><span class="pre">binder</span></code> folder.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># create environment &lt;case-studies&gt;</span>
+<span class="n">conda</span> <span class="n">env</span> <span class="n">create</span> <span class="o">--</span><span class="n">file</span> <span class="n">environment</span><span class="o">.</span><span class="n">yml</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">case</span><span class="o">-</span><span class="n">studies</span>  <span class="c1"># activate environment &lt;case-studies&gt;</span>
+<span class="n">make</span> <span class="n">config</span>  <span class="c1"># configure jupyter in environment</span>
+</pre></div>
+</div>
+<p>This will ensure that you have all the packages needed to run the notebooks. Note that you can use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code> to remove the changes made during <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">config</span></code>.</p>
+<p>Finally, whenever you are ready to work with the notebooks, activate your environment and start Jupyter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">activate</span> <span class="n">case</span><span class="o">-</span><span class="n">studies</span>  <span class="c1"># activate python environment</span>
+<span class="n">jupyter</span> <span class="n">notebook</span>  <span class="c1"># start jupyter in the current location</span>
+</pre></div>
+</div>
+<p>If you prefer, you can use <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">lab</span></code> instead of <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code>.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="contributions">
+<h2>Contributions<a class="headerlink" href="#contributions" title="Permalink to this headline">¶</a></h2>
+<p>We very much appreciate your contributions to this material. Contribitions may include:</p>
+<ul class="simple">
+<li><p>Error corrections</p></li>
+<li><p>Suggestions</p></li>
+<li><p>New material to include (please start from this <a href="https://github.com/Mark-Kramer/Case-Studies-Python/blob/master/template.ipynb" rel="external" target="_blank">template</a>).</p></li>
+</ul>
+<p>There are two ways to suggest a contribution:</p>
+<ul class="simple">
+<li><p><strong>Simple</strong>: Visit <a href="https://github.com/Mark-Kramer/Case-Studies-Python/" rel="external" target="_blank">Case Studies Python</a>, locate the file to edit, and follow <a href="https://help.github.com/en/github/managing-files-in-a-repository/editing-files-in-another-users-repository" rel="external" target="_blank">these instructions</a>.</p></li>
+<li><p><strong>Advanced</strong>: Fork <a href="https://github.com/Mark-Kramer/Case-Studies-Python/" rel="external" target="_blank">Case Studies Python</a> and <a href="https://jarv.is/notes/how-to-pull-request-fork-github/" rel="external" target="_blank">submit a pull request</a></p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="donate">
+<h2>Donate<a class="headerlink" href="#donate" title="Permalink to this headline">¶</a></h2>
+<p>If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "Mark-Kramer/Case-Studies-Python",
+            ref: "binder",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "."
+        }
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Kramer and Uri Eden<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+    <!-- Google Analytics -->
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-54QV706BYJ', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('send', 'pageview');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+    
+  </body>
+</html>
