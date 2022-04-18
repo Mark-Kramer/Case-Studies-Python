@@ -86,4 +86,9 @@ There are two ways to suggest a contribution:
 
 - **Advanced**: Fork <a href="https://github.com/Mark-Kramer/Case-Studies-Python/" rel="external" target="_blank">Case Studies Python</a> and <a href="https://jarv.is/notes/how-to-pull-request-fork-github/" rel="external" target="_blank">submit a pull request</a>
 
+---
+
+## Donate
+If you enjoy Case-Studies-Python, and would like to share your enjoyment with us, sponsor our coffee consuption <a href="https://www.paypal.com/donate/?hosted_button_id=DL8P5ZGS9962U">here</a>.
+
 
