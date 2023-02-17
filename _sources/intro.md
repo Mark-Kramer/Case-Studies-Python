@@ -9,7 +9,7 @@ This repository was created by Emily Schlafly and Mark Kramer, with important co
 **Thank you to:**
 
 - <a href="https://mitpress.mit.edu/" rel="external" target="_blank">MIT Press</a> for publishing the MATLAB version of this material.
-- <a href="https://projectreporter.nih.gov/project_info_description.cfm?aid=9043612&icde=0" rel="external" target="_blank">NIH NIGMS R25GM114827</a> and <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384" rel="external" target="_blank">NSF DMS #1451384</a> for support.
+- <a href="https://reporter.nih.gov/project-details/9309027" rel="external" target="_blank">NIH NIGMS R25GM114827</a> and <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=1451384" rel="external" target="_blank">NSF DMS #1451384</a> for support.
 
 ---
 
