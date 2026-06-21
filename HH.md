@@ -181,7 +181,7 @@ HINT:  Plot V vs t.
   
   Let's now explore how the combined gates
   and dynamics evolve.  To do so, let's start by focusing our plot on a
-  single spike.  As a first step, we'll make a new figure with a seperate subfigure to plot
+  single spike.  As a first step, we'll make a new figure with a separate subfigure to plot
   the voltage,
 
 ```{code-cell} ipython3
